@@ -1,0 +1,5106 @@
+<p><img src="images/978-1-4842-9452-9_CoverFigure.jpg"/></p>
+<p></p>
+
+
+
+
+
+
+
+ ISBN 978-1-4842-9283-9e-ISBN 978-1-4842-9452-9
+
+
+<a href="https://doi.org/10.1007/978-1-4842-9452-9">https://doi.org/10.1007/978-1-4842-9452-9</a>
+
+
+© Sullivan De Carli 2023
+
+
+This work is subject to copyright. All rights are solely and exclusively
+licensed by the Publisher, whether the whole or part of the material is
+concerned, specifically the rights of translation, reprinting, reuse of
+illustrations, recitation, broadcasting, reproduction on microfilms or
+in any other physical way, and transmission or information storage and
+retrieval, electronic adaptation, computer software, or by similar or
+dissimilar methodology now known or hereafter developed.
+
+
+The use of general descriptive names, registered names, trademarks,
+service marks, etc. in this publication does not imply, even in the
+absence of a specific statement, that such names are exempt from the
+relevant protective laws and regulations and therefore free for general
+use.
+
+
+The publisher, the authors, and the editors are safe to assume that the
+advice and information in this book are believed to be true and accurate
+at the date of publication. Neither the publisher nor the authors or the
+editors give a warranty, expressed or implied, with respect to the
+material contained herein or for any errors or omissions that may have
+been made. The publisher remains neutral with regard to jurisdictional
+claims in published maps and institutional affiliations.
+
+
+<p>This Apress imprint is published by the registered company APress
+Media, LLC, part of Springer Nature.</p>
+<p>The registered company address is: 1 New York Plaza, New York, NY
+10004, U.S.A.</p>
+
+
+
+<p><em>I’d like to thank Tiago, Luis, and all the people who helped me
+learn how to code along the way. I’d also like to thank my girlfriend
+and my family for their support.</em></p>
+
+<aside aria-label="Article Note 1" class="ArticleNote ArticleNoteMisc BookFrontmatterArticleNote">
+<p>Any source code or other supplementary material referenced by the
+author in this book is available to readers on the Github repository:
+https://github.com/Apress/Build-Mobile-Apps-with-SwiftUI-and-Firebase.
+For more detailed information, please visit
+http://www.apress.com/source-code.</p>
+</aside>
+
+
+
+
+
+About the Author
+
+
+
+
+
+
+
+About the Technical Reviewer
+
+
+
+
+
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">1. Introduction to SwiftUI</h1>
+
+
+<!--End Abstract-->
+
+<p>This first chapter is meant for beginners in iOS development. I will
+walk you through the main functionalities of Xcode, your tool to create
+projects and run code. Then, we will create a simple application: a map
+displaying a few places.</p>
+<p>This way, we will explore some SwiftUI APIs to build the user
+interface and some basics of Swift such as creating a model. Let’s get
+started!</p>
+
+<h2 class="Heading">Xcode Walk-Through</h2>
+<p>To build an iOS application, you first need Xcode. This software made
+by Apple will be
+your program to write Swift code, create a user interface, build and
+debug your project, and much more. Think of it like Photoshop for
+photography or Sketch and Figma for UI design.</p>
+<p>The software is available on the Mac App Store; you can
+easily download it from there. Navigate to the App Store on your Mac and
+search for Xcode,
+and then click DOWNLOAD (I have “OPEN” since I already downloaded
+it):</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig1_HTML.jpg" style="width:23.02em" aria-describedby="d64e171"/>
+
+<p>A screen displays the X code application version 14.1, with an open
+button, 2 preview screens, what's new, and other features.</p>
+
+</p>
+
+<p>Figure 1-1</p>
+<p>Download Xcode from the App Store</p>
+
+
+<p>At the time of writing, the latest version is Xcode 14.1. I recommend you
+download at least Xcode 14; otherwise, a lot of functionalities will not
+be replicable throughout the book.</p>
+<p>The download will take some time since it is quite a heavy program
+(7GB). Once you have downloaded it, you can open it. It will ask you if
+you want to download additional components for macOS and watchOS. You
+can skip this step since we only need iOS for the scope of this
+book.</p>
+<p>Then, this page will appear, inviting you to start a project:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e202"/>
+
+<p>A screen with a welcome screen to X code dialog box, with options to
+create a new x code project, clone an existing project and open a
+project or files. Create a new x code project is selected.</p>
+
+</p>
+
+<p>Figure 1-2</p>
+<p>Xcode welcome
+screen</p>
+
+
+<p>Click Create a new Xcode project, and the following page will
+appear:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig3_HTML.jpg" style="width:35.45em" aria-describedby="d64e222"/>
+
+<p>A screen displays a box to choose a template for your new project. i
+O S tab is highlighted, and App icon is selected from the list of 8
+templates.</p>
+
+</p>
+
+<p>Figure 1-3</p>
+<p>Xcode – choosing a template</p>
+
+
+<p>Xcode will suggest to you a series of templates. In fact, you can
+build a lot of things using the Swift language such as an Apple Watch
+app, a game that runs on the iPhone, a Safari extension, or a utility
+app for Mac. We will select <em>App</em> from the iOS platform for now.
+It will be the same for the other projects although our application will
+also be able to run on the iPad.</p>
+<p>Now, I invite you to enter the word
+<em><strong>Discover</strong></em>; this is going to be the name of our
+first project written with SwiftUI.</p>
+<p>Also, make sure that the SwiftUI framework is selected together with
+the Swift language.</p>
+<p>(Make sure to have your name or enterprise in the Team field. If
+you’re new to Xcode, it is your Apple account that you use for the App
+Store. That should be your team’s name. For me it is “Sullivan De Carli
+(Personal Team).”</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e265"/>
+
+<p>A screen displays a dialog box to choose options for your new
+project, with, product name as discover, team, organization identifier,
+bundle identifier, interface as Swift U I, language as Swift, and
+include tests is ticked.</p>
+
+</p>
+
+<p>Figure 1-4</p>
+<p>Xcode – settings for the project</p>
+
+
+<p>Great! Now save your project wherever you prefer; I usually save it
+to my desktop. We can start exploring the Xcode functionalities!</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig5_HTML.jpg" style="width:35.45em" aria-describedby="d64e279"/>
+
+<p>A screen displays a content view labeled 1 to 4 in panels. Panel 1 is
+with 3 folders. A code snippet is highlighted in the second panel. The
+third panel contains a mobile screen with text, Hello World. The fourth
+panel displays identity and types, target membership, and test
+settings.</p>
+
+</p>
+
+<p>Figure 1-5</p>
+<p>Xcode – walk-through</p>
+
+
+<p>Xcode is composed of different tabs; each one has a
+different purpose:</p>
+<p>1 – The left tab is showing all the files that your project contains.
+By default, there will be three main folders: One contains your app
+entry point named “<em>DiscoverApp</em>” like an index.html for the web
+developers. The <em>ContentView</em> comes by default; it is a starter
+template to present a user interface. Finally, there is an
+<em>Assets</em> folder that you can use to store your images and videos;
+this is useful since it will reduce the size of any assets that you
+upload. This folder will also contain your app logo.</p>
+<p>The other two are for testing purposes. From there you can run tests
+to see if your code is robust or the user interface is responding
+accordingly. There is also a filter at the bottom to search through and
+a series of tabs at the top that will be useful when we are running the
+application.</p>
+<p>2 – The second is where we are going to work! From there we can write
+code and see the content of our files. Also, in SwiftUI, every SwiftUI
+view comes with a struct called Preview (inside the green square). This
+is responsible to present you the screen on the right. If you delete
+this code, you won’t be able to use the Canva feature.</p>
+<p>3 – Canva has been introduced in 2019; it is an easy way to see the
+user interface that you are building live. From there, you can see how
+your app looks when you make changes in the code.</p>
+<p>For example, try to add the keyword <code>.bold()</code> in the second
+panel right after the <code>Text("Hello, world!")</code>. Your text will turn to bold right away.</p>
+<p>4 – The right tab is going to be your points of information for the
+file you are currently viewing. From there, you can rename it, change
+the programming language, and even edit some user interface elements,
+such as fonts and spacing between elements if you navigate to the last
+button at the top. Note that we won’t be using this section much
+throughout the book.</p>
+<p>Now, you can build your project. I invite you to click the build
+button, at the top left of Xcode as follows:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig6_HTML.jpg" style="width:35.45em" aria-describedby="d64e337"/>
+
+<p>A screen displays a content view of code. Under i O S simulators, i
+Phone 14 Pro is selected. The mobile pre view of Hello World program is
+paused in content view, and the same is displayed in i phone 14 pro
+mobile screen.</p>
+
+</p>
+
+<p>Figure 1-6</p>
+<p>Simulator running on Xcode</p>
+
+
+<p>Once you click it, a Simulator app will pop
+up and present you with a virtual iPhone running your application. You
+can also select other types of iPhones or iPads at the top panel so you
+can see how what you are building reacts to different screen sizes.</p>
+<p>There are a lot of things to cover about Xcode. So far, what I
+highlighted are the main things to know and recognize, but we will
+discover more functionalities by coding. We will do just that in the
+next chapter and build our first application using Xcode and
+SwiftUI.</p>
+
+
+<h2 class="Heading">What Makes SwiftUI Different</h2>
+<p>SwiftUI has been introduced in 2019 by Apple at their WWDC; it
+is the declarative framework used by developers around the world to
+build applications for the Apple platforms. At the time of writing, we
+are at version 4.</p>
+<p>SwiftUI makes you write better apps with less code as Apple states.
+Is it true? Prior to SwiftUI, we were using UIKit, an imperative
+framework introduced by Apple in 2014 to build user interfaces. It is
+still available, but it is slowly being replaced by Apple, since the
+company shifted the focus to SwiftUI.</p>
+<p>To understand the evolution of these two frameworks, let’s do a
+comparison by building two user interfaces composed of a list that
+displays elements from 1 to 10. For one of them, we will use UIKit, and
+the other will be built using SwiftUI. The user interface will look like
+this:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig7_HTML.jpg" style="width:20.7em" aria-describedby="d64e386"/>
+
+<p>A mobile screen with a blank numbered list from 0 to 9. The text
+reads, list built with swift U I and U I kit.</p>
+
+</p>
+
+<p>Figure 1-7</p>
+<p>A list displaying on an iPhone</p>
+
+
+<p>
+Observe the following code in UIKit:
+
+</p>
+<pre>import UIKit
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+let tableView = UITableView()
+override func viewDidLoad() {
+super.viewDidLoad()
+view.addSubview(tableView)
+tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+tableView.dataSource = self
+tableView.delegate = self
+}
+override func viewDidLayoutSubviews() {
+super.viewDidLayoutSubviews()
+tableView.frame = view.bounds
+}
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+return 10
+}
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+cell.textLabel?.text = "\(indexPath.row)"
+return cell
+}
+}</pre>
+<p>As you can see, we import the framework UIKit at the top. We pass two
+delegates to our class: <code>UITableViewDelegate</code>
+and <code>UITableViewDataSource</code>.
+Then, we declare a <code>UITableView</code> to create
+the list that we manually added in the <code>viewDidLoad</code> method.</p>
+<p>This method is being called when the view is being loaded, presented
+to the user. We also conform to this protocol with our two functions
+that return the numbers of rows and what they are composed of, here a
+cell with a text displaying the number of the current row.</p>
+<p>Quite a bit of code to conform to the protocol and to present a basic
+user interface composed of ten rows.</p>
+<p>
+Let’s now code it
+using SwiftUI:
+
+</p>
+<pre>import SwiftUI
+struct ContentView: View {
+var body: some View {
+List(0..&lt;10) { index in
+Text("\(index)")
+}
+}
+}</pre>
+<p>That’s it! As you can see, with SwiftUI our list is way shorter. We
+import the framework at the top of the file. Then we directly declare a
+list in the <em>body</em> variable that contains 11 elements from zero
+to ten and its composition: a text displaying one to ten. It is
+literally two lines of code to create a <em>List</em>, much clearer and
+easier to read.</p>
+<p>Now that we see that SwiftUI is much more efficient to build user
+interfaces, we are going to introduce a few bases. We will create a
+little application to introduce some APIs.</p>
+
+
+<h2 class="Heading">Coding with SwiftUI</h2>
+<p>To understand SwiftUI, the best thing to do is to build an
+application. So we are going to build a simple application that displays
+a few places on a map. Along with it, I will explain a few basics about
+SwiftUI.</p>
+<p>Head to the Xcode project we created earlier called
+<em>Discover</em>. Run the application. You should have the following
+starter template:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig8_HTML.jpg" style="width:35.45em" aria-describedby="d64e572"/>
+
+<p>A screen displays the content view of code of discover app on the
+left panel and A mobile screen view on the right panel with the text,
+hello world.</p>
+
+</p>
+
+<p>Figure 1-8</p>
+<p>Xcode running with Simulator</p>
+
+
+<p>
+To recreate this screen, since it features Apple Maps, we need to import
+a framework called <em>MapKit</em> to
+access their APIs. So add the following line of code at the top of the
+file:
+
+</p>
+<pre>import MapKit</pre>
+<p>
+Then, right over the code <em>struct ContentView</em>, copy/paste the
+following code:
+
+</p>
+<pre>struct Place: Identifiable {
+var id = UUID()
+var title: String
+var coordinate: CLLocationCoordinate2D
+var architecte: String
+}</pre>
+<p>We just implemented a model to create a few items from this
+model.</p>
+<p>Let me explain to you the code:</p>
+<p><code>struct</code> in
+Swift is used to store variables. Here we give the name of this <code>struct</code>: Place.</p>
+<p><code>Identifiable</code> is a protocol used to
+make this class identifiable. Since we are going to display the data in
+a <em>List</em>, we need to make each item identifiable.</p>
+<p>Then, we give a few variables of type UUID to give a unique
+identifier, <code>String</code> for words, and
+<code>CLLocationCoordinate2D</code>
+to pass coordinates (latitude and longitude).</p>
+<p>Great, we just created what is called a model, a modularization of
+our object (Place) with a few variables.</p>
+<p>Now we can take care of our user interface.</p>
+<p>
+Right under struct <code>ContentView</code>, add the
+following line of code:
+
+</p>
+<pre>@State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.9028, longitude: 12.4964), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))</pre>
+<p>
+What is the <code>@State</code> variable?
+<blockquote>
+<p><em>A property wrapper type that can read and write a value managed
+by SwiftUI.</em></p>
+<p>—From the Apple documentation</p>
+</blockquote>
+</p>
+<p>This will allow us to manipulate data. Here we are passing
+coordinates that correspond to the coordinates of the city of Rome.</p>
+<p>Then, we are declaring a constant, which contains an array of places.
+An array declared by <code>[]</code> is useful to
+present a series of data.</p>
+<p>
+Copy/paste the following code right after the <code>@State</code> you declared
+earlier:
+
+</p>
+<pre>let annotations = [
+Place(title: "Fontana di Trevi", coordinate: CLLocationCoordinate2D(latitude: 41.900833, longitude: 12.483056), architecte: "Nicola Salvi"),
+Place(title: "Pantheon", coordinate: CLLocationCoordinate2D(latitude: 41.8986, longitude: 12.4768), architecte: "Marcus Agrippa"),
+Place(title: "Villa Medici", coordinate: CLLocationCoordinate2D(latitude: 41.908, longitude: 12.483), architecte: "Bartolomeo Ammannati"),
+Place(title: "Colosseo",  coordinate: CLLocationCoordinate2D(latitude: 41.890278, longitude: 12.492222), architecte: "Flavian Emperors")
+]</pre>
+<p>Great, now we have all the necessary input to present locations on a
+<em>Map</em> and a few places to display.</p>
+<p>
+Inside the body variable, replace the <em>VStack</em> with the following
+line of code:
+
+</p>
+<pre>Map(coordinateRegion: $region, annotationItems: annotations) {
+MapMarker(coordinate: $0.coordinate)
+}</pre>
+<p>This Map modifier will present a map in our application. We are
+passing a region parameter that we defined earlier with the coordinates
+of Rome, using the $ sign; it is the syntax to use with the
+<em>@State</em> variable. Also, we are adding annotations (the four
+places that we declared earlier).</p>
+<p>To present these annotations, we are using <em>MapMarker</em> with
+the coordinates passed in our object.</p>
+<p>If you correctly follow these short tutorials, you should have your
+Canva presenting a map with four annotations as follows:</p>
+
+<p>
+<img src="images/533376_1_En_1_Chapter/533376_1_En_1_Fig9_HTML.jpg" style="width:35.45em" aria-describedby="d64e763"/>
+
+<p>A screen displays the body of the content view of code of discover
+app on left panel and a mobile screen view on right panel with a map and
+4 marked locations.</p>
+
+</p>
+
+<p>Figure 1-9</p>
+<p>Our map
+application</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>If you are new to Swift, this chapter has been useful to introduce
+you to Xcode, your tool to build applications for the Apple platform.
+Then, we saw the basics of Swift by creating a model and writing static
+data. Then, we used a map to display annotations, importing from the
+framework MapKit to access Apple’s map APIs.</p>
+<p>Now that we have a clearer idea of how to create a static model of
+data and present them, we can go ahead and talk about the backend. The
+next chapters will be focused on Firebase and how to download data from
+a backend, present them, modify them, and handle user input. Let’s dive
+into the Firebase console.</p>
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">2. Introduction to Firebase</h1>
+
+
+<!--End Abstract-->
+
+<p>I am going to introduce you to the Firebase console and how to create
+a new project and connect an iOS application.</p>
+<p>We will cover what is Firebase, why we are selecting this backend
+over others, and the advantages and disadvantages that come with it.</p>
+<p>There is a walk-through to create your first Firebase project
+directly from the web browser. We are also going to connect our iOS
+application to talk to Firebase through its APIs.</p>
+<p>By the end of this chapter, you will be able to create a new iOS app
+linked to the Firebase backend. For reference, please go to the Firebase
+documentation at the following link: <code>HTTPS://FIREBASE.GOOGLE.COM/DOCS/IOS/SETUP</code>.</p>
+
+<h2 class="Heading">What Is Firebase?</h2>
+<p>Firebase is what we call a backend as a service
+(BaaS),
+which means that rather than running your server to run your online
+applications, you pass through their services to read, write, update,
+and delete data, authenticate your users, and many more things!</p>
+<p>
+Have a look at the following graphic that shows a native iOS application built with a
+custom backend running on the cloud:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig1_HTML.png" style="width:26.72em" aria-describedby="d64e174"/>
+
+<p>A block diagram. Front-end via user interface code in Swift, backend
+via manipulating data code in Ruby, node j s, and cloud service via
+distributing the data to Microsoft Azure, A W S, and Google Cloud, gives
+live application.</p>
+
+</p>
+
+<p>Figure 2-1</p>
+<p>An iOS app built with a backend host on a cloud service</p>
+
+
+<p>As you can see, the app will be communicating with a virtual machine
+usually coded in Ruby, Node.js, or PHP, itself hosted by a cloud service
+(which could also be physical, but it is rare nowadays) such as Amazon
+Web Services, Google Cloud Platform, Microsoft Azure, or whatever
+service. In complex applications with a large user base, it usually
+requires a frontend developer, in our case an iOS developer; a backend
+developer to develop the logic and the APIs; and finally a DevOps,
+responsible for bringing all of that to a cloud service and distributing
+it. A full-stack developer can also do it, but it is rare and requires a
+lot of experience.</p>
+<p>
+Now, let’s have a look at an iOS application built
+with Firebase:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig2_HTML.png" style="width:20.83em" aria-describedby="d64e204"/>
+
+<p>A block diagram. Front-end with user interface code in Swift and
+firebase with no code and already on a google cloud, gives live
+application.</p>
+
+</p>
+
+<p>Figure 2-2</p>
+<p>An iOS app built
+with Firebase’s backend</p>
+
+
+<p>As you see, the architecture is way easier. Our iOS is notifying and
+receiving data from Firebase using their APIs that come along with great
+documentation. There is no need to write code on the server side or host
+it to a third-party provider since it is already built on top of Google
+Cloud with no deployment needed by you! Additionally, you can still run
+backend code, thanks to the Firebase Cloud function, if you want to
+achieve more complex interactions later. In terms of a team, you need an
+iOS developer, and you’re ready to publish an application on the App
+Store.</p>
+<p>We have seen how much easier it is to use Firebase rather than
+running your backend code, but there is more: it comes with a series of
+out-of-the-box tools that help speed up your development.</p>
+<p>For example, they have their APIs to authenticate a user with
+multiple third-party providers such as Apple, Facebook, Google, etc.
+They have Google Analytics preinstalled and ready to go.</p>
+<p>Additionally, there are a series of extensions with third-party
+providers to sign up users to an email list, adding in-app purchase with
+RevenueCat with no code required.</p>
+<p>You can discover them at this link:</p>
+<p><code>HTTPS://FIREBASE.GOOGLE.COM/PRODUCTS/EXTENSIONS</code></p>
+<p>Firebase comes with advantages and
+disadvantages. Here is the list:</p>
+<p>
+The pros:
+
+</p>
+
+<ul>
+<li><p>You are faster to ship your application. You don’t
+need to write code on the backend unless you need to execute some more
+advanced functionalities.</p></li>
+<li><p>You have access to Google Cloud Platform with no operations
+needed on your side.</p></li>
+<li><p>You get out-of-the-box authenticate APIs with third parties. You
+don’t need to use an API for Google sign-in and another one for Facebook
+sign-in, for example. You can pass directly through Firebase’s
+APIs.</p></li>
+<li><p>You don’t have to worry about scalability and managing
+servers.</p></li>
+</ul>
+
+<p>
+The cons:
+
+</p>
+
+<ul>
+<li><p>The data
+don’t belong to you to store them. The best thing to do is to run a
+snapshot of your data every day and store it in a secure place.</p></li>
+<li><p>You could be limited in some advanced applications where you need
+full control of the backend because the user interface is relying
+heavily on the backend.</p></li>
+</ul>
+
+<p>Overall, Firebase is a great option if you want to release an
+application as fast as possible, the cheapest since you don’t need to
+hire a backend developer. You can concentrate on what matters: building
+your product and monitoring the usage so you can implement features that
+your users want, which is also easier thanks to event follow-up and app
+analytics powered by Google Analytics that comes “for free.”</p>
+<p>That being said, let’s discover Firebase, create our first project,
+and make our iOS app communicate with it.</p>
+
+
+<h2 class="Heading">Setting Up a Firebase Account and Project</h2>
+<p>
+To start on Firebase, you need to sign up for their services, which
+belong to Google, so you will need a Gmail account. If you don’t already
+have one, sign up for a Gmail account first. Then go to the Firebase
+website (<a href="https://firebase.google.com"><code>https://firebase.google.com</code></a>
+), click “Get started,” and you will be on your Firebase’s console. You
+should see something like this:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig3_HTML.png" style="width:35.45em" aria-describedby="d64e305"/>
+
+<p>A screenshot of the firebase homepage with buttons to create a
+project and view documents. 2 sections for, explore a demo project and
+firebase projects are containers for your apps, are below.</p>
+
+</p>
+
+<p>Figure 2-3</p>
+<p>Homepage of the
+Firebase console</p>
+
+
+<p>Click Create a project to create your first project on Firebase. I am
+going to guide you through every step, so you don’t get lost on your
+way. It requires you to follow three straightforward steps.</p>
+<p>
+Let’s start with the first one:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig4_HTML.png" style="width:35.45em" aria-describedby="d64e327"/>
+
+<p>A screenshot of the firebase, create a project page reads, let's
+start with a name for your project. It includes a name input box with
+the name Note, a checkbox to confirm, and a button to continue.</p>
+
+</p>
+
+<p>Figure 2-4</p>
+<p>Firebase new project, step 1 – project name</p>
+
+
+<p>For step 1, you just need to give it a name. I invite you to name it
+“Note” since it is the application we are going to build in the next
+chapter, but it doesn’t matter.</p>
+<p>
+The second step is to enable Google Analytics:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig5_HTML.png" style="width:35.45em" aria-describedby="d64e356"/>
+
+<p>A screenshot of the firebase create a project page reads, google
+analytics for your firebase project. It enables the analytics options of
+A or B testing, user segmentation, crash-free users, event-based cloud
+function, and free unlimited reporting with the enable analytics
+slider.</p>
+
+</p>
+
+<p>Figure 2-5</p>
+<p>Firebase new project, step 2 – Google Analytics</p>
+
+
+<p>This comes for free with Firebase, and it gives you access to basic
+data about how long your users are spending time on each screen, user
+usage over weeks, etc. You can even add events later to create funnels.
+For example, you will be able to find out how many users complete the
+signup process and then, for all those registered users, how many of
+them complete a purchase. For now, simply enable it and click
+Continue.</p>
+<p>
+The third step looks like this screen:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig6_HTML.png" style="width:35.45em" aria-describedby="d64e378"/>
+
+<p>A screenshot of the firebase create a project page reads, configure
+google analytics. It gives the option to choose or create a google
+analytics account with a default account for firebase and create a new
+account option.</p>
+
+</p>
+
+<p>Figure 2-6</p>
+<p>Firebase new project, step 3 –Configure Google Analytics account</p>
+
+
+<p>For now, we can simply use the Firebase default account. If you have
+a website with Google Analytics tags to track usage and you want to
+build a related iOS application, you might want to select directly your
+Google Analytics account during this step. Click Create project, and you
+have created your first project on Firebase.</p>
+
+<h3 class="Heading">Firebase Walk-Through</h3>
+<p>You’re now on the Firebase console. This is going to be the backbone
+of your application. Let me introduce it to you although we’re going to
+dive in with our development in the next chapters.</p>
+<p>
+Once the project is created, you will arrive at something like this:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig7_HTML.png" style="width:35.45em" aria-describedby="d64e399"/>
+
+<p>A screenshot of the firebase window. The left panel with a project
+overview option and categories of build, release and monitor, and
+analytics with various options. The right pane reads, get started by
+adding firebase to your app, 5 options, and features listed below.</p>
+
+</p>
+
+<p>Figure 2-7</p>
+<p>The Firebase console</p>
+
+
+<p>
+This is a classic dashboard. In the left
+panel, you will get access to different menus categorized into four
+sections:
+
+</p>
+
+<ul>
+<li><p>Build – This is the place that we are going to explore the most.
+Here we will set up our authentication with third-party providers,
+create our database, and write our security rules and add extensions, a
+no-code solution.</p></li>
+<li><p>Release &amp; Monitor – Once we have released our application on
+the App Store or even on TestFlight, you will be able to see reports if
+our users experienced crashes and even implement backend-powered
+distribution, which is not part of this book but good to have a look at
+because it is really powerful for iteration.</p></li>
+<li><p>Analytics – From here you will have access to data usages of our
+app for free and implement some funnel from our code to monitor how a
+journey is being completed by our users.</p></li>
+<li><p>Engage –
+This is especially powerful for stores and games. It offers features to
+send notifications with promotions, present advertisements with AdMob,
+and run A/B testing.</p></li>
+</ul>
+
+<p>As you can imagine, there are a lot of features to cover with
+Firebase. For the scope of this book, you will be 90% of the time
+between Xcode and Firebase’s Build section.</p>
+<p>On the right, you have your Google account that you can switch as
+with every Google product and a “Go to docs” button. It is always good
+to refer to the documentation when you want to implement something or
+understand better how it works.</p>
+<p>At the top, there is your project name. From there you can switch
+between projects.</p>
+<p>The “Spark plan” label is your
+billing plan; this one is for free and comes with quite a lot of things.
+There is also the “pay as you go” connected to Google Cloud Platform.
+You will be billed based on your users’ usages and the number of
+documents written and read.</p>
+<p>For this book, the Spark plan will be enough although we might need
+to switch to pay as you go when we implement some extensions later
+because they run on Google Cloud Platform. It is going to be a few cents
+anyway since we are at a development stage.</p>
+<p>It is now time to add our iOS application to talk to Firebase!</p>
+
+
+
+<h2 class="Heading">Connect Your iOS Application to Firebase</h2>
+<p>It’s time to link our application to Firebase. To achieve this we
+will need to do some back-and-forth between Xcode and the Firebase
+console.</p>
+<p>This walk-through is based on the Firebase documentation (<a href="https://firebase.google.com/docs/ios/setup"><code>https://firebase.google.com/docs/ios/setup</code></a>).
+At the time of writing, the documentation doesn’t include SwiftUI, so I
+recommend you follow it through.</p>
+<p>
+First, we need to create a new Xcode project. Go ahead
+and click Create a new Xcode project:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig8_HTML.png" style="width:35.45em" aria-describedby="d64e490"/>
+
+<p>A screenshot of a desktop screen has the welcome to X code window.
+The first option to create a new X code project is highlighted with a
+bounding box. A checkbox to show this window when X code launches is
+clicked.</p>
+
+</p>
+
+<p>Figure 2-8</p>
+<p>Xcode – welcome
+screen</p>
+
+
+<p>
+Then, in terms of templates, it is going to be a classic application, so
+select the App template under the iOS
+platform:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig9_HTML.png" style="width:35.45em" aria-describedby="d64e517"/>
+
+<p>A screenshot of the X code window has various options on the upper
+toolbar and a window pane in the center. The pane titled, choose a
+template for your new project has the options i O S and app highlighted
+with bounding boxes. There are cancel, previous, and next buttons at the
+bottom.</p>
+
+</p>
+
+<p>Figure 2-9</p>
+<p>Xcode – selecting an App template</p>
+
+
+<p>
+Finally, we need to give a name to our project. We will call it
+<em><strong>Note</strong></em> since this is the application we are
+building in the next chapter. Make sure to select SwiftUI for Interface.
+The use of Core Data is not required since we will have Firebase to
+store data:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig10_HTML.png" style="width:35.45em" aria-describedby="d64e540"/>
+
+<p>A screenshot of the X code window has various options on the upper
+toolbar and a window pane in the center. The pane titled, choose options
+for your new project has the input box of the product name highlighted.
+Other options are for team, organization and bundle identifier,
+interface, and language.</p>
+
+</p>
+
+<p>Figure 2-10</p>
+<p>Xcode – options for a new project</p>
+
+
+<p>
+You can save your project wherever you prefer. I saved it on my desktop.
+Now that our project is created, let’s see how to connect it to
+Firebase. You can navigate back to the Firebase console. From the
+project overview, click iOS+ as follows:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig11_HTML.png" style="width:35.45em" aria-describedby="d64e560"/>
+
+<p>A screenshot of the firebase window. The left panel has a project
+overview tab and categories with various options. The right pane reads,
+get started by dding firebase to your app, and 5 options from which the
+i O S option is highlighted with a bounding box.</p>
+
+</p>
+
+<p>Figure 2-11</p>
+<p>Firebase console – adding an iOS app</p>
+
+
+<p>Firebase will present you a page inviting you to complete a five-step
+process, to connect your app to Firebase.</p>
+<p>
+The first thing you need to do is to grab the Apple bundle ID. You will
+find it in Xcode on your main target. It is usually composed like the
+following:
+
+</p>
+
+<ul>
+<li><p><em>com.[name of your team].[name of your project].</em></p></li>
+</ul>
+
+<p>
+Please, check the following screenshot if you don’t know where it is
+located:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig12_HTML.png" style="width:35.45em" aria-describedby="d64e583"/>
+
+<p>A screenshot of a window for the project Note has, bundle identifier
+input box options highlighted under general, in the target note section.
+It also has an identity and type panel on the right with various
+options.</p>
+
+</p>
+
+<p>Figure 2-12</p>
+<p>Xcode – where to find the bundle identifier</p>
+
+
+<p>
+Once you have copied your identifier, you can
+copy/paste it. You also have the option to leave a nickname and the App
+Store ID, but these are optional:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig13_HTML.png" style="width:35.45em" aria-describedby="d64e611"/>
+
+<p>A screenshot of the firebase window has the title, add firebase to
+your Apple app. It has the register app category opened from the 5
+categories with input boxes for the Apple bundle, app nickname, and app
+store I D with a register app button.</p>
+
+</p>
+
+<p>Figure 2-13</p>
+<p>Add Firebase to your Apple app – step 1</p>
+
+
+<p>
+Click Continue, and this will bring you to step 2, downloading the
+<em><strong>GoogleService-Info.plist</strong></em> file. Click the blue
+download button and save your file wherever you prefer. I saved it on my
+desktop:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig14_HTML.png" style="width:35.45em" aria-describedby="d64e636"/>
+
+<p>A screenshot of the firebase window has the title, add firebase to
+your Apple app. It has the download config file category opened from the
+4 categories with a download Google Service hyphen info dot p list
+button and an inset screenshot of the file.</p>
+
+</p>
+
+<p>Figure 2-14</p>
+<p>Add Firebase to your Apple app – step 2</p>
+
+
+<p>Now that you have your file, you can drag and drop it to your Xcode
+folder from where you saved it. In my case, I dragged the file with my
+mouse directly to Xcode and then clicked the Finish button.</p>
+<p>
+Make sure that Create folder references, Copy items if needed, and the
+target Note are selected
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig15_HTML.png" style="width:35.45em" aria-describedby="d64e658"/>
+
+<p>A screenshot of the X code window with a center dialog box to choose
+options for adding these files. It has checkboxes and radio buttons for
+destination, added folders, and add to targets. An arrow points the
+Google Service file on the desktop to the background panel of Note on
+the left.</p>
+
+</p>
+
+<p>Figure 2-15</p>
+<p>Drag and drop the
+GoogleService-Info.plist file to Xcode</p>
+
+
+<p>Now that you have the file added to your project, Firebase will be
+able to recognize your app when you are making the APIs call it. You can
+now click Next.</p>
+
+<h3 class="Heading">You Might Be Wondering What This File Is For</h3>
+<p>The <em>GoogleService-Info.plist</em> is a file that contains
+all the information to communicate between your application and the
+Firebase backend; it contains the API key, the URL where your data will
+be collected, and a series of information to set up your project.</p>
+<p>Make sure to add properly the file; otherwise, Firebase will not be
+able to find the essential information to connect to your iOS
+application and cause a crash when you call it.</p>
+<p>
+In case you lose this file for some reason, you can always find it and
+download it from the Firebase console. Next to the project overview,
+there is a settings button. Click Project settings and then scroll down
+to SDK setup and configuration, and you will be able to download it
+again from there:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig16_HTML.png" style="width:35.45em" aria-describedby="d64e705"/>
+
+<p>A screenshot of the firebase window has the project overview option
+selected and the project settings option highlighted with a bounding box
+from the panel. Note is selected under Apple apps, and Google Service
+hyphen Info dot p list button highlighted under S D K setup and
+configuration.</p>
+
+</p>
+
+<p>Figure 2-16</p>
+<p>Finding the GoogleService-Info.plist file in the console</p>
+
+
+<p>That being done, we can go to step 3 and install the <em>Firebase Software
+Development Kit (SDK)</em>. This can be achieved
+in multiple ways. The most popular are CocoaPods and Swift Package
+Manager. We will use the latter in our case.</p>
+<p>
+You can copy the URL suggested by Firebase indicated in the following
+figure (<a href="https://github.com/firebase/firebase-ios-sdk"><code>https://github.com/firebase/firebase-ios-sdk</code></a>):
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig17_HTML.png" style="width:35.45em" aria-describedby="d64e747"/>
+
+<p>A screenshot of the firebase window has the title, add firebase to
+your Apple app. It has the add firebase S D K category opened from the 4
+categories with 4 bullet points to use Swift Package Manager, and
+previous and next buttons below.</p>
+
+</p>
+
+<p>Figure 2-17</p>
+<p>Add Firebase to your apple app – step 3</p>
+
+
+<p>
+Once you have copied it, go back to Xcode and, at the top-left level,
+click File ➤ Add Packages…, and a pop-up screen will appear. Enter the
+URL you just copied into the search bar, and the
+<em>Firebase-ios-sdk</em> package should appear as in the following
+figure:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig18_HTML.png" style="width:35.45em" aria-describedby="d64e770"/>
+
+<p>2 screenshots of the X code window. Add package option is highlighted
+on the left, that points to the window with another option highlighted
+to add the package.</p>
+
+</p>
+
+<p>Figure 2-18</p>
+<p>Xcode – adding the package</p>
+
+
+
+
+Note
+
+<p>Since I already added it to previous projects, it is already
+appearing under the section “Recently used.”</p>
+
+<p>
+Click the blue button at the bottom right called Add Package, and
+fetching will start and will propose you to add a product. For now, we
+will only use the three following packages:
+
+</p>
+
+<ul>
+<li><p><em>FirebaseFirestore</em></p></li>
+<li><p><em>FirebaseFirestoreSwift</em></p></li>
+<li><p><em>FirebaseAuth </em></p></li>
+</ul>
+
+<p>Only these three modules will be necessary for our next chapters:
+replicating the Apple Notes app. However, for the following project, we
+will also be using Firebase Analytics, Firebase Storage, and more.</p>
+<p>
+Once these three modules are selected, click Add Package again as in
+the following figure:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig19_HTML.png" style="width:35.45em" aria-describedby="d64e820"/>
+
+<p>A screenshot of the X code window has a dialog box to choose package
+products for firebase, i O S, and S D K. It has 2 options check marked
+from the list of 6 and the add package button highlighted.</p>
+
+</p>
+
+<p>Figure 2-19</p>
+<p>Xcode ➤ Add Package – choosing products</p>
+
+
+<p>The installation will proceed for a few minutes depending on your
+Internet connection. Then you will see your project with the packages
+you installed, and you will be ready to use Firebase’s APIs.</p>
+<p>
+Let’s move to step 4. In this step, we’re going to initialize Firebase
+from our app main entry.
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig20_HTML.png" style="width:35.45em" aria-describedby="d64e844"/>
+
+<p>A screenshot of the firebase window has the title, add initialization
+code. It has the Swift U I radio button selected with lines of codes
+below and the buttons for previous and next.</p>
+
+</p>
+
+<p>Figure 2-20</p>
+<p>Add Firebase to your Apple app – step 4</p>
+
+
+<p>
+Head to your file <code>NoteApp.swift</code>
+in Xcode and import Firebase at the top:
+
+</p>
+<pre>import FirebaseCore</pre>
+<p>
+Then, add the following code over the <em>@main</em> keyword:
+
+</p>
+<pre>class AppDelegate: NSObject, UIApplicationDelegate {
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -&gt; Bool {
+FirebaseApp.configure()
+return true
+}
+}</pre>
+<p>
+Then add to following line of code inside the <code>struct but over the body variable</code> to register the App Delegate:
+
+</p>
+<pre>@UIApplicationDelegateAdaptor(AppDelegate.self) var delegate</pre>
+<p>
+Once you have implemented this code, your application will be able to
+communicate with Firebase. You can run your app (click the play button
+in the left tab), and you should have something like the following
+figure with the print in the console:
+
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig21_HTML.png" style="width:35.48em" aria-describedby="d64e931"/>
+
+<p>A screenshot of the X code window has the Note App option selected
+from the panel on the left. The right pane has several lines of codes,
+and on the extreme right is the i Phone 13 Pro screen with hello world
+text.</p>
+
+</p>
+
+<p>Figure 2-21</p>
+<p>Xcode running and communicating to Firebase</p>
+
+
+<pre>[boringssl] boringssl_metrics_log_metric_block_invoke(144) Failed to log metrics</pre>
+
+
+Note
+
+<p>During the process, Xcode will be running quite a lot of modules from
+Firebase. If your MacBook is making a sound like an airplane at landing,
+it is normal; it is processing lots of files.</p>
+
+<p>
+Congratulations! You have successfully set up Firebase to communicate
+with your app over an HTTP request, and you will now be able to use
+Firebase’s APIs to use their amazing framework. You can now go ahead and
+click Continue to console:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_2_Chapter/533376_1_En_2_Fig22_HTML.jpg" style="width:35.45em" aria-describedby="d64e957"/>
+
+<p>A screenshot of the firebase window has the title, add firebase to
+your Apple app. It has the next steps category opened from the 5
+categories with the message and description for you are all set. 2
+buttons of previous and continue to console are at the bottom.</p>
+
+</p>
+
+<p>Figure 2-22</p>
+<p>Add Firebase to your Apple app – step 5</p>
+
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>Over this chapter, we discovered what Firebase is and why we should
+consider it in our project development. We briefly explored the console
+and how to navigate the dashboard since we are going to dive in, in the
+next chapters.</p>
+<p>Also, I walked you through how to create our first Firebase project
+and connect an iOS application using Swift Package Manager so you’re
+ready to use their APIs.</p>
+<p>Thanks to this setup, we are now ready to build our first working
+application and communicate data between Firebase and our
+application.</p>
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">3. Playing with Firestore</h1>
+
+
+<!--End Abstract-->
+
+<p>We are going to be focusing on Firebase Firestore over this chapter
+with a classic programming exercise: the Create-Read-Update-Delete
+(CRUD). Firestore is a NoSQL document-based
+database that will allow us to query, synchronize, and store data
+without managing infrastructure.</p>
+<p>After introducing our app architecture and the MVVM design pattern,
+we will finally leave the “how it works” with the theory and the setup
+to the coding part by building an iOS application replicating the Apple
+Notes application that comes by default with Apple products. It is going
+to look like the following figure:</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig1_HTML.png" style="width:35.45em" aria-describedby="d64e156"/>
+
+<p>Four mobile screens display a dark background with 3 notes to edit,
+publish, and update.</p>
+
+</p>
+
+<p>Figure 3-1</p>
+<p>Screenshots of the Note
+application we’re going to build</p>
+
+
+<p>The app will feature a list of notes – we can delete a note directly
+from the main screen – a form to upload a new note, and a details screen
+to read it entirely, and we will have the ability to edit our notes.</p>
+<p>By the end of this chapter, you will be able to properly structure
+your iOS project and make API calls to Firestore.</p>
+
+<h2 class="Heading">Introducing the MVVM Design Pattern</h2>
+<p>You might be wondering what is MVVM and what it stands for.
+MVVM is the short version for Model–View–View Model; it is an
+architecture widely used by the community of SwiftUI developers.
+Consider it as a “<em>how do I organize my code”</em> solution.</p>
+<p>In Chapter <a href="#533376_1_En_1_Chapter.xhtml">1</a>, we played around with SwiftUI, and we kind of
+put all the pieces together without any structure. That’s fine for an
+introduction. However, as our app becomes more complex, it can be
+unreadable and create conflicts in our code. That’s where app
+architecture comes into place!</p>
+<p>
+It will help us break down our code into multiples files. Each one has a
+specific purpose:
+
+</p>
+
+<ul>
+<li><p>The Model is responsible for structuring our data and holding the
+logic.</p></li>
+<li><p>The View
+Model will be responsible for managing the data, notified by the
+Model, and making the call to and from Firebase in our case.</p></li>
+<li><p>The View will present our user interface to our user: lists,
+buttons, text, images, and so on. It is going to be binding the data
+with our View Model.</p></li>
+</ul>
+
+<p>
+You might be wondering why we need an architecture at all in our application. Well, it becomes
+important when you want to work on a project with more than one person
+and when the application becomes complex. It’s preventing bugs in your
+code. Overall, it has these advantages:
+
+</p>
+
+<ul>
+<li><p>We will have a separation of concern. This way, each file has its
+own responsibility, and we avoid bugs and conflicts.</p></li>
+<li><p>It is easier to read and identify bugs. For example, if there is
+a UI problem, you must look in your View; if there is an HTTP request
+problem, the View Model is the file to look for. Missing a data? You
+might have to add it inside the Model.</p></li>
+</ul>
+
+<p>
+Now, take a moment to see the following graphic showing the design
+pattern:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig2_HTML.png" style="width:25.1em" aria-describedby="d64e249"/>
+
+<p>An architecture diagram. Model notices changes in data and logic and
+communicates with the view model, that binds view to model, act as gate
+to backend, and interpret data. View publishes changes.</p>
+
+</p>
+
+<p>Figure 3-2</p>
+<p>MVVM architecture in graphic</p>
+
+
+<p>As you can see, the Model is communicating with the View Model,
+responsible to interpret the data and pass them to the View, which is
+solely responsible for presenting the user interface and notifying also
+the View Model about users’ intent.</p>
+<p>For example, in our application that we are going to build, the Model
+will be composed of an identifier and a title. This structure will be
+notifying the View
+Model responsible for making the read call to Firebase and then
+presenting the data inside our View in a list.</p>
+<p>What happens when the data flows the other way?</p>
+<p>If it is from the View to the Model through the View Model, the View
+will notify the View
+Model, which will interpret this action and then modify the
+Model. For example, when a user deletes a note, the View will notify the
+View Model, which will inform Firebase to delete that document
+based on the information structured in our Model.</p>
+<p>Now, if this still sounds abstract to you, do not worry. By
+practicing it in our application during this chapter, it will be clearer
+to you.</p>
+
+
+<h2 class="Heading">Create Data to Firestore</h2>
+<p>
+Before we start coding, Firebase still needs a bit of setup to work with
+the Firestore database. Go to your Firebase console and head to the
+Firestore Database section in the left panel and click the Create database button
+as in the following figure:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig3_HTML.png" style="width:35.45em" aria-describedby="d64e309"/>
+
+<p>A screen displays the firestore database, with the note panel section
+with cloud firestore, to create a database.</p>
+
+</p>
+
+<p>Figure 3-3</p>
+<p>Firebase console – Firestore section</p>
+
+
+<p>A pop-up will appear inviting you to complete a two-step process. The
+first one is to choose how to start your database. We will go ahead with
+test mode, since we are only discovering Firebase in this chapter. We
+don’t need to set up rules to restrict our Firebase usage to
+authenticated users, for example. Additionally, we are on the Spark
+plan, and we didn’t enter a credit card yet, so we are good to go
+regarding billing.</p>
+<p>
+The second step is to select a location. Simply choose the one closer to
+you. I picked up US-Central, but if you’re going to distribute the app
+for the European market, it is better to select Central Europe as the
+database since it is going to be closer and slightly more efficient.
+Follow the two steps as described in the following:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig4_HTML.png" style="width:35.43em" aria-describedby="d64e331"/>
+
+<p>Two screens display the creation of a database and two options at the
+bottom, as well as warnings and enable options on the right side.</p>
+
+</p>
+
+<p>Figure 3-4</p>
+<p>Firestore two-step
+setup</p>
+
+
+<p>Now that our database is activated, it’s time to get back to Xcode.
+Open the project Note that we created and connected to Firebase
+earlier.</p>
+<p>According to the MVVM architecture we spoke about earlier, we are
+going to create the Model.</p>
+<p>
+Click Create a new file ➤ Swift File and call it <em>Note</em>. Then
+paste the following code:
+
+</p>
+<pre>import Foundation
+import FirebaseFirestoreSwift
+struct Note: Codable {
+@DocumentID var id: String?
+var title: String?
+}</pre>
+<p>That’s all we need for our Model, an identifier and a title that will
+hold the text we will enter later in our form.</p>
+<p>Note here that we have imported <em>FirebaseFirestoreSwift</em> to
+access the <em>@DocumentID</em> keyword; this comes from Firebase to
+help us map the document correctly with the identifier from
+Firebase.</p>
+<p>The next step is to create our View Model. This file
+will be responsible for passing data to our View conforming to the Model
+we just created. It’s also going to talk to Firebase using their APIs,
+so we need to import the Firestore framework at the top.</p>
+<p>
+Click Create a new file ➤ Swift File and name it <em>NoteViewModel</em>
+and import the framework at the top:
+
+</p>
+<pre>import FirebaseFirestore</pre>
+<p>
+You can then copy/paste the following code into your file:
+
+</p>
+<pre>class NoteViewModel: ObservableObject {
+@Published var notes = [Note]()
+private var databaseReference = Firestore.firestore().collection("Notes")
+// function to post data
+// function to read data
+// function to update data
+// function to delete data
+}</pre>
+<p>Great, we just created a class conforming to the
+<em>ObservableObject</em>; it allows instances of this class to be used
+inside views later, so when changes happen, the View will reload with
+the updated changes.</p>
+<p>Then, we have created a reference to our Model with the
+<em>Published</em> to tell our program to reload when changes happen
+with our Model.</p>
+<p>Also, we added a variable so we can refer to the Firestore collection
+that we just named Notes. It is useful to add this reference, so we
+don’t need to write it multiple times when we are writing a function to
+fetch, read, delete, or update data.</p>
+<p>
+It is now time to add the function to post data to Firestore right under
+a comment I left:
+
+</p>
+<pre>// function to post data
+func addData(title: String) {
+do {
+_ = try databaseReference.addDocument(data: ["title": title])
+}
+catch {
+print(error.localizedDescription)
+}
+}</pre>
+<p>There is not much to comment on here. We are using the
+<em>addDocument</em> APIs from Firebase
+passing our data: the title as a string. It’s also catching errors in
+case there are some; it is going to be printed in our console with the
+catch.</p>
+<p>That’s enough for our Model–View Model to post data
+to Firestore. It’s now time to build our user interface. We are going to
+create the UI for our form and handle the logic to present it from our
+ContentView.swift file.</p>
+<p>
+Go ahead and click Create a new file ➤ SwiftUI View and call it
+<em>FormView</em>:
+
+</p>
+<pre>import SwiftUI
+struct FormView: View {
+@Environment(\.dismiss) var dismiss
+@State var titleText = ""
+var body: some View {
+// ...
+}
+}</pre>
+<p>These lines of code will be helpful to handle the presentation and
+handle the text entry of our user with a title.</p>
+<p>
+Now let’s build a form. Add the following code inside the body variable:
+
+</p>
+<pre>NavigationStack {
+Form {
+Section {
+TextEditor(text: $titleText)
+.frame(minHeight: 200)
+}
+Section {
+Button(action: {
+//TODO: upload data
+}) {
+Text("Save now")
+}.disabled(self.titleText.isEmpty)
+.foregroundColor(.yellow)
+}
+}.navigationTitle("Publish")
+.toolbar {
+ToolbarItemGroup(placement: .destructiveAction) {
+Button("Cancel") {
+dismiss()
+}
+}
+}
+}</pre>
+<p>Great! We just added a <em>NavigationStack</em> with a form composed
+of a TextEditor (better than <em>TextField</em> for long entries). Also,
+we added a button to publish, which is disabled if there is no text
+entry, and another button as part of the navigation at the top to
+dismiss it.</p>
+<p>
+We can now call this screen from the <em>ContentView.swift</em> file!
+Add the followings <em>@State</em> to observe the presentation:
+
+</p>
+<pre>import SwiftUI
+struct ContentView: View {
+@State private var showingSheet = false @State private var postDetent = PresentationDetent.medium
+var body: some View {
+// ...
+}
+}
+struct ContentView_Previews: PreviewProvider {
+// ...
+}</pre>
+<p>It’s now time to create our bottom bar with the button to present our
+form modally.</p>
+<p>
+Add the following code inside the body variable:
+
+</p>
+<pre>NavigationStack {
+List {
+// TODO: present our notes
+}
+.toolbar {
+ToolbarItemGroup(placement: .bottomBar) {
+Text(" X notes") // TODO
+Spacer()
+Button {
+// Write a new note
+showingSheet.toggle()
+} label: {
+Image(systemName: "square.and.pencil")
+}
+.imageScale(.large)
+.sheet(isPresented: $showingSheet) {
+FormView().presentationDetents([.large, .medium])
+}
+}
+} }.navigationTitle("Notes")</pre>
+<p>
+We just added another <em>NavigationStack</em> with a list that we are
+going to fill out with data in the next section and a button at the
+bottom replicating the one from the Apple Notes app, thanks to SF
+Symbols.
+<blockquote>
+<p><em>SF
+Symbols</em> <em>is a library of icons built by Apple. As of now,
+it provides over 4, 400 symbols. This way, you don’t need designer
+skills to integrate nice-looking icons into your application. If you
+want to check out what icons you can pick up, you can download Apple’s
+application at the following page:</em></p>
+</blockquote>
+<blockquote>
+<p><a href="https://developer.apple.com/sf-symbols/"><code>https://developer.apple.com/sf-symbols/</code></a><em>.</em></p>
+</blockquote>
+</p>
+<p>This sheet will be presented upon button tap and can be dismissed
+from the form.</p>
+<p>You can run your application and check the interaction; you should be
+able to access the form and close it multiple times.</p>
+<p>Now that we are good to go with our user interface, it’s time to post
+data to Firestore and head to <em>FormView</em> again.</p>
+<p>
+And add the following observer just over the body variable:
+
+</p>
+<pre>@ObservedObject private var viewModel = NoteViewModel()</pre>
+<p>
+This will make the data binding between our View and our View Model. Now we only
+need to call the function we created earlier inside our button action,
+where we left the <em>TODO: upload data</em> comment, as follows:
+
+</p>
+<pre>var body: some View {
+NavigationStack {
+Form {
+Section {
+// ..
+}
+Section {
+Button(action: {
+self.viewModel.addData(title: titleText)
+titleText = ""
+dismiss()
+}) {
+// ..
+}
+// ...
+}
+}.navigationTitle("Publish")
+// ...
+}
+}</pre>
+<p>Et voilà! We simply recall our function from the View Model to publish
+data to Firebase, passing the content of the title text. Then we dismiss
+the View with <em>dismiss()</em>.</p>
+<p>
+Run your application, write some texts, and click “Save now.”
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig5_HTML.png" style="width:35.48em" aria-describedby="d64e812"/>
+
+<p>Mobile screen on the left side displays a note under publish, and web
+screen on the right displays the data tab in cloud firestore note panel,
+with the corresponding note added under, add field option.</p>
+
+</p>
+
+<p>Figure 3-5</p>
+<p>Uploading data
+to Firestore</p>
+
+
+<p>Let’s see what’s happens on your Firebase Firestore console:</p>
+<p>Congratulations! We just did our first call with Firebase’s APIs,
+adding a document under the Notes collection. You can even go ahead and
+add as many as you want!</p>
+<p>It’s now time to read these notes and display them inside our
+list!</p>
+
+
+<h2 class="Heading">Read Data from Firestore</h2>
+<p>
+It is now time to read our notes since we have posted a few on
+Firestore. Inside our <em>ContentView.swift</em> file, we added a
+<em>NavigationView</em>, composed of a <em>List</em>. We will display
+the data in this
+list, but we haven’t added the function to fetch these data. It’s time
+to head to the <em>NoteViewModel.swift</em> file and add the following
+function under the comment that we left:
+
+</p>
+<pre>// function to read data
+func fetchData() {
+databaseReference.addSnapshotListener { (querySnapshot, error) in
+guard let documents = querySnapshot?.documents else {
+print("No documents")
+return
+}
+self.notes = documents.compactMap { queryDocumentSnapshot -&gt; Note? in
+return try? queryDocumentSnapshot.data(as: Note.self)
+}
+}
+}</pre>
+<p>This function to read data from Firestore was missing. It is adding a
+listener so our frontend can receive updates from our backend in real
+time based on the Model <em>Note</em> we have created.</p>
+<p>
+Let’s use it in our <em>ContentView</em> now to fetch the data and
+display them in a list. As we did in the <em>FormView</em>, we need to
+also observe our <em>View Model</em>. Please add the following line of
+code, over the <code>body</code> variable inside
+our <em>ContentView.swift</em> file:
+
+</p>
+<pre>@ObservedObject private var viewModel = NoteViewModel()</pre>
+<p>
+Now that we are ready to listen to the updates from our View Model, let’s
+implement the UI now (still in the <em>ContentView.swift</em> file):
+
+</p>
+<pre>import SwiftUI
+struct ContentView: View {
+// ...
+var body: some View {
+NavigationStack {
+List {
+ForEach(viewModel.notes, id:\.id) { Note in
+VStack(alignment: .leading) {
+Text(Note.title ?? "").font(.system(size: 22, weight: .regular))
+}.frame(maxHeight: 200)
+}
+}.onAppear(perform: self.viewModel.fetchData)
+.toolbar {
+ToolbarItemGroup(placement: .bottomBar) {
+Text("\(viewModel.notes.count) notes")
+Spacer()
+Button {
+// ...
+} label: {
+Image(systemName: "square.and.pencil")
+}
+// ...
+}
+}
+}.navigationTitle("Notes")
+// ..</pre>
+<p>We just implemented a list based on our Model, attributing to each
+one an identifier; otherwise, when we add or delete notes, SwiftUI wouldn’t be able
+to know what to refer to. That’s what this <code>id:\.id</code> is for.</p>
+<p>Also, we are fetching the data with the .<code>OnAppear</code> modifier, so
+the function is called anytime the View appears.</p>
+<p>We also added the code <code>viewModel.notes.count</code>
+to let the user know how many notes there are registered on our
+application, similar to Apple’s Notes application.</p>
+<p>
+Run the app, and all the data you added will be there. I added a few
+quotes from the US presidents. My list looks like this:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig6_HTML.png" style="width:35.45em" aria-describedby="d64e1066"/>
+
+<p>Mobile screen on the left side displays 3 notes and web screen on the
+right displays the cloud storage with the third note under add fields
+option.</p>
+
+</p>
+
+<p>Figure 3-6</p>
+<p>Reading data
+from Firestore</p>
+
+
+
+
+<h2 class="Heading">Pass Data from Views</h2>
+<p>Now, what if we want to read the entire quote? Not easy from the
+list. It might be cool to present another screen with more
+details. That’s what we are going to implement. The challenge here is to
+pass the data between views with the correct identifier. Let’s do
+that.</p>
+<p>We are going to create a <em>DetailsView</em> to present our text in
+a <em>ScrollView</em> so we can read the whole text.</p>
+<p>
+Create a new <code>SwiftUI View</code> file and call it “<em>DetailsView</em>” and add the
+following code to it:
+
+</p>
+<pre>import SwiftUI
+struct DetailsView: View {
+var note: Note
+var body: some View {
+Text("\(note.title ?? "")")
+}
+}
+struct DetailsView_Previews: PreviewProvider {
+static var previews: some View {
+DetailsView(note: Note(id: "bKrivNkYirmMvHyAUBWv", title: "Issues are never simple. One thing I'm proud of is that very rarely will you hear me simplify the issues.Barack Obama"))
+}
+}</pre>
+<p>This way, we have a reference to pass the data from the <code>ContentView</code> to our
+<code>DetailsView</code>.
+Also, we need to init inside our preview with some default data;
+otherwise, Xcode won’t let us run our application.</p>
+<p>We also replace the <code>Text</code> “Hello, world”
+with our note’s title, passing a default empty string in case there is
+no data with <code>?? ""</code>.</p>
+<p>
+It’s now time to make the row clickable and pass the data. Let’s head
+back to the <em>ContentView</em> file and embed the <em>VStack</em> with
+your text in a <em>NavigationLink</em> modifier as follows:
+
+</p>
+<pre>struct ContentView: View {
+// ...
+var body: some View {
+NavigationStack {
+List(viewModel.notes, id: \.id) { Note in
+NavigationLink(destination: DetailsView(note: Note)) {
+VStack(alignment: .leading) {
+Text(Note.title ?? "").font(.system(size: 22, weight: .regular))
+}.frame(maxHeight: 200)
+} }
+}.onAppear(perform: self.viewModel.fetchData)
+}
+.toolbar {
+// ...
+}
+}.navigationTitle("Notes")
+} }</pre>
+<p>And this is all that we need. With SwiftUI’s NavigationLink, we just
+need to pass which views we want to present and the data they need to
+contain. Here we refer to the Note Model that we have also called inside
+the <em>DetailsView</em> to make it work.</p>
+<p>Note that the <code>NavigationLink</code>
+only works inside a <code>NavigationView</code>
+as it is part of the protocol.</p>
+<p>You can now run your app and click a row; it will open the <code>DetailsView</code> and
+present you the details based on the row you clicked.</p>
+<p>
+But let’s improve a bit our user interface for our <em>DetailsView</em>.
+We will give a title to the navigation bar, and we will place our text
+inside a <em>ScrollView</em> so we can read it entirely when the text is
+long. Implement the following code inside the <code>body</code> variable:
+
+</p>
+<pre>NavigationStack {
+ScrollView {
+VStack {
+Text(note.title ?? "")
+.font(.system(size: 22, weight: .regular))
+.padding()
+Spacer()
+}
+}
+}.navigationTitle("Details")</pre>
+<p>
+That is nicer! We are now conforming to our initial user interface:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig7_HTML.png" style="width:35.6em" aria-describedby="d64e1303"/>
+
+<p>Two mobile screens display notes in two formats. First has 3 notes
+and the second has 1 note.</p>
+
+</p>
+
+<p>Figure 3-7</p>
+<p>Navigating from a list to another view</p>
+
+
+<p>Thanks to the <code>NavigationLink</code>, a
+<code>&gt;</code> symbol
+appears automatically in our row, indicating to our user that it is
+clickable. Now, what if we miswrite a note? Let’s implement an editor
+for that!</p>
+
+
+<h2 class="Heading">Update Data from Firestore</h2>
+<p>In this section, we will implement a new screen to edit a note and
+save that text entry to Firestore. But first, let’s head to our <code>View Model</code> and add
+the necessary functionality to update it to Firestore.</p>
+<p>
+Paste the following code in <code>NoteViewModel.swift</code>:
+
+</p>
+<pre>// function to update data
+func updateData(title: String, id: String) {
+databaseReference.document(id).updateData(["title" : title]) { error in
+if let error = error {
+print(error.localizedDescription)
+} else {
+print("Note updated successfully")
+}
+}
+}</pre>
+<p>As you can see, we are passing an identifier inside our document to
+let Firestore know which document needs to be updated. Then, we pass the
+title to be modified inside the <code>updateData</code> function.
+As usual, we print the errors if there are any.</p>
+<p>
+Time for the user interface. We will use an alert presentation with a
+<code>TextField</code> to
+let the user update the text. Add the following code at the top of <code>DetailsView</code>:
+
+</p>
+<pre>@State private var presentAlert = false
+@State private var titleText: String = ""
+@ObservedObject private var viewModel =   NoteViewModel()</pre>
+<p>
+We will need these parameters for our interaction:
+
+</p>
+
+<ul>
+<li><p>@State as a Boolean to handle the presentation of our
+alert</p></li>
+<li><p>@State to follow the entry of our TextField</p></li>
+</ul>
+
+<p>And, of course, our View Model informs it from our View to be
+updated.</p>
+<p>
+We are good to go to present our <code>Alert</code> from our <code>DetailsView</code>. First,
+we need to add a button “Edit” to this screen; we will do this with a
+<code>toolbar</code>. You
+can add it right under the <code>navigationTitle</code>:
+
+</p>
+<pre>.toolbar {
+ToolbarItemGroup(placement: .confirmationAction) {
+Button {
+presentAlert = true
+} label: {
+Text("Edit").bold()
+}.alert("Note", isPresented: $presentAlert, actions: {
+TextField("\(note.title ?? "")", text: $titleText)
+Button("Update", action: {
+//TODO: Update data and erase the text
+})
+Button("Cancel", role: .cancel, action: {
+presentAlert = false
+titleText = ""
+})
+}, message: {
+Text("Write your new note")
+})
+}
+}</pre>
+<p>
+Great! Now we can present our <code>Alert</code>, passing data
+along the way. We can now add our function to update our notes. Add the
+following code where we left the <code>// TODO:</code> comment, in
+the <code>DetailsView</code>:
+
+</p>
+<pre>self.viewModel.updateData(title: titleText, id: note.id ?? "")
+titleText = ""</pre>
+<p>Et voilà! We are now ready to run our app and edit our notes. The
+field that we enter will now populate the note selected with the
+appropriate identifier.</p>
+<p>Let’s say you want to change the citation from Abraham Lincoln</p>
+<p>“Leave nothing for tomorrow which can be done today. - Abraham
+Lincoln”</p>
+<p>to another quote from Barack Obama:</p>
+<p>“Change will not come if we wait for some other person, or if we wait
+for some other time. - Barack Obama”</p>
+<p>
+Go ahead to your list, navigate to details, and click the Edit button.
+Then enter the preceding text. You will see that the text is going to be
+updated in the <code>DetailsView</code> and then
+inside our <code>List</code>:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig8_HTML.png" style="width:35.43em" aria-describedby="d64e1508"/>
+
+<p>Three mobile screens display notes in three formats to edit and
+update, along with the updated note.</p>
+
+</p>
+
+<p>Figure 3-8</p>
+<p>Editing a note from our Simulator</p>
+
+
+<p>We are now editing a note, and it’s edited in real time on our
+backend and in our user interface.</p>
+<p>Now, what if you want to delete a note? Let’s implement our last
+feature.</p>
+
+
+<h2 class="Heading">Delete Data from Firestore</h2>
+<p>
+Let’s implement our last step: deleting the data from Firestore. We
+left a mark in our <code>NoteViewModel</code> just
+for that. Head to this file and add the following code:
+
+</p>
+<pre>// function to delete data
+func deleteData(at indexSet: IndexSet) {
+indexSet.forEach { index in
+let note = notes[index]
+databaseReference.document(note.id ?? "").delete { error in
+if let error = error {
+print("\(error.localizedDescription)")
+} else {
+print("Note with ID \(note.id ?? "") deleted")
+}
+}
+}
+}</pre>
+<p>In the delete function, we are giving an <code>indexSet</code>, useful to
+have a reference to our list, and then passing the identifier that we
+created in our Model so we are passing the correct ID information to
+Firestore to delete the right document (the one selected in the row). As
+always, we are printing the error if there is any, and we are printing
+the document identifier if it’s successful.</p>
+<p>
+Now let’s make it happen on screen! Head to the <code>ContentView.swift</code>
+file:
+
+</p>
+<pre>struct ContentView: View {
+// ...
+var body: some View {
+NavigationStack {
+List {
+ForEach(viewModel.notes, id:\.id) { Note in
+NavigationLink(destination: DetailsView(note: Note)) {
+// ...
+}
+}.onDelete(perform: self.viewModel.deleteData(at:))
+}.onAppear(perform: self.viewModel.fetchData)
+.navigationTitle("Notes")
+}
+.toolbar {
+// ...
+}
+}.navigationTitle("Notes")
+} }</pre>
+<p>That’s it! It is super easy to delete an item from a list using SwiftUI. The <code>onDelete</code> modifier
+handles the swipe left with a Delete title and a red background. Our
+function will do the rest to delete the document on Firestore.</p>
+<p>
+Now I invite you to run your application on the Simulator. Swipe left on
+a row you wish to delete, and check out what’s happening on your
+Firestore console:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_3_Chapter/533376_1_En_3_Fig9_HTML.png" style="width:35.43em" aria-describedby="d64e1668"/>
+
+<p>A mobile screen displays a note with a delete option. The two screens
+on the right display a cloud firestore with fields and the snippet of
+code on the third screen along with the respective note.</p>
+
+</p>
+
+<p>Figure 3-9</p>
+<p>Deleting a note from the list and Firestore database</p>
+
+
+<p>By doing this, you will see a deletion occurring on the backend in
+real time. Then your note will disappear from the list, and our number
+of notes will be updated inside the <code>toolBar</code>.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>We have completed our first Note app with feature functions present
+in most applications: the ability to post, read, update, and delete
+content to and from a backend. This was a nice CRUD exercise and a great
+way to get you started with SwiftUI and Firebase.</p>
+<p>In this chapter, we covered how to structure our app using the MVVM design pattern and
+the first use of Firebase’s APIs and set up a cloud Firestore database
+and make things work between our user interface and our backend or,
+better, between our View Model and our backend.</p>
+<p>In the following, you will find the link to the repository of this
+first application. In case you missed something on the way, check out
+the repository:</p>
+<p>How to use this repository? If you clone this repository and run your
+application, it will crash. Why? Because there is no
+<em>GoogleService-Info.plist</em> file in this project.
+Firebase will look for it and not find the necessary API key and so not
+be able to initiate and cause the crash.</p>
+<p>To make it work, you will need to go to your Firebase console, add a
+new iOS project as we did in Chapter <a href="#533376_1_En_2_Chapter.xhtml">2</a>, pass the correct bundle
+identifier, and add the <em>GoogleService-Info.plist</em> to this
+project. These two steps are crucial for making the app run properly.
+Normally, the packages should fetch themselves with SPM, so you can skip
+this step.</p>
+<p>It’s now time to head to the next chapter: we will discover Firebase
+Auth and authenticate our first user!</p>
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">4. Authenticate Users with Firebase
+Auth</h1>
+
+
+<!--End Abstract-->
+
+<p>We are going to be focusing on Firebase Auth SDK over this chapter.
+We are going to create an authentication flow that grants us access to
+our Create-Read-Update-Delete (CRUD) functionalities that we implemented
+earlier. We will perform this thanks to the <a href="https://firebase.google.com/docs/auth/ios/start">Firebase authenticate API</a> to
+validate credentials against their response from the server. We will
+also use Firestore to store user information in a collection (similar to
+tables in the SQL kind of databases).</p>
+<p>Then we will restrict the access to users with an account only like
+onboarding in applications like Twitter, Instagram, etc. For this, we
+will need to listen to the status of the user that Firebase provides
+us.</p>
+<p>Firebase Auth SDK allows us to know when a user is logged in or
+logged out, thanks to their listener APIs. These are the screens we are
+going to build:</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig1_HTML.jpg" style="width:35.45em" aria-describedby="d64e150"/>
+
+<p>3 screenshots of mobile screens for the welcome, reset password, and
+notes with input boxes and buttons.</p>
+
+</p>
+
+<p>Figure 4-1</p>
+<p>Screenshots of the screens we are going to create</p>
+
+
+<p>At the end, we will also edit the security rules to allow only
+authenticated users to have access to our application.</p>
+
+<h2 class="Heading">Setting Up Firebase Authenticate</h2>
+<p>
+The first thing to do is to set up Firebase in our dashboard. We will
+head to the console to enable authentication. It will take us only a few
+steps. For this, select the Authentication section and click “Get
+started”:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e175"/>
+
+<p>A screenshot of the firebase authentication window has the
+authentication option highlighted from the build category panel on the
+left pane. It has the get started button highlighted on the right pane
+with options to learn more below.</p>
+
+</p>
+
+<p>Figure 4-2</p>
+<p>Firebase console Authentication
+section</p>
+
+
+<p>As you can see, Firebase offers many options to authenticate users.
+It natively supports email with password, phone authentication, and
+anonymous, which allows you to generate a unique identifier for your
+users without requiring them to enter any information.</p>
+<p>Regarding the third parties, there are plenty of options between the
+bigger tech providers: Facebook, Google, Apple, Microsoft, Twitter,
+GitHub, Yahoo, and more. We will implement one of these in one of the
+next chapters.</p>
+<p>
+For this application, we will only use email and password to get
+started. Select Email/Password under Native providers:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig3_HTML.jpg" style="width:35.45em" aria-describedby="d64e199"/>
+
+<p>A screenshot of the firebase window has the project overview panel on
+the left and the authentication panel on the right. The pane has the
+sign-in method tab selected and the email or password option highlighted
+under native providers.</p>
+
+</p>
+
+<p>Figure 4-3</p>
+<p>Authentication – selection of Email/Password</p>
+
+
+<p>
+Then, simply enable it and save the changes:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e219"/>
+
+<p>A screenshot of the firebase window has the project overview panel on
+the left and the authentication panel on the right. The pane has the
+sign-in method tab selected, and the enable slider and save button
+highlighted for email or password under sign-in providers.</p>
+
+</p>
+
+<p>Figure 4-4</p>
+<p>Authentication – enabling the provider and saving</p>
+
+
+<p>Now, you can send users’ information to register our users and
+receive back responses from their servers. It’s now time to structure
+our code and implement the Firebase APIs. Let’s code!</p>
+
+
+<h2 class="Heading">Manage User Sessions</h2>
+<p>Let’s build our call to Firebase to listen to changes in users’
+sessions. Let’s go ahead and create a new file. Let’s call it <em><strong>AuthViewModel</strong></em>;
+it is going to be our View Model to communicate with Firebase Authenticate.</p>
+<p>
+Copy/paste the code as follows:
+
+</p>
+<pre>import SwiftUI
+import FirebaseAuth
+final class AuthViewModel: ObservableObject {
+@Published var user: User?
+func listenToAuthState() {
+Auth.auth().addStateDidChangeListener { [weak self] _, user in
+guard let self = self else {
+return
+}
+self.user = user
+}
+}
+// function to sign-in
+// function to create an account
+// function to logout
+// function to reset password
+}</pre>
+<p><em>Please, note that we won’t be using a model this time.</em></p>
+<p>We will directly pass through the User object that Firebase Auth SDK
+provided us called FIRUser<em>.</em> It
+provides a series of information: a displayName, a picture URL, an
+email, a phone number, and a provider identifier.</p>
+<p>
+Since we are using email/password, we will only need the email and an
+identifier. It allows us to not write the Model ourselves. We only made
+a reference with this line of code:
+
+</p>
+<pre>@Published var user: User?</pre>
+<p>For now, we added a reference to our user model and a function to
+take information from Firebase <em>listenToAuthState()</em>.
+This will be useful to determine if we need to present the list of notes
+or the signup view from the response we obtain from Firebase.</p>
+<p>
+The first thing to do is to create two SwiftUI views to handle both
+cases. Go ahead and create two files. Call these screens with the
+following names:
+
+</p>
+
+<ul>
+<li><p><em>SignUpView</em> (where we enter the credentials)</p></li>
+<li><p><em>HolderView</em> (where we will implement the logic)</p></li>
+</ul>
+
+<p>
+This is the representation of the logic we are going to implement:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig5_HTML.png" style="width:25.9em" aria-describedby="d64e371"/>
+
+<p>A screenshot of a mobile screen with firebase to handle the logic
+holder view. It leads to 2 screens of welcome and notes via if the user
+session is nil, then sign up view, and if the user is not nil, then
+content view.</p>
+
+</p>
+
+<p>Figure 4-5</p>
+<p>Logic implemented with the
+Firebase Auth listener</p>
+
+
+<p>To perform this logic, we need to add this View Model as an
+environment object at the start-up of our app, the <code>NoteApp.swift</code> file
+(the starting point of our application), inside the body variable.</p>
+<p>The @environmentObject property from SwiftUI allows us to share data
+between views and ensure that our views get automatically updated based
+on what they receive.</p>
+<p>Here, we need to inform our app entry the state of the user session,
+so we can present the right screen at the right moment.</p>
+<p>
+Head to the <em>NoteApp</em> file, and instead of ContentView(), we will
+add the following line of code:
+
+</p>
+<pre>HolderView().environmentObject(AuthViewModel())</pre>
+<p>What is this for? It will allow us to notify our application upon
+start-up (when a user opens for the first time, after killing the app or
+whatever) that we are binding this to the View Model, so we are
+able to use the snapshot listener implemented here and present the
+correct screen based on the user’s session.</p>
+<p>Now, we will head to the <code>HolderView</code> to
+incorporate the logic.</p>
+<p>
+First, let’s observe our View Model in the
+HolderView. Copy/paste the following <em>@EnvironmentObject</em>
+variable:
+
+</p>
+<pre>@EnvironmentObject private var authModel: AuthViewModel</pre>
+<p>
+And now, let’s implement the conditional statement to present the
+appropriate view based on the Firebase response. Inside the
+<em>body</em> variable, instead of the current
+
+</p>
+<pre>Text("Hello, World!")</pre>
+<p>
+paste the following code:
+
+</p>
+<pre>Group {
+if authModel.user == nil {
+SignUpView()
+} else {
+ContentView()
+}
+}
+.onAppear {
+authModel.listenToAuthState()
+}</pre>
+<p>
+Now, run the application, and you should have the following:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig6_HTML.jpg" style="width:35.45em" aria-describedby="d64e486"/>
+
+<p>A screenshot of the X code window has the holder view selected on the
+left panel. On the right is a pane with code, with a mobile screen of i
+Phone 14 with hello world message on the extreme right.</p>
+
+</p>
+
+<p>Figure 4-6</p>
+<p>Xcode – app
+running with the Auth listener</p>
+
+
+<p>Great! As you can see, we have the <em>SignUpView</em> presented at
+start-up. It makes sense because Firebase is returning nil when we ask
+for a user because we didn’t sign up any yet.</p>
+<p>Now that we have implemented the logic, we can go ahead and sign up
+our user. Let’s create the user interface to sign up and implement the
+function.</p>
+
+
+<h2 class="Heading">Sign Up with Email and Password</h2>
+<p>First things first, let’s build the user interface. We are going to
+add two fields – one for the email and one for the password – and two
+buttons: one for signing up and one for signing in.</p>
+<p>To achieve this, we are going to use a form since it comes with a
+scrolling feature for free and it is faster to implement.</p>
+<p>
+Head to our <em>AuthViewModel</em>, and implement the API
+calls to sign in, sign up and sign out:
+
+</p>
+<pre>// function to sign-in
+func signIn(
+emailAddress: String,
+password: String
+) {
+Auth.auth().signIn(emailAddress: emailAddress, password: password) { result, error in
+if let error = error {
+print("an error occurred: \(error.localizedDescription)")
+return
+}
+}
+}
+// function to create an account
+func signUp(
+emailAddress: String,
+password: String
+) {
+Auth.auth().createUser(withEmail: emailAddress, password: password) { result, error in
+if let error = error {
+print("an error occurred: \(error.localizedDescription)")
+return
+}
+}
+}
+// function to logout
+func signOut() {
+do {
+try Auth.auth().signOut()
+} catch let signOutError as NSError {
+print("Error signing out: %@", signOutError)
+}
+}</pre>
+<p>Great, we just implemented the necessary functions; the syntax of the
+APIs is quite clear here. We are using sign-in and creating a user and
+passing an email and password object as part of the parameter.</p>
+<p>To log out, we are using a do, try catch to catch any errors in case
+there is a bad Internet connection, for example.</p>
+<p>
+Head to the <em>SignUpView</em>, and
+implement the following code:
+
+</p>
+<pre>@State private var emailAddress: String = ""
+@State private var password: String = ""</pre>
+<p>
+These two variables will allow us to observe the user’s input and pass
+it to the Firebase backend. Now, let’s implement the user interface and
+replace the current:
+
+</p>
+<pre>NavigationStack {
+Form {
+Section {
+TextField("Email", text: $emailAddress)
+.textContentType(.emailAddress)
+.keyboardType(.emailAddress)
+SecureField("Password", text: $password)
+}
+Section {
+Button(action: {
+// Sign Up to Firebase
+}) {
+Text("Sign Up").bold()
+}
+}
+Section(header: Text("If you already have an account:")) {
+Button(action: {
+// Sign In to Firebase
+}) {
+Text("Sign In")
+}
+}
+}.navigationTitle("Welcome")
+.toolbar {
+ToolbarItemGroup(placement: .cancellationAction) {
+Button {
+showingSheet.toggle()
+} label: {
+Text("Forgot password?")
+}
+.sheet(isPresented: $showingSheet) {
+ForgotPasswordView()
+}
+}
+}
+}</pre>
+<p>
+Great, now we have our user interface. It’s time to pass the email and
+password to Firebase. Let’s observe the View Model we created
+earlier:
+
+</p>
+<pre>@EnvironmentObject private var authModel: AuthViewModel</pre>
+<p>
+And let’s implement the signup function inside the button action that
+belongs to the signup button:
+
+</p>
+<pre>authModel.signUp(emailAddress: emailAddress,
+password: password)</pre>
+<p>
+And let’s do the same thing for the sign-in process – add
+the function inside the button action:
+
+</p>
+<pre>authModel.signIn(emailAddress: emailAddress,
+password: password)</pre>
+<p>
+It is now time to sign up our first user. Go ahead, run your
+application, enter an email and a password, and check out the Firebase
+console!
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig7_HTML.jpg" style="width:35.45em" aria-describedby="d64e795"/>
+
+<p>A screenshot of the welcome mobile screen with a firebase window on
+the right. The window has the project overview panel on the left and the
+authentication pane on the right. The pane has the users tab selected
+with a button to add user.</p>
+
+</p>
+
+<p>Figure 4-7</p>
+<p>App running and posting user data to Firebase
+Authenticate</p>
+
+
+<p>Great! By entering an email and a password, our app is notified in
+real time that the user has an active session. Then, it automatically
+brings us to the main screen, the <code>ContentView</code>.</p>
+<p>But what about signing out the user? This time, we also need to
+update our user interface and bring back our user to the signup screen.
+Also, giving the ability to log out will grant us the ability to log in
+again on the same device and check if our sign-in function is working
+properly.</p>
+<p>Let’s add this logout button and execute the sign-out function.</p>
+<p>
+Observe the <em>AuthViewModel</em>
+at the top of the ContentView.swift file:
+
+</p>
+<pre>@ObservedObject private var authModel = AuthViewModel()</pre>
+<p>
+Then, right below the first <code>ToolbarItemGroup</code> and
+inside the graph of the .<code>toolbar</code> modifier, add
+the following:
+
+</p>
+<pre>ToolbarItemGroup(placement: .cancellationAction) {
+Button {
+authModel.signOut()
+} label: {
+Text("Logout")
+}
+}</pre>
+<p>Really simple. Since we added all the functions in the View Model, we only need
+to call them in the user interface.</p>
+<p>Go ahead and click the logout button. You will be brought back to the
+signup screen. It’s now time to try the sign-in function. Enter the
+email and password you used earlier.</p>
+<p>You can perform the action many times and create as many accounts as
+you want to see the robustness of the code. That’s it. We have a fully
+functioning login flow!</p>
+
+<h3 class="Heading">What If You Forget Your Password?</h3>
+<p>That can happen often, especially nowadays, where we have so many
+accounts to manage. Thankfully, Firebase provides us with an API to
+reset the password
+and even send an email on our behalf! Great, isn’t it?</p>
+<p>We just need to pass an email address from the frontend.</p>
+<p>To achieve this, we will create a new screen to reset the
+password.</p>
+<p>So go ahead and create a new SwiftUI View and call it <code>ResetPasswordView</code>; we
+will call this <em>view</em> from our SignUpView as a pop-up.</p>
+<p>
+Before implementing the user interface, we will implement the function
+to reset our password, so head to <em>AuthViewModel</em>
+and implement the following code:
+
+</p>
+<pre>// function to reset password
+func resetPassword(emailAddress: String) {
+Auth.auth().sendPasswordReset(withEmail: emailAddress)
+}</pre>
+<p>This API from Firebase Auth will send a reset password email for
+us without implementing any backend code. We only need to pass the email
+from the frontend!</p>
+<p>Let’s now build the user interface for our screen. Head to <code>SignUpView</code> to make
+our reset password
+screen accessible.</p>
+<p>
+Start with a State variable to handle the pop-up presentation:
+
+</p>
+<pre>@State private var showingSheet = false</pre>
+<p>
+We will then add a button at the top left of our screen and place the
+following modifier, right above the <code>.NavigationTile</code>:
+
+</p>
+<pre>.toolbar {
+ToolbarItemGroup(placement: .cancellationAction) {
+Button {
+showingSheet.toggle()
+} label: {
+Text("Forgot password?")
+}
+.sheet(isPresented: $showingSheet) {
+ResetPasswordView()
+}
+}
+}</pre>
+<p>
+Great, now that we can access this screen, let’s implement the
+functionality and the user interface. Let’s add these few <code>State</code> variables first
+to the <code>ResetPasswordView.swift</code>
+file:
+
+</p>
+<pre>@State private var emailAddress: String = ""
+@EnvironmentObject var authModel: AuthViewModel
+@Environment(\.presentationMode) var presentationMode</pre>
+<p>These will be useful to connect our View Model, handling the
+email address we are passing and finally presenting our screen as a
+pop-up.</p>
+<p>
+Now, let’s implement a form to let the user provide their email:
+
+</p>
+<pre>NavigationStack {
+Form {
+Section {
+TextField("Email", text: $emailAddress)
+.textContentType(.emailAddress)
+.textInputAutocapitalization(.never)
+.keyboardType(.emailAddress)
+}
+Section(footer: Text("Once sent, check your email to reset your password.")) {
+Button(
+action: {
+authModel.resetPassword(emailAddress: emailAddress)
+}) {
+Text("Send email link").bold()
+}
+}
+}.navigationTitle("Reset password")
+.toolbar {
+ToolbarItemGroup(placement: .confirmationAction) {
+Button("Done") {
+presentationMode.wrappedValue.dismiss()
+}
+}
+}
+}</pre>
+<p>As usual, we used a simple and native iOS API to build our user
+interface, so the user is familiar with it. We use the button to execute
+the function we implemented in the View Model and another <code>button</code> inside the
+<code>toolbar</code> to
+close the form.</p>
+<p>Now, I invite you to go ahead, sign up with a real email, then log
+out, and check the reset
+password functionalities.</p>
+<p>
+Enter your password and click “Send email link” and then go your mailbox
+(also your spam) as follows:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig8_HTML.jpg" style="width:35.45em" aria-describedby="d64e1107"/>
+
+<p>3 screenshots of mobile screens for the reset password with send
+email link, reset your password for the project on the G mail app, and
+reset your password with an input box for new password and save
+button.</p>
+
+</p>
+
+<p>Figure 4-8</p>
+<p>Steps to follow to reset your password</p>
+
+
+<p>Once it is done, you can sign in again with your newly created password. Everything is
+handled by Firebase!</p>
+
+
+
+<h2 class="Heading">Secure the Firestore Database</h2>
+<p>Now that we have implemented a full user login flow, you might be
+wondering how to let the user access their own notes and not a
+collection accessible by everyone. That’s what we are going to do in
+this section. For that we need to reorganize our database structure.</p>
+<p>So far, it is composed of a collection called “Notes” that contains a
+series of documents that contain two string values: a text and an
+identifier.</p>
+<p>
+This iteration will be slightly more complex and will look as follows:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig9_HTML.jpg" style="width:26.58em" aria-describedby="d64e1147"/>
+
+<p>A block diagram of users with I D and email leads to notes with 2 I
+Ds and 2 texts to go shopping and call dad.</p>
+
+</p>
+
+<p>Figure 4-9</p>
+<p>Collection
+hierarchy of our iteration</p>
+
+
+<p>We will have a collection of users, and each user will have a
+subcollection of “Notes” containing a series of documents based on their
+input. It makes sense to operate with a subcollection since the user
+will be querying their own notes in our application.</p>
+<p>It is time to register our user and create the collection. For this
+we need to save user information upon signup. We will do just that in
+the <em>AuthViewModel</em>,
+in the signup function.</p>
+<p>
+First, let’s import the Firestore framework at the top:
+
+</p>
+<pre>import FirebaseFirestore</pre>
+<p>
+Now, we will replace the current signup function with a
+more complete one that features the saving of user information to
+Firestore:
+
+</p>
+<pre>func signUp(emailAddress: String, password: String) {
+Auth.auth().createUser(withEmail: emailAddress, password: password) { result,  error in
+if let error = error {
+print("DEBUG: error \(error.localizedDescription)")
+} else {
+print("DEBUG: Succesfully created user with ID \(self.user?.uid ?? "")")
+guard let uid = Auth.auth().currentUser?.uid else { return }
+Firestore.firestore().collection("Users").document(uid).setData(["email" : emailAddress, "uid": uid]) { err in
+if let err = err {
+print(err)
+return
+}
+print("Success")
+}
+}
+}
+}</pre>
+<p>Great, now if there are no errors while signing up, we are saving our
+user information (email and identifier) under the collection “Users”; we
+are also debugging that in our console to check if the identifiers
+match.</p>
+<p>Only one step is missing, editing the path of our database, so when
+you write a note, it is saved under your own user collection and not a
+top-level collection anymore.</p>
+<p>
+But, first, let’s clean up our Firestore database. Go ahead and delete
+the collection as follows:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig10_HTML.jpg" style="width:35.45em" aria-describedby="d64e1270"/>
+
+<p>2 screenshots of the firebase windows for cloud firestore. The cloud
+firestore pane on the right of the first screenshot highlights the
+delete collection button and an arrow points to the delete button on the
+delete this collection? dialog box on the next one.</p>
+
+</p>
+
+<p>Figure 4-10</p>
+<p>Deleting a Firestore collection</p>
+
+
+<p>
+Now, we can change the current path
+
+</p>
+<pre>private var databaseReference = Firestore.firestore().collection("Notes") // reference to our collection</pre>
+<p>
+to this one:
+
+</p>
+<pre>private lazy var databaseReference: CollectionReference? = {
+guard let user = Auth.auth().currentUser?.uid else {return nil}
+let ref = Firestore.firestore().collection("Users").document(user).collection("Posts")
+return ref
+}()</pre>
+<p>
+We also need to import the Firebase Auth
+framework at the top of the <code>NoteViewModel.swift</code>
+file since we are checking the corresponding user identifier before
+moving forward:
+
+</p>
+<pre>import FirebaseAuth</pre>
+<p>Also, add a <em><strong>?</strong></em> after the database reference
+since we make it optional for safety.</p>
+<p>You can now have fun and sign up a brand-new user and write a few
+notes. Then your database will look like the following path:</p>
+<p>
+<em><strong>Users</strong></em> (collection) ➤ document ➤
+<em><strong>Posts</strong></em> (collection) ➤ document
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig11_HTML.png" style="width:35.45em" aria-describedby="d64e1359"/>
+
+<p>3 screenshots of 2 mobile screens and the cloud firestore pane on
+firebase. The screens have the welcome and notes sections. The pane
+highlights the posts with 1 document under the data tab.</p>
+
+</p>
+
+<p>Figure 4-11</p>
+<p>Screenshots of the Firestore database
+matching our frontend data</p>
+
+
+
+<h3 class="Heading">Security Rules</h3>
+<p>One last step is missing, securing our database from the Rules section.</p>
+<p>So far, we are in development mode, which means everybody can read
+and write documents until 30 days after the creation of the
+database.</p>
+<p>Since this Note application is private, we want to limit the ability
+to read and write data to authenticated users only, within their own
+user collection.</p>
+<p>
+Go to the Firestore database ➤ Rules and type the followings rules in
+the console:
+
+</p>
+<pre>rules_version = '2';
+service cloud.firestore {
+match /databases/{database}/documents {
+match /Users/{uid}/{document=**} {
+allow read, write: if uid == request.auth.uid;
+}
+}
+}</pre>
+<p>
+Then, click Publish:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_4_Chapter/533376_1_En_4_Fig12_HTML.jpg" style="width:35.45em" aria-describedby="d64e1419"/>
+
+<p>A screenshot of the firebase window has the project overview panel on
+the left and the cloud firestore pane on the right. The panel highlights
+firestore database. The pane highlights the rules tab and publish button
+via the edit rules button.</p>
+
+</p>
+
+<p>Figure 4-12</p>
+<p>Editing rules in the Firestore database</p>
+
+
+<p>This code that we implemented will tell our database to restrict the
+access of our data to authenticated users only where their data match
+their identifier that was created when they signed up.</p>
+<p>In practice, a user can only read, post, and edit their own notes. It
+is a crucial step before releasing any application to production as our
+previous rules
+would allow anyone on the Internet to access everyone’s documents and
+user information.</p>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>With this chapter, we implemented a full authentication process with
+real-world business logic. Thanks to the Firebase SDK, we didn’t even
+need to create our Model since FIRUser already provided us the necessary
+information.</p>
+<p>We were able to post users’ credentials to Firebase and match them
+against the response from the server, as well as implementing a password
+recovery with only one line of code!</p>
+<p>Thanks to their listener APIs, we were also able to determine when a
+user session is active or terminated and present the appropriate
+screen.</p>
+<p>With this being done, we have a fully working application, ready to
+be shipped on the App Store! It is now time to head to the next chapter
+with a brand-new application to build!</p>
+<p>
+If you lost something on the way, find in the following a link to the
+repository of the application:
+
+</p>
+
+<ul>
+<li><p><a href="https://drive.google.com/drive/folders/1UWZ4IDw5J81SxIjpjKd5QiSa5jR4mVHC%253Fusp%253Dshare_link"><em><strong>https://drive.google.com/drive/folders/1UWZ4IDw5J81SxIjpjKd5QiSa5jR4mVHC?usp=share_link</strong></em></a></p></li>
+</ul>
+
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">5. Advanced Firestore</h1>
+
+
+<!--End Abstract-->
+
+
+<h2 class="Heading">Introducing Our New Project</h2>
+<p>Since we completed a note-taking application, we are now more
+comfortable with SwiftUI and the Firebase console. It is
+time to create a new application, this time with more complexity: there
+will be a feed view like that of famous social media platforms
+such as Instagram, a search feature, and a profile section where you can
+view your posts, and there is the ability to sign in seamlessly with
+your Apple account.</p>
+<p>This chapter will focus on how to structure our database using
+Firestore, and I will introduce you to a larger model with more document
+types. By the end of it, you will be able to post and read a feed view
+and display a picture, a description, and a date when it is posted.</p>
+<p>
+Here is what our application will look like:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig1_HTML.png" style="width:35.48em" aria-describedby="d64e152"/>
+
+<p>3 screenshots of the mobile screens for the profile, feed, and post
+with various options.</p>
+
+</p>
+
+<p>Figure 5-1</p>
+<p>Screenshots of our application</p>
+
+
+<p>
+Since there are many screens to be created, I prepared a starter file
+that you can download at the following link:
+
+</p>
+
+<ul>
+<li><p><a href="https://drive.google.com/drive/folders/1fXNQwIOKj9AhIxHQxWlWxjorLpp1mKs5%253Fusp%253Dshare_link"><em>https://drive.google.com/drive/folders/1fXNQwIOKj9AhIxHQxWlWxjorLpp1mKs5?usp=share_link</em></a></p></li>
+</ul>
+
+<p>
+This file already has the following Swift packages installed:
+
+</p>
+
+<ul>
+<li><p><em>FirebaseAuth</em></p></li>
+<li><p><em>FirebaseFirestore</em></p></li>
+<li><p><em>FirebaseFirestoreSwift</em></p></li>
+<li><p><em>FirebaseStorage</em></p></li>
+</ul>
+
+<p>
+Now, I invite you to start a new Firebase project. Click Add project and
+call it <em>Socially</em>:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e203"/>
+
+<p>A screenshot of the firebase window titled, your firebase projects.
+It has options to add a project and select the Note, with an option to
+explore a demo project below.</p>
+
+</p>
+
+<p>Figure 5-2</p>
+<p>Starting a new project in Firebase</p>
+
+
+
+<h3 class="Heading">Why Are We Creating a New Firebase Project?</h3>
+<p>
+It is important to
+differentiate an application and a Firebase project. Overall, you should
+put in the same Firebase project applications that have a common
+business logic. Let’s say you are building a competitor of User, the
+taxi ride
+application. As you want to reach a large market, you will be
+publishing on iOS and Android; therefore, you might be building four
+applications, two for the drivers and two for the riders on each
+platform. Since booking on Android or iOS is the same process on the
+backend, you can consider doing everything under the same Firebase
+project. Then, you will have something like this:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig3_HTML.jpg" style="width:20.68em" aria-describedby="d64e238"/>
+
+<p>A block diagram of a firebase project points to 2 apps for drivers
+and riders each, for android and i O S.</p>
+
+</p>
+
+<p>Figure 5-3</p>
+<p>Firebase project and applications</p>
+
+
+<p>Since, in our new project, we don’t really share anything with the
+note-taking application, we are creating a new Firebase project.</p>
+<p>Now, follow the step-by-step setup on the Firebase
+console and grab the <em>GoogleService-Info.plist</em> file and add it to the
+starter project. Once you have added the file and finished the five
+steps on the Firebase console, you can successfully run your project and
+connect to the Firebase backend.</p>
+<p>
+Now that we have set up our project, let’s code. As usual, we will start
+with our Model, create a new Swift file inside the <em>Model</em>
+folder, call it <em>Post</em>, and then copy/paste the following code:
+
+</p>
+<pre>import SwiftUI
+import FirebaseFirestoreSwift
+struct Post: Identifiable, Decodable {
+@DocumentID var id: String?
+var description: String?
+var imageURL: String?
+@ServerTimestamp var datePublished: Date?
+}</pre>
+<p>
+So our Model that will be used for our Feed section is going to be
+composed of an identifier, a description, an image, and a date on
+which it has been published. The <em>@ServerTimestamp</em>
+comes from the Firebase APIs and gives us access to the server time.
+Then, the type Date is preferable to post a date.
+<blockquote>
+<p><em>Please, note that the image will be treated in our next chapter
+on Firebase Storage.</em></p>
+</blockquote>
+</p>
+<p>
+Let’s dive into the View
+Model. Create a new file in the <em>View Model</em> folder and
+call it <em>PostViewModel</em>
+and then import these two frameworks at the top:
+
+</p>
+<pre>import SwiftUI
+import FirebaseFirestore</pre>
+<p>
+We can create our class with our reference
+to the Model we created earlier and to our Firestore database:
+
+</p>
+<pre>class PostViewModel: ObservableObject {
+@Published var posts = [Post]()
+private var databaseReference = Firestore.firestore().collection("Posts")
+// Function to post data
+}</pre>
+<p>
+And finally, here is our function to post data to
+the server:
+
+</p>
+<pre>// function to post data
+func addData(description: String, datePublished: Date) async {
+do {
+_ = try await databaseReference.addDocument(data: [ "description": description, "datePublished": datePublished])
+} catch {
+print(error.localizedDescription)
+}
+}</pre>
+<p>This View Model
+is similar to what we have already done in Chapter <a href="#533376_1_En_3_Chapter.xhtml">3</a>, except that we are using the
+async/await method this time. You might be wondering what these keywords
+are for.</p>
+
+
+
+<h2 class="Heading">Call the Backend with Async/Await</h2>
+<p>In our application, we are
+uploading a few things – a picture and a description – and we are saving
+the date and time. The problem is the following: the data can take time
+to be uploaded to the server, especially if the picture is large.</p>
+<p>Therefore, if we do a classic call, our user might be left on the
+screen for a few seconds while the picture is being uploaded to the
+database. This is not a great user experience. That’s why we are using
+this method, so the call is asynchronous, and the user can safely
+navigate and await. While they are doing something else, the code is
+executed in the background.</p>
+<p>
+Now that we have implemented our function to post, let’s
+try it out! Head to the <em>PostView</em> file (already created in
+the starter project) and make a link with our View Model:
+
+</p>
+<pre>@ObservedObject private var viewModel = PostViewModel()</pre>
+<p>
+Then we simply call it inside the button where I left the comment:
+
+</p>
+<pre>// MARK: Post data to Firestore
+Task {
+await self.viewModel.addData(description:   description, datePublished: Date())
+}</pre>
+<p>As you can see, we are saving the text input from the user. Regarding
+the date, we are passing <em>Date()</em>, which is taking the current
+iPhone date. For
+now, we don’t do anything with the image since it is going to be the
+topic of our next chapter on Firebase Storage.</p>
+<p>Additionally, we put the function inside a
+<em>Task</em>, which is necessary to be able to use the <em>await</em>
+key to inform our program that we must run this code in the background
+since it can take time to upload.</p>
+<p>
+Now our frontend is ready to post data to the backend, but we still
+haven’t set up Firestore to receive data. Head to the Firebase console,
+section Firestore Database, and click <em>Create database.</em> As with
+Chapter <a href="#533376_1_En_3_Chapter.xhtml">3</a>, enable the database in test mode:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e550"/>
+
+<p>A screenshot of a firebase window has the create database dialog box
+in the center. It has radio buttons to start in production mode and
+start in test mode with test mode selected and lines of code on the
+right. Buttons to cancel and next are at the bottom right.</p>
+
+</p>
+
+<p>Figure 5-4</p>
+<p>Firestore – creating a database</p>
+
+
+<p>
+Then, we can run the application and try to
+post a comment. You should have it on your database:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig5_HTML.jpg" style="width:35.45em" aria-describedby="d64e575"/>
+
+<p>2 screenshots of a mobile screen and the cloud firestore pane on
+firebase. The screen has a post section with text, hello there. The pane
+has the posts option and a document highlighted under the data tab in
+the panel view.</p>
+
+</p>
+
+<p>Figure 5-5</p>
+<p>Firebase Firestore
+console and application running</p>
+
+
+<p>Great, we have published data to Firestore with a text and the
+current date from our iPhone. It is now time to
+present this data that we just added.</p>
+<p>
+For this, we will use a nice Firebase wrapper. First, add the following
+framework in the <em>FeedView</em>:
+
+</p>
+<pre>import FirebaseFirestoreSwift</pre>
+<p>
+Then, add the following code in the <em>FeedView</em>, right over the
+body variable:
+
+</p>
+<pre>@FirestoreQuery(collectionPath: "Posts")
+var posts: [Post]</pre>
+<p>This way, we don’t even need to implement a function inside our View Model. This is a great
+feature from Firebase APIs. It allows us to fetch data with only one
+line of code by just passing our Model together with the name we used
+for our Firebase
+collection.</p>
+<p>
+Replace the current list in the <code>FeedView</code> with
+the following one:
+
+</p>
+<pre>List(posts) { posts in
+VStack(alignment: .leading) {
+VStack {
+Text(posts.description ?? "")
+.font(.headline)
+.padding(12)
+Text("Published on the \(posts.datePublished?.formatted() ?? "")")
+.font(.caption)
+}
+}.frame(minHeight: 100, maxHeight: 350)
+}</pre>
+<p>The <em>formatted()</em> modifier allows us to transform a
+data of type Date to <code>String</code>. This way, we
+can easily display a date in our application.</p>
+<p>
+You can now run your application, and this will present the posts that
+you posted in a nice list.
+
+</p>
+
+<p>
+<img src="images/533376_1_En_5_Chapter/533376_1_En_5_Fig6_HTML.jpg" style="width:35.45em" aria-describedby="d64e700"/>
+
+<p>A screenshot of a window has the feed view selected from the panel on
+the left. It has several lines of code in the pane under socially on the
+right and a mobile screen with a hello there message on the extreme
+right.</p>
+
+</p>
+
+<p>Figure 5-6</p>
+<p>Figure of the list</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter was pretty like Chapter <a href="#533376_1_En_3_Chapter.xhtml">3</a> with a large model and an
+introduction to a new property wrapper from Firebase that made our life
+much easier.</p>
+<p>We have seen how to handle not only data of type String but also Date.
+But we are not done with Firestore yet!</p>
+<p>In this next chapter, we will still be using it to retrieve an image
+after we have uploaded it to our Storage. Let’s discover how to handle
+large assets with Firebase.</p>
+<p>
+You can have a look at the project at the following link, if you have
+lost something on the way:
+
+</p>
+
+<ul>
+<li><p><a href="https://drive.google.com/drive/folders/1_qrKo171QkgGHMuX4vDsbPzi36xoXci4%253Fusp%253Dshare_link"><em>https://drive.google.com/drive/folders/1_qrKo171QkgGHMuX4vDsbPzi36xoXci4?usp=share_link</em></a></p></li>
+</ul>
+
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">6. Manage Pictures with Firebase
+Storage</h1>
+
+
+<!--End Abstract-->
+
+<p>We are looking to include pictures in our posts. The problem is the
+following: <em>Firestore</em> doesn’t support such large documents. We
+can only add text,
+numbers, arrays, Booleans, timestamps, etc.</p>
+<p>Therefore, Firebase introduced Storage. This is a
+package that lets us upload and download large data such as video,
+images, and audio documents. Through this chapter, we are going to see
+how to upload a picture to Firebase Storage,
+retrieve the URL where this picture is, and add it to the corresponding
+Firestore
+document.</p>
+<p>Over this chapter, we will explore how to access the iPhone photo library,
+upload the picture to Storage, and retrieve it inside the Firestore
+backend. Let’s get started!</p>
+
+<h2 class="Heading">Access the iPhone Camera and Library</h2>
+<p>Before uploading a picture, we first need
+to take one or, at least, let the user access the photo library from our
+application. In iOS 16, Apple introduced a new framework for SwiftUI:
+PhotosUI, which
+will let us select a picture with only a few lines of code.</p>
+<p>
+Head to the <em>PostView</em> file, and import the
+framework:
+
+</p>
+<pre>import PhotosUI</pre>
+<p>
+Once we have access to the framework, we can get access to <em>PhotosPickerItem</em>.
+Let’s add the following two variables over the body variable:
+
+</p>
+<pre>@State var data: Data?
+@State var selectedItem: [PhotosPickerItem] = []</pre>
+<p>The first variable is to observe the data we pass while selecting a
+picture. The second variable will let us observe what item the user is
+selecting (which picture).</p>
+<p>
+It’s now time to implement the user interface.
+Implement the following section inside the SwiftUI <em>Form of the
+PostView</em>, right over the two other sections already implemented:
+
+</p>
+<pre>Section {
+PhotosPicker(selection: $selectedItem, maxSelectionCount: 1, selectionBehavior: .default, matching: .images, preferredItemEncoding: .automatic) {
+if let data = data, let image = UIImage(data: data) {
+Image(uiImage: image)
+.resizable()
+.scaledToFit()
+.frame( maxHeight: 300)
+} else {
+Label("Select a picture", systemImage: "photo.on.rectangle.angled")
+}
+}.onChange(of: selectedItem) { newValue in
+guard let item = selectedItem.first else {
+return
+}
+item.loadTransferable(type: Data.self) { result in
+switch result {
+case .success(let data):
+if let data = data {
+self.data = data
+}
+case .failure(let failure):
+print("Error: \(failure.localizedDescription)")
+}
+}
+}
+}</pre>
+<p>
+Here, we are doing a few things. We are adding the <em>PhotosPicker</em>
+that lets us access the user library. We are passing
+a few things:
+
+</p>
+
+<ul>
+<li><p>selection –
+This is the item variable earlier.</p></li>
+<li><p>maxSelectionCount – We
+give the ability to only select one picture.</p></li>
+<li><p>matching –
+From there you can pass a series of things: only video, only images,
+just screenshots, etc. Here we will focus on images only.</p></li>
+<li><p>preferredItemEncoding –
+Here we left it to automatic, so the system will decide itself which
+resolution is better.</p></li>
+</ul>
+
+<p>Then we created a label if there is no image selected; otherwise, we
+display the selected image.</p>
+<p>That’s it to access the photo library and display the
+image selected. The new APIs have made it easy for us to implement this
+feature. Prior to iOS
+16, it was necessary to request authorization and implement some
+code and capabilities in Xcode. Here, Apple is handling everything, making it
+easier for us. You can try it out from the <em>PostView</em>.</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig1_HTML.jpg" style="width:35.45em" aria-describedby="d64e383"/>
+
+<p>3 screenshots of mobile screens for the post with select a picture
+option, photos and albums with a 6 pictures, and post with 1 selected
+picture.</p>
+
+</p>
+
+<p>Figure 6-1</p>
+<p>Uploading a picture from the library</p>
+
+
+
+
+<h2 class="Heading">Upload Pictures to Firebase Storage</h2>
+<p>Now that we have access to the pictures, it is time to upload this
+data in Firebase Storage. Let’s head to
+the Firebase console and select Storage.</p>
+<p>As usual, we need to do a bit of setup. Click <em>“Get started”</em>
+on the following screen:</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e410"/>
+
+<p>A screenshot of a firebase window has the storage option selected
+from the panel on the left. On the right is the socially storage pane
+with its description, get started button, and learn more options.</p>
+
+</p>
+
+<p>Figure 6-2</p>
+<p>“Get started” from Firebase Storage</p>
+
+
+<p>Next, you can select the test mode since we are going
+to secure the database at the end of our development phase:</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig3_HTML.jpg" style="width:35.45em" aria-describedby="d64e429"/>
+
+<p>A screenshot of a firebase window has the set-up cloud storage dialog
+box in the center. It has radio buttons to start in production mode and
+start in test mode. The start in test mode is selected with several
+lines of codes on the right and the cancel and next buttons at the
+bottom right.</p>
+
+</p>
+
+<p>Figure 6-3</p>
+<p>Development mode</p>
+
+
+<p>Great, we are now ready to receive large assets from our application
+to the Firebase backend. Let’s go back to code! Head to
+the <em>PostViewModel</em> file.</p>
+<p>
+Import the Storage framework at the top of the file:
+
+</p>
+<pre>import FirebaseStorage</pre>
+<p>
+As usual, we need a reference to the database. Add the following line of
+code:
+
+</p>
+<pre>let storageReference = Storage.storage().reference().child("\(UUID().uuidString)")</pre>
+<p>We need to implement this code to have a reference. We are using the
+storage APIs, and we are passing a Swift powerful feature: UUID. It basically
+creates a unique identifier every time it is called. This way, every
+time we upload an asset, we will have a different identifier for every
+single asset.</p>
+<p>
+Now that we have a reference, we need to implement the
+function to upload an asset. Let’s first add an additional parameter in
+the following function we created in
+the previous chapter:
+
+</p>
+<pre>func addData(description: String, datePublished: Date)</pre>
+<p>
+Replace the preceding function with the following:
+
+</p>
+<pre>func addData(description: String, datePublished: Date, data: Data)</pre>
+<p>Great, now we can add the function to upload the
+data and download the URL where this image is stored.</p>
+<p>
+Replace the current function <em>addData()</em> with the following:
+
+</p>
+<pre>func addData(description: String, datePublished: Date, data: Data) async {
+do {
+_ = try await
+storageReference.putData(data, metadata: nil) { (metadata, error) in
+guard let metadata = metadata else {
+return
+}
+self.storageReference.downloadURL { (url, error) in
+guard let downloadURL = url else {
+// Uh-oh, an error occurred!
+return
+}
+self.databaseReference.addDocument(data: [ "description": description, "datePublished": datePublished, "imageURL": downloadURL.absoluteString])
+}
+}
+} catch {
+print(error.localizedDescription)
+}
+}</pre>
+<p>
+Here we have added two important functions:
+
+</p>
+
+<ul>
+<li><p>putData –
+This basically takes the asset we have selected and upload it to the
+Firebase backend.</p></li>
+<li><p>downloadURL
+– This is responsible for grabbing the URL where the asset has been in
+the Firebase backend. This way, we are using this URL while passing the
+data to Firestore
+with <em>downloadURL.absoluteString</em>.</p></li>
+</ul>
+
+
+
+<h2 class="Heading">Integrate Large Documents with Firestore</h2>
+<p>Let’s now call the function so we can upload documents to Firebase
+Storage in our View. Head to the <em>PostView</em> file.</p>
+<p>
+You will see a warning telling you that you are missing a parameter
+named data. Let’s correct that by replacing the call with the following
+one, which includes the data parameter:
+
+</p>
+<pre>await self.viewModel.addData(description: description, datePublished: Date(), data: data!)</pre>
+<p>
+With the exclamation mark, we are saying in our program that we should
+have this data. Therefore, we need to prevent the user from clicking the
+button if there are no images selected. So add the following modifier
+after the button last graph:
+
+</p>
+<pre>.disabled(data == nil)</pre>
+<p>Great, now our function includes all
+that we need to upload a picture. You can go ahead and write another
+post, writing a description and selecting a picture. After this, check
+the Storage
+console. You should have the following:</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e695"/>
+
+<p>2 screenshots of a mobile screen and the firebox window. The screen
+has a post section with a photo of a landscape. The window has the
+storage pane on the right with an option highlighted on the right panel
+under files and the upload file button above.</p>
+
+</p>
+
+<p>Figure 6-4</p>
+<p>Firebase Storage – new upload</p>
+
+
+<p>Our application
+has successfully uploaded an asset to the Firebase Storage
+backend. You can click the link on the right. It will open a new URL,
+downloading the picture we just uploaded. We basically put this data in
+a bucket, which generates a unique URL to store it.</p>
+<p>Also, a unique identifier is generated from the frontend, thanks to
+the <em>UUID().uuidString</em> feature, that we use as
+a document reference.</p>
+<p>Now, have a look at the Firebase Firestore
+document that you just uploaded:</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig5_HTML.jpg" style="width:35.45em" aria-describedby="d64e738"/>
+
+<p>A screenshot of a firebase window has the firestore database option
+selected from the panel on the left. The cloud firestore pane on the
+right has the data tab selected with posts and a document highlighted in
+the panel view.</p>
+
+</p>
+
+<p>Figure 6-5</p>
+<p>Firebase Firestore – new document uploaded</p>
+
+
+<p>As you can see, we have a URL saved as a string
+under the field <em>imageURL</em>.</p>
+<p>
+If you pay close attention, the URL is composed like
+this:
+
+</p>
+
+<ul>
+<li><p><a href="https://firebasestorage.googleapis.com"><em>https://firebasestorage.googleapis.com</em></a>
+<em>/ [our project reference] / [the identifier we
+generated]</em></p></li>
+</ul>
+
+<p>Once it is uploaded to Storage, this URL is downloaded with <em>storageReference.downloadURL</em>
+and added to our Firestore collection<em>.</em></p>
+<p>Fantastic! Now we can go ahead and read that image URL in our feed.
+To achieve that, we will use the SwiftUI <em>AsyncImage</em> modifier.</p>
+<p>
+Add the following code in the <em>FeedView</em>, right
+over our two texts inside the <em>List</em>:
+
+</p>
+<pre>AsyncImage(url: URL(string: posts.imageURL ?? "")) { phase in
+switch phase {
+case .empty:
+EmptyView()
+case .success(let image):
+image           .resizable()          .frame(width: 300, height: 200)             case .failure:
+Image(systemName: "photo")
+@unknown default:
+EmptyView()
+}
+}</pre>
+<p>This code is useful to get an image from a URL. <em>AsyncImage</em>
+already handles
+the asynchronous call. We also pass an <em>EmptyView</em> in
+case the server is returning no image.</p>
+<p>We now have our feed
+screen created matching the documents we have in Firestore:</p>
+
+<p>
+<img src="images/533376_1_En_6_Chapter/533376_1_En_6_Fig6_HTML.png" style="width:35.45em" aria-describedby="d64e899"/>
+
+<p>2 screenshots of a mobile screen and a firebase window. The screen
+has a feed section with 2 photos. The window has the cloud firestore
+pane on the right with the data tab selected and posts and a document
+highlighted in the panel view.</p>
+
+</p>
+
+<p>Figure 6-6</p>
+<p>Our feed screen
+displaying documents from Firestore</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>Through this chapter, we have implemented a SwiftUI photo picker
+with only a few lines of code. We then extracted the data picked by the
+user and stored it. Following this, we introduced Firebase Storage and
+stored the file in a bucket with a unique link. Then, we downloaded the
+URL where the data was stored to add it to our Firestore document.</p>
+<p>Thanks to this process, we can enrich our application with assets. We
+could even have used video like successful social media sites such
+as <em>TikTok</em> and <em>Instagram</em>.</p>
+<p>
+Please, find at the following link the source code of this chapter:
+
+</p>
+
+<ul>
+<li><p><a href="https://drive.google.com/drive/folders/19cPyxU8AYdW_80bUZOhxryLBLPx8qtRQ%253Fusp%253Dshare_link"><em>https://drive.google.com/drive/folders/19cPyxU8AYdW_80bUZOhxryLBLPx8qtRQ?usp=share_link</em></a></p></li>
+</ul>
+
+<p>It is now time to head to our next chapter: implementing the login
+flow. This time, we will use “Sign in with Apple.”</p>
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">7. Authenticate with Apple</h1>
+
+
+<!--End Abstract-->
+
+<p>Over this chapter, we will go back to Firebase Auth, but this time we
+are going to implement a better user experience. Instead of requiring
+email and password, we will be presenting “Sign in with Apple.”</p>
+<p>Additionally, we will let the user access our application even if
+they don’t have an account, and we will restrict the ability to post to
+registered users only with Firestore rules, in the next chapter.</p>
+<p>This logic will look like the following:</p>
+
+<p>
+<img src="images/533376_1_En_7_Chapter/533376_1_En_7_Fig1_HTML.png" style="width:32.95em" aria-describedby="d64e144"/>
+
+<p>3 screenshots of mobile screens with the profile page. The logged out
+screen has a create an account text with sign up button. Logged in
+screen has an, you account field and a logout button.</p>
+
+</p>
+
+<p>Figure 7-1</p>
+<p>Logic of the signup flow</p>
+
+
+
+<h2 class="Heading">Set Up the Project and “Sign in with Apple”</h2>
+<p>Sign in with Apple has been introduced
+with iOS 13 and allows the user to use their Apple ID (the one they
+generally use for iCloud or App Store purchases) for signing up to your
+application. It is highly recommended to add it since it’s more
+user-friendly, there’s no need to remember a password, you sign up in
+one click, and the user can hide the email with Apple private relay. As
+always, it is a great privacy enhancement provided by Apple.</p>
+<p>How does it work with Firebase?</p>
+<p>Firebase provides an API to work with Apple sign-in, to sign up a
+user. It will make the call to the Apple server to verify the
+identity, furnish a callback response to Firebase that will register our
+user in the database, and send back to us a response stating that the
+signup has been successful or unsuccessful if it has returned any
+errors.</p>
+<p>As with email and password, we still have access to the User object
+provided by Firebase. So we can go ahead and implement the
+function in the View Model and then the native Apple button in the user
+interface.</p>
+
+
+Important note
+
+<p>To work with Sign in with Apple, you need an Apple developer account,
+which costs $99 a year. If you don’t want to sign up for a developer
+account, you can still follow this chapter. You simply need to use the
+signup and sign-in code with the email and password that I left as
+commented in the starter file.</p>
+
+<p>First, we need to add the capabilities to use Sign
+in with Apple. Head to the main target. Under Signing &amp;
+Capabilities, search for “<em>Sign in with Apple</em>” and then press
+Enter as follows:</p>
+
+<p>
+<img src="images/533376_1_En_7_Chapter/533376_1_En_7_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e210"/>
+
+<p>A screenshot of a window has a sign-in with Apple dialog box. It has
+the socially and signing and capabilities options highlighted with
+bounding boxes. A text reads, it allows users to authenticate with their
+Apple I D.</p>
+
+</p>
+
+<p>Figure 7-2</p>
+<p>Xcode ➤ Signing &amp; Capabilities – Sign in with Apple</p>
+
+
+<p>If it doesn’t appear on the search, you might have
+your membership or a certificate expired. Check your Apple developer
+account.</p>
+<p>Now that we have set up Sign in with Apple in Xcode, it is time to
+add it on the Firebase console. Head to your console and click “Get
+started.” For the sign-in method, select Apple, enable, and save.</p>
+
+<p>
+<img src="images/533376_1_En_7_Chapter/533376_1_En_7_Fig3_HTML.jpg" style="width:35.45em" aria-describedby="d64e240"/>
+
+<p>2 screenshots of the authentication windows. One has Apple
+highlighted with a bounding box under the sign-in method. The other has
+the enable slider and the save button highlighted with bounding boxes
+for Apple.</p>
+
+</p>
+
+<p>Figure 7-3</p>
+<p>Firebase console – enabling Sign in with Apple</p>
+
+
+<p>We have now completed all the setup to work with Sign in with Apple.
+Now it is time to code. Let’s head to our View Model to implement
+the necessary functions to work with Sign in with Apple.</p>
+
+
+<h2 class="Heading">Integrate “Sign in with Apple”</h2>
+<p>
+It’s now time to code. The first thing to
+do is to head to <em>AuthViewModel</em>
+and import the necessary framework to work with Apple authentication:
+
+</p>
+<pre>import AuthenticationServices
+import CryptoKit</pre>
+<p>The framework <em>AuthenticationServices</em> is necessary to talk
+with the Apple server, and CryptoKit lets us create
+a cryptography key that allows us to pass the data in a secure way.</p>
+<p>
+Now, go to the <em>AuthViewModel</em> file, and add these two
+variables:
+
+</p>
+<pre>@Published var user: User?
+var currentNonce: String?</pre>
+<p>We are using the User object from the Firebase Auth framework
+again and a <em>String</em> that we will use to generate a unique key to
+pass our data.</p>
+<p>
+Now, you can implement the following
+two functions:
+
+</p>
+<pre>func randomNonceString(length: Int = 32) -&gt; String {
+precondition(length &gt; 0)
+let charset: [Character] =
+Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+var result = ""
+var remainingLength = length
+while remainingLength &gt; 0 {
+let randoms: [UInt8] = (0 ..&lt; 16).map { _ in
+var random: UInt8 = 0
+let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &amp;random)
+if errorCode != errSecSuccess {
+fatalError(
+"Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+)
+}
+return random
+}
+randoms.forEach { random in
+if remainingLength == 0 {
+return
+}
+if random &lt; charset.count {
+result.append(charset[Int(random)])
+remainingLength -= 1
+}
+}
+}
+return result
+}</pre>
+<p>
+Great! We have now completed all this first piece. This piece of code is
+suggested by the Firebase
+documentation. It is useful to create
+a node for passing the data from the frontend to the Apple server. Also
+add the following function:
+
+</p>
+<pre>func sha256(_ input: String) -&gt; String {
+let inputData = Data(input.utf8)
+let hashedData = SHA256.hash(data: inputData)
+let hashString = hashedData.compactMap {
+String(format: "%02x", $0)
+}.joined()
+return hashString
+}</pre>
+<p>This one is to implement the SHA-256 protocol, a world-class
+cryptography protocol used also in the Bitcoin blockchain, for
+example. Now that we have added the function, we can go ahead to the
+View: <em>SignUpView</em>.</p>
+<p>
+At the top of the file, import the following framework to access the
+Apple sign-in button and Firebase authentication:
+
+</p>
+<pre>import AuthenticationServices
+import FirebaseAuth
+import FirebaseFirestore</pre>
+<p>
+Then, observe our View
+Model by
+adding this code over the <em>body</em> variable:
+
+</p>
+<pre>@ObservedObject private var authModel = AuthViewModel()</pre>
+<p>
+We can now implement the following code in the <em>SignUpView</em>,
+inside the <em>VStack</em>:
+
+</p>
+<pre>SignInWithAppleButton(onRequest:  { request in
+let nonce = authModel.randomNonceString()
+authModel.currentNonce = nonce
+request.requestedScopes = [.email]
+request.nonce = authModel.sha256(nonce)
+},
+onCompletion: { result in
+//Completion
+switch result {
+case .success(let authResults):
+switch authResults.credential {
+case let appleIDCredential as ASAuthorizationAppleIDCredential:
+guard let nonce = authModel.currentNonce else {
+fatalError("Invalid state: A login callback was received, but no login request was sent.")
+}
+guard let appleIDToken = appleIDCredential.identityToken else {
+fatalError("Invalid state: A login callback was received, but no login request was sent.")
+}
+guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+return
+}
+let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
+Auth.auth().signIn(with: credential) { (authResult, error) in
+if (error != nil) {
+print(error?.localizedDescription as Any)
+return
+}
+print("signed in")
+guard let user = authResult?.user else { return }
+let userData = [
+"email": user.email, "uid": user.uid ]
+Firestore.firestore().collection("User")
+.document(user.uid)
+.setData(userData) { _ in
+print("DEBUG: Did upload user data.")
+}
+}
+print("\(String(describing: Auth.auth().currentUser?.uid))")
+default:
+break
+}
+default:
+break
+}
+}
+).signInWithAppleButtonStyle(.black)
+.frame(width: 290, height: 45, alignment: .center)</pre>
+<p>We just implemented the native Sign in with Apple
+button in which we are passing the credentials handled by the user
+through the Apple service. We are also checking if the credentials are
+being passed correctly with the <em>guard let</em> statements.</p>
+<p>
+Since we are going to present this
+<em>SignUpView</em> from the
+<em>ProfileView</em>, we need to handle the
+presentation from there. We need to incorporate a logic to show the
+signup screen when there is no user and display user info when they have
+signed up. For this, we need to head to <em>AuthViewModel</em> and
+integrate these two functions:
+
+</p>
+<pre>func listenToAuthState() {
+Auth.auth().addStateDidChangeListener { [weak self] _, user in
+guard let self = self else {
+return
+}
+self.user = user
+}
+}</pre>
+<p>
+This will help us listen for changes from the
+Firebase Auth framework. We also need to implement the logout function:
+
+</p>
+<pre>func signOut() {
+do {
+try Auth.auth().signOut()
+} catch let signOutError as NSError {
+print("Error signing out: %@", signOutError)
+}
+}</pre>
+<p>
+Great! Now we can build the user interface in the
+<em>ProfileView</em>. Let’s observe this
+Boolean for handling the presentation and our <em>ViewModel</em> of the
+<em>SignUpView</em>:
+
+</p>
+<pre>@State private var showSignUp: Bool = false @ObservedObject private var authModel = AuthViewModel()</pre>
+<p>
+And add the following code inside the <em>body</em> variable:
+
+</p>
+<pre>VStack(alignment: .center) {
+if authModel.user != nil {
+Form {
+Section("you account") {
+Text(authModel.user?.email ?? "")
+}
+Button {
+authModel.signOut()
+}  label: {
+Text("logout")
+.foregroundColor(.red)
+}
+}
+} else {
+Form {
+Section("you account") {
+Text("Seem's like you are not logged in, create an account")
+}
+Button {
+showSignUp.toggle()
+} label: {
+Text("Sign Up")
+.foregroundColor(.blue)
+.bold()
+}.sheet(isPresented: $showSignUp) {
+SignUpView().presentationDetents([.medium, .large])
+}
+}
+}
+}.onAppear { authModel.listenToAuthState() }</pre>
+<p>Now our UI is ready, presenting the email of the user when logged in
+or a button where there is no session detected by the Firebase server. We are going to pass
+all that we need to the Apple server.</p>
+<p>
+What can we expect from the response?
+
+</p>
+
+<ul>
+<li><p>A unique relay email or their original email</p></li>
+<li><p>Their full name (optional – we are not asking for it for this
+project)</p></li>
+</ul>
+
+<p>Following that, on completion, we will be able to proceed and
+register the credentials onto Firebase. Now, we could check our Firebase
+console to see if we had correctly signed up our user. <em>(I recommend
+checking this feature on a real device.)</em></p>
+
+<p>
+<img src="images/533376_1_En_7_Chapter/533376_1_En_7_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e1035"/>
+
+<p>2 screenshots of a mobile screen and the authentication window. The
+screen has the profile section. The window has a table with 5 columns
+under the authentication, users tab.</p>
+
+</p>
+
+<p>Figure 7-4</p>
+<p>Sign in with Apple working with Firebase Auth</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>We explored the Firebase authenticate SDK with a more advanced
+feature: Sign in with Apple. Thanks to their APIs, we were able to
+authenticate the user. However, Sign in with Apple requires a bit more
+setup since we need to talk to both the Apple server and Firebase server to get a
+response.</p>
+<p>Thanks to their great listener, we were also able to determine
+whether our user is signed in or not, and from this response, we
+presented the right screen.</p>
+<p>Now that we know how to use Sign in with Apple, I have a challenge
+for you: integrate Sign in with Apple with our Note application that we
+created over Chapters <a href="#533376_1_En_3_Chapter.xhtml">3</a> and <a href="#533376_1_En_4_Chapter.xhtml">4</a>.</p>
+<p>If you missed something while following this chapter, you can check
+this source code:</p>
+
+
+
+<p></p>
+
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">8. Adding Features Without
+Coding</h1>
+
+
+<!--End Abstract-->
+
+<p>We have created a nice basis for a social media application,
+but it is not completed yet. There are many areas of improvements and a
+few features to be implemented.</p>
+<p>Over this chapter, we will be working on <em>Socially</em> by
+implementing a feature to resize the images uploaded on the backend, so
+they are downsized and can be presented faster to our end user. We will
+achieve this thanks to Firebase Extension: a
+great no-code tool to implement functionalities on the backend without
+writing code.</p>
+<p>Finally, we will secure our database, so certain data is only
+accessible to the current user. We will also restrict the ability to
+post content to registered users only.</p>
+
+<h2 class="Heading">Exploring Firebase Extension</h2>
+<p>Firebase
+Extension is a framework developed by Firebase to allow you to
+implement functionalities on the backend without writing any code. Some
+have been developed by Firebase such as triggering images, sending data
+to Google BigQuery,
+or resizing an image. It also includes many third-party providers like
+Stripe for running subscriptions and Algolia to search inside
+Firestore documents, integrates in-app purchase with RevenueCat, and many
+more.</p>
+<p>We will get started with Resize Images made by Firebase.</p>
+<p>This functionality will be
+useful in our application since the users are uploading images to the
+database and retrieving them in our feed. This functionality will resize
+the images to a determined size and therefore reduce the size. This will
+make our application much more efficient!</p>
+<p>To install this extension, you need to upgrade your Firebase project
+to the Blaze plan.
+This means Google will be able to charge you for using the function you
+are implementing on the backend. It is only going to represent a few
+cents for the tests we are going to execute.</p>
+<p>
+Head to the Firebase console ➤ Build
+➤ Extensions. Then look for <em>Resize Images</em> and click Install.
+
+</p>
+
+<p>
+<img src="images/533376_1_En_8_Chapter/533376_1_En_8_Fig1_HTML.jpg" style="width:35.45em" aria-describedby="d64e216"/>
+
+<p>A screenshot of the extensions marketplace by firebase window.
+Provider, firebase is selected on the left. On the right is a pane with
+trigger email, shorten U R Ls, limit child nodes, and resize images
+extensions, among others. Install under resize images is selected.</p>
+
+</p>
+
+<p>Figure 8-1</p>
+<p>Firebase Extension marketplace</p>
+
+
+<p>
+If you haven’t subscribed to the Blaze plan yet, the console will
+invite you to upgrade. Follow the steps and enter your credit card
+information. If you correctly followed the instructions, you would have
+the following pop-up:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_8_Chapter/533376_1_En_8_Fig2_HTML.jpg" style="width:35.45em" aria-describedby="d64e241"/>
+
+<p>A screenshot of the firebase window has the upgrade complete dialog
+box in the center. It reads you have successfully upgraded your project,
+pay as you go blaze plan, a confirmation mail will be sent to you
+shortly, and you have set up a budget alert.</p>
+
+</p>
+
+<p>Figure 8-2</p>
+<p>Project updated to the Blaze plan</p>
+
+
+<p>
+Now, you can start installing the extension. Follow the
+four steps provided by Firebase, and you can edit the followings fields:
+
+</p>
+
+<ul>
+<li><p>Backfill existing images – No</p></li>
+<li><p>Sizes of resized images: 320 × 200</p></li>
+</ul>
+
+<p>
+This way, Firebase
+will automatically resize the images to 320 × 200 pixels, so it looks
+nice on our screen and the overall weight of the file will be reduced.
+You can click Install extension; it will take a few minutes to take
+effect:
+
+</p>
+
+<p>
+<img src="images/533376_1_En_8_Chapter/533376_1_En_8_Fig3_HTML.jpg" style="width:35.45em" aria-describedby="d64e284"/>
+
+<p>A screenshot of the install this extension window. It has an input
+box for output options and 3 drop-down menus for G I F and WEB P
+animated option, cloud function memory, and backfill existing images.
+The install extension button at the bottom is highlighted with a
+bounding box.</p>
+
+</p>
+
+<p>Figure 8-3</p>
+<p>Installing the Firebase extension</p>
+
+
+<p>You can now test your application by publishing a post with an image.
+The images will be retrieved faster since they have been downsized by
+the backend. Therefore, we have improved our application in a few
+minutes without writing any code.</p>
+
+
+<h2 class="Heading">Track Our App Usage with Analytics</h2>
+<p>It is useful to figure out how our users are using our application,
+to determine our conversion for signup, for example (how many users
+create an account / how many users download the app). Thanks to
+Firebase, it is easy to implement this tracker with Google Analytics.</p>
+<p>
+The first thing to do is add the Firebase Analytics package to our
+application. Head to your main target. Under <em>General</em> scroll
+down to <em>Frameworks</em><em>,</em>
+<em>Libraries</em><em>,
+and</em> <em>Embedded
+Content</em> and click the plus button. Then select
+<em>FirebaseAnalytics</em> and click <em>Add.</em>
+
+</p>
+
+<p>
+<img src="images/533376_1_En_8_Chapter/533376_1_En_8_Fig4_HTML.jpg" style="width:35.45em" aria-describedby="d64e356"/>
+
+<p>A screenshot of a window has the choose frameworks and libraries to
+add dialog box. It has socially, general, and the add buttons
+highlighted from left to right. An arrow points to firebase analytics
+from the dialog box under the firebase package.</p>
+
+</p>
+
+<p>Figure 8-4</p>
+<p>Adding a package to the project</p>
+
+
+<p>Now we are ready to use the Firebase analytics APIs. First
+thing I want to check is how many users are converting to authenticated
+users. To do so, I need to add an event every time a user successfully
+signs up.</p>
+<p>
+Let’s head to <em>SignUpView</em> and import the framework at the top:
+
+</p>
+<pre>import FirebaseAnalytics</pre>
+<p>
+Then, add the following line of code right after the <em>print(signed
+in</em>) – this way, we are sure the authentication has been successful:
+
+</p>
+<pre>Analytics.logEvent("user_sign_up", parameters: nil)</pre>
+<p>That’s it. In one line of code, we have logged an event to Firebase
+to see each user that signed up to our application.</p>
+<p>You can check in the Firebase console ➤
+Analytics ➤ Events in the next 24 hours. You will see the events logged
+each time a user authenticates.</p>
+
+
+<h2 class="Heading">Securing Our Database</h2>
+<p>One final step is left before releasing our application to the
+public: secure our database. Since we are
+using Firestore, we need to head to this part in the console and edit
+the rules.</p>
+<p>Right now, everybody can write posts and read user information on our
+database without being authenticated. It is a concern for security and
+cost.</p>
+<p>Therefore, we need to restrict the ability to write data for
+authenticated users only, but we can allow anyone to read since profiles
+are public, as well as posts in our application.</p>
+<p>
+Head to the Firebase console ➤ Firestore ➤ Rules and implement the
+following rules
+and then click Publish:
+
+</p>
+<pre>rules_version = '2';
+service cloud.firestore {
+match /databases/{database}/documents {
+match /{document=**} {
+allow read: if true;
+allow write: if request.auth != null;
+}
+}
+}</pre>
+<p>
+
+</p>
+
+<p>
+<img src="images/533376_1_En_8_Chapter/533376_1_En_8_Fig5_HTML.jpg" style="width:35.45em" aria-describedby="d64e454"/>
+
+<p>A screenshot of the firebase window has the project overview panel on
+the left with firestore database selected. On the right is the cloud
+firestore pane with the rules tab selected. It has the edit rules button
+with 5 dates and times, and 9 lines of code.</p>
+
+</p>
+
+<p>Figure 8-5</p>
+<p>Cloud Firestore rules</p>
+
+
+<p>Now nobody can write anything if they didn’t
+sign up. We have usefully restricted the access of our data!</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Over this last chapter, we explored Firebase Extension, the no-code tool to enhance
+our application with additional features. Then we logged events to see
+how our users are using our application, here with each time someone
+authenticates on our application.</p>
+<p>Finally, we secured our database to disable
+anyone who doesn’t sign up to post any document on Firestore.</p>
+<p>
+That closes our book. Thank you for following along! You can find the
+source code of the final project at the following link:
+
+</p>
+
+<ul>
+<li><p><a href="https://drive.google.com/drive/folders/1eF-OXxC1jn0Ob30BsfXOFH7LzV2w24pU%253Fusp%253Dshare_link"><em>https://drive.google.com/drive/folders/1eF-OXxC1jn0Ob30BsfXOFH7LzV2w24pU?usp=share_link</em></a></p></li>
+</ul>
+
+
+
+
+<p></p>
+
+
+
+
+
+Index
+
+
+
+
+
+A
+
+
+
+
+<em>addData()</em> function
+
+
+
+
+<em>addDocument</em> APIs
+
+
+
+
+Algolia
+
+
+
+
+Apple authentication
+
+
+
+
+Apple ID
+
+
+
+
+Apple server
+
+
+
+
+Arrays
+
+
+
+
+<em>AsyncImage</em>
+
+
+
+
+<em>AuthenticationServices</em> framework
+
+
+
+
+AuthViewModel
+
+
+
+
+
+
+B
+
+
+
+
+Backend as a service (BaaS)
+
+
+
+
+Bitcoin blockchain
+
+
+
+
+Blaze plan
+
+
+
+
+Booleans
+
+
+
+
+
+
+C
+
+
+
+
+ContentView.swift file
+
+
+
+
+Create-Read-Update-Delete (CRUD)
+
+
+
+
+CryptoKit
+
+
+
+
+
+
+D
+
+
+
+
+Data parameter
+
+
+
+
+downloadURL.absoluteString function
+
+
+
+
+downloadURL function
+
+
+
+
+
+
+E
+
+
+
+
+Embedded Content
+
+
+
+
+EmptyView
+
+
+
+
+
+
+F
+
+
+
+
+Feed screen
+
+
+
+
+FeedView
+
+
+
+
+Firebase
+
+
+add iOS app
+
+
+advantages
+
+
+Apple app
+
+
+BaaS
+
+
+cloud service, iOS application
+
+
+connect iOS application
+
+
+GoogleService-Info.plist
+
+
+SDK
+
+
+Xcode
+
+
+SeeXcode
+
+
+dashboard
+
+
+disadvantages
+
+
+Firestore section
+
+
+Google Analytics
+
+
+Homepage
+
+
+iOS application
+
+
+project name
+
+
+select Google Analytics account
+
+
+Spark plan label
+
+
+
+
+Firebase Analytics package
+
+
+
+
+Firebase authentication
+
+
+
+
+Firebase Auth framework
+
+
+
+
+Firebase Auth SDK
+
+
+authentication section
+
+
+email/password selection
+
+
+enable provider and save
+
+
+logic implementation
+
+
+manage user sessions
+
+
+secure firestore database
+
+
+collection hierarchy
+
+
+delete Firestore collection
+
+
+import
+
+
+security rules
+
+
+signup function
+
+
+sign up with email and password
+
+
+app run/post user data
+
+
+AuthViewModel
+
+
+reset password
+
+
+sign-in process
+
+
+SignUpView
+
+
+user interface
+
+
+View Model
+
+
+Xcode
+
+
+
+
+Firebase collection
+
+
+
+
+Firebase console
+
+
+
+
+Firebase documentation
+
+
+
+
+Firebase extension
+
+
+exploration
+
+
+installation
+
+
+marketplace
+
+
+no-code tool
+
+
+
+
+Firebase Firestore
+
+
+
+
+Firebase Firestore console
+
+
+
+
+Firebase project
+
+
+Async/Await, backend
+
+
+creation
+
+
+
+
+Firebase server
+
+
+
+
+Firebase Software Development Kit (SDK)
+
+
+
+
+Firebase Storage
+
+
+
+
+Firestore
+
+
+create database
+
+
+database
+
+
+delete data
+
+
+document
+
+
+MVVM design pattern
+
+
+NoSQL document-based database
+
+
+note application
+
+
+pass data, views
+
+
+read data
+
+
+two-step setup
+
+
+upload data
+
+
+
+
+FIRUser
+
+
+
+
+<em>formatted()</em> modifier
+
+
+
+
+Frameworks
+
+
+
+
+
+
+G, H
+
+
+
+
+Google Analytics
+
+
+
+
+Google BigQuery
+
+
+
+
+<em>GoogleService-Info.plist</em>
+
+
+
+
+
+
+I, J, K
+
+
+
+
+imageURL field
+
+
+
+
+<strong>import</strong> FirebaseAnalytics
+
+
+
+
+<strong>import</strong> FirebaseStorage
+
+
+
+
+<strong>import</strong> PhotosUI
+
+
+
+
+Integrating documents
+
+
+
+
+iOS 16
+
+
+
+
+iPhone
+
+
+
+
+iPhone camera and library access
+
+
+
+
+iPhone photo library
+
+
+
+
+
+
+L
+
+
+
+
+<em>Libraries</em>
+
+
+
+
+listenToAuthState()
+
+
+
+
+
+
+M
+
+
+
+
+Matching
+
+
+
+
+maxSelectionCount
+
+
+
+
+MVVM design pattern
+
+
+
+
+
+
+N, O
+
+
+
+
+NavigationLink
+
+
+
+
+NavigationView
+
+
+
+
+NoteViewModel
+
+
+
+
+Numbers
+
+
+
+
+
+
+P, Q
+
+
+
+
+<em>PhotosPicker</em>
+
+
+
+
+PhotosUI
+
+
+
+
+Picture uploading, firebase storage
+
+
+
+
+<em>PostView</em> file
+
+
+
+
+<em>PostViewModel</em>
+
+
+
+
+preferredItemEncoding
+
+
+
+
+<em>ProfileView</em> function
+
+
+
+
+putData() function
+
+
+
+
+
+
+R
+
+
+
+
+RevenueCat
+
+
+
+
+
+
+S
+
+
+
+
+Securing database
+
+
+
+
+<em>@ServerTimestamp</em>
+
+
+
+
+SF Symbols
+
+
+
+
+SHA-256 protocol
+
+
+
+
+Sign in with Apple
+
+
+advanced feature
+
+
+integration
+
+
+note application
+
+
+project set up
+
+
+view model
+
+
+in Xcode
+
+
+
+
+<em>SignUpView</em> function
+
+
+
+
+Social media
+
+
+
+
+Storage console
+
+
+
+
+storageReference.downloadURL
+
+
+
+
+String
+
+
+
+
+Swift language
+
+
+
+
+Swift packages
+
+
+
+
+SwiftUI
+
+
+in 2019, Apple
+
+
+<em>AsyncImage</em> modifier
+
+
+code
+
+
+identifiable
+
+
+map application
+
+
+MapKit
+
+
+photo picker
+
+
+UIKit
+
+
+Xcode
+
+
+
+
+
+
+T
+
+
+
+
+Taxi ride application
+
+
+
+
+Text
+
+
+
+
+Timestamps
+
+
+
+
+
+
+U
+
+
+
+
+UIKit
+
+
+
+
+UITableViewDataSource
+
+
+
+
+User interface
+
+
+
+
+UUID
+
+
+
+
+
+
+V, W
+
+
+
+
+viewDidLoad method
+
+
+
+
+View model
+
+
+
+
+
+
+X, Y, Z
+
+
+
+
+Xcode
+
+
+add package
+
+
+Apple
+
+
+App Store
+
+
+drag and drop the GoogleService-Info.plist file
+
+
+identifier
+
+
+Mac App Store
+
+
+new project
+
+
+NoteApp.swift
+
+
+run and communication to Firebase
+
+
+select App template
+
+
+settings, project
+
+
+Simulator app
+
+
+simulator run
+
+
+Swift language
+
+
+tabs
+
+
+template
+
+
+14.1 version
+
+
+welcome screen
+
+
+
+
+
+

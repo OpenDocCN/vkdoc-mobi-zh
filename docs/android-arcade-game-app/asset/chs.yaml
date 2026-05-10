@@ -1,0 +1,1555 @@
+- '
+
+  ![](img/my_cover_image)
+
+
+  '
+- '# Android 街机游戏应用
+
+
+  ![image](img/FM-sq.jpg)
+
+
+  J. F. DiMarzio
+
+
+  ![image](img/FM-00.jpg)
+
+
+  **Android 街机游戏应用**
+
+
+  版权所有 © 2012 J. F. DiMarzio
+
+
+  本作品受版权保护。出版商保留所有权利，无论是整体还是部分材料，具体包括翻译、重印、插图再利用、朗诵、广播、微缩胶卷复制或任何其他物理方式，以及传输或信息存储与检索、电子改编、计算机软件的权利，或使用目前已知或未来开发的相关或不同方法。此法律保留的例外情况包括与评论或学术分析相关的简短摘录，或专门为输入并执行于计算机系统而提供的材料，仅供作品购买者独家使用。本出版物或其部分的复制仅在出版商所在地现行版权法的规定下允许，且使用许可必须始终从
+  Springer 获取。使用许可可通过 Copyright Clearance Center 的 RightsLink 获得。违规行为将根据相应版权法受到起诉。
+
+
+  ISBN-13（平装本）：978-1-4302-4545-2
+
+
+  ISBN-13（电子版）：978-1-4302-4546-9
+
+
+  本书中可能出现商标名称、标识和图像。我们未对每个商标名称、标识或图像使用商标符号，仅以编辑方式使用这些名称、标识和图像，以利于商标所有者，且无意侵犯商标权。
+
+
+  Android 机器人（01 / Android Robot）的图像复制自 Google 创建并共享的作品，并按照 Creative Commons 3.0 署名许可中描述的条款使用。Android
+  及所有基于 Android 和 Google 的标志是美国及其他国家/地区 Google, Inc. 的商标或注册商标。Apress Media, L.L.C.
+  与 Google, Inc. 无关联，本书编写未获得 Google, Inc. 的认可。
+
+
+  本出版物中使用商品名称、商标、服务标志及类似术语，即使未标明为商标，也不应被视为对它们是否受专有权利保护的意见表达。
+
+
+  尽管本书中的建议和信息在出版之日被认为是真实准确的，但作者、编辑或出版商对可能存在的任何错误或遗漏不承担任何法律责任。出版商对本书所含内容不作任何明示或暗示的保证。
+
+
+  总裁兼出版人：Paul Manning
+
+
+  首席编辑：Steve Anglin
+
+
+  开发编辑：Tom Welsh
+
+
+  技术审稿人：Tony Hillerson
+
+
+  编辑委员会：Steve Anglin, Ewan Buckingham, Gary Cornell, Louise Corrigan, Morgan Ertel,
+  Jonathan Gennick, Jonathan Hassell, Robert Hutchinson, Michelle Lowman, James Markham,
+  Matthew Moodie, Jeff Olson, Jeffrey Pepper, Douglas Pundick, Ben Renow-Clarke, Dominic
+  Shakeshaft, Gwenan Spearing, Matt Wade, Tom Welsh
+
+
+  协调编辑：Katie Sullivan
+
+
+  文字编辑：Kimberly Burton
+
+
+  排版：SPi Global
+
+
+  索引制作：SPi Global
+
+
+  美工：SPi Global
+
+
+  封面设计：Anna Ishchenko
+
+
+  全球图书贸易发行由 Springer Science+Business Media New York 负责，地址：233 Spring Street, 6th
+  Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问
+  `www.springeronline.com`。
+
+
+  关于翻译事宜，请发送电子邮件至 `rights@apress.com`，或访问 `www.apress.com`。
+
+
+  Apress 及 friends of ED 书籍可批量购买用于学术、企业或促销用途。大多数书名也提供电子书版本和许可证。更多信息，请参考我们的特殊批量销售–电子书许可网页：`www.apress.com/bulk-sales`。
+
+
+  作者在此文本中引用的任何源代码或其他补充材料可在 `www.apress.com` 上获取。有关如何找到本书源代码的详细信息，请访问 `www.apress.com/source-code/`。
+
+
+  感谢 Suzannah、Christian、Sophia 和 Giovanni 始终如一的陪伴。
+
+
+  —J. F. DiMarzio
+
+
+  ## 目录速览
+
+
+  关于作者
+
+
+  关于技术审稿人
+
+
+  关于游戏图形设计师
+
+
+  致谢
+
+
+  ![image](img/sq.jpg)第 1 章：Android 游戏开发入门
+
+
+  ![image](img/sq.jpg)第 2 章：什么是街机游戏？
+
+
+  ![image](img/sq.jpg)第 3 章：创建菜单
+
+
+  ![image](img/sq.jpg)第 4 章：绘制背景
+
+
+  ![image](img/sq.jpg)第 5 章：创建玩家角色与障碍物
+
+
+  ![image](img/sq.jpg)第 6 章：碰撞检测
+
+
+  ![image](img/sq.jpg)第 7 章：计分
+
+
+  ![image](img/sq.jpg)第 8 章：添加新关卡
+
+
+  索引
+
+
+  ## 目录
+
+
+  关于作者
+
+
+  关于技术审稿人
+
+
+  关于游戏图形设计师
+
+
+  致谢
+
+
+  ![images](img/sq.jpg) 第 1 章：Android 游戏开发入门
+
+
+  应具备的知识
+
+
+  你将学到什么
+
+
+  游戏简史
+
+
+  Android 的引入
+
+
+  Android 游戏编程
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 2 章：什么是街机游戏？
+
+
+  街机风格游戏起源何处？
+
+
+  你的游戏：监狱逃亡
+
+
+  本书内容
+
+
+  第 3 章：创建菜单
+
+
+  第 4 章：绘制背景
+
+
+  第 5 章：创建玩家挡板和砖块
+
+
+  第 6 章：碰撞检测与游戏内物理
+
+
+  第 7 章：计分
+
+
+  第 8 章：添加更多关卡
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 3 章：创建菜单
+
+
+  开始之前
+
+
+  创建启动画面和主菜单
+
+
+  PrisonbreakActivity
+
+
+  PBMainMenu
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 4 章：绘制背景
+
+
+  开始游戏
+
+
+  创建 SurfaceView 和渲染器
+
+
+  创建背景类
+
+
+  绘制背景
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 5 章：创建玩家角色与障碍物
+
+
+  开始之前
+
+
+  创建玩家挡板类
+
+
+  创建砖块类
+
+
+  创建 PBBall 类
+
+
+  PBRow 和 PBWall
+
+
+
+
+  '
+- '# 目录
+
+
+  在`PBGameRenderer`中调用砖块、挡板和球
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 6 章：碰撞检测
+
+
+  碰撞检测的目的
+
+
+  《越狱》中的碰撞检测
+
+
+  创建碰撞检测系统
+
+
+  完整的`PBGameRenderer`
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 7 章：计分
+
+
+  创建计分方法
+
+
+  按砖块计分
+
+
+  按行计分
+
+
+  小结
+
+
+  ![images](img/sq.jpg) 第 8 章：添加新关卡
+
+
+  添加静态关卡
+
+
+  添加动态关卡
+
+
+  小结
+
+
+  索引
+
+
+  '
+- '# 关于作者
+
+
+  **J. F. DiMarzio** 是一名游戏开发者和网络专家。他在技术和设计领域拥有超过二十年的经验。他已撰写十一本书，是 Android 及 Android
+  游戏开发领域的领军人物。
+
+
+  目前，DiMarzio 先生是华特迪士尼公司的开发者。他与妻子 Suzannah 以及三个孩子居住在佛罗里达州中部。Suzannah 的博客位于`zannaland.com`。
+
+
+  '
+- '# 关于技术审阅者
+
+
+  **Tony Hillerson** 是一名移动开发者，也是 Tack Mobile 的联合创始人。他毕业于大使大学，获得管理信息系统学士学位。在日常工作中，他可能会用到`Objective-C`、`Java`、`Ruby`、`CoffeeScript`、`JavaScript`、`HTML`或
+  Shell 脚本。Tony 曾在 RailsConf、AnDevCon 和 360|Flex 大会上发表演讲。他是广受欢迎的 O''Reilly Android
+  视频教程的创作者。
+
+
+  在业余时间，Tony 喜欢弹奏贝斯和 Warr Guitar，并制作电子音乐。Tony 与妻子 Lori 以及儿子 Titus 和 Lincoln 居住在科罗拉多州丹佛市郊外。
+
+
+  '
+- '# 关于游戏美术设计师
+
+
+  **Ben Eagle** 从事计算机图形学和网页开发已有 14 年，这些技能是在海军陆战队服役期间学到的。在与多家公司合作的过程中，Ben 设计了数百个网站、公司标志、标识、广告和营销图形。目前他是一名高级程序员，居住在佛罗里达州达文波特。34
+  岁的他仍在追求自己的职业生涯，并兼职教授学生图形学知识。他拥有数字媒体和网页开发两个副学士学位。Ben 还获得了 MCP 认证以及`C++`/`Java`认证。闲暇时，他继续沉浸在计算机艺术和编程的热情中，并在一支乐队中演出。
+
+
+  '
+- '# 致谢
+
+
+  作者要感谢他的经纪人 Neil Salkind，以及 Apress 出版社的 Steve、Katie、Tom、Tony、Kim 和所有团队成员。
+
+
+  '
+- '# 第 1 章：Android 游戏开发入门
+
+
+  欢迎阅读《Android 街机游戏开发》。在本书中，你将学习如何“从项目到发布”创建一款 Android 街机风格的游戏。虽然我会带你了解一些游戏开发问题的解决方案，但本书并不适合初级开发者。
+
+
+  你选择这本书，是因为你对 Android 平台充满热情，并且希望开发街机风格的 Android 游戏。读完本书后，你将掌握在 Android 最新版本 Ice
+  Cream Sandwich 上创建一款有趣且引人入胜的游戏所需的知识。这样做的好处是，你在本书中构建的游戏将同时在 Android 手机和 Android 平板电脑上运行。
+
+
+  坐下来玩自己写的游戏，那种满足感是无与伦比的。这对于街机游戏尤其如此，因为它们完美契合了休闲移动游戏玩家的体验需求。
+
+
+  ## 你需要了解的知识
+
+
+  在阅读本书之前，你应当具备良好的 Android 开发实践知识。这意味着你精通 Java 和 Android SDK，并且已经尝试过在 Android 上构建项目和应用程序。
+
+
+  你还应熟悉 Eclipse IDE（集成开发环境）。虽然 Android 游戏可以在许多不同的 IDE 中开发，但本书中的所有示例都使用 Eclipse Indigo。如果你没有当前版本的
+  Eclipse，请从`http://eclipse.org`下载。
+
+
+  **注意** 虽然可以使用模拟器调试代码，但如果你认真对待游戏开发，还是建议获取一台 Android 设备。我发现模拟器在渲染精度和运行速度上并不总是能与运行同等
+  SDK 版本的移动设备相比。而当你编写游戏时，精度至关重要。
+
+
+  最后，为了从本书中获得最大收益，你至少应具备初级的游戏开发知识。你可能从未独立编写过游戏，但应当了解开发一款游戏需要什么。在实践中，这意味着你应具备`OpenGL
+  ES`的基础知识，并了解它如何在 Android 游戏开发中使用。
+
+
+  在本书创建《越狱》游戏的过程中，你将使用`glOrthof()`、`GLSurfaceView`、纹理、顶点以及其他`OpenGL ES`概念。如果这些术语对你来说都很陌生，我建议你先从一本更入门的书籍开始，例如
+  J. F. DiMarzio 所著的《实用 Android 4 游戏开发》（Apress 出版社，2011 年）。
+
+
+  ## 你将学到什么
+
+
+  在本书中，你将学习如何运用 Android 开发和`OpenGL ES`的知识来创建一款有趣且吸引人的游戏。你将构建一款遵循街机风格惯例的游戏。这款名为《越狱》的游戏包含了更复杂游戏中的许多元素——因此它是一个很好的学习工具。
+
+
+  到本书结束时，你将掌握开发街机风格 Android 游戏的关键编程技能。以下是你在学习本书过程中将获得的部分技能（排名不分先后）：
+
+
+  ![bullet.jpg](img/bullet.jpg)   使用 OpenGL 显示和操作图形
+
+
+  ![bullet.jpg](img/bullet.jpg)   处理位图等资源
+
+
+  ![bullet.jpg](img/bullet.jpg)   生成和终止 Android 线程
+
+
+  ![bullet.jpg](img/bullet.jpg)   创建闪屏、菜单系统和游戏引擎
+
+
+  ## 游戏发展简史
+
+
+  尽管移动游戏以这种或那种形式（从纸牌游戏到骰子游戏）存在了数百年，但现代流行的移动视频游戏的起源可以追溯到任天堂 Game Boy。Game Boy 可能不是第一个，也可能不是最好的，但它确实让每个孩子、青少年，甚至是一些成年人都想随身玩着*俄罗斯方块*和*超级马里奥*；在此之前，这些游戏成就只能在那些仍带有“儿童玩具”标签的大型游戏机上实现。
+
+
+  **注意** 普遍认为，第一款移动游戏设备实际上是 1979 年发布的 Microvision。然而，是任天堂的 Game Boy 将移动游戏带给了大众，并将其推广为一个可行的游戏平台。
+
+
+  任天堂 Game Boy 配备了一个小型灰度屏幕和可互换的游戏卡带。在此之前，大多数便携式“视频游戏”都是单一功能的设备，只能玩一个或一小部分预装游戏。但人们终于可以随时随地玩他们的视频游戏了，尽管是缩水版。这使移动游戏进入了大众手中，但开发者们呢？
+
+
+
+
+  虽然当时已经存在一定规模的休闲或独立电脑游戏开发者，但 `Game Boy` 对他们来说并不是一个实用的平台，因为它仍被视为游戏主机。游戏开发需要使用专有的 `C`
+  语言库，并且必须借助昂贵且需许可的开发硬件。这使得独立游戏开发者难以企及，如果他们想表达自己的想法，就只能局限在个人电脑上。
+
+
+  大约在 `Game Boy` 风靡一时的同时，另外两场革命也开始萌芽；正是这些革命最终将 Android 推向了游戏平台。到 20 世纪 80 年代末，手机和互联网开始被广泛使用和接受，恰逢便携式游戏兴起。
+
+
+  早期的手机制造成本高昂，使用费用也高。它们是富人和名人的玩具，也是成功人士炫耀的工具。这些设备的屏幕仅由单行 LCD 文本组成；刚好够显示正在拨打的电话号码。设想一位商业大亨或好莱坞制片人坐在那里，以每分钟
+  15 到 25 美元的价格在单行显示屏上玩 *俄罗斯方块*，这根本不现实。手机显示屏和每分钟费率要发展到足以支持游戏，还需要再过几年。
+
+
+  手机和互联网变得流行后不久，两者就碰撞在了一起。起初，两者的结合产生了粗糙、缩水版的网页类内容，这些内容可以轻松在手机缓慢的处理器和有限的（主要是文本）屏幕上运行。慢慢地，基于
+  Java 的移动内容和应用程序开始在各种手机上涌现。虽然这增加了 Java 虚拟机的开销，但这无疑是一个好的开端。首批基于 Java 的游戏也紧随其后问世。
+
+
+  诺基亚最终在 2003 年尝试通过其 `N*Gage` 手机将手机与移动游戏设备完全融合。尽管 `N*Gage` 普遍被认为是一款商业失败的产品，但它为手机游戏作为一种真正的多平台活动打开了大门。开发者很快意识到，专门为手机打造的游戏实际上可以与为
+  `Game Boy`、`PSP` 和 `DS` 等专用游戏掌机开发的游戏竞争。
+
+
+  手机游戏最终在 `iPhone` 上获得了消费者的认可。不可否认，`iPhone` 不仅仅是打开了手机游戏的大门，它简直是摧毁了那扇门。这并不意味着 `iPhone`
+  没有缺点。开发 `iPhone` 游戏需要两样东西，并非每个休闲开发者都拥有：一台 Mac 和对 `Objective-C` 的深入理解。
+
+
+  Android 的故事就从这里开始。
+
+
+  ## Android 的诞生
+
+
+  我在 2008 年初就开始在 Android 测试版平台上进行开发。当时，还没有任何手机宣布搭载这个新操作系统，我们作为开发者，真切地感觉自己正投身于一件令人兴奋的事业的开端。Android
+  捕捉到了早期开源开发的所有活力和热情。在这个平台上开发，非常让人怀念凌晨两点，拿着一罐 Jolt 可乐，坐在空荡荡的学生休息室里，等待 VAX 主机时间来运行最新代码的情景。那是一个令人振奋的平台。我很庆幸自己亲眼见证了它的实现与腾飞。
+
+
+  随着 Android 开始发展，以及 Google 发布更多更新来巩固最终的架构，有一点变得显而易见：Android 基于 Java，并包含许多知名的 Java
+  包，这对于休闲游戏开发者来说将是一个容易跨越的过渡。现有 Java 开发者所掌握的大部分知识都可以在这个新平台上复用。庞大的 Java 游戏开发者群体可以利用这些知识，相对平滑地迁移到
+  Android 上。
+
+
+  那么，如何开始在 Android 上开发游戏呢？需要哪些工具？本章的下一部分将旨在回答这些问题。
+
+
+  ## Android 游戏编程
+
+
+  在 Android 上开发游戏有其优点和缺点。在开始之前，你应该意识到这些。首先，Android 游戏是用 Java 开发的，但它并非完整的 Java。你之前用于
+  `OpenGL` 和其他图形特效的许多包都包含在 Android SDK 中。然而，很多并不代表 *全部*，一些对游戏开发者（尤其是 3D 游戏开发者）非常有帮助的包并未包含在内。因此，你之前构建游戏所依赖的包，并非全部都能在
+  Android 中使用。
+
+
+  随着新版 Android SDK 的每次发布，越来越多的包变得可用。你需要清楚了解自己可以使用哪些包。我们将在后续章节中陆续介绍这些内容。
+
+
+  另一个优点（以及相应的缺点）与 Android 的易用性与其性能不足有关。Android 在易用性和简易编程方面获得的好处，可能在速度和性能上有所欠缺。大多数电子游戏，比如为个人电脑或游戏主机编写的那些，都是用
+  C 甚至汇编这样的底层语言开发的。这能让开发者最大程度地控制处理器如何执行代码以及代码的运行环境。当然，处理器只理解机器码，你越接近它们的原生语言，就越不需要经过层层解释器就能让游戏运行起来。Android
+  虽然提供有限的底层编码能力，但它会通过自己的执行系统来解释和编排你的 Java 代码。这导致开发者在游戏运行环境的控制力上有所减弱。
+
+
+  本书不会带你走底层游戏开发的路子。为什么不呢？因为 Java，特别是其在通用 Android 开发中的呈现形式，广为人知、易于使用，并且能够制作出一些非常吸引人且富有成就感的游戏。
+
+
+  本质上，如果你已经是一名经验丰富的 Java 开发者，你会发现将技能应用到 Android 上时并不会因为转换而丢失。如果你还不是资深的 Java 开发者，也不必担心。Java
+  是一个非常适合入门的语言。基于这个原因，我选择坚持使用 Android 原生的 Java 开发环境来编写我们的游戏。
+
+
+  我们已经讨论了在 Android 上开发游戏的一些优点和缺点。独立和休闲游戏开发者选择在 Android 平台上创建和发布游戏的最佳理由之一，是发布游戏时所拥有的自由度。虽然一些应用商店对于可以销售什么以及以何种价格销售有非常严格的规定，但
+  Android Market 并非如此。任何人都可以自由地列出和销售几乎任何他们想要的东西。这给了开发者更多的创作自由。
+
+
+  既然我们已经快速回顾了移动游戏的历史，并讨论了为什么你可能值得将宝贵的时间和精力投入到 Android 网络上的游戏开发中，那么是时候看看成为一名成功的 Android
+  游戏开发者所需的工具了。
+
+
+  ## 总结
+
+
+  在本章中，你了解了本书将要学习的内容。你了解了移动游戏和 Android 游戏平台的历史。在下一章中，你将学习什么是街机风格游戏，以及是什么让这些游戏在 Android
+  设备上如此具有可玩性。
+
+
+  '
+- '# 第 2 章：什么是街机游戏？
+
+
+  在本章中，你将学习定义一款游戏为街机风格游戏的标准。你也会形成一个关于街机风格游戏的操作性定义。
+
+
+  在章节末尾，你将了解更多关于《越狱》这款游戏的信息，你将在这本书的剩余章节中创建它。
+
+
+  ## 街机风格游戏起源于何处？
+
+
+  当今游戏世界中有许多游戏风格。从第一人称射击游戏到益智游戏再到多类型混合游戏，可以说有多少种可玩的游戏，就有多少种风格。像 *N.O.V.A. 2* 和 *与朋友一起玩文字游戏*
+  这样的游戏就是这些移动游戏的绝佳例子。
+
+
+
+
+  '
+- '# 街机风格游戏
+
+
+  当下最流行的游戏风格之一便是街机风格。街机游戏作为一种风格，实际上是融合了多种不同游戏类型的混合体。要理解什么是街机风格的游戏，让我们先简要回顾一下街机游戏的历史。
+
+
+  毫无疑问，你曾亲眼或在网上见过像《*吃豆人*》或《*蜈蚣*》这样的老式街机游戏柜。在早期，游戏硬件价格昂贵，而且通常是为每款游戏专门定制的。开发者与硬件创造者紧密合作，由此诞生了体积庞大、像家具一样的游戏机柜。
+
+
+  这些大型的一体式机柜通常包含显示器、控制器以及运行游戏所需的所有内部电子元件。然而，由于这些设备价格高得令人望而却步，普通人根本负担不起；因此它们通常只出现在游戏厅里。机柜上装有投币器，人们急切地投入硬币来玩最新的游戏。因此，“街机”游戏风格这一名称的根源，就来自于最初玩这些游戏的场所。
+
+
+  街机老板们很快明白了一件事：为了收回购买游戏机的高昂成本，他们需要尽可能多的玩家来玩每一款游戏。如今，人们可以一次连续玩一款游戏几个小时。我就曾在《*最终幻想*》游戏上投入过
+  10 小时、20 小时甚至 30 小时。这种硬核游戏玩法对每次只收 0.25 美元的街机老板来说，无疑是灭顶之灾。
+
+
+  街机老板和游戏开发者迅速意识到，三分钟是黄金时长。在平均三分钟的游戏时间里，玩家觉得自己的投入物有所值，而街机老板也能让大量玩家轮番体验游戏。
+
+
+  于是，游戏开发者必须创造出这样一种游戏：玩家可以随时上手，无需任何指导就能理解玩法和目标，并且能在三分钟后停止游玩。由此，开发那些令人上瘾、目标明确且能在相对短时间内玩完的游戏便应运而生。这就是街机风格游戏的起源。
+
+
+  在本章的下一节中，我们将讨论你将在本书中开发的游戏。
+
+
+  ## 你的游戏：越狱
+
+
+  在本书剩余的章节中，你将学习如何创建一款名为“越狱”的街机风格游戏。“越狱”是一款球拍游戏，涉及将球的轨迹偏转并击向一堵砖墙，以击碎它们。该游戏大致基于 Atari
+  公司的游戏《*打砖块*》。《*打砖块*》在街机游戏早期极具影响力，其令人上瘾的玩法和易于理解的概念使其成为本书的完美范例。
+
+
+  “越狱”包含了构建良好游戏开发知识库所需的所有元素。你将学习多边形和纹理渲染、基本游戏物理以及碰撞检测。毫无疑问，你会在其他游戏中使用到所有这些概念。
+
+
+  本书将按照自然顺序，从头到尾引导你完成“越狱”游戏的开发过程。你将获得创建游戏并在 Android 设备上运行它的代码示例和解释。到本书结束时，你将掌握所需的知识，能够轻松地基于相同概念创建其他游戏。图
+  2-1 展示了完成版“越狱”的一个游戏场景。
+
+
+  ![9781430245452_Fig02-01.jpg](img/9781430245452_Fig02-01.jpg)
+
+
+  图 2-1。完成版“越狱”的截图
+
+
+  为了让你清楚了解后续内容，下一节将列出剩余章节的内容和目标。
+
+
+  ## 本书内容……
+
+
+  本书共有八章。虽然整本书看起来篇幅可能不长，但它将包含大量有用信息。每一章都旨在让你掌握完成“越狱”游戏所需的一项关键技能。以下是对我们剩余六章目标的简要概述。
+
+
+
+
+  '
+- '# 第 3 章：创建菜单
+
+
+  在本章中，您将学习如何为《越狱》游戏创建菜单系统。游戏菜单是主要入口点，负责引导玩家进入和退出《越狱》游戏。您将使用 Android SDK 创建用于开始和退出游戏的选项。
+
+
+  '
+- '# 第 4 章：绘制背景
+
+
+  第 4 章将教您如何为游戏创建背景并将其绘制到屏幕上。在此过程中，您将接触到 OpenGL ES 的诸多方面，包括渲染、纹理映射和顶点。虽然《越狱》游戏的背景是静态的，但它为您制作的每款游戏设定了主题，因此非常重要。
+
+
+  '
+- '# 第 5 章：创建玩家挡板和砖块
+
+
+  在第 5 章中，您将学习如何创建一个挡板，该挡板会根据玩家控制角色的方向在屏幕上移动。您还将添加用于击碎砖块的球。这涉及到在 Android 中使用触摸监听器和自定义类。
+
+
+  在本章末尾，您将创建玩家角色需要冲破才能推进游戏的砖块。您将学习如何使用 Android 代码循环在屏幕上放置多个砖块，而无需手动绘制它们。
+
+
+  '
+- '# 第 6 章：碰撞检测与游戏内物理
+
+
+  第 6 章将引导您理解碰撞检测这一关键概念。碰撞检测的物理原理用于判断破砖球是否击中了砖块（或挡板）。然后，您将运用物理和数学知识，让球朝新的方向弹回，或者摧毁砖块。正是这种游戏内物理为您的游戏增添了真实感，使其玩起来趣味十足。
+
+
+  '
+- '# 第 7 章：计分
+
+
+  虽然计分功能可能被忽视并被认为是简单的，但对于许多街机风格的游戏来说，它非常重要。第 7 章将教您如何跟踪当前游戏分数，以及如何将分数保存到 Android 内置的
+  MySQL 数据库中。
+
+
+  '
+- '# 第 8 章：添加更多关卡
+
+
+  在第 8 章中，您将学习如何为游戏添加关卡。设计街机风格游戏的一个激动人心的方面在于，您可以快速轻松地添加许多关卡——有时甚至数百个。您将应用前几章学到的知识来为您的游戏创建多个关卡。
+
+
+  ## 本章小结
+
+
+  在本章中，您了解了街机游戏的定义；对您将要创建的《越狱》游戏有了更多了解；并对本书剩余章节做了简要概述。
+
+
+  在第 3 章中，您将开始编写游戏主菜单屏幕的代码。
+
+
+  '
+- "# 第 3 章：创建菜单\n\n在本章中，您将为《越狱》游戏创建一个由两部分组成的菜单屏幕。菜单屏幕（如图 3-1 所示）由两个不同的“屏幕”组成，总共包含五个不同的图像。\n\
+  \n![9781430245452_Fig03-01.jpg](img/9781430245452_Fig03-01.jpg)\n\n图 3-1. 《越狱》菜单屏幕\n\
+  \n在下一节中，您将了解为本章提供的代码需要做哪些准备。\n\n## 准备工作\n\n在开始应用本章的代码之前，您需要做两件事来准备。首先，创建一个名为 `prisonbreak`\
+  \ 的新 Android 项目。该项目将保存本书中使用的所有代码和图像。\n\n其次，为您的《越狱》游戏收集或创建一些图像。在本章中，您总共需要五个图像：一个启动画面、两个不同的开始按钮状态和两个不同的退出按钮状态。我使用的图像如图\
+  \ 3-2 至图 3-6 所示。\n\n![9781430245452_Fig03-02.jpg](img/9781430245452_Fig03-02.jpg)\n\
+  \n图 3-2. prisonbreaksplash.png\n\n![9781430245452_Fig03-03.jpg](img/9781430245452_Fig03-03.jpg)\n\
+  \n图 3-3. startbtn.png\n\n\n\n![9781430245452_Fig03-04.jpg](img/9781430245452_Fig03-04.jpg)\n\
+  \n图 3-4. `startbtndown.png`\n\n![9781430245452_Fig03-05.jpg](img/9781430245452_Fig03-05.jpg)\n\
+  \n图 3-5. `exitbtn.png`\n\n![9781430245452_Fig03-06.jpg](img/9781430245452_Fig03-06.jpg)\n\
+  \n图 3-6. `exitbtndown.png`\n\n如果你从未在 Android 中处理过图形或图像，我有几个宝贵的建议。首先，图像处理有两种方式：通过\
+  \ Android SDK 原生方式（本章介绍），或使用 OpenGL ES（后续章节介绍）。这两种方法在图像的存储和处理方式上略有不同。\n\n另一个重要提示是：图像名称必须全部小写，这是处理\
+  \ Android 图像时的通用规则。如果在图像名称中使用大写字母或驼峰式命名，Android 将无法识别这些图像。\n\n**注意** 凡事都有例外，这条规则也不例外。只有当图像存储在给定的\
+  \ Android 项目结构内（即 `res` 文件夹）时，才必须使用小写名称。如果将图像存储在 Android 项目结构外部的压缩文件中，并通过自定义文件读取器进行读取，则可以随意使用大小写命名。不过，这个问题超出了本书的讨论范围。\n\
+  \n本章中的五张图像应保存在 `res/drawable-hdpi` 文件夹中，因为它们将通过标准的 Android SDK 方法读取。\n\n在下一节中，你将创建显示主菜单所需的文件。\n\
+  \n## 创建启动画面和主菜单\n\n《越狱》的主菜单由一个淡出至菜单画面的启动画面组成。菜单画面包含“开始”和“退出”按钮。\n\n对于《越狱》，启动画面和主菜单背景将使用同一张图像（参见图\
+  \ 3-2）。这样会产生按钮淡入背景的效果。这是一种比静态画面更棒的视觉效果。\n\n### `PrisonbreakActivity`\n\n你需要处理的第一个文件是\
+  \ `PrisonbreakActivity`。这是创建项目时生成的主活动。清单 3-1 展示了 `PrisonbreakActivity.java` 的代码。\n\
+  \n`清单 3-1. PrisonbreakActivity.java`\n\n```\npackage com.jfdimarzio;\n\nimport android.app.Activity;\n\
+  import android.content.Context;\nimport android.content.Intent;\nimport android.os.Bundle;\n\
+  import android.os.Handler;\nimport android.view.WindowManager;\n\npublic class PrisonbreakActivity\
+  \ extends Activity {\n    /** 当活动首次创建时调用 */\n    @Override\n    public void onCreate(Bundle\
+  \ savedInstanceState) {\n        PBGameVars.display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();\n\
+  \        super.onCreate(savedInstanceState);\n        /*显示启动画面图像*/\n        setContentView(R.layout.splashscreen);\n\
+  \        /*在延迟线程中启动启动画面和主菜单*/\n        PBGameVars.context = this;\n        new Handler().postDelayed(new\
+  \ Thread() {\n            @Override\n            public void run() {\n         \
+  \       Intent mainMenu = new Intent(PrisonbreakActivity.this, PBMainMenu.class);\n\
+  \                PrisonbreakActivity.this.startActivity(mainMenu);\n           \
+  \     PrisonbreakActivity.this.finish();\n                overridePendingTransition(R.layout.fadein,\
+  \ R.layout.fadeout);\n            }\n        }, PBGameVars.GAME_THREAD_DELAY);\n\
+  \    }\n}\n```\n\n查看 `PrisonbreakActivity` 的代码，你会发现它引用了其他几个文件。第一个是位于 `PBGameVars.java`\
+  \ 类中的多个共享变量。在你的项目中创建一个同名的新类，并添加以下公共变量。（请注意，随着本书内容的深入，你还需要多次向这个类中添加内容。）\n\n```\n\
+  public static Display display;\npublic static Context context;\npublic static final\
+  \ int GAME_THREAD_DELAY = 3000;\npublic static final int MENU_BUTTON_ALPHA = 0;\n\
+  public static final boolean HAPTIC_BUTTON_FEEDBACK = true;\n```\n\n接下来，`PrisonbreakActivity`\
+  \ 引用了一个位于 `res/layouts/splashscreen` 的布局文件。清单 3-2 展示了 `splashscreen.xml` 的内容。\n\n\
+  `清单 3-2. splashscreen.xml`\n\n\n```xml\n\n<?xml version = \"1.0\" encoding = \"\
+  utf-8\"?>\n\n<FrameLayout\n    xmlns:android = \"http://schemas.android.com/apk/res/android\"\
+  \n    android:layout_width = \"match_parent\"\n    android:layout_height = \"match_parent\"\
+  >\n\n    <ImageView\n        android:id = \"@+id/splashScreenImage\"\n        android:src\
+  \ = \"@drawable/prisonbreaksplash\"\n        android:layout_width = \"match_parent\"\
+  \n        android:layout_height = \"match_parent\">\n    </ImageView>\n\n    <TextView\n\
+  \        android:text = \"game by: j.f.dimarzio graphics by: ben eagel\"\n     \
+  \   android:id = \"@+id/creditsText\"\n        android:layout_gravity = \"center_horizontal|bottom\"\
+  \n        android:layout_height = \"wrap_content\"\n        android:layout_width\
+  \ = \"wrap_content\">\n    </TextView>\n\n</FrameLayout>\n```\n\n下一个由`PrisonbreakActivity`调用的文件是`PBMainMenu.java`。我们暂时跳过这个文件，稍后再回来处理。首先，让我们看看`PrisonbreakActivity.java`中使用的另外两个布局。\n\
+  \n查看主活动中调用的`overridePendingTransition()`。这个调用接收两个过渡布局。第一个布局定义了启动画面的淡入效果，第二个定义了淡出到菜单屏幕的效果。清单\
+  \ 3-3 和清单 3-4 分别包含了`fadein.xml`和`fadeout.xml`的代码。虽然它们乍看起来相同，但存在一些关键差异。\n\n根本区别在于：淡入时使用了加速插值器，而淡出时使用了减速插值器。\n\
+  \n**清单 3-3. fadein.xml**\n\n```xml\n<?xml version = \"1.0\" encoding = \"utf-8\"\
+  ?>\n<alpha xmlns:android = \"http://schemas.android.com/apk/res/android\"\n    android:interpolator\
+  \ = \"@android:anim/accelerate_interpolator\"\n    android:fromAlpha = \"0.0\"\n\
+  \    android:toAlpha = \"1.0\"\n    android:duration = \"1000\" />\n```\n\n**清单\
+  \ 3-4. fadeout.xml**\n\n```xml\n<?xml version = \"1.0\" encoding = \"utf-8\"?>\n\
+  <alpha xmlns:android = \"http://schemas.android.com/apk/res/android\"\n    android:interpolator\
+  \ = \"@android:anim/decelerate_interpolator\"\n    android:fromAlpha = \"1.0\"\n\
+  \    android:toAlpha = \"0.0\"\n    android:duration = \"1000\" />\n```\n\n`PrisonbreakActivity`显示启动画面图像，然后将该图像淡入到`PBMainMenu.java`调用中。让我们看看`PBMainMenu.java`中的内容。\n\
+  \n## PBMainMenu\n\n`PBMainMenu`控制主游戏循环的启动和退出；因此，它需要显示两个按钮：开始按钮和退出按钮。清单 3-5 展示了`PBMainMenu.java`的当前代码（你将在下一章中向此代码添加内容）。\n\
+  \n请注意，`PBMainMenu`是一个新的活动，必须在项目的`AndroidManifest`中将其定义为活动。\n\n**清单 3-5. PBMainMenu.java**\n\
+  \n```java\npublic static Display display;\npublic static Context context;\npublic\
+  \ static final int GAME_THREAD_DELAY = 3000;\n\npackage com.jfdimarzio;\n\nimport\
+  \ android.app.Activity;\nimport android.content.Intent;\nimport android.os.Bundle;\n\
+  import android.view.View;\nimport android.view.View.OnClickListener;\nimport android.widget.ImageButton;\n\
+  \npublic class PBMainMenu extends Activity {\n    /** Called when the activity is\
+  \ first created. */\n    final PBGameVars engine = new PBGameVars();\n\n    @Override\n\
+  \    public void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n\
+  \        setContentView(R.layout.main);\n        PBGameVars.context = getApplicationContext();\n\
+  \n        /** Set menu button options */\n        ImageButton start = (ImageButton)findViewById(R.id.btnStart);\n\
+  \        ImageButton exit = (ImageButton)findViewById(R.id.btnExit);\n        start.getBackground().setAlpha(PBGameVars.MENU_BUTTON_ALPHA);\n\
+  \        start.setHapticFeedbackEnabled(PBGameVars.HAPTIC_BUTTON_FEEDBACK);\n  \
+  \      exit.getBackground().setAlpha(PBGameVars.MENU_BUTTON_ALPHA);\n        exit.setHapticFeedbackEnabled(PBGameVars.HAPTIC_BUTTON_FEEDBACK);\n\
+  \        exit.setOnClickListener(new OnClickListener(){\n            @Override\n\
+  \            public void onClick(View v) {\n                int pid = android.os.Process.myPid();\n\
+  \                android.os.Process.killProcess(pid);\n            }\n        });\n\
+  \    }\n}\n```\n\n与`PrisonbreakActivity`类似，`PBMainMenu`也使用了三个不同的布局文件。第一个是`main.xml`。这个布局定义了玩家看到的主菜单屏幕，其中包含开始按钮和退出按钮。清单\
+  \ 3-6 展示了`main.xml`布局。\n\n**清单 3-6. main.xml**\n\n```\n\n\n```xml\n<?xml version\
+  \ = \"1.0\" encoding = \"utf-8\"?>\n\n<RelativeLayout xmlns:android = \"http://schemas.android.com/apk/res/android\"\
+  \n    android:orientation = \"vertical\"\n    android:layout_width = \"match_parent\"\
+  \n    android:layout_height = \"match_parent\"\n    >\n    <ImageView android:id\
+  \ = \"@ + id/mainMenuImage\"\n        android:src = \"@drawable/prisonbreaksplash\"\
+  \n        android:layout_width = \"match_parent\"\n        android:layout_height\
+  \ = \"match_parent\">\n    </ImageView>\n    <RelativeLayout\n        android:id\
+  \ = \"@ + id/buttons\"\n        android:layout_width = \"match_parent\"\n      \
+  \  android:layout_height = \"wrap_content\"\n        android:orientation = \"horizontal\"\
+  \n        android:layout_alignParentBottom = \"true\"\n        android:layout_marginBottom\
+  \ = \"20dp\">\n        <ImageButton\n            android:id = \"@ + id/btnStart\"\
+  \n            android:clickable = \"true\"\n            android:layout_alignParentLeft\
+  \ = \"true\"\n            android:layout_width = \"wrap_content\"\n            android:src\
+  \ = \"@drawable/startselector\"\n            android:layout_height = \"wrap_content\"\
+  \ >\n        </ImageButton>\n        <ImageButton\n            android:id = \"@\
+  \ + id/btnExit\"\n            android:layout_width = \"wrap_content\"\n        \
+  \    android:src = \"@drawable/exitselector\"\n            android:layout_height\
+  \ = \"wrap_content\"\n            android:layout_alignParentRight = \"true\"\n \
+  \           android:clickable = \"true\" >\n        </ImageButton>\n    </RelativeLayout>\n\
+  </RelativeLayout>\n```\n\n`PBMainMenu` 还调用了两个名为选择器的布局文件。这些文件定义了当玩家选择“开始”按钮或“退出”按钮时的行为。对于《越狱》游戏，你希望将可见的“开始”和“退出”按钮替换为看起来像是玩家用手指按下的按钮。选择器布局负责处理这些图像的切换。`清单\
+  \ 3-7` 显示了退出选择器的内容，`清单 3-8` 显示了开始选择器的内容。\n\n`清单 3-7. exitselector.xml`\n\n```xml\n\
+  <?xml version = \"1.0\" encoding = \"utf-8\"?>\n<selector\n    xmlns:android = \"\
+  http://schemas.android.com/apk/res/android\">\n    <item android:state_pressed =\
+  \ \"true\" android:drawable = \"@drawable/exitbtndown\" />\n    <item android:drawable\
+  \ = \"@drawable/exitbtn\" />\n</selector>\n```\n\n`清单 3-8. startselector.xml`\n\n\
+  ```xml\n<?xml version = \"1.0\" encoding = \"utf-8\"?>\n<selector\n    xmlns:android\
+  \ = \"http://schemas.android.com/apk/res/android\">\n    <item android:state_pressed\
+  \ = \"true\" android:drawable = \"@drawable/startbtndown\" />\n    <item android:drawable\
+  \ = \"@drawable/startbtn\" />\n</selector>\n```\n\n现在你应该能够编译并运行代码了。运行时，你会看到一个启动画面，随后淡出为菜单。触摸“退出”按钮会终止主活动并退出游戏。然而目前，触摸“开始”按钮没有任何反应。\n\
+  \n## 总结\n\n在本章中，你为第一个游戏项目添加了九个代码文件和五个图像。这些文件组合在一起，创建了一个引人入胜且专业的菜单界面。现在你已拥有一个可用的启动画面和一个包含两个选项的基本菜单系统。\n\
+  \n在下一章中，你将向“开始”按钮添加代码，以启动主游戏循环。同时还会将游戏背景图像添加到屏幕上。\n\n# 第 4 章：绘制背景\n\n在上一章中，你创建并完善了《越狱》的主菜单。你应该已经在\
+  \ Android 模拟器或基于 Android 的手机上以调试模式编译并运行了代码，并看到了一个功能完整的菜单界面。主菜单的“退出”按钮已连接到终止游戏进程的逻辑。然而截至目前，“开始”按钮尚未连接到任何代码。\n\
+  \n在本章中，你将编写“开始”按钮的代码，并为《越狱》创建背景。为了将游戏背景绘制到屏幕上，你将使用 OpenGL ES 调用。在之前的章节中，你使用了 Android\
+  \ SDK 方法来显示菜单界面和按钮等图形。接下来，你将进入 OpenGL ES 的领域。\n\n让我们从编写主菜单中“开始”按钮激活的代码开始。\n\n##\
+  \ 开始游戏\n\n玩家通过主菜单上的“开始”按钮来启动游戏。启动游戏时，会启动一个新的 Android Activity，该 Activity 控制所有游戏功能。为什么游戏要作为另一个新的\
+  \ Activity 启动？\n\n\n\n游戏作为另一个 `Activity` 启动，这样作为游戏开发者的你便能更灵活地控制游戏的执行方式。如果你想在主菜单中添加与游戏无直接关联的其他功能（例如配置器或计分板），这种方法可以有效避免游戏因冗余代码而变得臃肿。\n\
+  \n`清单 4-1` 展示了你之前在第 3 章开始编写的 `PBMainMenu` 代码。其中加粗的代码是新添加的，用于启动 `PBGame Activity`。请将此代码添加到你的\
+  \ `PBMainMenu` 中。接下来你将创建 `PBGame Activity`。\n\n```\nListing 4-1\\. PBMainMenu.java\n\
+  package com.jfdimarzio;\nimport android.app.Activity;\nimport android.content.Intent;\n\
+  import android.os.Bundle;\nimport android.view.View;\nimport android.view.View.OnClickListener;\n\
+  import android.widget.ImageButton;\npublic class PBMainMenu extends Activity {\n\
+  /** Called when the activity is first created. */\nfinal PBGameVars engine = new\
+  \ PBGameVars();\n@Override\npublic void onCreate(Bundle savedInstanceState) {\n\
+  super.onCreate(savedInstanceState);\nsetContentView(R.layout.main);\nPBGameVars.context\
+  \ = getApplicationContext();\n/** Set menu button options */\nImageButton start\
+  \ = (ImageButton)findViewById(R.id.btnStart);\nImageButton exit = (ImageButton)findViewById(R.id.btnExit);\n\
+  start.getBackground().setAlpha(PBGameVars.MENU_BUTTON_ALPHA);\nstart.setHapticFeedbackEnabled(PBGameVars.HAPTIC_BUTTON_FEEDBACK);\n\
+  exit.getBackground().setAlpha(PBGameVars.MENU_BUTTON_ALPHA);\nexit.setHapticFeedbackEnabled(PBGameVars.HAPTIC_BUTTON_FEEDBACK);\n\
+  start.setOnClickListener(new OnClickListener(){\n@Override\npublic void onClick(View\
+  \ v) {\n/** Start Game!!!! */\nIntent game = new Intent(getApplicationContext(),PBGame.class);\n\
+  PBMainMenu.this.startActivity(game);\n}\n});\nexit.setOnClickListener(new OnClickListener(){\n\
+  @Override\npublic void onClick(View v) {\nint pid= android.os.Process.myPid();\n\
+  android.os.Process.killProcess(pid);\n}\n});\n}\n}\n```\n\n请注意，现在当你点击 `Start` 按钮时，代码指示\
+  \ `PBMainMenu` 启动 `PBGame Activity`。你目前还没有 `PBGame`，让我们创建一个。\n\n在你的 `Prison Break`\
+  \ 项目中创建一个名为 `PBGame` 的新 `Activity`。就代码而言，`PBGame` 相当简单。`PBGame` 会将 `Activity` 的内容视图设置为游戏渲染器，并控制\
+  \ `onPause` 和 `onResume` 事件。\n\n**注意** 请记住，当我提到 `onPause` 和 `onResume` 时，这些并非游戏功能函数，而是\
+  \ Android 在暂停或恢复你的 `Activity` 时调用的方法。\n\n你的新 `PBGame Activity` 中的代码应类似于 `清单 4-2`\
+  \ 所示。\n\n```\nListing 4-2\\. PBGame.java\npackage com.jfdimarzio;\nimport android.app.Activity;\n\
+  import android.os.Bundle;\nimport android.view.MotionEvent;\npublic class PBGame\
+  \ extends Activity {\nfinal PBGameVars gameEngine = new PBGameVars();\nprivate PBGameView\
+  \ gameView;\n@Override\npublic void onCreate(Bundle savedInstanceState) {\nsuperonCreate(savedInstanceState);\n\
+  gameView = new PBGameView(this);\nsetContentView(gameView);\n}\n@Override\nprotected\
+  \ void onResume() {\nsuperonResume();\ngameView.onResume();\n}\n@Override\nprotected\
+  \ void onPause() {\nsuperonPause();\ngameView.onPause();\n}\n}\n```\n\n请注意，`onCreate()`\
+  \ 方法将 `Activity` 的内容视图设置为 `PBGameView` 的新实例。`PBGameView` 是一个扩展了 `GLSurfaceView`\
+  \ 的新类。本章下一节将在你创建 `PBGameView` 时介绍 `GLSurfaceView`。\n\n## 创建 SurfaceView 和 Renderer\n\
+  \n在本节中，你将创建游戏的 `SurfaceView` 和 `Renderer`。`PBGameView` 是一个简单的 Android 类，扩展了 OpenGL\
+  \ 的 `GLSurfaceView`。\n\n如果你从未使用过 OpenGL ES 进行开发，可以将 `GLSurfaceView` 视为 OpenGL 绘制游戏的画布。`GLSurfaceView`\
+  \ 是 Android 显示在屏幕上的内容。但它无法单独工作。`GLSurfaceView` 需要一个对应的 `GLSurfaceView Renderer`\
+  \ 来将游戏渲染到该表面上。\n\n\n\n```markdown\n从 `GLSurfaceView` 开始，创建一个名为 `PBGameView` 的新类，并继承\
+  \ `GLSurfaceView`，如代码清单 4-3 所示。\n\n`代码清单 4-3. PBGameView.java`\n\n```\npackage com.jfdimarzio;\n\
+  \nimport android.content.Context;\nimport android.opengl.GLSurfaceView;\n\npublic\
+  \ class PBGameView extends GLSurfaceView {\n\n    private PBGameRenderer renderer;\n\
+  \n    public PBGameView(Context context) {\n        super(context);\n        renderer\
+  \ = new PBGameRenderer();\n        this.setRenderer(renderer);\n    }\n}\n```\n\n\
+  这是一个相当小的类。你可以看到，该类中唯一构造函数的目的就是创建渲染器（`PBGameRenderer`）的实例。这里没有什么特别的，所以我们继续创建渲染器。\n\
+  \n**注意** 在创建 `PBGameRenderer` 之前，请将以下内容添加到你的 `PBGameVars` 中：`public static final\
+  \ int GAME_THREAD_FPS_SLEEP = (1000/60);`\n\n在你的 Prison Break 项目中创建一个名为 `PBGameRenderer`\
+  \ 的新类。这个类需要实现 `GLSurfaceView.Renderer` 接口，如代码清单 4-4 所示。\n\n`代码清单 4-4. PBGameRenderer.java`\n\
+  \n```\npackage com.jfdimarzio;\n\nimport javax.microedition.khronos.egl.EGLConfig;\n\
+  import javax.microedition.khronos.opengles.GL10;\nimport android.opengl.GLSurfaceView.Renderer;\n\
+  \npublic class PBGameRenderer implements Renderer{\n\n    private long loopStart\
+  \ = 0;\n    private long loopEnd = 0;\n    private long loopRunTime = 0 ;\n\n  \
+  \  @Override\n    public void onDrawFrame(GL10 gl) {\n        // TODO Auto-generated\
+  \ method stub\n        loopStart = System.currentTimeMillis();\n        // TODO\
+  \ Auto-generated method stub\n        try {\n            if (loopRunTime < PBGameVars.GAME_THREAD_FPS_SLEEP){\n\
+  \                Thread.sleep(PBGameVars.GAME_THREAD_FPS_SLEEP - loopRunTime);\n\
+  \            }\n        } catch (InterruptedException e) {\n            // TODO\
+  \ Auto-generated catch block\n            e.printStackTrace();\n        }\n    \
+  \    gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);\n        loopEnd\
+  \ = System.currentTimeMillis();\n        loopRunTime = ((loopEnd - loopStart));\n\
+  \    }\n\n    @Override\n    public void onSurfaceChanged(GL10 gl, int width, int\
+  \ height) {\n        // TODO Auto-generated method stub\n        gl.glViewport(0,\
+  \ 0, width,height);\n        gl.glMatrixMode(GL10.GL_PROJECTION);\n        gl.glLoadIdentity();\n\
+  \        gl.glOrthof(0f, 1f, 0f, 1f, -1f, 1f);\n    }\n\n    @Override\n    public\
+  \ void onSurfaceCreated(GL10 gl, EGLConfig arg1) {\n        // TODO Auto-generated\
+  \ method stub\n        gl.glEnable(GL10.GL_TEXTURE_2D);\n        gl.glClearDepthf(1.0f);\n\
+  \        gl.glEnable(GL10.GL_DEPTH_TEST);\n        gl.glDepthFunc(GL10.GL_LEQUAL);\n\
+  \    }\n}\n```\n\n渲染器有三个需要重写的方法：`onSurfaceCreated()`、`onSurfaceChanged()` 和 `onDrawFrame()`。作为开发者，你不会在代码中直接调用这些方法。`GLSurfaceView`\
+  \ 负责在正确的时间调用所有这些方法。\n\n简而言之，`onSurfaceCreated()` 充当渲染器的构造函数，在渲染器创建时被调用。如果一切运行顺利，这个方法应该只被调用一次；因此，所有初始化设置代码都应放在这个方法中。目前，在初始化例程中只调用了\
+  \ OpenGL 函数来设置纹理和深度缓冲区。\n\n`onSurfaceChanged()` 方法在表面发生变化时被调用。但不要将其与 `onDrawFrame()`\
+  \ 混淆。绘制一帧并不构成表面变化。表面变化更像是屏幕方向改变或类似的破坏性事件。`onSurfaceChanged()` 方法也会在渲染器首次被调用时（完成设置后）执行。\n\
+  \n在 `onSurfaceChanged()` 中，你需要设置游戏视口，并调用 OpenGL 的渲染管线来绘制对象。游戏视口是游戏世界中被绘制到屏幕上的区域。可以把视口想象成相机的取景器。当你将相机对准某个方向时，你只能看到整个世界的一小部分。同样地，使用\
+  \ OpenGL 创建游戏时：你可能会在游戏世界中创建超出当前视野的更多“对象”。视口告诉 OpenGL 你期望看到哪些内容被渲染到显示屏上。\n\n**注意**\
+  \ 使用传递给 `onSurfaceChanged()` 的宽度和高度变量时要小心。当 `GLSurfaceView` 调用 `onSurfaceChanged()`\
+  \ 时，传入的宽度和高度不一定是屏幕的真实宽度和高度。要获取屏幕的完整宽度和高度，请使用 `context.display.width` 和 `context.display.height`。\n\
+  \n你应该将所有每帧都要调用的代码放在 `onDrawFrame()` 中。这包括帧率计算器、绘制游戏所有对象的代码、碰撞检测和清理工作。在代码清单 4-4 中，每帧运行的代码只有用于控制帧率的线程调度以及清除缓冲区的\
+  \ OpenGL 方法。\n\n在下一节中，你将创建绘制背景的类；然后从 `onDrawFrame()` 中调用该类，将背景绘制到屏幕上。\n\n## 创建背景类\n\
+  \n在 Prison Break 中，你将创建一个类来处理用于绘制游戏背景的索引、顶点和纹理的初始化设置。我们后续添加到游戏中的每个新元素都遵循这个类的格式。你使用的背景图片应复制到项目中的\
+  \ `res/drawable-nodpi` 文件夹，并命名为 `bg1.png`。将以下变量添加到你的 `PBGameVars` 文件中，以便后续引用该图片。\n\
+  \n```\npublic static final int BACKGROUND = R.drawable.bg1;\n```\n\n我正在使用的图片如 图\
+  \ 4-1 所示。\n\n![9781430245452_Fig04-01.jpg](img/9781430245452_Fig04-01.jpg)\n\n图\
+  \ 4-1. bg1.png，Prison Break 的背景图片\n\n现在该设置创建背景的类了。在你的 Prison Break 项目中创建一个名为 `PBBackground.java`\
+  \ 的新类。这个类需要三个方法：构造函数、`draw()` 方法和 `loadTexture()` 方法。\n\n构造函数将顶点、索引和纹理数组加载到缓冲区中。由于这是决定背景渲染到屏幕上时外观的关键步骤，让我们花点时间讨论这些数组是什么以及它们是如何使用的。\n\
+  \n顶点数组用于定义背景图片所映射到的多边形的角。这些角使用笛卡尔坐标系中的 x、y、z 轴定义。因此，在创建一个正方形时，你需要分别提供左下角、左上角、右上角和右下角的\
+  \ x、y、z 坐标。\n\n现在，我需要澄清上一段中可能存在的混淆。虽然最终绘制的多边形是正方形（或矩形），但 OpenGL 实际上绘制的是直角三角形。两个三角形并排放置形成一个正方形。索引缓冲区的目的是告诉\
+  \ OpenGL 三角形边的索引顺序，从而告诉 OpenGL 顶点缓冲区中各角的绘制顺序。换句话说，如果索引缓冲区是 0, 1, 2, 0, 2, 3——就像\
+  \ 图 4-2 中的三角形，那么顶点缓冲区中的角依次是左下角、左上角、右上角和右下角。\n\n![9781430245452_Fig04-02.jpg](img/9781430245452_Fig04-02.jpg)\n\
+  \n图 4-2. 索引三角形\n\n最后，纹理数组告诉 OpenGL 纹理（或图片）的哪些角映射到顶点的特定角。由于纹理映射中没有深度概念，纹理数组只有 x 和\
+  \ y 坐标。\n```\n\n\n**提示** 如果你的三维多边形顶点使用了 z 坐标，并且你想将纹理映射到这些顶点上，你仍然只需通过 x 和 y 坐标提供纹理的角点即可。实际上，你的纹理数组很可能会针对每个顶点重复使用。当处理直线多边形时，即使顶点会变化，你的纹理数组很可能保持不变。\n\
+  \n该类的 `draw()` 方法会在每一帧被调用。该方法利用渲染器中修改的矩阵信息来绘制背景。它还包含一些设置，用于剔除不被渲染的多边形面。\n\n最后一个方法\
+  \ `loadTexture()` 包含一些调用，用于接收你传入的图像，并将该图像作为纹理加载到 OpenGL 中。该类在 `draw()` 方法中使用这个纹理。清单\
+  \ 4-5 展示了 `PBBackground` 类的代码。\n\n`清单 4-5. PBBackground 类`\n\n```\npackage com.jfdimarzio;\n\
+  \nimport java.io.IOException;\nimport java.io.InputStream;\nimport java.nio.ByteBuffer;\n\
+  import java.nio.ByteOrder;\nimport java.nio.FloatBuffer;\nimport javax.microedition.khronos.opengles.GL10;\n\
+  import android.content.Context;\nimport android.graphics.Bitmap;\nimport android.graphics.BitmapFactory;\n\
+  import android.opengl.GLUtils;\n\npublic class PBBackground {\n\n    private FloatBuffer\
+  \ vertexBuffer;\n    private FloatBuffer textureBuffer;\n    private ByteBuffer\
+  \ indexBuffer;\n    private int[] textures = new int[1];\n    private float vertices[]\
+  \ = {\n            0.0f, 0.0f, 0.0f,\n            1.0f, 0.0f, 0.0f,\n          \
+  \  1.0f, 1.0f, 0.0f,\n            0.0f, 1.0f, 0.0f,\n    };\n    private float texture[]\
+  \ = {\n            0.0f, 0.0f,\n            1.0f, 0f,\n            1f, 1.0f,\n \
+  \           0f, 1f,\n    };\n    private byte indices[] = {\n            0,1,2,\n\
+  \            0,2,3,\n    };\n\n    public PBBackground() {\n        ByteBuffer byteBuf\
+  \ = ByteBuffer.allocateDirect(vertices.length * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n\
+  \        vertexBuffer = byteBuf.asFloatBuffer();\n        vertexBuffer.put(vertices);\n\
+  \        vertexBuffer.position(0);\n\n        byteBuf = ByteBuffer.allocateDirect(texture.length\
+  \ * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n        textureBuffer\
+  \ = byteBuf.asFloatBuffer();\n        textureBuffer.put(texture);\n        textureBuffer.position(0);\n\
+  \n        indexBuffer = ByteBuffer.allocateDirect(indices.length);\n        indexBuffer.put(indices);\n\
+  \        indexBuffer.position(0);\n    }\n\n    public void draw(GL10 gl) {\n  \
+  \      gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);\n        gl.glFrontFace(GL10.GL_CCW);\n\
+  \        gl.glEnable(GL10.GL_CULL_FACE);\n        gl.glCullFace(GL10.GL_BACK);\n\
+  \        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);\n        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);\n\
+  \        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);\n        gl.glTexCoordPointer(2,\
+  \ GL10.GL_FLOAT, 0, textureBuffer);\n        gl.glDrawElements(GL10.GL_TRIANGLES,\
+  \ indices.length, GL10.GL_UNSIGNED_BYTE, indexBuffer);\n        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);\n\
+  \        gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);\n        gl.glDisable(GL10.GL_CULL_FACE);\n\
+  \    }\n\n    public void loadTexture(GL10 gl,int texture, Context context) {\n\
+  \        InputStream imagestream = context.getResources().openRawResource(texture);\n\
+  \        Bitmap bitmap = null;\n        try {\n            bitmap = BitmapFactory.decodeStream(imagestream);\n\
+  \        }catch(Exception e){\n        }finally {\n            try {\n         \
+  \       imagestream.close();\n                imagestream = null;\n            }\
+  \ catch (IOException e) {\n            }\n        }\n        gl.glGenTextures(1,\
+  \ textures, 0);\n        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);\n  \
+  \      gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);\n\
+  \        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);\n\
+  \        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);\n        bitmap.recycle();\n\
+  \    }\n}\n```\n\n在本章最后一部分，你将使用 `PBBackground` 类，并在 `PBGameRenderer` 中调用它，从而使用 OpenGL\
+  \ 将背景绘制到屏幕上。\n\n## 绘制背景\n\n在本节中，你将创建一个背景的新实例，并在 `PBGameRenderer` 中调用它。绘制背景的步骤如下：\n\
+  \n1.  实例化一个新的 `PBBackground`。这无需过多解释；在使用背景类之前，你必须先实例化它。\n2.  将你的 `bg1.png` 图像加载为背景纹理。由于图像只需加载一次，因此你在\
+  \ `PBGameRenderer` 的 `onSurfaceCreated()` 方法中调用背景类的 `loadTexture()` 方法。\n3.  在 `PBGameRenderer`\
+  \ 中创建一个新方法，用于调整背景多边形的大小。如果不调整多边形的大小，它们将无法与你在屏幕上期望的大小匹配。此步骤可能需要一些微调才能达到理想效果。\n4.\
+  \  在 `onDrawFrame()` 中调用这个新方法。这会将背景绘制到每一帧的屏幕上。如果不在此处调用该方法，它将不会被渲染。\n\n清单 4-6 展示了\
+  \ `PBGameRenderer` 的代码；其中用于绘制背景的新代码以粗体显示。\n\n`清单 4-6. 调用绘制背景功能的 PBGameRenderer`\n\
+  \n```\npackage com.jfdimarzio;\n\nimport javax.microedition.khronos.egl.EGLConfig;\n\
+  import javax.microedition.khronos.opengles.GL10;\nimport android.opengl.GLSurfaceView.Renderer;\n\
+  \npublic class PBGameRenderer implements Renderer{\n\n    private PBBackground background\
+  \ = new PBBackground();\n    private long loopStart = 0;\n    private long loopEnd\
+  \ = 0;\n    private long loopRunTime = 0 ;\n\n    @Override\n    public void onDrawFrame(GL10\
+  \ gl) {\n        // TODO Auto-generated method stub\n        loopStart = System.currentTimeMillis();\n\
+  \        // TODO Auto-generated method stub\n        try {\n            if (loopRunTime\
+  \ < PBGameVars.GAME_THREAD_FPS_SLEEP){\n                Thread.sleep(PBGameVars.GAME_THREAD_FPS_SLEEP\
+  \ - loopRunTime);\n            }\n        } catch (InterruptedException e) {\n \
+  \           // TODO Auto-generated catch block\n            e.printStackTrace();\n\
+  \        }\n\n        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);\n\
+  \        drawBackground1(gl);\n        loopEnd = System.currentTimeMillis();\n \
+  \       loopRunTime = ((loopEnd - loopStart));\n    }\n\n    @Override\n    public\
+  \ void onSurfaceChanged(GL10 gl, int width, int height) {\n        // TODO Auto-generated\
+  \ method stub\n        gl.glViewport(0, 0, width,height);\n        gl.glMatrixMode(GL10.GL_PROJECTION);\n\
+  \        gl.glLoadIdentity();\n        gl.glOrthof(0f, 1f, 0f, 1f, -1f, 1f);\n \
+  \   }\n\n    @Override\n    public void onSurfaceCreated(GL10 gl, EGLConfig arg1)\
+  \ {\n        // TODO Auto-generated method stub\n        gl.glEnable(GL10.GL_TEXTURE_2D);\n\
+  \        gl.glClearDepthf(1.0f);\n        gl.glEnable(GL10.GL_DEPTH_TEST);\n   \
+  \     gl.glDepthFunc(GL10.GL_LEQUAL);\n        background.loadTexture(gl,PBGameVars.BACKGROUND,\
+  \ PBGameVars.context);\n    }\n\n    private void drawBackground1(GL10 gl){\n  \
+  \      gl.glMatrixMode(GL10.GL_MODELVIEW);\n        gl.glLoadIdentity();\n     \
+  \   gl.glPushMatrix();\n        gl.glScalef(1f, 1f, 1f);\n        background.draw(gl);\n\
+  \        gl.glPopMatrix();\n    }\n}\n```\n\n编译并运行你的项目。在主菜单中，点击“开始”按钮。你应该会看到背景，如图\
+  \ 4-3 所示。\n\n![9781430245452_Fig04-03.jpg](img/9781430245452_Fig04-03.jpg)\n\n图\
+  \ 4-3. 渲染后的背景\n\n在结束本章之前，让我们简要谈谈 OpenGL 的矩阵模式。当你在 `PBGameRenderer` 中看到这些调用后，可能会对它们的作用感到困惑。OpenGL\
+  \ 有三种模式，你可以在这些模式下修改渲染管线中的不同矩阵。这三种模式（以及矩阵）分别是 `ModelView`、`Texture` 和 `Projection`。在这些模式下工作需要进行一些抽象思考，但理解起来并不太难。\n\
+  \n将 OpenGL 置于 `ModelView` 模式会加载 `ModelView` 矩阵。`ModelView` 矩阵控制着 OpenGL 世界中的每一组多边形。\n\
+  \n另一方面，`Texture` 模式会加载世界中所有纹理的矩阵。请记住，当你在 OpenGL 世界中将一个纹理与一组顶点关联时，它们仍然包含在两个不同的矩阵中。这里的措辞很重要。如果屏幕上有\
+  \ 50 个对象，每个都有纹理，将 OpenGL 置于 `Texture` 模式会赋予你访问所有 50 个纹理的权限——而不仅仅是那个你认为要处理的对象。\n\n\
+  `Projection` 模式加载控制 OpenGL 摄像头的矩阵。\n\n\n\n**注意**：OpenGL 实际上并没有真正理解或拥有“摄像机”的概念。大多数人明白摄像机用于创建视图和渲染器，因此很容易将投影矩阵中的操作等同于常见的图形学中的摄像机概念。\n\
+  \n在每个矩阵模式下，都有特定的命令可用于操作这些矩阵中的对象。\n\n命令`glLoadIdentity()`告诉 OpenGL 加载一个未经修改的矩阵副本。例如，假设你处于纹理模式，并且你已经将一个红色纹理映射到一个正方形上。在纹理模式下，你将纹理交换为绿色纹理。调用`glLoadIdentity()`就会加载包含红色纹理的纹理矩阵。\n\
+  \n命令`glPushMatrix()`执行类似的功能。该命令会为你提供一个当前矩阵及其当前状态的副本。因此，在上一个例子中，如果你调用`glPushMatrix()`而不是`glLoadIdentity()`，你将获得一个带有绿色纹理的矩阵副本。但是，如果在调用`glLoadIdentity()`之后调用`glPushMatrix()`，那么你将获得一个带有红色纹理的矩阵副本。\n\
+  \n完成使用`glPushMatrix()`创建的矩阵副本后，使用`glPopMatrix()`将该副本写回 OpenGL 管道。如果你希望对矩阵进行多次变换，并且不想给主矩阵带来任何意外问题，这将非常有用。\n\
+  \n最后，有三个命令可用于变换矩阵：`glScale`、`glTranslate` 和 `glRotate`。顾名思义，`glScale` 和 `glRotate`\
+  \ 分别用于缩放和旋转矩阵。再次强调，这些命令的效果在很大程度上取决于你所处的矩阵模式。`glTranslate` 命令根据给定的坐标集移动矩阵。这些命令将在后续章节中详细探讨。\n\
+  \n**总结**\n\n在本章中，你学习了如何使用 OpenGL 创建并绘制屏幕背景。你还学习了如何使用 OpenGL 渲染器和 SurfaceView。最后，你创建了处理\
+  \ OpenGL 顶点、纹理和索引支持的类。\n\n在下一章中，你将开始添加方块和玩家挡板。\n\n## 第 5 章\n\n创建玩家角色和障碍物\n\n在上一章中，你学习了如何为你的游戏《越狱》添加背景图像。你创建了一个类，实例化后即可提供添加背景所需的所有资源。\n\
+  \n在本章中，你将运用这些知识来创建游戏中的砖块、玩家挡板和球。这将提供你制作游戏所需的所有屏幕对象。\n\n然而，在开始处理砖块、挡板或球之前，你需要做一些准备工作。\n\
+  \n## 开始之前\n\n你需要向项目中添加一些内容来为本章做准备，首先是你将用于砖块、挡板和球的图像。我为砖块使用的图像（游戏中可以使用多种不同的砖块）是一个*精灵表*，通过将所有不同砖块的图像包含在一个物理文件中，使你能够更轻松地使用不同的图像。\n\
+  \n如果你从未使用过精灵表，它是一个单一图像文件，其中包含了特定动画或角色集的所有不同图像。例如，如果你正在制作一个主角可以横穿屏幕的游戏，那么该角色的精灵表将包含用于制作角色动画的所有帧。\n\
+  \n同样，为了让你（游戏开发者）在游戏外观上有一些选择，球的图像也包含在一个精灵表中。这个精灵表有两个不同的球图像供你选择。\n\n我在《越狱》中使用的砖块精灵表、玩家挡板和球精灵表的图像分别如图\
+  \ 5-1、图 5-2 和图 5-3 所示。\n\n![9781430245452_Fig05-01.jpg](img/9781430245452_Fig05-01.jpg)\n\
+  \n图 5-1. 砖块精灵表\n\n![9781430245452_Fig05-02.jpg](img/9781430245452_Fig05-02.jpg)\n\
+  \n图 5-2. 玩家挡板\n\n![9781430245452_Fig05-03.jpg](img/9781430245452_Fig05-03.jpg)\n\
+  \n图 5-3. 球精灵表\n\n你可能注意到砖块和玩家挡板几乎是方形的，而不是长方形。这很好，因为这让你有机会使用 OpenGL 将图像拉伸成矩形。\n\n\
+  接下来，你需要向 `PBGameVars` 文件中添加更多变量。将以下几行代码添加到你的 `PBGameVars` 中。暂时不要太担心你现在不理解的那些变量；我们会在使用它们时进行解释。\n\
+  \n```\npublic static float playerBankPosX = -.73f;\npublic static int playerAction\
+  \ = 0;\npublic static final int PLAYER_MOVE_LEFT_1 = 1;\npublic static final int\
+  \ PLAYER_RELEASE = 3;\npublic static final int PLAYER_MOVE_RIGHT_1 = 4;\npublic\
+  \ static final float PLAYER_MOVE_SPEED = .2f;\npublic static final int PADDLE =\
+  \ R.drawable.goldbrick;\npublic static final int BRICK_BLUE = 1;\npublic static\
+  \ final int BRICK_BROWN = 2;\npublic static final int BRICK_DARK_GRAY = 3;\npublic\
+  \ static final int BRICK_GREEN = 4;\npublic static final int BRICK_LITE_GRAY = 5;\n\
+  public static final int BRICK_PURPLE = 6;\npublic static final int BRICK_RED = 7;\n\
+  public static final int BRICK_SHEET = R.drawable.bricksheet;\npublic static final\
+  \ int BALL_SHEET = R.drawable.ballsheet;\npublic static final float BALL_SPEED =\
+  \ 0.01f;\npublic static float ballTargetY = 0.01f;\npublic static float ballTargetX\
+  \ = -1.125f;\n```\n\n处理好这些准备工作后，是时候开始为游戏创建一些元素了。让我们从玩家挡板开始。\n\n## 创建玩家挡板类\n\n向你的项目中添加一个名为\
+  \ `PBPlayer` 的新类。这个类看起来与你为背景创建的类 `PBBackground` 非常相似。该类包含一个构造函数、一个 `draw()` 方法和一个\
+  \ `loadTexture()` 方法。`PBPlayer` 类的代码如清单 5-1 所示。\n\n**清单 5-1. PBPlayer 类**\n\n```\n\
+  package com.jfdimarzio;\n\nimport java.io.IOException;\nimport java.io.InputStream;\n\
+  import java.nio.ByteBuffer;\nimport java.nio.ByteOrder;\nimport java.nio.FloatBuffer;\n\
+  import javax.microedition.khronos.opengles.GL10;\nimport android.content.Context;\n\
+  import android.graphics.Bitmap;\nimport android.graphics.BitmapFactory;\nimport\
+  \ android.opengl.GLUtils;\n\npublic class PBPlayer {\n\n    private FloatBuffer\
+  \ vertexBuffer;\n    private FloatBuffer textureBuffer;\n    private ByteBuffer\
+  \ indexBuffer;\n    private int[] textures = new int[1];\n    private float vertices[]\
+  \ = {\n        0.0f, 0.0f, 0.0f,\n        1.5f, 0.0f, 0.0f,\n        1.5f, .25f,\
+  \ 0.0f,\n        0.0f, .25f, 0.0f,\n    };\n    private float texture[] = {\n  \
+  \      0.0f, 0.0f,\n        1.0f, 0.0f,\n        1.0f, 1.0f,\n        0.0f, 1.0f,\n\
+  \    };\n    private byte indices[] = {\n        0,1,2,\n        0,2,3,\n    };\n\
+  \n    public PBPlayer() {\n        ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length\
+  \ * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n        vertexBuffer =\
+  \ byteBuf.asFloatBuffer();\n        vertexBuffer.put(vertices);\n        vertexBuffer.position(0);\n\
+  \n        byteBuf = ByteBuffer.allocateDirect(texture.length * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n\
+  \        textureBuffer = byteBuf.asFloatBuffer();\n        textureBuffer.put(texture);\n\
+  \        textureBuffer.position(0);\n\n        indexBuffer = ByteBuffer.allocateDirect(indices.length);\n\
+  \        indexBuffer.put(indices);\n        indexBuffer.position(0);\n    }\n\n\
+  \    public void draw(GL10 gl) {\n        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);\n\
+  \        gl.glFrontFace(GL10.GL_CCW);\n        gl.glEnable(GL10.GL_CULL_FACE);\n\
+  \        gl.glCullFace(GL10.GL_BACK);\n        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);\n\
+  ```\n\n\n\n`gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);`\n\n`gl.glVertexPointer(3,\
+  \ GL10.GL_FLOAT, 0, vertexBuffer);`\n\n`gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0,\
+  \ textureBuffer);`\n\n`gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE,\
+  \ indexBuffer);`\n\n`gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);`\n\n`gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);`\n\
+  \n`gl.glDisable(GL10.GL_CULL_FACE);`\n\n`}`\n\n`public void loadTexture(GL10 gl,\
+  \ int texture, Context context) {`\n\n`InputStream imagestream = context.getResources().openRawResource(texture);`\n\
+  \n`Bitmap bitmap = null;`\n\n`try {`\n\n`bitmap = BitmapFactory.decodeStream(imagestream);`\n\
+  \n`} catch (Exception e) {`\n\n`} finally {`\n\n`try {`\n\n`imagestream.close();`\n\
+  \n`imagestream = null;`\n\n`} catch (IOException e) {`\n\n`}`\n\n`}`\n\n`gl.glGenTextures(1,\
+  \ textures, 0);`\n\n`gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);`\n\n`gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);`\n\n`gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);`\n\n`GLUtils.texImage2D(GL10.GL_TEXTURE_2D,\
+  \ 0, bitmap, 0);`\n\n`bitmap.recycle();`\n\n`}`\n\n`}`\n\n在下一节中，你将添加砖块类。在本章稍后的内容中，你将添加用于实例化并调用所有类的代码。\n\
+  \n## 创建砖块类\n\n与玩家挡板和背景类似，你需要一个类来表示砖块。不过，砖块类会稍有不同。因为将要在砖块类中使用精灵表，所以你不会像处理背景和玩家挡板那样调用\
+  \ `loadTexture()` 方法。为了让你了解代码的灵活性如何，我们会将所有精灵表加载到一个数组中，并将它们一并传递。因此，我们将移除 `loadTexture()`\
+  \ 方法，并创建一个新的类来处理精灵表纹理。\n\n这段代码并非必须如此编写；更确切地说，由于本书是一本教学工具，我试图向你展示处理问题的不同方式。这里仅仅是介绍一个以不同方式完成任务的合适场景。在了解这些差异之后，你可以自由选择你认为最适合自身情况的纹理加载方法。\n\
+  \n首先，创建一个名为 `PBBricks` 的新类。`PBBricks` 的代码如清单 5-2 所示。\n\n`清单 5-2. PBBrick`\n\n```\n\
+  PBBrick\n\npackage com.jfdimarzio;\n\nimport java.nio.ByteBuffer;\nimport java.nio.ByteOrder;\n\
+  import java.nio.FloatBuffer;\nimport javax.microedition.khronos.opengles.GL10;\n\
+  \npublic class PBBrick {\n\n    public float posY = 0f;\n    public float posX =\
+  \ 0f;\n    public float posT = 0f;\n    public boolean isDestroyed = false;\n  \
+  \  public int brickType = 0;\n    private FloatBuffer vertexBuffer;\n    private\
+  \ FloatBuffer textureBuffer;\n    private ByteBuffer indexBuffer;\n\n    private\
+  \ float vertices[] = {\n        0.0f, 0.0f, 0.0f,\n        1.0f, 0.0f, 0.0f,\n \
+  \       1.0f, .25f, 0.0f,\n        0.0f, .25f, 0.0f,\n    };\n\n    private float\
+  \ texture[] = {\n        0.0f, 0.0f,\n        0.25f, 0.0f,\n        0.25f, 0.25f,\n\
+  \        0.0f, 0.25f,\n    };\n\n    private byte indices[] = {\n        0,1,2,\n\
+  \        0,2,3,\n    };\n\n    public PBBrick(int type) {\n        brickType = type;\n\
+  \        ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);\n\
+  \        byteBuf.order(ByteOrder.nativeOrder());\n        vertexBuffer = byteBuf.asFloatBuffer();\n\
+  \        vertexBuffer.put(vertices);\n        vertexBuffer.position(0);\n\n    \
+  \    byteBuf = ByteBuffer.allocateDirect(texture.length * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n\
+  \        textureBuffer = byteBuf.asFloatBuffer();\n        textureBuffer.put(texture);\n\
+  \        textureBuffer.position(0);\n\n        indexBuffer = ByteBuffer.allocateDirect(indices.length);\n\
+  \        indexBuffer.put(indices);\n        indexBuffer.position(0);\n    }\n\n\
+  \    public void draw(GL10 gl, int[] spriteSheet) {\n        gl.glBindTexture(GL10.GL_TEXTURE_2D,\
+  \ spriteSheet[0]);\n        gl.glFrontFace(GL10.GL_CCW);\n        gl.glEnable(GL10.GL_CULL_FACE);\n\
+  \        gl.glCullFace(GL10.GL_BACK);\n        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);\n\
+  \        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);\n        gl.glVertexPointer(3,\
+  \ GL10.GL_FLOAT, 0, vertexBuffer);\n    }\n}\n```\n\n\n\n```gl.glTexCoordPointer(2,\
+  \ GL10.GL_FLOAT, 0, textureBuffer);\ngl.glDrawElements(GL10.GL_TRIANGLES, indices.length,\
+  \ GL10.GL_UNSIGNED_BYTE, indexBuffer);\ngl.glDisableClientState(GL10.GL_VERTEX_ARRAY);\n\
+  gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);\ngl.glDisable(GL10.GL_CULL_FACE);\n\
+  ```\n\n**注意** – 请密切关注粗体部分的代码。它与你之前创建的其他 `draw()` 方法不同，并且对于本章后续加载正确的纹理非常重要。\n\n由于\
+  \ `PBBrick` 使用了精灵表（spritesheet）作为其纹理——`PBBall` 也是如此，你将在本章稍后创建它——因此你需要创建一个新类来处理纹理加载。\n\
+  \n创建一个名为 `PBTextures` 的新类。`PBTextures` 类持有一个纹理数组，并向需要纹理的类提供正确的纹理。你应该能认出 `PBTextures`\
+  \ 中的代码来自 `loadTexture()` 方法。`PBTextures` 类的代码如清单 5-3 所示。\n\n**清单 5-3.** `PBTextures`\n\
+  \n```java\npackage com.jfdimarzio;\n\nimport java.io.IOException;\nimport java.io.InputStream;\n\
+  import javax.microedition.khronos.opengles.GL10;\nimport android.content.Context;\n\
+  import android.graphics.Bitmap;\nimport android.graphics.BitmapFactory;\nimport\
+  \ android.opengl.GLUtils;\n\npublic class PBTextures {\n    private int[] textures\
+  \ = new int[3];\n    \n    public PBTextures(GL10 gl) {\n        gl.glGenTextures(3,\
+  \ textures, 0);\n    }\n    \n    public int[] loadTexture(GL10 gl, int texture,\
+  \ Context context, int textureNumber) {\n        InputStream imagestream = context.getResources().openRawResource(texture);\n\
+  \        Bitmap bitmap = null;\n        try {\n            bitmap = BitmapFactory.decodeStream(imagestream);\n\
+  \        } catch (Exception e) {\n        } finally {\n            try {\n     \
+  \           imagestream.close();\n                imagestream = null;\n        \
+  \    } catch (IOException e) {\n            }\n        }\n        \n        gl.glBindTexture(GL10.GL_TEXTURE_2D,\
+  \ textures[textureNumber - 1]);\n        gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);\n        gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);\n        gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);\n        gl.glTexParameterf(GL10.GL_TEXTURE_2D,\
+  \ GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);\n        GLUtils.texImage2D(GL10.GL_TEXTURE_2D,\
+  \ 0, bitmap, 0);\n        bitmap.recycle();\n        return textures;\n    }\n}\n\
+  ```\n\n搞定了 `PBTextures` 类，接下来该创建最终的物体类 `PBBall` 了。\n\n## 创建 `PBBall` 类\n\n创建一个名为\
+  \ `PBBall` 的新类。这个类与 `PBBrick` 一样，使用精灵表，因此不需要 `loadTexture()` 方法。`PBBall` 类与 `PBBrick`\
+  \ 非常相似。不过，请注意粗体代码；其中包含一个重要变化，对于后续显示正确的纹理是必需的。\n\n`PBBall` 的代码如清单 5-4 所示。\n\n**清单\
+  \ 5-4.** `PBBall`\n\n```java\npackage com.jfdimarzio;\n\nimport java.nio.ByteBuffer;\n\
+  import java.nio.ByteOrder;\nimport java.nio.FloatBuffer;\nimport java.util.Random;\n\
+  import javax.microedition.khronos.opengles.GL10;\n\npublic class PBBall {\n    public\
+  \ float posY = 0f;\n    public float posX = 0f;\n    public float posT = 0f;\n \
+  \   public int ballMode = 0;\n    private Random randomPos = new Random();\n   \
+  \ private int damage = 0;\n    private FloatBuffer vertexBuffer;\n    private FloatBuffer\
+  \ textureBuffer;\n    private ByteBuffer indexBuffer;\n    \n    private float vertices[]\
+  \ = {\n        0.0f, 0.0f, 0.0f,\n        0.25f, 0.0f, 0.0f,\n        0.25f, 0.25f,\
+  \ 0.0f,\n        0.0f, 0.25f, 0.0f,\n    };\n    \n    private float texture[] =\
+  \ {\n        0.0f, 0.0f,\n        0.50f, 0.0f,\n        0.50f, 0.50f,\n        0.0f,\
+  \ 0.50f,\n    };\n    \n    private byte indices[] = {\n        0, 1, 2,\n     \
+  \   0, 2, 3,\n    };\n    \n    public PBBall() {\n        posY = (randomPos.nextFloat()\
+  \ + 1f) * (float)(-1.75 - -1.6);\n        posX = randomPos.nextFloat() * .75f;\n\
+  \        ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);\n\
+  \        byteBuf.order(ByteOrder.nativeOrder());\n        vertexBuffer = byteBuf.asFloatBuffer();\n\
+  \        vertexBuffer.put(vertices);\n        vertexBuffer.position(0);\n      \
+  \  byteBuf = ByteBuffer.allocateDirect(texture.length * 4);\n        byteBuf.order(ByteOrder.nativeOrder());\n\
+  \        textureBuffer = byteBuf.asFloatBuffer();\n    }\n}\n```\n\n\n\n`textureBuffer.put(texture);`\n\
+  \n`textureBuffer.position(0);`\n\n`indexBuffer = ByteBuffer.allocateDirect(indices.length);`\n\
+  \n`indexBuffer.put(indices);`\n\n`indexBuffer.position(0);`\n\n`}`\n\n`}`\n\n`public\
+  \ void draw(GL10 gl, int[] spriteSheet) {`\n\n`gl.glBindTexture(GL10.GL_TEXTURE_2D,\
+  \ spriteSheet[2]);`\n\n`gl.glFrontFace(GL10.GL_CCW);`\n\n`gl.glEnable(GL10.GL_CULL_FACE);`\n\
+  \n`gl.glCullFace(GL10.GL_BACK);`\n\n`gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);`\n\
+  \n`gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);`\n\n`gl.glVertexPointer(3,\
+  \ GL10.GL_FLOAT, 0, vertexBuffer);`\n\n`gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0,\
+  \ textureBuffer);`\n\n`gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE,\
+  \ indexBuffer);`\n\n`gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);`\n\n`gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);`\n\
+  \n`gl.glDisable(GL10.GL_CULL_FACE);`\n\n`}`\n\n`}`\n\n现在你已经为砖块、挡板和球准备好了所有类，是时候将它们整合起来，并学习如何在`PBGameRenderer`中调用它们了，不是吗？并非如此。你还需要两个较小的辅助类，以便在后续开发中简化工作。\n\
+  \n## PBRow 和 PBWall\n\n毫无疑问，你过去一定见过*打砖块*风格的游戏。在这些游戏中，你需要击碎的那些砖块是以砖墙图案排列的。*越狱（Prison\
+  \ Break）*游戏中也是如此。\n\n你将创建两个类：`PBRow`和`PBWall`，以帮助完成实例化多个砖块并将其排列成砖墙样式的任务。`PBWall`类将由指定数量的行组成。这些行是`PBRow`的独立实例，而每一行则由预定数量和布局的`PBBrick`组成。因此，在初始化游戏时，你只需要创建一个`PBWall`实例并告知它你需要的行数；剩下的工作将由`PBWall`处理。\n\
+  \n创建一个名为`PBWall`的新类。`PBWall`的代码如清单 5-5 所示。\n\n```\nListing 5-5\\. PBWall\n\npackage\
+  \ com.jfdimarzio;\n\npublic class PBWall {\n\n    public PBRow[] rows;\n\n    public\
+  \ PBWall(int numberOfRows){\n        rows = new PBRow[numberOfRows];\n        for(int\
+  \ x = 0; x <= numberOfRows - 1; x++)\n        {\n            rows[x] = new PBRow(x);\n\
+  \        }\n    }\n}\n```\n\n接下来，在你的项目中创建一个名为`PBRow`的新类。`PBRow`的代码如清单 5-6 所示。\n\n\
+  ```\nListing 5-6\\. PBRow\n\npackage com.jfdimarzio;\n\nimport java.util.Random;\n\
+  \npublic class PBRow {\n\n    public PBBrick[] bricks;\n    private Random brickType\
+  \ = new Random();\n    private boolean isRowOdd = false;\n    private int numberOfBricks\
+  \ = 0;\n\n    public PBRow(int rowNumber){\n        if(rowNumber % 2 > 0)\n    \
+  \    {\n            numberOfBricks = 4;\n            isRowOdd = true;\n        }\n\
+  \        else\n        {\n            numberOfBricks = 5;\n            isRowOdd\
+  \ = false;\n        }\n\n        bricks = new PBBrick[numberOfBricks];\n\n     \
+  \   for(int x = 0; x < numberOfBricks ; x++)\n        {\n            bricks[x] =\
+  \ new PBBrick((int) (brickType.nextFloat() * 7));\n            if(isRowOdd)\n  \
+  \          {\n                bricks[x].posX = x - 2f ;\n                bricks[x].posY\
+  \ = (rowNumber * .25f) + 1 ;\n            }\n            else\n            {\n \
+  \               bricks[x].posX = x - 2.5f;\n                bricks[x].posY = (rowNumber\
+  \ * .25f) + 1 ;\n            }\n        }\n    }\n}\n```\n\n我将`PBRow`中的一段代码加粗了，以便你特别关注。这行代码创建一个随机数并将其赋值给`brickType`。稍后在`PBGameRenderer`中，你将使用这个随机的`brickType`来确定砖块的颜色（和纹理）。\n\
+  \n现在，我们将所有内容整合到`PBGameRenderer`中。\n\n## 在 PBGameRenderer 中调用砖块、挡板和球\n\n在本章的这一部分，我将重点介绍你需要添加到`PBGameRenderer`中的代码。在重点介绍代码之后，我将给出`PBGameRenderer`类的完整代码，以便你能够在上下文中查看它。\n\
+  \n你需要做的第一件事是为你的墙、挡板、球、精灵表等创建变量。以下是需要添加到`PBGameRenderer`中的新变量：\n\n`private PBPlayer\
+  \ player1 = new PBPlayer();`\n\n`private PBBall ball = new PBBall();`\n\n`private\
+  \ PBTextures textureLoader;`\n\n`private int[] spriteSheets = new int[3];`\n\n`private\
+  \ int numberOfRows = 4;`\n\n\n\n`private PBWall wall;`\n\n变量就绪后，你需要在 `onSurfaceCreated()`\
+  \ 方法中添加一些纹理加载器。需要添加的代码在以下代码片段中以粗体显示：\n\n```\n@Override\npublic void onSurfaceCreated(GL10\
+  \ gl, EGLConfig arg1) {\n    // TODO Auto-generated method stub\n    initializeBricks();\n\
+  \    textureLoader = new PBTextures(gl);\n    spriteSheets = textureLoader.loadTexture(gl,\
+  \ PBGameVars.BRICK_SHEET, PBGameVars.context, 1);\n    gl.glEnable(GL10.GL_TEXTURE_2D);\n\
+  \    gl.glClearDepthf(1.0f);\n    gl.glEnable(GL10.GL_DEPTH_TEST);\n    gl.glDepthFunc(GL10.GL_LEQUAL);\n\
+  \    background.loadTexture(gl,PBGameVars.BACKGROUND, PBGameVars.context);\n   \
+  \ player1.loadTexture(gl,PBGameVars.PADDLE, PBGameVars.context);\n}\n```\n\n注意，`onSurfaceCreated()`\
+  \ 调用了一个新方法 `initializeBricks()`。这个新方法为你创建墙体。\n\n```\nprivate void initializeBricks(){\n\
+  \    wall = new PBWall(numberOfRows);\n}\n```\n\n现在你需要一个能够在每一帧绘制砖块的方法；类似于 `drawBrackground()`\
+  \ 方法，可以被 `drawFrame()` 方法调用。`drawBricks()` 方法在每一帧被调用，并承担若干功能。首先，通过遍历 `PBWall` 并读取每个砖块的\
+  \ `isDestroyed` 标志，判断砖块是否已被击出游戏。如果砖块已被摧毁，则在绘制循环中跳过它，从而避免将其渲染到屏幕上，使其从游戏中消失。\n\n其次，`drawBricks()`\
+  \ 方法使用基于每个砖块 `brickType` 的 switch 语句，来决定使用砖块精灵表中的哪张图片作为该特定砖块的纹理。这部分代码需要特别留意，因为它使用\
+  \ `glTranslatef()` 将精灵表移动到每个砖块对应的正确纹理位置。\n\n可以这样理解：游戏中绘制的砖块是一个砖块的大小，但包含所有图像的精灵表却是七个砖块的大小。因此，通过使用\
+  \ `glTranslatef()`，你将在砖块上移动精灵表，直到正确的砖块图像映射到正确的砖块上。\n\n你可以在以下以粗体显示的代码中看到这一实际应用：\n\
+  \n```\nprivate void drawBricks(GL10 gl){\n    for (int x = 0; x < wall.rows.length;\
+  \ x++)\n    {\n        for(int y = 0; y < wall.rows[x].bricks.length; y++)\n   \
+  \     {\n            if(!wall.rows[x].bricks[y].isDestroyed)\n            {\n  \
+  \              switch (wall.rows[x].bricks[y].brickType){\n                    case\
+  \ PBGameVars.BRICK_BLUE:\n                        gl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \                        gl.glLoadIdentity();\n                        gl.glPushMatrix();\n\
+  \                        gl.glScalef(.25f, .25f, 1f);\n                        gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\n                        gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \                        gl.glLoadIdentity();\n                        gl.glTranslatef(0.50f,\
+  \ 0.25f , 0.0f);\n                        wall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  \                        gl.glPopMatrix();\n                        gl.glLoadIdentity();\n\
+  \                        break;\n                    case PBGameVars.BRICK_BROWN:\n\
+  \                        gl.glMatrixMode(GL10.GL_MODELVIEW);\n                 \
+  \       gl.glLoadIdentity();\n                        gl.glPushMatrix();\n     \
+  \                   gl.glScalef(.25f, .25f, 1f);\n                        gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\n                        gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \                        gl.glLoadIdentity();\n                        gl.glTranslatef(0.0f,\
+  \ 0.50f , 0.0f); \n                        wall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  \                        gl.glPopMatrix();\n                        gl.glLoadIdentity();\n\
+  \                        break;\n                    case PBGameVars.BRICK_DARK_GRAY:\n\
+  \                        gl.glMatrixMode(GL10.GL_MODELVIEW);\n                 \
+  \       gl.glLoadIdentity();\n                        gl.glPushMatrix();\n     \
+  \                   gl.glScalef(.25f, .25f, 1f);\n                        gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\n                        gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \                        gl.glLoadIdentity();\n                        gl.glTranslatef(0.25f,\
+  \ 0.25f , 0.0f); \n                        wall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  \                        gl.glPopMatrix();\n                        gl.glLoadIdentity();\n\
+  \                        break;\n                    case PBGameVars.BRICK_GREEN:\n\
+  \                        gl.glMatrixMode(GL10.GL_MODELVIEW);\n                 \
+  \       gl.glLoadIdentity();\n                        gl.glPushMatrix();\n     \
+  \                   gl.glScalef(.25f, .25f, 1f);\n                        gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\n                        gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \                        gl.glLoadIdentity();\n                        gl.glTranslatef(0.0f,\
+  \ 0.25f , 0.0f); \n                        wall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  \                        gl.glPopMatrix();\n                        gl.glLoadIdentity();\n\
+  \                        break;\n                    case PBGameVars.BRICK_LITE_GRAY:\n\
+  ```\n\n\n\n# 排版后的文本\n\n```\ngl.glMatrixMode(GL10.GL_MODELVIEW);\ngl.glLoadIdentity();\n\
+  gl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.25f, 0.0f , 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_PURPLE:\n\
+  gl.glMatrixMode(GL10.GL_MODELVIEW);\ngl.glLoadIdentity();\ngl.glPushMatrix();\n\
+  gl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY,\
+  \ 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.50f,\
+  \ 0.0f , 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\ngl.glPopMatrix();\n\
+  gl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_RED:\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  gl.glLoadIdentity();\ngl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.0f, 0.0f , 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n\ndefault:\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  gl.glLoadIdentity();\ngl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.0f, 0.0f , 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n```\n\n**注意**：请密切关注`switch`语句中的每个`case`。虽然它们看起来相同，但有一个重要的区别。注意每个`case`在纹理模式下的`glTranslatef()`调用。每个调用都移动到不同的坐标集合，表示精灵表中的不同砖块图像。\n\
+  \n最后，你需要两个方法来在每个新帧中移动玩家挡板和球。首先，在`moveBall()`方法中，你会注意到后台执行了一些基本的轨迹数学运算，仅仅是为了将球从其随机起点移动到屏幕外。这些数学运算没有考虑任何碰撞检测或角度偏转；这些内容将在下一章中介绍。\n\
+  \n```\nprivate void moveBall(GL10 gl){\n    gl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \    gl.glLoadIdentity();\n    gl.glPushMatrix();\n    gl.glScalef(.25f, .25f, 1f);\n\
+  \    ball.posX += (float) ((PBGameVars.ballTargetX - ball.posX) / (ball.posY / PBGameVars.ballTargetY));\n\
+  \    ball.posY -= PBGameVars.ballTargetY * 3;\n    gl.glTranslatef(ball.posX, ball.posY,\
+  \ 0f);\n    gl.glMatrixMode(GL10.GL_TEXTURE);\n    gl.glLoadIdentity();\n    gl.glTranslatef(0.0f,\
+  \ 0.0f, 0.0f);\n    ball.draw(gl, spriteSheets);\n    gl.glPopMatrix();\n    gl.glLoadIdentity();\n\
+  }\n```\n\n`movePlayer1()`方法也类似；但它使用`PBGameVars`中的一些变量来确定将玩家移动到何处。\n\n```\nprivate\
+  \ void movePlayer1(GL10 gl){\n    gl.glMatrixMode(GL10.GL_MODELVIEW);\n    gl.glLoadIdentity();\n\
+  \    gl.glPushMatrix();\n    gl.glScalef(.25f, .25f, 1f);\n    if (PBGameVars.playerAction\
+  \ == PBGameVars.PLAYER_MOVE_LEFT_1 && PBGameVars.playerBankPosX > 0) {\n       \
+  \ PBGameVars.playerBankPosX = PBGameVars.playerBankPosX - PBGameVars.PLAYER_MOVE_SPEED;\n\
+  \    } else if (PBGameVars.playerAction == PBGameVars.PLAYER_MOVE_RIGHT_1 && PBGameVars.playerBankPosX\
+  \ < 2.5) {\n        PBGameVars.playerBankPosX = PBGameVars.playerBankPosX + PBGameVars.PLAYER_MOVE_SPEED;\n\
+  \    }\n    gl.glTranslatef(PBGameVars.playerBankPosX, .5f, 0f);\n    gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \    gl.glLoadIdentity();\n    gl.glTranslatef(0.0f, 0.0f, 0.0f);\n    player1.draw(gl);\n\
+  \    gl.glPopMatrix();\n    gl.glLoadIdentity();\n}\n```\n\n在先前的代码示例中，变量`playerAction`决定了玩家是否想要向左或向右移动挡板。在现实世界中，玩家通过触摸设备屏幕的左侧或右侧来移动挡板。为了检测屏幕触摸并设置适当的变量，请在`PBGame`文件中添加以下加粗的代码：\n\
+  \n```\npackage com.jfdimarzio;\n\nimport android.app.Activity;\nimport android.os.Bundle;\n\
+  import android.view.MotionEvent;\n```\n\n\n\n`public class PBGame extends Activity\
+  \ {`\n\n`final PBGameVars gameEngine = new PBGameVars();`\n\n`private PBGameView\
+  \ gameView;`\n\n`@Override`\n\n`public void onCreate(Bundle savedInstanceState)\
+  \ {`\n\n`super.onCreate(savedInstanceState);`\n\n`gameView = new PBGameView(this);`\n\
+  \n`setContentView(gameView);`\n\n`}`\n\n`@Override`\n\n`protected void onResume()\
+  \ {`\n\n`super.onResume();`\n\n`gameView.onResume();`\n\n`}`\n\n`@Override`\n\n\
+  `protected void onPause() {`\n\n`super.onPause();`\n\n`gameView.onPause();`\n\n\
+  `}`\n\n`@Override`\n\n`public boolean onTouchEvent(MotionEvent event) {`\n\n`float\
+  \ x = event.getX();`\n\n`float y = event.getY();`\n\n`int height = PBGameVars.display.getHeight()\
+  \ / 4;`\n\n`int playableArea = PBGameVars.display.getHeight() - height;`\n\n`if\
+  \ (y > playableArea){`\n\n`switch (event.getAction()){`\n\n`case MotionEvent.ACTION_DOWN:`\n\
+  \n`if(x < PBGameVars.display.getWidth() / 2){`\n\n`PBGameVars.playerAction = PBGameVars.PLAYER_MOVE_LEFT_1;`\n\
+  \n`}else{`\n\n`PBGameVars.playerAction = PBGameVars.PLAYER_MOVE_RIGHT_1;`\n\n`}`\n\
+  \n`break;`\n\n`case MotionEvent.ACTION_UP:`\n\n`PBGameVars.playerAction = PBGameVars.PLAYER_RELEASE;`\n\
+  \n`break;`\n\n`}`\n\n`}`\n\n`return false;`\n\n`}`\n\n`}`\n\n截至本章，完整的 `PBGameRenderer`\
+  \ 应如清单 5-7 所示。你在本章中添加的代码以粗体显示。\n\n**`清单 5-7. PBGameRenderer`**\n\n```\npackage com.jfdimarzio;\n\
+  \nimport javax.microedition.khronos.egl.EGLConfig;\nimport javax.microedition.khronos.opengles.GL10;\n\
+  import android.opengl.GLSurfaceView.Renderer;\n\npublic class PBGameRenderer implements\
+  \ Renderer{\n    \n    private PBBackground background = new PBBackground();\n \
+  \   private PBPlayer player1 = new PBPlayer();\n    private PBBall ball = new PBBall();\n\
+  \    private PBTextures textureLoader;\n    private int[] spriteSheets = new int[3];\n\
+  \    private int numberOfRows = 4;\n    private PBWall wall;\n    private long loopStart\
+  \ = 0;\n    private long loopEnd = 0;\n    private long loopRunTime = 0 ;\n    private\
+  \ float bgScroll1;\n\n    @Override\n    public void onDrawFrame(GL10 gl) {\n  \
+  \      // TODO Auto-generated method stub\n        loopStart = System.currentTimeMillis();\n\
+  \n        // TODO Auto-generated method stub\n        try {\n            if (loopRunTime\
+  \ < PBGameVars.GAME_THREAD_FPS_SLEEP){\n                Thread.sleep(PBGameVars.GAME_THREAD_FPS_SLEEP\
+  \ - loopRunTime);\n            }\n        } catch (InterruptedException e) {\n \
+  \           // TODO Auto-generated catch block\n            e.printStackTrace();\n\
+  \        }\n\n        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);\n\
+  \        drawBackground1(gl);\n        movePlayer1(gl);\n        drawBricks(gl);\n\
+  \        moveBall(gl);\n\n        loopEnd = System.currentTimeMillis();\n      \
+  \  loopRunTime = ((loopEnd - loopStart));\n    }\n\n    @Override\n    public void\
+  \ onSurfaceChanged(GL10 gl, int width, int height) {\n        // TODO Auto-generated\
+  \ method stub\n        gl.glViewport(0, 0, width,height);\n        gl.glMatrixMode(GL10.GL_PROJECTION);\n\
+  \        gl.glLoadIdentity();\n        gl.glOrthof(0f, 1f, 0f, 1f, -1f, 1f);\n \
+  \   }\n\n    @Override\n    public void onSurfaceCreated(GL10 gl, EGLConfig arg1)\
+  \ {\n        // TODO Auto-generated method stub\n        initializeBricks();\n \
+  \       textureLoader = new PBTextures(gl);\n        spriteSheets = textureLoader.loadTexture(gl,\
+  \ PBGameVars.BRICK_SHEET,PBGameVars.context, 1);\n        gl.glEnable(GL10.GL_TEXTURE_2D);\n\
+  \        gl.glClearDepthf(1.0f);\n        gl.glEnable(GL10.GL_DEPTH_TEST);\n   \
+  \     gl.glDepthFunc(GL10.GL_LEQUAL);\n        background.loadTexture(gl,PBGameVars.BACKGROUND,\
+  \ PBGameVars.context);\n        player1.loadTexture(gl,PBGameVars.PADDLE, PBGameVars.context);\n\
+  \    }\n\n    private void drawBackground1(GL10 gl){\n        gl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \        gl.glLoadIdentity();\n        gl.glPushMatrix();\n        gl.glScalef(1f,\
+  \ 1f, 1f);\n        background.draw(gl);\n        gl.glPopMatrix();\n        gl.glLoadIdentity();\n\
+  \    }\n\n    private void initializeBricks(){\n        wall = new PBWall(numberOfRows);\n\
+  \    }\n\n    private void drawBricks(GL10 gl){\n        for (int x = 0; x < wall.rows.length;\
+  \ x++)\n        {\n            for(int y = 0; y < wall.rows[x].bricks.length; y++)\n\
+  \            {\n                if(!wall.rows[x].bricks[y].isDestroyed)\n      \
+  \          {\n                    switch (wall.rows[x].bricks[y].brickType){\n \
+  \                       case PBGameVars.BRICK_BLUE:\n                          \
+  \  gl.glMatrixMode(GL10.GL_MODELVIEW);\n                            gl.glLoadIdentity();\n\
+  \                            gl.glPushMatrix();\n                            gl.glScalef(.25f,\
+  \ .25f, 1f);\n                            gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\n                            gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \                            gl.glLoadIdentity();\n                            gl.glTranslatef(0.50f,\
+  \ 0.25f, 0.0f); \n                            wall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  \                            gl.glPopMatrix();\n                            gl.glLoadIdentity();\n\
+  \                            break;\n\n                        case PBGameVars.BRICK_BROWN:\n\
+  \                            gl.glMatrixMode(GL10.GL_MODELVIEW);\n             \
+  \               gl.glLoadIdentity();\n                            gl.glPushMatrix();\n\
+  \                            gl.glScalef(.25f, .25f, 1f);\n```\n\n\n```gl\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.0f, 0.50f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_DARK_GRAY:\n\
+  gl.glMatrixMode(GL10.GL_MODELVIEW);\ngl.glLoadIdentity();\ngl.glPushMatrix();\n\
+  gl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY,\
+  \ 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.25f,\
+  \ 0.25f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\ngl.glPopMatrix();\n\
+  gl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_GREEN:\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  gl.glLoadIdentity();\ngl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.0f, 0.25f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_LITE_GRAY:\n\
+  gl.glMatrixMode(GL10.GL_MODELVIEW);\ngl.glLoadIdentity();\ngl.glPushMatrix();\n\
+  gl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY,\
+  \ 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.25f,\
+  \ 0.0f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\ngl.glPopMatrix();\n\
+  gl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_PURPLE:\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  gl.glLoadIdentity();\ngl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.50f, 0.0f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n\ncase PBGameVars.BRICK_RED:\n\
+  gl.glMatrixMode(GL10.GL_MODELVIEW);\ngl.glLoadIdentity();\ngl.glPushMatrix();\n\
+  gl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY,\
+  \ 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.0f,\
+  \ 0.0f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\ngl.glPopMatrix();\n\
+  gl.glLoadIdentity();\nbreak;\n\ndefault:\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  gl.glLoadIdentity();\ngl.glPushMatrix();\ngl.glScalef(.25f, .25f, 1f);\ngl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);\ngl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\n\
+  gl.glTranslatef(0.0f, 0.0f, 0.0f);\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\
+  gl.glPopMatrix();\ngl.glLoadIdentity();\nbreak;\n}\n```\n\n```gl\nprivate void moveBall(GL10\
+  \ gl) {\n    gl.glMatrixMode(GL10.GL_MODELVIEW);\n    gl.glLoadIdentity();\n   \
+  \ gl.glPushMatrix();\n    gl.glScalef(.25f, .25f, 1f);\n    ball.posX += (float)\
+  \ ((PBGameVars.ballTargetX - ball.posX) / (ball.posY / (PBGameVars.ballTargetY)));\n\
+  \    ball.posY -= PBGameVars.ballTargetY * 3;\n    gl.glTranslatef(ball.posX, ball.posY,\
+  \ 0f);\n    gl.glMatrixMode(GL10.GL_TEXTURE);\n    gl.glLoadIdentity();\n    gl.glTranslatef(0.0f,\
+  \ 0.0f, 0.0f);\n    ball.draw(gl, spriteSheets);\n    gl.glPopMatrix();\n    gl.glLoadIdentity();\n\
+  }\n```\n\n```gl\nprivate void movePlayer1(GL10 gl) {\n    gl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \    gl.glLoadIdentity();\n    gl.glPushMatrix();\n    gl.glScalef(.25f, .25f, 1f);\n\
+  \    if (PBGameVars.playerAction == PBGameVars.PLAYER_MOVE_LEFT_1 && PBGameVars.playerBankPosX\
+  \ > 0) {\n        PBGameVars.playerBankPosX = PBGameVars.playerBankPosX - PBGameVars.PLAYER_MOVE_SPEED;\n\
+  \    } else if (PBGameVars.playerAction == PBGameVars.PLAYER_MOVE_RIGHT_1 && PBGameVars.playerBankPosX\
+  \ < 2.5) {\n        PBGameVars.playerBankPosX = PBGameVars.playerBankPosX + PBGameVars.PLAYER_MOVE_SPEED;\n\
+  \    }\n    gl.glTranslatef(PBGameVars.playerBankPosX, .5f, 0f);\n    gl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \    gl.glLoadIdentity();\n    gl.glTranslatef(0.0f, 0.0f, 0.0f);\n    player1.draw(gl);\n\
+  \    gl.glPopMatrix();\n    gl.glLoadIdentity();\n}\n```\n\n在模拟器或设备上编译并运行你的游戏。现在你将看到一堵待摧毁的砖墙、一个响应灵敏的玩家挡板，以及一个快速移出屏幕的球。\n\
+  \n## 总结\n\n\n在本章中，你创建了一面随机颜色的砖墙、一个可移动的玩家挡板和一个球。这些代码为游戏增加了大量内容，使《越狱》游戏接近完成。你还学习了如何使用精灵表（`spritesheet`），并创建了一个优秀的辅助类（`helper\
+  \ class`），用于构建指定行数的砖墙。\n\n使用辅助类来完成游戏中一些更繁琐的设置工作是一项宝贵的技能，你会发现自己在开发中越来越频繁地使用它。试着在游戏中寻找可以使用辅助类来处理角色或对象设置的地方。\n\
+  \n在下一章中，你将创建碰撞检测逻辑，从而完成游戏可玩的物理部分。\n\n第 6 章\n\n碰撞检测\n\n在上一章中，你将所有游戏元素添加到了游戏世界中：砖块、玩家挡板和球。然而，运行代码后，你发现虽然可以移动玩家挡板，但对游戏玩法没有影响。球从一个随机位置开始，最终从屏幕底部掉落。原因是你的游戏中明显缺少碰撞检测。\n\
+  \n在本章中，你将向游戏添加碰撞检测。\n\n碰撞检测的目的\n\n碰撞检测的严格定义是：检测屏幕上的元素何时发生碰撞。然而，它的重要性远不止于此。一个良好的碰撞检测系统会测试并评估游戏世界中的元素何时相互接触，并为你提供对这些碰撞做出反应的方法。\n\
+  \n《越狱》的碰撞检测系统将是基础的，但它会向你展示碰撞检测的工作原理，并允许你在此基础上根据需要进行扩展。\n\n请记住，`OpenGL` 没有任何内置的碰撞检测或顶点测试功能；它并非为此而设计。作为游戏开发者，你有责任为游戏提供这种机制。\n\
+  \n《越狱》中的碰撞检测\n\n在开始为《越狱》编写碰撞检测系统之前，我们需要讨论它需要做什么。在开始编码之前，最好对系统的运作方式有一个清晰的概念。\n\n\
+  以下是《越狱》碰撞检测系统需要测试的项目列表：\n\n- ![bullet.jpg](img/bullet.jpg) 球是否击中了挡板？\n- ![bullet.jpg](img/bullet.jpg)\
+  \ 球是否击中了砖块？\n- ![bullet.jpg](img/bullet.jpg) 球是否击中了屏幕的右“墙”或边缘？\n- ![bullet.jpg](img/bullet.jpg)\
+  \ 球是否击中了屏幕的左“墙”或边缘？\n- ![bullet.jpg](img/bullet.jpg) 球是否离开了游戏的上边界？\n- ![bullet.jpg](img/bullet.jpg)\
+  \ 球是否离开了游戏的下边界？\n\n除了这些测试，碰撞检测系统还必须执行以下操作：\n\n- ![bullet.jpg](img/bullet.jpg) “销毁”被球击中的任何砖块。\n\
+  - ![bullet.jpg](img/bullet.jpg) 计算偏转角（angle of deflection），如果球击中挡板或游戏屏幕的左右边缘，则移动球。\n\
+  \n虽然这看起来很多，但对于你的游戏来说，这是一个相当基础的碰撞检测系统。有些碰撞检测系统非常复杂。\n\n创建碰撞检测系统\n\n你不需要为碰撞检测系统创建一个新类；相反，它将位于`PBGameRenderer`的一个方法中。重要的是，碰撞检测系统必须在游戏渲染器的每一帧上运行。因此，该方法将在`onDrawFrame()`中被调用。\n\
+  \n在你的`PBGameRenderer`中创建一个新方法，命名为`detectCollisions()`。让我们逐步查看`detectCollisions()`中的代码。然后我会提供`PBGameRenderer`的完整代码，以便你了解其上下文。\n\
+  \n该方法首先测试球是否在屏幕底部边缘之外。如果是，则表示游戏结束场景。要确定球是否在屏幕边缘之外，只需测试其 `y` 轴位置是否小于 0。\n\n```\n\
+  if(ball.posY < = 0){\n  //GameOver\n}\n```\n\n**注意**：当你在《越狱》中测试屏幕上任何元素的 `x` 或 `y`\
+  \ 坐标位置时，给定的坐标表示纹理映射到的顶点（vertex）的左上角位置。这一点很重要，因为在测试某些碰撞时，你可能需要考虑顶点的宽度或高度。\n\n接下来，你测试每个砖块，看球是否与其接触。\n\
+  \n```\nfor (int x = 0; x < wall.rows.length; x++)\n{\n  for(int y = 0; y < wall.rows[x].bricks.length;\
+  \ y++)\n  {\n    if(!wall.rows[x].bricks[y].isDestroyed)\n    {\n      if (((ball.posY\
+  \ > wall.rows[x].bricks[y]. posY - .25f)\n        && (ball.posY < wall.rows[x].bricks[y].posY)\n\
+  \        && (ball.posX + .25f > wall.rows[x].bricks[y].posX)\n        && (ball.posX\
+  \ < wall.rows[x].bricks[y]. posX + 1.50f)))\n      {\n        wall.rows[x].bricks[y].isDestroyed\
+  \ = true;\n        PBGameVars.ballTargetY = PBGameVars. ballTargetY * -1f;\n   \
+  \     if(PBGameVars.ballTargetX == −2f){\n          PBGameVars.ballTargetX = 5f;\n\
+  \        }else{\n          PBGameVars.ballTargetX = −2f;\n        }\n      }\n \
+  \   }\n  }\n}\n```\n\n注意测试球是否碰到砖块的 `if` 语句。首先，它测试球的 `y` 轴位置（左上角）是否大于砖块的 `y` 轴位置减去\
+  \ 0.25。这是因为砖块的 `y` 轴位置是其左上角；但我们要判断球是否击中了砖块的底部，所以从砖块的 `y` 轴位置减去其高度，得到底部的 `y` 轴位置。\n\
+  \n如果球击中砖块，砖块的 `isDestroyed` 标志将被设置为 `true`。正如你从 `drawBricks()` 方法中看到的，任何 `isDestroyed`\
+  \ 标志为 `true` 的砖块都不会被绘制。因此，在游戏循环的下一次迭代中，被击中的砖块将不会被绘制，并从游戏屏幕中消失。\n\n砖块被销毁后，球会弹开。因此，你现在需要计算球的偏转角。幸运的是，所有砖块都呈\
+  \ 90 度角，而球的攻击角（angle of attack）总是（大约）45 度。这为你提供了一个非常清晰且一致的偏转角。事实上，要正确偏转球，你只需将 `y`\
+  \ 轴值设置为其自身的相反符号。\n\n**提示**：攻击角是球从物体上弹开并继续在游戏屏幕上前进的角度。在现实物理中，球以一个逆于其接近角度的角度，从呈 90\
+  \ 度角的平坦物体上弹开。因此，以一个 30 度角接近平坦、90 度物体的球，会以 60 度角弹开。为了避免进行完整的物理课教学，《越狱》中的球始终以 45 度角移动，并且所有表面都将呈\
+  \ 90 度角。这样，每次球被偏转时，都会以 45 度角进行。\n\n最后，你需要为球设置目标。这在上章中没有讨论，但你在让球移动时稍微取巧了。通过使用`ballTargetX`变量，你为球提供了一个“瞄准”的\
+  \ `x` 轴值。这让你可以轻松地保持其航向。如果球向右移动，目标在 `x` 轴的正侧；如果球向左移动，目标在 `x` 轴的负侧。\n\n当球发生碰撞时，它会弹开；因此，目标需要翻转，使球向相反方向移动。\n\
+  \n碰撞检测方法的最后一部分测试球是否击中了玩家挡板。你会注意到，针对砖块进行的测试以及偏转处理，同样适用于挡板。\n\n\n\n```  \nif((ball.posY\
+  \ - .25f < = .5f)  \n&& (ball.posX + .25f > PBGameVars.playerBankPosX )  \n&& (ball.posX\
+  \ < PBGameVars.playerBankPosX + 1.50f)){  \n   PBGameVars.ballTargetY = PBGameVars.ballTargetY\
+  \ * -1f;  \n   if(PBGameVars.ballTargetX == −2f){  \n      PBGameVars.ballTargetX\
+  \ = 5f;  \n   }else{  \n      PBGameVars.ballTargetX = −2f;  \n   }  \n}  \nif(ball.posX\
+  \ < 0 || ball.posX + .25f > 3.75f)  \n{  \n   PBGameVars.ballTargetX = PBGameVars.ballTargetX\
+  \ * -1f;  \n}  \n```  \n\n让我们在上下文中看一下完整的方法。  \n\n**提示** 如果你想调整碰撞检测系统，可以将球的 y 轴位置检测改为使用\
+  \ y 坐标减去 0.125。这样会得到一个更接近球顶部的检测点。在前面的代码中，我使用了球的角来同时摧毁更多砖块，从而更快清空屏幕。  \n\n## 完整的\
+  \ PBGameRenderer  \n\n清单 6-1 展示了完整的 `PBGameRenderer`。碰撞检测方法及对其的调用已加粗，以便更清晰地查看。 \
+  \ \n\n```\n清单 6-1. PBGameRenderer\n```\n\n```  \npackage com.jfdimarzio;  \n\nimport\
+  \ javax.microedition.khronos.egl.EGLConfig;  \nimport javax.microedition.khronos.opengles.GL10;\
+  \  \nimport android.opengl.GLSurfaceView.Renderer;  \n\npublic class PBGameRenderer\
+  \ implements Renderer {  \n\n    private PBBackground background = new PBBackground();\
+  \  \n    private PBPlayer player1 = new PBPlayer();  \n    private PBBall ball =\
+  \ new PBBall();  \n    private PBTextures textureLoader;  \n    private int[] spriteSheets\
+  \ = new int[3];  \n    private int numberOfRows = 4;  \n    private PBWall wall;\
+  \  \n    private long loopStart = 0;  \n    private long loopEnd = 0;  \n    private\
+  \ long loopRunTime = 0;  \n    private float bgScroll1;  \n\n    @Override  \n \
+  \   public void onDrawFrame(GL10 gl) {  \n        // TODO Auto-generated method\
+  \ stub  \n        loopStart = System.currentTimeMillis();  \n\n        try {  \n\
+  \            if (loopRunTime < PBGameVars.GAME_THREAD_FPS_SLEEP) {  \n         \
+  \       Thread.sleep(PBGameVars.GAME_THREAD_FPS_SLEEP - loopRunTime);  \n      \
+  \      }  \n        } catch (InterruptedException e) {  \n            e.printStackTrace();\
+  \  \n        }  \n\n        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);\
+  \  \n        drawBackground1(gl);  \n        movePlayer1(gl);  \n        drawBricks(gl);\
+  \  \n        moveBall(gl);  \n        detectCollisions();  \n\n        loopEnd =\
+  \ System.currentTimeMillis();  \n        loopRunTime = ((loopEnd - loopStart));\
+  \  \n    }  \n\n    @Override  \n    public void onSurfaceChanged(GL10 gl, int width,\
+  \ int height) {  \n        gl.glViewport(0, 0, width, height);  \n        gl.glMatrixMode(GL10.GL_PROJECTION);\
+  \  \n        gl.glLoadIdentity();  \n        gl.glOrthof(0f, 1f, 0f, 1f, -1f, 1f);\
+  \  \n    }  \n\n    @Override  \n    public void onSurfaceCreated(GL10 gl, EGLConfig\
+  \ arg1) {  \n        initializeBricks();  \n        textureLoader = new PBTextures(gl);\
+  \  \n        spriteSheets = textureLoader.loadTexture(gl, PBGameVars.BRICK_SHEET,\
+  \ PBGameVars.context, 1);  \n        gl.glEnable(GL10.GL_TEXTURE_2D);  \n      \
+  \  gl.glClearDepthf(1.0f);  \n        gl.glEnable(GL10.GL_DEPTH_TEST);  \n     \
+  \   gl.glDepthFunc(GL10.GL_LEQUAL);  \n        background.loadTexture(gl, PBGameVars.BACKGROUND,\
+  \ PBGameVars.context);  \n        player1.loadTexture(gl, PBGameVars.PADDLE, PBGameVars.context);\
+  \  \n    }  \n\n    private void drawBackground1(GL10 gl) {  \n        gl.glMatrixMode(GL10.GL_MODELVIEW);\
+  \  \n        gl.glLoadIdentity();  \n        gl.glPushMatrix();  \n        gl.glScalef(1f,\
+  \ 1f, 1f);  \n        background.draw(gl);  \n        gl.glPopMatrix();  \n    \
+  \    gl.glLoadIdentity();  \n    }  \n\n    private void initializeBricks() {  \n\
+  \        wall = new PBWall(numberOfRows);  \n    }  \n\n    private void drawBricks(GL10\
+  \ gl) {  \n        for (int x = 0; x < wall.rows.length; x++) {  \n            for\
+  \ (int y = 0; y < wall.rows[x].bricks.length; y++) {  \n                if (!wall.rows[x].bricks[y].isDestroyed)\
+  \ {  \n                    switch (wall.rows[x].bricks[y].brickType) {  \n     \
+  \                   case PBGameVars.BRICK_BLUE:  \n                            gl.glMatrixMode(GL10.GL_MODELVIEW);\
+  \  \n                            gl.glLoadIdentity();  \n                      \
+  \      gl.glPushMatrix();  \n                            gl.glScalef(.25f, .25f,\
+  \ 1f);  \n                            gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);  \n                            gl.glMatrixMode(GL10.GL_TEXTURE);\
+  \  \n                            gl.glLoadIdentity();  \n                      \
+  \      gl.glTranslatef(0.50f, 0.25f, 0.0f);  \n                            wall.rows[x].bricks[y].draw(gl,\
+  \ spriteSheets);  \n                            gl.glPopMatrix();  \n          \
+  \                  gl.glLoadIdentity();  \n                            break;  \n\
+  \                        case PBGameVars.BRICK_BROWN:  \n                      \
+  \      gl.glMatrixMode(GL10.GL_MODELVIEW);  \n                            gl.glLoadIdentity();\
+  \  \n                            gl.glPushMatrix();  \n                        \
+  \    gl.glScalef(.25f, .25f, 1f);  \n                            gl.glTranslatef(wall.rows[x].bricks[y].posX,\
+  \ wall.rows[x].bricks[y].posY, 0f);  \n                            gl.glMatrixMode(GL10.GL_TEXTURE);\
+  \  \n                            gl.glLoadIdentity();  \n                      \
+  \      // ...（为简洁起见，省略了剩余代码）  \n```  \n\n\n\n```java\ngl.glTranslatef(0.0f, 0.50f,\
+  \ 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ncase PBGameVars.BRICK_DARK_GRAY:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.25f,0.25f\
+  \ , 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ncase PBGameVars.BRICK_GREEN:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.0f,\
+  \ 0.25f,0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ncase PBGameVars.BRICK_LITE_GRAY:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.25f,\
+  \ 0.0f, 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ncase PBGameVars.BRICK_PURPLE:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.50f,\
+  \ 0.0f, 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ncase PBGameVars.BRICK_RED:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.0f,\
+  \ 0.0f, 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\ndefault:\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\
+  \ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\ngl.glScalef(.25f, .25f, 1f);\n\n\
+  gl.glTranslatef(wall.rows[x].bricks[y].posX, wall.rows[x].bricks[y].posY, 0f);\n\
+  \ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.0f,\
+  \ 0.0f, 0.0f);\n\nwall.rows[x].bricks[y].draw(gl, spriteSheets);\n\ngl.glPopMatrix();\n\
+  \ngl.glLoadIdentity();\n\nbreak;\n\n}\n\n}\n\n}\n\n}\n\n}\n\nprivate void moveBall(GL10\
+  \ gl){\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\
+  \ngl.glScalef(.25f, .25f, 1f);\n\nball.posX + = (float) ((PBGameVars.ballTargetX\
+  \ - ball.posX )/ (ball.posY / (PBGameVars.ballTargetY )));\n\nball.posY - = PBGameVars.ballTargetY\
+  \ * 3;\n\ngl.glTranslatef(ball.posX, ball.posY, 0f);\n\ngl.glMatrixMode(GL10.GL_TEXTURE);\n\
+  \ngl.glLoadIdentity();\n\ngl.glTranslatef(0.0f,0.0f, 0.0f);\n\nball.draw(gl,spriteSheets);\n\
+  \ngl.glPopMatrix();\n\ngl.glLoadIdentity();\n\n}\n\nprivate void movePlayer1(GL10\
+  \ gl){\n\ngl.glMatrixMode(GL10.GL_MODELVIEW);\n\ngl.glLoadIdentity();\n\ngl.glPushMatrix();\n\
+  \ngl.glScalef(.25f, .25f, 1f);\n\nif (PBGameVars.playerAction == PBGameVars.PLAYER_MOVE_LEFT_1\
+  \ &&PBGameVars.playerBankPosX > 0)\n\n{\n\nPBGameVars.playerBankPosX = PBGameVars.playerBankPosX\
+  \ - PBGameVars.PLAYER_MOVE_SPEED;\n\n}\n\nelse if(PBGameVars.playerAction == PBGameVars.PLAYER_MOVE_RIGHT_1\
+  \ && PBGameVars.playerBankPosX < 2.5)\n\n{\n\nPBGameVars.playerBankPosX = PBGameVars.playerBankPosX\
+  \ + PBGameVars.PLAYER_MOVE_SPEED;\n\n}\n\ngl.glTranslatef(PBGameVars.playerBankPosX,\
+  \ .5f, 0f);\n\ngl.glMatrixMode(GL10.GL_TEXTURE);\n\ngl.glLoadIdentity();\n\ngl.glTranslatef(0.0f,0.0f,\
+  \ 0.0f);\n\nplayer1.draw(gl);\n\ngl.glPopMatrix();\n\ngl.glLoadIdentity();\n\n}\n\
+  \nprivate void detectCollisions(){\n\nif(ball.posY < = 0){\n\n//游戏结束\n\n}\n\nfor\
+  \ (int x = 0; x < wall.rows.length; x++)\n\n{\n\nfor(int y = 0; y < wall.rows[x].bricks.length;\
+  \ y++)\n\n{\n\nif(!wall.rows[x].bricks[y].isDestroyed)\n\n{\n\nif (((ball.posY >\
+  \ wall.rows[x].bricks[y].posY - .25f)\n\n&& (ball.posY < wall.rows[x].bricks[y].posY)\n\
+  \n&& (ball.posX + .25f > wall.rows[x].bricks[y].posX)\n\n&& (ball.posX < wall.rows[x].bricks[y].posX\
+  \ + 1.50f)))\n\n{\n```\n\n\n```java\nwall.rows[x].bricks[y].isDestroyed = true;\n\
+  \nPBGameVars.ballTargetY = PBGameVars.ballTargetY * -1f;\n\nif(PBGameVars.ballTargetX\
+  \ == −2f){\n\nPBGameVars.ballTargetX = 5f;\n\n}else{\n\nPBGameVars.ballTargetX =\
+  \ −2f;\n\n}\n\n}\n\n}\n\n}\n\n}\n\nif((ball.posY - .25f < = .5f)\n\n&& (ball.posX\
+  \ + .25f > PBGameVars.playerBankPosX )\n\n&& (ball.posX < PBGameVars.playerBankPosX\
+  \ + 1.50f)){\n\nPBGameVars.ballTargetY = PBGameVars.ballTargetY * -1f;\n\nif(PBGameVars.ballTargetX\
+  \ == −2f){\n\nPBGameVars.ballTargetX = 5f;\n\n}else{\n\nPBGameVars.ballTargetX =\
+  \ −2f;\n\n}\n\n}\n\nif(ball.posX < 0 || ball.posX + .25f > 3.75f)\n\n{\n\nPBGameVars.ballTargetX\
+  \ = PBGameVars.ballTargetX * -1f;\n\n}\n\n}\n\n}\n```\n\n编译并运行你的游戏。现在你应该能玩到一个相当完整的游戏版本，并击碎一些砖块了。\n\
+  \n## 总结\n\n在本章中，你学习了如何制作一个基本的碰撞检测系统并将其添加到游戏中。这为你提供了一个相当完整的游戏版本。在本书的下一章，我们将探索几种记录得分的方法。\n\
+  \n## 第 7 章：记录得分\n\n在上一章中，你学习了如何在《越狱》游戏中实现一个基本的碰撞检测系统。这个碰撞检测系统让你能够检测游戏球与砖块或挡板之间的任何碰撞。现在是时候为游戏画上点睛之笔了。\n\
+  \n大多数街机风格的游戏都包含一个计分组件。无论是直接显示的分数，还是与关卡完成情况相关的排名，分数都是让玩家了解自己与其他玩家相比表现如何的指标。\n\n在本章中，你将了解两种在《越狱》中记录得分的可能方法。第一种方法是为每个击碎的砖块向玩家加特定分数。第二种方法是为玩家消除的每一整行砖块奖励一定分数。\n\
+  \n## 创建计分方法\n\n为了记录得分，你首先需要在`PBGameRenderer()`中添加一个新方法，用于追踪玩家的分数。这个方法会在你调用时增加分数。\n\
+  \n分数将如何显示在屏幕上？你将创建三个小顶点，遵循第 4 章和第 5 章中制作背景、砖块、球和挡板的方法。由于我们已经四次完成这个流程，这里不再重复。\n\n\
+  创建一个名为`PBScoreTile`的新类，并将其实例放置在游戏屏幕的右上角。接下来，向你的项目添加一个新的精灵表，其中包含构建分数所需的所有数字。该精灵表如图\
+  \ 7-1 所示。\n\n![9781430245452_Fig07-01.jpg](img/9781430245452_Fig07-01.jpg)\n\n图\
+  \ 7-1. 计分数字精灵表\n\n每个方块在绘制时默认应为 0。这通过在纹理矩阵中执行`glTranslatef()`到坐标 0,0,0 来实现。\n\n```java\n\
+  gl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.0f, 0.0f,\
+  \ 0.0f);\n```\n\n每增加一分，使用`glTranslatef()`将精灵表移动到对应的数字。这最好通过一个循环实现，该循环持续对当前分数加 1，在需要时将\
+  \ 9 变回 0，并前进到下一个计分方块。因此，每次调用该方法时，通过使用`glTranslatef()`移动到精灵表中下一个 0.25 增量，使你的分数前进到下一个数字。\n\
+  \n以下是伪代码示例：\n\n```java\nprivate void advanceScore(){\n...\n//将 glTranslatef()前进到精灵表中的下一个图像\n\
+  gl.glMatrixMode(GL10.GL_TEXTURE);\ngl.glLoadIdentity();\ngl.glTranslatef(0.0f, 0.0f,\
+  \ 0.0f);\n...\n}\n```\n\n当你完成计分方法后，就该调用它了。\n\n在下一节中，你将学习如何按砖块调用它。\n\n## 按砖块计分\n\n\
+  让玩家按砖块得分非常简单。你只需要修改`detectCollisions()`方法，在砖块被消除时增加分数。修改你的`detectCollisions()`方法（如下面的粗体代码所示），每次玩家摧毁一个砖块时增加分数。\n\
+  \n```java\nprivate void detectCollisions(){\n   if(ball.posY <= 0){\n      //游戏结束\n\
+  \   }\n   for (int x = 0; x < wall.rows.length; x++)\n   {\n      for(int y = 0;\
+  \ y < wall.rows[x].bricks.length; y++)\n      {\n         if(!wall.rows[x].bricks[y].isDestroyed)\n\
+  \         {\n            if (((ball.posY > wall.rows[x].bricks[y].posY - .25f)\n\
+  \            && (ball.posY < wall.rows[x].bricks[y].posY)\n            && (ball.posX\
+  \ + .25f > wall.rows[x].bricks[y].posX)\n            && (ball.posX < wall.rows[x].bricks[y].posX\
+  \ + 1.50f)))\n            {\n               wall.rows[x].bricks[y].isDestroyed =\
+  \ true;\n               advanceScore();\n               PBGameVars.ballTargetY =\
+  \ PBGameVars. ballTargetY * -1f;\n               if(PBGameVars.ballTargetX == -2f){\n\
+  \                  PBGameVars.ballTargetX = 5f;\n               }else{\n       \
+  \           PBGameVars.ballTargetX = -2f;\n               }\n            }\n   \
+  \      }\n      }\n   }\n...\n}\n```\n\n为了给计分增加一些多样性，你还可以实现一种为每个砖块赋予不同分值的方法。首先，修改你的`advanceScore()`方法，使其接受一个代表要增加的分数值的`int`参数。然后，你可以简单地将被摧毁砖块的`brickType`作为其分值传递进去，如下面的粗体代码所示：\n\
+  \n```java\nprivate void detectCollisions(){\n   if(ball.posY <= 0){\n      //游戏结束\n\
+  \   }\n   for (int x = 0; x < wall.rows.length; x++)\n   {\n      for(int y = 0;\
+  \ y < wall.rows[x].bricks.length; y++)\n      {\n         if(!wall.rows[x].bricks[y].isDestroyed)\n\
+  \         {\n            if (((ball.posY > wall.rows[x].bricks[y].posY - .25f)\n\
+  \            && (ball.posY < wall.rows[x].bricks[y].posY)\n            && (ball.posX\
+  \ + .25f > wall.rows[x].bricks[y].posX)\n            && (ball.posX < wall.rows[x].bricks[y].posX\
+  \ + 1.50f)))\n            {\n               wall.rows[x].bricks[y].isDestroyed =\
+  \ true;\n               advanceScore(wall.rows[x].bricks[y]. brickType);\n     \
+  \          PBGameVars.ballTargetY = PBGameVars. ballTargetY * -1f;\n           \
+  \    if(PBGameVars.ballTargetX == -2f){\n                  PBGameVars.ballTargetX\
+  \ = 5f;\n               }else{\n                  PBGameVars.ballTargetX = -2f;\n\
+  \               }\n            }\n         }\n      }\n   }\n...\n}\n```\n\n如果你不想按击碎的砖块为玩家计分，你也可以按行增加分数。\n\
+  \n## 按行计分\n\n当你创建`PBWall`类时，其内置功能之一就是可以指定玩家需要突破的砖块行数。理论上，你可以将其实例化为数百行，使游戏更像一种耐力挑战。这样，你就可以追踪玩家成功清除的行数。\n\
+  \n**注意：** 虽然这超出了本章的范围，但如果你想创建一个包含数百行砖块的新游戏，你必须创建一个方法，当球移动到视口上方时滚动屏幕。在伪代码中，这意味着如果`ball.posY\
+  \ > 4`，则在投影矩阵中执行`glTranslatef(ball.posY - 2, 0.0f,0.0f)`。其中的`-2`确保在滚动时球保持在屏幕中央。\n\
+  \n向`PBRow`添加一个名为`numberOfBricksRemaining`的新属性。该属性将追踪当前行中剩余的砖块数量。当计数器归零时，你可以增加分数，如下例所示：\n\
+  \n```java\npublic class PBRow {\n   public PBBrick[] bricks;\n   public int numberOfBricksRemaining\
+  \ = 0;\n   public boolean rowIsScored = false;\n   private Random brickType = new\
+  \ Random();\n   private boolean isRowOdd = false;\n   private int numberOfBricks\
+  \ = 0;\n\n   public PBRow(int rowNumber){\n      if(rowNumber 2 > 0)\n      {\n\
+  \         numberOfBricks = 4;\n         numberOfBricksRemaining = 4;\n         isRowOdd\
+  \ = true;\n      }\n      else\n      {\n         numberOfBricks = 5;\n        \
+  \ numberOfBricksRemaining = 5;\n         isRowOdd = false;\n      }\n      bricks\
+  \ = new PBBrick[numberOfBricks];\n      for(int x = 0; x < numberOfBricks ; x++)\n\
+  \      {\n         bricks[x] = new PBBrick((int) (brickType.nextFloat() * 7));\n\
+  \         if(isRowOdd)\n         {\n            bricks[x].posX = x - 2f ;\n    \
+  \        bricks[x].posY = (rowNumber * .25f) + 1 ;\n         }\n         else\n\
+  \         {\n            bricks[x].posX = x - 2.5f;\n            bricks[x].posY\
+  \ = (rowNumber * .25f) + 1 ;\n         }\n      }\n   }\n}\n```\n\n**提示：** `rowIsScored`属性让你能够追踪是否已经为已清除的行奖励了分数。\n\
+  \n\n这会首先将行中剩余的砖块数量设置为该行的砖块总数。接着，在遍历碰撞检测方法的过程中，每检测到一个被销毁的砖块，就从该属性中减去 1。一旦该属性值达到 0，就调用计分方法。\n\
+  \n```\nprivate void detectCollisions(){\n\nif(ball.posY <= 0){\n\n//游戏结束\n\n}\n\n\
+  for (int x = 0; x < wall.rows.length; x++)\n\n{\n\nfor(int y = 0; y < wall.rows[x].bricks.length;\
+  \ y++)\n\n{\n\nif(!wall.rows[x].bricks[y].isDestroyed)\n\n{\n\nif (((ball.posY >\
+  \ wall.rows[x].bricks[y].posY- .25f)\n\n&& (ball.posY < wall.rows[x].bricks[y].posY)\n\
+  \n&& (ball.posX + .25f > wall.rows[x].bricks[y].posX)\n\n&& (ball.posX < wall.rows[x].bricks[y].posX\
+  \ + 1.50f)))\n\n{\n\nwall.rows[x].bricks[y].isDestroyed = true;\n\nwall.rows[x].numberOfBricksRemaining\
+  \ -=;\n\nPBGameVars.ballTargetY = PBGameVars. ballTargetY * -1f;\n\nif(PBGameVars.ballTargetX\
+  \ == -2f){\n\nPBGameVars.ballTargetX = 5f;\n\n}else{\n\nPBGameVars.ballTargetX =\
+  \ -2f;\n\n}\n\n}\n\n}\n\n}\n\nif(wall.rows[x]. numberOfBricksRemaining = 0 && wall.\
+  \ rows[x].rowIsScored == false){\n\nadvanceScore();\n\nwall.rows[x].rowIsScored\
+  \ = true;\n\n}\n\n}\n\n...\n\n}\n```\n\n以上就是创建几种不同计分机制所需的全部内容。我相信，稍加思考，你就能实现一个更具创意的计分机制。\n\
+  \n## 总结\n\n在本章中，你学习了如何创建三种不同的方式，让玩家能够追踪自己的得分并与其他玩家比较。这对于街机游戏至关重要，因为它能带给玩家更强的成就感。\n\
+  \n在本书的下一章（也是最后一章）中，你将学习如何为《越狱》添加新的关卡。\n\n## 第 8 章：添加新关卡\n\n至此，你已经创建了一款功能完整的街机游戏。《越狱》可以作为许多其他游戏的模板，并且你在本简短的案例研究中所积累的知识将帮助你创建引人入胜的街机风格游戏。\n\
+  \n然而，就目前而言，《越狱》仍然是一款相当简短的游戏。本章将带你了解为游戏添加关卡的理论。对于《越狱》——以及大多数街机游戏而言——有两种添加新关卡的方法。你可以将每个关卡硬编码到游戏中（*静态关卡*）；或者，你也可以编写游戏代码，使其从外部、可变的数据源读取关卡信息（*动态关卡*）。\n\
+  \n让我们首先看看为游戏添加静态关卡背后的理论。\n\n## 添加静态关卡\n\n如果你为《越狱》添加有限数量的关卡（在已有的基础上），你就是在创建静态关卡。创建额外《越狱》关卡所需的大部分功能已经内置于游戏中。\n\
+  \n首先，你应该为你的《越狱》项目创建并添加多个背景。这样，你就可以根据玩家选择的关卡调用相应的新背景。为了简化工作，请在 `PBGameVars` 中创建新的变量，以便调用新的背景图片。\n\
+  \n接下来，在你的菜单上为关卡创建一个新按钮。以 第 3 章 为指南，添加一个新按钮及其监听器。然后，当玩家选择对应于他想玩的关卡的按钮时，像“开始”按钮现在所做的那样调用游戏活动；但同时，在\
+  \ `PBGameVars` 中设置一个变量，类似于：\n\n```\nPBGameVars.levelSelected = 5;\n```\n\n现在，在 `PBGameRenderer`\
+  \ 中，你可以根据玩家选择的关卡来改变游戏加载。在游戏渲染器的加载方法中，你可以切换背景图片、加载不同数量的行、或者改变小球以对应不同的关卡。\n\n## 添加动态关卡\n\
+  \n第二种选择，也是更耗费精力的方法，是修改游戏代码以支持动态创建关卡。修改代码以使用动态关卡将为玩家提供更丰富的体验，因为他们可以持续为游戏添加内容。实现这一点的关键在于使用基于\
+  \ XML 的关卡定义文件。你创建一个类似于`代码清单 8-1` 所示的关卡定义文件，它告诉你的代码如何加载关卡。然后，利用这个定义文件，你就能创建出无限数量的关卡。\n\
+  \n**代码清单 8-1. 关卡 XML**\n\n```\n<prisonbreaklevel>\n\n<levelnumber>5</levelnumber>\n\
+  \n<levelbackground>background5.png</levelbackground>\n\n<levelwall>\n\n<numberofrows>6</numberofrows>\n\
+  \n<levelwall>\n\n<levelball>\n\n<type>normal</type>\n\n</ prisonbreaklevel >\n```\n\
+  \n这个文件可以存储在网页服务器上，或者通过更新下载到游戏中并存储在 Android 数据库中。查看文件中的信息后，应该可以清楚地知道代码需要如何修改才能使用它。\n\
+  \n在加载 `PBGameRenderer` 时，你的代码现在会打开并读取与玩家选择的关卡相对应的定义文件。然后将相应的定义文件选项加载到游戏中，并创建关卡。\n\
+  \n## 总结\n\n在本章，也就是这本 Android 街机游戏专家案例研究的最后一章中，你学习了如何修改《越狱》的代码以支持创建多个关卡。\n\n我真诚地希望你享受本书，并希望它让你对使用\
+  \ Android 平台创建游戏有了更深入的见解。\n\n# 索引\n\n![square1.jpg](img/square1.jpg) **A**\n\n-\
+  \ Android 游戏开发\n- 街机游戏\n  - 开发\n  - 历史\n  - 集成开发环境 (IDE)\n  - 任天堂 Game Boy\n  -\
+  \ OpenGL ES\n  - 编程技能\n  - 优缺点\n- Android SDK\n- 街机游戏 (Arcade game)\n  - 起源\n- 越狱\
+  \ (Prison Break)\n  - 背景着色\n  - 碰撞检测与游戏内物理\n  - 游戏描述\n  - 游戏得分\n  - 添加关卡\n  - 创建菜单\n\
+  \  - 创建玩家挡板和砖块\n  - 屏幕截图\n\n![square1.jpg](img/square1.jpg) **B**\n\n- 背景 (Background)\n\
+  \  - bg1.png\n  - 绘制代码\n  - 构造函数\n  - draw() 方法\n  - loadTexture()\n  - PBBackground\
+  \ 类代码\n  - 渲染后的背景\n  - 渲染器 (见 渲染器)\n  - 绘制步骤\n  - SurfaceView\n- Ball 类\n- Brick\
+  \ 类\n\n![square1.jpg](img/square1.jpg) **C**\n\n- 碰撞检测 (Collision detection)\n \
+  \ - 创建\n    - ballTargetX 变量\n    - drawBricks() 方法\n    - 游戏结束场景，小球测试\n    - PBGameRenderer\n\
+  \    - 完成的 PBGameRenderer\n  - 《越狱》中的碰撞检测\n  - 目的\n\n![square1.jpg](img/square1.jpg)\
+  \ **D, E, F**\n\n- detectCollisions() 方法\n\n\n\n`drawBricks()` 方法\n\n![square1.jpg](img/square1.jpg)\
+  \ G, H\n\n`GLSurfaceView`\n\n`glTranslatef()`\n\n![square1.jpg](img/square1.jpg)\
+  \ I, J, K, L, M\n\n集成开发环境（IDE）\n\n![square1.jpg](img/square1.jpg) N\n\n`numberOfBricksRemaining`\n\
+  \n![square1.jpg](img/square1.jpg) O\n\n`onCreate()` 方法\n\n`onDrawFrame()` 方法\n\n\
+  `onSurfaceChanged()` 方法\n\n`onSurfaceCreated()` 方法\n\n`OpenGL`\n\n背景（*参见* 背景）\n\n\
+  `glLoadIdentity()`\n\n`glPopMatrix()`\n\n`glPushMatrix()`\n\n`glScale` 和 `glRotate`\n\
+  \n`glTranslate`\n\nModelView 模式\n\nproject 模式\n\ntexture 模式\n\n![square1.jpg](img/square1.jpg)\
+  \ P, Q\n\n玩家角色与障碍物\n\n砖块类创建\n\n`PBBrick` 代码\n\n`PBTextures`\n\n在模拟器/设备上编译并运行\n\n\
+  `PBBall` 类创建\n\n`PBGameRenderer`\n\n代码\n\n`drawBricks()` 方法\n\n`glTranslatef()`\n\
+  \n`initializeBricks()`\n\n`moveBall()` 方法\n\n`PBGame` 文件中的触摸事件代码\n\n纹理加载器\n\n变量\n\
+  \n`PBGameVars` 文件\n\n`PBPlayer` 类创建\n\n`PBRow` 创建\n\n`PBWall` 创建\n\n精灵表\n\n玩家挡板类\n\
+  \n`Prison Break`\n\n`Android SDK`\n\n街机游戏\n\n背景着色\n\n碰撞检测与游戏内物理\n\n游戏描述\n\n游戏分数\n\
+  \n关卡添加\n\n菜单创建\n\n玩家挡板与砖块创建\n\n截图\n\n背景（*参见* 背景）\n\n动态难度\n\n`exitbtndown.png`\n\n\
+  `exitbtn.png`\n\n图片名称\n\n菜单屏幕\n\n`PBGame` 活动代码\n\n`PBMainMenu`\n\n代码\n\n退出按钮\n\n\
+  `exitselector.xml`\n\n游戏循环，启动与退出\n\n`main.xml` 布局\n\n`PBMainMenu.java` 代码\n\n开始按钮\n\
+  \n`startselector.xml`\n\n玩家角色与障碍物（*参见* 玩家角色与障碍物）\n\n`PrisonbreakActivity`\n\n`fadein.xml`\
+  \ 代码\n\n`fadeout.xml` 代码\n\n`overridePendingTransition()`\n\n`PBGameVars.java`\n\
+  \n`PBMainMenu.java`\n\n`PrisonbreakActivity.java` 代码\n\n公有变量\n\n`splashscreen.xml`\n\
+  \n过渡布局\n\n`prisonbreaksplash.png`\n\n`public static final int GAME_THREAD_FPS_SLEEP\
+  \ = (1000/60)`\n\n`res/drawable-hdpi` 文件夹\n\n分数（*参见* 分数）\n\n闪屏与主菜单创建\n\n`startbtndown.png`\n\
+  \n`startbtn.png`\n\n静态难度\n\n![square1.jpg](img/square1.jpg) R\n\n渲染器\n\n`onDrawFrame()`\n\
+  \n`onSurfaceChanged()`\n\n`onSurfaceCreated()`\n\n`PBGameRenderer` 代码\n\n`rowIsScored`\
+  \ 属性\n\n![square1.jpg](img/square1.jpg) S, T, U, V, W, X, Y, Z\n\n分数\n\n计分方法\n\n\
+  每块砖得分\n\n每行得分\n\n`ScoreNumbers` 精灵表\n\n`SurfaceView`\n"

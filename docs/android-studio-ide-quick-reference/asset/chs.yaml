@@ -1,0 +1,3173 @@
+- "\n![](img/978-1-4842-4953-6_CoverFigure.jpg)\n\nISBN 978-1-4842-4952-9  \ne-ISBN\
+  \ 978-1-4842-4953-6  \n[`doi.org/10.1007/978-1-4842-4953-6`](https://doi.org/10.1007/978-1-4842-4953-6)\n\
+  \n© Ted Hagos 2019  \n本作品受版权保护。出版商保留所有权利，无论是涉及材料的全部或部分内容，具体包括翻译、重印、插图重用、朗诵、广播、以缩微胶卷或任何其他物理方式复制，以及通过电子方式或类似或不同的方法进行传输或信息存储与检索、电子改编、计算机软件等权利。本书中可能出现商标名称、标识和图像。对于每次出现的商标名称、标识或图像，我们并未使用商标符号，而是仅在编辑性用途中使用这些名称、标识和图像，以惠及商标所有人，无意侵犯商标权。本出版物中对商品名称、商标、服务标志及类似术语的使用（即使未明确标注为商标）不应被视为对它们是否受所有权保护的看法。尽管本书中的建议和信息在出版之际被认为是真实准确的，但作者、编辑或出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本书所含内容不作任何明示或暗示的保证。本书通过\
+  \ Springer Science+Business Media New York 在全球范围内分销，地址：233 Spring Street, 6th Floor,\
+  \ New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问`www.springeronline.com`。Apress\
+  \ Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）为 Springer Science + Business Media Finance\
+  \ Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。\n\n*献给 Adrianne 和 Stephanie。*\n\
+  \n"
+- '# 引言
+
+
+  欢迎阅读《*Android Studio IDE 快速参考手册*》。我编写这本书的目的是为 Android Studio 的显著功能提供一个便捷的参考。
+
+
+  本书共包含 13 个短章节，每章简要介绍 Android Studio 的一些功能。虽然本书侧重于 IDE，但许多章节实际上也涉及 Android 编程，因此你将会看到一些代码示例。
+
+
+  ## 本书面向的读者
+
+
+  本书面向那些需要快速了解如何在 Android Studio IDE 中执行常见任务的经验丰富的程序员。代码示例使用 Java 编写，因此适合用 Java 构建
+  Android 应用的开发者。本书也可能适合那些虽然对 Android Studio 不熟悉，但并非 Android 开发新手的人——比如想要尝试 Android
+  Studio 的 Eclipse 用户。
+
+
+  ## 源代码
+
+
+  本书的源代码可通过点击位于[`www.apress.com/us/book/9781484249529`](http://www.apress.com/us/book/9781484249529)的“下载源代码”按钮进行下载。
+
+
+  ## 致谢
+
+
+  献给 Stephanie 和 Adrianne，我的感谢与爱。
+
+
+  ## 关于作者与技术审阅者
+
+
+  ### 关于作者
+
+
+  ### 关于技术审阅者
+
+
+  '
+- '# 1. 安装与设置
+
+
+  *本章涵盖内容：*
+
+
+  - 安装 Android Studio
+
+  - 设置 IDE
+
+  - 基本配置
+
+
+  为 Android 开发应用程序并非一直如今天这般便捷。当 2008 年 Android 1.0 发布时，开发者获得的开发工具包不过是一组命令行工具和 Ant
+  构建脚本。如果你习惯使用 Vim、Ant 和其他命令行工具来构建应用程序，这倒不算太糟，但许多开发者并不习惯。缺少代码提示、项目设置和集成调试等 IDE 功能，在一定程度上构成了入门门槛。
+
+
+  幸运的是，2008 年也发布了适用于 Eclipse IDE 的 Android 开发工具（ADT）。Eclipse 曾经是、现在也仍然是许多 Java 开发者的最爱和首选
+  IDE。因此它成为 Android 开发者的首选 IDE 也是顺理成章的事。
+
+
+  从 2009 年到 2012 年，Eclipse 一直是 Android 开发的首选 IDE。Android SDK 在结构和范围上经历了重大和渐进式的变化。2009
+  年，SDK 管理器发布，用于下载工具、各个 SDK 版本以及用于模拟器的 Android 映像。2010 年，针对 ARM 处理器和 x86 CPU 发布了额外的映像。
+
+
+  2012 年是重要的一年，因为 Eclipse 和 ADT 终于捆绑在一起。在此之前，开发者必须分别安装 Eclipse 和 ADT，安装过程并不总是顺利。因此两者捆绑在一起大大简化了开始
+  Android 开发的过程。2012 年也是 Eclipse 作为 Android 主导 IDE 的最后一年。
+
+
+  2013 年，Android Studio（AS）发布。诚然，它仍处于测试阶段，但趋势已非常明确：它将成为 Android 开发的官方 IDE。Android
+  Studio 基于 JetBrains 的 IntelliJ。IntelliJ 是一款商业化的 Java IDE，同时也有社区（免费）版本，该版本构成了 Android
+  Studio 的基础。
+
+
+  ## 设置 Android Studio
+
+
+  撰写本文时，Android Studio 的版本是 3.2.1；希望当你阅读本书时版本不会有太大变化。你可以从[`https://developer.android.com/studio`](https://developer.android.com/studio)下载。它适用于
+  Windows（32 位和 64 位）、macOS 和 Linux。我分别在 macOS (Mojave)、Windows 10 64 位和 Ubuntu 18
+  上执行了安装说明。我主要在 macOS 环境下工作，这解释了本书中大多数截图为何看起来像 macOS。Android Studio 在这三个平台上的外观、运行和操作体验（大部分）相同，仅在键盘快捷键和
+  macOS 的主菜单栏等细节上有微小差异。
+
+
+  在进一步操作之前，我们先看看 Android Studio 的系统要求。你至少需要以下配置：
+
+
+  - Microsoft Windows 7/8/10（32 位或 64 位）或
+
+  - macOS 10.10 (Yosemite 或更高版本) 或
+
+  - Linux (Gnome 或 KDE 桌面)，Ubuntu 14.04 或更高版本（64 位，但需要能够运行 32 位应用程序）
+
+  - 如果使用 Linux，需要 GNU C 库 (glibc 2.19 或更高版本)
+
+
+  硬件方面，你的工作站至少需要：
+
+
+  - 3GB 内存（推荐 8GB 或更多）
+
+  - 2GB 可用硬盘空间
+
+  - 最低 1280 x 800 屏幕分辨率
+
+
+  此列表来自 Android 官方网站（[`developer.android.com/studio`](https://developer.android.com/studio)），当然，配置越高越好。如果你能配备
+  16GB 内存、512GB 固态硬盘（或更大）以及全高清（或超高清）显示器，那将非常不错——绝对不错。
+
+
+  现在我们来看 JDK（Java 开发工具包）的要求。从 Android Studio 2.2 开始，安装程序自带内嵌的 OpenJDK。这样，初学者就不必额外安装
+  JDK 了，但你仍然可以按照自己的偏好单独安装 JDK。在本书中，我将假设你使用 Android Studio 自带的 OpenJDK。
+
+
+  从[`https://developer.android.com/studio/`](https://developer.android.com/studio/)下载安装程序，并获取适用于你平台的正确二进制文件。
+
+
+  如果你使用的是 macOS，请执行以下操作：
+
+
+  1. 解压安装程序的压缩文件。
+
+  2. 将应用程序文件拖入“应用程序”文件夹。
+
+  3. 启动 Android Studio。
+
+  4. 如果你之前安装过，Android Studio 会提示你导入一些设置。你可以导入这些设置——这是默认选项。
+
+
+
+
+  ### 注意
+
+
+  如果你已安装过 Android Studio，可以继续使用旧版本，同时安装 Android Studio 3。新老版本可以共存，因为新版本的设置会存放在不同的目录中。
+
+
+  如果你使用的是 Windows 系统，请按以下步骤操作：
+
+
+  1. 解压安装文件。
+
+  2. 将解压后的目录移动到你选择的位置，例如 `C:\Users\myname\AndroidStudio`。
+
+  3. 进入 `AndroidStudio` 文件夹。文件夹内包含 `studio64.exe` 文件，这是需要启动的文件。建议为该文件创建快捷方式。右键点击 `studio64.exe`
+  并选择“固定到开始菜单”，即可将 Android Studio 添加到 Windows 开始菜单。你也可以将其固定到任务栏。
+
+
+  在 Linux 系统上安装比简单的双击并跟随安装向导要复杂一些。在未来的 Ubuntu（及其衍生版）版本中，安装过程可能会变得像 Windows 和 macOS
+  一样简单流畅，但目前仍需进行一些调整。在 Linux 上执行这些额外操作，主要是因为 Android Studio 需要一些 32 位库和硬件加速支持。
+
+
+  ### 注意
+
+
+  本节中的安装说明适用于 Ubuntu 64 位及其他 Ubuntu 衍生版（例如 Linux Mint、Lubuntu、Xubuntu、Ubuntu MATE
+  等）。之所以选择该发行版，是因为它是非常常见的 Linux 版本，本书读者大多会使用它。如果你运行的是 64 位版本的 Ubuntu，则需要安装一些 32 位库才能使
+  Android Studio 正常运行。
+
+
+  要获取 Linux 所需的 32 位库，请在终端窗口中运行以下命令：
+
+
+  ```
+
+  sudo apt-get update && sudo apt-get upgrade -y
+
+  sudo dpkg --add-architecture i386
+
+  sudo apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386
+
+  ```
+
+
+  所有准备工作完成后，请按以下步骤操作：
+
+
+  1. 解压下载的安装文件。你可以使用命令行工具或图形界面工具解压文件。例如，如果你的文件管理器支持，可以右键点击文件并选择“解压到此处”选项。
+
+  2. 解压后，将文件夹重命名为 `AndroidStudio`。
+
+  3. 将该文件夹移动到你拥有读取、写入和执行权限的位置。或者，你也可以将其移动到 `/usr/local/AndroidStudio`。
+
+  4. 打开终端窗口，进入 `AndroidStudio/bin` 文件夹，并运行 `./studio.sh` 命令。
+
+  5. 首次启动时，Android Studio 会询问是否要导入某些设置。如果你之前安装过其他版本的 Android Studio，可以导入这些设置。
+
+
+  ## 配置 Android Studio
+
+
+  如果这是你第一次安装 Android Studio，你可能希望在开始编码工作之前配置一些内容。在本节中，我将引导你完成以下操作：
+
+
+  * 获取创建针对特定 Android 版本的程序所需的软件
+
+  * 确保拥有所需的所有 SDK 工具
+
+  * 以及选择性地更改更新方式
+
+
+  如果你尚未启动 IDE，请启动它，并点击“配置”选项，如图 1-1 所示。从下拉列表中选择“偏好设置”。
+
+
+  ![../images/476822_1_En_1_Chapter/476822_1_En_1_Fig1_HTML.jpg](img/476822_1_En_1_Fig1_HTML.jpg)
+
+
+  图 1-1. 从 Android Studio 的启动对话框进入“偏好设置”
+
+
+  点击“偏好设置”选项会打开偏好设置对话框，如图 1-2 所示。在对话框左侧，选择“Android SDK”选项。
+
+
+  ![../images/476822_1_En_1_Chapter/476822_1_En_1_Fig2_HTML.jpg](img/476822_1_En_1_Fig2_HTML.jpg)
+
+
+  图 1-2. SDK 平台
+
+
+  进入 SDK 窗口后，启用“显示包详情”选项，这样你可以看到每个 API 级别的更详细视图。你不需要下载 SDK 窗口中的所有内容，只需获取所需的项目即可。
+
+
+  SDK 级别或平台编号是 Android 的具体版本。Android 9（Pie）对应 API 级别 28，Android 8（Oreo）对应 API 级别 26
+  和 27，Nougat 对应 API 级别 24 和 25。你无需记住平台编号（至少现在不用），因为 IDE 会显示平台编号及其对应的 Android 昵称。
+
+
+  下载你的应用想要目标定位的 API 级别，但就本书而言，请下载 API 级别 27（Oreo）。这是你将在示例项目中使用的版本。请确保随平台一起下载 Google
+  APIs Intel x86 Atom_64 System Image。你在后续测试运行应用程序时会用到它。
+
+
+  选择 API 级别目前可能不是什么大事，因为你正在处理的是练习应用。但是，当你计划公开发布应用时，就不能轻易做出这个选择了。为应用选择最低 SDK 或 API
+  级别将决定有多少人能够使用你的应用。在撰写本文时，25% 的 Android 设备使用 Marshmallow，22% 使用 Nougat，4% 使用 Oreo。这些统计数据来自
+  [`developer.android.com`](http://developer.android.com) 的仪表盘页面。建议定期访问 [`http://bit.ly/droiddashboard`](http://bit.ly/droiddashboard)
+  查看这些数据。
+
+
+  图 1-3 展示了 SDK 工具部分。
+
+
+  ![../images/476822_1_En_1_Chapter/476822_1_En_1_Fig3_HTML.jpg](img/476822_1_En_1_Fig3_HTML.jpg)
+
+
+  图 1-3. SDK 工具部分
+
+
+  你通常不需要更改此窗口中的任何内容，但检查一下是否已安装下方列表中标注为“已安装”的工具也无妨：
+
+
+  * `Android SDK Build Tools`
+
+  * `Android SDK Platform Tools`
+
+  * `Android SDK Tools`
+
+  * `Android Emulator`
+
+  * `Support Repository`
+
+  * `HAXM Installer`
+
+
+  检查这些工具可以确保你获得诸如 `adb`、`sqlite`、`aapt` 和 `zipalign` 等工具。这些工具有助于调试、构建、操作数据库、运行模拟等。
+
+
+  ### 注意
+
+
+  如果你使用的是 Linux 平台，即使拥有 Intel 处理器，也无法使用 `HAXM`。在 Linux 上，将使用 `KVM` 代替 `HAXM`。
+
+
+  确认选择无误后，点击“确定”按钮开始下载软件包。
+
+
+  你需要进行的最后一个配置检查是设置更新通道。它位于相同的偏好设置窗口中。点击右侧的“更新”项目以显示更新设置，如图 1-4 所示。
+
+
+  ![../images/476822_1_En_1_Chapter/476822_1_En_1_Fig4_HTML.jpg](img/476822_1_En_1_Fig4_HTML.jpg)
+
+
+  图 1-4. 更新
+
+
+  Android Studio 默认配置为从你最初下载安装程序的通道获取更新。由于你是从稳定版通道下载的安装程序，因此默认情况下它将从该通道获取更新。你可以将通道更改为以下四个之一：
+
+
+  * **金丝雀版通道**：此通道用于最新测试版发布。由于可能每周更新一次，不适合用于生产代码。
+
+  * **开发版通道**：此通道与金丝雀版类似，但更稳定一些。仍不建议用于生产环境。
+
+  * **测试版通道**：此通道包含候选发布版。开发者基本上是在等待反馈，然后才会将其推送到稳定版通道。
+
+  * **稳定版通道**：这是官方稳定版发布，适合用于生产环境。
+
+
+
+
+  ## 硬件加速
+
+
+  在编写应用时，为了获得即时反馈并确认应用是否按预期运行（或能否正常运行），你需要时不时地测试并运行它。为此，你将使用物理设备或虚拟设备。两种方案各有利弊，你无需二选一——实际上，你最终需要同时使用两者。
+
+
+  Android 虚拟设备（`AVD`）是一种可供你运行应用的模拟器。在模拟器上运行时，有时可能会很慢；因此谷歌和英特尔推出了`HAXM`，这是一种能减轻测试痛点的模拟加速工具。这对开发者来说无疑是福音——前提是你使用的机器拥有支持虚拟化的英特尔处理器，并且你使用的不是
+  Linux 系统。不过，如果你没这么幸运也不必担心，正如你稍后会看到的，在 Linux 中也有办法实现模拟加速。
+
+
+  macOS 用户或许最为轻松，因为`AS3`会自动安装`HAXM`。你无需任何额外操作，`AS3`安装程序会替你处理好一切。
+
+
+  Windows 用户可以通过以下方式获取`HAXM`：
+
+
+  * 从[`https://software.intel.com/en-us/android`](https://software.intel.com/en-us/android)下载。像安装其他
+  Windows 软件一样安装它：双击并按照提示操作。
+
+  * 或者，你也可以通过`AS3`的`SDK`管理器获取`HAXM`。这是推荐的方法。
+
+
+  对于 Linux 用户，推荐使用`KVM`。`KVM`（基于内核的虚拟机）是 Linux 的虚拟化解决方案，包含虚拟化扩展（如英特尔 VT 或 AMD-V）。
+
+
+  要获取`KVM`，你需要从软件仓库中拉取一些软件。但在此之前，你首先需要完成以下步骤：
+
+
+  1. 确保在 BIOS 或 UEFI 设置中启用了虚拟化功能。关于如何进入这些设置，请查阅你的硬件手册。通常的操作是：关闭电脑，重新启动，并在听到系统扬声器提示音后立即按下中断键（如`F2`或`DEL`），但正如我所说，请查阅你的硬件手册。
+
+  2. 完成设置并重启进入 Linux 后，检查系统是否能运行虚拟化。这可以通过在终端中执行以下命令来完成：`egrep –c ''(vmx|svm)'' /proc/cpuinfo`。如果返回的数字大于零，则可以继续安装。
+
+
+  要安装`KVM`，请在终端窗口中输入示例 1-1 中所示的命令。
+
+
+  ```
+
+  sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+
+  sudo adduser your_user_name kvm
+
+  sudo adduser your_user_name libvirtd
+
+  示例 1-1.
+
+  安装 KVM 的命令
+
+  ```
+
+
+  你可能需要重启系统才能完成安装。
+
+
+  希望一切顺利，你现在已经拥有了合适的开发环境。在下一章中，你将熟悉`Android Studio IDE`的各个部分。
+
+
+  ## 本章小结
+
+
+  * 你可以为 macOS、Windows 和 Linux 系统获取 Android 和 Android Studio。每个平台都有预编译好的二进制文件，可在 Android
+  官网获取。
+
+  * `HAXM`提供了在 Android 虚拟设备上加速模拟的能力。如果你使用 macOS 或 Windows（搭载英特尔处理器），你将自动获得`HAX`。如果你使用
+  Linux，则可以用`KVM`替代`HAXM`。
+
+
+  '
+- '# 2. 快速操作指南
+
+
+  *本章涵盖内容*：
+
+
+  * 创建项目
+
+  * 创建 Activity
+
+  * 创建类和接口
+
+  * 生成方法重写代码
+
+  * 运行项目
+
+
+  在本章中，你将了解 Android 项目开发中的一些基本操作，例如创建项目、Activity、类、接口、方法，以及如何运行应用。这些元素大多可以手动完成，并无太大难度，但
+  Android Studio 提供了一些巧妙的功能来帮你更好地完成这些任务。Android Studio 能让这些操作更快捷、更准确。例如，手动输入重写签名容易出错，特别是当方法签名很长时。
+
+
+
+
+  ## 创建项目
+
+
+  要创建 Android 应用，你需要先创建一个项目。项目本质上就是一个文件夹，用于存放构建应用所需的所有内容：Java 程序文件、图像、XML 资源等等。你既可以从
+  Android Studio 的启动屏幕（当没有打开任何项目时）创建项目，如图 2-1 所示；也可以从主菜单栏（当有其他项目处于打开状态时）创建项目，如图 2-2
+  所示。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig2_HTML.jpg](img/476822_1_En_2_Fig2_HTML.jpg)
+
+
+  图 2-2. 从主菜单栏创建项目
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig1_HTML.jpg](img/476822_1_En_2_Fig1_HTML.jpg)
+
+
+  图 2-1. 从启动屏幕创建项目
+
+
+  如果你是第一次使用 Android Studio，并且是首次创建项目，那么很可能会从启动屏幕开始操作，如图 2-1 所示。
+
+
+  如果你在 IDE 中已经打开了一个现有项目，并想再创建一个新项目，可以通过主菜单栏的 `File` ➤ `New` ➤ `Project` 路径来完成，如图 2-2
+  所示。
+
+
+  无论你以何种方式启动项目，接下来都会看到如图 2-3 所示的界面，你可以在其中填写项目的一些详细信息。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig3_HTML.jpg](img/476822_1_En_2_Fig3_HTML.jpg)
+
+
+  图 2-3. 新项目的详细信息
+
+
+  在此界面上，需要填写应用名称、公司域名以及项目的实际存放位置等信息。我取消勾选了 C++ 和 Kotlin 支持复选框，因为在本项目中你不需要用到它们。如果你打算将
+  Java 代码与 C 或 C++（NDK，即原生开发工具包）混合使用，则需要勾选 C++ 复选框；否则，请保持取消勾选状态，就像我做的那样。如果你想使用 Kotlin
+  而不是 Java 进行开发，则需要勾选 Kotlin 复选框；否则，也请像我这样保持取消勾选状态。
+
+
+  接下来的界面如图 2-4 所示，你可以在其中进一步配置项目。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig4_HTML.jpg](img/476822_1_En_2_Fig4_HTML.jpg)
+
+
+  图 2-4. SDK 和外形因素
+
+
+  在此界面上，你可以为 Android 手表（Wear OS）、电视或 IoT（物联网）配置项目。我假设大多数 Android 初学者开发者，正如本书的潜在读者那样，会希望从一款能在手机或平板电脑上运行的应用开始，因此只勾选了
+  `"Phone and Tablet"` 复选框。
+
+
+  在接下来的界面中，如图 2-5 所示，你可以决定是否让向导生成一个 Activity。Activity 有几种选择，例如基础 Activity、底部导航 Activity
+  等。大多数 Android 应用至少会包含一个 Activity。你可以选择空 Activity。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig5_HTML.jpg](img/476822_1_En_2_Fig5_HTML.jpg)
+
+
+  图 2-5. Activity 选项
+
+
+  现在你来到了向导的最后一个界面，如图 2-6 所示，你可以在其中决定 Activity 的名称以及该 Activity 对应的 XML 布局文件名。请勾选 `AppCompat`
+  复选框，这样即使应用运行在旧版 Android 系统上，也能使用现代的 Android 特性。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig6_HTML.jpg](img/476822_1_En_2_Fig6_HTML.jpg)
+
+
+  图 2-6. Activity 名称
+
+
+  点击 `Finish` 按钮，IDE 将开始生成并搭建一个包含一个空 Activity 的 Android 项目。图 2-7 展示了在 IDE 中打开的 `MyApplication`
+  项目。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig7_HTML.jpg](img/476822_1_En_2_Fig7_HTML.jpg)
+
+
+  图 2-7. 在 IDE 中打开的 `MyApplication` 项目
+
+
+  一个向用户展示界面的简单应用至少需要以下三个要素：
+
+
+  *   一个 **Activity** 类，作为主程序文件
+
+  *   一个**布局文件**，包含所有 UI 定义（使用 XML）
+
+  *   一个**清单文件**，用于整合项目的所有内容（同样使用 XML）
+
+
+  项目创建向导已经为你处理好了所有这些要素。
+
+
+  ### 创建 Activity
+
+
+  Activity 主要负责用户能在屏幕上看到的内容。`Activity` 类与 XML 布局文件共同构成了用户界面。有些应用只有一个 Activity，而有些应用则有多个。如果你需要向项目添加另一个
+  Activity，可以通过主菜单栏的 `File` ➤ `New` ➤ `Activity` ➤ `Empty Activity` 路径来操作。或者，你也可以使用图
+  2-8 所示的上下文菜单来创建 Activity。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig8_HTML.jpg](img/476822_1_En_2_Fig8_HTML.jpg)
+
+
+  图 2-8. 创建新 Activity
+
+
+  要使用上下文菜单，请右键单击 `app` 文件夹（在项目工具窗口中），如图 2-8 所示，然后依次进入 `New` ➤ `Activity` ➤ `Empty
+  Activity`。无论你用哪种方法添加另一个 Activity，都会进入一个对话框（如图 2-9 所示），你可以在其中填写新 Activity 的一些详细信息。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig9_HTML.jpg](img/476822_1_En_2_Fig9_HTML.jpg)
+
+
+  图 2-9. 新建 Android Activity
+
+
+  这些字段中的大部分你应该都很熟悉，因为在项目创建过程中你已经填写过一遍了。唯一可能有点让人困惑的复选框是 `Launcher Activity`。从图 2-9
+  中可以看到，它处于未勾选状态，你应该保持这种状态。如果你勾选了 `Launcher Activity` 复选框，就等于告诉 Android Studio 用这个新
+  Activity 替换启动 Activity（你在项目创建时创建的第一个 Activity）；这并非你所期望的操作，因此请保持该复选框未勾选状态。
+
+
+  ### 注意
+
+
+  启动 Activity 是指应用启动后最先展示给用户的 Activity。启动 Activity 的配置位于 `ActivityMain.XML` 文件中。
+
+
+  ### 创建类
+
+
+  要创建一个新类，最好先从项目工具窗口中选择项目的包，如图 2-10 所示。然后，你可以使用上下文菜单（右键单击）➤ `New` ➤ `Java class`。或者，你也可以通过主菜单栏的
+  `File` ➤ `New` ➤ `Java class` 来操作。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig10_HTML.jpg](img/476822_1_En_2_Fig10_HTML.jpg)
+
+
+  图 2-10. 使用上下文菜单创建新类
+
+
+  在接下来的界面中，如图 2-11 所示，你可以为新类填写一些详细信息。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig11_HTML.jpg](img/476822_1_En_2_Fig11_HTML.jpg)
+
+
+  图 2-11. `Create New Class` 对话框
+
+
+  对话框窗口中的 `Package` 部分已经预先填入了正确的包名，因为你在创建类之前已经选择了项目的包（在项目工具窗口中）。如果你没有选择项目的包，`Package`
+  字段将会是空的。自己手动输入包名并不是什么大问题，但如果输入错误，则可能成为错误的潜在来源。
+
+
+
+  好的，作为一名高级文档工程师和翻译员，我将遵循您的所有注意事项，将给定的英文文本翻译成中文。
+
+
+
+  ## 创建接口
+
+
+  要创建接口，请遵循与创建类时相同的步骤。
+
+
+  1.  使用上下文菜单，右键单击项目的包以将其选中。
+
+  2.  选择 **新建 > Java 类**。
+
+
+  图 2-12 显示了“创建新类”对话框。如图所示，单击 **种类** 下拉菜单，然后选择 **接口** 选项。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig12_HTML.jpg](img/476822_1_En_2_Fig12_HTML.jpg)
+
+
+  图 2-12. 创建新接口
+
+
+  ## 重写方法
+
+
+  手动输入所有重写方法的签名可能不是什么大问题，但 Android Studio 实际上有一些巧妙的功能可以帮助您处理这些重写签名。
+
+
+  图 2-13 显示了您之前创建的 `Sample.java` 类。红色波浪线表示该类存在错误。将鼠标悬停在红色波浪线上会显示一个气泡提示，其中包含一些有关错误的信息。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig13_HTML.jpg](img/476822_1_En_2_Fig13_HTML.jpg)
+
+
+  图 2-13. 包含错误的 `Sample.java`
+
+
+  要解决此错误，您必须重写 `Runnable` 接口的 `run()` 方法。您可以使用 Android Studio 的快速修复功能来解决此问题。当键盘光标位于红色波浪线的某处时，按
+  `Alt-Enter`（Linux 或 Windows）或 `Option + Enter`（macOS），如图 2-14 所示。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig14_HTML.jpg](img/476822_1_En_2_Fig14_HTML.jpg)
+
+
+  图 2-14. 快速修复
+
+
+  选择 **实现方法** 选项。接下来会显示 **选择要实现的方法** 对话框，如图 2-15 所示。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig15_HTML.jpg](img/476822_1_En_2_Fig15_HTML.jpg)
+
+
+  图 2-15. 选择要实现的方法
+
+
+  选择 `run():void`，然后单击 **确定**。Android Studio 将为您生成方法签名。
+
+
+  Android Studio 的快速修复功能不仅仅用于重写方法。只要在 IDE 中看到红色波浪线或任何其他显示错误的指示，您都可以使用它。该 IDE 足够健壮，能够在大多数情况下找出如何帮助您。
+
+
+  生成重写方法代码的另一种方法是使用 Android Studio 的 **生成** 功能。图 2-16 展示了如何操作。
+
+
+  ![../images/476822_1_En_2_Chapter/476822_1_En_2_Fig16_HTML.jpg](img/476822_1_En_2_Fig16_HTML.jpg)
+
+
+  图 2-16. 使用生成功能重写方法
+
+
+  **生成** 功能非常通用。您可以使用它生成不少东西，例如 getter/setter、构造函数、新文件和新类，但就您当前的目的而言，您将使用它来生成要重写的方法。图
+  2-16 展示了代码生成过程的一般流程，但我们还是来回顾一下步骤。
+
+
+  1.  确保您的编辑光标在类内部。**生成** 功能是上下文相关的，因此如果编辑光标在类主体之外，您将不会获得图 2-16 中显示的选项。
+
+  2.  按 `Alt + Insert`（如果您使用的是 Windows 或 Linux）或 `Cmd + N`（如果您使用的是 macOS）。
+
+  3.  选择 **重写方法** 选项。
+
+  4.  选择要重写的方法。
+
+
+  ## 运行项目
+
+
+  Android Studio 有几个用于构建和运行项目的选项；请参见表 2-1。
+
+
+  表 2-1. 构建和运行项目的键盘快捷键
+
+
+  |  | Windows 和 Linux | macOS | 描述 |
+
+  | --- | --- | --- | --- |
+
+  | 构建 | `Ctrl + F9` | `Cmd + F9` | 运行 Android Studio 的构建过程并生成 APK（Android 包） |
+
+  | 构建并运行 | `Shift + F10` | `Ctrl + R` | 与“构建”相同，但它还会将 APK 推送到已连接的设备或正在运行的模拟器 (AVD)
+  |
+
+  | 应用更改（使用即时运行） | `Ctrl + F10` | `Ctrl + Cmd + R` | 允许您将代码更改推送到已连接的设备或模拟器，而无需构建新的
+  APK。它比“构建并运行”更快，因此请尽可能使用它。 |
+
+
+  ## 章节总结
+
+
+  *   Android Studio 不止一种方法可以完成任务。您可以使用主菜单栏和上下文菜单来创建许多东西，例如新的 Activity、类或接口。
+
+  *   键盘快捷键比使用主菜单栏或上下文菜单快得多，因此花时间记住其中一些快捷键是值得的。
+
+  *   Android Studio 的 **生成** 功能不仅仅可以生成重写方法。您将在后续章节中探索它的其他功能。
+
+  *   Android Studio 中的快速修复是一个通用工具。只需单击红色波浪线，然后按 `Alt + Enter`（Windows 或 Linux）或 `Option
+  + Enter`（macOS）。
+
+
+  '
+- "# 3. IDE\n\n*本章内容涵盖：*\n\n*   IDE 的各个部分\n*   主编辑器\n*   项目工具窗口\n*   SDK 管理器\n*  \
+  \ 代码样式\n\n在上一章中，您学习了如何创建项目并在 IDE 中打开它。在本章中，您将更详细地了解它的各个部分。\n\n如果您尚未启动 Android Studio，现在是启动它的好时机。打开\
+  \ Android Studio 后，您将看到欢迎屏幕，如图 3-1 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig1_HTML.jpg](img/476822_1_En_3_Fig1_HTML.jpg)\n\
+  \n图 3-1. 欢迎使用 Android Studio\n\n\n\n## 集成开发环境 (IDE)\n\n从启动画面开始，假设您创建了一个新项目或打开了现有项目，图\
+  \ 3-2 展示了在 Android Studio 中打开项目时的各个组成部分。\n\n| ➊ | **主菜单栏**：您可以通过多种方式在 Android Studio\
+  \ 中进行导航。通常，完成一项任务有不止一种方法，但主要的导航操作是在主菜单栏中完成的。如果您使用的是 Linux 或 Windows，主菜单栏直接位于 IDE\
+  \ 顶部；如果您使用的是 macOS，主菜单栏则与 IDE 分离（这是所有 macOS 软件的工作方式）。 |\n| ➋ | **导航栏**：此栏允许您浏览项目文件。它是一组水平排列的箭头符号，类似于某些网站上常见的面包屑导航。您可以通过导航栏或“项目”工具窗口打开项目文件。\
+  \ |\n| ➌ | **工具栏**：它允许您执行多种操作（例如，保存文件、运行应用、打开 AVD 管理器、打开 SDK 管理器，以及执行撤消和重做操作）。 |\n\
+  | ➍ | **主编辑器窗口**：这是最突出的窗口，拥有最大屏幕空间。编辑器窗口是您创建和修改项目文件的地方。它会根据您编辑的内容改变外观。如果您在处理程序源文件，此窗口将仅显示源文件。当您编辑布局文件时，您可能会看到原始的\
+  \ XML 文件，或者布局的可视化渲染效果。 |\n| ➎ | **项目工具窗口**：此窗口显示项目文件夹的内容。您可以从这里查看并启动所有项目资源（源代码、XML\
+  \ 文件、图形等）。 |\n| ➏ | **工具窗口栏**：工具窗口栏沿着 IDE 窗口的周边布置。它包含激活特定工具窗口所需的各个按钮（例如，TODO、Logcat、项目窗口、已连接的设备等）。\
+  \ |\n| ➐ | **显示/隐藏工具窗口**：它用于显示（或隐藏）工具窗口栏。这是一个切换开关。 |\n| ➑ | **工具窗口**：您可以在 Android\
+  \ Studio 工作区的侧面和底部找到工具窗口。它们是辅助窗口，允许您从不同角度查看项目。它们还允许您访问开发任务所需的典型工具（例如，调试、与版本控制集成、查看构建日志、检查\
+  \ Logcat 转储、查看 TODO 项等）。以下是您可以使用工具窗口执行的一些操作：• 您可以单击工具窗口栏中的工具名称来展开或折叠它们。您还可以拖拽、固定、取消固定、附加和分离工具窗口。•\
+  \ 您可以重新排列工具窗口，但如果您觉得需要将工具窗口恢复为默认布局，可以通过主菜单栏来执行此操作；单击 `Window` ➤ `Restore Default\
+  \ Layout`。此外，如果您想自定义默认布局，可以根据自己的喜好通过主菜单栏重新排列窗口，方法是单击 `Window` ➤ `Store Current Layout\
+  \ as Default**.**` |\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig2_HTML.png](img/476822_1_En_3_Fig2_HTML.png)\n\
+  \n图 3-2.\n\nAndroid Studio 的主要组成部分\n\n### 主编辑器\n\n与大多数 IDE 一样，主编辑器窗口允许您修改和处理源文件。其突出之处在于它非常了解\
+  \ Android 开发资源。Android Studio 允许您处理多种文件类型，但您可能会花费大部分时间编辑以下类型的文件：\n\n*   Java 源文件\n\
+  *   XML 文件\n*   UI 布局文件\n\n当您处理 Java 源文件时，您会获得现代编辑器所应具备的所有代码提示和自动补全功能。此外，当代码出现问题时，它会提前给出大量警告。图\
+  \ 3-3 展示了在主编辑器中打开的一个 Java 类文件。该类文件是一个 Activity，并且其中一个语句缺少分号。Android Studio 会在 IDE\
+  \ 中布满（红色的）波浪线，表明该类无法编译。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig3_HTML.jpg](img/476822_1_En_3_Fig3_HTML.jpg)\n\
+  \n图 3-3.\n\n显示错误指示器的主编辑器\n\nAndroid Studio 会将波浪线放在非常接近问题代码的位置。如图 3-3 所示，波浪线正好放在预期需要分号的位置。\n\
+  \n#### 编辑布局文件\n\n用户看到的屏幕由 Activity 源文件和布局文件组成。布局文件是用 XML 编写的。Android Studio 无疑可以编辑\
+  \ XML 文件，但其与众不同之处在于它能够以 WYSIWYG（所见即所得）模式直观地渲染 XML 文件。图 3-4 展示了两种处理布局文件的方式。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig4_HTML.png](img/476822_1_En_3_Fig4_HTML.png)\n\
+  \n图 3-4.\n\n布局文件的设计模式和文本模式编辑\n\n图 3-5 展示了在“设计”模式下处理布局文件时，Android Studio 中相关的各个部分。\n\
+  \n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig5_HTML.png](img/476822_1_En_3_Fig5_HTML.png)\n\
+  \n图 3-5.\n\nAndroid Studio 的布局设计工具\n\n*   **视图面板**：视图面板包含您可以拖放到设计界面或蓝图界面上的视图（小部件）。\n\
+  *   **设计界面**：它充当屏幕的真实世界预览。\n*   **蓝图界面**：类似于设计界面，但仅包含 UI 元素的轮廓。\n*   **属性窗口**：您可以在此处更改\
+  \ UI 元素（视图）的属性。当您使用属性窗口更改某个视图的属性时，该更改将自动反映在布局的 XML 文件中。同样，当您在 XML 文件中进行更改时，也会自动反映在属性窗口中。\n\
+  \n#### 插入 TODO 项\n\n您无需为应用的 TODO 列表创建单独的文件。当您创建包含 TODO 文本的注释时，例如\n\n```\n// TODO\
+  \ 这是一个示例待办事项\n```\n\nAndroid Studio 会跟踪所有源文件中的所有 TODO 注释。见图 3-6。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig6_HTML.jpg](img/476822_1_En_3_Fig6_HTML.jpg)\n\
+  \n图 3-6.\n\nTODO 项\n\n要查看所有 TODO 项，请单击工具窗口栏中的 `TODO` 选项卡。\n\n\n\n#### 如何为代码获取更多屏幕空间\n\
+  \n你可以通过关闭所有工具窗口来获得更多屏幕空间。图 3-7 显示了一个在主编辑器窗口中打开的 Java 源文件，此时所有工具窗口均已关闭。只需点击工具窗口的名称即可将其折叠，因此要折叠`项目`工具窗口，请点击`项目`。\n\
+  \n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig7_HTML.jpg](img/476822_1_En_3_Fig7_HTML.jpg)\n\
+  \n图 3-7. 所有工具窗口关闭后的主编辑器\n\n你可以通过隐藏所有工具窗口栏来获得更多屏幕空间，如图 3-8 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig8_HTML.jpg](img/476822_1_En_3_Fig8_HTML.jpg)\n\
+  \n图 3-8. 所有工具窗口关闭且工具栏隐藏后的主编辑器\n\n你可以通过进入免打扰模式来获得更多屏幕空间，如图 3-9 所示。你可以通过主菜单栏中的`视图`\
+  \ ➤ `进入免打扰模式`进入该模式。要退出该模式，请点击`视图` ➤ `退出免打扰模式`。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig9_HTML.jpg](img/476822_1_En_3_Fig9_HTML.jpg)\n\
+  \n图 3-9. 免打扰模式\n\n你也可以尝试另外两种可以增加屏幕空间的模式。它们同样位于主菜单栏的`视图`菜单中。\n\n*   演示模式\n*   全屏模式\n\
+  \n### 项目工具窗口\n\n你可以通过`项目`工具窗口访问项目中的文件和资源，如图 3-10 所示。该窗口采用树状结构，各个部分可折叠。你可以从该窗口启动任何文件。如果你想打开一个文件，只需在该窗口中双击该文件即可。\n\
+  \n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig10_HTML.jpg](img/476822_1_En_3_Fig10_HTML.jpg)\n\
+  \n图 3-10. 项目工具窗口\n\n默认情况下，Android Studio 以`Android`视图显示项目文件，如图 3-10 所示。`Android`视图按模块组织，以便快速访问项目中最重要的文件。你可以通过点击`项目`窗口顶部的下拉箭头来更改项目文件的显示方式，如图\
+  \ 3-11 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig11_HTML.jpg](img/476822_1_En_3_Fig11_HTML.jpg)\n\
+  \n图 3-11. 如何在`项目`工具窗口中切换视图\n\n### SDK 管理器\n\n`SDK 管理器`用于管理需要下载到本地系统的 API 级别（Android\
+  \ 版本）以及其他 Android 工具。你可以通过`设置`或`偏好设置`窗口进入`SDK 管理器`，然后点击左侧的`Android SDK`项，如图 3-13\
+  \ 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig13_HTML.jpg](img/476822_1_En_3_Fig13_HTML.jpg)\n\
+  \n图 3-13. `SDK 管理器`\n\n`SDK 平台`（你可以在此选择要下载的 Android 版本）、`SDK 工具`和`SDK 更新站点`可以通过点击窗口中间上方的相应选项卡进行访问。\n\
+  \n你也可以从工具栏启动`SDK 管理器`，如图 3-14 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig14_HTML.jpg](img/476822_1_En_3_Fig14_HTML.jpg)\n\
+  \n图 3-14. 从工具栏启动`SDK 管理器`\n\n### 代码样式\n\n你可以在`设置/偏好设置` ➤ `编辑器` ➤ `代码样式`中更改代码样式方案，如图\
+  \ 3-15 所示。\n\n![../images/476822_1_En_3_Chapter/476822_1_En_3_Fig15_HTML.jpg](img/476822_1_En_3_Fig15_HTML.jpg)\n\
+  \n图 3-15. 代码样式\n\n在此窗口中，你可以自定义制表符大小、缩进、代码中默认的空白量、getter 和 setter 的生成方式、代码生成、导入的处理方式，等等。\n\
+  \n## 章节总结\n\n*   你可以通过增加主编辑器的屏幕空间来查看更多代码。具体做法包括：\n    *   折叠所有工具窗口\n    *   隐藏工具窗口栏\n\
+  \    *   进入免打扰模式\n    *   进入全屏模式\n*   你可以在`设置/偏好设置` ➤ `编辑器` ➤ `代码样式`中更改 Java（或任何你喜欢的语言）的编码方案。\n\
+  *   你可以通过切换`项目`工具窗口中的视图来更改项目文件的显示方式。\n*   在 Android Studio 中添加`TODO`项很简单。只需添加一行注释，后跟一些`TODO`文本，如下所示：\n\
+  \n    `// TODO 这是我的待办列表`\n\n"
+- '# 4. 调试
+
+
+  *本章内容涵盖：*
+
+
+  *   常见的错误类型
+
+  *   记录调试语句
+
+  *   使用调试器
+
+
+  处理错误是开发者日常工作的重要组成部分。本章将讨论你过去遇到且在未来仍可能遇到的各种错误类型。你将了解如何利用 Android Studio 来降低处理这些错误的难度。
+
+
+  ## 错误类型
+
+
+  编程中最常遇到的三种错误是：
+
+
+  *   语法错误
+
+  *   运行时错误
+
+  *   逻辑错误
+
+
+  ### 语法错误
+
+
+  语法错误正如其名：语法上的错误。它们发生的原因是你编写了不符合 Java 编译器规则集的代码。换句话说，编译器无法理解这些代码。错误可能是简单的忘记闭合括号或缺少一对花括号；也可能是复杂的传递了错误类型的参数给函数，或者在使用泛型时用错了参数化类。
+
+
+  你可以在 Android Studio 中轻松捕获语法错误。线索是主编辑器中的红色波浪线，如图 4-1 所示。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig1_HTML.jpg](img/476822_1_En_4_Fig1_HTML.jpg)
+
+
+  图 4-1. 显示错误指示器的主编辑器
+
+
+  它们表示代码中存在语法错误。IDE 将红色波浪线放置在非常接近问题代码的位置。如果将鼠标悬停在红色波浪线上，大多数情况下 Android Studio 能够以很高的准确度告诉你代码哪里出了问题。更重要的是，你可以使用一种恰如其名的“快速修复”技术来快速修复这类错误。
+
+
+  要执行快速修复，请将光标移动到红色波浪线范围内的任意位置，然后按`Alt + Enter`（Windows 或 Linux）或`Option + Enter`（macOS）。IDE
+  会处理其余操作。如果存在多种修复方法，IDE 会显示一些选项供你选择。
+
+
+
+
+  ### 运行时错误
+
+
+  当代码遇到意料之外的情况时，就会发生运行时错误。顾名思义，这种错误只会在程序运行时发生，在编译期间不会出现。
+
+
+  Java 有两种类型的异常：*受检异常* 和 *非受检异常*。Android Studio 为受检异常提供了大量帮助。图 4-2 显示了当您尝试调用一个抛出受检异常的方法时，主编辑器中的情况；而对于非受检异常，您仍需自行处理。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig2_HTML.jpg](img/476822_1_En_4_Fig2_HTML.jpg)
+
+
+  图 4-2. IDE 提醒您需要处理异常
+
+
+  解决图 4-2 中所示错误有两种方法：您可以将 `openFileOutput()` 方法调用包含在 *try-catch* 结构中，或者像图 4-3 所示的那样，在方法签名中添加一个异常。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig3_HTML.jpg](img/476822_1_En_4_Fig3_HTML.jpg)
+
+
+  图 4-3. 快速修复
+
+
+  代码清单 4-1 展示了如何通过向方法签名添加 `throws` 子句来处理 `FileNotFoundException`。
+
+
+  ```
+
+  import java.io.FileNotFoundException;
+
+  ...
+
+  void saveData() throws FileNotFoundException {
+
+  String fn = "somefile.txt";
+
+  FileOutputStream out = openFileOutput(fn, Context.MODE_APPEND);
+
+  }
+
+  ```
+
+
+  代码清单 4-1. 在 `saveData()` 中抛出 `FileNotFoundException`
+
+
+  代码清单 4-2 展示了使用 *try-catch* 块处理相同异常的代码。
+
+
+  ```
+
+  void saveData() {
+
+  String fn = "somefile.txt";
+
+  try {
+
+  FileOutputStream out = openFileOutput(fn, Context.MODE_APPEND);
+
+  } catch (FileNotFoundException e) {
+
+  e.printStackTrace();
+
+  }
+
+  finally {
+
+  ...
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 4-2. 使用 `try-catch` 处理异常
+
+
+  当我想在本地处理异常时（即在与可能抛出异常相同的代码块中），我会使用 *try-catch*。大多数情况下，唯一要做的事情是 (1) 记录错误，以及 (2) 如果可能的话，尝试从错误中恢复，并让用户重试。
+
+
+  另一方面，使用 `throws` 子句意味着您不想在本地代码块中处理错误，而是希望调用方法来处理该错误。如果调用方法在其签名中也使用了 `throws` 子句，那么错误处理将沿着调用堆栈向上传递。
+
+
+  ### 逻辑错误
+
+
+  逻辑错误是最难发现的。顾名思义，这是逻辑上的错误。当您的代码没有按照您预想的方式运行时，就是逻辑错误。处理逻辑错误的方法有很多，但在本节中，您将了解两种方法：在代码的特定位置打印调试语句，以及使用调试器逐步执行代码。
+
+
+  在检查代码时，您会识别出一些您非常确定其行为逻辑的区域，以及一些您不太确定的区域。您可以在后一类区域中放置调试语句。这就像留下可以追踪的面包屑。打印调试语句有几种方法。您可以使用
+  `println`、`Log` 或 `Logger` 类。
+
+
+  当您将 Logcat 的模式设置为详细、信息或调试时，您将看到 Android 运行时生成的所有消息。如果您希望能够过滤出警告或错误等消息，则需要使用 `Log`
+  或 `Logger` 类。
+
+
+  `Log` 类有五个静态方法：
+
+
+  ```
+
+  Log.v(tag, message) // 详细
+
+  Log.d(tag, message) // 调试
+
+  Log.i(tag, message) // 信息
+
+  Log.w(tag, message) // 警告
+
+  Log.e(tag, message) // 错误
+
+  ```
+
+
+  在每种情况下，*tag* 是一个 `String` 字面量或变量，通常是用 `Log` 的类名。*message* 也是一个 `String` 字面量或变量，包含您实际希望在日志中看到的内容。见代码清单
+  4-3。
+
+
+  ```
+
+  package net.workingdev.myapplication;
+
+  import android.content.Context;
+
+  import android.support.v7.app.AppCompatActivity;
+
+  import android.os.Bundle;
+
+  import android.util.Log;
+
+  import java.io.FileNotFoundException;
+
+  import java.io.FileOutputStream;
+
+  public class MainActivity extends AppCompatActivity {
+
+  String TAG = this.getClass().getName();
+
+  @Override
+
+  protected void onCreate(Bundle savedInstanceState) {
+
+  ...
+
+  }
+
+  void saveData() {
+
+  String fn = "somefile.txt";
+
+  try {
+
+  FileOutputStream out = openFileOutput(fn, Context.MODE_APPEND);
+
+  } catch (FileNotFoundException e) {
+
+  e.printStackTrace();
+
+  Log.e(TAG, "error");
+
+  }
+
+  finally {
+
+  Log.v(TAG, "My Message");
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 4-3. `Log` 类的典型用法
+
+
+  当应用程序运行时，您可以在 **Logcat** 工具窗口中看到日志消息，如图 4-4 所示。您可以通过单击 IDE 底部菜单栏中的其选项卡，或从主菜单栏中选择
+  “视图” ➤ “工具窗口” ➤ “Logcat” 来启动 Logcat 窗口。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig4_HTML.jpg](img/476822_1_En_4_Fig4_HTML.jpg)
+
+
+  图 4-4. Logcat 工具窗口
+
+
+  ## 调试器
+
+
+  Android Studio 包含一个交互式调试器，允许您在代码运行时逐步执行代码。使用交互式调试器，您可以在代码中的特定位置和特定时间点检查应用程序的快照——变量的值、正在运行的线程等。这些代码中的特定位置称为*断点*；您可以选择这些断点。
+
+
+  要设置断点，请选择包含可执行语句的行，然后单击其装订区域中的行号。设置断点时，装订区域会出现一个粉红色的圆圈图标，并且整行会高亮为粉红色，如图 4-5 所示。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig5_HTML.png](img/476822_1_En_4_Fig5_HTML.png)
+
+
+  图 4-5. 调试器窗口
+
+
+  设置好断点后，您需要在调试模式下运行应用程序。如果应用程序当前正在运行，请停止它，然后从主菜单栏中单击 “运行” ➤ “调试应用”。
+
+
+  ### 注意
+
+
+  在调试模式下运行应用程序并不是调试应用的唯一方法。您也可以将调试器进程附加到当前正在运行的应用程序。在某些情况下，第二种技术很有用。例如，当您试图解决的错误在非常特定的条件下发生时，您可能希望先让应用程序运行一段时间，当您认为接近错误点时，再附加调试器。
+
+
+  像往常一样使用应用程序。当执行到您设置了断点的行时，该行会从粉红色变为蓝色。这表示代码执行已到达您的断点。此时，调试器窗口打开，执行停止，Android Studio
+  进入交互式调试模式。在此状态下，应用程序的状态会显示在 “调试” 工具窗口中。在此期间，您可以检查变量的值，甚至可以看到应用中正在运行的线程。
+
+
+  您还可以通过单击带眼镜标志的加号图标，在 “监视” 窗口中添加变量或表达式。您会得到一个文本字段，可以在其中输入任何有效的表达式。按回车键后，Android Studio
+  会计算该表达式并显示结果。要删除监视表达式，请选中该表达式，然后单击 “监视” 窗口中的减号图标。
+
+
+
+
+  ### 单步执行
+
+
+  与大多数调试器一样，Android Studio 允许你逐行执行程序。当调试器在断点处停止时，你可以使用一些工具。通常，你需要了解如何执行以下操作。
+
+
+  -   **恢复程序**：恢复执行，直到遇到下一个断点。如果不再有断点，则程序会像正常执行时一样运行。
+
+  -   **步入**：如果下一行包含方法调用，此操作将跳转到该方法，并在其第一行暂停。
+
+  -   **单步跳过**：执行下一行的所有操作，然后跳转到再下一行。
+
+  -   **单步跳出**：执行完当前方法的剩余部分，然后在调用该方法之后的下一行语句处暂停。它本质上是从当前方法中退出。
+
+
+  你可以从主菜单栏的 `Run` 菜单中访问这些操作。你也可以从调试器工具栏（如图 4-6 所示）中访问它们。
+
+
+  ![../images/476822_1_En_4_Chapter/476822_1_En_4_Fig6_HTML.jpg](img/476822_1_En_4_Fig6_HTML.jpg)
+
+
+  图 4-6. 调试器工具栏
+
+
+  最后，你可以通过表 4-1 中介绍的键盘快捷键来执行单步操作。
+
+
+  表 4-1. 调试器键盘快捷键
+
+
+  | | Windows/Linux | macOS |
+
+  | --- | --- | --- |
+
+  | 调试 | `Shift + F9` | `Ctrl + D` |
+
+  | 恢复程序 | `F9` | `Command + Option + R` |
+
+  | 步入 | `F7` | `F7` |
+
+  | 单步跳过 | `F8` | `F8` |
+
+  | 单步跳出 | `Shift + F8` | `Shift + F8` |
+
+
+  ## 章节总结
+
+
+  -   你可能遇到的三种错误类型是：编译时错误或语法错误、运行时错误和逻辑错误。
+
+  -   语法错误最容易修复。Android Studio 会为你提供大力支持，以便你快速发现语法错误。使用 AS3 有多种修复语法错误的方法，但大多数情况下，快速修复功能即可解决问题。
+
+  -   你可以通过设置断点并使用单步操作来逐行遍历你的代码。
+
+
+  '
+- '# 5. 单元测试
+
+
+  **本章内容涵盖：**
+
+
+  -   测试基础
+
+  -   如何运行高效的单元测试
+
+  -   添加并实现单元测试
+
+
+  软件测试的实践自软件开发诞生之初就已存在。当你编写程序时，需要一种方法来验证它们是否按预期方式工作。在软件开发的早期，测试是以一种相当临时的方式进行的：编写一些代码，再编写一些手工测试来检查其是否正确，然后回到代码中进行调整，如此循环往复。但现在情况已非如此。现代软件变得非常复杂，不能仅仅依赖少量手工测试来确保其正常运行。
+
+
+  在本章中，你将快速了解如何在 Android 中进行单元测试。单元测试是由开发人员（而非质量保证人员）执行的功能性测试。单元测试通常很简单，它针对一个方法可能执行或产生的某个特定行为。一个应用程序通常包含许多单元测试，因为每个测试都是一组定义得非常狭窄的行为。因此，你需要大量的测试用例来覆盖全部功能。你将使用
+  `JUnit` 来编写测试。
+
+
+  `JUnit` 是由 Kent Beck 和 Erich Gamma 编写的一个回归测试框架。在他们其他的成就中，你或许记得其中一位是极限编程的创始人，另一位则来自“四人组”（GoF，设计模式）。
+
+
+  Java 开发人员长期以来一直使用 `JUnit` 进行单元测试。Android Studio 内置了 `JUnit`，并且与之集成得非常好。你无需进行太多的设置工作，只需编写你的测试即可。
+
+
+  ## JVM 测试 vs. 插桩测试
+
+
+  如果你检查任何一个 Android 应用程序，你会发现它由两部分组成：基于 Java 的行为和基于 Android 的行为。
+
+
+  Java 部分是你编写业务逻辑、计算和数据转换的地方。Android 部分则是你真正与 Android 平台交互的地方。在这里，你接收来自用户的输入或向用户展示结果。如果你能将基于
+  Java 的行为与 Android 部分分开测试，那会非常有意义，因为前者执行起来要快得多。幸运的是，Android Studio 已经采用了这种方式。当你创建一个项目时，Android
+  Studio 会创建两个独立的文件夹：一个用于 JVM 测试，另一个用于插桩测试。图 5-1 显示了 Android 视图下的这两个测试文件夹，图 5-2 则显示了项目视图下的这两个文件夹。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig1_HTML.jpg](img/476822_1_En_5_Fig1_HTML.jpg)
+
+
+  图 5-1. Android 视图下的 JVM 测试和插桩测试
+
+
+  JVM 测试文件夹简称为 `test`，而插桩测试文件夹称为 `androidTest`。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig2_HTML.jpg](img/476822_1_En_5_Fig2_HTML.jpg)
+
+
+  图 5-2. 项目视图下的 JVM 测试和插桩测试
+
+
+  从图 5-1 或 5-2 中可以看出，Android Studio 还额外生成了 JVM 测试和插桩测试的示例测试文件。这些示例文件可作为快速参考；它们展示了单元测试可能的样子。
+
+
+
+
+  ## 简单示例
+
+
+  首先，在 Android Studio 中创建一个带有空白活动（Activity）的项目。创建一个类并命名为 `Factorial.java`。然后填入代码清单
+  5-1 所示的代码。
+
+
+  ```
+
+  public class Factorial {
+
+  public static double factorial(int arg) {
+
+  if (arg == 0) {
+
+  return 1.0;
+
+  }
+
+  else {
+
+  return arg + factorial(arg - 1);
+
+  }
+
+  }
+
+  }
+
+  代码清单 5-1.
+
+  Factorial.java
+
+  ```
+
+
+  确保 `Factorial.java` 在主编辑器中打开，如图 5-3 所示。然后，在主菜单栏中，依次选择 Navigate ➤ Test。同样，你也可以使用键盘快捷键（macOS
+  为 `Shift + Command + T`，Linux 和 Windows 为 `Ctrl + Shift + T`）来创建一个测试。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig3_HTML.jpg](img/476822_1_En_5_Fig3_HTML.jpg)
+
+
+  图 5-3.
+
+
+  为 Factorial.java 创建测试
+
+
+  点击 Test 选项后，会立即弹出一个对话框（图 5-4），提示你点击另一个链接。如图 5-4 所示，点击 Create New Test 选项。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig4_HTML.jpg](img/476822_1_En_5_Fig4_HTML.jpg)
+
+
+  图 5-4.
+
+
+  “创建新测试”弹出窗口
+
+
+  创建新测试后，你会立即看到另一个弹出对话框，如图 5-5 所示，我已对其进行了注释。请遵循图 5-5 中的注释和说明。
+
+
+  | ➊ | 你可以选择要使用的测试库。你可以选择 JUnit 3、4 或 5。你甚至可以选择 Groovy JUnit、Spock 或 TestNG。我使用 JUnit4，因为它随
+  Android Studio 一起安装。 |
+
+  |➋ | 测试类的命名约定是“待测试类的名称”+“Test”。Android Studio 会按照此约定自动填充此字段。 |
+
+  |➌ | 将此字段留空，因为你不需要继承任何类。 |
+
+  |➍ | 暂时不需要 `setUp()` 和 `tearDown()` 例程，因此保持它们未选中状态。 |
+
+  |➎ | 选中 `factorial()` 方法，因为你希望为其生成一个测试。 |
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig5_HTML.jpg](img/476822_1_En_5_Fig5_HTML.jpg)
+
+
+  图 5-5.
+
+
+  创建 FactorialTest
+
+
+  点击 OK 按钮后，Android Studio 会询问你希望将测试文件保存在哪里。由于这是一个 JVM 测试，因此应将其保存在 `test` 文件夹中（而不是
+  `androidTest` 文件夹），如图 5-6 所示。点击 OK。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig6_HTML.jpg](img/476822_1_En_5_Fig6_HTML.jpg)
+
+
+  图 5-6.
+
+
+  选择目标目录
+
+
+  Android Studio 现在将为你创建测试文件。如果打开 `FactorialTest.java`，你将看到如图 5-7 所示的生成的骨架代码。
+
+
+  | ➊ | `FactorialTest.java` 文件已在 `test` 文件夹下创建。 |
+
+  |➋ | 创建了一个 `factorial()` 方法，并使用了 `@Test` 注解。JUnit 通过此注解知道此方法是一个单元测试。你可以为方法名添加“test”前缀，例如
+  `testFactorial()`，但这并非必要。`@Test` 注解已经足够。 |
+
+  |➌ | 这是放置断言的地方。 |
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig7_HTML.jpg](img/476822_1_En_5_Fig7_HTML.jpg)
+
+
+  图 5-7.
+
+
+  项目视图和主编辑器中的 FactorialTest.java
+
+
+  看到了吗？这有多简单？在 Android Studio 中创建测试用例，在设置和配置方面实际上并不需要你投入太多精力。你现在需要做的就是编写测试。
+
+
+  ## 实现测试
+
+
+  JUnit 提供了几个静态方法，你可以在测试中使用这些方法对代码的行为进行断言。你可以使用断言来展示预期结果，这就是你的控制数据。它通常是独立计算出来的，并且已知为真或正确——这就是你将其用作控制数据的原因。当从断言返回预期数据时，测试通过；否则，测试失败。表
+  5-1 显示了你的代码可能需要的常见 `assert` 方法。
+
+
+  表 5-1.
+
+
+  常用断言方法
+
+
+  | 方法 | 描述 |
+
+  | --- | --- |
+
+  | `assertEquals()` | 如果两个对象或基本类型具有相同的值，则返回 true |
+
+  | `assertNotEquals()` | `assertEquals()` 的反向操作 |
+
+  | `assertSame()` | 如果两个引用指向同一个对象，则返回 true |
+
+  | `assertNotSame()` | `assertSame()` 的反向操作 |
+
+  | `assertTrue()` | 测试一个布尔表达式 |
+
+  | `assertFalse()` | `assertTrue()` 的反向操作 |
+
+  | `assertNull()` | 测试对象是否为空 |
+
+  | `assertNotNull()` | `assertNull()` 的反向操作 |
+
+
+  既然你已经了解了几种 `assert` 方法，那么就可以开始编写测试了。代码清单 5-2 展示了 `FactorialTest.java` 的代码。
+
+
+  ```
+
+  import org.junit.Test;
+
+  import static org.junit.Assert.*;
+
+  public class FactorialTest {
+
+  @Test
+
+  public void factorial() {
+
+  assertEquals(1.0, Factorial.factorial(1),0.0);
+
+  assertEquals(120.0, Factorial.factorial(5), 0.0);
+
+  }
+
+  }
+
+  代码清单 5-2.
+
+  FactorialTest.java
+
+  ```
+
+
+  你的 `FactorialTest` 类只有一个方法，这仅用于演示目的。可以肯定的是，实际代码中的方法会比这多得多。
+
+
+  请注意，每个测试（方法）都通过 `@Test` 注解来标识。JUnit 通过此注解知道 `factorial()` 是一个测试用例。另外请注意，`assertEquals()`
+  是 `Assert` 类的一个方法，但这里你没有写完整的限定名，因为你已经对 `Assert` 进行了静态导入。这确实使编码更轻松。
+
+
+  `assertEquals()` 方法接受三个参数。图 5-8 阐明了这三个参数的含义。
+
+
+  | ➊ | 预期值是你的控制数据；这通常在测试中硬编码。 |
+
+  |➋ | 实际值是你的方法返回的值。如果预期值与实际值相同，则 `assertEquals()` 通过；表明你的代码行为符合预期。 |
+
+  |➌ | Delta（差值）旨在反映实际值和预期值之间可以有多接近，并且仍然被认为是相等的。一些开发人员将此参数称为“模糊因子”。当预期值与实际值之间的差异大于模糊因子时，`assertEquals()`
+  将失败。我这里使用了 0.0，因为我不想容忍任何偏差。你可以使用其他值，例如 0.001、0.002 等；这取决于你的用例以及你的应用愿意容忍的模糊程度。 |
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig8_HTML.png](img/476822_1_En_5_Fig8_HTML.png)
+
+
+  图 5-8.
+
+
+  assertEquals 方法
+
+
+  现在你的代码已经完成。如果你愿意，可以在代码中再插入几个断言，以更好地掌握其用法。
+
+
+  这个示例代码中没有包含几件事。我没有重写 `setUp()` 和 `tearDown()` 方法，因为我不需要。如果你需要设置数据库连接、网络连接等，通常会使用
+  `setUp()` 方法。使用 `tearDown()` 方法来关闭你在 `setUp()` 中打开的任何资源。
+
+
+  现在让我们运行测试。
+
+
+
+
+  ## 运行单元测试
+
+
+  你可以单独运行一个测试，或运行类中的所有测试。主编辑器左侧的绿色小箭头是可点击的。点击类名旁边的小箭头将运行该类中的所有测试。当点击测试方法名旁边的小箭头时，只会运行该测试用例。见图
+  5-9。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig9_HTML.jpg](img/476822_1_En_5_Fig9_HTML.jpg)
+
+
+  图 5-9. 主编辑器中的 `FactorialTest.java`
+
+
+  同样，您也可以通过主菜单栏的 **运行** ➤ **运行** 来运行测试。
+
+
+  图 5-10 显示了文本执行的结果。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig10_HTML.png](img/476822_1_En_5_Fig10_HTML.png)
+
+
+  图 5-10. 运行 `FactorialTest.java` 的结果
+
+
+  Android Studio 会提供大量提示，以便您判断测试是通过还是失败。第一次运行会告诉你 `Factorial.java` 存在问题；`assertEquals()`
+  执行失败了。
+
+
+  ### 提示
+
+
+  当测试失败时，最好使用调试器来检查代码。`FactorialTest.java` 与项目中的任何其他类并无不同；它只是另一个 Java 文件，因此你完全可以对其进行调试。在你的测试代码的战略位置设置一些断点，然后不要“运行”它，而是运行调试器，以便你可以单步执行。
+
+
+  测试失败是因为 1 的阶乘不是 2，而是 1。如果仔细观察 `Factorial.java`，你会注意到阶乘值计算不正确。
+
+
+  编辑 `Factorial.java` 文件，将
+
+
+  ```
+
+  return arg + factorial(arg - 1);
+
+  ```
+
+
+  更改为
+
+
+  ```
+
+  return arg * factorial(arg - 1);
+
+  ```
+
+
+  如果再次运行测试，您将看到成功的结果，如图 5-11 所示。
+
+
+  ![../images/476822_1_En_5_Chapter/476822_1_En_5_Fig11_HTML.jpg](img/476822_1_En_5_Fig11_HTML.jpg)
+
+
+  图 5-11. 测试成功
+
+
+  现在，你看到的不是黄色的感叹号，而是绿色的对勾。你看到的不是“测试失败”，而是“测试通过”。现在你知道你的代码按预期工作了。
+
+
+  ## 测试先行
+
+
+  拥有一种自动化且高频率测试代码的方法非常重要。这种方法如此重要，以至于许多开发者提倡**先**编写你的测试套件，甚至在实际代码之前。这被称为测试驱动开发，或简称为
+  TDD。其基本思想是，测试代表了应用程序的需求，而代码必须满足这些需求。
+
+
+  要了解如何在 Android Studio 中执行 TDD，请删除项目中的 `Factorial.java` 文件并再次运行测试。当然，它会失败；这正是其理念所在。你总是从失败的测试开始。现在，创建
+  `Factorial` 类，并开始添加能使测试通过的方法和代码。
+
+
+  一旦你有了几个测试用例、更多代码且没有错误后，尝试再次运行测试。其理念是，每次对代码进行重大（足够）更改时都运行测试。这样，当你的所有测试都通过时，你就知道你没有向代码中引入任何破坏性的更改。
+
+
+  将这种做法与许多开发人员的做法进行比较，他们通常会先编写一堆代码，然后编写一个小测试程序来验证代码，可能带有静态 `main()` 方法和几个 `printlns`。然后他们丢弃测试代码——好像他们的代码再也不会出问题一样！希望通过本章，你现在已经明白不应该丢弃测试代码。你应该培养它，并经常运行它，以确保你的代码符合规范。
+
+
+  ## 本章小结
+
+
+  *   单元测试是一项核心开发任务。它应该是一项核心开发任务，因为现代且复杂的软件不应该依赖于微不足道、临时的、一次性的测试。
+
+
+  *   JVM 测试与插桩测试不同。JVM 测试用于你代码的 Java 部分——即不需要与 Android 平台交互的部分。
+
+
+  *   Android Studio 允许你将 JVM 测试与插桩测试分开。
+
+
+  *   JVM 测试就像普通的类文件：你可以调试并单步执行它们。
+
+
+  *   每个 JUnit 测试都通过 `@Test` 进行注解。JUnit 就是通过这种方式知道哪些方法应该是测试用例。
+
+
+  '
+- "# 6. 插桩测试\n\n*本章内容涵盖：*\n\n*   插桩测试的细节\n\n*   如何创建 UI 测试交互\n\n*   基本的测试交互\n\n* \
+  \  实现测试验证\n\n*   测试录制\n\n您在上一章中学习了如何执行 JVM 测试。在本章中，您将进行一些涉及应用程序 Android 部分的测试。与\
+  \ Android 平台交互的单元测试被称为插桩测试，您将使用 Espresso 框架来进行此测试。\n\n## 关于 Espresso\n\n谷歌于 2013\
+  \ 年发布了 Espresso，随着其 2.0 版本的发布，Espresso 成为 Android 支持库的一部分。使用 Espresso 进行测试的一般步骤如下：\n\
+  \n1.  **匹配**：使用匹配器定位特定组件，如按钮或 `TextView`。`ViewMatcher` 允许你在视图层级中找到一个 `View` 对象。\n\
+  \n2.  **操作**：使用 `ViewAction` 对象对目标 `View` 对象执行点击等操作。\n\n3.  **断言**：对 `View` 的状态进行断言。\n\
+  \n假设你有一个包含一个按钮和一个 `TextView` 的简单屏幕。当你点击按钮时，你会在 `TextView` 上看到文本“Hello World”。你可以像这样编写测试：\n\
+  \n| ➊ | 使用 `ViewMatcher` 查找 `View` 对象。你正在寻找一个 id 为 `button` 的 `View`。请记住，当你使用 `onView()`\
+  \ 时，Espresso 会等到所有同步条件都满足后，再执行相应的 UI 操作。 |\n| ➋ | 找到它后，使用 `ViewAction` 对其执行某些操作；在这种情况下，你想要点击它。\
+  \ |\n| ➌ | 再次，你使用 `ViewMatcher` 查找 `View` 对象。这次，你试图找到一个 id 为 `textview` 的 `TextView`。\
+  \ |\n| ➍ | 找到后，你想检查它的文本属性是否与“Hello World”匹配。 |\n\n```\nonView(withId(R.id.button))\
+  \   ➊\n.perform(Click())       ➋\nonView(withId(R.id.textview)) ➌\n.check(matches(withText(\"\
+  Hello World\"))); ➍\n```\n\n\n\n## 搭建一个简单的测试\n\n让我们搭建一个简单的项目，一个包含空活动的项目。清单 6-1 展示了\
+  \ XML 布局代码，清单 6-2 展示了 `MainActivity` 代码。\n\n```\n清单 6-1.\nactivity_main.xml\n```\n\
+  \n如您所见，布局代码相当简单：它包含一个 `TextView` 和两个按钮。当用户点击它们时，这两个按钮都会调用 `MainActivity` 中的 `onClick()`\
+  \ 方法。\n\n```\npublic class MainActivity extends AppCompatActivity {\n    TextView\
+  \ txtview;\n    @Override\n    protected void onCreate(Bundle savedInstanceState)\
+  \ {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\
+  \        txtview = (TextView) findViewById(R.id.textView);\n    }\n    public void\
+  \ onClick(View view) {\n        switch(view.getId()) {\n            case R.id.btnhello:\n\
+  \                txtview.setText(\"hello\");\n                break;\n         \
+  \   case R.id.btnworld:\n                txtview.setText(\"world\");\n         \
+  \       break;\n        }\n    }\n}\n清单 6-2.\nMainActivity\n```\n\n`MainActivity`\
+  \ 中的 `onClick()` 方法主要试图获取被点击按钮的 ID，并根据它来路由程序逻辑。如果点击了 `btnhello`，你便将 `TextView` 的文本内容设置为“hello”；如果点击了\
+  \ `btnworld`，你则将内容设置为“world”——这相当简单。要验证此行为，你可以设置一个仪器化测试。\n\n在上一章中，你在 `src/test`\
+  \ 中编写了测试类，因为它是一个 JVM 测试。现在，你将在 `src/androidTest` 内编写测试类，因为这将是一个仪器化测试。清单 6-3 展示了仪器化测试类的代码。\n\
+  \n| ➊ | 你希望静态导入 Espresso 的匹配器、操作和断言，这样就不必在后续代码中使用完全限定名称。 |\n| ➋ | 这会拦截你的测试方法调用，并确保在执行任何测试之前启动了该活动。\
+  \ |\n| ➌ | 你需要使用 `@Test` 注解每个测试方法。 |\n| ➍ | 使用 `withId()` 方法找到 `btnhello` 对象。 |\n\
+  | ➎ | 然后使用 `ViewAction.click()` 模拟一次点击。 |\n| ➏ | 然后再次使用 `withId()` 方法找到 `TextView`。\
+  \ |\n| ➐ | 最后，断言 `TextView` 是否包含文本“hello”。 |\n\n```\nimport android.support.test.rule.ActivityTestRule;\n\
+  import android.support.test.runner.AndroidJUnit4;\nimport org.junit.Rule;\nimport\
+  \ org.junit.Test;\nimport static android.support.test.espresso.Espresso.onView;\
+  \  ➊\nimport static android.support.test.espresso.action.ViewActions.click;\nimport\
+  \ static android.support.test.espresso.assertion.ViewAssertions.matches;\nimport\
+  \ static android.support.test.espresso.matcher.ViewMatchers.withId;\nimport static\
+  \ android.support.test.espresso.matcher.ViewMatchers.withText;\npublic class MainActivityTest\
+  \ {\n    @Rule ➋\n    public ActivityTestRule mActivityTestRule = new ActivityTestRule(MainActivity.class);\n\
+  \    @Test ➌\n    public void buttonHelloTest() {\n        onView(withId(R.id.btnhello))\
+  \ ➍\n            .perform(click());        ➎\n        onView(withId(R.id.textView))\
+  \ ➏\n            .check(matches(withText(\"hello\"))); ➐\n    }\n    @Test\n   \
+  \ public void buttonWorldTest() {\n        onView(withId(R.id.btnworld))\n     \
+  \       .perform(click());\n        onView(withId(R.id.textView))\n            .check(matches(withText(\"\
+  world\")));\n    }\n}\n清单 6-3.\nMainActivityTest\n```\n\n你可以用运行 JVM 测试的相同方式运行仪器化测试。你可以\n\
+  \n* 点击 IDE 侧边栏的箭头，\n* 右键点击测试并使用上下文菜单，然后选择运行 `MainActivityTest` 选项，或者\n* 前往主菜单栏，选择\
+  \ 运行 ➤ 运行，然后选择 `MainActivityTest`。\n\n### 录制 Espresso 测试\n\nAndroid Studio 包含一项功能，你可以运行你的应用，记录交互，并使用录制功能创建\
+  \ Espresso 测试。要开始，请前往主菜单栏，然后选择 运行 ➤ 录制 Espresso 测试，如图 6-1 所示。\n\n![../images/476822_1_En_6_Chapter/476822_1_En_6_Fig1_HTML.jpg](img/476822_1_En_6_Fig1_HTML.jpg)\n\
+  \n图 6-1. 录制 Espresso 测试\n\n选择录制 Espresso 测试选项后，你现在可以像往常一样与应用交互，但这次，交互会被记录下来。如果你点击其中一个按钮，比如\
+  \ HELLO 按钮，测试录制器屏幕将弹出，如图 6-2 所示。\n\n| ➊ | 此部分显示与应用进行的每次交互。此时，我只点击了一次应用；我点击了 HELLO\
+  \ 按钮。 |\n| ➋ | 此部分是 `ViewMatcher`，但是以可视方式呈现。如果你像我一样点击了 `TextView`，它就会作为一个项目转到编辑断言部分。\
+  \ |\n| ➌ | 此处选择了 `TextView`，因为我在 `ViewMatcher` 部分（条目 2）点击了它。 |\n| ➍ | 这是你选择断言的地方。在本例中，它是\
+  \ hamcrest 的“文本是”。 |\n| ➎ | 你想要断言的 `TextView` 的实际值。 |\n\n![../images/476822_1_En_6_Chapter/476822_1_En_6_Fig2_HTML.jpg](img/476822_1_En_6_Fig2_HTML.jpg)\n\
+  \n图 6-2. Espresso 录制器\n\n如果你想添加另一个测试，可以点击“保存并添加另一个”选项；或者点击“保存断言”选项并完成录制。图 6-3 显示了下一个屏幕。\n\
+  \n![../images/476822_1_En_6_Chapter/476822_1_En_6_Fig3_HTML.jpg](img/476822_1_En_6_Fig3_HTML.jpg)\n\
+  \n图 6-3. 保存断言后的 Espresso 录制器\n\n当你点击确定时，录制器将提示输入类的名称，录制结果将以测试类的形式保存，如图 6-4 所示。\n\
+  \n![../images/476822_1_En_6_Chapter/476822_1_En_6_Fig4_HTML.jpg](img/476822_1_En_6_Fig4_HTML.jpg)\n\
+  \n图 6-4. 测试已保存的 Espresso 测试\n\n当你进入 `src/androidTest` 文件夹时，你将找到从录制中生成的新测试类。现在你可以像之前运行\
+  \ `MainActivityTest` 一样运行生成的测试。\n\n### 注意\n\n关于 Espresso 的两个趣闻：1) 根据 Android Studio\
+  \ 分析，Espresso 录制器是使用 Espresso 时最常用的工具之一；2) Espresso 录制器最初被命名为“cassette”。\n\n## 关于\
+  \ Espresso 匹配器的更多信息\n\nEspresso 有多种匹配器，但最常用的是 `ViewMatcher`；你就是在之前的例子中使用的它。以下是 Espresso\
+  \ 中的其他匹配器：\n\n* **CursorMatcher**：用于由 Cursor 支持的 Android Adapter 视图，以匹配特定的数据行。\n\
+  * **LayoutMatcher**：用于匹配和检测典型的布局问题，例如包含省略号或多行文本的 `TextView`。\n* **RootMatcher**：用于匹配\
+  \ Root 对象，例如对话框或可以接收触摸事件的 Root。\n* **PreferenceMatcher**：用于匹配 Android 偏好设置，并允许你根据其键、摘要文本等查找视图组件。\n\
+  * **BoundedMatcher**：用于为给定类型创建你自己的自定义匹配器。\n\n在前面的例子中，你使用了 `ViewMatcher` 通过视图的 ID\
+  \ 来查找它们。你还可以使用其他条件来查找视图，例如\n\n* **其值**：你可以使用 `withText()` 方法查找匹配某个特定字符串表达式的视图。\n\
+  * **其子视图的数量**：使用 `hasChildCount()` 方法，你可以匹配具有非常具体的子视图数量的视图。\n* **其类名**：使用 `withClassName()`\
+  \ 方法。\n\n`ViewMatcher` 还可以告诉你一个 View 对象是否是\n\n* 启用状态，通过使用 `isEnabled()` 方法\n* 可获得焦点，通过使用\
+  \ `isFocusable()` 方法\n* 可见，通过 `isDisplayed()` 方法\n* 已选中，通过 `isChecked()` 方法\n* 已选定，通过\
+  \ `isSelected()` 方法\n\n`ViewMatchers` 类中还有很多方法可供使用，请务必访问 [`https://bit.ly/viewmatchers`](https://bit.ly/viewmatchers)\
+  \ 查看它们。\n\n\n\n## Espresso 操作\n\nEspresso 操作让您可以在测试期间通过编程方式与 `View` 对象交互。您之前已经使用了\
+  \ `click()` 方法，但 `ViewActions` 还提供了更多功能。这些方法的名称本身就非常具有描述性，因此无需额外解释；您可以清楚地知道它们的作用。以下是一些示例：\n\
+  \n*   `clearText()`\n*   `closeSoftKeyboard()`\n*   `doubleClick()`\n*   `longClick()`\n\
+  *   `openLink()`\n*   `pressBack()` – 按下返回按钮\n*   `replaceText(String arg)`\n* \
+  \  `swipeDown()`\n*   `swipeRight()`\n*   `swipeUp()`\n*   `typeText(String arg)`\n\
+  \n还有更多可用操作，请务必查阅`ViewAction`对象的 API 文档。\n\n同时，请务必访问 Android 开发者官网上的 Espresso 官方文档：[`https://bit.ly/androidstudioespresso`](https://bit.ly/androidstudioespresso)。您在这里只是浅尝辄止地了解了\
+  \ Espresso 的皮毛！\n\n## 章节总结\n\n*   将 JVM 测试放在 `src/test` 目录中，将插桩测试放在 `src/androidTest`\
+  \ 目录中。\n*   您可以使用 Espresso 创建插桩测试；在 Espresso 中，您需要两个东西：`ViewMatchers` 和 `ViewActions`。\n\
+  *   编写 Espresso 测试的一般步骤是：1) 使用 `ViewMatchers` 找到 `View` 对象，2) 使用 `ViewActions` 在该\
+  \ View 上执行操作，3) 进行断言。\n*   创建 Espresso 测试的一个简单方法是使用 Espresso 录制器。\n\n---\n\n"
+- '# 7. Android Studio Profiler
+
+
+  *本章涵盖内容：*
+
+
+  *   Android Studio Profiler
+
+  *   CPU 视图
+
+  *   内存视图
+
+
+  Android Studio 3.0 用新的 Android Profiler 取代了旧的 Android Monitor。它是一个集成的视图，用于分析应用的**内存消耗**、**网络使用情况**、**CPU
+  使用情况**和**电量使用情况**。在本章中，您将快速了解 Profiler。
+
+
+  ## Profiler
+
+
+  Profiler 是 Android Studio 3 中的新功能。它取代了 Android Monitor，并提供了一个新的、统一的共享时间轴视图，用于显示
+  CPU、内存、网络和电量（能耗）图表。
+
+
+  您可以通过主菜单栏进入 Profiler：`View` ➤ `Tool Windows` ➤ `Profiler`。图 7-1 显示了 Profiler。
+
+
+  | ➊ | 显示正在分析的进程和设备。 |
+
+  | ➋ | 显示要查看的会话。您也可以在此处通过单击 + 按钮添加新会话。 |
+
+  | ➌ | 使用缩放按钮控制时间轴的显示范围。 |
+
+  | ➍ | 新的共享时间轴视图允许您查看 CPU、内存、网络和电量使用情况的所有图表。在顶部，您还会看到重要的应用事件，例如用户输入或活动状态转换。 |
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig1_HTML.jpg](img/476822_1_En_7_Fig1_HTML.jpg)
+
+
+  **图 7-1. Profiler**
+
+
+  一旦您在已连接的设备或模拟器上启动应用程序，您就会在 Profiler 中看到它的图表。
+
+
+  ### 注意
+
+
+  如果您尝试分析 API 级别低于 26 的 APK，您会看到一些警告，因为 Android Studio 需要完全插桩您的代码。您需要启用高级分析，但如果您的
+  APK 是 Oreo 或更高版本，则不会看到任何警告。
+
+
+  如果您单击任意图表，Profiler 窗口将带您进入详细的视图之一。例如，如果您单击 CPU 图表，您将看到 CPU 利用率的详细视图。
+
+
+  ## CPU
+
+
+  图 7-2 显示了我正在运行的示例应用程序的 CPU 利用率的详细视图。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig2_HTML.jpg](img/476822_1_En_7_Fig2_HTML.jpg)
+
+
+  **图 7-2. CPU 视图**
+
+
+  除了实时的利用率图表，CPU 详细视图还显示了应用中所有线程的列表及其状态。您可以查看线程是处于等待 I/O 状态还是活动状态。
+
+
+  您可能已经注意到了图 7-2 中的 `Record` 按钮。如果您单击该按钮，您可以获得一个关于在给定时间段内执行的所有方法的报告。同时请注意下拉菜单中选定的跟踪类型（`Sample
+  Java Methods`）；这种*采样跟踪类型*开销较小，但不如*插桩跟踪类型*（`Trace Java Methods`）详细或精确，这意味着采样类型可能会错过执行时间非常短的方法。您可能会想，“那就一直用插桩类型吧。”但是，您必须记住，虽然插桩类型可以记录每个方法调用，但在
+  Android 8 版本之前的设备上，可以捕获的数据量是有限的，因此如果使用插桩跟踪，很快就会达到该限制。您可以通过编辑插桩捕获的配置来更改该限制。在跟踪类型下拉菜单中，选择
+  `Edit Configurations` 选项，如图 7-3 所示。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig3_HTML.jpg](img/476822_1_En_7_Fig3_HTML.jpg)
+
+
+  **图 7-3. 编辑配置**
+
+
+  图 7-4 显示了采样间隔和文件大小限制设置，您可以使用它们来调整采样的频率以及为录制分配的文件大小。重申一下，文件大小限制仅存在于运行 Android 8.0
+  或更低版本（< API 级别 26）的 Android 设备上。如果您的设备具有更高的 Android 版本，则不受这些限制的约束。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig4_HTML.jpg](img/476822_1_En_7_Fig4_HTML.jpg)
+
+
+  **图 7-4. CPU 录制配置**
+
+
+  如果您单击 `Record`，Android Studio 将开始捕获数据。当您想要停止录制时，单击 `Stop` 按钮，如图 7-5 所示。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig5_HTML.jpg](img/476822_1_En_7_Fig5_HTML.jpg)
+
+
+  **图 7-5. 录制会话**
+
+
+  当您按下 `Stop` 后，您可以查看各个线程，如图 7-6 所示。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig6_HTML.jpg](img/476822_1_En_7_Fig6_HTML.jpg)
+
+
+  **图 7-6. 检查线程**
+
+
+
+
+  ## 内存
+
+
+  Memory（内存）性能分析器会实时显示应用消耗的内存量。图 7-7 展示了我在捕获一个测试应用的内存占用情况时所截取的内存视图快照。如图所示，该图表不仅显示应用正在消耗多少内存，还显示了内存的细分情况，例如代码、堆栈、图形、Java
+  等分别使用了多少内存。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig7_HTML.jpg](img/476822_1_En_7_Fig7_HTML.jpg)
+
+
+  图 7-7. 内存视图
+
+
+  你可以在内存视图中强制进行垃圾回收。看到顶部那个垃圾桶图标了吗？没错，如果你点击它，就会强制执行一次 GC（垃圾回收）。它右侧的按钮也很有用：那个带向下箭头的方框图标代表的是内存转储。点击它，Java
+  堆就会被转储，然后你就可以检查它，如图 7-8 所示。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig8_HTML.jpg](img/476822_1_En_7_Fig8_HTML.jpg)
+
+
+  图 7-8. Java 堆
+
+
+  堆是 Android 运行时为应用分配的一块保留的存储内存。当你转储堆时，你就有了检查对象实例属性的机会，如图 7-9 所示。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig9_HTML.jpg](img/476822_1_En_7_Fig9_HTML.jpg)
+
+
+  图 7-9. 实例视图，Reference 标签页
+
+
+  Reference（引用）标签页在查找内存泄漏时非常有用，因为它显示了指向你正在检查的对象的所有引用。
+
+
+  内存视图中另一个有用的工具是分配跟踪器，如图 7-10 所示。
+
+
+  | ➊ | 点击内存图时间线上的任意位置即可查看分配跟踪器。这将显示在该时间点被分配和取消分配的所有对象的列表。|
+
+  | ➋ | 这显示了在某个时间点应用正在使用的所有类的列表。 |
+
+  | ➌ | 这显示了在特定时间点被分配和取消分配的所有对象的列表。 |
+
+  | ➍ | 跟踪器甚至包含分配时的调用堆栈。 |
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig10_HTML.jpg](img/476822_1_En_7_Fig10_HTML.jpg)
+
+
+  图 7-10. 分配跟踪器
+
+
+  ## 网络
+
+
+  与性能分析器中的其他视图一样，Network（网络）视图也显示实时数据。它可以让你查看和检查应用发送和接收的数据。它还显示总连接数。图 7-11 显示了网络性能分析器的快照。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig11_HTML.jpg](img/476822_1_En_7_Fig11_HTML.jpg)
+
+
+  图 7-11. 网络性能分析器
+
+
+  每当你的应用向网络发出请求时，它都会使用 WiFi 无线电来发送和接收数据。无线电的能效并非最高；它非常耗电，如果你不注意应用如何进行网络请求，这肯定会比平时更快地耗尽设备电池。
+
+
+  当你使用网络性能分析器时，一个好的开始方法是寻找网络活动的短时峰值。当你在时间线上看到突然升高又突然下降的尖锐峰值时，这通常意味着你可以通过批量处理网络请求来进行一些优化，以减少
+  WiFi 无线电需要唤醒并发送或接收数据的次数。
+
+
+  ## 能耗
+
+
+  现在你可能已经了解了性能分析器的工作模式。它会实时显示数据。就 Energy（能耗）性能分析器而言，它显示的是应用消耗了多少能量的数据。虽然它实际上并不直接测量能耗，但能耗性能分析器会显示
+  CPU、无线电和 GPS 传感器的能耗估算值。图 7-12 显示了能耗性能分析器的快照。
+
+
+  ![../images/476822_1_En_7_Chapter/476822_1_En_7_Fig12_HTML.jpg](img/476822_1_En_7_Fig12_HTML.jpg)
+
+
+  图 7-12. 能耗性能分析器
+
+
+  你也可以使用能耗性能分析器来查找影响能耗的系统事件，例如唤醒锁、任务和闹钟。
+
+
+  - 唤醒锁是一种机制，用于在设备本应进入休眠状态时保持屏幕开启。例如，当应用播放视频时，即使没有用户交互，它也可能使用唤醒锁来保持屏幕开启。使用唤醒锁本身不是问题，但忘记释放它才是问题；它会让
+  CPU 保持运行的时间超过必要时间，这肯定会导致电池更快耗尽。
+
+
+  - 闹钟可用于在特定时间间隔运行应用上下文之外的**后台任务**。当闹钟触发时，应用可以运行一些任务。如果它运行耗能的代码段，你肯定会在能耗性能分析器中看到它。
+
+
+  - 任务可以在满足某些条件时执行操作，例如当网络可用时。你通常使用 `JobBuilder` 创建任务，并使用 `JobScheduler` 来安排执行。当任务启动时，你将能够在能耗性能分析器中看到它。
+
+
+  以上是对 Android Studio 性能分析器的快速介绍。请务必查看 [`https://bit.ly/androidstudioprofiler`](https://bit.ly/androidstudioprofiler)
+  上的官方文档。
+
+
+  ## 本章小结
+
+
+  - 旧的 Android Monitor 已不复存在。我们现在使用 Profiler（性能分析器）。
+
+
+  - 性能分析器提供了一个统一视图，显示应用如何消耗内存、CPU、网络和电池资源。
+
+
+  '
+- '# 8. Gradle
+
+
+  **本章内容涵盖：**
+
+
+  - Android 构建过程
+
+
+  - Gradle 文件
+
+
+  - 依赖项
+
+
+  - Android 支持库
+
+
+  ## 构建过程
+
+
+  构建一个 APK 或 bundle 需要许多涉及的步骤。图 8-1 大致说明了这个过程。
+
+
+  ### 注意
+
+
+  Bundle 是交付 Android 可执行文件的一种较新格式。我将在第 12 章中进一步讨论 bundle。
+
+
+  一个应用是松散关联的 Java 源文件、XML 配置文件、XML 格式的 UI 定义等的组合。然后它进入编译阶段；有资源编译器和 Java 编译器。还有需要被考虑的库和其他依赖项。
+
+
+  编译过程会产生一些中间文件，例如 DEX 可执行文件和其他编译后的资源。打包器会组合 DEX 可执行文件、编译后的资源和证书，最终生成一个 APK 或 bundle。
+
+
+  ### 注意
+
+
+  DEX 文件类似于 Java 类文件；它们是可执行文件，但旨在 Android 运行时中运行——它们与你桌面上的 Java 运行时不同。这是一种专为 Android
+  设计的字节码运行时。
+
+
+  ![../images/476822_1_En_8_Chapter/476822_1_En_8_Fig1_HTML.jpg](img/476822_1_En_8_Fig1_HTML.jpg)
+
+
+  图 8-1. Android 构建过程
+
+
+  Gradle 和 Android Studio 负责处理所有繁重的工作。如果你之前在 Java 开发中使用过 ANT 或 Maven，Gradle 与它们非常相似，区别在于它不是使用
+  XML 语法，而是使用自己的 DSL（领域特定语言），该语言基于 Groovy 语言。
+
+
+
+
+  ## 构建文件
+
+
+  Gradle 依赖几个文件。图 8-2 标示出了它们。
+
+
+  | ➊ | `build.gradle` **（项目级）**：这是项目的根文件夹。有些项目可能包含多个模块，在此文件中定义一些能被所有模块共享的属性会很有用。
+  |
+
+  | ➋ | `build.gradle` **（模块: app）**：模块级别的`build.gradle`文件位于其所属的模块内。在此例中，模块级 Gradle
+  文件位于`app`文件夹内；`app`模块是 Android Studio 在创建项目时生成的默认模块。与项目级 Gradle 文件相比，这个文件是你最可能花费更多时间处理的文件。
+  |
+
+  | ➌ | `gradle.properties`：你可以在此文件中配置项目级的 Gradle 设置，例如为 Gradle 守护进程分配的内存量。我通常不会修改它。
+  |
+
+  | ➍ | `settings.gradle`：该文件告诉 Gradle 需要在构建中包含哪些模块。如果你只处理单个模块（即“app”），那么你也可以不修改此文件。
+  |
+
+  | ➎ | `local.properties`：此文件包含本地环境的设置，例如 SDK 的位置、Firebase 的用户凭据等。 |
+
+
+  ![../images/476822_1_En_8_Chapter/476822_1_En_8_Fig2_HTML.png](img/476822_1_En_8_Fig2_HTML.png)
+
+
+  图 8-2. Gradle 文件
+
+
+  ### 模块级 Gradle 文件
+
+
+  既然你最可能与模块级 Gradle 文件打交道，那就让我们更好地了解它。清单 8-1 展示了一个带有注释的模块级`build.gradle`文件示例。
+
+
+  | ➊ | `compileSdkVersion`：指示你用于构建应用的 API 级别或 Android 版本。 |
+
+  | ➋ | `defaultConfig`：此代码块包含模块的默认配置。可以有多个配置吗？是的，应用可以有多个配置。当你针对不同平台等有不同的行为时，就会用到它。你可能会有几种构建变体。但现在，我们先只处理默认配置。
+  |
+
+  | ➌ | `applicationId`：这是你的应用在 Google Play 上使用的名称；也是应用的标识。 |
+
+  | ➍ | `minSdkVersion`：此属性将告知 Google Play 你的应用所支持的最低 Android 版本。 |
+
+  | ➎ | `targetSdkVersion`：如果 Android 的 API 发生变化，此设置会告知运行时环境，你的应用期望 API 的行为与 API 级别
+  24 时的行为一致。这样，你的应用就能拥有一个一致的环境。 |
+
+  | ➏ | `versionCode`：标识应用的版本。这是一个递增的整数。 |
+
+  | ➐ | `versionName`：这是`versionCode`的字符串表示形式，会显示在 Google Play 和设备的设置中。 |
+
+
+  ```
+
+  apply plugin: ''com.android.application''
+
+  android {
+
+  compileSdkVersion 28 ➊
+
+  defaultConfig {  ➋
+
+  applicationId "net.workingdev.demoappbitbucket" ➌
+
+  minSdkVersion 27 ➍
+
+  targetSdkVersion 28 ➎
+
+  versionCode 1  ➏
+
+  versionName "1.0" ➐
+
+  testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+  }
+
+  ...
+
+  清单 8-1.
+
+  build.gradle (模块)
+
+  ```
+
+
+  当你对 Gradle 文件进行了任何更改，Android Studio 会提示你同步该文件。IDE 顶部会显示一个提示栏，告诉你“立即同步”。你也可以通过点击工具栏上的同步按钮来同步
+  Gradle 文件，如图 8-3 所示。另一种同步方式是从主菜单栏操作：选择“文件” ➤ “将项目与 Gradle 文件同步”。
+
+
+  ![../images/476822_1_En_8_Chapter/476822_1_En_8_Fig3_HTML.jpg](img/476822_1_En_8_Fig3_HTML.jpg)
+
+
+  图 8-3. 将项目与 Gradle 文件同步
+
+
+  如果你不想手动编辑 Gradle 文件，也可以通过图形用户界面来实现更改。转到主菜单栏，选择“文件” ➤ “项目结构”，然后点击“应用”部分，如图 8-4 所示。
+
+
+  ![../images/476822_1_En_8_Chapter/476822_1_En_8_Fig4_HTML.jpg](img/476822_1_En_8_Fig4_HTML.jpg)
+
+
+  图 8-4. 项目结构
+
+
+  如果你浏览“项目结构”窗口中的选项卡，你会发现也可以在那里编辑 Gradle 文件的条目。
+
+
+  ### 依赖项
+
+
+  大多数应用很少能独立运行；它们通常依赖其他代码。你的应用可能依赖于外部的二进制文件，或者你在同一项目中构建的其他库。无论哪种情况，这些依赖项都必须在 Gradle
+  文件的依赖项代码块中声明。
+
+
+  在依赖项代码块中，你必须列出应用的所有直接依赖项；如果这些依赖项本身又有自己的依赖项，Gradle 也会为你一并获取。需要注意三种依赖类型：
+
+
+  *   **模块依赖项**：如果你在应用中创建了一个模块（除了默认的 app 模块之外），并希望它作为项目的库使用，你可以将其声明为模块依赖项。
+
+
+  *   **Jar 依赖项**：当你想在应用中使用外部库时，例如 `jdom.jar`，只需将 jar 文件放入项目的 `libs` 文件夹，并将其声明为 jar
+  依赖项。请记住，这里不能随便使用任何 jar 文件；只能使用那些旨在作为库使用的 jar 文件。在使用一个库之前，最好先阅读其文档。
+
+
+  *   **库依赖项**：这种依赖项会从诸如 Maven 仓库或 `jcenter` 这样的仓库中拉取资源。仓库就是可供你使用的二进制文件的集合。当你安装 Android
+  Studio 并在安装过程中拉取一些附加软件时，已在本地机器上拥有一个仓库。Android Support 仓库已在本地可用——因此，这个仓库无需在 Gradle
+  文件（项目级 Gradle 文件）中声明，但除此之外的任何其他仓库都需要声明。你会注意到，当你在 Android Studio 中创建新项目时，生成的 Gradle
+  文件已经包含了 `jcenter` 和 `google` 的引用，它们是非常庞大的 Java 和 Android 仓库。清单 8-2 展示了项目级 Gradle
+  文件的一个片段；请注意 `buildscript` 和 `allprojects` 代码块中的仓库部分——它们已经包含了 `jcenter` 和 `google`
+  的引用。当然，如果你需要引用 `jcenter` 和 `google` 之外的任何仓库，只需将其添加到 Gradle 文件中即可。
+
+
+  ```
+
+  buildscript {
+
+  repositories {
+
+  google()
+
+  jcenter()
+
+  }
+
+  dependencies {
+
+  classpath ''com.android.tools.build:gradle:3.3.1''
+
+  // 注意：不要在此处放置你的应用依赖项；它们应属于
+
+  // 各个模块的 build.gradle 文件中
+
+  }
+
+  }
+
+  allprojects {
+
+  repositories {
+
+  google()
+
+  jcenter()
+
+  }
+
+  }
+
+  ...
+
+  清单 8-2.
+
+  build.gradle (项目级)
+
+  ```
+
+
+  请注意，项目级 Gradle 文件中有一条注释，提示 **不要** 将你的应用依赖项放置在此文件中，而应放在应用模块的 Gradle 文件中。你在项目级 Gradle
+  文件中定义的任何内容都会影响所有模块级的 Gradle 文件。
+
+
+  除了理解依赖类型，你还需要了解如何关联依赖项。至少要考虑以下三种指令：
+
+
+  *   `implementation`：这意味着此依赖项将应用于你的所有构建变体或你执行的所有不同类型的构建。
+
+
+  *   `testImplementation`：这是一个特定于测试的变体。在此处，你可以声明 JVM 测试所需的内容。这是一种只需要 JVM 而无需完整 Android
+  运行时的单元测试。
+
+
+  *   `androidTestImplementation`：在此处，你可以声明进行仪器化测试所需的库——这种测试需要完整的 Android 运行时。
+
+
+  清单 8-3 展示了带有注释的模块级 `build.gradle` 文件片段。
+
+
+
+
+  ### 注意
+
+
+  构建变体是构建类型与构建配置的组合。构建类型的例子包括 `release` 和 `debug`。构建配置已在本章前文讨论过。你可以通过主菜单栏选择 **View
+  ➤ Tool Windows ➤ Build Variant** 来查看当前的构建变体。
+
+
+  | ➊ | 这个带有 `fileTree` 命令、`dir` 参数以及 ANT 风格通配模式 `*.jar` 的 `implementation` 指令，意味着你想要项目
+  `lib` 文件夹下的所有 jar 文件都成为依赖项。因此，为项目添加 jar 依赖只需将 jar 文件放入项目的 `lib` 文件夹即可。 |
+
+  | ➋ | 该指令表示你正在从仓库（确切地说是本地仓库）拉取一个依赖项。这会从 Android Support Library 拉取兼容性库。使用 AppCompat
+  是为了让较新版本的 Android 功能能够在较旧版本上运行。不必过于担心版本问题；大多数情况下，Android Studio 都能很好地拉取正确且最新版本的兼容性库。
+  |
+
+  | ➌ | 与第 2 点类似，这也是来自 Android Support Library 的库依赖项。这次，你引用的是约束布局库，在创建使用 Constraint
+  layout 的活动时需要用到它。 |
+
+  | ➍ | 这个 `testImplementation` 指令会拉取你在 JVM 单元测试中使用的 JUnit 4 库。 |
+
+  | ➎ | 这个 `androidTestImplementation` 会拉取你在插桩测试中使用的库。 |
+
+
+  ```
+
+  apply plugin: ''com.android.application''
+
+  android {
+
+  ...
+
+  }
+
+  dependencies {
+
+  implementation fileTree(dir: ''libs'', include: [''*.jar''])  ➊
+
+  implementation ''com.android.support:appcompat-v7:28.0.0''  ➋
+
+  implementation ''com.android.support.constraint:constraint-layout:1.1.3'' ➌
+
+  testImplementation ''junit:junit:4.12''  ➍
+
+  androidTestImplementation ''com.android.support.test:runner:1.0.2'' ➎
+
+  androidTestImplementation ''com.android.support.test.espresso:espresso-core:3.0.2''
+
+  }
+
+  清单 8-3.
+
+  /app/build.gradle
+
+  ```
+
+
+  ## Android Support Library
+
+
+  Android Support Library 是一个庞大的主题。我不会在此详述所有内容，但你至少需要对其有初步了解，尤其是在我们当前讨论的上下文中。
+
+
+  Android Support Library 是 Android 非常重要的一部分。它基本上是对 Android SDK 的补充。其最重要的功能之一就是提供向后兼容性；至少它最初是为此而设计的。
+
+
+  向后兼容性之所以重要，是因为新版本的 Android 正在快速发布，而仍有相当多的设备运行着旧版本的 Android。较新版本的 Android 意味着更新的能力和特性；这是否意味着运行旧版本
+  Android 的设备无法使用这些新特性？并非如此。向后兼容性意味着较新的平台特性可以提供给较旧的平台版本使用。
+
+
+  随着时间的推移，Android Support Library 变得越来越庞大。它开始提供不属于平台本身的功能，例如用户界面领域的功能，如 Recycler Views
+  或 Card Views。Support Library 还包含了调试和测试领域的功能，因此需要对其进行重组。
+
+
+  在 Android Support Library 的早期，它只是一个单一的库；但随着它的发展，其组织形式也发生了变化。因此，Support Library 不再只是一个单一的库，而是变成了一组更小、更易于管理的库。这些库的分组主要依据平台支持来组织，这意味着
+  Support Library 的名称表明了它支持哪个平台或 API 级别。
+
+
+  你可能仍然会看到名为 `v4`、`v7` 和 `v13` 的库，历史上它们的意思是 `v4` 支持 API 级别 4 及以上，`v7` 支持级别 7 及以上，`v13`
+  支持 API 级别 13 及以上。我说“*历史上*”是因为这已不再正确。每当新版本的 Android 发布时，都会发生很多变化；弃用情况层出不穷。因此，你必须时常关注
+  Support Library 的文档。
+
+
+  在撰写本文时，`v4` 已不再支持 API 级别 4 及以上。它现在只支持 API 级别 14 及以上；`v7` 也不再支持级别 7 及以上，而是只支持级别 14
+  及以上。这实际上意味着所有支持库包的最低 SDK 版本现为级别 14（Ice Cream Sandwich）。
+
+
+  更重要的是，随着 Android 9（API 级别 28）的发布，出现了名为 AndroidX 的新版 Android Support Library，它是 Jetpack
+  的一部分。你可以继续使用支持库（`android.support.*` 版本 27 及更早版本）。它们将保留在 Google Maven 上，但请注意，所有开发都将在
+  AndroidX 中进行。
+
+
+  ### 注意
+
+
+  Android Jetpack 是一组组件集合，旨在让开发应用更轻松。这些库位于 `androidx.*` 包中，并且它们与平台 API 解耦。向后兼容性库现在也位于此处。Jetpack
+  非常庞大。它不仅仅是兼容性库；它还包含许多其他软件组件，涉及架构、基础、UI 和行为。你可以在 [`https://developer.android.com/jetpack`](https://developer.android.com/jetpack)
+  了解更多信息。
+
+
+  在清单 8-3 中，你看到了这一行
+
+
+  ```
+
+  implementation ''com.android.support:appcompat-v7:28.0.0''
+
+  ```
+
+
+  这意味着，即使运行你应用的设备是 API 级别 14，你仍然可以使用
+
+
+  *   ActionBar
+
+  *   Material design
+
+  *   `AppCompatActivity` 类
+
+  *   `AppCompatDialog`
+
+  *   `ShareActionProvider`
+
+
+  所有这些功能都相当现代，但由于 AppCompat 库，你仍然可以在较旧的平台上使用它们。
+
+
+  ### 注意
+
+
+  当你以较低 API 级别为目标时，你的应用可以依赖的现代 Android 特性较少，但能够运行你应用的 Android 设备比例更高。当以较高 API 级别为目标时，情况则相反。你始终可以在创建新
+  Android 项目时点击“Help me choose”链接，查看 Android 版本的数据或累积分布。
+
+
+  ## 本章小结
+
+
+  *   构建过程可能非常复杂。幸运的是，Gradle 处理了所有繁重的工作。
+
+  *   存在两个 `build.gradle` 文件：一个在项目根目录，另一个在每个模块中。项目级别的 Gradle 文件是定义你想要共享给所有模块级别 Gradle
+  文件的指令的好地方。
+
+  *   模块级别的 Gradle 文件是你定义大部分配置的地方。模块依赖项和目标 SDK 都在此定义。
+
+
+  '
+- '# 9. Git
+
+
+  *本章涵盖内容：*
+
+
+  *   如何获取 Git
+
+  *   在 Android Studio 中设置 GitHub
+
+  *   使用 GitHub 进行共享与克隆
+
+  *   从其他 Git 仓库进行共享与克隆
+
+
+  Android Studio 提供了与多种版本控制系统的集成，而 Git 便是其中较为流行的版本控制系统之一。在本章中，你将了解如何在 Android Studio
+  中使用 Git。
+
+
+
+
+  ## 获取 Git
+
+
+  Git 适用于 macOS、Linux 和 Windows。如果你使用的是 macOS 并且已经安装了 XCode CLI，那么很可能已经安装了 Git。而在
+  Windows 和 Linux 上，你需要先以某种方式获取 Git，才能继续按照以下说明进行操作。
+
+
+  在系统上安装 Git 最简单的方法是访问 [`https://git-scm.com/download`](https://git-scm.com/download)
+  并获取适用于你平台的版本。你可以获取适用于 Windows 和 macOS 的预编译二进制文件；对于 Linux，则会获得如何使用包管理器安装 Git 的说明。
+
+
+  如果你已经使用了诸如 `chocolatey`（Windows）、`MacPorts`（macOS）或 `HomeBrew`（同样适用于 macOS）这类包管理器，那么你也可以使用这些包管理器来获取
+  Git。
+
+
+  在 Windows 上使用 `chocolatey`，你可以在命令行或 PowerShell 中运行以下命令：
+
+
+  ```
+
+  choco install git
+
+  ```
+
+
+  在 macOS 上使用 `HomeBrew`，你可以尝试：
+
+
+  ```
+
+  brew install git
+
+  ```
+
+
+  在 macOS 上使用 `MacPorts`，你可以使用：
+
+
+  ```
+
+  sudo port install git
+
+  ```
+
+
+  接下来，我们转到 Android Studio。打开 IDE，前往 `Preferences`（macOS）或 `Settings` 窗口（Windows 和
+  Linux），然后进入 `Version Control` ➤ `Git`，如图 9-1 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig1_HTML.jpg](img/476822_1_En_9_Fig1_HTML.jpg)
+
+
+  图 9-1: `Preferences` ➤ `Version Control` ➤ `Git`
+
+
+  注意 `Path to Git executable`（Git 可执行文件路径）字段。如图 9-1 所示，我的这个字段已被填充并自动检测到；这通常是正确的，你无需再做其他操作。如果
+  Android Studio 没有自动检测到 Git 可执行文件的位置，或者你不想使用自动检测到的版本，你随时可以更改它。要更改 Git 可执行文件，请点击省略号按钮（即
+  `Test` 按钮左侧带有三个点的按钮，如图 9-1 所示）。
+
+
+  找到你希望 Android Studio 使用的 Git 可执行文件。之后，点击 `Test` 按钮。结果如图 9-2 所示。
+
+
+  ### 提示
+
+
+  对于 Windows 用户。如果你使用了 `git-scm` 的安装程序并使用默认选项安装，那么 Git 可执行文件将位于 `C:\Program Files\(x86)\Git\bin\`
+  文件夹中。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig2_HTML.jpg](img/476822_1_En_9_Fig2_HTML.jpg)
+
+
+  图 9-2: Git 执行成功
+
+
+  现在你已经准备好使用带有 Git 版本控制的 Android Studio 了。你可以开始与 Git 仓库进行集成。
+
+
+  ## 将 Android Studio 与 GitHub 结合使用
+
+
+  再次前往 `Preferences/Settings` 窗口，然后进入 `GitHub`，如图 9-3 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig3_HTML.jpg](img/476822_1_En_9_Fig3_HTML.jpg)
+
+
+  图 9-3: `Preferences`，`GitHub`
+
+
+  点击 `Add account`（添加账户）链接。你将看到如图 9-4 所示的 `Login`（登录）窗口。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig4_HTML.jpg](img/476822_1_En_9_Fig4_HTML.jpg)
+
+
+  图 9-4: 登录 GitHub
+
+
+  如果你已有 GitHub 账户，可以在该窗口中提供你的 GitHub 登录凭据；如果你还没有账户，可以点击 `Sign up for GitHub`（注册 GitHub）链接（如图
+  9-4 所示），然后你将被引导至 GitHub 网页，在那里你可以注册一个新账户。
+
+
+  你可以使用免费的 GitHub 账户创建私有或公共仓库。公共仓库对所有人共享；你无法控制其可见性——所有人都能看到它。另一方面，私有仓库不会对所有人共享；你可以控制仓库的访问权限。
+
+
+  当你准备好 GitHub 凭据后，将它们填入如图 9-4 所示的登录名和密码字段，然后点击 `OK`。如果一切顺利，你应该会在 `Preferences/Settings`
+  窗口中看到你的 GitHub 头像，如图 9-5 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig5_HTML.jpg](img/476822_1_En_9_Fig5_HTML.jpg)
+
+
+  图 9-5: GitHub 设置
+
+
+  点击 `OK` 按钮，你现在应该可以拉取和分享 GitHub 上的项目了。
+
+
+  ### 在 GitHub 上分享项目
+
+
+  如果这是你第一次安装 Git，你可能需要为 Git 配置全局变量 `user.email` 和 `user.name`。为此，请在命令行窗口中输入列表 9-1
+  中的代码。
+
+
+  ```
+
+  Git config --global user.name "your name"
+
+  Git config --global user.email "your email"
+
+  ```
+
+
+  列表 9-1: 设置 Git 全局变量
+
+
+  不要忘记分别将 “your name” 和 “your email” 替换为你的实际姓名和实际邮箱。
+
+
+
+
+  ### 提示
+
+
+  对于 Windows 用户。Git 安装程序不会更新 `PATH` 变量，因此您可能会遇到“bad command or filename”错误。为了执行清单
+  9-1 中所示的命令，您必须首先导航到 Git 可执行文件的位置。因此，请将目录更改为 `C:\Program Files\(x86)\Git\bin\`，然后执行清单
+  9-1 中所示的命令。
+
+
+  打开您想要通过 GitHub 分享的任何项目；然后，从主菜单栏中，转到 `VCS` ➤ `Import into Version Control` ➤ `Share
+  Project on GitHub`，如图 9-6 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig6_HTML.jpg](img/476822_1_En_9_Fig6_HTML.jpg)
+
+
+  图 9-6. 导入到版本控制
+
+
+  提供必要的信息，如图 9-7 所示。以下是各字段含义的简要说明：
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig7_HTML.jpg](img/476822_1_En_9_Fig7_HTML.jpg)
+
+
+  图 9-7. 在 GitHub 上分享项目
+
+
+  - **Repository name**（仓库名称）：您想要创建的公共仓库的名称。当您在 GitHub 上分享一个项目时，它被称为一个仓库（或简称 repo），它只是一个存储和管理数据的地方。在此例中，您正在为这一个项目创建一个仓库。因此，最好只将项目相关的工件存储在其中。
+
+  - **Private**（私有）：如果您像我一样让此复选框保持未选中状态，则意味着该仓库将是公共的。您需要决定仓库的可见性。请记住，如果它是公共的，所有人都能看到；如果是私有的，则由您控制谁能看到它。
+
+  - **Remote**（远程）：保留默认设置。它显示为“remote”，因为文件将存储在远程服务器上（在 GitHub 的服务器上），与“local”相对，后者意味着文件将存储在您的计算机上。
+
+  - **Description**（描述）：最好在此提供一些描述项目的文字。
+
+
+  当您单击 `Share` 按钮时，Android Studio 将提示您选择要分享的文件。在版本控制的术语中，我们不说“分享”，而说“提交”。参见图 9-8。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig8_HTML.jpg](img/476822_1_En_9_Fig8_HTML.jpg)
+
+
+  图 9-8. 为初始提交添加文件
+
+
+  默认情况下，对话框中显示的所有内容都被选中，这意味着项目文件夹中的所有内容都将被提交，但并非完全如此。尝试向下滚动，以便您能看到所有带有勾选标记的文件。您可能会注意到一个名为
+  `.gitignore` 的文件，如图 9-9 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig9_HTML.jpg](img/476822_1_En_9_Fig9_HTML.jpg)
+
+
+  图 9-9. 添加 `.gitignore`
+
+
+  `.gitignore` 是一个特殊文件，其中包含不会被包含在仓库中的文件列表——这些文件将被忽略。
+
+
+  如果项目工具窗口的视图设置为 Android，您将无法看到 `.gitignore` 文件，但如果您将项目工具窗口的视图更改为 Project，如图 9-10
+  所示，您应该可以看到 `.gitignore` 文件。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig10_HTML.jpg](img/476822_1_En_9_Fig10_HTML.jpg)
+
+
+  图 9-10. 项目工具窗口设置为 Project 视图
+
+
+  清单 9-2 显示了 `.gitignore` 的内容。
+
+
+  ```
+
+  *.iml
+
+  .gradle
+
+  /local.properties
+
+  /.idea/caches
+
+  /.idea/libraries
+
+  /.idea/modules.xml
+
+  /.idea/workspace.xml
+
+  /.idea/navEditor.xml
+
+  /.idea/assetWizardSettings.xml
+
+  .DS_Store
+
+  /build
+
+  /captures
+
+  .externalNativeBuild
+
+  清单 9-2. .gitignore
+
+  ```
+
+
+  大多数情况下，您希望保留 `.gitignore` 中的所有条目。当然，您可以向列表中添加内容，但您不应从中移除任何内容，如清单 9-2 所示。默认情况下，`.gitignore`
+  中的文件列表指的是您计算机独有的内容；例如，`/local.properties` 列出了您计算机上 JDK 的位置。它也可能包含特定于您作为用户的数据，例如
+  Firebase 密钥；显然，您不希望将这些信息提交到源代码控制中。另一个例子是 `.DS_Store` 文件，只有您在使用 Mac 时才会拥有它；每次您创建目录时，macOS
+  都会创建此文件。此文件对您的项目不重要。
+
+
+  回到提交对话框窗口，当您单击 `OK` 时，提交窗口中所有（已勾选的）文件都会被*提交*，然后*推送*到远程仓库。
+
+
+  ## 从 GitHub 打开项目
+
+
+  您可以通过从远程仓库（如 GitHub）获取项目来恢复项目；在 Git 术语中，这称为“克隆”一个仓库。您执行此操作的基本场景是，当您的某个队友在 GitHub
+  上分享了项目仓库，而您也希望在其上工作时。第一步是从远程仓库获取项目。您可以通过两种方式之一完成此操作。
+
+
+  当您在 Android Studio 中已经打开了一个项目时，您可以转到主菜单栏并选择 `File` ➤ `New` ➤ `Project from Version
+  Control` ➤ `Git`。
+
+
+  您也可以从 Android Studio 欢迎屏幕执行此操作，如图 9-11 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig11_HTML.jpg](img/476822_1_En_9_Fig11_HTML.jpg)
+
+
+  图 9-11. 欢迎屏幕，Git
+
+
+  两种方式都可以。下一个屏幕是 Clone Repository 窗口，如图 9-12 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig12_HTML.jpg](img/476822_1_En_9_Fig12_HTML.jpg)
+
+
+  图 9-12. 克隆仓库
+
+
+  各字段描述如下：
+
+
+  - **URL**（网址）：这是仓库的远程 URL。我使用的是 URL `git@github.com:/etc`，因为我通过 SSH 获取项目。我可以这样做，因为我已经在
+  GitHub 中设置了 SSH 密钥。如果您尚未设置 SSH 密钥，则可能需要使用 HTTPS URL。您可以在其 GitHub 页面上找到该仓库的 HTTPS
+  URL，如图 9-13 所示。单击 `Use HTTPS` 选项以获取 HTTPS URL。
+
+  - **Directory**（目录）：这是您硬盘上要存储项目的位置。
+
+
+  ### 注意
+
+
+  GitHub 允许在与仓库交互时使用 SSH 和 HTTPS。GitHub 发布了一些关于何时使用 SSH 或 HTTPS 的指南，请访问 [`bit.ly/sshvshttps`](https://bit.ly/sshvshttps)。如果您想了解更多关于
+  Git 协议的信息，可以从 [`bit.ly/gitprotocols`](https://bit.ly/gitprotocols) 获取更多信息。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig13_HTML.jpg](img/476822_1_En_9_Fig13_HTML.jpg)
+
+
+  图 9-13. 仓库的 GitHub 页面
+
+
+  要完成克隆过程，请单击 `Clone` 按钮，如图 9-12 所示。现在，您可以像打开 Android Studio 中的任何其他项目一样打开该项目。
+
+
+
+
+  ## 更新 Git 项目
+
+
+  当项目处于源代码管理之下时，Android Studio 会在你每次创建新文件（无论是 Java 类、XML 文件、图片或其他文件）时给出额外提示。例如，如果你向项目中添加一个新的
+  Java 类（在 Git 源代码管理下），你会看到一个类似图 9-14 所示的对话框。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig14_HTML.jpg](img/476822_1_En_9_Fig14_HTML.jpg)
+
+
+  图 9-14. 将文件添加到 Git
+
+
+  如果你希望将该文件添加到 Git，当然要按下 `Yes`。如果不小心按了 `No`，你仍然可以通过两种方式添加新文件：
+
+
+  1.  在项目工具窗口中选择要添加到 Git 的文件，然后从主菜单栏中选择 `VCS` ➤ `Git` ➤ `Add`。
+
+  2.  也可以使用右键菜单，右键点击文件，然后选择 `Git` ➤ `Add`。
+
+
+  添加文件并不会自动更新远程仓库。要实现这一点，你需要做两件事：*提交*你所做的更改，然后进行*推送*。为此，在项目工具窗口中选择整个项目，如图 9-15 所示，然后从主菜单栏中选择
+  `VCS` ➤ `Git` ➤ `Commit Directory`。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig15_HTML.jpg](img/476822_1_En_9_Fig15_HTML.jpg)
+
+
+  图 9-15. `Git` ➤ `Commit directory`
+
+
+  接下来，你会看到“提交更改”窗口，如图 9-16 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig16_HTML.jpg](img/476822_1_En_9_Fig16_HTML.jpg)
+
+
+  图 9-16. 提交并推送更改
+
+
+  点击 `Commit` 按钮上的下拉箭头，选择 `Commit and Push` 选项。现在，你的本地项目就与远程仓库完全同步了。
+
+
+  ## 使用其他 Git 仓库
+
+
+  GitHub 是开发者中非常流行的仓库平台，因此它与 Android Studio 集成得很好也就不足为奇了。但如果你的队友或公司不使用 GitHub 呢？如果他们使用的是
+  BitBucket 或其他 Git 仓库呢？别担心，你同样可以处理。在本节中，你将使用 BitBucket 仓库。
+
+
+  与 GitHub 一样，使用 BitBucket 也需要一个账户。如果你还没有账户，请前往 [`https://bitbucket.org`](https://bitbucket.org)
+  注册，然后登录。之后，创建一个新的仓库，如图 9-17 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig17_HTML.jpg](img/476822_1_En_9_Fig17_HTML.jpg)
+
+
+  图 9-17. 创建仓库
+
+
+  点击大加号并选择创建新仓库后，系统会要求你填写一些详细信息，如图 9-18 所示。别忘了点击 `Advanced Settings` 选项，以便看到所有字段。
+
+
+  请注意以下几点：
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig18_HTML.jpg](img/476822_1_En_9_Fig18_HTML.jpg)
+
+
+  图 9-18. 仓库详细信息
+
+
+  -   **Repository name**：你的仓库在 BitBucket 上的名称。它不必与你本地计算机上存储的项目名称相同，但保持一致是个好主意。
+
+  -   **Access level**：与 GitHub 不同，即使你不是付费会员，也可以在 BitBucket 中创建私有仓库。
+
+  -   **Include a README**：在项目中包含 `README` 文件是一个好习惯，但这是可选的。
+
+  -   **Version control**：选择 `Git`。
+
+  -   **Description**：用一些词语最好地描述你的项目内容。
+
+  -   **Language**：你正在开发一个 Android 项目，所以填写 `Android`。
+
+
+  点击 `Create repository` 按钮后，你会看到仓库页面详情，如图 9-19 所示。点击 `Clone` 按钮。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig19_HTML.jpg](img/476822_1_En_9_Fig19_HTML.jpg)
+
+
+  图 9-19. 新建的 BitBucket 仓库
+
+
+  在 `Clone this repository` 页面中，你可能会看到 `SSH` 而不是 `HTTPS`。点击下拉按钮切换到 `HTTPS`，如图 9-20
+  所示。
+
+
+
+
+  ### 注意
+
+
+  在将 SSH 密钥提供给 BitBucket 后，你可以使用 SSH 协议作为克隆 BitBucket 中仓库的一种方式。如果你尚未提供，只需使用 HTTPS
+  来克隆仓库即可。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig20_HTML.jpg](img/476822_1_En_9_Fig20_HTML.jpg)
+
+
+  **图 9-20.** 仓库的远程地址
+
+
+  你的仓库的远程 URL 是以 `https://` 开头并以 `.git` 结尾的那个。如图 9-20 所述，你不需要 `git clone` 这部分，因为这是一个旨在从命令行输入的命令。你不会为
+  Git 使用命令行，而是会使用 Android Studio 的功能。
+
+
+  现在远程仓库已准备就绪，你可以打开一个想要在 BitBucket 上分享的现有项目，或者创建一个新项目，这由你决定。
+
+
+  一旦你选择好要在 BitBucket 中分享的项目，请执行以下操作：
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig21_HTML.jpg](img/476822_1_En_9_Fig21_HTML.jpg)
+
+
+  **图 9-21.** 启用版本控制集成
+
+
+  1. 如果项目尚未打开，请将其打开。
+
+  2. 如果项目尚未受任何源代码控制，请为其启用版本控制。为此，请前往主菜单栏并选择 VCS ➤ Enable Version Control Integration。
+
+  3. 选择 Git 作为版本控制系统，如图 9-21 所示。
+
+
+  接下来要做的操作是，将此项目与远程仓库关联起来：前往主菜单栏并选择 VCS ➤ Git ➤ Remotes。你应该会看到 Git Remotes 屏幕，如图 9-22
+  所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig22_HTML.jpg](img/476822_1_En_9_Fig22_HTML.jpg)
+
+
+  **图 9-22.** Git 远程仓库
+
+
+  点击图 9-22 中所示的加号。之后，将出现“定义远程”屏幕，如图 9-23 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig23_HTML.jpg](img/476822_1_En_9_Fig23_HTML.jpg)
+
+
+  **图 9-23.** 定义远程仓库
+
+
+  复制仓库的远程 URL（请参考图 9-20；我在该图中高亮了远程 URL 仓库）。将其粘贴到“定义远程”屏幕的 URL 字段中，如图 9-23 所示。你需要在下一个屏幕中提供你的
+  BitBucket 用户名和密码，如图 9-24 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig24_HTML.jpg](img/476822_1_En_9_Fig24_HTML.jpg)
+
+
+  **图 9-24.** Git 登录
+
+
+  接下来要做的操作是*拉取*远程仓库。这是一个谨慎的做法，尤其是在你在 BitBucket 中创建仓库时生成了 README 文件的情况下，因为这可以防止合并冲突。你可以通过主菜单栏进行拉取：前往
+  VCS ➤ Git ➤ Pull。你会看到“拉取更改”屏幕，如图 9-25 所示。点击刷新按钮（位于远程文本字段右侧）。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig25_HTML.jpg](img/476822_1_En_9_Fig25_HTML.jpg)
+
+
+  **图 9-25.** 拉取更改
+
+
+  在“要合并的分支”字段中，选择 origin/master 选项，然后点击“确定”。
+
+
+  尝试向你的新项目中添加一些文件。你会注意到，当你向项目中添加一个新文件（例如 `DemoApp.java`）时，Android Studio 会提示你是否要将新文件添加到
+  Git 中；参见图 9-26。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig26_HTML.jpg](img/476822_1_En_9_Fig26_HTML.jpg)
+
+
+  **图 9-26.** 向 Git 添加文件
+
+
+  你可以通过勾选**记住，不再询问**框来节省一些时间。下次你添加新文件时，Android Studio 会自动将其添加到 Git 中。
+
+
+  如果你对提示回答了**否**，你仍然可以通过新 Java 文件上的上下文菜单将其添加到 Git。从“项目”工具窗口中选择新的 Java 文件，右键单击，然后转到
+  Git ➤ Add。为确保所有项目文件都已添加到 Git，不要在“项目”工具窗口只选择新文件，而应选择整个项目。
+
+
+  下一步是将你的更改提交到 Git——请记住，所有这些更改仍在本地进行。要使更改反映到远程 BitBucket 仓库中，你必须推送更改。
+
+
+  要提交更改，请前往主菜单栏并选择 VCS ➤ Git ➤ Commit Directory。你会看到“提交更改”对话框，如图 9-27 所示。你在前一节中看过这个对话框；它与你在使用
+  GitHub 时看到的相同。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig27_HTML.jpg](img/476822_1_En_9_Fig27_HTML.jpg)
+
+
+  **图 9-27.** 提交更改
+
+
+  请记住，只有已勾选的项目才会被提交到 Git。因此，请注意更改列表。在“提交信息”框中写一些描述性内容，然后点击“提交”按钮。
+
+
+  当你对本地仓库做了重大更改，并且希望将这些更改反映回远程仓库时，可以执行*推送*操作。为此，请前往主菜单栏并选择 VCS ➤ Git ➤ Push。你会看到“推送提交”屏幕，如图
+  9-28 所示。
+
+
+  ![../images/476822_1_En_9_Chapter/476822_1_En_9_Fig28_HTML.jpg](img/476822_1_En_9_Fig28_HTML.jpg)
+
+
+  **图 9-28.** 推送提交
+
+
+  点击“推送”以完成操作。
+
+
+  这样就完成了。现在你可以克隆一个仓库并将其恢复到本地目录。你还可以向远程仓库添加、提交和推送更改；你现在也知道了如何使本地仓库与远程仓库保持同步。
+
+
+  ## 章节总结
+
+
+  - Git 软件未包含在 Android Studio 中，因此你必须单独获取它。你可以从 [`https://git-scm.com/download`](https://git-scm.com/download)
+  获取预编译的二进制文件和平台说明。
+
+  - GitHub 与 Android Studio 高度集成。要处理远程 GitHub 仓库，你只需要执行几个步骤。
+
+  - 你可以通过启用项目中的版本控制集成，然后定义远程仓库 URL，来使用其他 Git 平台，例如 BitBucket。
+
+
+  '
+- "# 10. 导航\n\n*本章内容包括：*\n\n- 回顾 Android 中的导航\n- 导航组件\n\n\n\n## 导航架构组件之前\n\n在 Android\
+  \ 早期，如果你的应用有一定复杂度，几乎必然需要将应用划分为多个 Activity。这就意味着你需要掌握从一个 Activity 导航到另一个 Activity\
+  \ 并返回的技能。因此，在那些日子里，你可能会编写类似代码清单 10-1 所示的代码。\n\n```\nclass FirstActivity extends\
+  \ AppCompatActivity\nimplements View.OnClickListener {\npublic void onClick(View\
+  \ v) {\nIntent intent = new Intent(this, SecondActivity.class);\nstartActivity(intent);\n\
+  }\n}\n// SecondActivity.java\nclass SecondActivity extends AppCompatActivity { }\n\
+  ```\n\n代码清单 10-1. 如何启动一个 Activity\n\n如果需要将数据从一个 Activity 传递到另一个 Activity，你可能需要编写类似代码清单\
+  \ 10-2 所示的代码片段。\n\n```\nIntent intent = new Intent(this, SecondActivity.class);\n\
+  Intent.putExtra(\"key\", value);\nstartActivity(intent);\n```\n\n代码清单 10-2. 如何向另一个\
+  \ Activity 传递数据\n\n这种界面管理方式具有以下优点：\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig1_HTML.jpg](img/476822_1_En_10_Fig1_HTML.jpg)\n\
+  \n图 10-1. 简单的 Activity 工作流\n\n*   实现简单。只需从任意一个 Activity 调用 `startActivity()` 方法。\n\
+  *   可以通过编程方式调用 `finish()` 方法关闭当前正在运行的 Activity。用户也可以通过按返回键关闭 Activity。\n*   返回栈完全由\
+  \ Android 运行时管理；见图 10-1。\n\n但这并非全是优点；Activity 导航也伴随着一些弊端。其缺点在于：\n\n*   你无法清楚了解返回栈中有哪些\
+  \ Activity，因为你并不管理它。这里恰好展示了一个特性同时兼具优点和缺点的例子。\n*   每个屏幕都需要一个新的 Activity，这可能会导致资源消耗较大。\n\
+  *   每个 Activity 都需要在 Android 清单文件中声明，不过当你使用向导创建 Activity 时，Android Studio 会自动完成此操作，因此这算不上大问题。\n\
+  *   你将难以使用更现代的导航模式，例如底部导航栏。\n\n由于这些限制，出现了另一种屏幕导航方式。2011 年，当 Google 发布 Android 4.0\
+  \ 时，我们开始使用*碎片（Fragment）*。如果你已经忘记了 Fragment，可以这样理解：Activity 基本上是一个 UI 的组合单元，而 Fragment\
+  \ 则是一个更小的组合单元。\n\nFragment 与 Activity 类似，由两部分组成：一个 Java 或 Kotlin 程序以及一个布局文件。其基本理念相同：在\
+  \ XML 文件中定义 UI，然后在运行时加载该 XML 文件，使得 XML 文件中的所有 UI 成为实际的 Java 对象。\n\n其思路是创建多个 Fragment，并将它们包含在单个\
+  \ Activity 中。通常，根据用户操作、设备方向或设备外形因素来显示或隐藏 Fragment；这通常通过 `FragmentManager` 和 `FragmentTransaction`\
+  \ 对象来完成。如果你之前使用过 Fragment，那么代码清单 10-3 中显示的代码片段可能会让你感到熟悉。\n\n```\nFragmentManager\
+  \ fm = getFragmentManager();\nFragmentTransaction ft = fm.beginTransaction();\n\
+  Fragment fragment = new FirstFragment();\nft.add(R.id.fragment_container, fragment);\n\
+  ft.commit();\n```\n\n代码清单 10-3. Fragment 代码片段\n\n与使用 Activity 导航不同，使用 Fragment 时，你能够确切知道导航栈中的内容；但是，正如你在代码清单\
+  \ 10-1 中所见，由于必须手动管理导航栈，这种方式可能会变得繁琐。\n\n到目前为止，你只有两种导航选择：要么使用基于 Activity 的导航，这种方式易于使用但会带来性能开销，并且你无法控制导航栈；要么使用\
+  \ Fragment，后者可以完全控制导航栈，但其 API 较为繁琐且容易出错。\n\n时间快进到 2017 年，Google 推出了导航组件。现在，你可以使用\
+  \ Fragment 而无需承担复杂 API 带来的负担。使用导航组件，代码清单 10-3 中的所有代码现在都可以替换为代码清单 10-4 所示的一行代码。\n\
+  \n```\nfindNavController().navigate(destination);\n// FragmentManager fm = getFragmentManager();\n\
+  // FragmentTransaction ft = fm.beginTransaction();\n// Fragment fragment = new FirstFragment();\n\
+  // ft.add(R.id.fragment_container, fragment);\n// ft.commit();\n```\n\n代码清单 10-4.\
+  \ 导航组件代码片段\n\n\n\n## 导航组件\n\n没错，上一节那行代码引用可能让你既兴奋又松了一口气。但这里的关键并非节省敲击次数，而是你现在能够同时享受基于\
+  \ Activity 和基于 Fragment 的导航的优势。现在，Fragment 导航也拥有了简洁的 API。\n\n但首先，你需要对导航组件有所了解。它们是架构组件（Architecture\
+  \ Components）的一小部分，而架构组件又隶属于一个名为 Android Jetpack 的更大体系。（我在此不会详细讲解 Jetpack 或架构组件，因为它们涉及范围很广；但简要的背景介绍总归是有益的。）\n\
+  \n在 2017 年 Google I/O 大会上，谷歌推出了 Android 架构组件。这些库是一个名为 Android Jetpack 的更大集合的一部分。与架构组件一同推出的还有\
+  \ Foundation、Behavior 和 UI 等其他类别。\n\nJetpack 是一个 Android 软件组件集合，旨在让我们的开发工作更轻松。它帮助我们遵循最佳实践，并避免编写过多的样板代码。你可以在\
+  \ `androidx.*` 包库中找到 Jetpack 代码。\n\n以下是 Jetpack 组件的简要说明。\n\n**Foundation**\n\n-\
+  \ **AppCompat**：让你编写的代码能在较旧版本的 Android 上优雅地降级运行。\n- **Android KTX**：如果你使用 Kotlin，它能让你编写更简洁、更地道的\
+  \ Kotlin 代码。\n- **Multidex**：为包含多个 DEX 文件的应用提供支持。\n- **Test**：用于单元测试和运行时 UI 测试的测试框架。\n\
+  \n**Behavior**\n\n- **Download manager**：让你编写用于调度和管理大型下载任务的程序。\n- **Media and Playback**：用于媒体播放和路由的向后兼容\
+  \ API。\n- **Notifications**：提供向后兼容的通知 API，并支持 Wear 和 Auto。\n- **Permissions**：用于检查和请求应用权限的兼容性\
+  \ API。\n- **Preferences**：创建交互式设置界面。\n- **Sharing**：提供适用于应用操作栏的分享操作。\n- **Slices**：创建灵活的\
+  \ UI 元素，可在应用外部显示应用数据。\n\n**UI**\n\n- **Animations and Transitions**：实现小部件的移动和屏幕间的过渡。\n\
+  - **Auto**：如果你正在开发将在车辆信息娱乐系统中运行的应用，你会需要它。这些组件帮助你为 Android Auto 构建应用。\n- **Emoji**：在较旧的平台上启用更新版本的\
+  \ Emoji 字体。\n- **Fragment**：所有 Fragment 代码都已迁移至此。\n- **Layout**：使用不同算法布局小部件。\n-\
+  \ **Palette**：从调色板中提取有用信息。\n- **TV**：帮助开发 Android TV 应用的组件。\n- **Wear OS by Google**：如果你想处理\
+  \ Android 可穿戴设备（如手表），你会需要它。\n\n**Architecture**\n\n- **Data binding**：声明式地将可观察数据绑定到\
+  \ UI 元素。\n- **Lifecycles**：管理 Activity 和 Fragment 的生命周期。\n- **LiveData**：当底层数据库发生变化时通知视图。\n\
+  - **Paging**：按需从数据源逐步加载信息。可以想象当用户滚动列表时——它能帮助你处理数据加载。它与 Recycler 视图配合使用。\n- **ViewModel**：以生命周期感知的方式管理与\
+  \ UI 相关的数据。\n- **WorkManager**：管理后台任务。\n- **Navigation**：实现应用内的导航。在屏幕间传递数据。提供来自应用外部的深层链接。\n\
+  - **Room**：可以将其视为 SQLite 数据库的 ORM。\n\nJetpack 中有很多内容值得探索，请务必了解一下。\n\n回到我们的主题，导航组件简化了应用内各目的地（destinations）之间的导航实现。一个*目的地*是应用中的任何位置。它可以是一个\
+  \ Activity、Activity 内的一个 Fragment 或一个自定义视图；目的地通过导航图（navigation graph）进行管理。\n\n导航图将所有目的地分组，并定义目的地之间的不同连接；这些连接被称为*动作（actions）*。该图实际上是一个\
+  \ XML 资源文件，代表你应用的所有导航路径。你的应用中可以有多个导航图。\n\n### 使用 Jetpack 导航\n\n为了更好地理解导航组件，最好动手做一个小的项目。因此，如图\
+  \ 10-2 所示，在 Android Studio 中创建一个新的空项目。别忘了勾选 `Use AndroidX artifacts`选项。请记住，所有支持库现在都在\
+  \ `AndroidX` 包中；你需要它们，因为你将使用 Fragment。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig2_HTML.jpg](img/476822_1_En_10_Fig2_HTML.jpg)\n\
+  \n图 10-2. 使用 AndroidX 工件创建的新空项目\n\n顺便提一下，如果你还没有更新或升级到最新版本的 Android Studio，现在是个好时机。在撰写本文时，如果你想使用导航，必须使用\
+  \ Android Studio v3.3 或更高版本；此外，你还需要将导航组件的依赖项添加到你的项目中。因此，创建项目后，找到模块级别的 `build.gradle`\
+  \ 文件并添加条目，如代码清单 10-5 所示。\n\n```\ndependencies {\ndef nav_version = \"2.1.0-alpha02\"\
+  \n...\nimplementation \"androidx.navigation:navigation-fragment:$nav_version\"\n\
+  implementation \"androidx.navigation:navigation-ui:$nav_version\"\n}\n代码清单 10-5.\
+  \ 将导航添加到 build.gradle\n```\n\n添加依赖项后，你需要同步 Gradle 文件。\n\n\n\n### 注意\n\n请记住，你的项目中有两个\
+  \ Gradle 文件。你需要编辑模块级别的 Gradle 文件，如图 10-3 所示。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig3_HTML.jpg](img/476822_1_En_10_Fig3_HTML.jpg)\n\
+  \n图 10-3. `build.gradle`（模块）\n\n同步完成后，向项目添加一个导航图。你可以通过创建新的资源文件来创建导航图：右键单击项目的 `res`\
+  \ 文件夹，然后选择“新建 ➤ 资源文件”，如图 10-4 所示。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig4_HTML.jpg](img/476822_1_En_10_Fig4_HTML.jpg)\n\
+  \n图 10-4. 添加新的资源文件\n\n在“新建资源文件”对话框中，将资源类型更改为“导航（Navigation）”并提供文件名：\n\n*   **文件名**：`nav_graph`\n\
+  *   **资源类型**：导航（Navigation）（必须点击下拉箭头进行选择）\n\n图 10-5 显示了“新建资源文件”对话框。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig5_HTML.jpg](img/476822_1_En_10_Fig5_HTML.jpg)\n\
+  \n图 10-5. 新的资源文件信息\n\n点击“确定”来创建新的资源文件。\n\n创建资源后，你会看到项目 `res` 文件夹下出现了一个新文件夹（`navigation`）和一个新文件（`nav_graph.xml`），如图\
+  \ 10-6 所示。Android Studio 将在编辑器中打开新创建的导航图。图 10-6 显示了新创建的导航图，它当然是空的。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig6_HTML.jpg](img/476822_1_En_10_Fig6_HTML.jpg)\n\
+  \n图 10-6. 导航图\n\n当你使用导航组件时，导航是作为目的地（Destinations）之间的交互发生的。目的地是你的用户可以导航到的位置，并且目的地通过动作（Actions）连接。目前，你还没有任何目的地，所以让我们添加一个。点击导航编辑器顶部面板上的加号，如图\
+  \ 10-7 所示，然后选择“创建新目的地（Create a New Destination）”选项。\n\n这将显示一个用于创建新 Fragment 的对话框。我更改了新\
+  \ Fragment 的名称，并保留了其余字段不变，如图 10-7 所示。这个新 Fragment 的详细信息如下：\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig7_HTML.jpg](img/476822_1_En_10_Fig7_HTML.jpg)\n\
+  \n图 10-7. 新的 Android 组件\n\n*   **Fragment 名称**：`One`\n*   **Fragment 布局名称**：`fragment_one`\n\
+  *   保持源语言为 **Java**\n\n点击“完成”开始创建新的 Fragment；这个 Fragment 将成为你应用中的一个目的地。创建另一个目的地，并将其\
+  \ Fragment 名称设为 \"Two\"。导航编辑器应该如图 10-8 所示。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig8_HTML.jpg](img/476822_1_En_10_Fig8_HTML.jpg)\n\
+  \n图 10-8. 导航编辑器\n\n另外请注意，现在有两个新的 Java 类（`One.java` 和 `Two.java`）以及两个新的布局文件（`fragment_one.xml`\
+  \ 和 `fragment_two.xml`）。这些文件是在你创建目的地 One 和 Two 时生成的。注意在图 10-8 中，Fragment One 旁边有一个主页图标。这只是因为你首先创建了它。主页目的地或起始目的地是用户首先看到的屏幕。你可以随时通过右键单击任何目的地，然后点击“设为主页目的地（Set\
+  \ as start destination）”选项来更改起始目的地，但现在，保持 One 为起始目的地。\n\n现在，你的导航图中还没有 `NavHost`；它需要一个。`NavHost`\
+  \ 扮演着你所有目的地的视口角色。它是一个空容器，当用户在应用中导航时，目的地会在其中进行切换。`NavHost` 需要位于一个 Activity 内。你将把\
+  \ `NavHost` 放进你的 `MainActivity` 中。\n\n打开 `MainActivity` 的布局文件（位于 `res/layout/activity_main.xml`），然后在文本模式下编辑。默认的\
+  \ `activity_main` 包含一个单一的 `TextView` 对象；将其删除，并替换为清单 10-6 中的代码片段。\n\n| ❶ | 它需要一个\
+  \ ID，就像资源文件中的任何其他元素一样。我为此使用了 `nav_container`；你可以随意命名。 |\n| ❷ | 这是 `NavHostFragment`\
+  \ 类的完全限定名。它属于导航组件，负责让你的 `MainActivity` 成为所有已定义目的地的视口。 |\n| ❸ | `app:navGraph` 属性告诉运行时你想在\
+  \ `MainActivity` 中托管哪个导航图。请记住，应用中可以有多个导航图；`nav_graph` 是你之前给导航图 XML 资源起的名字。 |\n|\
+  \ ❹ | 当你将 `defaultNavHost` 设置为 *true* 时，这会确保 `NavHostFragment` 拦截系统返回按钮；这样，当用户点击返回按钮时，Android\
+  \ 将显示你应用中的上一个屏幕，而不是碰巧在返回栈中的外部应用屏幕。 |\n\n```\n清单 10-6.\n在 activity_main.xml 中定义 NavHost\n\
+  ```\n\n现在是将你的两个目的地连接起来的时候了。再次打开导航图；它位于 `res/navigation/nav_graph`。\n\n你希望用户从目的地\
+  \ One 导航到目的地 Two。因此，将鼠标悬停在目的地 One 上，直到其右侧出现一个小圆圈。点击并将此点拖拽到目的地 Two，以便将两个目的地连接起来，如图\
+  \ 10-9 所示。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig9_HTML.jpg](img/476822_1_En_10_Fig9_HTML.jpg)\n\
+  \n图 10-9. 连接 One 和 Two\n\n现在，目的地 One 已连接到目的地 Two。如果你选择 One 和 Two 之间的连接，你会看到它有你可以设置的属性，如图\
+  \ 10-10 所示。你不需要处理这些属性；你只想连接这两个目的地。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig10_HTML.jpg](img/476822_1_En_10_Fig10_HTML.jpg)\n\
+  \n图 10-10. 导航图\n\n为了测试这个小应用，你需要在起始目的地中有一个能触发动作的对象，比如一个按钮。按如下方式修改两个 Fragment 的布局：\n\
+  \n**fragment_one**\n\n*   将布局更改为 `ConstraintLayout` 或任何适合你的布局。\n*   删除 `TextView`，替换为一个按钮并将其居中。\n\
+  \n**fragment_two**\n\n*   像 `fragment_one` 一样，将布局更改为 `ConstraintLayout`。\n*   更改\
+  \ `TextView` 的文本并将其居中。\n\n图 10-11 显示了带有更改预览的导航图。\n\n![../images/476822_1_En_10_Chapter/476822_1_En_10_Fig11_HTML.jpg](img/476822_1_En_10_Fig11_HTML.jpg)\n\
+  \n图 10-11. 修改后的 Fragment\n\n接下来，为你的按钮添加一个点击处理器。你将添加代码，使得当按钮被点击时，`fragment_one` 能导航到\
+  \ `fragment_two`。\n\n导航到目的地是使用 `NavController` 完成的；它是一个对象，用于管理 `NavHost` 内的应用导航。每个\
+  \ `NavHost` 都有其对应的 `NavController`。\n\n`NavController` 允许你以两种方式导航到目的地：1) 使用 ID 导航到目的地，这也是你将在这里使用的；2)\
+  \ 使用 URI 导航，我把这个留给你自行探索。\n\n\n\n为了给按钮添加点击处理程序，请打开`One.java`（其中包含您的`One`目的地的 Java\
+  \ 源文件），并确保其内容类似于清单 10-7 所示。\n\n```\npublic class One extends Fragment {\npublic\
+  \ One() {\n// Required empty public constructor\n}\n@Override\npublic View onCreateView(LayoutInflater\
+  \ inflater, ViewGroup container,\nBundle savedInstanceState) {\n// Inflate the layout\
+  \ for this fragment\nfinal View view = inflater.inflate(R.layout.fragment_one, container,\
+  \ false);\nview.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener()\
+  \ {\n@Override\npublic void onClick(View v) {\nNavigation.findNavController(view).navigate(R.id.action_one_to_two2);\n\
+  }\n});\nreturn view;\n}\n}\nListing 10-7.\nClass One\n```\n\n清单 10-7 中最关键的一行代码是`NavController`对象的`navigate()`方法。您只需将在导航图中创建的操作的\
+  \ ID 作为参数传递给`navigate()`，即可实现导航。现在您可以启动模拟器并测试该应用。\n\n本章仅触及了导航组件的皮毛。该领域还有许多值得探索的内容，请继续深入。\n\
+  \n## 本章小结\n\n*   您仍然可以在应用中使用基于 Activity 或基于 Fragment 的导航，但请记得它们各自的优缺点。\n*   导航组件结合了基于\
+  \ Activity 和基于 Fragment 导航的最佳特性；其 API 易于使用，并且您可以更好地控制返回栈。\n*   导航组件引入了*目的地*的概念。目的地可以是\
+  \ Fragment、Activity 或自定义视图；它们是用户导航到的目标。\n*   目的地通过导航图进行分组；导航图是一个 XML 资源文件，其中包含目的地之间的所有*动作*。\n\
+  *   目的地通过动作相互连接。\n*   导航的基本思路是：\n    1.  创建导航图。\n    2.  创建目的地。\n    3.  连接目的地；每个连接成为一个动作。\n\
+  \    4.  使用`NavController`对象以编程方式从一个目的地导航到另一个目的地。您可以使用 ID 或 URI 进行导航。\n\n"
+- "# 11. Lifecycle、ViewModel、LiveData 和 Room\n\n*本章涵盖内容：*\n\n*   生命周期感知组件\n*   ViewModel\n\
+  *   LiveData\n*   Room\n\n您在上一章已初步了解了架构组件。本章将探讨架构组件中的其他一些库，特别是 Room。它是一个基于 SQLite\
+  \ 的持久化库。如果您之前使用过 ORM（对象关系映射器），可以将 Room 视为类似的东西。\n\n在本章中，您还将探索一些与 Room 库紧密配合的架构组件库。您将了解到生命周期感知组件、LiveData\
+  \ 和 ViewModel；这些库与 Room 一起，是您构建流畅且稳定的数据库应用所需的部分。\n\n## 生命周期感知组件\n\n生命周期感知组件会响应另一组件生命周期状态的变化而执行相应操作。如果您熟悉*观察者-被观察者*设计模式，那么生命周期感知组件的工作方式与之类似。\n\
+  \n您需要学习一些新术语：\n\n*   **Lifecycle Owner**：一个具有生命周期的组件，例如 Activity 或 Fragment。它在其生命周期中可以进入多种状态，如`CREATED`、`RESUMED`、`PAUSED`、`DESTROYED`等。Lifecycle\
+  \ Observer 可以接入 Lifecycle Owner，并在其生命周期状态发生变化时（例如当 Activity 进入`CREATED`状态时）得到通知。例如，在它进入`onCreate()`后，我有时会将\
+  \ Lifecycle Owner 称为可观察者。\n*   **Lifecycle Observer**：一个监听 Lifecycle Owner 生命周期状态变化的对象。它是一个实现了`LifecycleObserver`接口的类。\n\
+  \n借助生命周期感知组件，您可以观察诸如 Activity 之类的组件，并随着它进入其任何生命周期状态而执行相应的操作。清单 11-1 和 11-2 展示了如何在\
+  \ Lifecycle Owner（`MainActivity`）和 Lifecycle Observer（`MainActivityObserver`）之间建立观察者-被观察者关系的示例。\n\
+  \n### 注意\n\n如果您正在创建项目以跟随本章的代码示例，请不要忘记勾选“Use AndroidX artifacts”复选框，如图 11-1 所示。您需要`AppCompatActivity`的新功能来处理生命周期扩展。\n\
+  \n![../images/476822_1_En_11_Chapter/476822_1_En_11_Fig1_HTML.jpg](img/476822_1_En_11_Fig1_HTML.jpg)\n\
+  \n图 11-1. AndroidX artifacts\n\n为了演示生命周期的概念，您将研究两个类：\n\n*   `MainActivity`：这是一个简单的\
+  \ Activity，与您在创建包含空 Activity 的项目时 IDE 生成的任何其他 Activity 非常相似。代码示例见清单 11-2。\n*   `MainActivityObserver`：一个实现了`LifeCycleObserver`接口的\
+  \ Java 类。这将是您的监听器对象；代码在清单 11-1 中列出并注释。\n\n\n\n### 注意\n\n你可以选择亲自输入代码示例，也可以参考随书附带的源代码。如果你更倾向于自己动手编写代码，需要按以下步骤操作：\n\
+  \n1.  创建一个包含空活动（activity）的项目。\n2.  添加清单 11-3 中所示的 Room 依赖。\n\n首先，我们来看看观察者对象。清单 11-1\
+  \ 展示了带注释的代码。\n\n| ➊ | 如果你想要观察其他组件的生命周期变化，就需要实现 `LifecycleObserver` 接口。这一行代码使得该类成为一个观察者。\
+  \ |\n| ➋ | 使用 `OnLifecycleEvent` 注解来告诉 Android 运行时，当生命周期事件发生时，应调用被修饰的方法。在此例中，你正在监听被观察对象的\
+  \ `ON_CREATE` 事件。该装饰器的参数指示了你要监听哪个生命周期事件。 |\n| ➌ | 这是被修饰的方法。当你正在观察的对象进入 `ON_CREATE`\
+  \ 生命周期状态时，该方法会被调用。你可以随意命名这个方法；我这里把它命名为 `onCreateEvent()`，因为它具有描述性。当然，你也可以根据自己的喜好命名；方法名无关紧要，因为你已经对其进行了修饰，所以注解就足够了。\
+  \ |\n| ➍ | 这是你执行有趣操作以响应生命周期状态变化的地方。 |\n\n```java\nimport androidx.lifecycle.Lifecycle;\n\
+  import androidx.lifecycle.LifecycleObserver;\nimport androidx.lifecycle.OnLifecycleEvent;\n\
+  public class MainActivityObserver implements LifecycleObserver {  ➊\n@OnLifecycleEvent(Lifecycle.Event.ON_CREATE)\
+  \ ➋\npublic void onCreateEvent() {  ➌\nSystem.out.println(\"EVENT: onCreate Event\
+  \ fired\");  ➍\n}\n@OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)\npublic void onPauseEvent()\
+  \ {\nSystem.out.println(\"EVENT: onPause Event fired\");\n}\n@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)\n\
+  public void onResumeEvent() {\nSystem.out.println(\"EVENT: onResume Event fired\"\
+  );\n}\n}\n清单 11-1.\nMainActivityObserver 类\n```\n\n| ➊ | 从 `MainActivity`（作为被观察者）的角度来看，你唯一需要做的就是在\
+  \ `LifeCycleOwner` 接口中使用 `addObserver()` 方法添加一个观察者对象。是的，`AppCompatActivity` 实现了\
+  \ `LifeCycleOwner`；这就是你可以在活动（activity）中调用 `getLifecycle()` 方法的原因。你只需传递一个观察者类的实例（在本例中是\
+  \ `MainActivityObserver`），即可在活动（activity）和普通类之间建立生命周期感知。 |\n\n```java\npublic class\
+  \ MainActivity extends AppCompatActivity {\n@Override\nprotected void onCreate(Bundle\
+  \ savedInstanceState) {\nsuper.onCreate(savedInstanceState);\nsetContentView(R.layout.activity_main);\n\
+  getLifecycle().addObserver(new MainActivityObserver()); ➊\n}\n}\n清单 11-2.\nMainActivity\
+  \ 类\n```\n\n同样，如果你要亲自尝试这段代码，别忘了在你的项目的 `build.gradle` 文件（模块级别）中添加 Room 依赖，如清单 11-3\
+  \ 中的代码片段所示。\n\n```gradle\ndependencies {\ndef lifecycle_version = \"2.0.0\"\nimplementation\
+  \ \"androidx.lifecycle:lifecycle-extensions:$lifecycle_version\"\nannotationProcessor\
+  \ \"androidx.lifecycle:lifecycle-compiler:$lifecycle_version\"\n...\n}\n清单 11-3.\n\
+  build.gradle 文件，模块级别\n```\n\n### 注意\n\n编写本书时，`lifecycle_version` 为 `2.0.0`，但当你阅读此书时，该版本可能已不同。你可以访问\
+  \ [`https://bit.ly/lifecyclerelnotes`](https://bit.ly/lifecyclerelnotes) 查看生命周期库的当前版本。\n\
+  \n## ViewModel\n\nAndroid 框架管理着 UI 控制器（如活动（activities）和片段（fragments））的生命周期；它可能会根据某些用户操作（如点击返回按钮）或设备事件（如旋转屏幕）来决定销毁或重新创建活动（activity）（或片段（fragment））。这些配置变更不在你的控制范围内。\n\
+  \n如果运行时决定销毁 UI 控制器，那么你当前在其中存储的任何瞬态 UI 相关数据都将丢失。我们以一个简单应用为例。清单 11-4、11-5 和 11-6 展示了一个简单的应用，每次活动（activity）被创建时，它都会显示一个随机数。\n\
+  \n清单 11-4 展示了随机数生成器的代码。它只有两个方法：`getNumber()` 和 `createRandomNumber()`；每个方法都留下了日志语句，这样你就能在日志中看到它们被调用的时间和次数。`getNumber()`\
+  \ 方法的逻辑很简单：如果 `minitialized` 变量为 false，这意味着你是第一次创建 `RandomNumber` 类的实例，因此你将生成随机数然后直接返回。否则，你将返回\
+  \ `minitialized` 的当前值。\n\n```java\nimport android.util.Log;\nimport java.util.Random;\n\
+  public class RandomNumber  {\nprivate String TAG = getClass().getSimpleName();\n\
+  int mrandomnumber;\nboolean minitialized = false;\nString getNumber() {\nif(!minitialized)\
+  \ {\ncreateRandomNumber();\n}\nLog.i(TAG, \"RETURN Random number\");\nreturn mrandomnumber\
+  \ + \"\";\n}\nvoid createRandomNumber() {\nLog.i(TAG, \"CREATE NEW Random number\"\
+  );\nRandom random = new Random();\nmrandomnumber = random.nextInt(100);\nminitialized\
+  \ = true;\n}\n}\n清单 11-4.\nRandomNumber 类\n```\n\n清单 11-5 展示了 `MainActivity` 的代码。所有操作都在\
+  \ `onCreate()` 方法内完成。当 `MainActivity` 进入 *CREATED* 状态时，你创建了 `RandomNumber` 类的一个实例，调用\
+  \ `getNumber()` 方法，并将 `TextView` 的值设置为 `getNumber()` 方法的结果。\n\n```java\npublic class\
+  \ MainActivity extends AppCompatActivity {\n@Override\nprotected void onCreate(Bundle\
+  \ savedInstanceState) {\nsuper.onCreate(savedInstanceState);\nsetContentView(R.layout.activity_main);\n\
+  RandomNumber data = new RandomNumber();\n((TextView) findViewById(R.id.txtrandom)).setText(data.getNumber());\n\
+  }\n}\n清单 11-5.\nMainActivity 类\n```\n\n清单 11-6 展示了布局代码，供你参考。\n\n```xml\n<!-- 源代码位于此处，但未提供具体内容，故保留空代码块结构\
+  \ -->\n```\n清单 11-6.\nactivity_main.xml\n```\n\n当你首次运行这段代码时，你会看到 `TextView` 中显示一个随机数——这并不意外。你还会在\
+  \ Logcat 窗口中看到 `createNumber()` 和 `getNumber()` 的日志条目——这同样不意外。现在，当应用在模拟器上运行时，尝试改变设备的方向。你会注意到，每次屏幕方向改变时，`TextView`\
+  \ 中显示的数字也会随之改变。此外，你还会注意到 Logcat 中出现了 `createNumber()` 和 `getNumber()` 方法的额外日志。这是因为运行时每次屏幕方向改变时都会销毁并重新创建\
+  \ `MainActivity`。你的 `RandomNumber` 对象也会随着 `MainActivity` 一起被销毁和重新创建；你的 UI 数据无法在方向变更中幸存下来。\n\
+  \n这正是使用 ViewModel 库的好时机，这样 UI 数据就能在 `Activity` 类的销毁和重新创建过程中幸存下来。实现 ViewModel 只需做三件事：\n\
+  \n1.  将生命周期扩展（lifecycle extensions）添加到项目的依赖中，就像你之前做的那样。请返回清单 11-3 查看说明。\n2.  要使\
+  \ `RandomGenerator` 类成为 ViewModel，你需要从 AndroidX 生命周期库中继承 `ViewModel` 类。\n\n\n\n\
+  3.  从`MainActivity`中，通过`ViewModelProviders`类的工厂方法获取`RandomNumber`类的实例，而不是直接创建`RandomNumber`类的实例。\n\
+  \n清单 11-7 展示了`RandomNumber`类的变化；`RandomNumber`类通过简单地继承`ViewModel`类，自动转换为 ViewModel\
+  \ 对象。\n\n```java\nimport java.util.Random;\nimport androidx.lifecycle.ViewModel;\n\
+  public class RandomNumber extends ViewModel {\nprivate String TAG = getClass().getSimpleName();\n\
+  int mrandomnumber;\nboolean minitialized = false;\nString getNumber() {\nif(!minitialized)\
+  \ {\ncreateRandomNumber();\n}\nLog.i(TAG, \"RETURN Random number\");\nreturn mrandomnumber\
+  \ + \"\";\n}\nvoid createRandomNumber() {\nLog.i(TAG, \"CREATE NEW Random number\"\
+  );\nRandom random = new Random();\nmrandomnumber = random.nextInt(100);\nminitialized\
+  \ = true;\n}\n}\n```\n*清单 11-7. `RandomNumber` 继承 `ViewModel`*\n\n该类与其先前版本（清单 11-4\
+  \ 所示）基本相同；唯一的区别是现在它继承了`ViewModel`。\n\n现在，让我们在`MainActivity`中实现这些更改。清单 11-8 展示了修改后的`MainActivity`，它使用`ViewModelProviders`来获取`RandomNumber`类的实例，即\
+  \ ViewModel 对象。\n\n| ➊ | 这是你需要在`MainActivity`中做的唯一改动。无需通过在`onCreate()`方法内直接创建 ViewModel\
+  \ 对象（`RandomNumber`类）的实例来管理它，而是让`ViewModelProviders`类管理 ViewModel 对象的生命周期。 |\n\n\
+  ```java\nimport androidx.lifecycle.ViewModelProviders;\nimport android.os.Bundle;\n\
+  import android.widget.TextView;\npublic class MainActivity extends AppCompatActivity\
+  \ {\n@Override\nprotected void onCreate(Bundle savedInstanceState) {\nsuper.onCreate(savedInstanceState);\n\
+  setContentView(R.layout.activity_main);\nRandomNumber data;\ndata = ViewModelProviders.of(this).get(RandomNumber.class);\
+  \ ➊\n((TextView) findViewById(R.id.txtrandom)).setText(data.getNumber());\n}\n}\n\
+  ```\n*清单 11-8. `MainActivity` 和 `ViewModelProviders`*\n\n## `LiveData`\n\n回到`RandomNumber`示例，这里有一个应用，每次启动时都会显示一个随机数。该应用已经使用了`ViewModel`，因此你不会再遇到每次\
+  \ Activity 被销毁和重建时丢失数据的问题。基本数据流如图 11-2 所示。\n\n![../images/476822_1_En_11_Chapter/476822_1_En_11_Fig2_HTML.jpg](img/476822_1_En_11_Fig2_HTML.jpg)\n\
+  \n*图 11-2. `RandomNumber` 示例的数据流*\n\n但是，如果你需要获取另一个数字呢？为此，你可以在`MainActivity`中添加一个触发器，例如一个按钮，然后按钮将调用\
+  \ ViewModel 上的`getNumber()`方法，但如何刷新`MainActivity`中的`TextView`呢？有几种方法可以做到这一点，你可能已经遇到过。一种促进\
+  \ ViewModel 与 Activity 之间数据交换的方法是创造性地使用接口（但我不会在此讨论），或者使用像 Otto 这样的 EventBus（我也不会在此讨论）。不过，幸运的是，由于架构组件的出现，你可以使用`LiveData`。新的数据流如图\
+  \ 11-3 所示。\n\n| ➊ | 用户点击**FETCH**按钮，该按钮调用`getNumber()`函数；实际上，它先调用`createNumber()`，然后调用`getNumber()`。这样，你就能真正获取一个新的随机数。有更优雅的方法可以实现这一点，但这是最快的方法，请稍安勿躁。\
+  \ |\n| ➋ | 你的 ViewModel 对象获取一个新的随机数。这不再是一个简单的字符串；它被改为`MutableLiveData`，从而变为*可观察的*。\
+  \ |\n| ➌ | 从`MainActivity`中，获取来自 ViewModel 对象的`LiveData`实例，并编写一些代码来*观察*它。然后，只需对`LiveData`的变化做出响应。\
+  \ |\n\n![../images/476822_1_En_11_Chapter/476822_1_En_11_Fig3_HTML.jpg](img/476822_1_En_11_Fig3_HTML.jpg)\n\
+  \n*图 11-3. 使用`LiveData`的`RandomNumber`示例*\n\n让我们看看这在代码中如何实现。清单 11-9 和 11-10 分别展示了\
+  \ ViewModel 和`MainActivity`的代码。\n\n| ➊ | `mrandomnumber`的值是你返回给`MainActivity`的内容。你希望这是一个*可观察的*对象。为此，将其类型从`int`改为`MutableLiveData`。\
+  \ |\n| ➋ | 你也必须在此处进行类型更改。由于`mrandomnumber`现在是`MutableLiveData`，此函数也必须返回`MutableLiveData`。\
+  \ |\n| ➌ | 要设置`MutableLiveData`的值，请使用`setValue()`方法。 |\n\n```java\nimport androidx.lifecycle.MutableLiveData;\n\
+  import androidx.lifecycle.ViewModel;\npublic class RNModel extends ViewModel {\n\
+  private String TAG = getClass().getSimpleName();\nMutableLiveData mrandomnumber\
+  \ = new MutableLiveData(); ➊\nboolean minitialized = false;\nMutableLiveData getNumber()\
+  \ { ➋\nif(!minitialized) {\ncreateRandomNumber();\n}\nLog.i(TAG, \"RETURN Random\
+  \ number\");\nreturn mrandomnumber;\n}\nvoid createRandomNumber() {\nLog.i(TAG,\
+  \ \"CREATE NEW Random number\");\nRandom random = new Random();\nmrandomnumber.setValue(random.nextInt(100)\
+  \ + \"\"); ➌\nminitialized = true;\n}\n}\n```\n*清单 11-9. 使用 LiveData 的 ViewModel*\n\
+  \n现在，你可以继续对`MainActivity`进行修改。清单 11-10 展示了`MainActivity`的修改后带注释的代码。\n\n\n\n| ➊ |\
+  \ 从 ViewModel 中获取随机数。该随机数不再是`String`类型；而是`MutableLiveData`类型。 |\n| ➋ | 这是按钮点击的样板代码。你需要此触发器从\
+  \ ViewModel 中获取随机数。 |\n| ➌ | 要*观察*一个`LiveData`，你需要调用`observe()`方法。该方法接受两个参数：第一个参数是生命周期所有者（`MainActivity`，因此传入`this`），第二个参数是一个`Observer`对象。这里使用匿名类来创建`Observer`对象。\
+  \ |\n| ➍ | 每当 ViewModel 中随机数（`mrandomnumber`）的值发生变化时，都会调用`onChanged()`方法；因此，当其发生变化时，你相应地设置`TextView`的值。\
+  \ |\n\n```java\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.lifecycle.MutableLiveData;\n\
+  import androidx.lifecycle.Observer;\nimport androidx.lifecycle.ViewModelProviders;\n\
+  import android.os.Bundle;\nimport android.view.View;\nimport android.widget.Button;\n\
+  import android.widget.TextView;\npublic class MainActivity extends AppCompatActivity\
+  \ {\n@Override\nprotected void onCreate(Bundle savedInstanceState) {\nsuper.onCreate(savedInstanceState);\n\
+  setContentView(R.layout.activity_main);\nfinal RNModel data;\ndata = ViewModelProviders.of(this).get(RNModel.class);\n\
+  final TextView txtnumber = (TextView) findViewById(R.id.txtrandom);\nMutableLiveData\
+  \ mnumber = data.getNumber(); ➊\nButton btn = (Button) findViewById(R.id.button);\
+  \  ➋\nbtn.setOnClickListener(new View.OnClickListener() {\n@Override\npublic void\
+  \ onClick(View v) {\ndata.createRandomNumber();\ndata.getNumber();\n}\n});\nmnumber.observe(this,\
+  \ new Observer() { ➌\n@Override\npublic void onChanged(String val) { ➍\ntxtnumber.setText(val);\n\
+  }\n});\n}\n}\n```\n清单 11-10. `MainActivity`\n\n很棒，对吧？如果你仍未决定使用`LiveData`，这里有一些值得考虑的优点。当你使用`LiveData`时：\n\
+  \n*   **你确信 UI 始终与数据状态匹配。** 你已从示例中看到了这一点。`LiveData`遵循观察者模式，因此当其值发生改变时会通知观察者。\n\n\
+  *   **没有内存泄漏。** 观察者被绑定到生命周期对象。例如，如果你的`MainActivity`进入暂停状态（出于某种原因，比如另一个活动在前台），`LiveData`将不会被观察。如果`MainActivity`被销毁，`LiveData`同样不会被观察，并且它会自行清理——这也意味着你无需手动管理`MainActivity`和\
+  \ ViewModel 的生命周期。\n\n## Room\n\n如果你想在应用程序中包含数据库功能，你可能会考虑使用`Room`。在`Room`出现之前，构建数据库应用程序的两种流行方法是使用`Realm`或直接使用老牌的`SQLite`。处理`SQLite`被认为过于底层；它感觉太接近底层，因此使用起来有些繁琐。`Realm`在开发者中相当流行，但无论多么流行，它都不是第一方解决方案。幸运的是，我们现在有了`Room`。\n\
+  \n`Room`是对`SQLite`的一层抽象。如果你以前使用过`ORM`（例如`Hibernate`），那么它与此类似。与使用普通`SQLite`相比，`Room`有几个优点。使用`Room`：\n\
+  \n*   你不必为基本的数据库操作处理原始查询。\n*   在编译时，它会验证`SQL`查询，因此你无需担心`SQL`注入——还记得吗？\n*   你的数据库对象和`Java`对象之间没有阻抗不匹配。`Room`处理了这一点，因此你只需要处理`Java`对象。\n\
+  \n`Room`有三个主要组件：`Entity`、`Dao`和`Database`。它们与应用程序的关系如图 11-4 所示。\n\n![../images/476822_1_En_11_Chapter/476822_1_En_11_Fig4_HTML.jpg](img/476822_1_En_11_Fig4_HTML.jpg)\n\
+  \n图 11-4. `Room` 组件\n\n*   **`Entity`**：一个`Entity`用于表示一个数据库表。你将其编码为一个由`@Entity`注解修饰的类。\n\
+  *   **`Dao`**（数据访问对象）是一个包含访问数据库表方法的类。这是你编写 CRUD（创建、读取、更新和删除）操作的地方。这是一个由`@Dao`注解修饰的*接口*。\n\
+  *   **`Database`**：此组件持有对数据库的引用。它是一个由`@Database`注解修饰的抽象类。\n\n在项目中可以使用`Room`之前，你需要将其依赖项添加到`build.gradle`文件（模块级）中，如清单\
+  \ 11-11 所示。\n\n```\ndependencies {\ndef room_version = \"2.1.0-alpha07\"\nimplementation\
+  \ \"androidx.room:room-runtime:$room_version\"\nannotationProcessor \"androidx.room:room-compiler:$room_version\"\
+  \n. . .\n}\n```\n清单 11-11. `Room` 依赖\n\n清单 11-12、11-13、11-14 和 11-15 展示了四个`Java`源文件，它们演示了`Room`的基本用法。\n\
+  \n| ➊ | `@Entity`注解使其成为一个 Entity。如果你不传入`tableName`参数，表名将默认为被修饰类的名称。仅当你希望表名与被修饰类不同时，才需要传入此参数。因此，我在这里写的内容是不必要且多余的，因为我将`tableName`的值设置为“person”，这与被修饰类的名称相同。\
+  \ |\n| ➋ | 你将`uid`成员变量设为主键；你还声明它不能为空。 |\n| ➌ | 类的成员变量将自动成为表上的字段。除非你使用`@ColumnInfo`注解，否则表上的列名将沿用成员变量的名称。如果你希望表字段（列）的名称与成员变量的名称不同，请使用`@ColumnInfo`修饰，如下所示，并将`name`设置为你偏好的列名。\
+  \ |\n\n```java\nimport androidx.annotation.NonNull;\nimport androidx.room.Entity;\n\
+  import androidx.room.PrimaryKey;\n@Entity(tableName = \"person\") ➊\npublic class\
+  \ Person {\n@PrimaryKey(autoGenerate = true) ➋\n@NonNull public int uid;\n@ColumnInfo(name=\"\
+  last_name\") ➌\npublic String last_name;\npublic String first_name;\npublic Person(String\
+  \ lname, String fname) {\nlast_name = lname;\nfirst_name = fname;\n}\npublic Person()\
+  \ {}\n}\n```\n清单 11-12. `Person` 类，即 Entity\n\n\n\n| ➊ | DAO 需要使用 `@Dao` 装饰器进行注解。\
+  \ |\n| ➋ | DAO 必须编写为接口形式。 |\n| ➌ | 使用 `@Insert` 装饰器来指示被装饰的方法将用于向表中插入记录。类似地，你可以分别使用\
+  \ `@Update`、`@Query` 和 `@Delete` 装饰方法来执行更新、查询和删除操作。 |\n| ➍ | 使用 `@Query` 编写 SQL\
+  \ 查询语句。每个 `@Query` 会在编译时进行验证；如果查询有问题，会触发编译错误而非运行时错误。这应该能让你感到安心。 |\n\n```java\nimport\
+  \ java.util.List;\nimport androidx.room.Dao;\nimport androidx.room.Delete;\nimport\
+  \ androidx.room.Insert;\nimport androidx.room.Query;\nimport androidx.room.Update;\n\
+  \n@Dao ➊\ninterface PersonDAO { ➋\n    @Insert ➌\n    void insertPerson(Person person);\n\
+  \    @Update\n    void updatePerson(Person person);\n    @Delete\n    void deletePerson(Person\
+  \ person);\n    @Query(\"SELECT ∗ FROM person\") ➍\n    public List listPeople();\n\
+  }\n```\n*列表 11-13. PersonDAO，数据访问对象*\n\n| ➊ | 使用 `@Database` 来表明这个类是数据库持有者。使用 `entities`\
+  \ 参数指定数据库中的实体。如果你有多个实体，使用逗号分隔列表。第二个参数是 `version`，它是一个整数值，用于指定数据库的版本。 |\n| ➋ | `Database`\
+  \ 类是 *抽象* 的，并且继承自 `RoomDatabase`。 |\n| ➌ | 你需要提供一个抽象的方法，该方法将返回 DAO 对象的实例。 |\n| ➍\
+  \ | 你需要提供一个静态方法来获取数据库的实例。它不一定是单例模式，就像我这里所做的，但我想你不会希望有多个 `Database` 类的实例。 |\n| ➎\
+  \ | 使用 `databaseBuilder()` 方法来创建 `RoomDatabase` 的实例。builder 方法有三个参数：1) 应用上下文，2)\
+  \ 被 `@Database` 注解的抽象类，以及 3) 数据库文件的名称。这是 SQLite 数据库的文件名。 |\n\n```java\nimport android.content.Context;\n\
+  import androidx.room.Database;\nimport androidx.room.Room;\nimport androidx.room.RoomDatabase;\n\
+  \n@Database(entities = {Person.class}, version = 1) ➊\npublic abstract class AppDatabase\
+  \ extends RoomDatabase { ➋\n    private static AppDatabase minstance;\n    private\
+  \ static final String DB_NAME = \"person_db\";\n    public abstract PersonDAO getPersonDAO();\
+  \ ➌\n    public static synchronized AppDatabase getInstance(Context ctx) { ➍\n \
+  \       if(minstance == null) {\n            minstance = Room.databaseBuilder(ctx.getApplicationContext(),\
+  \ ➎\n                    AppDatabase.class,\n                    DB_NAME)\n    \
+  \                .fallbackToDestructiveMigration()\n                    .build();\n\
+  \        }\n        return minstance;\n    }\n}\n```\n*列表 11-14. AppDatabase，数据库持有者*\n\
+  \n现在你的所有 Room 组件都已就位，你可以从你的应用中使用它们了。列表 11-15 展示了如何从 Activity 中使用 Room 组件。\n\n| ➊\
+  \ | 要开始使用 `RoomDatabase`，请使用之前在 `AppDatabase` 中编写的工厂方法获取其实例。 |\n| ➋ | 让我们从 `TextViews`\
+  \ 中收集数据。 |\n| ➌ | Room 遵循最佳实践，因此它不允许你在主 UI 线程上执行任何数据库查询。你需要创建一个后台线程，并在其中运行所有的 Room\
+  \ 命令。在这里，我使用了简单直接的 `Thread` 和 `Runnable` 对象，但你可以自由使用任何其他后台执行方式，比如 `AsyncTask`。 |\n\
+  | ➍ | 使用来自 `TextViews` 的输入创建一个 `Person` 对象。 |\n| ➎ | 获取 DAO 的实例。 |\n| ➏ | 使用之前在\
+  \ DAO 中编写的 `insertPerson()` 方法执行 *插入* 操作。 |\n| ➐ | 执行 `SELECT` 操作。 |\n| ➑ | 列出 `person`\
+  \ 表中的所有条目。 |\n\n```java\npublic class MainActivity extends AppCompatActivity {\n\
+  \    private AppDatabase db;\n    @Override\n    protected void onCreate(Bundle\
+  \ savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\
+  \        Button btn = (Button) findViewById(R.id.button);\n        btn.setOnClickListener(new\
+  \ View.OnClickListener() {\n            @Override\n            public void onClick(View\
+  \ v) {\n                saveData();\n                System.out.println(\"Clicked\"\
+  );\n            }\n        });\n        db = AppDatabase.getInstance(this); ➊\n\
+  \    }\n    private void saveData() {\n        final String mlastname = ((TextView)\
+  \ findViewById(R.id.txtlastname)).getText().toString();\n        final String mfirstname\
+  \ = ((TextView) findViewById(R.id.txtfirstname)).getText().toString(); ➋\n     \
+  \   new Thread(new Runnable() { ➌\n            @Override\n            public void\
+  \ run() {\n                Person person = new Person(mlastname, mfirstname); ➍\n\
+  \                PersonDAO dao = db.getPersonDAO(); ➎\n                dao.insertPerson(person);\
+  \ ➏\n                List people = dao.listPeople(); ➐\n                for(Person\
+  \ p:people) { ➑\n                    System.out.printf(\"%s , %s\\n\", p.last_name,\
+  \ p.first_name );\n                }\n            }\n        }).start();\n    }\n\
+  }\n```\n*列表 11-15. MainActivity*\n\n在真实的应用中，你可能不会直接从 Activity 这样的 UI 控制器访问数据库。你可能会考虑引入一个\
+  \ `ViewModel` 类；这样一来，UI 控制器的职责就严格限定于展示数据，而不是充当模型。\n\n如果你将 Room 与 `ViewModel` 和 `LiveData`\
+  \ 结合使用，它可以提供更具响应性的 UI 体验。这里我没有详细展开，但这将是本章之后一个很好的练习课题。\n\n## 章节总结\n\n*   `AppCompatActivity`\
+  \ 对象现在是生命周期所有者。你可以编写另一个类来监听生命周期所有者的生命周期变化，并据此做出响应。Fragment 也是生命周期所有者——在使用生命周期感知组件时，别忘了在项目中使用\
+  \ AndroidX 组件。\n\n*   `ViewModel` 使你的 UI 数据能够抵御 UI 控制器（如 Activity 和 Fragment）的销毁和重建。\n\
+  \n*   `LiveData` 使得你的 UI 对象和模型数据之间建立双向关系。一方的变化会自动反映在另一方中。\n\n*   Room 是 SQLite 的\
+  \ ORM 框架。它是第一方解决方案，并且是架构组件的一部分。几乎没有理由不使用它。\n\n# 12. 发布构建版本\n\n*本章涵盖内容：*\n\n*   发布前的准备工作\n\
+  *   签署应用\n*   Google Play\n*   应用捆绑包\n\n你可以相当自由地分发你的应用，且没有太多限制。你可以让用户从你的网站、Google\
+  \ Drive、Dropbox 等下载；如果你愿意，甚至可以通过电子邮件直接将应用发送给用户。许多开发者选择在 Google 或 Amazon 等应用市场上分发应用，以最大限度地扩大覆盖范围。将应用放在值得信赖的数字市场还有另一个原因：那就是信任问题。当应用不是从可信来源下载时，应用无法立即使用，因为用户会收到通知，提示该应用并非来自可信来源。\n\
+  \n在本章中，我将讨论将应用发布到 Google Play 所需执行的操作。\n\n## 为发布准备应用\n\n在准备发布应用时，需要牢记三点：\n\n1. \
+  \ 准备用于发布的材料和资源。\n2.  配置应用以供发布。\n3.  构建一个可用于发布的应用。\n\n\n\n### 准备发布所需的素材和资源\n\n你的代码非常出色，甚至可能自认为很巧妙，但用户永远不会看到它们。用户看到的是你的视图对象、图标以及其他图形资源。因此，你需要打磨好这些资源。\n\
+  \n如果你认为应用的图标无关紧要，请三思。这个图标能帮助用户在主页面上识别你的应用。它还会出现在其他区域，例如启动器窗口、下载区，更重要的是，它会显示在应用发布的商店中。图标构成了用户对应用的第一印象。所以，花些心思在上面是个好主意。首先，阅读谷歌关于应用图标的指南：[`http://bit.ly/androidreleaseiconguidelines`](http://bit.ly/androidreleaseiconguidelines)。同时，也请访问\
+  \ [`https://romannurik.github.io/AndroidAssetStudio/`](https://romannurik.github.io/AndroidAssetStudio/)；这个资源能为你在生成应用资源时节省大量时间。\n\
+  \n如果你打算在谷歌市场发布应用，其他需要考虑的方面包括图形资源（如屏幕截图）和推广文案。请务必阅读谷歌关于图形资源的指南，网址为 [`http://bit.ly/androidreleasegraphicassets`](http://bit.ly/androidreleasegraphicassets)。\n\
+  \n### 配置应用以准备发布\n\n1. **检查包名**。应用可能最初只是一个练习或临时代码，后来逐渐发展壮大并独立成型。你可能需要检查应用的包名。确保它不再是`com.example.myapp`。包名在谷歌市场中是唯一的标识，一旦确定，就无法更改。所以请仔细考虑。你已经知道如何修改它，还记得吗？这在\
+  \ Gradle 章节中已经介绍过。\n\n2. **处理调试信息**。确保清单文件中 `<application>` 标签内的 `android:debuggable`\
+  \ 属性已被移除。实际上，你只需要检查一下，因为当你将模式切换为“release”时，Android Studio 会自动移除它。\n\n3. **移除日志语句**。不同的开发者有不同的做法。有些人仔细地逐行检查代码并手动移除语句。有些人编写\
+  \ `sed` 或 `awk` 程序来剥离日志语句。有些人使用 ProGuard，还有些人使用第三方工具（如 Timber）来管理日志记录活动。使用哪种方法由你决定，但请确保用户不会意外看到日志信息。如果你还没拿定主意，我强烈建议你尝试一下\
+  \ Timber。\n\n4. **检查应用的权限**。在开发过程中，你可能尝试了应用的某些功能，并在清单文件中设置了权限，如网络访问权限、外部存储写入权限等。检查清单文件中的\
+  \ `<uses-permission>` 标签，确保你没有授予应用不需要的权限。\n\n5. **检查远程服务器和 URL**。如果你的应用依赖 Web API\
+  \ 或云服务，请确保应用的 Release 版本使用的是生产环境 URL，而不是测试路径。在开发期间，你可能会获得沙箱环境和测试 URL；你需要将它们切换为生产版本。\n\
+  \n### 构建可发布的应用\n\n在开发过程中，Android Studio 为你完成了以下工作：\n\n1. 创建了一个调试证书\n2. 将所有项目资源、配置文件及运行时二进制文件组装成一个\
+  \ APK\n3. 使用调试证书为 APK 签名\n4. 将 APK 部署到模拟器或连接的设备上\n\n所有这些操作都在后台进行；你只需编写代码，无需操别的事情。现在你需要处理这个证书了。Google\
+  \ Play 和其他类似的市场不会分发使用调试证书签名的应用。必须使用一个正规的证书。你不需要去 Thawte 或 Verisign 这样的证书颁发机构；自签名证书就足够了。\n\
+  \n在接下来的步骤中，我将指导你如何生成签名的应用束或 APK。你已经知道 APK 是什么——它是包含你的应用程序的包，也就是你上传到 Google Play\
+  \ 的内容。另一方面，应用束（Bundle）与 APK 非常相似，但它是一种更新的上传格式。与 APK 一样，它也包含你应用的所有编译代码和资源，但它将 APK\
+  \ 的生成过程推迟了。这是 Google Play 新的应用服务模式，称为“动态分发”（Dynamic Delivery）。它使用你的应用束为每个用户的设备配置生成并提供优化的\
+  \ APK——这样用户只需下载运行你的应用所需的代码和资源。你不再需要构建、签名和管理多个 APK 了。\n\n在 Android Studio 中，生成 APK\
+  \ 和应用束的步骤几乎相同。在接下来的步骤中，你将看到如何同时生成应用束和 APK。\n\n启动 Android Studio（如果尚未打开）。打开项目，在主菜单栏中，选择\
+  \ **Build ➤ Generate Signed Bundle/APK**，如图 12-1 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig1_HTML.jpg](img/476822_1_En_12_Fig1_HTML.jpg)\n\
+  \n图 12-1. 生成签名的 APK\n\n选择“Bundle”或“APK”，然后点击“Next”。在此示例中，我选择创建一个应用束。点击“Next”后，你将看到密钥库对话框，如图\
+  \ 12-2 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig2_HTML.jpg](img/476822_1_En_12_Fig2_HTML.jpg)\n\
+  \n图 12-2. 密钥库对话框\n\n**密钥库路径** 字段要求输入你的 Java 密钥库（JKS）文件的位置。此时你还没有这个文件。所以，点击 **创建新密钥库**\
+  \ 按钮。你将看到用于创建新密钥库的对话框窗口，如图 12-3 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig3_HTML.jpg](img/476822_1_En_12_Fig3_HTML.jpg)\n\
+  \n图 12-3. 新建密钥库\n\n表 12-1 显示了密钥库输入项的说明。\n\n表 12-1. 密钥库项目及说明\n\n| 密钥库项目 | 说明 |\n\
+  | --- | --- |\n| 密钥库路径 | 你希望保存密钥库的位置。这完全由你决定。请务必记住这个位置。 |\n| 密码 | 这是密钥库的密码。不要丢失它。请确保记住这个密码。否则，你将需要创建另一个密钥库文件。\
+  \ |\n| 别名 | 此别名用于标识密钥。它只是一个便于记忆的名称。 |\n| （密钥）密码 | 这是密钥的密码。**这并非** 密钥库的密码（但如果你愿意，可以使用相同的密码）。\
+  \ |\n| 有效期（年） | 默认值为 25 年；你可以接受默认值。如果你在 Google Play 上发布，证书的有效期必须持续到 2033 年 10 月，因此\
+  \ 25 年应该是足够的。 |\n| 其他信息 | 只有名字和姓氏字段是必填项。 |\n\n填写完“新建密钥库”对话框后，点击“OK”。这将带你返回“生成签名的\
+  \ APK”窗口，如图 12-4 所示，但现在 JKS 文件已创建，并且密钥库对话框中已填入该信息。\n\n\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig4_HTML.jpg](img/476822_1_En_12_Fig4_HTML.jpg)\n\
+  \n**图 12-4.** 已填充信息的“生成签名 Bundle/APK”界面\n\n点击“下一步”。现在您需要选择签名 Bundle 的目标位置，如图 12-5\
+  \ 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig5_HTML.jpg](img/476822_1_En_12_Fig5_HTML.jpg)\n\
+  \n**图 12-5.** 签名 APK 目标文件夹\n\n您需要记住目标文件夹的位置，如图 12-5 所示。Android Studio 将在此处存储签名 Bundle。同时，请确保构建类型设置为\
+  \ `\"release\"`。\n\n点击“完成”后，Android Studio 将为您的应用生成签名 Bundle。这是您将要提交到 Google Play\
+  \ 的文件。\n\n## 发布应用\n\n在向 Google Play 提交应用之前，您需要一个开发者账号。如果还没有，可以在 [`https://developer.android.com`](https://developer.android.com)\
+  \ 注册。以下是我对后续操作的几点假设。我假设：\n\n1.  您已拥有一个 Google 账号（Gmail），并且\n2.  您正在使用 Google Chrome\
+  \ 浏览器访问 [`https://developer.android.com`](https://developer.android.com)，并且\n3.\
+  \  您的 Google 账号已登录 Chrome 浏览器。\n\n如果您的 Google 账号未登录 Chrome，您可能会看到类似图 12-6 的界面。Chrome\
+  \ 会要求您选择一个账号（或创建一个）。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig6_HTML.jpg](img/476822_1_En_12_Fig6_HTML.jpg)\n\
+  \n**图 12-6.** 选择账号\n\n当您处理好 Google 账号后，将会跳转到 `developer.android.com` 网站，如图 12-7\
+  \ 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig7_HTML.jpg](img/476822_1_En_12_Fig7_HTML.jpg)\n\
+  \n**图 12-7.** `developer.android.com` 网站\n\n如图 12-7 所示，点击 Google Play。再如图 12-8 所示，点击“启动\
+  \ Play 管理中心”。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig8_HTML.jpg](img/476822_1_En_12_Fig8_HTML.jpg)\n\
+  \n**图 12-8.** 启动 Google Play 管理中心\n\n您需要完成四个步骤来完成注册（如图 12-9 所示）：\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig9_HTML.jpg](img/476822_1_En_12_Fig9_HTML.jpg)\n\
+  \n**图 12-9.** Google Play 管理中心注册\n\n1.  使用您的 Google 账号登录。\n2.  接受开发者协议。\n3.  支付注册费。\n\
+  4.  完善您的账号详情。\n\n完成注册并支付一次性费用后，您就可以访问 Google Play 管理中心了，如图 12-10 所示。\n\n![../images/476822_1_En_12_Chapter/476822_1_En_12_Fig10_HTML.jpg](img/476822_1_En_12_Fig10_HTML.jpg)\n\
+  \n**图 12-10.** Google Play 管理中心\n\n您可以在此处开始提交应用至商店的流程。点击“创建应用”按钮开始。\n\n## 本章小结\n\
+  \n-   在用户体验您的应用之前，他们会先看到应用图标和其他图形资源。请确保图形资源与您的代码一样精良。\n-   在构建发布版本之前，请从代码中移除所有调试信息和日志语句。\n\
+  -   对您自己的工作执行代码审查。如果您有同伴或其他人可以与您一同审查代码，那会更好。如果您的应用使用服务器、RESTful URL 等，请确保它们已准备好投入生产环境，而非沙盒环境。\n\
+  -   在将应用上传到 Google Play 之前，您需要使用有效的证书对应用进行签名。\n-   如果您想在 Google Play 上销售应用，则需要一个\
+  \ Google Play 账号。我支付了 25 美元的一次性费用，不过那是几年前的事了。\n-   别忘了在真机上测试您的应用。\n\n# 13. 快速指南\n\
+  \n*本章内容涵盖：*\n\n- 如何导入示例代码\n- 重构\n- 代码生成器\n- 实时模板\n- 代码编辑器偏好设置\n- 键盘快捷键\n\n如果这本快速参考书详细描述了\
+  \ Android Studio 的每一个细微之处，那它就不能称为快速参考了。但在我结束本书之前，我想指出 Android Studio 的一些特性，这些特性让我们的编码生活更轻松。如我所说，我不会深入细节，因为那不是目标；相反，目标是让您知道这些特性的存在。\n\
+  \n## 效率特性\n\n当我们谈论效率时，通常意味着我们希望以最短的时间完成需要做的事情，这涉及到键盘快捷键、模板、代码片段等。在本节中，您将初步了解 Android\
+  \ Studio 提供的一些功能，以稍稍提升您的效率。我将向您展示可用的功能。\n\n### 导入示例\n\n提升效率的一个关键部分是真正学习如何在 Android\
+  \ 中创建东西并发现它们的工作原理。因此，我的第一个效率小贴士是学习如何使用 `import sample`（导入示例）功能。您可以通过主菜单栏的 **文件**\
+  \ ➤ **新建** ➤ **导入示例** 进入此功能。图 13-1 显示了“导入示例”界面。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig1_HTML.jpg](img/476822_1_En_13_Fig1_HTML.jpg)\n\
+  \n**图 13-1.** 导入一个示例\n\n在图 13-1 中，您看到的是一个代码示例列表，您可以浏览它们，也可以将其创建为本地项目。\n\n假设您想了解\
+  \ Autofill Framework，就像图 13-1 中显示的那样。您可以预览它的外观，也可以点击 **在 GitHub 浏览** 链接。当您点击 **下一步**\
+  \ 时，您会看到一个与创建新项目时有些相似的对话框，如图 13-2 所示。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig2_HTML.jpg](img/476822_1_En_13_Fig2_HTML.jpg)\n\
+  \n**图 13-2.** 导入示例，下一个窗口\n\n如果您在“导入示例”对话框中点击 **完成**，Android Studio 将在本地创建一个新项目，并从\
+  \ GitHub 下载示例文件，以便您能立即仔细查看并处理它。\n\n### 重构\n\n重构本质上是在不创建新功能的情况下重写和改进您的源代码；这种做法有助于保持代码遵循\
+  \ SOLID 和 DRY 原则，从而更易于维护。\n\n\n\n### 注释\n\n我将 SOLID 全大写拼写，因为它同时也是一个缩写，代表**单**一职责、**开**闭原则、**里**氏替换原则、**接**口隔离原则和**依**赖倒置原则。这些是面向对象设计的原则，由罗伯特·C·马丁推广开来。\n\
+  \n`Android Studio` 拥有一些便捷的重构能力。开始使用很简单：只需选中要重构的代码段，然后使用右键菜单中的上下文相关选项，如图 13-3 所示。或者，你也可以使用键盘快捷键：macOS\
+  \ 为 `Ctrl + T` ，Windows/Linux 为 `Ctrl + Alt + Shift + T`。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig3_HTML.jpg](img/476822_1_En_13_Fig3_HTML.jpg)\
+  \  \n图 13-3. 重构操作\n\n我确信你之前已经多次进行过重构，但这里我们不妨简单回顾一下。\n\n*   **重命名**：这可以让你安全地重命名变量和其他标识符。你应该使用它，而不是`查找和替换`。此功能适用于整个项目，而不仅仅是当前文件。\n\
+  \n*   **更改签名**：这让你可以更改一个方法，无论是其名称还是参数。它同样适用于类级别，因此你可以将一个类转换为泛型类型并操作类型参数。\n\n*  \
+  \ **移动**：移动一个元素。如果需要，你可以将一个方法移动到另一个类中。\n\n*   **复制**：允许你复制元素，例如当前选中的类。\n\n*   **安全删除**：如果需要删除某些内容，`Android\
+  \ Studio` 会验证你正在删除的内容是否未被代码库中的其他任何部分使用。如果正在使用中，系统会提示你，以便你在实际删除重要内容之前先处理这些依赖关系。\n\
+  \n*   **提取常量**：避免使用硬编码值。你不应该这样做，你知道这一点，也明白原因。用于重构的提取选项不仅适用于常量；你还可以提取字段、方法、超类、变量、参数和接口。\n\
+  \n`Refactor`（重构）菜单中还有更多选项；请务必查看其他选项。\n\n### 生成\n\n`Android Studio` 另一个节省时间的功能是代码生成器。这个名称很贴切，因为它完全符合你的预期——它会生成代码。我们来举个例子。图\
+  \ 13-4 显示了键盘光标位于一个类定义内部。当光标在类体内时，启动生成器操作；从主菜单栏中，选择**代码 ➤ 生成**。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig4_HTML.jpg](img/476822_1_En_13_Fig4_HTML.jpg)\
+  \  \n图 13-4. 主菜单栏，代码 ➤ 生成\n\n如你所见，可以生成相当多的样板代码。当你选择任何生成选项时，`Android Studio` 都会生成一个通用的代码存根。选择\
+  \ getter 和 setter 选项。假设你有一个 `PersonTest` 类，如图 13-4 所示。当键盘光标仍在 `PersonTest` 类内时，前往主菜单栏并选择**代码\
+  \ ➤ 生成**。或者，你可以使用键盘快捷键 `Command + N`（macOS）或 `Alt + Insert`（Windows 和 Linux），然后选择生成\
+  \ getter 和 setter。你将看到图 13-5 中所示的对话框。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig5_HTML.jpg](img/476822_1_En_13_Fig5_HTML.jpg)\
+  \  \n图 13-5. 生成 getter 和 setter\n\n生成器对话框显示了类中所有自动检测到的字段。它显示了 `mFirstname` 和 `mLastname`\
+  \ 成员变量；还允许你进行多项选择。选中两个成员变量并点击确定。代码清单 13-1 显示了代码生成后的 `PersonTest` 类。\n\n```\nclass\
+  \ PersonTest {\n    String mFirstname;\n    String mLastname;\n    public String\
+  \ getmFirstname() {\n        return mFirstname;\n    }\n    public void setmFirstname(String\
+  \ mFirstname) {\n        this.mFirstname = mFirstname;\n    }\n    public String\
+  \ getmLastname() {\n        return mLastname;\n    }\n    public void setmLastname(String\
+  \ mLastname) {\n        this.mLastname = mLastname;\n    }\n    public PersonTest(String\
+  \ mFirstname, String mLastname) {\n        this.mFirstname = mFirstname;\n     \
+  \   this.mLastname = mLastname;\n    }\n}\n```\n代码清单 13-1. PersonTest 类\n\n这已经相当简洁了。任何能减少我们敲击键盘次数的东西都是好事情。我猜在这个例子中你可能只有一点要挑剔的地方；方法命名不太对。你可能更倾向于使用\
+  \ `setLastname()` 而非 `setmLastname()`，对吧？你将在下一节中解决这个问题。\n\n### 编码风格\n\n如果你进入 `Android\
+  \ Studio` 的偏好设置或设置，然后转到**编辑器 ➤ 代码风格 ➤ Java**，你会发现可以更改许多编辑器行为相关的内容。图 13-6 展示了代码风格的选项，特指\
+  \ Java 语言。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig6_HTML.jpg](img/476822_1_En_13_Fig6_HTML.jpg)\
+  \  \n图 13-6. 偏好设置 ➤ 代码风格 ➤ Java\n\n如果你想更改制表符和缩进的空格数，可以在**制表符和缩进**区域进行修改。请务必检查此对话框中的其他选项。\n\
+  \n转到**代码生成**选项卡（如图 13-7 所示）。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig7_HTML.jpg](img/476822_1_En_13_Fig7_HTML.jpg)\
+  \  \n图 13-7. 代码生成\n\n在这里你可以告诉 `Android Studio` 你是如何命名变量的。如果你回到代码清单 13-1，你会注意到我喜欢给变量添加\
+  \ `m` 前缀，例如 `mLastname` 和 `mFirstname`；起初，`Android Studio` 并不知道这一点，这就是为什么当我为成员变量生成一些\
+  \ getter 和 setter 时，它给了我 `setmLastname()` 而不是仅仅 `setLastname()`。\n\n### 注释\n\n给成员变量添加\
+  \ `m` 前缀源自 AOSP（Android 开源项目）。我在这里使用它，是因为你会在网上读到的大量示例代码都采用这种约定。你可以在 [`https://bit.ly/styleguideaosp`](https://bit.ly/styleguideaosp)\
+  \ 进一步阅读相关内容。\n\n为了告诉 `Android Studio` 我使用 `m` 作为变量前缀，我在**字段名称前缀**中填入了 `m`，如图 13-7\
+  \ 所示，然后点击了确定。\n\n现在，如果我生成一些 getter 和 setter，我将得到更合适的方法名称。代码清单 13-2 展示了为 `PersonTest`\
+  \ 类重新生成的代码。\n\n```\nclass PersonTest {\n    String mFirstname;\n    String mLastname;\n\
+  \    public String getFirstname() {\n        return mFirstname;\n    }\n    public\
+  \ void setFirstname(String firstname) {\n        mFirstname = firstname;\n    }\n\
+  \    public String getLastname() {\n        return mLastname;\n    }\n    public\
+  \ void setLastname(String lastname) {\n        mLastname = lastname;\n    }\n  \
+  \  public PersonTest(String mFirstname, String mLastname) {\n        this.mFirstname\
+  \ = mFirstname;\n        this.mLastname = mLastname;\n    }\n}\n```\n代码清单 13-2.\
+  \ 重新生成的 PersonTest 类\n\n\n\n## 实时模板\n\n您可以在 Android Studio 中使用实时模板节省更多时间，如果您曾用过某些文本扩展器应用，就会发现它们的工作方式非常相似。基本思路是，当您键入一系列字符（例如\
+  \ `datetoday`）时，编辑器会将其替换为当前实际日期的文本。\n\n如果您过去曾做过一些 Android 编程，很可能至少犯过下面这个错误：\n\n\
+  ```\nToast.makeText(MainActivity.this, \"no show\");\n```\n\n这个错误很容易发现，但其他一些错误可能就没那么明显了。无论如何，实时模板可以帮助您避免这些麻烦事。实时模板是以代码补全选项形式显示的快捷方式；例如，尝试在\
+  \ `OnClick` 处理器（或任何事件处理器）中键入 `fbc`，如图 13-8 所示。\n\n![../images/476822_1_En_13_Chapter/476822_1_En_13_Fig8_HTML.jpg](img/476822_1_En_13_Fig8_HTML.jpg)\n\
+  \n图 13-8.\n\n实时模板示例\n\n您会看到代码补全选项。按下 `Tab` 键，看看会发生什么。\n\n表 13-1 列出了一些常见的内置模板。\n\n\
+  表 13-1.\n\n常用实时模板\n\n| 缩写 | 描述 | 代码 |\n| --- | --- | --- |\n| `fbc` | 通过强制类型转换查找视图\
+  \ ID | `($cast$) findViewById(R.id.$resId$);` |\n| `const` | 定义 Android 风格常量 | `private\
+  \ static final int $name$ = $value$;` |\n| `Toast` | 创建一个新的 Toast | `Toast.makeText($classname$.this,\
+  \ \"$text$\").show();` |\n| `fori` | 创建一个 for 循环 | `for(int $INDEX$ = 0;$INDEX$<$LIMIT$;$INDEX++$\
+  \ ) {``$END$``}` |\n\n请务必查看其他实时模板。转到“设置”或“偏好设置”窗口。如果您使用的是 Windows 或 Linux，请进入主菜单栏并选择\
+  \ **文件** ➤ **设置** ➤ **编辑器** ➤ **实时模板**；如果您使用的是 macOS，请进入 **Android Studio** ➤ **偏好设置**\
+  \ ➤ **编辑器** ➤ **实时模板**。您甚至可以在那里创建自己的实时模板。\n\n## 重要键盘快捷键\n\nAndroid 开发者网站维护了一个页面，您可以在其中找到\
+  \ Android Studio 的键盘快捷键：[`http://bit.ly/androidstudiokbshortcuts`](http://bit.ly/androidstudiokbshortcuts)。您确实应该认真阅读这个页面；但在结束本章之前，我想为您介绍六个我觉得非常有用的快捷键。表\
+  \ 13-2 列出了这些快捷键。\n\n表 13-2.\n\n一些有用的键盘快捷键\n\n| 快捷键 | 功能 |\n| --- | --- |\n| 按 `Shift`\
+  \ 两次 | 允许您在任何地方搜索某个词条。它会搜索 `assets` 文件夹、Gradle 文件、图片、资源、代码、XML 配置文件等。如果您不确定要搜索哪个文件夹，只需使用此功能即可。\
+  \ |\n| `Ctrl + Space \\| Command + Space` | Android Studio 已有代码补全和代码提示功能；这只是额外的一点补充。如果您忘记了某个包含大量参数的方法的参数，可以使用此快捷键预览该方法的所有变体及其对应的预期参数。\
+  \ |\n| `Alt + Insert \\| Command + N` | 您在上一节生成代码时使用过此功能。这是代码生成器的快捷键。 |\n| `Ctrl\
+  \ + O \\| Command + O` | 当您想要重写方法时，使用此快捷键。 |\n| `Ctrl + - \\| Command + -` | 您可以使用这些快捷键展开或折叠代码块。在处理大型代码库时，能够折叠代码非常方便。当您折叠/展开代码块时，这些快捷键能让您的工作更轻松一些。\
+  \ |\n| `Ctrl + Alt + L \\| Command + Option + L` | 不要手动缩进或重新缩进您的代码。如果您搞乱了 `for`\
+  \ 循环或嵌套条件块的缩进，只需选中该代码块并使用此快捷键即可。 |\n\n## 章节总结\n\n*   您可以使用代码生成器来避免编写样板代码，例如构造函数、getter\
+  \ 和 setter。\n\n*   Android Studio 拥有大量重构辅助工具。在使用“查找/替换”菜单之前，请考虑使用重构选项。\n\n*   实时模板类似于文本扩展器；它们可以节省您的时间，并帮助您避免常见的编码错误。您应该使用它们。\n\
+  \n*   您可以控制 Android Studio 编辑器的行为方式。转到“设置”或“偏好设置”，然后进入 **编辑器** ➤ **代码风格**。\n\n#\
+  \ 索引\n\n## A, B, C\n\nAndroid 构建流程\nAndroid 开发工具 (ADT)\nAndroid 项目开发活动，创建\nAndroid\
+  \ 应用，创建活动详情\n`MyApplication` 启动画面\nSDK 类创建接口创建重写方法\n运行项目\nAndroid Studio AVD 配置通道对话框\
+  \ SDK 平台工具\n`HAXM` `KVM` 设置 Linux macOS 系统要求\nAndroid Studio Profiler\n见 Profiler\n\
+  Android 支持库\nAndroid 虚拟设备 (AVD)\n用于发布的应用活动\n配置 `developer.android.com`\nGoogle 账户\n\
+  Google Play 控制台启动注册密钥库对话框条目和描述素材和资源可发布的应用签名的 APK 签名的 Bundle/APK 屏幕\n`assertEquals()`\
+  \ 方法\n\n## D\n\n调试调试器断点单步执行逻辑错误运行时错误语法错误\n\n## E\n\nEnergy profiler 警报作业唤醒锁\nEspresso\
+  \ 操作\n`BoundedMatcher` `CursorMatcher` `LayoutMatcher` `PreferenceMatcher` `RootMatcher`\
+  \ 测试，录制\n`ViewMatcher`\n\n## F\n\n`factorial()` 方法\n\n## G, H\n\nGit 偏好设置仓库添加文件\n\
+  Bitbucket 仓库提交更改创建详情登录拉取更改推送提交远程地址远程设置版本控制集成\nGitHub 登录打开克隆仓库仓库页面欢迎屏幕偏好设置共享描述初始提交文件\
+  \ `.gitignore` 导入到版本控制私有远程仓库名称工具窗口变量更新添加文件提交目录提交并推送更改\nGradle 文件依赖指令 jar 库模块模块级项目结构同步项目\n\
+  \n## I\n\n仪器化测试\n集成开发环境 (IDE) 代码风格主编辑器无干扰模式文件类型布局设计工具布局文件 TODO 项目工具窗口部分偏好设置/设置项目工具窗口\n\
+  SDK 管理器\n\n## J\n\nJetpack 组件架构行为基础 UI 导航\nAndroid 组件 `build.gradle` 文件连接一对一编辑器片段图\
+  \ `NavHost` `navigate()` 方法使用 AndroidX 工件的项目资源文件\nJUnit\nJVM 测试\n\n## K\n\n基于内核的虚拟机\
+  \ (KVM)\n键盘快捷键\n\n## L\n\n生命周期感知组件 `build.gradle` 文件类词汇\nLiveData 注意事项数据流 `MainActivity`\
+  \ 代码 `onChanged()` 方法 `RandomNumber` 示例带 LiveData 的 `ViewModel`\n逻辑错误\n\n## M\n\n\
+  Memory profiler 分配跟踪器实例视图 Java 堆内存视图引用选项卡\n\n## N\n\n导航活动工作流程组件缺点片段\nJetpack\n见\
+  \ Jetpack，导航启动活动传递数据到活动屏幕管理\nNetwork profiler\n\n## O\n\n`onClick()` 方法\n重写方法\n\n\
+  ## P, Q\n\n生产力特性代码生成器编码样式导入示例重构\nProfiler CPU 利用率编辑配置检查线程记录配置记录会话 Energy profiler\
+  \ Memory profiler\n\n## R\n\n重构\nRoom 优势组件数据访问对象 `databaseBuilder()` 方法 `Database`\
+  \ 持有者依赖 `Entity` `MainActivity`\n运行时错误\n\n## S\n\nSDK 管理器\n语法错误\n\n## T\n\n`tearDown()`\
+  \ 方法\n测试驱动开发 (TDD)\n`TextView`\n\n## U\n\n单元测试断言方法 `assertEquals()` `Factorialtest`，创建\
+  \ JVM 测试 *vs.* 仪器化测试运行 TDD\n\n## V\n\n`ViewModel` 实现布局代码 `onCreate()` 方法 `RandomNumber`\
+  \ 类随机数生成器 `ViewModelProviders`\n\n## W, X, Y, Z\n\n唤醒锁机制\n"

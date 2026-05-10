@@ -1,0 +1,999 @@
+- '
+
+  '
+- '# 1. 引言
+
+
+  2016 年，全球有超过 500 万 Android 开发者。三年后的 2019 年，全球流通的 Android 设备已达 25 亿部。毫无疑问，Android
+  是一个被广泛采用的操作系统，并且短期内不会消失。
+
+
+  本书专为 Android 软件工程师（无论是新手还是老手）设计，重点不放在典型的 UI 设计上。相反，本书聚焦于 Java 和 Android 系统中那些在学习构建应用时常被遗忘的部分。它将作为一本参考指南，涵盖从设备和用户唯一标识符到
+  ProGuard 混淆，再到长时间运行的服务等技术——进而深入探讨一些并非一开始就显而易见的原理。
+
+
+  正如书名所示，本书不会涉及 Android UI 开发，也不会涵盖底层 C 语言或内核技术。相反，本书将专注于 Java 和 Android 系统中那些易于理解、实用且有趣的技术。
+
+
+  ## 本书内容
+
+
+  *   一本针对非 UI 元素的 Android Java 编程参考指南。
+
+  *   本书涵盖从 Android 4.4 到 Android 11.0 的操作系统。
+
+
+  ## 本书不涵盖的内容
+
+
+  *   本书不包含 Java 入门教程；如果您需要这方面的内容，市面上有许多其他优秀的资源。
+
+  *   本书不涉及任何底层 C 语言编程、内核交互或漏洞研究。
+
+  *   虽然本书可能会涉及 Android UI 的一两个方面，但这不会是重点。
+
+
+  '
+- '# 2. Android 版本
+
+
+  Android 1.0 于 2008 年 9 月 23 日发布；自那时起，该操作系统经历了无数次的变革。表 2-1 列出了 Android 的不同版本（从 1.5
+  版本 Cupcake 开始）。
+
+
+  Android 中的 API 级别定义了该设备上支持的 API 功能。如果使用设备的 shell 提示符（例如，通过命令`adb shell`，该命令是 Android
+  平台工具的一部分），你可以通过运行`getprop | grep sdk`来返回与当前 API 级别相关的系统属性。这也可以通过已连接机器上的`adb`（Android
+  调试桥）完成。
+
+
+  *以下是在运行 Android 11 的 Google Pixel 4a 上执行此命令的输出示例：*
+
+
+  ```
+
+  [ro.build.version.min_supported_target_sdk]: [23]
+
+  [ro.build.version.preview_sdk]: [0]
+
+  [ro.build.version.preview_sdk_fingerprint]: [REL]
+
+  [ro.build.version.sdk]: [30]
+
+  [ro.product.build.version.sdk]: [30]
+
+  [ro.qti.sdk.sensors.gestures]: [false]
+
+  [ro.system.build.version.sdk]: [30]
+
+  [ro.system_ext.build.version.sdk]: [30]
+
+  [ro.vendor.build.version.sdk]: [30]
+
+  ```
+
+
+  表 2-1
+
+
+  Android 发布版本
+
+
+  | 版本 | 代号 | API 级别 | 发布日期 | Linux 内核版本 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 1.5 | Cupcake | 3 | 2009 年 4 月 | 2.6.27 |
+
+  | 1.6 | Donut | 4 | 2009 年 9 月 | 2.6.29 |
+
+  | 2.0 | Eclair | 5 | 2009 年 10 月 | 2.6.29 |
+
+  | 2.0.1 | Eclair | 6 | | |
+
+  | 2.1 | Eclair | 7 | | |
+
+  | 2.2.x | Froyo | 8 | 2010 年 5 月 | 2.6.32 |
+
+  | 2.3 -> 2.3.2 | Gingerbread | 9 | 2010 年 12 月 | 2.6.35 |
+
+  | 2.3.3 -> 2.3.7 | Gingerbread | 10 | | |
+
+  | 3.0 | Honeycomb | 11 | 2011 年 2 月 | 2.6.36 |
+
+  | 3.1 | Honeycomb | 12 | | |
+
+  | 3.2.x | Honeycomb | 13 | | |
+
+  | 4.0.1 -> 4.0.2 | Ice Cream Sandwich | 14 | 2011 年 10 月 | 3.0.1 |
+
+  | 4.0.3 -> 4.0.4 | Ice Cream Sandwich | 15 | | |
+
+  | 4.1.x | Jelly Bean | 16 | 2012 年 7 月 | 3.0.31 |
+
+  | 4.2.x | Jelly Bean | 17 | | 3.4.0 |
+
+  | 4.3.x | Jelly Bean | 18 | | 3.4.39 |
+
+  | 4.4 -> 4.4.4 | KitKat | 19 | 2013 年 10 月 | 3.10 |
+
+  | 5.0 | Lollipop | 21 | 2014 年 6 月 | 3.16.1 |
+
+  | 5.1 | Lollipop | 22 | | |
+
+  | 6.0 | Marshmallow | 23 | 2015 年 10 月 | 3.18.10 |
+
+  | 7.0 | Nougat | 24 | 2016 年 8 月 | 3.18.48/4.4.0 |
+
+  | 7.1 | Nougat | 25 | | |
+
+  | 8.0.0 | Oreo | 26 | 2017 年 8 月 | 3.18.72/4.4.83/4.9.44 |
+
+  | 8.1.0 | Oreo | 27 | | 3.18.70/4.4.88/4.9.56 |
+
+  | 9 | Pie | 28 | 2018 年 8 月 | 4.4.146/4.9.118/4.14.61 |
+
+  | 10 | Android 10 (Q) | 29 | 2019 年 9 月 | 4.9.191/4.14.142/4.19.71 |
+
+  | 11 | Android 11 (R) | 30 | 2020 年 9 月 | 4.14.y/4.19.y/5.4.y |
+
+
+  '
+- '# 3. 基础
+
+
+  ## Android 沙箱
+
+
+  Android 运行在一个多用户的 Linux 系统下，这意味着每个应用程序及其存储都在一个独立的用户下运行。这意味着在正常情况下，应用程序无法读取另一个应用程序的数据或内部存储。每个进程使用自己的虚拟机（VM）来隔离应用程序。在
+  API 级别 21（Android 5）之前，这将是 Dalvik 虚拟机，而在后续版本中则使用 Android 运行时（ART）。两者的运行方式类似，它们模拟设备的
+  CPU、寄存器和其他功能，同时运行应用程序编译后的 Dalvik 字节码。然而，`ART`被认为在性能上有许多改进。
+
+
+  在这些虚拟机中，应用程序只能访问其运行所需的组件（最小权限策略）。这些单独的进程虚拟机由`Zygote`¹（zai·gowt）创建。`Zygote`由 Android
+  运行时在启动时以 root 权限启动，并附带第一个虚拟机以及所有共享的 Java 类和资源。当一个新的应用程序想要启动时，会派生出一个新的`Zygote`进程，应用程序绑定到该新进程的线程，并在其中运行其代码。`Zygote`会丢弃不需要且未被请求的权限，以便应用程序只拥有必要的权限。
+
+
+  ## 应用程序组件
+
+
+
+
+  ### 活动（Activities）
+
+
+  `Activities` 是 Android 应用程序的主要入口点。类似于单个网页，一个活动就是一个界面，通常只有在前台运行时才会保持活跃。虽然并非所有活动都必须可见，但大多数标准应用程序的活动都是可见的。通过继承
+  `Activity` 类，可以在程序上实现一个活动。
+
+
+  #### 服务（Services）
+
+
+  广义上，服务是 Android 中用于在应用程序未在前台运行时提供后台功能的一种工具，例如音乐播放器、轮询电子邮件的邮件客户端或地图应用。多年来，Android
+  中用于任务服务的首选技术已从使用 `Services` 转变为使用 `JobSchedulers`。这些将在第 10 章中进一步讨论。
+
+
+  ### 广播接收器（Broadcast Receivers）
+
+
+  应用程序的另一个入口点是系统、其他应用以及应用本身可以“广播”事件，随后应用接收这些事件。广播接收器的功能有限（通常，它们只能运行 10 秒，超过此时间便被视为无响应^(²)），因此通常会启动其他形式的长期运行服务，例如前台
+  `Activity` 或 `JobScheduler`。广播接收器通过继承 `BroadcastReceiver` 类来实现。这些将在第 4 章中进一步讨论。
+
+
+  ### 内容提供器（Content Providers）
+
+
+  内容提供器用于管理应用数据集，使其能与设备上的其他应用共享。通过使用 URI，即使 URI 所属的应用当前未在运行，其他应用也可以查询或修改这些数据。示例包括图像、文本文件、SQLite
+  数据库等。
+
+
+  ### 清单文件（Manifest）
+
+
+  应用程序的清单文件^(³) 在编译前创建，运行时无法编辑。这些类似 XML 的文件（称为 `AndroidManifest.xml`）详细描述了单个应用程序中的所有组件（活动、广播接收器、服务等）。清单文件还列出了应用所需的权限、最低
+  API 级别，以及应用使用的硬件和软件功能（例如摄像头）。虽然一个应用只有一个清单文件，但导入的库可能拥有自己的清单文件。因此，在构建过程中，Gradle 会合并所有这些单独的清单文件，最终结果称为合并清单。^(⁴)
+  这在逆向分析 Android 应用（`APK` 文件）时尤为明显，因为（如果使用了库）逆向得到的清单文件会比原始的未合并清单文件大得多，并且包含更多元素。
+
+
+  下面是一个简单的 `AndroidManifest.xml` 文件示例。在此例中，包名是 `simple_app`，它使用了 `FINGERPRINT` 权限（如下所述），其主入口点是一个名为
+  `MainActivity` 的活动，该活动有两个意图过滤器：
+
+
+
+
+  '
+- "# 权限\n\nAndroid 中的权限遵循最小权限模型，即特定类型的功能仅授予明确请求这些功能的应用程序。权限主要分为两种类型：清单权限和运行时权限（后者通常属于“危险”权限类别）。运行时权限和清单权限都必须在\
+  \ Android 清单中声明；但此外，运行时权限还必须在运行时请求，通过对话框（如图 3-1 所示）提示用户是否同意应用程序使用所述功能。运行时权限是在 API\
+  \ 级别 23 中实现的；然而，在此之前，用户会在安装前看到所有运行时权限。\n\n![../images/509502_1_En_3_Chapter/509502_1_En_3_Fig1_HTML.jpg](img/509502_1_En_3_Fig1_HTML.jpg)\n\
+  \n**图 3-1** 用户看到的运行时权限示例\n\n如前所述，权限根据其对用户、Android 系统或设备上其他应用程序构成的潜在风险被赋予权限类型。所有权限类型的摘要见表\
+  \ 3-1。^(⁵)\n\n**表 3-1** 权限类型\n\n| 权限类型 | 风险 | 描述 |\n| --- | --- | --- |\n| 普通 |\
+  \ 低 | 默认权限类型。为应用程序提供独立的应用程序级功能，例如 `BLUETOOTH`、`NFC` 和 `INTERNET`。 |\n| 危险 | 高 |\
+  \ 为应用程序提供对私有数据或设备控制方面的访问权限，例如 `WRITE_EXTERNAL_STORAGE`、`ACCESS_FINE_LOCATION` 和\
+  \ `CAMERA`。与普通权限类型不同，运行时权限请求必须由用户（在运行时通过点击按钮）接受，系统才会授予权限（或者在 API 级别 23 之前的设备上在安装时接受）。\
+  \ |\n| 签名 | 关键 | 仅当请求权限的应用程序与声明该权限的应用程序使用相同的证书签名时，才会授予此权限。这通常用于将权限类型限制为系统/预安装的应用程序。这些权限通常授予对系统和其他应用程序的大规模控制权，或绕过\
+  \ Android 安全机制。其中包括 `MANAGE_EXTERNAL_STORAGE`、`READ_LOGS` 和 `CAPTURE_AUDIO_OUTPUT`。\
+  \ |\n\n除了这些类型之外，还可以向权限应用其他标志，包括 `privileged` 和 `development`，它们分别指授予系统和开发应用程序的权限。^(⁶)\n\
+  \n最后，在识别哪些应用程序可以执行哪些操作时，还需要考虑另外两种权限类型：\n\n* **硬限制权限** - 设备上的任何应用程序都不能持有此权限，除非安装程序应用已将该权限列入允许列表。\n\
+  * **软限制权限** - 设备上的任何应用程序都不能以其完整形式持有此权限，除非安装程序应用已将该权限列入允许列表。\n\n在调试设备时，可以使用 `adb`\
+  \ 授予通常对标准应用程序不可用的权限（例如具有签名权限类型的权限）。例如，对于 `READ_LOGS` 权限，可以使用以下命令来授予该权限：`adb shell\
+  \ pm grant <Package ID> android.permission.READ_LOGS`。要检索应用程序的包 ID，请参阅第 5 章或第 12\
+  \ 章。\n\n清单权限示例：\n\n```\n<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"\
+  \ />\n```\n\n运行时权限请求示例：\n\n```\nif (Build.VERSION.SDK_INT >= 23) {\n    // 除非设置了正确的清单权限，否则不会显示通知\n\
+  \    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},\
+  \ 1234);\n}\n```\n\n在撰写本文时，Android 规范^(⁷) 列出了 166 种不同的清单权限。表 3-2 显示了这些权限中最常见的一个子集，以及它们的\
+  \ API 和权限级别。\n\n**表 3-2** Android 权限\n\n| 名称 | 权限 | API 级别 | 描述 |\n| --- | --- |\
+  \ --- | --- |\n| `ACCESS_COARSE_LOCATION` | 危险 | 29+ | 通过非 GPS 提供程序（如网络提供商）访问大致位置。\
+  \ |\n| `ACCESS_FINE_LOCATION` | 危险 | 1+ | 通过 GPS 和网络提供商访问特定位置。 |\n| `ACCESS_NETWORK_STATE`\
+  \ | 普通 | 1+ | 访问 `ConnectivityManager`，除其他职责外，负责监控网络连接（Wi-Fi-GPRS、UMTS 等）。 |\n|\
+  \ `ACCESS_WIFI_STATE` | 普通 | 1+ | 访问 `WifiManager`，负责查看已配置的网络列表、当前活动网络以及接入点扫描结果。\
+  \ |\n| `ANSWER_PHONE_CALLS` | 危险 | 26+ | 允许应用程序接听来电。 |\n| `BATTERY_STATS` | 签名\\\
+  |特权\\|开发 | 1+ | 允许收集电池信息和统计数据。 |\n| `BLUETOOTH` | 普通 | 1+ | 允许与蓝牙设备配对和连接。 |\n| `CALL_PHONE`\
+  \ | 危险 | 1+ | 允许应用程序在不向拨号器应用发送 Intent（因此无需通过 UI 通知用户）的情况下拨打电话。 |\n| `CALL_PRIVILEGED`\
+  \ | 不允许第三方应用使用 | 1+ | `CALL_PHONE` 权限的限制较少版本，允许应用程序拨打任何电话号码，包括紧急号码。 |\n| `CAMERA`\
+  \ | 危险 | 1+ | 提供对设备相机的访问权限。 |\n| `CAPTURE_AUDIO_OUTPUT` | 禁止第三方应用使用 | 19+ | 允许不受限制地访问设备麦克风以录制音频。\
+  \ |\n| `CHANGE_WIFI_STATE` | 普通 | 1+ | 允许应用程序修改设备的网络配置，并连接和断开 Wi-Fi 接入点。 |\n| `DELETE_PACKAGES`\
+  \ | 禁止第三方应用使用 | 1+ | 允许删除应用程序。从 Android 7 开始，如果请求删除的应用程序与安装它的应用程序不同，则需要用户确认。 |\n\
+  | `INSTALL_PACKAGES` | 禁止第三方应用使用 | 1+ | 允许应用程序安装另一个应用程序。 |\n| `INTERNET` | 普通 |\
+  \ 1+ | 允许应用程序打开网络套接字。 |\n| `MANAGE_EXTERNAL_STORAGE` | 签名\\|appop\\|预安装 | 30+ |\
+  \ 由于 Android 10 中实现了作用域存储（应用程序拥有沙盒化的外部存储），此权限允许广泛管理外部存储空间。 |\n| `NFC` | 普通 | 9+\
+  \ | 允许通过 NFC（近场通信）进行 I/O 操作。 |\n| `PROCESS_OUTGOING_CALLS` | 危险且硬限制 | 1–29 | 允许应用程序查看和重定向所有去电。\
+  \ |\n| `READ_CONTACTS` | 危险 | 1+ | 允许读取用户的联系人信息。 |\n| `READ_EXTERNAL_STORAGE` |\
+  \ 危险，软限制 | 16+ | 允许应用程序从外部存储读取数据。在 API 19 之后，读取应用程序的作用域存储不需要此权限。截至 API 级别 29 强制实施作用域存储，此权限仅提供只读访问权限。\
+  \ |\n| `READ_LOGS` | 禁止第三方应用使用 | 1+ | 允许读取系统日志信息，例如由 `DropBoxManager` 创建的日志。 |\n\
+  | `READ_PHONE_NUMBERS` | 危险 | 26+ | 允许应用程序读取设备的所有电话号码。默认情况下，此权限对即时应用程序开放。 |\n| `READ_PHONE_STATE`\
+  \ | 危险 | 1+ | 包括 `READ_PHONE_NUMBERS` 权限。允许访问设备/电话信息，例如当前蜂窝网络。 |\n| `READ_SMS` |\
+  \ 危险且硬限制 | 1+ | 允许读取设备已收到的 SMS 消息。 |\n| `REBOOT` | 禁止第三方应用使用 | 1+ | 允许重启设备。 |\n\
+  | `RECEIVE_BOOT_COMPLETED` | 普通 | 1+ | 允许应用程序接收 `Intent.ACTION_BOOT_COMPLETED` Intent。该\
+  \ Intent 在系统启动完成后广播。 |\n| `RECEIVE_MMS` | 危险且硬限制 | 1+ | 允许应用程序监控传入的 MMS 消息。 |\n\
+  | `RECEIVE_SMS` | 危险且硬限制 | 1+ | 允许应用程序监控传入的 SMS 消息。 |\n| `RECORD_AUDIO` | 危险 | 1+\
+  \ | 允许应用程序录制音频。 |\n| `REQUEST_DELETE_PACKAGES` | 普通 | 26+ | 允许应用程序请求删除自身或另一个应用程序。这将需要用户交互。\
+  \ |\n| `REQUEST_INSTALL_PACKAGES` | 签名 | 23+ | 允许应用程序请求安装另一个应用程序。这将需要用户交互。 |\n|\
+  \ `SEND_SMS` | 危险且硬限制权限 | 1+ | 允许发送 SMS 消息。 |\n| `SET_PREFERRED_APPLICATIONS` |\
+  \ 普通 | 1–15 | 允许应用程序修改用户首选的（默认）应用程序——包括 Web 浏览器和安装程序。 |\n| `SET_TIME` | 禁止第三方应用使用\
+  \ | 8+ | 允许设置系统时间。 |\n| `USE_BIOMETRIC` | 普通 | 28+ | 允许使用设备支持的硬件。 |\n| `USE_FINGERPRINT`\
+  \ | 普通 | 23–28 | 允许使用设备指纹硬件。在 Android API 级别 28 中被 `USE_BIOMETRIC` 权限取代。 |\n| `WAKE_LOCK`\
+  \ | 普通 | 1+ | 允许应用程序启动 `PowerManager` 唤醒锁，这可以阻止设备休眠或屏幕变暗。 |\n| `WRITE_EXTERNAL_STORAGE`\
+  \ | 危险 | 4+ | 允许写入设备外部存储。同时授予 `READ_EXTERNAL_STORAGE` 权限。在 API 19 之后，在应用程序的作用域存储中进行读/写操作不需要此权限。截至\
+  \ API 级别 29 强制实施作用域存储，此权限仅允许应用程序读取其自己的存储数据。 |\n\n"
+- '# 上下文
+
+
+  Android 中的另一个核心组件是 `Context`。`Context`^(⁸) 在 Android 中常被称为“上帝”类，是一个用于检索应用程序环境全局信息的接口。它允许访问特定于应用程序的资源以及应用程序级别的操作，例如广播、接收
+  Intent 和启动 Activity。一些用例包括：
+
+
+  *   访问应用程序内部存储的位置
+
+  *   发送 Toast 或通知对话框
+
+  *   在 Activity 中设置 `ImageView`
+
+  *   检索系统包管理器
+
+
+  `Context` 有两种主要类型：应用程序上下文（application context）和 Activity 上下文（activity context）。这两种类型的
+  `Context` 都绑定到各自领域的生命周期——应用程序上下文与应用程序的生命周期绑定，而 Activity 上下文则与其 Activity 的生命周期绑定。这意味着如果其中任何一个被销毁，那么它们各自的上下文将被垃圾回收。
+
+
+  除了 `Context` 的这两个子类之外，还有 `ContextWrapper`，它可以与 `Context` 方法 `getBaseContext()` 一起使用。`ContextWrapper`
+  允许使用代理 `Context`，这样可以在不更改原始 `Context` 的情况下修改对象的行为。
+
+
+  ## 应用程序上下文
+
+
+  以下方法返回应用程序上下文。当应用程序被销毁时，它将被垃圾回收。
+
+
+  *检索应用程序上下文：*
+
+
+  ```
+
+  getApplicationContext()
+
+  ```
+
+
+  ## Activity 上下文
+
+
+  当在 `Activity` 或 `Activity` 的子类中时，使用 `this` 返回 Activity 上下文。当 Activity 被销毁时，Activity
+  上下文将被垃圾回收。
+
+
+  *从 Activity 内部检索 Activity 上下文：*
+
+
+  ```
+
+  this
+
+  ```
+
+
+  '
+- '# Activity 生命周期
+
+
+  作为使用设备的一部分，应用程序的各个 Activity 可以进入许多不同的状态。Activity 类提供了有用的回调函数，当进入这些状态时会触发这些回调，以便应用程序能够做出适当的响应。完整的
+  Activity 生命周期如图 3-2 所示。
+
+
+  ![../images/509502_1_En_3_Chapter/509502_1_En_3_Fig2_HTML.png](img/509502_1_En_3_Fig2_HTML.png)
+
+
+  **图 3-2** Android 应用程序 Activity 生命周期
+
+
+  ### `onCreate()`
+
+
+  当 Activity 首次创建时调用此回调。此方法接受一个参数 `savedInstanceState`，它是一个 Bundle，包含 Activity 先前保存的状态，如果之前不存在则为
+  `null`。
+
+
+  ### `onStart()`
+
+
+  此回调准备 Activity 进入前台并使其对用户可见。每次 Activity 启动时都会调用此回调，除非是从暂停状态恢复。
+
+
+  ### `onResume()`
+
+
+  当进入此状态时，Activity 已准备好与用户交互并进入前台。可能会发生中断事件，例如电话呼叫或用户切换到另一个 Activity——如果发生这种情况，Activity
+  将进入 `onPause()` 回调。
+
+
+  ### `onPause()`
+
+
+  此回调指示 Activity 不再处于前台；然而，它不一定意味着它即将被销毁。
+
+
+  ### `onStop()`
+
+
+  当 Activity 对用户不再可见时，在 Activity 被销毁之前调用此回调。这是应用程序应释放资源的地方。`onStop()` 回调是 Activity
+  将接收的最后一个回调。
+
+
+  ### `onRestart()`
+
+
+  当 Activity 正在重新显示给用户时，在 `onStop()` 回调之后调用此回调。随后会调用 `onStart()` 和 `onResume()`。
+
+
+  ## Android 用户
+
+
+  在 Android 中，有两个不同的概念都可以被标识为“用户”。
+
+
+  ## Linux 用户
+
+
+  Android 是一个多用户 Linux 系统，其中每个应用程序都被沙盒化，这意味着每个应用程序由一个不同的用户代表。Android 系统为每个唯一的应用程序证书（签署
+  `apk` 文件的证书）分配一个唯一的 Linux 用户 ID，进而设置所有应用程序文件的权限，以便只有指定的 Linux 用户 ID 才能访问它们。^(⁹)
+  这意味着如果两个应用程序由同一个证书签署，则它们被放置在同一个沙盒中。当涉及到 `Signature` 权限类型（前面讨论过）时，这也是必需的，如果权限具有此类型，则只能由与创建该权限的应用程序具有相同证书的应用程序使用（通常用于禁止非系统应用程序访问系统权限）。
+
+
+  要查看应用程序的 Linux 用户 ID，您可以使用 `adb` 以 root 身份遍历到应用程序的文件系统（例如 `/data/data/com.android.chrome`），并使用
+  `ls -la` 命令，如图 3-3 所示。
+
+
+  ![../images/509502_1_En_3_Chapter/509502_1_En_3_Fig3_HTML.jpg](img/509502_1_En_3_Fig3_HTML.jpg)
+
+
+  **图 3-3** 在 adb shell 中看到的 Linux 用户 ID 示例
+
+
+  *以编程方式查看应用程序进程 ID：*
+
+
+  ```
+
+  Log.v("应用程序进程 ID", String.valueOf(android.os.Process.myUid()));
+
+  ```
+
+
+  *Shell 命令 `id -u` 也可以通过 `adb` 或通过运行时环境使用，如下所示：*
+
+
+  ```
+
+  id -u
+
+  ```
+
+
+  ## Android 用户
+
+
+  Android 中用户的第二个概念是为设备的多个最终用户^(¹⁰) 设计的，旨在允许多个用户使用同一台 Android 设备。这是通过每个帐户拥有独特的应用程序数据和某些独特的设置来实现的。这反过来支持多个用户在一个用户活跃时在后台运行。
+
+
+  当前设备上活动的用户可以在 `/data/user` 目录下找到（如图 3-4 所示），或者通过 UI 用户屏幕（如图 3-5 所示）。由于不同的用户将拥有自己的内部存储和范围存储，因此使用相应的方法调用（例如，使用
+  `Context` 方法 `getFilesDir()`）来检索正确的文件路径非常重要，因为这些路径可能会随时间变化。一个用户无法访问另一个用户的内部存储，即使对于相同的应用程序也是如此。
+
+
+  ![../images/509502_1_En_3_Chapter/509502_1_En_3_Fig5_HTML.jpg](img/509502_1_En_3_Fig5_HTML.jpg)
+
+
+  **图 3-5** 最终用户在设备上看到的不同用户视图
+
+
+  ![../images/509502_1_En_3_Chapter/509502_1_En_3_Fig4_HTML.jpg](img/509502_1_En_3_Fig4_HTML.jpg)
+
+
+  **图 3-4** 在 adb shell 中看到的 Android 用户 ID 示例
+
+
+  ## 脚注
+
+
+  ---
+
+
+  '
+- '# Intent
+
+
+  Intent 是 Android 中核心的进程间通信（IPC）机制之一，允许应用程序与其他 Android 组件（包括应用程序）进行通信（例如，发送数据或启动操作），即使接收方当前未在运行。Android
+  中有两类主要的 Intent：
+
+
+  *   **显式 Intent** - 显式 Intent 是指定应用程序，或同时指定应用程序和将执行请求的组件的 Intent。
+
+  *   **隐式 Intent** - 隐式 Intent 较为模糊，指定了所需操作的类型（例如，打开相机或位置应用）。
+
+
+  除了这两种主要类别的 Intent（其中消息直接发送到特定应用程序或服务）之外，还可以发送广播 Intent。这些广播消息（可由 Android 系统或应用程序发送）会被设备上所有先前已注册特定广播操作类型的应用程序同时接收。在某些情况下，可能需要特殊权限才能注册特定的广播（例如，对于
+  `BOOT_COMPLETE` 权限，该权限允许在 Android 系统启动完成后接收 `ACTION_BOOT_COMPLETED` Intent）。
+
+
+  ## 启动组件
+
+
+  除了这两类 Intent 之外，发送 Intent 主要有三种方法：
+
+
+  *   **启动 Activity** - 可以通过将已初始化的 `Intent` 对象传递给 `startActivity()` 或 `startActivityForResult()`
+  上下文方法来启动一个 Activity 实例。
+
+  *   **启动后台服务** - 在 Android 5.0（API 级别 21）之前，可以通过将已初始化的 `Intent` 对象传递给 `startService()`
+  上下文方法来启动后台 `Service`。在 API 级别 21 之后，这可用于启动 `JobScheduler` 组件。
+
+  *   **发送广播** - 虽然系统会定期发送许多广播，例如 `TIME_TICK` 和 `BOOT_COMPLETE`，但普通应用程序也可以发送自己的广播。通常，广播是一种可以被多个应用程序同时接收的
+  Intent。此类广播可以使用 `sendBroadcast()` 或 `sendOrderedBroadcast()` 上下文方法发送。
+
+
+  ## Intent 属性
+
+
+  一个 Intent 由几个属性组成。根据正在发送的 Intent 和接收者，以下某些属性可能是必需的；然而，在某些情况下，并非必需。所有标准的 Intent 属性都作为常量存储在
+  `Intent` 对象中，例如 `Intent.FLAG_ACTIVITY_NO_HISTORY`，其常量值为 `1073741824`。
+
+
+  ### 核心属性
+
+
+  *   **Action（操作）** - 可以使用已初始化的 `Intent` 对象的 `setAction` 方法设置。操作定义了要执行的高级操作。
+
+  *   **Data（数据）** - 可以使用已初始化的 `Intent` 对象的 `setData` 方法设置。数据字段包括此 Intent 正在操作的数据（例如，要在图像编辑应用中打开的文件的路径）。
+
+
+  ### 附加属性
+
+
+  *   **Category（类别）** - 可以使用已初始化的 `Intent` 对象的 `addCategory` 方法设置。类别提供了有关 Intent
+  要执行的操作的附加上下文。只有能够处理所有指定类别的 Activity 才能被选择来接收 Intent。
+
+  *   **Type（类型）** - 可以使用已初始化的 `Intent` 对象的 `setType` 方法设置。通常，类型是从数据本身推断出来的；但是，此属性可用于设置特定的
+  MIME（多用途互联网邮件扩展）类型（例如 `audio/mpeg` 或 `audio/*`），例如，对于要返回的数据。
+
+  *   **Component（组件）** - 可以使用已初始化的 `Intent` 对象的 `setComponent` 方法设置。此属性标识用于 Intent
+  的组件类的名称。这是一个可选属性，因为它通常根据 Intent 的内容来标识。
+
+  *   **Extras（附加信息）** - 可以使用已初始化的 `Intent` 对象的 `putExtra` 方法设置。Extra 是一个 Bundle（一组包含不同类型的键值对），接收者可以使用它（例如，当将笔记分享到您的社交媒体应用时，笔记文本将作为
+  Bundle 中的一个字段发送）。此 Bundle 可以包含专有键或 Android 系统中设置的键，例如 `EXTRA_ALARM_COUNT`。
+
+  *   **Flags（标志）** - 可以使用已初始化的 `Intent` 对象的 `setFlag` 方法设置。标志表示正在启动的组件的行为（例如，不将启动的
+  Activity 包含在任务堆栈中）。
+
+
+  ### 操作（Actions）
+
+
+  可以使用已初始化的 `Intent` 对象的 `setAction` 方法设置。`getAction` 方法也可用于检索接收到的 Intent 的操作。操作定义了要执行的高级操作。
+
+
+  下面是一个示例：
+
+
+  ```
+
+  Intent intent = new Intent();
+
+  intent.setAction(Intent.ACTION_MAIN);
+
+  ```
+
+
+  在撰写本文时，Android 文档^(¹¹) 列出了超过 135 种标准 Intent 操作类型。表 4-1 列出了最常见的 Intent 操作的一个子集。
+
+
+  **表 4-1** Intent 操作
+
+
+  | 名称 | API 级别 | 描述 |
+
+  | --- | --- | --- |
+
+  | `ACTION_ALL_APPS` | 1+ | 列出所有可用的应用程序。 |
+
+  | `ACTION_APP_ERROR` | 14+ | 当用户在崩溃对话框警告消息中选择“报告”按钮时发生。然后此 Intent 将被发送到安装出现错误的应用程序的安装程序应用。
+  |
+
+  | `ACTION_CAMERA_BUTTON` | 1+ | 表示设备的“相机按钮”已被按下的广播。 |
+
+  | `ACTION_CHOOSER` | 1+ | 系统提供的默认标准 Activity 选择器的替代方案。此操作将显示一个 Activity 选择器。 |
+
+  | `ACTION_DEFAULT` / `ACTION_VIEW` | 1+ | 向用户显示数据的简单操作。 |
+
+  | `ACTION_MY_PACKAGE_SUSPENDED` | 28+ | 一个受保护的广播 Intent，只能由系统发送，当应用程序进入暂停状态时发送给该应用程序。
+  |
+
+  | `ACTION_MY_PACKAGE_UNSUSPENDED` | 28+ | 一个受保护的广播 Intent，只能由系统发送，当应用程序离开暂停状态时发送给该应用程序。
+  |
+
+  | `ACTION_PACKAGE_ADDED` | 1+ | 一个受保护的广播 Intent，只能由系统发送，当设备上安装了新应用程序时发送，包括两个附加信息：`EXTRA_UID`
+  和 `EXTRA_REPLACING`。 |
+
+  | `ACTION_PACKAGE_CHANGED` | 1+ | 一个受保护的广播 Intent，只能由系统发送，当设备上的现有应用程序发生更改时发送，包括附加信息：`EXTRA_UID`、`EXTRA_CHANGED_COMPONENT_NAME_LIST`
+  和 `EXTRA_DONT_KILL_APP`。 |
+
+  | `ACTION_PACKAGE_DATA_CLEARED` | 3+ | 一个受保护的广播 Intent，只能由系统发送，应在 `ACTION_PACKAGE_RESTARTED`
+  之前发送。当应用程序的持久数据被擦除时发送此广播，请记住此 Intent 不会发送给应用程序本身，包括附加信息：`EXTRA_UID` 和 `EXTRA_PACKAGE_NAME`。
+  |
+
+  | `ACTION_PACKAGE_FIRST_LAUNCH` | 12+ | 一个受保护的广播 Intent，只能由系统发送，当应用程序首次启动时发送给应用程序的安装程序（例如
+  Google Play 商店）。不包括附加信息；但是，数据包括已启动包的名称。 |
+
+  | `ACTION_PACKAGE_RESTARTED` | 1+ | 一个受保护的广播 Intent，只能由系统发送，当用户杀死应用程序及其所有进程时触发。数据将包含包名称，并且还将包含附加信息
+  `EXTRA_UID`。 |
+
+  | `ACTION_PACKAGE_REMOVED` | 1+ | 一个受保护的广播 Intent，只能由系统发送，当应用程序已从设备中移除时触发。由于应用程序已被移除，它将不会接收
+  Intent。除了包含应用程序名称的数据属性外，还将包含以下附加信息：`EXTRA_UID`、`EXTRA_DATA_REMOVED` 和 `EXTRA_REPLACING`。
+  |
+
+  | `ACTION_POWER_CONNECTED` | 4+ | 一个受保护的广播 Intent，只能由系统发送，表示设备已连接到电源。 |
+
+  | `ACTION_POWER_DISCONNECTED` | 4+ | 一个受保护的广播 Intent，只能由系统发送，表示设备已断开电源连接。 |
+
+  | `ACTION_REBOOT` | 1+ | 一个受保护的广播 Intent，只能由系统发送，指示设备重启。 |
+
+  | `ACTION_RUN` | 1+ | 运行已定义数据的高级操作。 |
+
+  | `ACTION_SCREEN_OFF` | 1+ | 一个受保护的广播 Intent，只能由系统发送，当设备屏幕进入休眠或变为非活动状态时发送。 |
+
+  | `ACTION_SHUTDOWN` | 4+ | 一个受保护的广播 Intent，只能由系统发送，在设备关机过程中触发。 |
+
+  | `ACTION_SEND` | 1+ | 向收件人发送数据的高级操作。此操作通常与选择器配对使用。 |
+
+  | `ACTION_SET_WALLPAPER` | 1+ | 用于显示选择壁纸的设置。 |
+
+  | `ACTION_TIMEZONE_CHANGED` | 1+ | 一个受保护的广播 Intent，只能由系统发送，表示系统时区已更改。包含附加信息 `EXTRA_TIMEZONE`。
+  |
+
+  | `ACTION_VOICE_COMMAND` | 1+ | 用于启动语音命令的 Intent 操作。 |
+
+  | `ACTION_WEB_SEARCH` | 1+ | 用于启动网络搜索的 Intent 操作。 |
+
+
+  ### 类别（Categories）
+
+
+  可以使用已初始化的 `Intent` 对象的 `addCategory` 方法设置。`getCategories` 方法也可用于检索接收到的 Intent 的类别。类别提供了有关
+  Intent 要执行的操作的附加上下文。只有能够处理所有指定类别的 Activity 才能被选择来接收 Intent。
+
+
+  下面是一个示例：
+
+
+  ```
+
+  Intent intent = new Intent();
+
+  intent.addCategory(Intent.APP_CALCULATOR);
+
+  ```
+
+
+  在撰写本文时，Android 文档^(¹²) 列出了超过 39 种标准 Intent 类别属性。表 4-2 列出了这些常见 Intent 类别的一个子集。
+
+
+  **表 4-2** Intent 类别
+
+
+  | 名称 | API 级别 | 描述 |
+
+  | --- | --- | --- |
+
+  | `CATEGORY_ALTERNATIVE` | 1+ | 用于标识标准 Activity 或用户当前正在查看的数据的替代操作。 |
+
+  | `CATEGORY_APP_BROWSER` | 15+ | 用于打开应能够浏览互联网的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开首选的浏览器应用。
+  |
+
+  | `CATEGORY_APP_CALCULATOR` | 15+ | 用于打开应能够执行标准算术运算的 Activity。它可以与 `ACTION_MAIN`
+  一起使用以打开计算器应用。 |
+
+  | `CATEGORY_APP_CALENDAR` | 15+ | 用于打开应能够执行标准日历操作的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开日历应用。
+  |
+
+  | `CATEGORY_APP_CONTACTS` | 15+ | 用于打开应能够查看和操作通讯录条目的 Activity。它可以与 `ACTION_MAIN`
+  一起使用以打开联系人应用。 |
+
+  | `CATEGORY_APP_EMAIL` | 15+ | 用于打开应能够发送和接收电子邮件的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开电子邮件应用。
+  |
+
+  | `CATEGORY_APP_FILES` | 15+ | 用于打开应能够管理存储在设备上的文件的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开文件应用。
+  |
+
+  | `CATEGORY_APP_GALLERY` | 15+ | 用于打开应能够查看和操作存储在设备上的图像和视频文件的 Activity。它可以与 `ACTION_MAIN`
+  一起使用以打开图库应用。 |
+
+  | `CATEGORY_APP_MAPS` | 15+ | 用于打开应能够显示用户当前位置的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开地图应用。
+  |
+
+  | `CATEGORY_APP_MARKET` | 11+ | 用于打开应允许用户浏览和安装新应用程序的 Activity。 |
+
+  | `CATEGORY_APP_MESSAGING` | 15+ | 用于打开应能够发送和接收短信的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开消息应用。
+  |
+
+  | `CATEGORY_APP_MUSIC` | 15+ | 用于打开应能够在设备上播放音乐的 Activity。它可以与 `ACTION_MAIN` 一起使用以打开音乐应用。
+  |
+
+  | `CATEGORY_BROWSABLE` | 1+ | 指示可以直接从浏览器调用和启动的 Activity（例如，用户选择指向 Google Play 商店网站的链接，然后被带到
+  Google Play 商店应用而不是网站）。 |
+
+  | `CATEGORY_CAR_MODE` | 8+ | 指示 Activity 已针对在车载环境中的使用进行了优化。 |
+
+  | `CATEGORY_DEFAULT` | 1+ | 用于标识可用作默认操作的 Activity。 |
+
+  | `CATEGORY_HOME` | 1+ | 设备启动时以及当用户返回起始 Activity 时启动的 Activity。 |
+
+  | `CATEGORY_LAUNCHER` | 1+ | 用于标识可用作设备上初始 Activity（即主屏幕）的 Activity。 |
+
+  | `CATEGORY_MONKEY` | 1+ | 指示可由 Monkey（一个 Android UI 模糊测试工具）或其他自动化工具测试的 Activity。
+  |
+
+
+  ### 附加信息（Extras）
+
+
+  可以使用已初始化的 `Intent` 对象的 `putExtra` 方法设置。`getExtras` 方法也可用于检索接收到的 Intent 的附加信息。Extra
+  是一个 Bundle（一组包含不同类型的键值对），接收者可以使用它（例如，当将笔记分享到您的社交媒体应用时，笔记文本将作为 Bundle 中的一个字段发送）。此
+  Bundle 可以包含专有键或 Android 系统中设置的键，例如 `EXTRA_ALARM_COUNT`。
+
+
+  下面是一个示例：
+
+
+  ```
+
+  Intent intent = new Intent();
+
+  intent.putExtra(Intent.EXTRA_TEXT, "这是一个文本 extra 示例");
+
+  ```
+
+
+  在撰写本文时，Android 文档^(¹³) 列出了超过 80 种标准 Intent 附加属性。表 4-3 列出了这些常见 Intent 附加信息的一个子集。
+
+
+  **表 4-3** Intent 附加信息
+
+
+  | 名称 | API 级别 | 描述 |
+
+  | --- | --- | --- |
+
+  | `EXTRA_CHANGED_COMPONENT_NAME_LIST` | 7+ | 属于 Intent 操作 `ACTION_PACKAGE_CHANGED`，包含一个字符串数组，包含所有已更改的组件。
+  |
+
+  | `EXTRA_DONT_KILL_APP` | 1+ | 属于 `ACTION_PACKAGE_REMOVED` 和 `ACTION_PACKAGE_CHANGED`
+  操作，覆盖重启目标应用程序的默认行为。 |
+
+  | `EXTRA_DATA_REMOVED` | 3+ | 属于 `ACTION_PACKAGE_REMOVED` 操作，用于指示移除应为完全卸载，同时删除数据和代码，而不是保留数据的部分卸载（后者作为更新的一部分执行）。
+  |
+
+  | `EXTRA_HTML_TEXT` | 16+ | 可作为 `ACTION_SEND` 操作的一部分与 `EXTRA_TEXT` 附加信息一起使用，指示该附加文本是
+  HTML 格式的文本。 |
+
+  | `EXTRA_MIME_TYPES` | 19+ | 用于设置可接受的 MIME 类型（例如 `audio/mpeg` 或 `audio/*`）。 |
+
+  | `EXTRA_NOT_UNKNOWN_SOURCE` | 14+ | 属于 `ACTION_INSTALL_PACKAGE` 操作，指示要安装的应用程序是从发送
+  Intent 的应用程序安装的，而不是来自未知来源。 |
+
+  | `EXTRA_PACKAGE_NAME` | 24+ | 包含一个应用程序名称。 |
+
+  | `EXTRA_PHONE_NUMBER` | 1+ | 属于 `ACTION_NEW_OUTGOING_CALL` 和 `ACTION_CALL` 操作，包含呼叫的电话号码。
+  |
+
+  | `EXTRA_QUIET_MODE` | 24+ | 指示安静模式（其中配置文件中的所有应用程序都被终止）是已打开还是已关闭。 |
+
+  | `EXTRA_REFERRER` | 17+ | 当 Intent 启动 Activity 时使用，用于标识发起启动的来源。值以 URI 形式提供。 |
+
+  | `EXTRA_REPLACING` | 3+ | 作为 `ACTION_PACKAGE_REMOVED` 操作的一部分使用，指示包已被替换。 |
+
+  | `EXTRA_REFERRER_NAME` | 22+ | `EXTRA_REFERRER` 附加信息的替代项；但是，值以字符串形式提供，而不是 URI。
+  |
+
+  | `EXTRA_SHUTDOWN_USERSPACE_ONLY` | 19+ | 作为 `ACTION_SHUTDOWN` 操作的一部分使用，标识应执行部分关机。此部分关机仅重启用户空间，而不是执行完整的操作系统重启。
+  |
+
+  | `EXTRA_SUBJECT` | 1+ | 一个高级附加信息，包含正在发送的数据的主题。 |
+
+  | `EXTRA_TEXT` | 1+ | 属于 `ACTION_SEND` 操作。一个高级附加信息，包含要以 `CharSequence`（或 `String`，因为
+  `String` 实现了 `CharSequence` 接口）形式接收的数据。 |
+
+  | `EXTRA_TIME` | 30+ | 一个高级附加信息，其值包含自纪元以来的毫秒时间（例如，1608553466）。 |
+
+  | `EXTRA_TIMEZONE` | 30+ | 属于 `ACTION_TIMEZONE_CHANG`
+
+
+
+
+  '
+- '# 获取输入名称并查看输入事件发生时间
+
+  `getevent -l`
+
+
+  '
+- '# 返回输入是否正在使用。用于识别屏幕是否正在使用。
+
+  `cat /dev/input/event2`
+
+
+  '
+- '# 向输入设备发送事件。例如，在我的设备上，以下命令将音量设置为 0。
+
+  `sendevent /dev/input/event0 0 0 0`
+
+
+  *通过 Monkey 测试工具（UI 模糊测试器）启动应用程序。将数字 1 替换为测试中要执行的随机触摸输入次数：*
+
+
+  ```
+
+  monkey -p com.android.chrome 1
+
+  ```
+
+
+  *如果你知道 Activity 名称，可以使用 Activity 管理器启动应用程序：*
+
+
+  ```
+
+  am start -n com.android.chrome/com.google.android.apps.chrome.Main
+
+  ```
+
+
+  *以下命令返回制造商、设备名称、版本、名称和日期，以及用户和发布密钥：*
+
+
+  ```
+
+  getprop ro.build.fingerprint # 例如：google/blueline/blueline:9/PQ3A.190605.003/5524043:user/release-keys
+
+
+  # 返回内核版本
+
+  uname -a
+
+
+  # 也返回内核版本以及设备架构。
+
+  cat /proc/version
+
+  ```
+
+
+  *访问应用程序的内部存储（需要 root 权限）：*
+
+
+  ```
+
+  # 以 root 身份访问应用程序用作内部存储的位置。
+
+  cd /data/user/0
+
+
+  # 例如，访问 Chrome 中保存的离线页面，并将其存储在 data/local/tmp 目录中，以便后续从设备中拉取。
+
+  su
+
+  cd /data/user/0
+
+  cd com.android.chrome/cache/Offline Pages/archives
+
+  cp 91-a05c-b3f3384516f4.mhtml /data/local/tmp/page.mhtml
+
+  chmod 777 /data/local/tmp/page.mhtml
+
+  ```
+
+
+  *重启设备。应用程序需要`android.permission.REBOOT`权限或 root 权限：*
+
+
+  ```
+
+  /system/bin/reboot
+
+  reboot
+
+  svc power reboot
+
+  svc power shutdown
+
+  ```
+
+
+  *以 root 身份将文件系统挂载为读写。* *在旧设备上* *可用于将系统应用程序目录设置为读写。*
+
+
+  ```
+
+  busybox mount -o remount,rw /system
+
+  ```
+
+
+  *中断允许接口设备与处理器通信：*
+
+
+  ```
+
+  cat /proc/interrupts | grep volume
+
+  ```
+
+
+  *`dumpsys`提供系统服务信息：*
+
+
+  ```
+
+  dumpsys -l
+
+  dumpsys input
+
+  dumpsys meminfo
+
+  service call procstats 1
+
+  ```
+
+
+  ## 以编程方式运行命令
+
+
+  使用`Runtime`类，可以以编程方式运行 Shell 命令。如果命令需要的权限级别高于应用程序所拥有的权限，则命令将失败——例如，在没有`android.permission.REBOOT`权限的情况下尝试重启设备。
+
+
+  *运行单个命令：*
+
+
+  ```
+
+  String filesLocation = getApplicationContext().getDataDir().getAbsolutePath();
+
+  try {
+
+  Runtime.getRuntime().exec("touch "+filesLocation+"/test.txt");
+
+  } catch (IOException e) {
+
+  e.printStackTrace();
+
+  }
+
+  ```
+
+
+  '
+- "# 12. 反编译和反汇编 Android 应用程序\n\nAndroid 应用程序使用 Java 或 Kotlin 编写。在构建应用程序时，这些代码会被编译为\
+  \ Dalvik 字节码——以`dex`（Dalvik 可执行文件）文件形式呈现。这种 Dalvik 字节码是二进制的，因此不可读。在这种情况下，如果逆向工程师想要分析已编译的\
+  \ Android 应用程序，他们只能选择反编译或反汇编 Dalvik 可执行文件。创建和逆向工程 Android 应用程序的过程如图 12-1 所示。\n\n\
+  ![../images/509502_1_En_12_Chapter/509502_1_En_12_Fig1_HTML.png](img/509502_1_En_12_Fig1_HTML.png)\n\
+  \n**图 12-1** 软件开发者和逆向工程师的处理视图\n\n## 反编译的 Java\n\n第一种选择是使用工具将 Dalvik 字节码反编译为可读的 Java。这种\
+  \ Java 更像是伪代码而非实际 Java，因为它是反编译器对 Dalvik 汇编表示的“最佳猜测”。虽然这种视图对 Java 开发人员来说更熟悉，但通常不是最佳选择，因为它不仅不能代表实际应用程序代码，而且也无法运行或重新编译。诸如`dex2jar`和`jadx`之类的工具可用于反编译\
+  \ Dalvik 可执行文件。`Jadx`可用于将`Jadx`项目导出为 Gradle 项目，从而允许将项目加载到 Android Studio 中。\n\n\
+  *`APKTool`可用于从 APK 中提取`.dex`文件：*\n\n```\napktool  -s d \n```\n\n*使用`JADX`反编译并查看\
+  \ APK 或 Dex 文件的反编译 Java 代码：*\n\n```\njadx -e \n```\n\n## 反汇编的 Dalvik 字节码（Smali）\n\
+  \n与其反编译为伪 Java，不如使用反汇编器将 Dalvik 字节码恢复为其自身的可读表示形式。Dalvik 字节码更常用的形式称为 Smali。反汇编为 Smali\
+  \ 的好处在于，一个`dex`文件可以被反汇编、读取、修改、重新汇编和重新签名，并且仍然保持完全可用的状态。\n\n*诸如`APKTool`之类的工具可用于反汇编\
+  \ Dalvik 字节码：*\n\n```\napktool d \n```\n\n由于 Smali 的特性，其代码体积通常比 Java 或 Kotlin 大得多。例如，以下\
+  \ Java 中的 Toast 代码（一个简单的 Android 弹出消息）的大小仅为相同 Smali 代码的一半。\n\n*Java：*\n\n```\nContext\
+  \ context = getApplicationContext();\nCharSequence text = \"I'm a Toast\";\nint\
+  \ duration = Toast.LENGTH_SHORT;\nToast toast = Toast.makeText(context, text, duration);\n\
+  toast.show();\n```\n\n*Smali：*\n\n\n\n```smali\n.line 13\nconst-string v0, \"I'm\
+  \ a Toast!\"\n.line 14\n.local v0, \"text\":Ljava/lang/String;\nconst/4 v1, 0x1\n\
+  .line 16\n.local v1, \"duration\":I\ninvoke-virtual {p0}, Lcom/example/simpletoastapp/MainActivity;->getApplicationContext()Landroid/content/Context;\n\
+  move-result-object v2\nmove-object v3, v0\ncheck-cast v3, Ljava/lang/CharSequence;\n\
+  invoke-static {v2, v3, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;\n\
+  move-result-object v2\n.line 17\n.local v2, \"toast\":Landroid/widget/Toast;\ninvoke-virtual\
+  \ {v2}, Landroid/widget/Toast;->show()V\n```\n\n## 从运行中的设备提取 APK\n\n为了分析（并进而反汇编或反编译）一个\
+  \ Android 应用程序，你可能需要首先将其从设备中提取出来。可以使用 `adb` shell 来做到这一点。\n\n以下使用包管理器列出设备上的所有包 ID：\n\
+  \n```\npm list packages\npm list packages | grep chrome\n```\n\n接下来，可以再次使用包管理器来列出所需包的基础\
+  \ APK 路径（例如包路径为 `/data/app/com.android.chrome-6piH3g1ET8uQozATuKwptQ==/base.apk`）：\n\
+  \n```\npm path <package>\n```\n\n查看此命令返回的目录不需要特殊权限。但是，其父目录（`/data/app`）对于非 root\
+  \ 用户没有读取权限，这意味着无法通过这种方式枚举设备上的应用程序。\n\n最后，提取 APK 的最简单方法是使用带以下参数的 `adb`：\n\n```\n\
+  adb pull <remote> <local>\n```\n\n同样值得记住的是，诸如 APK Hoarder 之类的工具，^((55)) 该工具是免费且开源的，可用于从设备中批量提取\
+  \ APK。\n\n## 脚注\n\n## 13. 结语\n\n本书的目的在于为你提供一份参考指南，其中包含对密切从事 Android 操作系统及其他 Android\
+  \ 安全元素工作的 Android 软件开发人员有用的信息。本书涵盖了从应用沙盒和 Dalvik 虚拟机到 Android 应用程序的存储类型，以及如何逆向工程一个已编译的\
+  \ Android 应用程序等各个领域。\n\n重要的是要记住，虽然本书中的核心原则在未来许多年内应继续具有参考价值，但随着新版本 Android 的发布，某些方面可能会发生变化。鉴于此，在继续使用本书作为参考指南的同时，也请查阅书中散布的脚注，以加深对所涵盖领域的理解。\n\
+  \n还有大量其他优秀的资源可以支持你在 Android 编程、内部机制和逆向工程方面的知识；这里精选了一部分：\n\n*   **Maddie Stone**\
+  \ - Android 应用逆向工程 101^((56))\n*   **Jonathan Levin** - Android 内部机制^((57))\n* \
+  \  **Kristina Balaam** - Android 恶意软件分析 | YouTube^((58))\n*   **Kristina Balaam**\
+  \ - Android 恶意软件分析 | LinkedIn Learning^((59))\n*   **Ira R. Forman 与 Nate Forman**\
+  \ - Java 反射实战 | Manning 出版社^((60))\n*   **Android 文档** | Android 开发者^((61))\n\n\
+  除了这些资源，我还要特别感谢 JD，他是该领域的一位研究员和软件工程师，没有他的鼓励，我不会动笔写这本书。有关更多信息以及来自本书作者 James Stevenson\
+  \ 的更多资源，请访问我的网站 [`https://JamesStevenson.me/`](https://jamesstevenson.me/)。\n\n\
+  ## 脚注\n\n## 索引\n\n**A**\n*   Activity 类\n*   Activity 上下文\n*   Activity 生命周期\n \
+  \   *   `onCreate()`\n    *   `onPause()`\n    *   `onRestart()`\n    *   `onResume()`\n\
+  \    *   `onStart()`\n    *   `onStop()`\n*   `adb logcat` 命令\n*   ADB shell\n*\
+  \   AES 加密\n*   `AlarmManager`\n*   Android 应用程序 Activity 生命周期\n*   Android 调试桥\
+  \ (`adb`)\n*   Android ID\n*   Android 启动器\n    *   应用创建\n    *   功能\n    *   设置\n\
+  *   `AndroidManifest.xml` 包属性\n*   Android 权限\n*   Android 运行时 (ART)\n*   Android\
+  \ 沙盒\n*   Android Shell\n*   Android 用户\n*   Android 版本\n*   应用组件\n    *   广播接收器\n\
+  \    *   内容提供者\n    *   清单文件\n*   应用上下文\n*   应用 ID\n    *   `build.gradle` 文件\n\
+  \    *   Gradle 构建文件\n*   应用 ID\n    *   Google Play 商店列表\n    *   内部存储文件路径\n  \
+  \  *   规则\n    *   后缀与风味\n*   应用的清单文件\n*   Assets 文件夹\n*   `AsyncTask`\n\n**B**\n\
+  *   电池与安全影响\n    *   应用待机分区\n    *   深度休眠\n    *   类型\n*   BootComplete 意图\n*  \
+  \ 启动分区\n*   广播接收器\n*   `BuildConfig.DEBUG`\n*   `buildTypes` 标签\n\n**C**\n*   类\n\
+  *   类加载\n*   码分多址 (CDMA) 系统\n*   以编程方式运行命令\n*   组件的状态\n    *   动态修改\n    *   静态修改\n\
+  *   组件类型\n*   构造函数\n*   内容提供者\n*   上下文\n    *   Activity 上下文\n    *   应用上下文\n  \
+  \  *   应用级别操作\n    *   用例\n*   `context.startService()` 方法\n*   核心属性\n\n**D**\n\
+  *   Dalvik 字节码\n*   Dalvik 虚拟机\n*   数据库\n*   反编译的 Java\n*   `DexClassLoader`\n*\
+  \   dex 类加载\n*   反汇编的 Dalvik 字节码 (Smali)\n\n**E**\n*   显式意图\n*   外部存储\n\n**F**\n\
+  *   文件提供者\n*   文件系统\n    *   `/boot`\n    *   `/cache`\n    *   `/data`\n    * \
+  \  `/metadata`\n    *   `/misc`\n    *   `/odm`\n    *   `/oem`\n    *   `/radio`\n\
+  \    *   `/recovery`\n    *   `/sdcard`\n    *   `/system`\n    *   `/tos`\n   \
+  \ *   `/vendor`\n*   前台服务\n\n**G**\n*   `getAction` 方法\n*   `getCategories` 方法\n\
+  *   `getClassLoader()`\n*   `getDeclaredMethods`\n*   `getExtras` 方法\n*   `getMethods`\n\
+  *   全球移动通信系统 (GSM)\n*   Google Play 广告 ID\n*   `gradle.build` 文件\n\n**H**\n*   严格限制的权限\n\
+  \n**I**\n*   隐式意图\n*   意图\n    *   动作\n    *   属性\n    *   类别\n    *   核心属性\n  \
+  \  *   显式\n    *   附加数据\n    *   过滤器\n    *   标志\n    *   隐式\n    *   发送方法\n   \
+  \ *   启动组件\n*   `IntentService`\n*   接口\n*   内部存储\n    *   `/cache`\n    *   `/code_cache`\n\
+  \    *   `/databases`\n    *   `/files`\n    *   `/lib`\n    *   `/no_backup`\n\
+  \    *   `/shared_prefs`\n*   进程间通信 (IPC) 机制\n*   `.isLoggable` 方法\n\n**J, K**\n\
+  *   Java 类加载器\n*   Java 包名\n*   Java 反射示意图\n*   Java 运行时环境 (JRE)\n*   `JobSchedulers`\n\
+  \n**L**\n*   Linux 用户\n*   Log 类\n*   Logcat\n*   日志记录\n    *   自定义 `DEBUG` 常量\n\
+  \    *   在 Java 中\n    *   `.isLoggable` 方法\n    *   标准日志记录\n*   长时间运行的服务\n    *\
+  \   `AlarmManager`\n    *   `AlarmReceiver`\n    *   `AsyncTasks`\n    *   `BootComplete`\
+  \ 意图\n    *   `BootReceiver.java` 类\n    *   `BroadcastReceiver`\n    *   `IntentService`\n\
+  \    *   `JobSchedulers`\n    *   线程化\n    *   触发器\n    *   类型\n    *   `WorkManagers`\n\
+  \n**M, N**\n*   方法\n*   `myText` 文件\n\n**O**\n*   混淆工具\n*   `onCreate()`\n*   `onPause()`\n\
+  *   `onRestart()`\n*   `onResume()`\n*   `onStart()`\n*   `onStop()`\n\n**P, Q**\n\
+  *   包 ID\n*   分区\n    *   外部存储\n    *   文件夹\n    *   内部存储\n*   `PathClassLoader`\n\
+  *   权限\n    *   API 与权限级别\n    *   最小权限模型\n    *   清单\n    *   特权与开发\n    *   运行时\n\
+  \    *   类型\n*   预验证器\n*   私有构造函数\n*   ProGuard\n    *   白名单\n    *   启用\n    *\
+  \   入口点\n    *   保留类型\n    *   映射文件\n    *   规则\n    *   技术\n*   公钥/证书绑定\n*   `putExtra`\
+  \ 方法\n\n**R**\n*   `READ_EXTERNAL_STORAGE` 权限\n*   `READ_PRIVILEGED_PHONE_STATE`\
+  \ 特权权限\n*   反射\n    *   类初始化\n    *   组件\n    *   `getMethods` 与 `getDeclaredMethods`\n\
+  \    *   辅助类\n    *   实例类\n    *   私有构造函数\n    *   静态方法\n*   运行时权限对话框\n\n**S**\n\
+  *   `screencap`\n*   `setComponentEnabledSetting` 方法\n*   `setFlag` 方法\n*   `setOverrideDeadline`\n\
+  *   `setType` 方法\n*   共享首选项\n*   签名权限类型\n*   SIM 卡序列号\n*   软限制的权限\n*   软件开发者与逆向工程师流程视图\n\
+  *   标准日志记录\n*   `startForegroundService()` 方法\n*   静态方法\n*   `stopSelf()` 方法\n*\
+  \   存储\n    *   assets 文件夹\n    *   数据库\n    *   文件提供者\n    *   分区\n    *   资源\n\
+  \    *   文本文件\n\n**T**\n*   任务栈\n*   文本文件\n*   线程化\n*   触发器\n\n**U**\n*   唯一标识符\n\
+  \    *   Google Play 广告 ID\n    *   IMEI\n    *   IMEI 与 MEID\n    *   MEID\n  \
+  \  *   电话号码\n    *   SIM 卡序列号\n*   `URLClassLoader`\n\n**V**\n*   虚拟机 (VM)\n\n**W,\
+  \ X, Y**\n*   `WorkManagers`\n\n**Z**\n*   Zygote\n"

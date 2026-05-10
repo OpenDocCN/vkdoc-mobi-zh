@@ -1,0 +1,111 @@
+# M
+
+- **主菜单屏幕**
+- **清单文件**
+  - `components`
+  - `<activity>` 元素
+  - `<application>` 元素
+  - `<uses-feature>` 元素
+  - `<uses-permission>` 元素
+- **棉花糖 (Marshmallow)**
+- **矩阵栈**
+  - `glPushMatrix()` 方法
+  - `glTranslatef()`
+  - `hierarchical system`
+  - `manipulation`
+  - `model-view matrix`
+  - `TOS`
+- **马克思·佩恩**
+- **Mipmapping (多级渐远纹理)**
+  - `aliasing effects`
+  - `createMipmaps()`
+  - `define`
+  - `texture`
+- **移动游戏**
+  - `casual and hardcore games`
+  - `connectivity`
+  - `description`
+  - `games market`
+  - `gaming machine`
+- **模型-视图-控制器 (MVC)**
+- **货币化**
+- **Mr. Nom AndroidGame**
+  - `abstract representation`
+  - `accelerometer`
+  - `Audacity`
+  - `audio assets`
+  - `benefits`
+  - `convenient asset store`
+  - `coordinate system`
+  - `determination, game over`
+  - `GameScreen` 类
+    - `coding`
+    - `constructor`
+    - `defined`
+    - `drawReadUI()`, `drawRunningUI()`, `drawPausedUI()` 和 `drawGameOverUI()`
+    - `drawText()`
+    - `drawWorld()`
+    - `GameState`
+    - `garbage collector`
+    - `paused()`
+    - `present()`
+    - `ready`, `running`, `paused` 和 `game over`
+    - `rendering methods`
+    - `stain images`
+    - `update()` 方法
+    - `updateGameOver()`
+    - `updatePaused()`
+    - `updateReady()`
+    - `updateRunning()`
+  - `graphical assets`
+    - `background.png`
+    - `buttons.png`
+    - `filenames and sizes, pixels`
+    - `headdown.png`
+    - `help1.png`
+    - `logo.png`
+    - `mainmenu.png`
+    - `numbers.png`
+    - `PNG format`
+    - `ready.png`
+    - `stain1.png`
+    - `tail.png`
+    - `target resolution`
+  - `HelpScreen` 类
+  - **高分屏幕**
+    - `images`
+    - `implementation`
+    - `rendering numbers`
+    - `integer coordinates`
+  - `loading screen`
+  - `main activity`
+  - `main menu screen`
+  - `model classes`
+  - `Model-View-Controller (MVC)`
+  - `placing Stains`
+  - `Snake` 和 `SnakePart` 类
+    - `advance()`
+    - `checkBitten()`
+    - `constants`
+    - `direction`
+    - `eat()` 方法
+    - `head's position`
+    - `initial configuration`
+    - `overlapping`
+    - `representation`
+    - `tail parts`
+    - `turnLeft()` 和 `turnRight()`
+  - `stain class`
+  - `time-based movement`
+  - `user settings and high scores`
+  - `World class`
+- **多点触控事件**
+  - `Action Mask and More Event Types`
+  - `onTouch()` 方法
+  - `pointer identifier`
+  - `pointer index`
+  - `process`
+  - `test activity`
+- **音乐流**
+- **我的超棒游戏 (MySuperAwesomeGame)**
+

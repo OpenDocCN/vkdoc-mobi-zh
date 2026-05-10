@@ -1,0 +1,510 @@
+name: Build iOS Database Apps with Swift and SQLite
+name_cn: Swift 和 SQLite 的 iOS 数据库应用构建指南
+slug: build-ios-database-apps-with-swift-and-sqlite
+toc:
+- - '#'
+  - SQLite
+- - '##'
+  - 使用 Swift 和 SQLite 构建 iOS 数据库应用
+- - '##'
+  - 关于作者
+- - '##'
+  - 关于技术审校
+- - '##'
+  - 致谢
+- - '##'
+  - 前言
+- - '#'
+  - 目录
+- - '#'
+  - 第 1 章：创建 Objective-C 封装器
+- - '##'
+  - 入门指南
+- - '##'
+  - 创建 Swift iOS 项目
+- - '###'
+  - 创建 DbMgr 项目结构
+- - '###'
+  - 添加 SQLite 3 库
+- - '##'
+  - 创建桥接文件
+- - '###'
+  - 创建桥接头文件
+- - '###'
+  - 配置 Swift 编译器
+- - '##'
+  - 创建 Swift 封装器函数
+- - '###'
+  - 添加`DbMgrDAO`类
+- - '###'
+  - 创建`init()`函数
+- - '###'
+  - 创建 SQLite 执行函数
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 2 章：创建 SQLite 数据库
+- - '##'
+  - 创建数据库并添加到项目
+- - '###'
+  - 启动 SQLite 管理器
+- - '###'
+  - SQLite 管理器菜单
+- - '##'
+  - '`sqlite_master` 表'
+- - '##'
+  - '`sqlite_sequence` 表'
+- - '##'
+  - 添加表和列
+- - '##'
+  - 添加索引
+- - '##'
+  - 添加视图
+- - '##'
+  - 添加触发器
+- - '##'
+  - 创建 iOS 项目
+- - '##'
+  - 将数据库添加到项目
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 3 章：在运行时创建数据库
+- - '##'
+  - 创建数据模型
+- - '##'
+  - 创建控制器
+- - '###'
+  - '`DbMgrDAO` 控制器'
+- - '###'
+  - '`populateIndexView` 函数'
+- - '###'
+  - '`initViewIndex` 函数'
+- - '###'
+  - '`executeQuery` 函数'
+- - '###'
+  - '`openSQLiteDatabase` 函数'
+- - '##'
+  - MasterViewController
+- - '###'
+  - viewDidLoad 函数实现
+- - '###'
+  - 数据源函数的实现
+- - '##'
+  - DetailViewController
+- - '###'
+  - '`createDbButton`的`@IBAction`'
+- - '###'
+  - 创建数据库模式的 `@IBAction` 按钮
+- - '###'
+  - '`detailSQLiteQueryField` 的 `@IBOutlet`'
+- - '##'
+  - 设置视图
+- - '###'
+  - '`viewDidLoad` 函数的实现'
+- - '###'
+  - '`viewWillAppear` 函数的实现'
+- - '##'
+  - 构建 Winery 数据库
+- - '###'
+  - 创建 `Winery.sqlite` 文件
+- - '###'
+  - 添加表
+- - '###'
+  - 添加视图
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 4 章：修改数据库及其他功能
+- - '##'
+  - 修改表
+- - '###'
+  - 重命名表
+- - '####'
+  - 简单的表重命名
+- - '####'
+  - 复杂表重命名
+- - '###'
+  - 添加列
+- - '###'
+  - 重建索引
+- - '##'
+  - 修改视图
+- - '##'
+  - 修改索引
+- - '##'
+  - 修改触发器
+- - '##'
+  - 添加和修改排序规则序列
+- - '##'
+  - SQLite DELETE 语句
+- - '###'
+  - 删除表
+- - '###'
+  - 删除视图
+- - '###'
+  - 删除索引
+- - '###'
+  - 删除触发器
+- - '###'
+  - 删除排序序列
+- - '##'
+  - SQLite 函数
+- - '###'
+  - JSON 扩展
+- - '###'
+  - 使用 Swift 创建函数
+- - '###'
+  - 在 Swift 中使用 SQLite 数据库中的函数
+- - '##'
+  - PRAGMA 语句
+- - '###'
+  - '`foreign_key_check`'
+- - '###'
+  - '`foreign_key_list`'
+- - '###'
+  - '`integrity_check`'
+- - '###'
+  - '`automatic_index`'
+- - '###'
+  - '`busy_timeout`'
+- - '###'
+  - '`shrink_memory`'
+- - '###'
+  - '`auto_vacuum`'
+- - '##'
+  - 损坏 SQLite 数据库
+- - '##'
+  - SQLite 的限制
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 5 章：插入记录
+- - '##'
+  - 数据绑定函数
+- - '##'
+  - SQLite INSERT 函数
+- - '###'
+  - 插入或替换
+- - '###'
+  - 插入或回滚
+- - '###'
+  - 插入或忽略
+- - '###'
+  - 插入或中止
+- - '###'
+  - 插入或失败
+- - '###'
+  - 插入二进制大对象（BLOB）
+- - '##'
+  - 创建用于插入操作的 UI 视图
+- - '##'
+  - 添加数据库模式
+- - '##'
+  - 创建控制器
+- - '###'
+  - 添加 `WineryDAO` 类
+- - '###'
+  - '`init()` 函数'
+- - '###'
+  - '`buildSchema` 函数'
+- - '###'
+  - '`createOrOpenDatabase` 函数'
+- - '###'
+  - '`insertWineRecord` 函数'
+- - '###'
+  - '`insertWineryRecord` 函数'
+- - '##'
+  - FirstViewController
+- - '###'
+  - 添加照片捕获功能
+- - '###'
+  - 添加插入函数
+- - '###'
+  - '`viewDidLoad`函数'
+- - '###'
+  - 添加评分`UISlider`功能
+- - '##'
+  - '`SecondViewController`'
+- - '##'
+  - 运行应用
+- - '###'
+  - 插入记录
+- - '###'
+  - 录入酒庄
+- - '###'
+  - 录入葡萄酒
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 6 章：查询记录
+- - '##'
+  - 列数据类型
+- - '##'
+  - SELECT 语句
+- - '###'
+  - 基本语法
+- - '###'
+  - 选择数据
+- - '###'
+  - 使用动态 WHERE 子句
+- - '###'
+  - 通过子查询执行 SELECT
+- - '###'
+  - 通过联接执行 SELECT
+- - '####'
+  - 使用内连接（`INNER JOIN`）
+- - '####'
+  - 使用交叉连接（`CROSS JOIN`）
+- - '####'
+  - 使用外连接（`OUTER JOIN`）
+- - '###'
+  - 选择并显示图像
+- - '###'
+  - 选择并播放音频记录
+- - '###'
+  - 选择并显示视频记录
+- - '##'
+  - 为酒庄应用添加 SELECT 功能
+- - '###'
+  - 添加 SelectWineries UIPicker
+- - '###'
+  - viewDidLoad 函数
+- - '###'
+  - UIPickerView 函数
+- - '###'
+  - selectWineriesList 函数
+- - '###'
+  - selectWineList 函数
+- - '###'
+  - selectWineryByName 函数
+- - '##'
+  - 修改用于显示记录的用户界面
+- - '###'
+  - 添加 UITableViewController
+- - '###'
+  - 添加导航控制器
+- - '###'
+  - 连接 TableViewController 与 TableViewCellController
+- - '###'
+  - 添加 IBOutlet：WineList 控制器
+- - '###'
+  - 添加业务逻辑
+- - '####'
+  - WineListTableViewController
+- - '####'
+  - WineryListTableViewController
+- - '##'
+  - 运行应用
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 7 章：更新记录
+- - '##'
+  - SQLite 更新语句
+- - '###'
+  - 使用 WHERE 子句进行 UPDATE
+- - '###'
+  - 使用子查询进行 UPDATE
+- - '###'
+  - 通过联接更新记录
+- - '###'
+  - 在 FROM 子句中使用子查询进行 UPDATE
+- - '###'
+  - 冲突时的更新
+- - '####'
+  - 更新或回滚记录
+- - '####'
+  - 更新或中止记录
+- - '####'
+  - 更新或替换记录
+- - '####'
+  - 更新或失败记录
+- - '####'
+  - 更新或忽略记录
+- - '##'
+  - Swift 中的 SQLite UPDATE 操作示例
+- - '##'
+  - 为酒庄应用添加 UPDATE 功能
+- - '###'
+  - 修改 WineryDAO 控制器
+- - '####'
+  - 添加`wineUpdate`函数
+- - '####'
+  - 添加`wineryUpdate`函数
+- - '###'
+  - 修改用于更新的用户界面
+- - '####'
+  - 设置`showWineDetail`转场
+- - '####'
+  - WineListTableViewController
+- - '####'
+  - WineryListTableViewController
+- - '##'
+  - 运行应用
+- - '###'
+  - 更新记录
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 8 章：删除记录
+- - '##'
+  - SQLite 中的 DELETE 语句
+- - '##'
+  - 使用 WHERE 子句
+- - '##'
+  - 限制与触发器
+- - '###'
+  - DELETE 限制
+- - '##'
+  - Swift SQLite 删除示例
+- - '##'
+  - 为酒庄应用添加删除功能
+- - '###'
+  - 修改 WineryDAO 类
+- - '####'
+  - 添加 `deleteWineRecord` 函数
+- - '####'
+  - 添加 `deleteWineryRecord` 函数
+- - '###'
+  - 修改 ViewController
+- - '###'
+  - 修改 TableViewController
+- - '####'
+  - WineryListTableViewController
+- - '####'
+  - WineListTableViewController
+- - '###'
+  - 修改用于删除的用户界面
+- - '##'
+  - 运行应用
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 9 章：在 SQLite 中搜索记录
+- - '##'
+  - 搜索应用
+- - '###'
+  - 创建 SQLite 数据库
+- - '###'
+  - 创建 iOS/SQLite 项目
+- - '###'
+  - 设置桥接
+- - '##'
+  - 控制器代码
+- - '###'
+  - '`numberOfSectionsInTableView` 函数'
+- - '###'
+  - '`tableView:numberOfRowsInSection` 函数'
+- - '###'
+  - '`tableView:cellForRowAtIndexPath:indexPath` 函数'
+- - '###'
+  - '`searchBarCancelButtonClicked` 函数'
+- - '###'
+  - '`searchBarSearchButtonClicked` 函数'
+- - '###'
+  - '`searchDatabase` 函数'
+- - '###'
+  - '`searchResultCellTableViewCell` 函数'
+- - '##'
+  - 开发故事板
+- - '###'
+  - '`UISearchBar` 与 `UITableView`'
+- - '###'
+  - '`IBOutlet`'
+- - '###'
+  - 原型单元格
+- - '##'
+  - 运行应用
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 10 章：处理多个数据库
+- - '##'
+  - ATTACH 语句
+- - '##'
+  - 附加内存数据库
+- - '##'
+  - DETACH 语句
+- - '##'
+  - 多数据库限制
+- - '##'
+  - 执行连接
+- - '##'
+  - 在 Swift 中实现附加与分离
+- - '###'
+  - 项目
+- - '###'
+  - ViewController
+- - '###'
+  - 全局变量和常量
+- - '###'
+  - IBActions 和 IBOutlets
+- - '###'
+  - '`viewDidLoad`函数'
+- - '###'
+  - '`getDbToAttach`函数'
+- - '###'
+  - '`setDbpath`函数'
+- - '###'
+  - '`createDatabase`函数'
+- - '###'
+  - '`attachDatabase` 函数'
+- - '###'
+  - '`detachDatabase` 函数'
+- - '###'
+  - '`UIPickerView` 函数'
+- - '###'
+  - 构建用户界面
+- - '###'
+  - 运行应用程序
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 11 章：备份 SQLite 数据库
+- - '##'
+  - SQLite 备份方法概述
+- - '##'
+  - 制作备份副本
+- - '##'
+  - 备份内存中的 SQLite 数据库
+- - '##'
+  - 备份磁盘上的 SQLite 数据库
+- - '##'
+  - 备份应用
+- - '###'
+  - ViewController
+- - '###'
+  - 函数`viewDidLoad`和`copyDatabaseIntoDocuments`
+- - '###'
+  - 函数`getDatabasePath`
+- - '##'
+  - 备份正在运行的数据库
+- - '###'
+  - 备份内存数据库
+- - '###'
+  - 构建用户界面
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 12 章：分析 SQLite 数据库
+- - '##'
+  - ANALYZE 语句
+- - '##'
+  - 在 Swift 中使用 ANALYZE 功能
+- - '##'
+  - '`sqldiff` 工具'
+- - '##'
+  - '`sqlite3_analyzer` 工具'
+- - '##'
+  - 表 `SQLITE_MASTER`
+- - '##'
+  - 表 `SQLITE_SEQUENCE`
+- - '##'
+  - 表 `SQLITE_STAT1`
+- - '##'
+  - CARS 表
+- - '##'
+  - 本章小结
+- - '#'
+  - 索引

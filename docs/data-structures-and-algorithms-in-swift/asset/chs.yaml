@@ -1,0 +1,2392 @@
+- '
+
+  '
+- '# 1. 数组
+
+
+  在本章中，你将学习数组、数组的内置属性以及如何从数组中检索、添加和删除元素。
+
+
+  ## 引言
+
+
+  数组本质上是一个容器，它能以有序列表的形式容纳任意数据类型的多个数据值；这意味着你获取元素的顺序与你在数组中定义元素的顺序相同。你无需分别声明诸如 `number0`、`number1`……直到
+  `number99` 这样的单个变量，而是声明一个如 `numbers` 这样的数组变量，并使用 `numbers[0]`、`numbers[1]` 和 `numbers[99]`
+  来表示单个变量。
+
+
+  最简单的数组类型是线性数组，也称为一维数组。在 Swift 中，数组的索引从零开始。一维数组可以简单地写成如下形式，元素可以通过 `a[i]` 来访问，其中 `i`
+  是介于 `0` 和 `n` 之间的索引：
+
+
+  ![$$ a=\left[\begin{array}{c}{a}_0\\ {}{a}_1\\ {}\vdots \\ {}{a}_n\end{array}\right]
+  $$](images/490882_1_En_1_Chapter/490882_1_En_1_Chapter_TeX_Equa.png)
+
+
+  另一种数组形式是多维数组，它类似于一个典型的矩阵：
+
+
+  ![$$ a=\left[\begin{array}{ccc}{a}_{00}&amp; {a}_{01}&amp; {a}_{02}\\ {}{a}_{10}&amp;
+  {a}_{11}&amp; {a}_{12}\end{array}\right] $$](images/490882_1_En_1_Chapter/490882_1_En_1_Chapter_TeX_Equb.png)
+
+
+  ## 数组的主要特性
+
+
+  每个元素都可以通过其索引来访问，如图 1-1 所示。
+
+
+  ![../images/490882_1_En_1_Chapter/490882_1_En_1_Fig1_HTML.png](img/490882_1_En_1_Fig1_HTML.png)
+
+
+  **图 1-1** 元素索引
+
+
+  数组会预留特定的内存容量来存储其内容，当容量用尽时，数组会分配更大的内存区域来容纳更多元素，并将现有元素复制到新存储区。这就是为什么向数组添加元素可能比较耗时。新的存储大小相较于旧的大小呈指数级增长，因此随着数组增长，重新分配内存的情况会越来越少。`capacity`
+  属性决定了数组在超出容量并不得不分配新内存之前所能容纳的元素总数。
+
+
+  如图 1-2 所示，我们正在向一个即将超出容量的数组添加 "Black" 元素。该元素不会立即被添加，而是会在其他地方创建新的内存空间，将所有已有元素复制过去，最后再将新元素添加到数组中。这个过程称为重新分配：在内存的另一区域分配新的存储空间。数组的大小会呈指数级增长。在
+  Swift 中，这被称为几何增长模式。
+
+
+  ![../images/490882_1_En_1_Chapter/490882_1_En_1_Fig2_HTML.png](img/490882_1_En_1_Fig2_HTML.png)
+
+
+  **图 1-2** 重新分配
+
+
+  当元素被添加到数组时，数组会在容量耗尽时自动调整大小。如果你事先知道数组将包含大量元素，那么在创建时就分配额外的预留容量会更高效。
+
+
+  ```
+
+  var intArray = Array()
+
+  //显示数组容量
+
+  intArray.capacity
+
+  intArray.reserveCapacity(500)
+
+  intArray.capacity
+
+  ```
+
+
+  当你复制一个数组时，在赋值操作期间并不会生成一个独立的物理副本。Swift 实现了一种称为“写时复制”的特性，这意味着只有在执行修改操作时，数组的元素才会被复制。
+
+
+  你可以使用以下语法来创建数组：
+
+
+  ```
+
+  //使用完整的数组语法创建数组
+
+  var intArray = Array()
+
+  //使用简写语法创建数组
+
+  intArray = [Int]()
+
+  //使用数组字面量声明
+
+  var intLiteralArray: [Int] = [1, 2, 3]
+
+  //使用简写字面量声明
+
+  intLiteralArray = [1, 2, 3]
+
+  // 使用默认值创建数组
+
+  intLiteralArray = Int
+
+  ```
+
+
+  ## 从数组中检索元素
+
+
+  从数组中检索值有多种方法。我们可以通过索引来检索，也可以使用 `for`–`in` 语法进行循环遍历。
+
+
+  ```
+
+  var myIntArray = [1,2,3,4,5]
+
+  var aNumber = myIntArray[2]
+
+  print(aNumber)
+
+  //输出
+
+
+  ```
+
+
+  我们可以遍历数组中的元素。
+
+
+  ```
+
+  for element in myIntArray {
+
+  print(element)
+
+  }
+
+  //输出
+
+
+  ```
+
+
+  ## 向数组添加元素
+
+
+  向数组添加元素有两种方法。`append` 函数可用于在数组末尾添加一个元素，`insert` 函数则用于在现有数组的指定索引位置插入一个元素。
+
+
+  ```
+
+  myIntArray.append(11)
+
+  print(myIntArray)
+
+  //输出
+
+  [1, 2, 3, 4, 5, 11]
+
+  myIntArray.insert(12, at: 3)
+
+  print(myIntArray)
+
+  //输出
+
+  [1, 2, 3, 12, 4, 5, 11]
+
+  ```
+
+
+  ## 从数组中移除元素
+
+
+  类似地，有四种方法可以从数组中移除元素。使用 `removeLast()` 函数可以移除数组末尾的元素，`removeFirst()` 用于移除第一个元素，`remove(at:)`
+  用于移除指定索引位置的元素，`removeAll()` 用于移除所有元素。
+
+
+  ```
+
+  myIntArray.removeLast()
+
+  myIntArray.removeFirst()
+
+  myIntArray.remove(at: 1)
+
+  myIntArray.removeAll()
+
+  ```
+
+
+  ## 内置函数和属性
+
+
+  在接下来的章节中，我们将讨论数组的一些内置函数和属性。
+
+
+  ### isEmpty
+
+
+  该属性用于判断数组是否为空。如果数组不包含任何值则返回 `true`，否则返回 `false`。
+
+
+  ```
+
+  let myIntArray = [1, 3, 5, 6]
+
+  print(myIntArray.isEmpty)
+
+  ```
+
+
+  运行程序时，输出结果为：
+
+
+  ```
+
+  false
+
+  ```
+
+
+  ### First 和 Last
+
+
+  这些属性用于访问数组的第一个和最后一个元素。
+
+
+  ```
+
+  print(myIntArray.first)
+
+  print(myIntArray.last)
+
+  ```
+
+
+  运行程序时，输出结果为：
+
+
+  ```
+
+  Optional(1)
+
+  Optional(6)
+
+  ```
+
+
+  如你所见，这些属性的输出结果是可选类型。这意味着如果数组为空，返回值将是 `nil`。
+
+
+
+
+  ### 反转与反向
+
+
+  `Reversed` 函数会返回一个全新的集合，其中包含原数组元素的反向顺序。`Reverse` 函数则会反转集合本身。
+
+
+  ```
+
+  let reversedArray = Array(myIntArray.reversed())
+
+  print(reversedArray)
+
+  ```
+
+
+  当你运行程序时，输出将为
+
+
+  ```
+
+  [6, 5, 3, 1]
+
+  ```
+
+
+  ### 计数
+
+
+  该属性返回数组中元素的总数。
+
+
+  ```
+
+  print(myIntArray.count)
+
+  ```
+
+
+  当你运行程序时，输出将为
+
+
+  ```
+
+
+  ```
+
+
+  #### 重要提示
+
+
+  在 Swift 中使用下标语法访问数组元素时，必须确保该值位于索引范围内；否则，程序会在运行时崩溃。我们来看下面的例子：
+
+
+  ```
+
+  print(myIntArray[-1])
+
+  ```
+
+
+  当你运行程序时，输出将为
+
+
+  ```
+
+  fatal error: Index out of range
+
+  ```
+
+
+  在上述程序中，索引 `-1` 处没有值。因此，当你尝试访问该索引处的值时，程序会在运行时崩溃。
+
+
+  要避免这种情况，首先找到你要移除元素的索引，然后按如下方式删除该索引处的元素：
+
+
+  ```
+
+  var myIntArray = [1, 3, 5, 7]
+
+  if let index = myIntArray.firstIndex(of: 5) {
+
+  print("found index")
+
+  let val =  myIntArray.remove(at: index)
+
+  print(val)
+
+  }
+
+  ```
+
+
+  当你运行程序时，输出将为
+
+
+  ```
+
+  found index
+
+
+  ```
+
+
+  ## 结论
+
+
+  在本章中，你学习了数组的基本结构、如何在 Swift 中声明数组，以及如何选择、添加和移除元素。下一章，你将学习字典这种数据结构类型。
+
+
+  '
+- '# 2. 字典
+
+
+  本章将讨论字典类型的数据结构。你将学习如何访问、添加、移除和修改字典中的元素。此外，还会涵盖字典的内置属性和函数。
+
+
+  ## 引言
+
+
+  字典是 Swift 中另一种数据类型的集合。这种数据结构得名于现实世界中的字典，其中包含单词及其相关含义；在编程中，我们使用字典将键与其值相关联，因此只要知道键，就能识别出任何值。如果我们查看一本真实的字典，会发现其中包含单词，每个单词都有相应的解释和含义。
+
+
+  `Miller : a person who owns or works in a corn mill`（磨坊主：拥有或经营玉米磨坊的人）
+
+
+  在 Swift 中有一个类似的概念，我们可以用以下方式表达上述字典条目，其中键是真实字典中的单词，值是对应的解释。
+
+
+  ![../images/490882_1_En_2_Chapter/490882_1_En_2_Figa_HTML.jpg](img/490882_1_En_2_Figa_HTML.jpg)
+
+
+  它是一种无序集合，以键/值对的形式保存多条数据。每个值都与一个唯一的键相关联，该键作为字典中值的标识符。键用于在字典中存储和检索值。
+
+
+  ```
+
+  var myDict = ["Miller" : "a person who owns or works in a corn mill", "Programmer"
+  : "a person who writes computer programs"]
+
+  ```
+
+
+  只要符合字典的声明规则，我们可以在字典中添加多个键。我们可以通过显式声明字典中数据的结构来创建字典。在本例中，键是 `String` 数据类型，值也是 `String`
+  数据类型。如果我们声明字典结构，其声明方式如下：
+
+
+  ```
+
+  var myDict : [String : String] = ["Miller" : "a person who owns or works in a corn
+  mill", "Programmer" : "a person who writes computer programs"]
+
+  ```
+
+
+  假设你可能想查找某个国家的首都。在这种情况下，你会创建一个以国家为键、首都城市为值的字典。现在，你可以通过搜索键（国家）从集合中获取首都城市。如果我们想创建一个包含不同类型值的字典，则需要声明一个遵循
+  `Hashable` 协议的异构字典。这种类型的字典在转换 JSON 负载时非常有用。
+
+
+  ```
+
+  var myDictionary = [AnyHashable: Any]()
+
+  ```
+
+
+  字典有三种声明方式：
+
+
+  ```
+
+  // 第一种
+
+  var myDictionary = Dictionary()
+
+  // 第二种
+
+  var myDictionary = [Int: String]()
+
+  // 第三种
+
+  var myDictionary:[Int: String] = [:]
+
+  ```
+
+
+  也可以从两个数组创建字典：
+
+
+  ```
+
+  let countryKeys = ["US", "UK", "AZ"]
+
+  let countryValues = ["United States", "United Kingdom", "Azerbaijan"]
+
+  let newDictionary = Dictionary(uniqueKeysWithValues: zip(countryKeys,countryValues))
+
+  print(newDictionary)
+
+  ```
+
+
+  当你运行程序时，输出将为
+
+
+  ```
+
+  ["AZ": "Azerbaijan", "US": "United States", "UK": "United Kingdom"]
+
+  ```
+
+
+  ## 访问字典中的值
+
+
+  要访问字典中的任何值，你需要在字典名称后紧跟的方括号内包含你要访问的值的键。可以使用可选绑定和强制解包，或者通过判断值是否存在来检索键值对。如果你绝对确定键存在，只有在这种情况下才能使用强制解包。
+
+
+  使用可选绑定
+
+
+  ```
+
+  //使用可选绑定
+
+  var myDictionary : [Int: String] = [1: "One", 2: "Two", 3: "Three"]
+
+  if let optValue = myDictionary[4] {
+
+  print(optValue)
+
+  } else {
+
+  print("Key not found")
+
+  }
+
+  ```
+
+
+  输出将为
+
+
+  ```
+
+  Key not found
+
+  ```
+
+
+  使用强制解包
+
+
+  ```
+
+  //使用强制解包
+
+  let forcedValue = myDictionary[3]!
+
+  print(forcedValue)
+
+  ```
+
+
+  输出将为
+
+
+  ```
+
+  Three
+
+  ```
+
+
+  可以遍历字典并返回键值对，这些键值对可以分解为命名常量。
+
+
+  ```
+
+  for (key, value) in myDictionary {
+
+  print("The value for \(key) is \(value)")
+
+  }
+
+  ```
+
+
+  输出为键: 3
+
+
+  ```
+
+  The value for 1 is One
+
+  The value for 2 is Two
+
+  The value for 3 is Three
+
+  ```
+
+
+  也可以单独检索所有键或所有值。如前所述，字典是无序集合，因此遍历时不能保证按顺序列出。但在某些情况下，你可能希望按顺序进行迭代，此时可以使用 `sort(_:)`
+  方法。这将返回一个包含字典排序后元素的数组。在下面的代码中，`$0.0` 是第一个键值对，`$0.1` 是第二个键值对。这些键值对会被比较，并根据比较结果进行排序。然后，使用
+  `map` 方法来检索键或值的数据。
+
+
+  ```
+
+  let sortedArray = myDictionary.sorted(by: {$0.0 < $1.0})
+
+  for (key) in sortedArray.map({$0.0}) {
+
+  print("The key: \(key)")
+
+  }
+
+  for (value) in sortedArray.map({$0.1}) {
+
+  print("The value: \(value)")
+
+  }
+
+  ```
+
+
+  输出将为
+
+
+  ```
+
+  The key: 1
+
+  The key: 2
+
+  The key: 3
+
+  The value: One
+
+  The value: Three
+
+  The value: Four
+
+  ```
+
+
+  ## 向字典添加/修改值
+
+
+  要向字典添加值，可以使用下标语法或 `updateValue(_:forKey)` 方法。下标语法也可用于修改任何现有值。
+
+
+  ```
+
+  // 向字典添加新元素
+
+  myDictionary.updateValue("Four", forKey: 4)
+
+  // 使用下标语法添加新元素
+
+  myDictionary[5] = "Five"
+
+  ```
+
+
+  ## 从字典中移除值
+
+
+  要从字典中移除值，可以使用 `下标语法` 和 `removeValue(forKey:)` 方法。该方法会返回被移除的值。
+
+
+  ```
+
+  // 使用方法从字典中移除值
+
+  let removedValue = myDictionary.removeValue(forKey: 1)
+
+  // 使用下标语法移除值
+
+  myDictionary[2] = nil
+
+  ```
+
+
+  ## 内置函数和属性
+
+
+  ### isEmpty
+
+
+  如果字典不包含任何值，则返回 `true`，否则返回 `false`。
+
+
+  ```
+
+  print(myDictionary.isEmpty)
+
+  ```
+
+
+  输出将为
+
+
+  ```
+
+  false
+
+  ```
+
+
+
+
+  ### First
+
+
+  该属性用于访问字典的第一个元素。
+
+
+  ```
+
+  let myDictionary : [Int: String] = [1: "One", 2: "Two", 3: "Three"]
+
+  print(myDictionary.first)
+
+  ```
+
+
+  输出结果为：
+
+
+  ```
+
+  Optional((key: 2, value: "Two"))
+
+  ```
+
+
+  ### Count
+
+
+  返回字典中元素的总数。
+
+
+  ```
+
+  print(myDictionary.count)
+
+  ```
+
+
+  输出结果为：
+
+
+  ```
+
+  3
+
+  ```
+
+
+  ### Keys
+
+
+  返回字典中的所有键。
+
+
+  ```
+
+  let dictKeys  = Array(myDictionary.keys)
+
+  print(dictKeys)
+
+  ```
+
+
+  输出结果为：
+
+
+  ```
+
+  [1, 2, 3]
+
+  ```
+
+
+  ## 结论
+
+
+  在本章中，你已经学习了字典的结构以及如何访问、添加、删除和修改其中的元素。同时，也涵盖了 Swift 编程语言提供的内置属性和方法。
+
+
+  '
+- "# 3. 集合\n\n集合是一种无序集合（意味着你不会按照定义时的顺序获取元素），其中包含唯一的、非`nil`元素。它必须遵循`Hashable`协议，这意味着它必须提供一个`hashValue`属性。这一点很重要，因为集合是无序的，而`hashValue`用于访问集合中的元素。\n\
+  \n集合的访问时间比数组更高效。在数组中查找一个元素时，最坏情况是`O(n)`，其中`n`是数组的大小；而在集合中，查找时间恒定为`O(1)`。与其他集合类型不同，声明集合时必须指定集合类型。\n\
+  \n```\n// 完整语法声明\nvar intSet = Set<Int>()\n// 使用数组字面量初始化集合\nvar stringSet: Set =\
+  \ [\"One\", \"Two\", \"Three\"]\n```\n\n## 访问、添加和删除集合中的元素\n\n### 访问元素\n\n如前所述，集合是无序的且没有索引，因此无法像数组那样使用下标语法来访问集合中的元素。可以通过集合自身的方法和属性，或者使用`for`-`in`循环来访问元素。\n\
+  \n```\n// 访问元素\nfor num in stringSet {\n    print(num)\n}\n```\n\n输出结果为：\n\n```\n\
+  Two\nOne\nThree\n```\n\n若要按顺序遍历，可以使用以下方法：\n\n```\n// 有序遍历\nfor num in stringSet.sorted()\
+  \ {\n    print(num)\n}\n```\n\n要检查集合中是否存在某个元素，可以使用`contains(_:)`方法。\n\n```\n// 检查元素是否存在\n\
+  if stringSet.contains(\"One\") {\n    print(\"找到元素\")\n} else {\n    print(\"未找到元素\"\
+  )\n}\n```\n\n输出结果为：\n\n```\n找到元素\n```\n\n### 添加元素\n\n使用`insert()`方法可以向集合中添加新元素。\n\
+  \n```\n// 插入新元素\nstringSet.insert(\"Four\")\nprint(stringSet)\n```\n\n输出结果为：\n\n\
+  ```\n[\"Four\", \"One\", \"Two\", \"Three\"]\n```\n\n### 删除元素\n\n有以下几种方法可用于删除集合中的元素。\n\
+  \n- `remove(_:)` – 当你知道要删除的元素实例时\n- `remove(at:)` – 当你知道要删除的索引时\n- `removeFirst()`\
+  \ – 删除第一个元素（起始索引）\n- `removeAll()` 或 `removeAll(keepingCapacity:)` – 删除所有元素\n\n\
+  ```\n// 删除元素\nstringSet.remove(\"Four\")\n// 删除索引处的元素\nif let idx = stringSet.firstIndex(of:\
+  \ \"One\") {\n    stringSet.remove(at: idx)\n}\n// 删除第一个元素\nstringSet.removeFirst()\n\
+  // 删除所有元素\nstringSet.removeAll()\n```\n\n## 集合运算\n\n使用集合的主要优势之一是可以执行两类集合运算——比较运算以及成员关系和相等性运算。这些运算与数学中的集合运算类似。\n\
+  \n### 比较运算\n\n在 Swift 中，有四种方法可执行比较运算：`union`（并集）、`intersection`（交集）、`subtracting`（差集）和`symmetricDifference`（对称差集）。现在一起来了解一下它们。\n\
+  \n#### 并集\n\n两个集合的并集包含两个集合中的所有值（图 3-1）。\n\n![../images/490882_1_En_3_Chapter/490882_1_En_3_Fig1_HTML.png](img/490882_1_En_3_Fig1_HTML.png)\n\
+  \n`union(_:)`和`formUnion(_:)`方法用于合并两个集合，创建一个包含两个集合所有值的新集合。第二个函数会删除第一个集合（A）中的所有元素，并插入\
+  \ A 和 B 的并集，这意味着当使用`let`关键字将集合声明为常量时，不能使用此函数；要使用`formUnion(_:)`方法，第一个集合 A 必须使用`var`关键字声明。\n\
+  \n```\n// 并集\nlet A: Set = [1, 3, 5, 7]\nlet B: Set = [0, 2, 4, 6]\nprint(A.union(B))\n\
+  ```\n\n输出结果为：\n\n```\n[3, 6, 2, 0, 7, 5, 1, 4]\n```\n\n#### 交集\n\n两个集合的交集是仅包含两个集合共有元素的集合（图\
+  \ 3-2）。\n\n![../images/490882_1_En_3_Chapter/490882_1_En_3_Fig2_HTML.png](img/490882_1_En_3_Fig2_HTML.png)\n\
+  \n`intersection(_:)`和`formIntersection(_:)`方法用于求两个集合的交集，创建一个包含两个集合共有元素的新集合。第二个函数会删除第一个集合（A）中的所有元素，并插入\
+  \ A 和 B 的交集，这意味着当使用`let`关键字将集合声明为常量时，不能使用此函数；要使用`formIntersection(_:)`方法，第一个集合 A\
+  \ 必须使用`var`关键字声明为变量。\n\n```\n// 交集\nlet A: Set = [1, 2, 3, 4, 5]\nlet B: Set = [0,\
+  \ 2, 4, 6, 8]\nprint(A.intersection(B))\n```\n\n输出结果为：\n\n```\n[2, 4]\n```\n\n####\
+  \ 差集\n\n两个集合的差集包含第一个集合中所有不属于第二个集合的元素（图 3-3）。\n\n![../images/490882_1_En_3_Chapter/490882_1_En_3_Fig3_HTML.png](img/490882_1_En_3_Fig3_HTML.png)\n\
+  \n`subtracting(_:)`和`subtract(_:)`方法用于两个集合的差集运算。`subtract(_:)`会删除第一个集合（A）中的所有元素，并插入\
+  \ A 与 B 的差集，这意味着当使用`let`关键字将集合声明为常量时，不能使用此函数；要使用此方法，第一个集合 A 必须使用`var`关键字声明为变量。\n\
+  \n```\n// 差集\nvar A: Set = [1, 3, 5, 7, 9]\nlet B: Set = [0, 3, 7, 6, 8]\nprint(A.subtracting(B))\n\
+  ```\n\n输出结果为：\n\n```\n[1, 5, 9]\n```\n\n#### 对称差集\n\n两个集合的对称差集包含两个集合中所有不共有的元素（图\
+  \ 3-4）。\n\n![../images/490882_1_En_3_Chapter/490882_1_En_3_Fig4_HTML.png](img/490882_1_En_3_Fig4_HTML.png)\n\
+  \n`symmetricDifference(_:)`和`formSymmetricDifference(_:)`方法用于求两个集合的对称差集。这里适用相同的原则：要使用第二个函数，第一个集合必须声明为变量，并且此方法（`formSymmetricDifference(_:)`）会删除第一个集合（A）中的所有元素，并插入两个集合的对称差集。\n\
+  \n```\n// 对称差集\nvar A: Set = [1, 2, 3, 4, 5]\nvar B: Set = [0, 2, 4, 6, 8]\nprint(A.symmetricDifference(B))\n\
+  ```\n\n输出结果为：\n\n```\n[5, 1, 6, 3, 0, 8]\n```\n\n## 成员关系和相等性运算\n\n### 集合相等\n\n如果两个集合包含完全相同的值，则认为它们相等，值的顺序无关紧要。\n\
+  \n```\n// 集合相等\nlet A: Set = [2, 4, 6, 8, 10]\nlet B: Set = [0, 3, 7, 6, 8]\nlet\
+  \ C: Set = [10, 8, 4, 2, 6]\n\nif A == B {\n    print(\"A 和 B 相等\")\n} else {\n\
+  \    print(\"A 和 B 不相等\")\n}\n\nif A == C {\n    print(\"A 和 C 相等\")\n} else {\n\
+  \    print(\"A 和 C 不相等\")\n}\n```\n\n输出结果为：\n\n```\nA 和 B 不相等\nA 和 C 相等\n```\n\n\
+  \n好的，作为高级文档工程师和翻译员，我将严格遵循您的注意事项和示例格式，将给定的英文文本翻译成中文。\n\n---\n\n\n### 集合成员关系\n\n使用集合成员关系方法，可以识别两个集合之间的关系。\n\
+  \n-   `isSubset(of:)` – 使用此方法来判断一个集合的所有值是否都包含在指定的集合中。\n-   `isStrictSubset(of:)`\
+  \ – 使用此方法来判断一个集合是否为指定集合的子集，但不相等。\n-   `isSuperset(of:)` – 使用此方法来判断一个集合是否包含指定集合的所有值。\n\
+  -   `isStrictSuperset(of:)` – 使用此方法来判断一个集合是否为指定集合的超集，但不相等。\n-   `isDisjoint(with:)`\
+  \ – 使用此方法来判断两个集合是否没有共同的值。\n\n```\n//Set membership\nlet A: Set = [2, 4, 6, 8, 10]\n\
+  let B: Set = [0, 4, 2, 6, 7, 9, 10, 8]\nprint(\"isSubset:\", A.isSubset(of: B))\n\
+  print(\"isSuperset:\", B.isSuperset(of: A))\nprint(\"isStrictSubset:\", A.isStrictSubset(of:\
+  \ B))\nprint(\"isDisjointWith:\", A.isDisjoint(with: B))\n```\n\n输出结果将是\n\n```\n\
+  isSubset: true\nisSuperset: true\nisStrictSubset: true\nisDisjointWith: false\n\
+  ```\n\n`isSubset` 返回 `true`，因为集合 B 包含了 A 中的所有元素。\n\n`isSuperset` 返回 `true`，因为集合\
+  \ B 包含了 A 的所有值。\n\n`isStrictSubset` 返回 `true`，因为集合 B 包含了 A 中的所有元素，并且两个集合不相等。\n\n\
+  `isDisjointWith` 返回 `false`，因为集合 A 和 B 有一些共同的值。\n\n## 总结\n\n在本章中，您学习了集合的一般结构、如何在\
+  \ Swift 中声明它们，以及如何选择、添加和移除元素，以及诸如并集、交集、差集和对称差集等集合操作。在下一章中，您将学习栈的数据结构类型。\n\n"
+- "# 4. 栈\n\n栈是一种后进先出 (LIFO) 的数据结构。栈的结构可以想象成一堆垂直堆叠的物体（图 4-1）。在提取这些物体时，最后添加到栈中的物体最先被移除。栈与数组类似，但控制能力有限。\n\
+  \n![../images/490882_1_En_4_Chapter/490882_1_En_4_Fig1_HTML.png](img/490882_1_En_4_Fig1_HTML.png)\n\
+  \n图 4-1 栈结构\n\n栈实现了三种方法。通过使用 `push()` 方法，可以在栈顶添加一个新元素；使用 `pop()` 方法从栈顶移除一个元素；使用\
+  \ `peek()` 方法返回栈顶元素而不将其移除（图 4-2）。\n\n![../images/490882_1_En_4_Chapter/490882_1_En_4_Fig2_HTML.png](img/490882_1_En_4_Fig2_HTML.png)\n\
+  \n图 4-2 栈的三种方法\n\n## 在 Swift 中使用栈\n\n有许多应用程序使用栈，例如 Excel 或 Word 中的撤销/重做栈、单词反转、浏览器中的后退/前进、回溯算法、括号检查等等。\n\
+  \n让我们继续使用 Swift 来实现它。通过使用 Swift 泛型，我们为栈提供了灵活性，以便我们可以存储任何类型。首先，我们创建一个 `Stack` 结构体，并声明一个使用\
+  \ Swift 泛型且初始化为空数组的私有数组类型。这个 `items` 数组将用于保存我们栈的值。\n\n```\nimport Foundation\npublic\
+  \ struct Stack {\n    private var items: [T] = []\n}\n```\n\n然后我们将继续编写栈所需的三种方法。首先，我们将创建\
+  \ `push()` 函数。\n\n```\nimport Foundation\npublic struct Stack {\n    private var\
+  \ items: [T] = []\n    //Push 方法\n    mutating func push(element: T) {\n       \
+  \ items.append(element)\n    }\n}\n```\n\n基本上，我们在这里所做的是通过向数组顶部添加一个元素来追加 `items`。`mutating`\
+  \ 关键字用于允许该方法修改结构体中包含的数据。请注意，压栈操作将新元素放在数组的末尾，而不是开头。在数组的开头插入是一个昂贵的 `O(n)` 操作，因为它需要将所有现有的数组元素在内存中移动。在末尾添加是\
+  \ `O(1)` 操作；无论数组大小如何，它总是花费相同的时间。\n\n然后，我们将编写 `pop()` 方法，该方法负责从栈中提取数据。\n\n```\nimport\
+  \ Foundation\npublic struct Stack {\n    private var items: [T] = []\n    //Push\
+  \ 方法\n    mutating func push(element: T) {\n        items.append(element)\n    }\n\
+  \    //Pop 方法\n    mutating func pop() -> T? {\n        return items.popLast()\n\
+  \    }\n}\n```\n\n数组提供了一个 `popLast()` 方法来移除数组中最顶部的元素，并且它返回一个可选值，这与 `removeLast()`\
+  \ 不同，这就是为什么我们将返回类型声明为可选的 `T?` 的原因。\n\n剩下的唯一方法是 `peek()` 函数。它返回栈的顶部元素。\n\n```\nimport\
+  \ Foundation\npublic struct Stack {\n    private var items: [T] = []\n    //Push\
+  \ 方法\n    mutating func push(element: T) {\n        items.append(element)\n    }\n\
+  \    //Pop 方法\n    mutating func pop() -> T? {\n        return items.popLast()\n\
+  \    }\n    //Peek 方法\n    func peek() -> T? {\n        return items.last\n    }\n\
+  }\n```\n\n## 栈结构\n\n让我们看一个如何使用我们的栈结构的示例。\n\n```\nvar customStack = Stack()\n//使用\
+  \ push 方法\ncustomStack.push(element: 4)\nprint(customStack)\ncustomStack.push(element:\
+  \ 8)\nprint(customStack)\ncustomStack.push(element: 12)\nprint(customStack)\n//使用\
+  \ peek 方法\nprint(customStack.peek()!)\n//使用 pop 方法\nvar x = customStack.pop()\n\
+  print(x!)\nx = customStack.pop()\nprint(x!)\n```\n\n输出结果将是\n\n```\nStack(items:\
+  \ [4])\nStack(items: [4, 8])\nStack(items: [4, 8, 12])\n```\n\n基本上，我们使用整数类型的 `Stack`\
+  \ 结构体创建了 `customStack`，并使用 `push()` 方法在栈顶插入新元素。每次插入后，我们都会将栈打印到控制台，以查看插入到栈中的元素的顺序，很明显它是从顶部插入的。然后我们使用\
+  \ `peek()` 方法并将值打印到控制台；可以很容易地看出，返回的是数组的最后一个元素，即顶部元素。最后，我们使用 `pop()` 方法移除顶部的值并返回它，很明显，当您第二次运行它时，由于顶部的元素已被移除，它将返回下一个元素。\n\
+  \n## 栈扩展\n\n我们可以为栈添加扩展以扩展其行为和功能。有许多扩展，例如 `CustomStringConvertible`、`ExpressibleByArrayLiteral`、`IteratorProtocol`、`Sequence`\
+  \ 协议等，可以添加到栈中以获得更多功能。通过添加 `CustomStringConvertible` 协议，我们可以根据需要更改打印输出。\n\n```\n\
+  extension Stack: CustomStringConvertible {\n    public var description: String {\n\
+  \        return items.description\n    }\n}\n```\n\n## 总结\n\n在本章中，您学习了栈的一般结构、如何在\
+  \ Swift 中创建它们，以及如何使用 push、pop 和 peek 方法以及栈扩展。在下一章中，您将学习队列的数据结构类型。\n\n\n\n"
+- "# 5. 队列\n\n队列是一种先进先出（FIFO）的数据结构，意味着先到先服务。它也被称为“等待队列”，顾名思义，可以很容易地想象成一排人正在排队（如图 5-1\
+  \ 所示）。\n\n![../images/490882_1_En_5_Chapter/490882_1_En_5_Fig1_HTML.jpg](img/490882_1_En_5_Fig1_HTML.jpg)\n\
+  \n图 5-1\n\n典型的队列结构\n\n当新人到来时，他会站在队伍的末尾，这正好对应了向队列中添加数据：数据被放置在末尾。使用术语 `enqueue` 来指代向队列中添加元素的操作。当从队列中提取数据时，队列中停留时间最长的数据会被最先移除——术语\
+  \ `dequeue` 指代从队列中提取数据的操作（如图 5-2 所示）。\n\n![../images/490882_1_En_5_Chapter/490882_1_En_5_Fig2_HTML.png](img/490882_1_En_5_Fig2_HTML.png)\n\
+  \n图 5-2\n\n入队/出队示例\n\n队列实现了以下几种方法。\n\n*   `enqueue()` – 在队列末尾添加一个元素\n*   `dequeue()`\
+  \ – 移除并返回队列中的第一个元素\n*   `peek()` – 返回队列中的第一个元素，但不移除它\n*   `count` – 返回队列中的元素数量\n\
+  *   `clear()` – 将队列重置为空状态\n*   `isEmpty()` – 如果队列为空则返回 true\n*   `isFull()` – 如果队列已满则返回\
+  \ true\n\n顾名思义，队列用于需要按“先进先出”的顺序管理任何一组对象，同时其他对象等待其轮次的场景。就像下面的示例：\n\n1.  餐厅的销售点系统。很明显，订单必须按照接收的顺序进行处理。当收到订单时，它被写入队列的尾部，而厨师通过设备从队列头部读取订单。这让厨师能够按照接收订单的顺序烹饪食物。\n\
+  2.  在单个共享资源（如打印机、CPU 任务调度等）上处理请求。\n3.  在现实场景中，呼叫中心电话系统使用队列来按顺序保存呼叫者，直到有服务代表空闲。\n\
+  4.  实时系统中的中断处理。中断按照它们到达的相同顺序进行处理。\n5.  MP3 播放器、便携式 CD 播放器和 iPod 播放列表上的缓冲区。自动点唱机播放列表——歌曲添加到末尾，并从列表开头播放。\n\
+  6.  当编写一个可能被中断（例如，通过鼠标点击或无线连接）的实时系统时，必须在继续当前活动之前立即处理中断。如果中断应该按照它们到达的顺序处理，那么 FIFO\
+  \ 队列就是合适的数据结构。\n\n### 实现\n\n通过使用 Swift 泛型，我们为队列提供了灵活性，使其可以存储任何类型。首先，我们将创建一个队列结构体，并使用一个空的\
+  \ `T` 类型数组声明一个私有的 Swift 泛型数组。\n\n```\nimport Foundation\npublic struct Queue {\n\
+  \    private var data: [T] = []\n}\n```\n\n然后，我们将添加 `enqueue()` 方法，该方法将新元素追加到队列的末尾。同样，这里的时间复杂度为\
+  \ **O(1)**。\n\n```\nimport Foundation\npublic struct Queue {\n    private var data:\
+  \ [T] = []\n\n    //入队方法\n    public mutating func enqueue(element: T) {\n     \
+  \   data.append(element)\n    }\n}\n```\n\n我们继续声明 `dequeue()` 方法，该方法移除并返回队列中的第一个元素，如果队列为空，则返回\
+  \ `nil`。\n\n```\nimport Foundation\npublic struct Queue {\n    private var data:\
+  \ [T] = []\n\n    //入队方法\n    public mutating func enqueue(element: T) {\n     \
+  \   data.append(element)\n    }\n\n    //出队方法\n    public mutating func dequeue()\
+  \ -> T? {\n        return data.removeFirst()\n    }\n}\n```\n\n另一个可以使用的函数是 `peek()`，它返回队列中的第一个元素而不移除它，同样，如果队列为空，则返回\
+  \ `nil`。\n\n```\npublic struct Queue {\n    private var data: [T] = []\n\n    //入队方法\n\
+  \    public mutating func enqueue(element: T) {\n        data.append(element)\n\
+  \    }\n\n    //出队方法\n    public mutating func dequeue() -> T? {\n        return\
+  \ data.removeFirst()\n    }\n\n    //查看方法\n    public func peek() -> T? {\n    \
+  \    return data.first\n    }\n}\n```\n\n我们甚至可以更进一步，声明前面提到的辅助函数。辅助函数的完整代码如下——`count`、`clear()`、`isEmpty()`\
+  \ 和 `isFull()`：\n\n```\nimport Foundation\npublic struct Queue {\n    private var\
+  \ data: [T] = []\n\n    //入队方法\n    public mutating func enqueue(element: T) {\n\
+  \        data.append(element)\n    }\n\n    //出队方法\n    public mutating func dequeue()\
+  \ -> T? {\n        return data.removeFirst()\n    }\n\n    //查看方法\n    public func\
+  \ peek() -> T? {\n        return data.first\n    }\n\n    // 清空\n    public mutating\
+  \ func clear() {\n        data.removeAll()\n    }\n\n    //计数\n    public var count:\
+  \ Int {\n        return data.count\n    }\n\n    //容量将用于 isFull() 方法\n    public\
+  \ var capacity: Int {\n        get {\n            return data.capacity\n       \
+  \ }\n        set {\n            data.reserveCapacity(newValue)\n        }\n    }\n\
+  \n    //isFull 方法\n    public func isFull() -> Bool {\n        return count == data.capacity\n\
+  \    }\n\n    //isEmpty() 方法\n    public func isEmpty() -> Bool {\n        return\
+  \ data.isEmpty\n    }\n}\n```\n\n以下代码和图 5-3 演示了一个使用队列方法的现实示例：\n\n![../images/490882_1_En_5_Chapter/490882_1_En_5_Fig3_HTML.png](img/490882_1_En_5_Fig3_HTML.png)\n\
+  \n图 5-3\n\n使用队列方法\n\n```\nvar cusTomQueue = Queue()\ncusTomQueue.enqueue(element:\
+  \ 1)\ncusTomQueue.enqueue(element: 2)\ncusTomQueue.enqueue(element: 3)\nprint(cusTomQueue)\n\
+  ```\n\n输出将是\n\n```\nQueue(data: [1, 2, 3])\n```\n\n为了打印出合适的输出，需要添加 `CustomStringConvertible`\
+  \ 扩展。\n\n```\nextension Queue: CustomStringConvertible {\n    public var description:\
+  \ String {\n        return data.description\n    }\n}\n```\n\n在这种情况下，输出将是\n\n```\n\
+  [1, 2, 3]\n```\n\n使用 `dequeue()` 和 `peek()` 函数\n\n```\nprint(cusTomQueue.dequeue())\n\
+  print(cusTomQueue.peek())\n```\n\n输出将是\n\n```\nOptional(1)\nOptional(2)\n```\n\n\
+  ## 结论\n\n在本章中，你了解了队列的通用结构，如何在 Swift 中创建它们，以及如何使用 `enqueue`、`dequeue` 和 `peek` 方法。在下一章中，你将学习链表这种数据结构类型。\n\
+  \n\n\n"
+- '# 6. 链表
+
+
+  链表是一种数据结构，用于保存一组表示序列的数据项。其中每个数据项被称为一个节点。节点包含数据，并通过其链接与序列中的下一个节点相连。更复杂的链表形式会添加额外的链接。链表的主要优势在于快速的插入和删除操作。链表与数组一样是线性数据结构，但与数组不同，元素并非存储在连续的内存位置。与数组类似，链表也是一种线性数据结构（图
+  6-1）。
+
+
+  ![../images/490882_1_En_6_Chapter/490882_1_En_6_Fig1_HTML.png](img/490882_1_En_6_Fig1_HTML.png)
+
+
+  图 6-1
+
+
+  线性数据结构
+
+
+  链表主要有两种类型：*单向链表*（图 6-2），其中每个节点只包含指向下一个节点的引用；以及*双向链表*（图 6-3），其中每个节点包含指向前一个和下一个节点的引用。
+
+
+  ![../images/490882_1_En_6_Chapter/490882_1_En_6_Fig3_HTML.png](img/490882_1_En_6_Fig3_HTML.png)
+
+
+  图 6-3
+
+
+  双向链表
+
+
+  ![../images/490882_1_En_6_Chapter/490882_1_En_6_Fig2_HTML.png](img/490882_1_En_6_Fig2_HTML.png)
+
+
+  图 6-2
+
+
+  单向链表
+
+
+  链表的开头和结尾可以使用名为 `head` 和 `tail` 的指针进行追踪（图 6-4）。
+
+
+  ![../images/490882_1_En_6_Chapter/490882_1_En_6_Fig4_HTML.png](img/490882_1_En_6_Fig4_HTML.png)
+
+
+  图 6-4
+
+
+  追踪开头与结尾
+
+
+  ### 实现
+
+
+  为了用 Swift 创建一个 `LinkedList` 数据结构，我们将创建 `Node` 和 `LinkedList` 类，以及几个用于链表操作的函数。由于
+  Swift 将结构体视为值类型，对值类型捕获 self 是一种危险的做法，应予以避免。当我们创建 `LinkedList` 时，我们使用类，因为它们在 Swift
+  中属于引用类型。因此，我建议你将 `Node` 创建为类，并利用 Swift 中的各种访问说明符来实现你所需的抽象。
+
+
+  ### 节点
+
+
+  如前所述，链表由节点组成，因此，首先我们需要使用 Swift playground 创建一个节点类。这里我们将再次使用 Swift 泛型以增加灵活性。
+
+
+  ```
+
+  public class Node {
+
+  public var value : nodeType
+
+  public var next : Node?
+
+  public init(value: nodeType) {
+
+  self.value = value
+
+  }
+
+  }
+
+  extension Node: CustomStringConvertible {
+
+  public var description: String {
+
+  guard let next = next else {
+
+  return "\(value)"
+
+  }
+
+  return "\(value) -> " + String(describing: next) + " " }
+
+  }
+
+  ```
+
+
+  每个节点都关联一个值，并有一个指向下一个节点的指针；这就是我们之前声明两个变量的原因，并且此 `Node` 是用于 `SinglyLinkedList` 的。
+
+
+  ## 单向链表
+
+
+  现在我们有了创建 `Node` 所需的一切。为了创建和修改我们的 `LinkedList`，并追踪列表的开头和结尾，我们将添加一个新的 `LinkedList`
+  类。首先，我们将创建 `SinglyLinkedList` 类，然后在本章后面继续创建 `DoublyLinkedList` 类。
+
+
+  ```
+
+  public class SinglyLinkedList {
+
+  public var head: Node?
+
+  public var tail: Node?
+
+  public var isEmpty: Bool {
+
+  return head == nil
+
+  }
+
+  }
+
+  extension SinglyLinkedList: CustomStringConvertible {
+
+  public var description: String {
+
+  guard let head = head else {
+
+  return "Empty list"
+
+  }
+
+  return String(describing: head)
+
+  }
+
+  }
+
+  ```
+
+
+  `isEmpty` 是一个属性，用于检查 `LinkedList` 是否为空。
+
+
+  ## 向链表添加新值
+
+
+  可以通过两种方法向列表添加新值，这两种方法在性能上有所区别。
+
+
+  > `append` – 在列表末尾添加新值
+
+
+  > `insert(value:, index:)` – 在指定位置插入元素
+
+
+  ### 追加
+
+
+  此函数向列表末尾添加一个新 `Node`。让我们将以下代码添加到 `SinglyLinkedList` 类中：
+
+
+  ```
+
+  public func append(value: listType) {
+
+  let newNode = Node(value: value)
+
+  if var h = head {
+
+  while h.next != nil {
+
+  h = h.next!
+
+  }
+
+  h.next = newNode
+
+  } else {
+
+  head = newNode
+
+  }
+
+  }
+
+  ```
+
+
+  我们在这里做的是创建一个头部的临时引用，并检查头部的下一个引用，当它为 nil 时，我们就到达了 `LinkedList` 的末尾；然后我们将最后一个 `Node`
+  的 next 设置为 `newNode`。
+
+
+  例如：如果我们创建一个新的 `LinkedList` 并向其追加新元素，我们会看到每次追加列表时，新元素都会被插入到列表的末尾。
+
+
+  ```
+
+  var newList = SinglyLinkedList()
+
+  newList.append(value: 2)
+
+  newList.append(value: 4)
+
+  newList.append(value: 6)
+
+  newList.append(value: 8)
+
+  print(newList)
+
+  ```
+
+
+  输出结果将是
+
+
+  ```
+
+  2 -> 4 -> 6 -> 8
+
+  ```
+
+
+  ### 插入
+
+
+  此函数在指定的索引处插入一个元素。让我们将以下代码添加到 `SinglyLinkedList` 类中。
+
+
+  ```
+
+  func insert(value : listType, index : Int) {
+
+  let newNode = Node(value: value)
+
+  if (index == 0) {
+
+  newNode.next = head
+
+  head = newNode
+
+  } else {
+
+  var prev = head
+
+  var cur = head
+
+  for _ in 0..<index {
+
+  prev = cur
+
+  cur = cur?.next
+
+  }
+
+  newNode.next = prev?.next
+
+  prev?.next = newNode
+
+  }
+
+  }
+
+  ```
+
+
+  该函数首先检查索引是否为 0，如果是，则通过将 `newNode` 赋值给列表的头部，将其添加到列表的开头。然后，它会在循环内找到指定索引的前一个节点和当前节点，并将
+  `newNode` 赋值到指定位置。
+
+
+  例如：我们将使用之前创建并追加了元素的列表 (**2 -> 4 -> 6 -> 8**)，以升序插入奇数值。
+
+
+  ```
+
+  print("newList: \(newList)")
+
+  newList.insert(value: 1, index: 0)
+
+  print("1 has been added to index 0: \(newList)")
+
+  newList.insert(value: 3, index: 2)
+
+  print("3 has been added to index 2: \(newList)")
+
+  newList.insert(value: 5, index: 4)
+
+  print("5 has been added to index 4: \(newList)")
+
+  ```
+
+
+  输出结果将是
+
+
+  ```
+
+  newList: 2 -> 4 -> 6 -> 8
+
+  1 has been added to index 0: 1 -> 2 -> 4 -> 6 -> 8
+
+  3 has been added to index 2: 1 -> 2 -> 3 -> 4 -> 6 -> 8
+
+  5 has been added to index 4: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 8
+
+  ```
+
+
+  ## 从链表中移除值
+
+
+  从链表中移除节点主要有两种方法：
+
+
+  1.  `removeLast` – 移除列表末尾的值
+
+
+  2.  `remove(at:)` – 移除列表中的任意值
+
+
+  ### removeLast
+
+
+  如前所述，它移除位于 `LinkedList` 末尾的元素，尽管我们可以访问尾节点，但如果没有对前一个节点的引用，就无法删除它。让我们将以下代码添加到我们的 `LinkedList`
+  类中：
+
+
+  ```
+
+  public func removeLast() -> listType? {
+
+  if let h = head {
+
+  if h.next == nil {
+
+  defer {
+
+  head = nil
+
+  tail = nil
+
+  }
+
+  return h.value
+
+  }
+
+  var prev = h
+
+  var curr = h
+
+  while let next = curr.next {
+
+  prev = curr
+
+  curr = next
+
+  }
+
+  prev.next = nil
+
+  tail = prev
+
+  return curr.value
+
+  } else {
+
+  return nil
+
+  }
+
+  }
+
+  ```
+
+
+  首先，我们检查 `head` 是否为 `nil`；如果是，我们**返回** `nil`——这就是第一个 **if** 语句的作用。然后，下一个 **if** 检查列表是否只包含一个节点；我们在
+  `defer` `{}` 中移除该节点。我们继续搜索下一个节点，直到 `curr.next` 为 `nil`，以找到列表中的最后一个节点；由于当前节点是最后一个节点，因此通过将
+  `prev.next` 设置为 nil，我们断开了最后一个节点与列表的连接。
+
+
+
+
+  '
+- '# `remove(at:)`
+
+
+  该函数用于移除指定索引处的元素。
+
+
+  ```
+
+  func remove(at position: Int) {
+
+  if head == nil {
+
+  return
+
+  }
+
+  var h = head
+
+  if (position == 0) {
+
+  head = h?.next
+
+  return
+
+  }
+
+  for _ in 0..<position-1 where h != nil {
+
+  h = h?.next
+
+  }
+
+  if h == nil || h?.next == nil {
+
+  return
+
+  }
+
+  let nextToNextNode = h?.next?.next
+
+  h?.next = nextToNextNode
+
+  }
+
+  ```
+
+
+  首先，我们检查 `head` 是否为空，若为空则无需移除任何元素。接着，我们创建一个头节点的实例。如果 `position` 为 0，则移除头节点并将下一个节点的值赋给头节点，然后返回；否则，我们通过不断赋值头节点，从
+  0 循环到 `position`。
+
+
+  让我们通过一个示例来理解：
+
+
+  ```
+
+  print("初始列表: \(newList)")
+
+  newList.remove(at: 2)
+
+  print("已移除索引 2: \(newList)")
+
+  newList.remove(at: 0)
+
+  print("已移除索引 0: \(newList)")
+
+  ```
+
+
+  输出结果如下：
+
+
+  ```
+
+  初始列表: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 8
+
+  已移除索引 2: 1 -> 2 -> 4 -> 5 -> 6 -> 8
+
+  已移除索引 0: 2 -> 4 -> 5 -> 6 -> 8
+
+  ```
+
+
+  ## 双向链表
+
+
+  如前所述，双向链表是一种每个节点都包含指向前一个节点和下一个节点引用的链表。接下来，我们将创建 `DoublyLinkedList` 类来了解其工作原理。首先，为双向链表创建
+  `Node` 类。
+
+
+  ```
+
+  public class DoubleNode {
+
+  var value: nodeType
+
+  var next: DoubleNode?
+
+  weak var previous: DoubleNode?
+
+  init(value: nodeType) {
+
+  self.value = value
+
+  }
+
+  }
+
+  extension DoubleNode: CustomStringConvertible {
+
+  public var description: String {
+
+  guard let next = next else {
+
+  return "\(value)"
+
+  }
+
+  return "\(value) -> " + String(describing: next) + " " }
+
+  }
+
+  ```
+
+
+  每个节点都关联一个值、一个指向下一个节点的指针，以及一个指向前一个节点的指针。为了防止内存循环，我们将前一个指针声明为弱引用（weak reference）。
+
+
+  创建 `DoubleNode` 类之后，就可以继续创建 `DoublyLinkedList` 类了。我们声明了 `nodeAt` 函数作为辅助函数，用于获取给定索引处的元素。
+
+
+  ```
+
+  public class DoublyLinkedList {
+
+  var head: DoubleNode?
+
+  private var tail: DoubleNode?
+
+  public var isEmpty: Bool {
+
+  return head == nil
+
+  }
+
+  public func nodeAt(index: Int) -> DoubleNode? {
+
+  if index >= 0 {
+
+  var node = head
+
+  var i = index
+
+  while node != nil {
+
+  if i == 0 { return node }
+
+  i -= 1
+
+  node = node!.next
+
+  }
+
+  }
+
+  return nil
+
+  }
+
+  }
+
+  ```
+
+
+  ### 追加元素
+
+
+  以下函数用于向双向链表添加元素：
+
+
+  ```
+
+  func insert(node: DoubleNode, at index: Int) {
+
+  if index == 0,
+
+  tail == nil {
+
+  head = node
+
+  tail = node
+
+  } else {
+
+  guard let nodeAtIndex = nodeAt(index: index) else {
+
+  print("索引越界。")
+
+  return
+
+  }
+
+  if nodeAtIndex.previous == nil {
+
+  head = node
+
+  }
+
+  node.previous = nodeAtIndex.previous
+
+  nodeAtIndex.previous?.next = node
+
+  node.next = nodeAtIndex
+
+  nodeAtIndex.previous = node
+
+  }
+
+  }
+
+  ```
+
+
+  ### 移除节点方法
+
+
+  ```
+
+  public func remove(node: DoubleNode) -> listType {
+
+  let previousNode = node.previous
+
+  let nextNode = node.next
+
+  if let prev = previousNode {
+
+  prev.next = nextNode
+
+  } else {
+
+  head = nextNode
+
+  }
+
+  nextNode?.previous = previousNode
+
+  if nextNode == nil {
+
+  tail = previousNode
+
+  }
+
+  node.previous = nil
+
+  node.next = nil
+
+  return node.value
+
+  }
+
+  ```
+
+
+  ### `remove(at:)`
+
+
+  ```
+
+  func remove(at index: Int) {
+
+  var toDeleteNode = nodeAt(index: index)
+
+  guard toDeleteNode != nil else {
+
+  print("索引越界。")
+
+  return
+
+  }
+
+  let previousNode = toDeleteNode?.previous
+
+  let nextNode = toDeleteNode?.next
+
+  if previousNode == nil {
+
+  head = nextNode
+
+  }
+
+  if toDeleteNode?.next == nil {
+
+  tail = previousNode
+
+  }
+
+  previousNode?.next = nextNode
+
+  nextNode?.previous = previousNode
+
+  toDeleteNode = nil
+
+  }
+
+  ```
+
+
+  ## 本章小结
+
+
+  在本章中，你学习了链表的基本结构、如何在 Swift 中创建单向链表和双向链表，以及如何使用 `remove`、`insert` 和 `append` 方法。下一章，你将学习哈希表这种数据结构类型。
+
+
+  '
+- "# 7. 哈希表\n\n*哈希表*是一种\"关联数组\"类型的数据结构，它将值分组到索引中，并通过键/值映射来排序和检索数据。在某些场景下（如 Swift 字典），它实现了相同的功能。然而，哈希表的效率高于字典。其搜索、插入和删除的时间复杂度平均为\
+  \ O(1)，这意味着无论输入规模如何，操作时间都保持恒定。这解决了线性搜索操作成本高且时间复杂度为 O(n) 的问题。通过计算哈希值，我们可以找到索引，将值存入该索引，并据此检索值。\n\
+  \n哈希表由两部分组成：索引和值。索引是通过计算得到的一组数字或字符序列，这与字典不同。创建唯一哈希的过程称为哈希算法或哈希函数。\n\n图 7-1 展示了伦敦（London）城市的输入始终产生哈希结果\
+  \ 3。这些值存储在桶中，它们的位置由哈希函数计算得出。哈希函数是一种可以将任意大小的数据集映射到固定大小数据集的函数，映射后的数据落入哈希表中。\n\n![../images/490882_1_En_7_Chapter/490882_1_En_7_Fig1_HTML.jpg](img/490882_1_En_7_Fig1_HTML.jpg)\n\
+  \n图 7-1 哈希算法\n\n由于排序和检索的时间复杂度均为 O(1)，哈希表非常适合处理数据集不断增长的数据库场景。\n\n不推荐在需要遍历大量数据的情况下使用哈希表。\n\
+  \n## 创建哈希表\n\n首先，使用带有泛型参数 K（键）和 V（值）的类来创建哈希元素。由于键必须是可哈希的（Hashable），我们需要确保 K 符合 Hashable\
+  \ 协议。\n\n```\nclass HashElement {\nvar key: K\nvar value: V?\ninit(key: K, value:\
+  \ V?) {\nself.key = key\nself.value = value\n}\n}\n```\n\n然后，我们将为哈希表定义一个桶结构。如前所述，桶是一组值的集合，由于元素将以非连续方式存储，我们必须为集合定义大小。我们使用类型别名（type\
+  \ aliases）为哈希元素提供新名称，这能使代码更具可读性且更清晰。在 Swift 中，实现如下：\n\n```\nclass HashTable {\n\
+  typealias Bucket = [HashElement]\nvar buckets: [Bucket]\ninit(capacity: Int) {\n\
+  assert(capacity > 0)\nbuckets = Array(repeatElement([], count: capacity))\n}\n}\n\
+  ```\n\n最后，我们需要创建一个用于计算索引的函数。通过使用 `unicodeScalars`，我们可以获得一个一致的值，并用哈希函数进行计算，然后根据桶数量对该值取模。\n\
+  \n```\nfunc index(for key: K) -> Int {\nvar divisor: Int = 0\nfor key in String(describing:\
+  \ key).unicodeScalars {\ndivisor += abs(Int(key.value.hashValue))\n}\nreturn abs(divisor)\
+  \ % buckets.count\n}\n```\n\n### 从哈希表中检索数据\n\n为了使用给定键检索值，我们将创建一个返回可选值的方法。这是因为如果该键没有对应的值，它将返回\
+  \ nil。\n\n```\nfunc retrieveValue(for key: K) -> V? {\nlet index = self.index(for:\
+  \ key)\nfor element in buckets[index] {\nif element.key == key {\nreturn element.value\n\
+  }\n}\nreturn nil\n}\n```\n\n这里需要做的第一件事是，使用 `index` 函数根据给定键查找元素的索引。然后，我们遍历桶数组以找到对应元素的值并返回；否则返回\
+  \ nil。\n\n\n\n### 更新哈希表中的值\n\n要更新哈希表中的值，我们需要创建一个可修改的函数，以便能够修改哈希表结构的属性。在 Swift 中，结构体是值类型，值类型的属性不能被修改；要修改它们，我们必须在实例方法中使用\
+  \ `mutating` 关键字。然后我们计算索引，使用 `enumerated()` 方法遍历 buckets 数组，用新值替换旧值并返回 `oldValue`。在这种情况下使用\
+  \ `enumerated()` 方法非常有用，因为它可以在遍历每个元素的同时，告诉我们元素在数组中的位置。如果元素在数组中不存在，我们就将其追加到数组末尾，并返回\
+  \ `nil`。\n\n```swift\nmutating func updateValue(_ value: V, forKey key: K) -> V?\
+  \ {\n    var itemIndex: Int\n    itemIndex = self.index(for: key)\n    for (i, element)\
+  \ in buckets[itemIndex].enumerated() {\n        if element.key == key {\n      \
+  \      let oldValue = element.value\n            buckets[itemIndex][i].value = value\n\
+  \            return oldValue\n        }\n    }\n    buckets[itemIndex].append(HashElement(key:\
+  \ key, value: value))\n    return nil\n}\n```\n\n### 从哈希表中删除值\n\n这里我们再次创建了一个可修改的函数，根据计算出的索引，遍历\
+  \ buckets 数组，使用 `if` 条件查找值，然后根据从 `enumerated()` 方法获得的索引将其删除。\n\n```swift\nmutating\
+  \ func removeValue(for key: K) -> V? {\n    let index = self.index(for: key)\n \
+  \   for (i, element) in buckets[index].enumerated() {\n        if element.key ==\
+  \ key {\n            buckets[index].remove(at: i)\n            return element.value\n\
+  \        }\n    }\n    return nil\n}\n```\n\n## 总结\n\n在本章中，你学习了哈希表的一般结构、如何在 Swift\
+  \ 中创建哈希表，以及如何使用检索、更新和删除哈希表中的元素。在下一章中，你将学习树这种数据结构类型。\n\n"
+- "# 8. 树\n\n树是一种非线性数据结构，其元素之间具有层次关系；它基本上与现实生活中的树是颠倒的。树有很多种类型，形状和大小各异。在本章中，你将学习使用和实现树的基础知识。树由节点组成，最顶层的节点称为根节点。每个节点都保存着数据以及对其子节点的引用，如果一个节点没有子节点，则称为叶子节点。图\
+  \ 8-1 展示了一个三层结构的树形图。根节点是第 0 层，随着你向树的深度移动，层级每次增加 1。\n\n![../images/490882_1_En_8_Chapter/490882_1_En_8_Fig1_HTML.png](img/490882_1_En_8_Fig1_HTML.png)\n\
+  \n图 8-1 — 树的三层结构\n\n一个节点拥有的子节点总数称为度。拥有相同父节点的节点称为兄弟节点，它们之间通过边相连。\n\n树的主要应用包括：\n\n\
+  - 处理层次化数据\n- 使信息易于搜索\n- 处理排序的数据列表\n- 作为合成数字图像以产生视觉效果的工作流\n- 路由算法\n- 多阶段决策的形式\n\n\
+  ## 创建\n\n如前所述，树由节点组成，每个节点都有一个与之关联的值。此外，每个节点需要一个子节点列表，并且每个节点也方便地拥有指向其父节点的链接。每个节点有一个父节点，但可以有多个子节点；因此子节点将声明为一个数组。\n\
+  \n```swift\nclass Node {\n    var data: T\n    weak var parent: Node?\n    var children:\
+  \ [Node] = []\n    init(data: T) {\n        self.data = data\n    }\n}\n```\n\n\
+  我们在这里所做的是在 `init()` 方法中设置节点的数据，并且由于一个节点可以有多个子节点，因此声明了由节点组成的 children 数组。我们将父节点的引用设置为\
+  \ `weak var`，以防止导致内存泄漏的强循环。\n\n最后，由于我们的树类型是泛型类型，我们需要一个打印树的方法。通过在 `Node` 类中添加以下代码，我们可以定义打印方法：\n\
+  \n```swift\nfunc printNodeData() -> [String] {\n    return [\"\\(self.data)\"] +\
+  \ self.children.flatMap{$0.printNodeData()}.map{\"    \"+$0}\n}\nfunc printTree()\
+  \ {\n    let text = printNodeData().joined(separator: \"\\n\")\n    print(text)\n\
+  }\n```\n\n我们通过将数据包含在 `\"\\()\"` 中将其转换为字符串，并使用标准的 `flatMap` 和 `map` 方法来正确打印节点数据。\n\
+  \n### 插入\n\n我们将声明 `add(child:)` 方法来处理对树的插入操作。\n\n```swift\nfunc add(child: Node)\
+  \ {\n    children.append(child)\n    child.parent = self\n}\n```\n\n我们将子节点追加到由节点组成的\
+  \ children 数组中，并设置子节点的父节点。为了理解这个添加方法的工作原理，我们在 playground 中（类定义外部）编写以下代码：\n\n```swift\n\
+  let drinks = Node(data: \"Drinks\")\nlet type1 = Node(data: \"Cold\")\nlet type2\
+  \ = Node(data: \"Hot\")\ndrinks.add(child: type1)\ndrinks.add(child: type2)\ntype2.add(child:\
+  \ Node(data: \"Latte\"))\ntype1.add(child: Node(data: \"Cola\"))\ntype1.add(child:\
+  \ Node(data: \"Fanta\"))\ndrinks.printTree()\n```\n\n输出结果将是：\n\n```\nDrink\nCold\n\
+  Cola\nFanta\nHot\nLatte\n```\n\n层次结构是树结构的天然候选，因此我们在这里定义了六个不同的节点，并将它们组织成一个逻辑层次。这种排列对应于图\
+  \ 8-2 所示的结构。\n\n![../images/490882_1_En_8_Chapter/490882_1_En_8_Fig2_HTML.png](img/490882_1_En_8_Fig2_HTML.png)\n\
+  \n图 8-2 — 示例树\n\n### 搜索数据\n\n在 `Node` 类中添加以下方法，用于我们声明的树数据结构的搜索算法。此方法在树中搜索一个值，如果数据存在于树中，则返回与该值关联的节点；否则返回\
+  \ `nil`。如果数据在当前节点中找到，我们返回 `self`，即当前节点。代码的下一行遍历 children 数组，每次调用每个子节点的搜索方法，该方法将递归地遍历所有子节点，如果任何节点匹配，它将返回该节点。最后，如果没有数据匹配，我们返回\
+  \ `nil`。\n\n```swift\nfunc search(element: T) -> Node? {\n    if element == self.data\
+  \ {\n        return self\n    }\n    for child in children {\n        if let result\
+  \ = child.search(element: element) {\n            return result\n        }\n   \
+  \ }\n    return nil\n}\n```\n\n让我们在类定义外部的 playground 中尝试一下。\n\n```swift\nlet latte\
+  \ = drinks.search(element: \"Latte\")\nif let result = latte {\n    result.printTree()\n\
+  }\n```\n\n输出结果将是：\n\n```\nLatte\n```\n\n如前所述，当你在树中进行搜索时，会遍历子节点。这种遍历与普通的遍历不同，稍微有些复杂。\n\
+  \n树数据结构有不同的类型，其中一些将在接下来的章节中讨论。\n\n- 字典树\n- 二叉树\n- 红黑树\n- R 树\n\n## 结论\n\n在本章中，你学习了树的一般结构、如何在\
+  \ Swift 中实现它，以及如何为它声明、搜索和添加方法。在接下来的章节中，你将了解更多不同类型的树数据结构。\n\n"
+- "# 9. 字典树数据结构\n\n在本章中，我们将回顾字典树（发音为 \"try\"）数据结构以及如何使用 Swift 实现它。字典树是一种基于树的数据结构，它以层次结构组织信息。虽然大多数其他结构被设计用于处理通用数据，但字典树通常用于字符串\
+  \ —— 它用于以支持快速查找的方式存储单词。由于字典树在每个节点存储字符，因此它对于英语中的前缀匹配非常高效。\n\n\n\n## 为什么需要 Trie？\n\
+  \n`Trie`（字典树）在存储英语词汇时非常实用，它具有以下可能完美替代哈希表数据结构的优势：\n\n- 更好的最坏情况时间复杂度\n- 无键冲突\n- 无需哈希算法\n\
+  - 按字母顺序排列\n\n此外，如果使用数组处理超过一千个单词，搜索特定单词的复杂度为 `O(k∗n)`，其中 `k` 代表最长字符串，`n` 代表需要检查的单词数量。字典树结构解决了这个问题：由于每个节点可以表示单个字符，它通过从根节点到目标节点追踪字符集合的方式来构建单词。\n\
+  \n## 工作原理\n\n如前所述，字典树按层级组织数据，每个字符串的最后一个节点被标记为 `finalNode`。让我们通过构建一个示例字典来了解字典树的工作方式。假设我们有四个单词：`apple`、`apex`、`code`\
+  \ 和 `comb`，那么对应的字典树结构如图 9-1 所示。\n\n![../images/490882_1_En_9_Chapter/490882_1_En_9_Fig1_HTML.png](img/490882_1_En_9_Fig1_HTML.png)\n\
+  \n图 9-1：字典树结构示例\n\n可以看到，多个单词可以共享相同的字母，字典树结构的组织方式提升了其性能。为了说明字典树的性能优势，请考虑以下示例：我们需要查找前缀为\
+  \ `CO` 的单词。显然，首先需要进入包含 `C` 的节点，这排除了字典树的其他分支，使搜索速度更快。接着，找到下一个字母为 `O` 的单词并转移到该节点，再次排除其他分支。由于这是前缀的末尾，字典树将返回\
+  \ `O` 节点的所有分支。在本例中，结果将是 `code` 和 `comb`。假设字典树中有数千个单词，那么被排除的分支数量非常可观，这减少了比较次数，从而实现了更快的搜索。\n\
+  \n### 实现\n\n首先需要创建一个 `TrieNode`，就像之前为其他数据结构所做的那样。打开 Xcode 并创建一个名为 `Trie.swift` 的新\
+  \ playground 文件，然后插入以下代码：\n\n```\npublic class TrieNode {\n    var value: K?\n \
+  \   weak var parent: TrieNode?\n    var children: [K: TrieNode] = [:]\n    var isFinal\
+  \ = false\n    init(value: K? = nil, parent: TrieNode? = nil) {\n        self.value\
+  \ = value\n        self.parent = parent\n    }\n}\n```\n\n首先创建一个 `value` 变量，其类型为\
+  \ `K`，用于保存节点的数据。由于字典树的根节点没有键，我们将此变量声明为可选类型。然后，`parent` 节点使用 `weak` 引用声明为 `TrieNode`\
+  \ 类型；这是为了后续实现 `remove` 方法。第三行中，我们将 `children` 创建为字典类型，因为字典树中的节点可包含多个分支。`isFinal`\
+  \ 用于标识字符串的结尾。\n\n接下来要创建 `Trie` 本身。按照以下代码所示创建一个新类：\n\n```\npublic class Trie {\n\
+  \    private let rootNode: TrieNode\n    init() {\n        rootNode = TrieNode()\n\
+  \    }\n}\n```\n\n这里我们使用 `Character` 类型为 `Trie` 声明了一个 `rootNode`，因为我们要为英语实现字典树。在\
+  \ `init` 方法内部，初始化了一个空的 `TrieNode`。\n\n### 插入\n\n字典树在插入值方面非常高效，因为它总是重用现有节点。例如，`code`\
+  \ 和 `comb` 共享相同的 `C` 和 `O` 节点。要为 `Trie` 插入新节点，请在 `Trie` 类中创建以下 `insert` 方法：\n\n\
+  ```\nfunc insert(word: String) {\n    guard !word.isEmpty else { return }\n    var\
+  \ curNode = rootNode\n    let characters = Array(word.lowercased())\n    var curIndex\
+  \ = 0\n    while curIndex < characters.count {\n        let character = characters[curIndex]\n\
+  \        if let child = curNode.children[character] {\n            curNode = child\n\
+  \        } else {\n            curNode.children[character] = TrieNode(value: character,\
+  \ parent: curNode)\n            curNode = curNode.children[character]!\n       \
+  \ }\n        curIndex += 1\n        if curIndex == characters.count {\n        \
+  \    curNode.isFinal = true\n        }\n    }\n}\n```\n\n这里，首先检查字符串是否为空，如果为空则无需插入。然后创建一个指向\
+  \ `rootNode` 的引用，用于创建新节点。由于每个节点包含一个字母，我们将传入的字符串转换为字符数组。使用 `curIndex` 变量跟踪对 `characters`\
+  \ 数组的迭代过程。当它达到 `characters` 数组的长度时，迭代停止。在 `if` 条件中，我们检查要插入的字符是否已存在于 `children` 中；如果是，则将\
+  \ `curNode` 引用移动到下一个节点，无需进行插入。否则，将 `character` 添加到当前 `children` 字典中，并将 `curNode`\
+  \ 引用移动到新节点。\n\n显然还需要标记单词的结尾，节点的 `isFinal` 属性负责实现这一功能。\n\n### 查询\n\n此函数负责检查给定单词是否存在于\
+  \ `Trie` 中，如果存在则返回 `true`，否则返回 `false`。它与**Insert**方法非常相似，但这里不再创建节点，而是仅检查节点的存在性，并且\
+  \ `isFinal` 值必须为 `true` 才能返回 `true`。让我们将以下代码写入 `Trie` 类中，并观察其工作原理：\n\n```\nfunc\
+  \ query(word: String) -> Bool {\n    let characters = Array(word.lowercased())\n\
+  \    var node : TrieNode? = rootNode\n    for character in characters {\n      \
+  \  node = node?.children[character]\n        if node == nil {\n            return\
+  \ false\n        }\n    }\n    return node!.isFinal\n}\n```\n\n这里同样从给定单词创建 `characters`\
+  \ 数组并进行遍历；如果 `node` 为 `nil`，则说明搜索的 `character` 不存在，返回 `false`；否则将到达字符串末尾，返回 `isFinal`\
+  \ 的值（即 `true`）。\n\n\n\n#### 移除\n\n此方法类似于查询方法，但我们将 `isFinal` 值改为 `false`，这会移除该单词的终止符，由于没有终止符，这个词就不能再被视为\
+  \ Trie 中的一个单词。让我们在 `Trie` 类中编写此代码：\n\n```\nfunc remove(word: String) {\nlet characters\
+  \ = Array(word.lowercased())\nvar node : TrieNode? = rootNode\nfor character in\
+  \ characters {\nnode = node?.children[character]\nif node == nil {\nreturn\n}\n\
+  }\nnode!.isFinal = false\n}\n```\n\n在图 9-2 中，你会注意到，尽管我们从 Trie 中删除了字符串代码，它仍然显示，但只是缺少了终止符。\n\
+  \n![../images/490882_1_En_9_Chapter/490882_1_En_9_Fig2_HTML.png](img/490882_1_En_9_Fig2_HTML.png)\n\
+  \n图 9-2：删除一个元素后的 Trie\n\n让我们通过一个示例来检验这三个方法。首先，使用 `Trie` 类创建一个 Trie，然后使用之前声明的方法，我们向其中插入、查询和移除值。\n\
+  \n第一步是声明一个 Trie 数据结构，并使用 `insert` 方法插入节点。\n\n```\nvar myTrie = Trie()\nmyTrie.insert(word:\
+  \ \"code\")\n```\n\n在这里，插入操作会检查 \"code\" 的字母是否存在于节点中；如果不存在，则分别为它们创建新节点（图 9-3）。\n\
+  \n![../images/490882_1_En_9_Chapter/490882_1_En_9_Fig3_HTML.png](img/490882_1_En_9_Fig3_HTML.png)\n\
+  \n图 9-3：步骤 1\n\n然后我们将 comb 这个词插入到 Trie 中；同样，每个字母都会被检查，缺失的字母将被插入（图 9-4）。\n\n```\n\
+  myTrie.insert(word: \"comb\")\n```\n\n![../images/490882_1_En_9_Chapter/490882_1_En_9_Fig4_HTML.png](img/490882_1_En_9_Fig4_HTML.png)\n\
+  \n图 9-4：添加 comb\n\n然后，通过使用 `query` 方法，我们可以检查插入的单词是否存在于数据结构中。\n\n```\nprint(myTrie.query(word:\
+  \ \"code\"))\nmyTrie.remove(word: \"code\")\nprint(myTrie.query(word: \"code\"))\n\
+  ```\n\n输出结果将是：\n\n```\ntrue\nfalse\n```\n\n这意味着，当我们第一次查询 \"code\" 时，它存在于 Trie 中，但第二次查询时，它不见了，因为我们使用了\
+  \ `remove` 方法将其移除了。\n\n## 结论\n\n在本章中，你学习了 Trie 数据结构，它在前缀匹配方面表现出色。你还掌握了如何在 Trie 结构中执行插入、移除和查询操作。\n\
+  \n"
+- "# 10. 二叉树\n\n在上一章中，你学习了基本的树结构，其中每个节点可以有无限个子节点。二叉树是一种树数据结构，其中每个节点最多有两个子节点，通常称为左子节点和右子节点。在本章中，你将学习二叉树数据结构的主要属性以及如何实现它。\n\
+  \n## 二叉树入门\n\n二叉树的基本结构如图 10-1 所示。\n\n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig1_HTML.png](img/490882_1_En_10_Fig1_HTML.png)\n\
+  \n图 10-1：基本二叉树\n\n在继续介绍二叉树的属性和类型之前，让我们先定义一些与之相关的术语。\n\n- **节点深度** – 从节点到根节点的边的数量。根节点的深度为\
+  \ 0。\n- **节点高度** – 从节点到某个叶节点的最长路径上的边的数量。叶节点的高度为 0。\n- **树高度** – 从根节点到最远叶节点的距离。\n\
+  \n### 二叉树的属性\n\n1.  二叉树第“i”层的最大节点数为 2^(i-1)。\n\n    根节点所在的层级为 1 → 2^(1-1) = 1。由于每个节点最多有两个子节点，下一层的节点数是上一层的两倍，即\
+  \ 2 * 2^(i-1)。\n\n2.  如果二叉树的高度为“h”，则最大节点数为 2^h - 1。树的高度是从根到叶路径上的最大节点数。\n\n3.  在一个每个节点都有零个或两个子节点的二叉树中，叶节点的数量总是比拥有两个子节点的节点数量多一个。\n\
+  \n### 二叉树的类型\n\n二叉树是一个简单的概念：它们易于理解，易于实现，并且工作高效、快速。有几种不同类型的二叉树：\n\n1.  **满二叉树**（图\
+  \ 10-2）– 每个节点有零个或两个子节点，但不会只有一个。\n\n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig2_HTML.png](img/490882_1_En_10_Fig2_HTML.png)\n\
+  \n图 10-2：满二叉树\n\n2.  **完美二叉树**（图 10-3）– 所有节点都有两个子节点且深度相同。\n\n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig3_HTML.png](img/490882_1_En_10_Fig3_HTML.png)\n\
+  \n图 10-3：完美二叉树\n\n3.  **完全二叉树**（图 10-4）– 除最后一层外，所有层都被完全填满，但最后一层的已有节点都位于树的左侧。\n\n\
+  ![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig4_HTML.png](img/490882_1_En_10_Fig4_HTML.png)\n\
+  \n图 10-4：完全二叉树\n\n4.  **平衡二叉树**（图 10-5）– 每个叶节点到根节点的距离与任何其他叶节点相比“不超过某个特定值”。\n\n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig5_HTML.png](img/490882_1_En_10_Fig5_HTML.png)\n\
+  \n图 10-5：平衡二叉树\n\n### 实现\n\n为了实现二叉树数据结构，我们需要一个节点，该节点必须至少包含以下元素：\n\n- 用于数据容器的键/值\n\
+  - 对左子节点和右子节点的引用\n- 对父节点的引用\n\n因此，让我们定义一个名为 `BTNode` 的类，并在其中添加以下代码：\n\n```\nclass\
+  \ BTNode {\nvar value: T\nvar leftChild: BTNode?\nvar rightChild: BTNode?\ninit(_\
+  \ value: T,_ leftChild: BTNode?,_ rightChild: BTNode?) {\nself.value = value\nself.rightChild\
+  \ = rightChild\nself.leftChild = leftChild\n}\n}\n```\n\n这里我们将类设为泛型，以允许 value 属性中包含任何类型的值。我们的二叉树节点有一个名为\
+  \ `value` 的属性来存储键数据。此外，它还有两个变量来存储左子节点和右子节点，这是定义二叉树节点所需的最少属性。\n\n## 树的遍历（又称树搜索）\n\
+  \n树的遍历是指对树数据结构中的每个节点访问或更新一次的过程。它们根据节点的访问顺序进行分类。与只能按线性顺序遍历的线性数据结构不同，树数据结构可以以多种方式遍历。有几种常见的遍历方式：\n\
+  \n- 中序遍历\n- 前序遍历\n- 后序遍历\n\n\n\n### 中序遍历\n\n中序遍历（图[10-6]）首先访问左子节点的值，然后访问当前节点的值，最后访问右子节点的值。如果我们的二叉树是有序的，中序遍历将按升序访问节点。\n\
+  \n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig6_HTML.png](img/490882_1_En_10_Fig6_HTML.png)\n\
+  \n**图 10-6** – 中序遍历\n\n可以清晰地看到，它会按升序打印节点。\n\n以下函数展示了如何在 Swift 中实现中序遍历，请将以下代码复制到\
+  \ `BTNode` 类中：\n\n```\nfunc inorderTraversal(_ btNode: BTNode?) {\n    guard let\
+  \ _ = btNode else { return }\n    self.inorderTraversal(btNode?.leftChild)\n   \
+  \ print(\"\\(btNode!.value)\", terminator: \"  \")\n    self.inorderTraversal(btNode?.rightChild)\n\
+  }\n```\n\n首先，我们检查当前节点是否为空，然后通过递归调用中序遍历函数来遍历子树并显示数据。当左子树遍历完成后，我们通过递归调用中序遍历函数来遍历右子树。\n\
+  \n让我们看看在前面的例子中它是如何工作的。首先，按之前所示创建树节点，并基于根节点参数调用 `inorderTraversal` 函数。\n\n```\nlet\
+  \ node3 = BTNode(3,nil,nil)\nlet node12 = BTNode(12,nil,nil)\nlet node17 = BTNode(17,nil,nil)\n\
+  let node28 = BTNode(28,nil,nil)\nlet node9 = BTNode(9,node3,node12)\nlet node23\
+  \ = BTNode(23,node17,node28)\nlet root = BTNode(15,node9,node23)\nlet t = BTNode(0,nil,nil)\n\
+  t.inorderTraversal(root)\n```\n\n输出结果将是：\n\n```\n3  9  12  15  17  23  28\n```\n\
+  \n### 前序遍历\n\n前序遍历（图[10-7]）总是从当前节点开始，然后继续访问左子节点和右子节点。\n\n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig7_HTML.png](img/490882_1_En_10_Fig7_HTML.png)\n\
+  \n**图 10-7** – 前序遍历\n\n让我们创建前序遍历函数。在 `inorderTraversal` 函数之后，将以下代码复制到 `BTNode` 类中。首先，遍历访问当前节点，然后递归访问左子节点和右子节点。\n\
+  \n```\nfunc preorderTraversal(_ btNode: BTNode?) {\n    guard let _ = btNode else\
+  \ { return }\n    print(\"\\(btNode!.value)\", terminator: \"  \")\n    self.preorderTraversal(btNode?.leftChild)\n\
+  \    self.preorderTraversal(btNode?.rightChild)\n}\n```\n\n让我们对之前创建的树运行此函数。\n\n\
+  ```\nlet t = BTNode(0,nil,nil)\nt.preorderTraversal(root)\n```\n\n输出结果将是：\n\n```\n\
+  15  9  3  12  23  17  28\n```\n\n### 后序遍历\n\n后序遍历（图[10-8]）首先访问最左侧的节点，然后访问右侧节点，再访问其父节点。之后，它按照相同的规则访问上一个父节点。\n\
+  \n![../images/490882_1_En_10_Chapter/490882_1_En_10_Fig8_HTML.png](img/490882_1_En_10_Fig8_HTML.png)\n\
+  \n**图 10-8** – 后序遍历\n\n让我们在 `BTNode` 类内部创建后序遍历函数。将以下代码复制到该类中，我们将对我们创建的同一个树结构运行它：\n\
+  \n```\nfunc postorderTraversal(_ btNode: BTNode?) {\n    guard let _ = btNode else\
+  \ { return }\n    self.postorderTraversal(btNode?.leftChild)\n    self.postorderTraversal(btNode?.rightChild)\n\
+  \    print(\"\\(btNode!.value)\", terminator: \"  \")\n}\n```\n\n让我们运行它：\n\n```\n\
+  let t = BTNode(0,nil,nil)\nt.postorderTraversal(root)\n```\n\n输出结果将是：\n\n```\n3\
+  \  12  9  17  28  23  15\n```\n\n## 总结\n\n在本章中，您学习了二叉树数据结构及其不同类型。您还掌握了可以在二叉树上执行的不同类型的遍历算法。在下一章中，您将学习一种特殊的二叉树——二叉搜索树。\n\
+  \n"
+- "# 11. 二叉搜索树\n\n二叉搜索树（BST）是一种每个节点最多有两个子节点的二叉树，它便于快速执行搜索、插入和删除操作。每个操作的时间复杂度为 `O(log\
+  \ n)`，远快于线性搜索。二叉搜索树的两个主要特征如下：\n\n- 左子节点的值必须小于其父节点的值。\n- 右子节点的值必须大于或等于其父节点的值。\n\n\
+  图[11-1]展示了二叉搜索树的基本结构。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig1_HTML.png](img/490882_1_En_11_Fig1_HTML.png)\n\
+  \n**图 11-1** – 二叉搜索树的基本结构\n\n二叉搜索树的结构使其在搜索操作中更高效，因为在搜索过程的每一步，算法都基于两个假设：\n\n1. 如果搜索值小于当前节点，则继续搜索左子树。\n\
+  2. 如果搜索值大于当前节点，则继续搜索右子树。\n\n这两个假设消除了不必要的搜索，并在每一步将搜索路径减少一半，这使其非常高效。\n\n### 实现\n\n\
+  首先，我们需要创建 **Node** 和 **Binary Tree Search** 类，这里我们将使用上一章为二叉树创建的 `BTNode` 类。\n\n\
+  ```\nclass BTNode {\n    var value: T\n    var leftChild: BTNode?\n    var rightChild:\
+  \ BTNode?\n    init(value: T, leftChild: BTNode? = nil, rightChild: BTNode? = nil)\
+  \ {\n        self.value = value\n        self.leftChild = leftChild\n        self.rightChild\
+  \ = rightChild\n    }\n}\n```\n\n基于声明的树节点，我们将创建一个二叉搜索树类。\n\n```\nclass BinarySearchTree\
+  \ {\n    private var rootNode: BTNode?\n}\n```\n\n该类遵循 **Comparable** 协议以确保类型将使用比较运算符，并使用\
+  \ **CustomStringConvertible** 协议来描述不同的数据类型。让我们继续为此类添加插入函数。\n\n\n\n### 插入\n\n向二叉搜索树（BST）中插入元素遵循前述的两条假设；我们只需找到插入的位置，这是一个`O(log\
+  \ n)`的操作。为了说明二叉搜索树的强大之处，让我们比较一下数组与二叉搜索树的插入性能。假设我们要向一个数组中插入`0`。要在数组中插入一个新元素，首先我们在数组末尾开辟一个额外空间，然后数据逐元素移位，最后才能插入该元素（图\
+  \ 11-2）。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig2_HTML.png](img/490882_1_En_11_Fig2_HTML.png)\n\
+  \n图 11-2\n\n数组插入\n\n在这个例子中，元素零被插入到数组的前端，所有元素都移动了一个位置，这意味着向数组插入的时间复杂度是`O(n)`。\n\n\
+  与数组相反，向二叉搜索树插入则更快。基于前述假设，我们只需要三步就能找到元素零的插入位置，如图 11-3 所示，这个过程的时间复杂度是`O(log n)`。\n\
+  \n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig3_HTML.png](img/490882_1_En_11_Fig3_HTML.png)\n\
+  \n图 11-3\n\nBST 插入示例\n\n```\nfunc insert(insertedValue : T) {\n    let inNode =\
+  \ BTNode(value: insertedValue)\n    if let rootNode = self.rootNode {\n        self.insertNode(rootNode:\
+  \ rootNode, inNode: inNode)\n    } else {\n        self.rootNode = inNode\n    }\n\
+  }\nprivate func insertNode(rootNode: BTNode, inNode: BTNode) {\n    if rootNode.value\
+  \ > inNode.value {\n        if let leftChild = rootNode.leftChild {\n          \
+  \  self.insertNode(rootNode: leftChild, inNode: inNode)\n        } else {\n    \
+  \        rootNode.leftChild = inNode\n        }\n    } else {\n        if let rightChild\
+  \ = rootNode.rightChild {\n            self.insertNode(rootNode: rightChild, inNode:\
+  \ inNode)\n        } else {\n            rootNode.rightChild = inNode\n        }\n\
+  \    }\n}\n```\n\n为了让代码更易读，我创建了两个独立的函数，并在`insert`函数内部调用了`insertNode`函数；这就是`insertNode`方法被设为私有的原因。在`insertNode`函数内部，我们首先比较`rootNode`的值与将要插入节点的值。如果`rootNode`的值更大，我们将新节点添加到`leftChild`节点；否则，将其添加到`rightChild`节点。在`insert`函数内部，我们首先检查`rootNode`是否存在，如果存在，则调用`insertNode`方法；否则，将新节点添加为`rootNode`。\n\
+  \n### 搜索\n\n搜索的过程与插入类似，符合前述两条假设。唯一的区别是，当节点数据与输入数据匹配时，它返回成功；否则返回无效信息。为了说清楚，让我们比较在数组与\
+  \ BST 中搜索的差异。要在数组中查找元素`28`，我们需要逐一比较数组中的元素直到找到它，这是`O(n)`的时间复杂度（图 11-4）。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig4_HTML.png](img/490882_1_En_11_Fig4_HTML.png)\n\
+  \n图 11-4\n\n数组搜索\n\n另一方面，BST 的情况则不同。BST 的两条主要假设使我们能够加快搜索过程，如图 11-5 所示。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig5_HTML.png](img/490882_1_En_11_Fig5_HTML.png)\n\
+  \n图 11-5\n\nBST 搜索示例\n\n在 BST 的每一步中，搜索算法都基于两个假设——如果值小于当前节点，则继续向左子树查找；否则，继续向右子树查找。这有助于避免不必要的检查，并使时间复杂度为`O(log\
+  \ n)`。\n\n```\nfunc searchValue(sValue: T) {\n    self.searchNode(rootNode: self.rootNode,\
+  \ searchValue: sValue)\n}\nprivate func searchNode(rootNode: BTNode?, searchValue:\
+  \ T) {\n    guard let rootNode = rootNode else {\n        print(\"The node of \\\
+  (searchValue) does not exist\")\n        return\n    }\n    print(\"Root Node \\\
+  (rootNode.value)\")\n    if searchValue > rootNode.value {\n        self.searchNode(rootNode:\
+  \ rootNode.rightChild, searchValue: searchValue)\n    } else if searchValue < rootNode.value\
+  \ {\n        self.searchNode(rootNode: rootNode.leftChild, searchValue: searchValue)\n\
+  \    } else {\n        print(\"Node found: \\(rootNode.value)\")\n    }\n}\n```\n\
+  \n## 示例\n\n让我们在实际例子中使用`insert`和`search`函数，看看它们如何工作。我们将在循环中调用`insert`函数来插入从`0`到`5`的值，然后使用`search`函数搜索数字`4`。\n\
+  \n```\nvar binaryST = BinarySearchTree()\nfor i in 0..<5 {\n    binaryST.insert(insertedValue:\
+  \ i)\n}\nbinaryST.searchValue(sValue: 4)\n```\n\n输出将是：\n\n```\nRoot Node 0\nRoot\
+  \ Node 1\nRoot Node 2\nRoot Node 3\nRoot Node 4\nNode found: 4\n```\n\n### 删除\n\n\
+  从二叉搜索树中删除元素时，需要考虑几种情况。\n\n#### 删除叶子节点\n\n删除二叉搜索树中的叶子节点不需要额外的操作；我们只需从树中移除该叶子节点即可（图\
+  \ 11-6）。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig6_HTML.png](img/490882_1_En_11_Fig6_HTML.png)\n\
+  \n图 11-6\n\nBST 删除叶子节点\n\n#### 删除只有一个子节点的节点\n\n要删除只有一个子节点的节点，首先删除该节点，然后需要将子节点重新连接到树的其余部分（图\
+  \ 11-7）。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig7_HTML.png](img/490882_1_En_11_Fig7_HTML.png)\n\
+  \n图 11-7\n\nBST 删除带有一个子节点的节点\n\n\n\n#### 删除拥有两个子节点的节点\n\n删除一个拥有两个子节点的节点并非易事。假设我们要删除图\
+  \ 11-8 中树结构的节点 9。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig8_HTML.png](img/490882_1_En_11_Fig8_HTML.png)\n\
+  \n*图 11-8 – 二叉搜索树删除拥有两个子节点的节点*\n\n当我们删除节点 9 时，需要重新连接它的两个子节点（3 和 12），但在其父节点（节点 15）中，我们只有一个子节点的位置。为了解决这个问题，我们会从右子树中取出最小的节点（在本例中是节点\
+  \ 6），用它替换被删除的节点，然后将两个子树重新连接到它上面（图 11-9）。\n\n![../images/490882_1_En_11_Chapter/490882_1_En_11_Fig9_HTML.png](img/490882_1_En_11_Fig9_HTML.png)\n\
+  \n*图 11-9 – 二叉搜索树删除示例*\n\n在创建删除函数之前，我们需要在二叉树节点（`BTNode`）中声明一个 `min` 变量，以便在删除拥有两个子节点的节点时，能够找到其最小值。请在二叉搜索树类中添加以下代码：\n\
+  \n```\nextension BTNode {\n    var min: BTNode {\n        return leftChild?.min\
+  \ ?? self\n    }\n}\n\nfunc removeValue(sValue: T) {\n    rootNode = removeNode(rNode:\
+  \ rootNode, value: sValue)\n}\n\nprivate func removeNode(rNode: BTNode?, value:\
+  \ T) -> BTNode? {\n    guard let node = rNode else {\n        return nil\n    }\n\
+  \    if value == node.value {\n        if node.leftChild == nil && node.rightChild\
+  \ == nil {\n            return nil\n        }\n        if node.leftChild == nil\
+  \ {\n            return node.rightChild\n        }\n        if node.rightChild ==\
+  \ nil {\n            return node.leftChild\n        }\n        node.value = node.rightChild!.min.value\n\
+  \        node.rightChild = removeNode(rNode: node.rightChild, value: node.value)\n\
+  \    } else if value < node.value {\n        node.leftChild = removeNode(rNode:\
+  \ node.leftChild, value: value)\n    } else {\n        node.rightChild = removeNode(rNode:\
+  \ node.rightChild, value: value)\n    }\n    return node\n}\n```\n\n在 `removeNode`\
+  \ 方法内部，我们首先检查待删除的节点是否存在，然后继续检查前面的各种情况。首先，`if` 条件检查该节点是否没有子节点，如果是则返回 `nil`，这意味着删除当前节点。`if\
+  \ node.leftChild == nil` 和 `if node.rightChild == nil` 条件用于检查左子节点或右子节点是否存在，如果存在则将它们重新连接到树上，这正是我们提到的第二种情况。接着，我们找到最小值并将其重新连接到树上。\n\
+  \n让我们看看它是如何工作的。\n\n```\nvar binaryST = BinarySearchTree()\nfor i in 0..<5 {\n  \
+  \  binaryST.insert(insertedValue: i)\n}\nbinaryST.searchValue(sValue: 4)\nbinaryST.removeValue(sValue:\
+  \ 4)\nbinaryST.searchValue(sValue: 4)\n```\n\n输出结果将是：\n\n```\nRoot Node 0\nRoot\
+  \ Node 1\nRoot Node 2\nRoot Node 3\nRoot Node 4\nNode found: 4\nRoot Node 0\nRoot\
+  \ Node 1\nRoot Node 2\nRoot Node 3\nThe node of 4 does not exist\n```\n\n如你所见，在对节点\
+  \ 4 调用删除函数后，它在树中已不复存在。\n\n## 本章小结\n\n在本章中，你学习了二叉搜索树，以及如何实现诸如搜索、插入和删除等多种方法。在处理有序数据时，二叉搜索树是一种性能非常强大的数据结构。在下一章中，你将学习另一种类型的树——红黑树。\n\
+  \n"
+- "# 12. 红黑树\n\n红黑树（RBT）是一种二叉搜索树，它为每个节点引入了新的参数——颜色（图 12-1）。我们知道，经过一些插入和删除操作后，二叉搜索树会变得不平衡，从而形成链表。红黑树通过平衡元素解决了这个问题。每个节点都有一个颜色，可以是黑色或红色。因此，在声明红黑树的节点时，它必须包含一个键/值、一个颜色、指向父节点的引用以及指向子节点的引用。红黑树在处理搜索、插入和删除操作的最坏情况时非常有用。\n\
+  \n### 红黑树的属性\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig1_HTML.png](img/490882_1_En_12_Fig1_HTML.png)\n\
+  \n*图 12-1 – 红黑树示例*\n\n- 每个节点必须有一种颜色：红色或黑色。\n- 根节点始终为黑色。\n- 空叶子节点始终为黑色。\n- 如果一个节点是红色的，那么它的子节点必须是黑色的。\n\
+  - 对于每个节点，从该节点到其所有后代叶子节点的简单路径上，黑色节点的数量相同。\n\n图 12-1 展示了红黑树的基本结构。\n\n红黑树是一种自平衡树——对节点颜色的限制确保了任何从根节点到叶子节点的简单路径的长度，都不会超过任何其他此类路径的两倍。这有助于维护红黑树的自平衡属性。\n\
+  \n### 实现\n\n要实现红黑树这种数据结构，我们需要一个至少包含以下元素的节点：\n\n- 数据容器的键/值\n- 指向左子节点和右子节点的引用\n- 指向父节点的引用\n\
+  - 颜色变量\n\n那么，让我们定义一个名为 `RBNode` 的类，并将以下代码添加进去。我们知道颜色只能是红色或黑色；因此在定义类之前，我们先为颜色变量创建一个枚举，它包含两种颜色：黑色和红色。\n\
+  \n```\nprivate enum RBNodeColor {\n    case red\n    case black\n}\n```\n\n而 `RBNode`\
+  \ 类将如下所示：\n\n```\npublic class RBNode: Equatable {\n    var color: RBNodeColor =\
+  \ .black\n    var key: T?\n    var leftChild: RBNode?\n    var rightChild: RBNode?\n\
+  \    weak var parent: RBNode?\n\n    public init(key: T?, leftChild: RBNode?, rightChild:\
+  \ RBNode?, parent: RBNode?) {\n        self.key = key\n        self.leftChild =\
+  \ leftChild\n        self.rightChild = rightChild\n        self.parent = parent\n\
+  \        self.leftChild?.parent = self\n        self.rightChild?.parent = self\n\
+  \    }\n}\n\n//Equatable 协议\nextension RBNode {\n    static public func == (lhs:\
+  \ RBNode, rhs: RBNode) -> Bool {\n        return lhs.key == rhs.key\n    }\n}\n\
+  ```\n\n我们创建了所需的变量并在 `init` 方法中进行了初始化，我们的类必须遵循 `Comparable` 和 `Equatable` 协议。末尾的扩展用于遵循\
+  \ `Equatable` 协议。\n\n接下来我们要做的是创建红黑树本身。那么，让我们按如下所示创建一个新类，但在创建之前，我们需要在 `RBNode` 类中添加一个\
+  \ `convenience` 初始化方法，以便能够用 `nil` 值对其进行初始化。因此，请在 `RBNode` 类的 public `init` 方法之后添加以下方法：\n\
+  \n```\npublic convenience init(key: T?) {\n    self.init(key: key, leftChild: RBNode(),\
+  \ rightChild: RBNode(), parent: RBNode())\n}\n\n// 用于初始化空叶子节点\npublic convenience\
+  \ init() {\n    self.init(key: nil, leftChild: nil, rightChild: nil, parent: nil)\n\
+  \    self.color = .black\n}\n```\n\n然后，我们的 `RedBlackTree` 类将如下所示：\n\n```\npublic\
+  \ class RedBlackTree {\n    public typealias RBTreeNode = RBNode\n    private var\
+  \ root: RBTreeNode\n    private var size = 0\n    let nullLeaf = RBTreeNode()\n\n\
+  \    public init() {\n        root = nullLeaf\n    }\n}\n```\n\n这里我们创建了一个 `typealias`\
+  \ 以使代码更易读，并为树声明了 `root` 和 `nullLeaf`。\n\n可以对红黑树执行各种操作。可能存在这样的情况：插入和删除等操作违反了上述红黑树属性；在这种情况下，会采用旋转操作来维护这些属性。\n\
+  \n\n\n### 旋转\n\n在旋转操作中，一个子树会向根节点靠近一层，另一个子树则会远离根节点。\n\n旋转有两种类型：\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig3_HTML.png](img/490882_1_En_12_Fig3_HTML.png)\n\
+  \n图 12-3 – 右旋转操作示意\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig2_HTML.png](img/490882_1_En_12_Fig2_HTML.png)\n\
+  \n图 12-2 – 左旋转操作示意\n\n- **左旋转** – 如图 12-2 所示\n- **右旋转** – 如图 12-3 所示\n\n下面的代码展示了如何为红黑树实现旋转方法。首先，我们需要一个用于旋转方向的枚举，方向可以是右或左。\n\
+  \n```\nprivate enum RotationDirection {\ncase left\ncase right\n}\n```\n\n接着，在 `RBNode`\
+  \ 类内部，我们需要一些变量来标识节点的状态，例如该节点是`leafNode`、`leftNode`、`rightNode`还是`rootNode`。因此，我们先在\
+  \ `RBNode` 类中声明这些变量。\n\n```\nvar isRootNode: Bool {\nreturn parent == nil\n}\nvar\
+  \ isLeafNode: Bool {\nreturn rightChild == nil && leftChild == nil\n}\nvar isNullLeaf:\
+  \ Bool {\nreturn key == nil && isLeafNode && color == .black\n}\nvar isLeftNode:\
+  \ Bool {\nreturn parent?.leftChild === self\n}\nvar isRightNode: Bool {\nreturn\
+  \ parent?.rightChild === self\n}\n```\n\n`rootNode` 是一个没有父节点的节点，所以当 `parent` 为 nil\
+  \ 时，`isRootNode` 返回 true。\n\n`leafNode` 是一个没有任何子节点（左右子节点）的节点。这里当两个子节点都为 nil 时，`isLeafNode`\
+  \ 返回 true。\n\n`nullLeaf` 是一个键值为 nil 且颜色始终为黑色的节点。这里当键值为 null、且该节点是叶节点且颜色为黑色时，`isNullLeaf`\
+  \ 返回 true。\n\n`isLeftNode` 在当前节点与父节点的左子节点完全相同时返回 true。注意，这里不是判断相等，而是使用恒等运算符（`===`）。这意味着它们指向内存中的同一个位置。`isRightNode`\
+  \ 也遵循同样的原则。\n\n在 `RBNode` 类中声明了这些变量之后，我们继续在 `RedBlackTree` 类中创建旋转方法。\n\n```\nprivate\
+  \ func rotate(node A: RBTreeNode, direction: RotationDirection) {\nvar nodeB: RBTreeNode?\
+  \ = RBNode()\n//步骤 1\nswitch direction {\ncase .left:\nnodeB = A.rightChild\nA.rightChild\
+  \ = nodeB?.leftChild\nA.rightChild?.parent = A\ncase .right:\nnodeB = A.leftChild\n\
+  A.leftChild = nodeB?.rightChild\nA.leftChild?.parent = A\n}\n//步骤 2\nnodeB?.parent\
+  \ = A.parent\nif A.isRootNode {\nif let node = nodeB {\nroot = node\n}\n} else if\
+  \ A.isLeftNode {\nA.parent?.leftChild = nodeB\n} else if A.isRightNode {\nA.parent?.rightChild\
+  \ = nodeB\n}\n//步骤 3\nswitch direction {\ncase .left:\nnodeB?.leftChild = A\ncase\
+  \ .right:\nnodeB?.rightChild = A\n}\nA.parent = nodeB\n}\n```\n\n为了解释这段代码，我们以左旋转为例，逐步进行可视化。\n\
+  \n我们假设方向为 `.left`。\n\n图 12-4 展示了旋转方法中的各个步骤。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig4_HTML.jpg](img/490882_1_En_12_Fig4_HTML.jpg)\n\
+  \n图 12-4 – 左旋转步骤\n\n### 插入\n\n红黑树的插入操作与二叉搜索树的标准插入方式相同。但问题在于，插入后树可能不再是一棵合法的红黑树。为了解决这个问题，我们创建了一个\
+  \ `fixInsert` 方法。在声明这个方法之前，我们先在 `RBNode` 类中添加三个变量：`siblingNode`、`grandparentNode`\
+  \ 和 `uncleNode`。图 12-5 直观地展示了这些变量。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig5_HTML.png](img/490882_1_En_12_Fig5_HTML.png)\n\
+  \n图 12-5 – 一个节点的亲属关系\n\n如图所示，节点 1 的兄弟节点是节点 4，节点 1 的父节点是节点 3，节点 1 的叔父节点是节点 12，节点\
+  \ 1 的祖父节点是节点 9。\n\n请将以下变量复制到 `RBNode` 类中：\n\n```\nvar grandparentNode: RBNode? {\n\
+  return parent?.parent\n}\nvar siblingNode: RBNode? {\nif isLeftNode {\nreturn parent?.rightChild\n\
+  } else {\nreturn parent?.leftChild\n}\n}\nvar uncleNode: RBNode? {\nreturn parent?.siblingNode\n\
+  }\n```\n\n在 `RBNode` 类中声明这些变量后，将以下代码复制到 `RedBlackTree` 类中：\n\n```\nprivate func\
+  \ fixInsert(node z: RBTreeNode) {\nif !z.isNullLeaf {\nguard let parentZ = z.parent\
+  \ else {\nreturn\n}\n//如果 Z 和它的父节点都是红色 – 违反了红黑树性质，因此需要修复。\nif parentZ.color == .red\
+  \ {\nguard let uncle = z.uncleNode else {\nreturn\n}\n//情况 1：叔节点为红色 – 重新着色并移动 z。\n\
+  if uncle.color == .red {\nparentZ.color = .black\nuncle.color = .black\nif let grandParentZ\
+  \ = parentZ.parent {\ngrandParentZ.color = .red\n//将 z 上移到祖父节点并再次检查。\nfixInsert(node:\
+  \ grandParentZ)\n}\n}\n} else {\n// 情况 2：叔节点为黑色\nvar zNew = z\n//情况 2.1：z 为右节点 –\
+  \ 旋转\nif parentZ.isLeftNode && z.isRightNode {\nzNew = parentZ\nrotate(node: zNew,\
+  \ direction: .left)\n} else if parentZ.isRightNode && z.isLeftNode {\nzNew = parentZ\n\
+  rotate(node: zNew, direction: .right)\n}\n//情况 2.2：z 为左子节点 – 重新着色 + 旋转\nzNew.parent?.color\
+  \ = .black\nif let grandparentZnew = zNew.grandparentNode {\ngrandparentZnew.color\
+  \ = .red\nif z.isLeftNode {\nrotate(node: grandparentZnew, direction: .right)\n\
+  } else {\nrotate(node: grandparentZnew, direction: .left)\n}\n}\n}\n}\nroot.color\
+  \ = .black\n}\n```\n\n可以看出，这里有两大情况，其中第二种情况又包含两种类型。\n\n**情况 1：** `z` 的叔节点为红色。\n1.\
+  \ 将父节点和叔节点的颜色改为黑色。\n2. 将祖父节点的颜色改为红色。\n3. 对 `z` 的祖父节点调用 `fixInsert` 方法。\n\n**情况 2：**\
+  \ `z` 的叔节点为黑色 – 这里包含两种情况。\n- **情况 2.1：** `z` 为右节点 – 这里，我们将 `z` 上移，因此 `z` 的父节点成为\
+  \ `newZ`，然后围绕这个 `newZ` 进行旋转。\n- **情况 2.2：** `z` 为左子节点。在这种情况下，我们将 `z.parent` 重新着色为黑色，将\
+  \ `z.grandparent` 重新着色为红色。然后围绕 `z` 的祖父节点进行旋转。\n\n如前所述，`fixInsert` 函数是一个用于修复将新节点插入树后红黑树违规问题的方法。因此，我们需要声明插入方法，该方法与二叉搜索树中的插入操作相同（更多信息请查阅第\
+  \ 11 章“二叉搜索树”）。\n\n这里我们将声明三个方法：主 `insert` 方法、`addAsLeftNode` 方法和 `addAsRightNode`\
+  \ 方法。\n\n```\nprivate func addAsLeftNode(child: RBTreeNode, parent: RBTreeNode)\
+  \ {\nparent.leftChild = child\nchild.parent = parent\nchild.color = .red\nfixInsert(node:\
+  \ child)\n}\nprivate func addAsRightNode(child: RBTreeNode, parent: RBTreeNode)\
+  \ {\nparent.rightChild = child\nchild.parent = parent\nchild.color = .red\nfixInsert(node:\
+  \ child)\n}\n```\n\n`addAsLeftNode` – 将子节点添加为左节点，将颜色设置为红色，并修复违规。\n\n`addAsRightNode`\
+  \ – 将子节点添加为右节点，将颜色设置为红色，并修复违规。\n\n然后我们创建主插入方法，该方法将使用前面声明的方法。\n\n\n\n### 红黑树插入\n\n\
+  ```swift\nprivate func insert(input: RBTreeNode, node: RBTreeNode) {\nguard let\
+  \ inputKey = input.key, let nodeKey = node.key else {\nreturn\n}\nif inputKey <\
+  \ nodeKey {\nguard let child = node.leftChild else {\naddAsLeftNode(child: input,\
+  \ parent: node)\nreturn\n}\nif child.isNullLeaf {\naddAsLeftNode(child: input, parent:\
+  \ node)\n} else {\ninsert(input: input, node: child)\n}\n} else {\nguard let child\
+  \ = node.rightChild else {\naddAsRightNode(child: input, parent: node)\nreturn\n\
+  }\nif child.isNullLeaf {\naddAsRightNode(child: input, parent: node)\n} else {\n\
+  insert(input: input, node: child)\n}\n}\n}\n```\n\n插入操作与 BST 中的插入操作相同；主要区别在于空指针被替换为`nullLeaf`，并且在每次插入后，我们调用`fixInsert`方法来修复违规。\n\
+  \n### 删除\n\n删除也类似于 BST 中的标准删除方法，但这里我们需要一个辅助函数来修复删除后的违规。可能存在被删除节点的父节点和子节点都是红色的情况，导致出现两个相邻的红色节点，或者如果删除根节点，根节点可能是红色的，或者其他属性可能被违反。因此，为了修复这些违规，我们创建了包含四种情况的`fixDelete`方法。\n\
+  \n```swift\nprivate func fixDelete(node y: RBTreeNode) {\nvar yTemp = y\nif y.isRootNode\
+  \ && y.color == .black {\nguard var siblingNode = y.siblingNode else {\nreturn\n\
+  }\n// 情况 1: y 的兄弟节点是红色。\nif siblingNode.color == .red {\n//更改颜色\nsiblingNode.color\
+  \ = .black\nif let yParent = y.parent {\nyParent.color = .red\n// 旋转\nif y.isRightNode\
+  \ {\nrotate(node: yParent, direction: .right)\n} else {\nrotate(node: yParent, direction:\
+  \ .left)\n}\n// 更新兄弟节点\nif let sibling = y.siblingNode {\nsiblingNode = sibling\n\
+  }\n}\n}\n// 情况 2: y 的兄弟节点是黑色，且有两个黑色子节点。\nif siblingNode.leftChild?.color == .black\
+  \ && siblingNode.rightChild?.color == .black {\n//更改颜色\nsiblingNode.color = .red\n\
+  //向上移动黑色单元\nif let yParent = y.parent {\nfixDelete(node: yParent)\n}\n} else {\n\
+  // 情况 3.1: 兄弟节点是黑色，且左侧有一个黑色子节点。\nif y.isLeftNode && siblingNode.rightChild?.color\
+  \ == .black {\n//更改颜色\nsiblingNode.leftChild?.color = .black\nsiblingNode.color\
+  \ = .red\n//向右旋转\nrotate(node: siblingNode, direction: .right)\n//更新 y 的兄弟节点\nif\
+  \ let sibling = y.siblingNode {\nsiblingNode = sibling\n}\n} //情况 3.2: 左侧有一个黑色子节点\n\
+  else if y.isRightNode && siblingNode.leftChild?.color == .black {\n//更改颜色\nsiblingNode.rightChild?.color\
+  \ = .black\nsiblingNode.color = .red\n//向左旋转\nrotate(node: siblingNode, direction:\
+  \ .left)\n//更新 y 的兄弟节点\nif let sibling = y.siblingNode {\nsiblingNode = sibling\n\
+  }\n}\n}\n// 情况 4: 兄弟节点是黑色，且有一个红色右子节点。\nif let yParent = y.parent {\nsiblingNode.color\
+  \ = yParent.color\nyParent.color = .black\n// 情况 a: y 是左子节点，兄弟节点带有红色右子节点\nif y.isLeftNode\
+  \ {\nsiblingNode.rightChild?.color = .black\nrotate(node: yParent, direction: .left)\n\
+  }\n// 情况 b: y 是右子节点，兄弟节点带有红色左子节点\nelse {\nsiblingNode.leftChild?.color = .black\n\
+  rotate(node: yParent, direction: .right)\n}\nyTemp = root\n}\n}\n}\n}\nyTemp.color\
+  \ = .black\n}\n```\n\n在这个函数内部，我们实现了四种情况。\n\n**情况 1**：`y`的兄弟节点是红色的，并且我们知道该兄弟节点是`y`父节点的另一个子节点。在这种情况下，`y`父节点和`y`兄弟节点的颜色将被改变，然后我们围绕`y`的父节点左旋（图\
+  \ [12-6]）。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig6_HTML.png](img/490882_1_En_12_Fig6_HTML.png)\n\
+  \n图 12-6\n\n情况 1：`y`的兄弟节点是红色\n\n**情况 2**：`y`的兄弟节点是黑色的，并且它有两个黑色的子节点。在这种情况下，我们将`y`兄弟节点的颜色改为红色，并将`y`向上移动至`y`的父节点，然后再次检查这个新`y`（图\
+  \ [12-7]）。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig7_HTML.png](img/490882_1_En_12_Fig7_HTML.png)\n\
+  \n图 12-7\n\n情况 2：`y`的兄弟节点是黑色\n\n**情况 3**：`y`的兄弟节点是黑色的，并且它有一个黑色的右子节点。这里，我们将兄弟节点的颜色改为红色，兄弟节点的左子节点改为黑色，并围绕该兄弟节点旋转（图\
+  \ [12-8]）。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig8_HTML.png](img/490882_1_En_12_Fig8_HTML.png)\n\
+  \n图 12-8\n\n情况 3：`y`的兄弟节点是黑色，带有黑色的右子节点\n\n**情况 4**：`y`的兄弟节点是黑色的，并且有一个红色的右子节点。在这种情况下，我们将兄弟节点的颜色改为`y`父节点的颜色，并将`y`父节点和兄弟节点的右子节点改为黑色，然后围绕`y`的父节点旋转（图\
+  \ [12-9]）。\n\n![../images/490882_1_En_12_Chapter/490882_1_En_12_Fig9_HTML.png](img/490882_1_En_12_Fig9_HTML.png)\n\
+  \n图 12-9\n\n情况 4：`y`的兄弟节点是黑色，带有红色的右子节点\n\n## 结论\n\n在本章中，您学习了红黑树及其主要属性。此外，您还掌握了如何实现旋转、插入和移除等各种方法。红黑树在处理搜索、插入和删除操作的最坏情况时非常强大。\n\
+  \n"
+- "# 13. 大 O 表示法\n\n为了描述算法的效率，使用了 Big O 时间语言和度量标准。为了更清晰，让我们看看以下场景。假设我们想尽快将一个文件发送给朋友，我们应该如何发送？\n\
+  \n有两种选择：\n\n*   电子传输\n*   物理递送\n\n### 时间复杂度\n\n渐近运行时间或 Big O 的概念指的是时间复杂度。这意味着我们可以如下描述数据传输算法的运行时间（图\
+  \ [13-1]）：\n\n![../images/490882_1_En_13_Chapter/490882_1_En_13_Fig1_HTML.png](img/490882_1_En_13_Fig1_HTML.png)\n\
+  \n图 13-1\n\n时间复杂度\n\n*   电子传输：`O(s)`，其中`s`是文件的大小。这意味着传输文件的时间随文件大小线性增长。\n*   物理递送：`O(1)`——随着文件大小的增加，所需时间不会增加。\n\
+  \n运行时有多种类型，例如`O(N)`、`O(N²)`和`O(2^N)`。例如，要涂刷一个宽`w`米、高`h`米的区域，运行时可以描述为`O(wh)`。有些算法在输入较小时更快；然而，当输入变大时，它们会变慢。我们的程序运行速度快至关重要，因为它们不是在超级计算机上执行的，所以如果移动应用用户遇到应用性能缓慢，他们往往会退出并删除应用。因此，必须为我们的开发选择合适的算法。\n\
+  \n任何算法的运行时都可以用三种不同的方式进行描述。例如，让我们检查一下快速排序算法。它选取一个随机元素作为枢轴（`pivot`），并在数组中交换值，使得大于枢轴的元素出现在一侧（图\
+  \ [13-2]）。\n\n![../images/490882_1_En_13_Chapter/490882_1_En_13_Fig2_HTML.png](img/490882_1_En_13_Fig2_HTML.png)\n\
+  \n图 13-2\n\nBig O 场景\n\n*   最佳情况：所有元素都相等，并且数组只遍历一次，`O(N)`。\n*   最坏情况：如果运气不好，枢轴反复是数组中最大的元素，`O(N²)`。\n\
+  *   期望情况：有时枢轴会非常高或非常低，但这不会反复发生，`O(N log N)`。\n\n为了表示这些情况，有对应的大 O 符号：\n\n*   大 Θ（`Big-Θ`）：一种复杂度，它处于最坏情况和最佳情况的界限之内。\n\
+  *   大 O（`Big O`）：一种复杂度，它小于或等于最坏情况。\n*   大 Ω（`Big-Ω`）：一种复杂度，它至少比最佳情况要大。\n\n\n\n###\
+  \ 空间复杂度\n\n在讨论算法效率时，时间并非唯一需要考虑的因素，所需的内存量同样重要。这是与时间复杂度并行的一个概念。如果我们需要创建一个大小为 `n` 的数组，则需要\
+  \ `O(n)` 的空间。递归调用中的栈空间也会被计入。例如，以下代码将具有 `O(n)` 时间复杂度和 `O(n)` 空间复杂度；每次调用都会占用实际内存：\n\
+  \n```\nfunc sum(n: Int) -> Int {\nif n <= 0 {\nreturn 0\n}\nreturn n + sum(n: n-1)\n\
+  }\n```\n\n每次调用都会向调用栈添加一层，并占用实际内存：\n\n```\n1   sum(3)\n2     → sum(2)\n3        \
+  \ → sum(1)\n4             → sum(0)\n```\n\n另一方面，在某些情况下，`n` 次调用并不会占用 `O(n)` 空间：\n\
+  \n```\nfunc pairSumSequence(n: Int) -> Int {\nvar sum = 0\nfor i in 0...n {\nsum\
+  \ += pairSum(a: i, b: i+1)\n}\nreturn sum\n}\nfunc pairSum(a: Int, b: Int) -> Int\
+  \ {\nreturn a + b\n}\n```\n\n由于 `n` 次对 `pairSum` 函数的调用并**没有同时**存在于调用栈中，我们只需要 `O(1)`\
+  \ 的空间。\n\n## 忽略常数项与非主导项\n\n对于特定输入，`O(N)` 代码有可能比 `O(1)` 代码运行得更快。大 O 表示法仅仅描述了增长速率。因此，我们通常会忽略常数，这意味着\
+  \ `O(2N)` 实际上就是 `O(N)`。\n\n*   `O(2N)` → `O(N)`\n\n既然可以忽略常数，那么同样也可以忽略非主导项。\n\n*\
+  \   `O(N²+N)` → `O(N²)`\n\n*   `O(N+logN)` → `O(N)`\n\n*   `O(2∗2^N + 1000N¹⁰⁰)`\
+  \ → `O(2^N)`\n\n某些情况下，运行时间中可能存在求和项，例如 `O(B²+A)` 就不能在未明确 `A` 或 `B` 的情况下被简化。\n\n下图展示了一些常见大\
+  \ O 时间复杂度的增长速率（图 13-3）。\n\n![../images/490882_1_En_13_Chapter/490882_1_En_13_Fig3_HTML.png](img/490882_1_En_13_Fig3_HTML.png)\n\
+  \n图 13-3\n\n常见大 O 时间复杂度的增长速率\n\n如图所示，`O(x²)` 远比 `O(x)` 糟糕。还有许多运行时间比 `O(x!)` 更差，例如\
+  \ `O(x^x)` 或 `O(2^x ∗ x!)`。\n\n## 如何计算复杂度？\n\n很明显，由于算法中使用的代码结构不同，其复杂度也不同。让我们看一些代码示例及其复杂度。\n\
+  \n*   **If**`–`**else**：在这种类型的代码块中，通常有两段代码 —— `if` 条件下的代码和 `else` 条件下的代码。这里我们考虑最坏情况。因此，如果\
+  \ `if` 块是 `O(n)` 而 `else` 块是 `O(1)`，那么整个块的复杂度将是 `O(n)`。\n\n    ```\n    var myArray\
+  \ = [1,2,3,4,5]\n    if myArray.count > 0 {\n    for i in myArray {\n    print(i)\n\
+  \    }\n    } else {\n    print(\"The array is empty\")\n    }\n    ```\n\n    从这个代码块可以很容易地看出，**if**\
+  \ 语句的复杂度是 `O(n)`，**else** 语句的复杂度是 `O(1)`。然而，整个代码的复杂度是 `O(n)`，因为我们总是考虑最坏情况。\n\n*\
+  \   **循环**：在 `循环` 内部，语句会重复执行 `n` 次。如果我们的代码执行一次需要 `O(m)` 复杂度，那么在重复 `n` 次的循环内部，其复杂度将是\
+  \ `n∗O(m)` 或 `O(n∗m)`。\n\n    ```\n    for i in myArray {\n    print(i)\n    }\n\
+  \    ```\n\n    循环次数将是 5 次，并且循环内部代码的执行复杂度是 `O(1)`，因此合并执行的复杂度是 `O(5)`。\n\n*   **嵌套**\
+  \ `循环`：如果一个循环内部包含另一个循环，复杂度将呈指数级增长，这意味着如果简单循环的复杂度是 `O(n)`，那么在这个循环内部再添加一个循环将使复杂度变为\
+  \ `O(n²)`。\n\n    ```\n    for i in myArray {\n    print(i)\n    for a in myArray\
+  \ {\n    print(i+a)\n    }\n    }\n    ```\n\n    这里第一个循环的复杂度是 `O(5)`，因为数组计数是 5，所以嵌套循环也以相同的复杂度执行了\
+  \ 5 次，这意味着两者的复杂度都是 `O(5²)`。\n\n## 加法 vs. 乘法\n\n主要的困惑之一是确定何时对运行时间进行加法，何时进行乘法。\n\n\
+  *   运行时间相加 —— 如果一个算法的形式是“先做这个，做完之后，再做那个”\n*   运行时间相乘 —— 如果一个算法的形式是“每做一次那个，就做一次这个”\n\
+  \n在左侧，运行时间是 `O(A+B)`；这是因为每个运行时间都是分别执行的：先运行 `A`，然后运行 `B`。因此我们将它们相加。\n\n在右侧，对于 `A`\
+  \ 的每一个元素，我们都运行一次 `B`，这意味着我们需要将运行时间相乘。\n\n| 运行时间相加：`O(A+B)` | 运行时间相乘：`O(A*B)` |\n\
+  | --- | --- |\n| **for** `a` **in** `arrayA {`   `print(a)``}`**for** `b` **in**\
+  \ `arrayB {`   `print(b)``}` | **for** `a` **in** `arrayA {`   **for** `b` **in**\
+  \ `arrayB {`      `print(\"\\(a) + \\(b)\")``}``}` |\n\n## 平摊时间\n\n使用 `ArrayList`\
+  \ 或动态调整大小的数组时，你不会遇到空间不足的问题，因为其容量会随着添加元素而增长。当数组达到容量上限时，`ArrayList` 会创建一个容量翻倍的新数组，并将所有元素复制到新数组中。因此，如果数组包含\
+  \ `N` 个元素，添加元素的运行时间将是 `O(N)`。我们知道这种情况不会经常发生，大多数情况下添加操作是 `O(1)`，而平摊时间将两种情况都考虑在内。\n\
+  \n随着我们添加元素，当数组的大小是 2 的幂时，我们会将容量翻倍。容量变为 1，2，4，8，16 …… `X`。如果我们从右向左看这些容量的总和，它从 `X`\
+  \ 开始，每次减半，直到变为 1。\n\n`X+X/2+X/4+X/8+…+1` 这个和大约是 `2X`，如果我们移除常数，它就变成了 `O(X)`。因此，`X`\
+  \ 次添加操作需要 `O(X)` 时间，而每次添加操作的平摊时间是 `O(1)`。\n\n### 对数时间运行时间\n\n以二分查找为例，我们在一个包含 `N`\
+  \ 个元素的有序数组中查找 `x`。首先，我们将 `x` 与中间值进行比较 —— 如果相等，则返回；如果 `x < middle`，则在左侧搜索；如果 `x >\
+  \ middle`，则在右侧搜索。\n\n```\nsearch 9 within [1,5,8,9,11,13,15,19,21]\ncompare 9 to\
+  \ 11 → smaller\nsearch 9 within [1,5,8,9]\ncompare 9 to 8 → bigger\nsearch 9 within\
+  \ [9]\ncompare 9 to 9\nreturn\n```\n\n我们从包含 `N` 个元素的数组开始搜索；经过一步后，问题规模降为 `N/2`个元素；再经过一步，降为\
+  \ `N/2` 个元素。所以总时间取决于我们需要多少步才能将 `N` 降到 1。\n\n```\nN = 16\nN = 8 /* 除以 2 */\nN = 4\
+  \ /* 除以 2 */\nN = 2 /* 除以 2 */\nN = 1 /* 除以 2 */\n```\n\n那么，我们需要将 1 乘以 2 多少次才能得到\
+  \ `N`？`2^k = N` → `log[2]N = k`\n\n因此，当问题空间中的元素数量每次减半时，其运行时间很可能是 `O(log N)`。\n\n\
+  ### 递归运行时间\n\n这段代码的运行时间是多少？\n\n```\nfunc f (n : Int) -> Int {\nif n <= 1 {\nreturn\
+  \ 1\n}\nreturn f(n: n-1) + f(n: n-1)\n}\n```\n\n不要依赖猜测，让我们来审视这段代码。假设我们有 `f(4)`，它会调用\
+  \ `f(3)` 两次，而每次 `f(3)` 的调用又会调用 `f(2)`，直到我们降到 `f(1)`（图 13-4）。\n\n![../images/490882_1_En_13_Chapter/490882_1_En_13_Fig4_HTML.png](img/490882_1_En_13_Fig4_HTML.png)\n\
+  \n图 13-4\n\n递归运行时间\n\n递归树的深度为 `N`，并且每个节点有两个子节点。因此，每一层的调用次数将是图中所示的两倍。更一般地，可以表示为 `2⁰+2¹+2²+2³+…+2^(N-1)`。因此，当一个递归函数进行多次调用时，运行时间通常看起来像\
+  \ `O(分支数^(深度))`，但在我们的例子中，它是 `O(2^N)`。\n\n## 结论\n\n在本章中，你学习了算法效率以及如何衡量它。我们识别了不同代码的复杂度。我们解释了时间和空间复杂度，并展示了不同类型的复杂度。在下一章中，我们将讨论排序算法。\n\
+  \n\n\n"
+- "# 14. 排序算法\n\n到目前为止，我们已经学习了各种不同的数据结构及其性能表现。在本章中，我们将开始学习算法，这些算法是处理数据的核心方式。算法的主要功能是将数据作为输入，对其进行处理，然后将其作为输出返回。\n\
+  \n本章我们将重点学习用于数据排序的排序算法。排序的目标是从无序走向有序。排序算法由一系列指令组成，这些指令以列表为输入，对其执行操作，并输出一个已排序的列表。排序算法有多种类型，但这里我们将讨论以下几种：\n\
+  \n-   冒泡排序\n-   选择排序\n-   插入排序\n-   归并排序\n-   快速排序\n\n### 冒泡排序\n\n冒泡排序是一种用于对数字序列进行排序的算法。其使用方法是从序列的开头开始，比较前两个元素。只有当第一个元素的值大于第二个元素时，这两个元素才会被交换。这种比较相邻元素的过程会一直持续到数组末尾，然后从第\
+  \ 0 个索引开始再次迭代，直到整个数组排序完成。它是一种基于比较的算法，会比较数组中的每一对元素，如果它们顺序不对则进行交换，直到整个数组有序。请参考图 14-1。要使用冒泡排序算法对这组元素进行排序，首先，我们在序列左端比较\
+  \ 5 和 9。在这种情况下，5 小于 9，这意味着这两个数字不会被交换。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig1_HTML.png](img/490882_1_En_14_Fig1_HTML.png)\n\
+  \n图 14-1 – 冒泡排序比较 1\n\n比较结束后，标尺向右移动一个位置，再次比较这两个数字。这次 9 大于 3，因此这两个数字会被交换，然后标尺再向右移动一个位置（图\
+  \ 14-2）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig2_HTML.png](img/490882_1_En_14_Fig2_HTML.png)\n\
+  \n图 14-2 – 冒泡排序比较 2\n\n此操作重复进行，直到标尺到达序列的左端。当标尺到达序列左端时，经过一轮操作，序列中的最小值已移动到左边缘，并且左边缘的这个数字被认为已完全排序。然后标尺移回右边缘，重复同样的操作，直到所有数字都完全排序。\n\
+  \n当数据接近有序时，冒泡排序非常有用。例如，如果只有两个元素位置错乱，那么冒泡排序只需一轮即可完成排序，第二轮会发现所有元素都已排序并退出，这意味着只需要遍历数组两轮。\n\
+  \n冒泡排序的主要优点是它很流行且易于实现。此外，在冒泡排序中，元素在原地进行交换，无需使用额外的临时存储空间，因此空间需求最小。\n\n冒泡排序的主要缺点是它不太擅长处理包含大量元素的列表。这是因为对于每`n`个需要排序的元素，冒泡排序需要\
+  \ n 平方步的处理步骤。因此，冒泡排序主要适用于学术教学，而不适用于实际应用。\n\n### 实现\n\n打开 Xcode 并创建一个新的 playground\
+  \ 文件开始本章的学习。在其中创建以下函数：\n\n```\npublic func bubbleSort(_ inputArray: inout [inputType])\
+  \ {\n    for endofArray in (1..<inputArray.count).reversed() {\n        var swapped\
+  \ = false\n        for currentIndex in 0..<endofArray {\n            if inputArray[currentIndex]\
+  \ > inputArray[currentIndex + 1] {\n                inputArray.swapAt(currentIndex,\
+  \ currentIndex+1)\n                swapped = true\n            }\n        }\n  \
+  \      if !swapped {\n            return\n        }\n    }\n}\n```\n\n在单轮遍历的内部第一个循环中，最大值会移动到集合的末尾，然后每一轮需要比较的元素都比上一轮少一个，因此每次数组都会缩短一个。第二个循环比较相邻的值，如果当前值大于下一个值，则使用`swapAt`函数交换它们。\n\
+  \n让我们看看下面的数组：\n\n```\nvar testArray = [9, 2, 6, 4, 5]\nprint(\"Initial array: \\\
+  (testArray)\")\nbubbleSort(&testArray)\nprint(\"Sorted array: \\(testArray)\")\n\
+  ```\n\n输出将是：\n\n```\nInitial array: [9, 2, 6, 4, 5]\nSorted array: [2, 4, 5, 6,\
+  \ 9]\n```\n\n### 选择排序\n\n选择排序是另一种用于对数字序列进行排序的算法。通过线性搜索，找到序列中的最小值，然后将该值与最左边的数字交换，并认为其已完全排序。如果最小值恰好已经在最左边的位置，则不执行任何操作。然后重复相同的操作，直到所有数字都完全排序。\n\
+  \n假设我们有以下数字列表（图 14-3）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig3_HTML.png](img/490882_1_En_14_Fig3_HTML.png)\n\
+  \n图 14-3 – 用于选择排序的未排序列表\n\n选择排序通过重复遍历列表中的元素来工作，每次选择最低的未排序值并将其放置在序列中的正确位置，如图 14-4\
+  \ 所示。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig4_HTML.png](img/490882_1_En_14_Fig4_HTML.png)\n\
+  \n图 14-4 – 执行选择排序的示例\n\n1.  在这种情况下，最低值是 3。它与 4 交换，并且 3 被认为是已排序的。\n2.  下一个最低值是 4，我们发现它已经在正确的位置。\n\
+  3.  最后一个最低值是 6，它与 8 交换。\n\n选择排序的主要优点是它在处理小列表时表现良好。此外，由于它是一种原地排序算法，除了保存原始列表所需的空间外，不需要额外的临时存储空间。\n\
+  \n选择排序的主要缺点是在处理包含大量元素的列表时效率低下。与冒泡排序类似，选择排序对`n`个元素进行排序需要 n 平方步。此外，其性能很容易受到排序前元素初始顺序的影响。因此，选择排序仅适用于元素数量少且随机排列的列表。\n\
+  \n### 实现\n\n让我们创建一个如以下代码所示的`selectionSort`函数：\n\n```\npublic func selectionSort(_\
+  \ inputArray: inout [inputType]) {\n    for currentIndex in 0..<(inputArray.count\
+  \ - 1) {\n        var lowestValueIndex = currentIndex\n        for nextIndex in\
+  \ (currentIndex + 1)..<inputArray.count {\n            if inputArray[lowestValueIndex]\
+  \ > inputArray[nextIndex] {\n                lowestValueIndex = nextIndex\n    \
+  \        }\n        }\n        if lowestValueIndex != currentIndex {\n         \
+  \   inputArray.swapAt(lowestValueIndex, currentIndex)\n        }\n    }\n}\n```\n\
+  \n在`selectionSort`函数内部，我们遍历集合中除最后一个元素之外的所有元素。如果所有元素都已排序，则无需对最后一个元素进行排序。在下一个循环中，我们找到列表中的最小值，如果该元素不是当前元素，则交换它们。\n\
+  \n让我们看看下面的数组：\n\n```\nvar testArray = [9, 2, 6, 4, 5, 10, 8]\nprint(\"Initial array:\
+  \ \\(testArray)\")\nselectionSort(&testArray)\nprint(\"Sorted array: \\(testArray)\"\
+  )\n```\n\n输出将是：\n\n```\nInitial array: [9, 2, 6, 4, 5, 10, 8]\nSorted array: [2,\
+  \ 4, 5, 6, 8, 9, 10]\n```\n\n很容易看出，选择排序的性能优于冒泡排序。\n\n\n\n### 插入排序\n\n插入排序是最常用且最简单的排序算法之一。插入排序的平均时间复杂度为\
+  \ `O(n²)`，这意味着对较大数据集进行排序时效率很低。当数据近乎有序或数据集较小时，可以使用插入排序。在上述条件下，时间复杂度可达到 `O(n log(n))`。\n\
+  \n在插入排序开始时，最左侧的数字被视为已完全排序。然后从剩余数字中取出最左侧的数字，与其左侧已排序的数字进行比较，如果已排序的数字更大，则两个数字交换位置。重复此操作，直到遇到更小的数字或该数字到达左边界。\n\
+  \n假设我们有以下数字列表（图 14-5）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig5_HTML.png](img/490882_1_En_14_Fig5_HTML.png)\n\
+  \n图 14-5\n待插入排序的未排序列表\n\n如图 14-6 所示，在此例中，6 大于 3，因此这两个数字交换位置。该数字到达左边界，因此停在那里并被视为已完全排序，在此例中\
+  \ 3 已完全排序。然后再次取出剩余数字中最左侧的数字，与其左侧的数字进行比较。接下来，6 小于 8，因此数字不会交换，6 被视为已完全排序。然后取出 8 并与\
+  \ 4 比较，发现 8 更大，这意味着数字将交换位置，然后将 4 与 6 比较，发现 6 大于 4，因此数字再次交换位置。当它遇到更小的数字时，就停在那里并被视为已完全排序。最后，由于所有数字都已完全排序，排序完成。\n\
+  \n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig6_HTML.png](img/490882_1_En_14_Fig6_HTML.png)\n\
+  \n图 14-6\n插入排序步骤\n\n插入排序的主要优点是简单。处理小型列表时也具有良好的性能。插入排序是一种原地排序算法，因此空间需求极小。\n\n插入排序的缺点是性能不如其他更好的排序算法。对于需排序的每\
+  \ n 个元素需要 n 平方步，因此插入排序处理大型列表时效果不佳。因此，插入排序在对少量元素进行排序时特别有用。\n\n### 实现\n\n让我们创建一个插入排序函数，如下代码所示：\n\
+  \n```\npublic func insertionSort(_ inputArray: inout [inputType]) {\n    for currentIndex\
+  \ in 1..<inputArray.count {\n        for swap in (1...currentIndex).reversed() {\n\
+  \            if inputArray[swap] < inputArray[swap - 1] {\n                inputArray.swapAt(swap,\
+  \ swap-1)\n            } else {\n                break\n            }\n        }\n\
+  \    }\n}\n```\n\n我们知道插入排序需要从左到右遍历集合一次，第一个循环正是如此。然后在下一个循环中，我们根据需要交换元素。当元素到达其位置时，内层循环中断并继续处理下一个元素。\n\
+  \n让我们看看以下数组：\n\n```\nvar testArray = [9, 2, 6, 4, 5, 10, 8, 12, 16, 11]\nprint(\"\
+  初始数组: \\(testArray)\")\ninsertionSort(&testArray)\nprint(\"排序后数组: \\(testArray)\"\
+  )\n```\n\n输出将为\n\n```\n初始数组: [9, 2, 6, 4, 5, 10, 8, 12, 16, 11]\n排序后数组: [2, 4, 5,\
+  \ 6, 8, 9, 10, 11, 12, 16]\n```\n\n当你拥有一个基本有序的列表时，插入排序非常有用。纸牌游戏就是一个很好的例子。当玩家收到一张新牌时，它会被添加到现有手牌中，插入排序可以高效地重新排序卡牌列表。\n\
+  \n### 归并排序\n\n归并排序是另一种排序算法，其运行时间阶数低于插入排序。它是一种分治算法。归并排序将序列不断地分成两半，当分割完成后，下一步是将分组后的组重新合并。在合并分组组时，每个组中的数字会被重新排列，使其从小到大有序。当合并包含多个数字的组时，会先比较第一个数字。\n\
+  \n假设我们有以下数字列表（图 14-7）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig7_HTML.png](img/490882_1_En_14_Fig7_HTML.png)\n\
+  \n图 14-7\n待归并排序的未排序列表\n\n分割过程将如图 14-8 所示。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig8_HTML.png](img/490882_1_En_14_Fig8_HTML.png)\n\
+  \n图 14-8\n归并排序分割\n\n可以很容易地看出，在每一步中，归并排序都将序列分成两半。分割完成后，合并过程开始，在合并时，会对分组后的元素进行比较以按顺序排列（图\
+  \ 14-9）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig9_HTML.png](img/490882_1_En_14_Fig9_HTML.png)\n\
+  \n图 14-9\n归并排序合并\n\n### 优点\n\n*   对于较大的列表更快，因为与插入排序和冒泡排序不同，它不需要循环遍历列表。\n*   运行时间稳定。\n\
+  \n### 缺点\n\n*   对于较小的列表，比其他排序算法慢。\n*   即使列表已排序，它也会执行所有步骤。\n*   使用更多内存来存储子元素。\n\n\
+  ### 实现\n\n我们需要另一个函数来合并拆分后的元素。\n\n```\npublic func mergeSort(_ inputArray: [inputType])\
+  \ -> [inputType] {\n    if inputArray.count < 2 {\n        return inputArray\n \
+  \   }\n    let center = (inputArray.count) / 2\n    return merge(mergeSort(inputType),\
+  \ rightList:\n    mergeSort(inputType))\n}\n```\n\n同样，`mergeSort` 函数中使用的类型必须符合 `Comparable`\
+  \ 协议，因为我们需要比较数组的元素。首先检查数组的长度；如果小于 2，则视为已排序并返回数组本身。然后我们将列表分成两部分并递归调用 `mergeSort`\
+  \ 函数。\n\n合并函数：\n\n```\nprivate func merge(_ leftList: [inputType], rightList: [inputType])\
+  \ -> [inputType] {\n    var leftIndex = 0\n    var rightIndex = 0\n    var tmpList\
+  \ = [inputType]()\n    tmpList.reserveCapacity(leftList.count + rightList.count)\n\
+  \    \n    while (leftIndex < leftList.count && rightIndex < rightList.count) {\n\
+  \        if leftList[leftIndex] < rightList[rightIndex] {\n            tmpList.append(leftList[leftIndex])\n\
+  \            leftIndex += 1\n        } else if leftList[leftIndex] > rightList[rightIndex]\
+  \ {\n            tmpList.append(rightList[rightIndex])\n            rightIndex +=\
+  \ 1\n        } else {\n            tmpList.append(leftList[leftIndex])\n       \
+  \     tmpList.append(rightList[rightIndex])\n            leftIndex += 1\n      \
+  \      rightIndex += 1\n        }\n    }\n    \n    tmpList += inputType\n    tmpList\
+  \ += inputType\n    return tmpList\n}\n```\n\n合并函数同样符合 `Comparable` 协议，它接受两个列表作为参数。首先创建一个临时数组并为其预留容量。然后使用\
+  \ `while` 循环遍历列表，直到左索引或右索引等于各自序列的计数。然后开始比较左右序列中的值；如果 `leftList` 元素小于 `rightList`\
+  \ 元素，则将其添加到临时数组并递增 `leftIndex`。如果 `leftList` 元素大于 `rightList` 元素，则将 `rightList`\
+  \ 元素添加到临时数组并递增 `rightIndex`；否则，这些元素相等，我们添加左和右元素，并同时递增两个索引。\n\n让我们看看以下数组：\n\n```\n\
+  var testArray = [9, 2, 6, 4, 5, 10, 8, 12, 16, 11]\nprint(\"初始数组: \\(testArray)\"\
+  )\nprint(mergeSort(testArray))\n```\n\n输出将为\n\n```\n初始数组: [9, 2, 6, 4, 5, 10, 8,\
+  \ 12, 16, 11]\n结果数组: [2, 4, 5, 6, 8, 9, 10, 11, 12, 16]\n```\n\n\n\n### 快速排序\n\n\
+  快速排序也是一种使用分治策略对序列进行排序的算法。快速排序的主要特点之一是，与其他算法相比，它涉及的比较和交换次数更少，因此在许多情况下能够快速完成排序。该算法通过基于一个基准元素将初始数组划分为子列表来工作。第一个子列表中的所有元素都排列成小于基准值，而第二个子列表中的所有元素都排列成大于基准值。然后对生成的子列表重复执行相同的划分和排列过程，直到整个列表排序完成。由于其紧凑的内循环，平均运行时间为\
+  \ `O(n log n)`。在最坏情况下，其运行时间为 `O(n²)`。\n\n假设我们有如下数字列表（图 14-10）。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig10_HTML.png](img/490882_1_En_14_Fig10_HTML.png)\n\
+  \n图 14-10 用于快速排序的未排序列表\n\n在这个未排序列表中的第一个操作针对的是整个数字序列，会随机选择一个数字作为排序的参考，这个数字被称为基准。为了方便起见，这次我们选择最右边的数字作为基准，即\
+  \ 5。接下来我们要做的是在最左边的数字上放置一个左标记，在最右边的数字上放置一个右标记。快速排序利用这些标记递归地重复执行多轮操作。左标记向右移动，每一步都将当前数字与基准数字进行比较，当遇到大于或等于基准数字的数字时停止。在我们的例子中，它在\
+  \ 6 处停止，因为 6 大于 5。然后右标记开始向左移动，这次当它遇到一个小于基准数字的数字时（在我们的例子中，它在 3 处停止，因为 3 小于 5），左右标记都停止后，交换标记处的数字；这里我们将\
+  \ 3 与 6 交换。\n\n这样，左标记负责寻找大于或等于基准的数字，右标记负责寻找小于基准的数字，通过交换这些数字，我们可以将小于基准的数字聚集在序列的左侧，将大于等于基准的数字聚集在序列的右侧。\n\
+  \n像之前一样，左标记移动直到遇到一个大于或等于基准的数字，在我们的例子中是 6。然后右标记再次向左移动，当右标记与左标记相遇时停止移动。当左右标记停在相同位置时，该位置的数字与基准数字交换。这样，左右标记共同占据的这个数字就被视为完全排序好了。至此，第一轮操作完成。\n\
+  \n通过一轮操作，我们成功地将小于基准的数字放到了基准的左侧，将大于基准的数字放到了基准的右侧。下一轮操作将在分割后产生的两个序列上递归执行，如图 14-11\
+  \ 所示。\n\n![../images/490882_1_En_14_Chapter/490882_1_En_14_Fig11_HTML.png](img/490882_1_En_14_Fig11_HTML.png)\n\
+  \n图 14-11 执行快速排序的示例\n\n快速排序被认为是最好的排序算法。这是因为它在效率方面具有显著优势，能够很好地处理大量数据项。此外，由于它属于原地排序，因此也不需要额外的存储空间。\n\
+  \n快速排序的一个小缺点是，它的最坏情况性能与冒泡排序、插入排序或选择排序的平均性能相当。\n\n总的来说，快速排序是排序任意规模的数据列表时最有效且最广泛应用的方法。\n\
+  \n### 实现\n\n这里我们同样需要一个辅助函数来处理基准数字。\n\n```\nfunc partition(_ inputArray: inout [inputType],\
+  \ lowIndex: Int, hiIndex: Int) -> Int {\nlet pivot = inputArray[hiIndex]\nvar i\
+  \ = lowIndex\nfor j in lowIndex..<hiIndex {\nif inputArray[j] <= pivot {\ninputArray.swapAt(i,\
+  \ j)\ni += 1\n}\n}\ninputArray.swapAt(i, hiIndex)\nreturn i\n}\n```\n\n`partition`\
+  \ 函数的目的是选择基准数字并对子列表进行排序。首先，我们选择最右边的数字作为基准数字，创建一个新变量并赋值为 `lowIndex`。然后我们遍历数组，将每个元素与基准数字进行比较。如果当前元素小于基准值，我们将其与\
+  \ `i` 当前位置的元素交换（`i` 从 `lowIndex` 开始），每次发生交换时 `i` 递增。通过重复此操作，我们将较大的元素推到右侧，将较小的元素推到左侧。最后，在迭代完成后，我们交换\
+  \ `i` 和 `hi` 位置的元素，将基准元素移回原位，并返回 `i` 值作为基准数字。\n\n快速排序函数：它调用 `partition` 函数，并递归地对数组的子序列进行排序。\n\
+  \n```\nfunc quickSort(_ inputArray: inout [inputType], lowIndex: Int, hiIndex: Int)\
+  \ {\nif lowIndex < hiIndex {\nlet pivot = partition(&inputArray, lowIndex: lowIndex,\
+  \ hiIndex: hiIndex)\nquickSort(&inputArray, lowIndex: lowIndex, hiIndex: pivot -\
+  \ 1)\nquickSort(&inputArray, lowIndex: pivot + 1, hiIndex: hiIndex)\n}\n}\n```\n\
+  \n### 基准选择\n\n像我们这里这样选择最右边的数字作为基准，可能会对性能产生负面影响。如果数组已经有序，就会产生最坏情况 `O(n²)`，而随机选择值也不能保证选出最佳值。那么选择基准数字的最佳方法是什么？\n\
+  \n最佳方法是三数取中策略。这里我们取最低位、中间位和最高位数字的中位数。为实现此策略，我们需要另一个辅助函数来获取三个值的中位数。\n\n```\nprivate\
+  \ func getMedian(_ inputArray: inout [inputType], lowIndex: Int, hiIndex: Int) ->\
+  \ inputType {\nlet center = lowIndex + (hiIndex - lowIndex) / 2\nif inputArray[lowIndex]\
+  \ > inputArray[center] {\ninputArray.swapAt(lowIndex, center)\n}\nif inputArray[lowIndex]\
+  \ > inputArray[hiIndex] {\ninputArray.swapAt(lowIndex, hiIndex)\n}\nif inputArray[center]\
+  \ > inputArray[hiIndex] {\ninputArray.swapAt(lowIndex, hiIndex)\n}\ninputArray.swapAt(center,\
+  \ hiIndex)\nreturn inputArray[hiIndex]\n}\n```\n\n我们可以在 `partition` 函数内部使用此函数来传递中位数值。\n\
+  \n## 总结\n\n在本章中，你学习了一些排序算法及其背后的策略。你掌握了冒泡排序、选择排序、插入排序、归并排序和快速排序，以及它们的优缺点。现在你应该对这些算法的实现方式以及如何根据需求进行选择有了很好的理解。在下一章中，我们将学习搜索算法，例如线性搜索和二分搜索。\n\
+  \n"
+- "# 15. 搜索算法\n\n为了检查或检索任何数据结构中的元素，会使用搜索算法。这些算法的性能是通过它们找到解决方案的速度来评估的，在大多数情况下，这取决于被搜索的数据结构。某些数据结构是专门为加快搜索算法效率而设计的。\n\
+  \n根据搜索机制，搜索算法分为两类：\n\n*   顺序搜索：线性搜索\n*   区间搜索：二分搜索\n\n\n\n## 线性搜索\n\n针对待查找的值，按顺序检查每一个元素。当数据量很大时，比较次数会增加，所需时间也更长。线性搜索的时间复杂度为\
+  \ `O(n)`。\n\n我们来看看下面的列表（图 15-1）。\n\n![../images/490882_1_En_15_Chapter/490882_1_En_15_Fig1_HTML.png](img/490882_1_En_15_Fig1_HTML.png)\n\
+  \n图 15-1\n\n列表\n\n让我们尝试搜索数字 7。首先，我们检查数组中最左边的数字。将其与 5 比较，如果匹配，则搜索结束。如果不匹配，就检查右边下一个数字。我们重复此比较过程，直到找到\
+  \ 7。找到 7 时，搜索在此结束（图 15-2）。\n\n![../images/490882_1_En_15_Chapter/490882_1_En_15_Fig2_HTML.png](img/490882_1_En_15_Fig2_HTML.png)\n\
+  \n图 15-2\n\n线性搜索\n\n线性搜索的主要优点是简单：从概念上讲，它极其容易理解；从实现上讲，它也非常直接。从操作角度来看，线性搜索的资源效率也很高——它不需要复制或分割正在搜索的数组——因此内存效率很高。它对于未排序和已排序的数据都能同样良好地运行。\n\
+  \n线性搜索的主要缺点是它的整体效率非常低下，为 `O(n)`。也就是说，该算法的性能与输入规模呈线性关系。就一般情况而言，线性搜索因此比许多其他搜索算法慢得多。\n\
+  \n在某些情况下，如果已知关于被搜索列表当前内容的额外信息，线性搜索的性能可以与许多其他类型的搜索算法相当，甚至更好。例如，如果你可以假设你的列表是先进先出（FIFO）或后进先出（LIFO），并且你知道正在查找的项目几乎总是最近添加的，或者几乎总是在列表末尾，那么定制化的线性搜索可以提供非常好的性能。\n\
+  \n### 实现\n\n线性搜索函数使用泛型创建，以使其兼容所有数据类型。\n\n```\nfunc linearSeacrh(_ inputArray: [inputType],\
+  \ searchValue: inputType) -> String {\n    let n = inputArray.count\n    for i in\
+  \ 0..<n {\n        if inputArray[i] == searchValue {\n            return \"The element\
+  \ is found at index \\(i) \"\n        }\n    }\n    return \"The element is not\
+  \ found\"\n}\n```\n\n首先，我们获取数组的长度并遍历它来搜索该值，找到后，返回其在数组中的索引。如你所见，该实现非常易于执行。\n\n例如：\n\
+  \n```\nvar testArray = [1,2,3,4,5,6]\nprint(linearSeacrh(testArray, searchValue:\
+  \ 6))\n```\n\n输出结果将是：\n\n```\nThe element is found at index 5\n```\n\n## 二分搜索\n\n\
+  二分搜索是一种用于搜索预先排序数组元素的算法。它通过反复将搜索区间对半分割来搜索已排序的数组。首先，它将待搜索的值与数组的中间元素进行比较，如果搜索键的值小于区间中间的元素，则缩小区间至下半部分。否则，缩小区间至上半部分，并重复检查，直到找到该值或区间为空。二分搜索的最坏情况时间复杂度为\
+  \ `O(logN)`。\n\n除了小型数组之外，二分搜索比线性搜索更快，但数组必须首先排序才能应用二分搜索。它可以用来解决多种问题，例如在数组中找到最小或下一个最大的元素。\n\
+  \n我们来看看下面的列表，并使用二分搜索查找一个元素（图 15-3）。\n\n![../images/490882_1_En_15_Chapter/490882_1_En_15_Fig3_HTML.png](img/490882_1_En_15_Fig3_HTML.png)\n\
+  \n图 15-3\n\n已排序列表\n\n让我们尝试搜索数字 6（图 15-4）。\n\n![../images/490882_1_En_15_Chapter/490882_1_En_15_Fig4_HTML.png](img/490882_1_En_15_Fig4_HTML.png)\n\
+  \n图 15-4\n\n二分搜索\n\n首先，我们查看数组中间的数字。在本例中，它是 5，我们将 5 与我们正在搜索的数字 6 进行比较。我们发现 5 小于 6，这意味着数字\
+  \ 6 位于 5 的右边，因为我们处理的是预先排序的数组。因此，我们移除不再需要的数字。\n\n在剩余的数字中，我们再次查看剩余数组中间的数字，这次是 7。我们将\
+  \ 7 与 6 比较，它大于 6，这意味着我们正在寻找的数字位于 7 的左边。我们再次移除不需要的数字。\n\n在剩余的数字中，我们查看中间的数字，这次是 6，并且\
+  \ 6 等于 6，因此我们找到了正在寻找的数字。\n\n二分搜索的主要优点是它是搜索项目最快的方法之一，并且最坏情况性能为 `O(logN)`。然而，它要求元素是已排序的。\n\
+  \n### 实现\n\n```\nfunc binarySearch(inputArray:Array, searchValue: inputType) ->\
+  \ Int? {\n    var lowerIndex = 0\n    var upperIndex = inputArray.count - 1\n  \
+  \  while (true) {\n        let currentIndex = (lowerIndex + upperIndex)/2\n    \
+  \    if(inputArray[currentIndex] == searchValue) {\n            return currentIndex\n\
+  \        } else if (lowerIndex > upperIndex) {\n            return nil\n       \
+  \ } else {\n            if (inputArray[currentIndex] > searchValue) {\n        \
+  \        upperIndex = currentIndex - 1\n            } else {\n                lowerIndex\
+  \ = currentIndex + 1\n            }\n        }\n    }\n}\n```\n\n首先，我们定义下限和上限索引，并通过将当前列表一分为二进行遍历来搜索该值，直到达到被搜索的值。\n\
+  \n例如：\n\n```\nvar testArray = [1,2,3,4,5,6,7,9,10];\nif let searchIndex = binarySearch(inputArray:\
+  \ testArray,searchValue: 5) {\n    print(\"The element is found at index: \\(searchIndex)\"\
+  )\n}\n```\n\n输出结果将是：\n\n```\nThe element is found at index: 4\n```\n\n## 结论\n\n\
+  在本章中，你学习了搜索算法及其背后的策略。你掌握了线性搜索和二分搜索及其优缺点。到目前为止，你应该对如何实现这些算法以及如何根据需求选择哪种算法有了很好的理解。在下一章中，我们将学习图算法，例如广度优先搜索、深度优先搜索和\
+  \ Dijkstra 算法。\n\n"
+- "# 16. 图算法\n\n显而易见，许多算法的主要目的与对数据的操作有关，而数据结构在选择算法时扮演着重要的角色。在本章中，我们将讨论非线性数据结构，例如图。\n\
+  \n图是一种非线性数据结构，由节点和边组成。图的基本结构如图 16-1 所示。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig1_HTML.png](img/490882_1_En_16_Fig1_HTML.png)\n\
+  \n图 16-1\n\n图数据结构\n\n在上图中，节点集合 `N = {A,B,D,E,K,J}`，边集合 `E = {AB,AK, BK,BE,KJ,DJ}`。\n\
+  \n图可以是有向的或无向的，并且图的边可以有权重。\n\n## 有向图\n\n这种类型的图的遍历具有限制性，因为一条边可能只允许单向遍历（图 16-2）。\n\n\
+  ![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig2_HTML.png](img/490882_1_En_16_Fig2_HTML.png)\n\
+  \n图 16-2\n\n有向图\n\n从这个图中可以很容易地看出：\n\n- 存在一条从 A 到 B 的路径\n- 没有从 A 到 D 的直接路径\n- 存在一条在\
+  \ B 和 D 之间的往返路径\n- 无法从 B 到达 A\n\n\n\n## 无向图\n\n无向图可以看作是一种所有边都是双向的有向图（图 16-3）。\n\n\
+  ![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig3_HTML.png](img/490882_1_En_16_Fig3_HTML.png)\n\
+  \n图 16-3 无向图\n\n这里存在两条往返路线，且边的权重对两个方向均适用。\n\n## 加权图\n\n使用每条边的成本都与分配给该边的权重相关联。这使得在边之间选择成本最低的路径变得容易（图\
+  \ 16-4）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig4_HTML.png](img/490882_1_En_16_Fig4_HTML.png)\n\
+  \n图 16-4 加权图\n\n图搜索算法被用于许多应用，例如在众多游戏、地图以及路径查找应用中寻找从源点到目标点的最短路径。图搜索的主要特征如下：\n\n-\
+  \   这些算法指定了搜索图中节点的顺序。\n-   我们从源节点开始，持续搜索直到找到目标节点。\n-   边界（frontier）包含我们已看到但尚未探索的节点。\n\
+  -   在每次迭代中，我们从边界中取出一个节点，并将其邻居节点添加到边界中。\n\n图搜索算法有很多，但这里我们只讨论其中三种：广度优先搜索、深度优先搜索和迪杰斯特拉算法。\n\
+  \n## 广度优先搜索\n\n广度优先搜索是一种图遍历算法，它从根节点开始，探索所有邻居节点，然后选择最近的节点，并探索其余所有节点。它对每个最近的节点都遵循相同的过程，直到达到目标。\n\
+  \n假设在下面的图数据结构中，我们的目标是使用 BFS 找到 `G`（图 16-5）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig5_HTML.png](img/490882_1_En_16_Fig5_HTML.png)\n\
+  \n图 16-5 图数据结构\n\n搜索过程从以 `A` 为起点开始。从 `A` 可到达点 `B`、`C` 和 `D`，这些点被视为下一步移动的候选点（图 16-6）。\n\
+  \n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig6_HTML.png](img/490882_1_En_16_Fig6_HTML.png)\n\
+  \n图 16-6 BFS，步骤 1\n\n从候选点中选择一个点。选择的依据是哪个点最先被添加为候选点。对于同时成为候选点的点，选择哪一个无关紧要。为了方便起见，在本例中我们将从左侧选择点。因此，我们从\
+  \ `B` 开始，移动到所选的点，发现要搜索的点 `G` 不在此处。从当前点 `B` 可到达的 `E` 和 `F` 被添加为下一步移动的候选点（图 16-7）。\n\
+  \n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig7_HTML.png](img/490882_1_En_16_Fig7_HTML.png)\n\
+  \n图 16-7 BFS，步骤 2\n\n然后我们继续处理从点 `A` 可到达的下一个点，即 `C`。我们移动到所选的点，再次发现 `G` 不在此处，因此从 `C`\
+  \ 可到达的点被添加为后续移动的新候选点（图 16-8）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig8_HTML.png](img/490882_1_En_16_Fig8_HTML.png)\n\
+  \n图 16-8 BFS，步骤 3\n\n然后我们继续处理下一个点 `D`，再次发现 `G` 不在此处，并且 `I` 和 `J` 被添加为新的候选点（图 16-9）。\n\
+  \n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig9_HTML.png](img/490882_1_En_16_Fig9_HTML.png)\n\
+  \n图 16-9 BFS，步骤 4\n\n我们看到来自点 `A` 的所有候选点都已处理完毕，但未能找到点 `G`，因此我们再次从左侧继续。于是我们从点 `B`\
+  \ 移动到它的候选点，第一个候选点是 `E`，我们发现 `G` 不在此位置，并添加 `K` 作为新候选点，然后继续到下一个点（图 16-10）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig10_HTML.png](img/490882_1_En_16_Fig10_HTML.png)\n\
+  \n图 16-10 BFS，步骤 5\n\n下一个点是 `F`，从 `F` 出发没有路径，这意味着在这种情况下没有添加候选点，此路线结束。然后，我们继续处理下一个点，从\
+  \ `C` 到达 `H`，显然 `H` 不是我们要搜索的点，并且 `G` 被添加为新的候选点。接着我们继续到点 `D`。在这里，`I` 和 `J` 这两个候选点都不是我们要找的点，只有\
+  \ `L` 被添加为新的候选点。从这个点开始，我们再次从左侧开始，即点 `E`。我们移动到下一个候选点，到达路径终点，但未找到 `G`。由于从点 `F` 没有路径，我们继续到点\
+  \ `H`，最后，当我们从 `H` 移动时，我们达到了目标，因此搜索在此结束。\n\n如你所见，广度优先搜索的独特之处在于它如何广泛地搜索那些离起点最近的点。\n\
+  \n**BFS 的优点**\n\n-   如果存在解，BFS 一定能找到。\n-   它永远不会陷入死胡同。\n-   如果存在多个解，它会以最少的步数找到解。\n\
+  \n**BFS 的缺点**\n\n-   内存受限。\n-   如果解距离较远，会消耗更多时间。\n\n\n\n### 实现\n\n为了创建 BFS 算法，声明的结构中必须包含以下信息：\n\
+  \n- 节点值\n- 邻居列表\n- 访问状态\n\n因此，我们根据上述条件创建一个节点类。\n\n```swift\npublic class BFSNode\
+  \ {\n    public var nodeValue: T\n    public var nodeNeighbors: [BFSNode]\n    public\
+  \ var visitedNode: Bool\n    public init(value: T, neighbors: [BFSNode], visited:\
+  \ Bool) {\n        self.nodeValue = value\n        self.nodeNeighbors = neighbors\n\
+  \        self.visitedNode = visited\n    }\n    public func addNeighbor(node: BFSNode)\
+  \ {\n        self.nodeNeighbors.append(node)\n        node.nodeNeighbors.append(self)\n\
+  \    }\n}\n```\n\n我们还声明了一个名为 `addNeighbor` 的方法来连接节点。\n\n为了追踪邻居和访问状态，我们需要一个额外的数据结构——一个队列，它是一种先进先出（FIFO）的数据结构。当我们用\
+  \ BFS 开始搜索过程时，我们将所有邻居添加到队列中，并在访问它们时，将它们逐一弹出并标记为已访问。\n\n让我们向 `BFSNode` 类添加以下方法：\n\
+  \n```swift\npublic static func breadthFirstSearch(first: BFSNode) {\n    var queue:\
+  \ [BFSNode] = []\n    queue.append(first)\n    while queue.isEmpty == false {\n\
+  \        if let node = queue.first {\n            print(node.nodeValue)\n      \
+  \      node.visitedNode = true\n            for child in node.nodeNeighbors {\n\
+  \                if child.visitedNode == false {\n                    queue.append(child)\n\
+  \                }\n            }\n            queue.removeFirst()\n        }\n\
+  \    }\n}\n```\n\n首先，我们初始化一个由 `BFSNode` 组成的队列，然后将第一个元素添加进去。然后，在循环内部，我们开始访问队列中的节点，并在访问节点时将其标记为已访问，同时将未访问的节点加入队列。最后，处理过的节点被移除，我们继续处理队列中的剩余元素。\n\
+  \n例如：\n\n```swift\nlet nodeA = BFSNode(value: \"A\", neighbors: [], visited: false)\n\
+  let nodeB = BFSNode(value: \"B\", neighbors: [], visited: false)\nlet nodeC = BFSNode(value:\
+  \ \"C\", neighbors: [], visited: false)\nlet nodeD = BFSNode(value: \"D\", neighbors:\
+  \ [], visited: false)\nlet nodeE = BFSNode(value: \"E\", neighbors: [], visited:\
+  \ false)\nlet nodeF = BFSNode(value: \"F\", neighbors: [], visited: false)\nnodeA.addNeighbor(node:\
+  \ nodeB)\nnodeC.addNeighbor(node: nodeB)\nnodeD.addNeighbor(node: nodeB)\nnodeE.addNeighbor(node:\
+  \ nodeB)\nnodeF.addNeighbor(node: nodeD)\nBFSNode.breadthFirstSearch(first: nodeA)\n\
+  ```\n\n输出将会是：\n\n```\nA\nB\nC\nD\nE\nF\n```\n\n可以很容易地看出，我们以 BFS 方式搜索图，即在深入之前先访问每一层的子节点。\n\
+  \n## 深度优先搜索 (DFS)\n\n深度优先搜索（DFS）是一种递归算法，它会尽可能深入地探索一个分支，直到抵达终点。当它到达分支的终点时，会后退一步，探索下一个可用的分支，直到找到我们要寻找的值。为了避免多次访问同一个节点，会使用一个布尔值来进行追踪。\n\
+  \n让我们看下面的例子：\n\n我们的目标是使用 DFS 找到 G（图 16-11）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig11_HTML.png](img/490882_1_En_16_Fig11_HTML.png)\n\
+  \n**图 16-11**  \n我们将使用深度优先搜索寻找 G\n\n起点是 A；从该点出发，B、C 和 D 都是可达的，它们将被视为下一步移动的候选点（图\
+  \ 16-12）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig12_HTML.png](img/490882_1_En_16_Fig12_HTML.png)\n\
+  \n**图 16-12**  \nDFS，步骤 1\n\n然后我们在候选点中选择一个，选择依据是最后被添加为候选点的那个。对于同时成为候选点的那些点，选择哪一个无关紧要。我们从左侧开始选择；在我们的例子中是\
+  \ B，然后我们移动到选中的点。从点 B 可以到达点 E 和 F，因此它们被添加为下一步移动的新候选点（图 16-13）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig13_HTML.png](img/490882_1_En_16_Fig13_HTML.png)\n\
+  \n**图 16-13**  \nDFS，步骤 2\n\n这里我们又有了两个同时添加的新候选点，因此我们选择左侧的那个，即 E，然后移动到选中的点，并将可达的点\
+  \ K 添加为新候选点。请注意，在深度优先搜索中，我们不会像广度优先搜索那样返回从 A 可达的点；在这里，我们会一直深入直到可达点的尽头（图 16-14）。\n\
+  \n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig14_HTML.png](img/490882_1_En_16_Fig14_HTML.png)\n\
+  \n**图 16-14**  \nDFS，步骤 3\n\n我们接下来要去的点是 K，从这里无法到达任何点。因此，我们继续前往从 B 可达的下一个点，这里同样没有点可以前往，并且我们要寻找的值也不在此路径中。于是，我们继续前往从\
+  \ A 可达的下一个点。我们移动到 C，并将 H 添加为新候选点（图 16-15）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig15_HTML.png](img/490882_1_En_16_Fig15_HTML.png)\n\
+  \n**图 16-15**  \nDFS，步骤 4\n\n在下一阶段，我们移动到 H。当我们到达这里时，G 被添加为新候选点，在下一步我们移动到那里。终于，我们的目标达成了，因此搜索在此结束（图\
+  \ 16-16）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig16_HTML.png](img/490882_1_En_16_Fig16_HTML.png)\n\
+  \n**图 16-16**  \nDFS，步骤 5\n\n如您所见，深度优先搜索的独特之处在于它通过深入挖掘一条特定路径来进行搜索。我们有一个二叉搜索树，从根节点（值为\
+  \ A 的节点）开始。步骤 2 访问第一个子节点（从左到右），即值为 B 的节点。然后，由于该节点也有子节点，我们必须先访问它们（同样从左到右）：因此在步骤 3\
+  \ 中，我们访问值为 E 的节点。搜索过程持续进行，直到达到目标。\n\n**优点**\n\n- 内存需求是线性的。\n- 时间和空间复杂度较低。\n- 无需过多搜索即可找到解决方案。\n\
+  \n**缺点**\n\n- 不保证一定能找到解决方案。\n- 可能陷入对无用路径的搜索。\n\n\n\n### 实现\n\n首先，我们将创建一个树节点，它包含值和子节点。由于\
+  \ Swift 要求为类手动创建 `init` 方法，因此这里也包含了该方法。然后我们添加 `addChild` 函数来为指定节点分配子节点。\n\n```swift\n\
+  public class DFNode {\n    public var value: inputType\n    public var children:\
+  \ [DFNode] = []\n    public init(_ value: inputType) {\n        self.value = value\n\
+  \    }\n    public func addChild(_ child: DFNode) {\n        children.append(child)\n\
+  \    }\n}\n```\n\n我们在深度优先搜索（DFS）中使用该树节点。为此，我们在树节点类内部创建另一个函数，该函数对下一个节点使用递归过程。\n\n\
+  ```swift\npublic func depthFirstSearch(visit: (DFNode) -> Void) {\n    visit(self)\n\
+  \    children.forEach {\n        $0.depthFirstSearch(visit: visit)\n    }\n}\n```\n\
+  \n例如：\n\n首先，我们创建一个树节点并为其添加子节点；然后我们将使用 `depthFirstSearch` 函数来演示其工作原理。\n\n```swift\n\
+  let nodeA = DFNode(\"A\")\nlet nodeB = DFNode(\"B\")\nlet nodeC = DFNode(\"C\")\n\
+  let nodeD = DFNode(\"D\")\nlet nodeE = DFNode(\"E\")\nlet nodeF = DFNode(\"F\")\n\
+  let nodeG = DFNode(\"G\")\nnodeA.addChild(nodeB)\nnodeA.addChild(nodeC)\nnodeB.addChild(nodeE)\n\
+  nodeB.addChild(nodeF)\nnodeE.addChild(nodeG)\n```\n\n我们在此创建的树如图 16-17 所示。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig17_HTML.png](img/490882_1_En_16_Fig17_HTML.png)\n\
+  \n图 16-17\n\nDFS 示例\n\n如果我们对此树运行 `depthFirstSearch` 方法，输出将为\n\n```swift\nnodeA.depthFirstSearch\
+  \ {\n    print($0.value)\n}\n```\n\n输出：\n\n```\nA\nB\nE\nG\nF\nC\n```\n\n可以很容易地看出，我们以深度优先搜索（DFS）风格搜索图，即在访问其他子节点之前先深入探索更深的节点。\n\
+  \n## 迪杰斯特拉算法\n\n迪杰斯特拉算法是一种用于寻找图中两点之间最短路径的算法。它由计算机科学家艾兹格·W·迪杰斯特拉于 1956 年提出。\n\n让我们看看它的实际运行过程；假设我们有一个如图\
+  \ 16-18 所示的图数据结构，并且我们想要找到从 A 到 G 的最短路径。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig18_HTML.png](img/490882_1_En_16_Fig18_HTML.png)\n\
+  \n图 16-18\n\n用于迪杰斯特拉算法的图\n\n从图中可以很容易看出每条路径都有相应的开销。在**步骤 1** 中，起点被设为 0，所有其他点被设为无穷大。我们从第一个点开始搜索未探索的点，一旦找到这些点，它们就成为移动到下一个点的候选点（图\
+  \ 16-19）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig19_HTML.png](img/490882_1_En_16_Fig19_HTML.png)\n\
+  \n图 16-19\n\n迪杰斯特拉算法，步骤 1\n\n**步骤 2**：在此阶段，点 B 和 C 是我们的候选点，每个点的开销根据当前点的开销加上移动到候选点的开销来计算。在我们的例子中，A\
+  \ 的开销为 0，移动到 B 的开销为 2；B 的开销将为 0+2 = 2。类似地，移动到 C 的开销将为 0+5=5。因此，如果计算出的开销小于当前值，则该点的开销将更新为新值。由于\
+  \ B 和 C 的当前开销是无穷大，计算出的结果更小，因此 B 和 C 被更新为新值（图 16-20）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig20_HTML.png](img/490882_1_En_16_Fig20_HTML.png)\n\
+  \n图 16-20\n\n迪杰斯特拉算法，步骤 2\n\n**步骤 3**：在此阶段，我们需要选择下一个要移动的点，并选择开销最低的那个点，在本例中是 B。这意味着\
+  \ `A → B` 是从起始点到 B 的最短路径。沿着确定为最短的路径，我们移动到点 B，该点有三个候选点，因此 C、D 和 E 被添加为新的候选点。使用开销计算方法，我们计算每个候选点的开销（图\
+  \ 16-21）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig21_HTML.png](img/490882_1_En_16_Fig21_HTML.png)\n\
+  \n图 16-21\n\n迪杰斯特拉算法，步骤 3\n\n*   `B → C` : 2 + 6 = 8，这大于 C 的当前值 5，因此不进行更新。\n*  \
+  \ `B → D` : 2 + 1 = 3，这小于 D 的当前值无穷大，因此该值被更新。\n*   `B → E` : 2 + 3 = 5，这小于 E 的当前值无穷大，因此该值被更新。\n\
+  \n**步骤 4**：这里我们再次选择开销最低的点，即 D。此时我们已经确定所选路径 `A → B → D` 是从起点 A 到 D 的最短路径，因此我们移动到点\
+  \ D。该点有一个候选点，因此 E 被添加为新的候选点，并计算 E 的开销（图 16-22）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig22_HTML.png](img/490882_1_En_16_Fig22_HTML.png)\n\
+  \n图 16-22\n\n迪杰斯特拉算法，步骤 4\n\n*   `D → E` : 3 + 4 = 7，这大于 E 的当前值 5，因此不进行更新。\n\n**步骤\
+  \ 5**：从 D 到 E 的开销并非最低。点 C 的开销低于 E，并且其最小值为 5，因此我们下一步将移动到 C。该点有一个候选点，因此 F 被添加为新的候选点，并计算\
+  \ F 的开销（图 16-23）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig23_HTML.png](img/490882_1_En_16_Fig23_HTML.png)\n\
+  \n图 16-23\n\n迪杰斯特拉算法，步骤 5\n\n*   `C → F` : 5 + 8 = 13，这小于 F 的当前值无穷大，因此该值被更新。\n\n\
+  **步骤 6**：F 的开销大于 E 的开销，因此开销最低的点是 E，其值为 5。我们移动到 E，并且该点只有一个候选点 G；它被添加为新的候选点并计算开销（图\
+  \ 16-24）。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig24_HTML.png](img/490882_1_En_16_Fig24_HTML.png)\n\
+  \n图 16-24\n\n迪杰斯特拉算法，步骤 6\n\n*   `E → G` : 5 + 9 = 14，这小于 G 的当前值无穷大，因此该值被更新。\n\n\
+  **步骤 7**：F 的开销低于 G。我们移动到 F，并且该点只有一个候选点 G；它被添加为新的候选点并计算开销（图 16-25）。\n\n*   `F → G`\
+  \ : 13 + 7 = 20，这大于 G 的当前值 14，因此不进行更新。\n\n这意味着 `E → G` 路径优于 `F → G` 路径，最终我们达到了目标，最佳路径是\
+  \ `A → B → E → G`，总开销为 14。\n\n![../images/490882_1_En_16_Chapter/490882_1_En_16_Fig25_HTML.png](img/490882_1_En_16_Fig25_HTML.png)\n\
+  \n图 16-25\n\n迪杰斯特拉算法，步骤 7\n\n如您所见，迪杰斯特拉算法通过巧妙选择下一步要探索哪个点，高效地搜索最短路径。\n\n**优点**\n\n\
+  *   应用于地图导航。\n*   位置之间的距离通过边来表示。\n*   应用于电话网络。\n\n**缺点**\n\n*   执行盲目搜索，浪费时间。\n*\
+  \   无法处理负权边。\n\n\n\n### 实现\n\n首先，我们将创建 `GraphNode` 和 `Connection` 类。`GraphNode`\
+  \ 类有两个属性：`visited`，表示节点是否已被访问；以及 `connections` 数组，表示连接到其他节点的连接。`Connection` 类也有两个属性：`toNode`，即被连接的节点；以及\
+  \ `cost`，即从当前节点移动到被连接节点的代价。请注意，代价必须是一个正数。\n\n```\nclass GraphNode {\n    var visited\
+  \ = false\n    var connections: [Connection] = []\n}\n\nclass Connection {\n   \
+  \ public let toNode: GraphNode\n    public let cost: Int\n\n    public init(to node:\
+  \ GraphNode, cost: Int) {\n        assert(cost >= 0, \"代价必须大于或等于零\")\n        self.toNode\
+  \ = node\n        self.cost = cost\n    }\n}\n```\n\n然后，我们需要为路径创建另一个类。这个类的目的是追踪我们已经访问过的路径以及我们是如何到达那里的，它将用于描述到达目标的最短路径。\n\
+  \n```\nclass Path {\n    public let cumulativeCost: Int\n    public let node: GraphNode\n\
+  \    public let previousPath: Path?\n\n    init(to node: GraphNode, via connection:\
+  \ Connection? = nil, previousPath path: Path? = nil) {\n        if let previousPath\
+  \ = path, let viaConnection = connection {\n            self.cumulativeCost = viaConnection.cost\
+  \ + previousPath.cumulativeCost\n        } else {\n            self.cumulativeCost\
+  \ = 0\n        }\n        self.node = node\n        self.previousPath = path\n \
+  \   }\n}\n```\n\n这里我们声明了另一个名为 `cumulativeCost` 的属性，用于追踪到达当前点的代价。这是从源节点到这个节点所经过的所有连接的代价总和。\n\
+  \n### 算法\n\n首先，我们定义路径集合，它由从我们目前访问过的节点能够到达的节点组成。初始时它是空的；然后我们将到达源节点的路径添加进去。添加路径后，我们要做的第一步是从路径集合中提取代价最小的路径，并检查该节点是否尚未被访问，然后我们继续下一步。然后我们检查是否到达了目标节点，如果是，我们就返回路径集合中代价最小的路径（`return\
+  \ cheapestPathInPathCollection`）。如果没有到达目标节点，我们将当前节点标记为已访问（`cheapestPathInPathCollection.node.visited\
+  \ = true`）。然后在 `for` 循环中，我们添加从当前节点可以到达的新候选节点。通过这种方式，迪杰斯特拉算法找到了到达目的地的最小代价路径。\n\n\
+  ```\nfunc dijskastraShortestPath(source: GraphNode, destination: GraphNode) -> Path?\
+  \ {\n    var pathCollection: [Path] = [] {\n        didSet {\n            pathCollection.sort\
+  \ { return $0.cumulativeCost < $1.cumulativeCost }\n        }\n    }\n    pathCollection.append(Path(to:\
+  \ source))\n\n    while !pathCollection.isEmpty {\n        let cheapestPathInPathCollection\
+  \ = pathCollection.removeFirst()\n        guard !cheapestPathInPathCollection.node.visited\
+  \ else { continue }\n        if cheapestPathInPathCollection.node === destination\
+  \ {\n            return cheapestPathInPathCollection\n        }\n        cheapestPathInPathCollection.node.visited\
+  \ = true\n        for connection in cheapestPathInPathCollection.node.connections\
+  \ where !connection.toNode.visited {\n            pathCollection.append(Path(to:\
+  \ connection.toNode, via: connection, previousPath: cheapestPathInPathCollection))\n\
+  \        }\n    }\n    return nil\n}\n```\n\n例如：\n\n让我们创建前面举例的图示，并找到到达目标的最小代价方式，即找到从\
+  \ A 点到 G 点的最短路径。\n\n**步骤 1：** 创建继承自我们 `GraphNode` 类的自定义类。\n\n```\nclass sampleGraphNode:\
+  \ GraphNode {\n    let name: String\n    init(name: String) {\n        self.name\
+  \ = name\n        super.init()\n    }\n}\n```\n\n**步骤 2：** 基于 `sampleGraphNode`\
+  \ 创建节点。\n\n```\nlet nodeA = sampleGraphNode(name: \"A\")\nlet nodeB = sampleGraphNode(name:\
+  \ \"B\")\nlet nodeC = sampleGraphNode(name: \"C\")\nlet nodeD = sampleGraphNode(name:\
+  \ \"D\")\nlet nodeE = sampleGraphNode(name: \"E\")\nlet nodeF = sampleGraphNode(name:\
+  \ \"F\")\nlet nodeG = sampleGraphNode(name: \"G\")\n```\n\n**步骤 3：** 在这些节点之间创建连接，并为这些路径分配代价。\n\
+  \n```\nnodeA.connections.append(Connection(to: nodeB, cost: 2))\nnodeA.connections.append(Connection(to:\
+  \ nodeC, cost: 5))\nnodeB.connections.append(Connection(to: nodeC, cost: 6))\nnodeB.connections.append(Connection(to:\
+  \ nodeD, cost: 1))\nnodeB.connections.append(Connection(to: nodeE, cost: 3))\nnodeC.connections.append(Connection(to:\
+  \ nodeF, cost: 8))\nnodeD.connections.append(Connection(to: nodeE, cost: 4))\nnodeE.connections.append(Connection(to:\
+  \ nodeG, cost: 9))\nnodeF.connections.append(Connection(to: nodeG, cost: 7))\n```\n\
+  \n**步骤 4：** 设置起点和目的地节点，并调用迪杰斯特拉算法来找到最短路径。\n\n```\nlet sourceNode = nodeA\nlet destinationNode\
+  \ = nodeG\nvar path = dijskastraShortestPath(source: sourceNode, destination: destinationNode)\n\
+  if let succession: [String] = path?.array.reversed().compactMap({ $0 as? sampleGraphNode}).map({$0.name})\
+  \ {\n    print(\"最快路径: \\(succession)\")\n} else {\n    print(\"在 \\(sourceNode.name)\
+  \ 与 \\(destinationNode.name) 之间没有路径\")\n}\n```\n\n输出将是：\n\n```\n最快路径: [\"A\", \"\
+  B\", \"E\", \"G\"]\n```\n\n## 总结\n\n在本章中，你学习了图算法及其背后的策略。你掌握了广度优先搜索、深度优先搜索和迪杰斯特拉算法，以及它们的优点和缺点。到现在，你应该对这些算法的实现方法以及如何根据需求选择合适的算法有了很好的理解。\n\
+  \n"
+- "# 17. 选择最佳算法\n\n我们已经学习了不同类型的算法，如排序、搜索和图算法，并且很可能有多种算法可以完成相同的任务。问题是，如果我们想在列表中搜索一个值，我们应该选择哪种类型的搜索算法？在本章中，我们将通过分析各种算法来研究这个问题。\n\
+  \n比较算法有很多种方法，但在本章中，我们将重点关注时间复杂度和空间复杂度。\n\n- 时间复杂度：完成任务所需的时间\n- 空间复杂度：完成任务所需的内存\n\
+  \n我们将考察本书中解释过的不同类型的算法。\n\n## 排序算法\n\n我们已经学习过，排序算法将列表中的值按从小到大的顺序排列，并且在计算机科学中有许多可用的排序算法。为了选择一种与我们的程序完美匹配的算法，我们必须深入了解它们在不同情况下的表现。\n\
+  \n### 冒泡排序\n\n当列表几乎已排序时（例如只有两个元素错位），它非常有用。冒泡排序的空间需求最低，因为元素是原地交换的，无需使用额外的临时存储。\n\n\
+  | **冒泡排序** | 最佳情况 | 最差情况 |\n|-----------------|-----------|------------|\n| 时间复杂度\
+  \ | O(n) | O(n²) |\n| 空间复杂度 | O(1) | O(1) |\n\n### 选择排序\n\n它与冒泡排序类似，在小列表上表现良好，且空间需求最低。最佳、平均和最差情况的时间复杂度都是\
+  \ O(n²)，这与数据的分布无关。\n\n| **选择排序** | 最佳情况 | 最差情况 |\n|-------------------|-----------|------------|\n\
+  | 时间复杂度 | O(n²) | O(n²) |\n| 空间复杂度 | O(1) | O(1) |\n\n### 插入排序\n\n当用于小型数据数组时，它相当高效。二次运行时间\
+  \ O(n²) 可以提升到不错的 O(n∗k)，其中 k 是它需要回溯数组以将前一个元素与当前元素交换的步数。如果列表是部分排序的，它的表现甚至可能优于快速排序。\n\
+  \n| **插入排序** | 最佳情况 | 最差情况 |\n|-------------------|-----------|------------|\n|\
+  \ 时间复杂度 | O(n) | O(n²) |\n| 空间复杂度 | O(1) | O(n) |\n\n\n\n### 归并排序\n\n对于较大的列表，它的速度更快，因为与插入排序和冒泡排序不同，它不会遍历整个列表。空间复杂度始终为\
+  \ `O(n)`，因为必须将元素存储在某处。在使用数组的实现中，额外空间复杂度可以为 `O(n)`，而在链表实现中则为 `O(1)`。在实践中，使用列表的实现需要为列表指针提供额外空间，因此除非列表已存在于内存中，否则这一点并不重要。\n\
+  \n| **归并排序** | 最佳情况 | 最坏情况 |\n| 时间复杂度 | `O(n)`（`O(n logn)`） | `O(n logn)` |\n| 空间复杂度\
+  \ | `O(1)` | `O(n)` |\n\n### 快速排序\n\n如前所述，快速排序与归并排序一样采用分治法，是一种递归算法。其最坏情况下的运行时间与选择排序和插入排序一样糟糕。另一方面，其平均情况下的运行时间与归并排序一样好。那么问题来了，既然它至少与归并排序一样好，为什么还需要它？这是因为隐藏在快速排序大\
+  \ O 表示法中的常数因子相当小。在实践中，快速排序的性能优于归并排序，并且显著优于选择排序和插入排序。基准元素的选择对快速排序的效率起着重要作用。\n\n|\
+  \ **快速排序** | 最佳情况 | 最坏情况 |\n| 时间复杂度 | `O(n logn)` | `O(n²)` |\n| 空间复杂度 | `O(logn)`\
+  \ | `O(n)` |\n\n## 搜索算法\n\n搜索算法旨在从存储元素的数据结构中检查或检索一个元素。\n\n### 线性搜索与二分搜索\n\n线性搜索每次扫描一个元素，随着元素数量的增加，搜索时间也会不断增加。\n\
+  \n| **线性搜索** | 最佳情况 | 最坏情况 |\n| 时间复杂度 | `O(1)` | `O(n)` |\n| 空间复杂度 | `O(1)` | `O(1)`\
+  \ |\n\n二分搜索将搜索范围缩减为一半，并根据中间元素，继续在给定列表的中间元素左侧或右侧进行搜索。\n\n| **二分搜索** | 最佳情况 | 最坏情况\
+  \ |\n| 时间复杂度 | `O(1)` | `O(logn)` |\n| 空间复杂度 | `O(1)` | `O(1)` |\n\n**区别**\n\n-\
+  \ 二分搜索要求数据已排序，而线性搜索则不需要。\n- 二分搜索随机访问数据，而线性搜索顺序访问数据。\n- 二分搜索执行顺序比较，而线性搜索执行相等比较。\n\
+  \n线性搜索搜索数字 7 的过程如图 17-1 所示。\n\n![../images/490882_1_En_17_Chapter/490882_1_En_17_Fig1_HTML.png](img/490882_1_En_17_Fig1_HTML.png)\n\
+  \n图 17-1  \n线性搜索示例\n\n二分搜索搜索数字 7 的过程如图 17-2 所示。\n\n![../images/490882_1_En_17_Chapter/490882_1_En_17_Fig2_HTML.png](img/490882_1_En_17_Fig2_HTML.png)\n\
+  \n图 17-2  \n二分搜索示例\n\n## 图搜索算法 (GSA)\n\n显然，图搜索算法用于图数据结构。GSA 会遍历图的节点以寻找目标。\n\n###\
+  \ 广度优先搜索 (BFS) 与深度优先搜索 (DFS)\n\n| 广度优先搜索 (BFS) | 深度优先搜索 (DFS) |\n| --- | --- |\n\
+  | 使用队列数据结构 | 使用栈数据结构 |\n| 从源顶点出发，以最少的边数到达某个顶点。 | 从源出发，可能需要经过更多边才能到达某个顶点。 |\n| 当顶点距离给定源较近时，该算法较为有用。\
+  \ | 当顶点距离源较远时，该算法较为有用。 |\n| 它优先考虑相邻节点；因此不适用于游戏和谜题中的决策树。 | 它适用于决策树，因为我们可以先做出一个决策，然后探索该决策下的所有路径。\
+  \ |\n| 时间复杂度为 `O(V+N)`，其中 `V` 表示顶点数，`N` 表示节点数。 | 时间复杂度为 `O(V+N)`，其中 `V` 表示顶点数，`N`\
+  \ 表示节点数。 |\n\n## 迪杰斯特拉算法\n\n在广度优先搜索中使用优先队列，就构成了迪杰斯特拉算法。通过优先队列，添加到队列中的每个任务都具有一个“优先级”，并根据其优先级水平在队列中插入相应位置。当你对图一无所知，且无法估计每个节点到目标的距离时，应使用迪杰斯特拉算法。\n\
+  \n\n\n"
+- "# 索引\n\n## A\n- 数组\n  - 添加元素\n  - 元素索引\n  - 特性\n  - 函数与属性\n    - `count`\n    -\
+  \ `first` 和 `last` 元素\n    - `isEmpty`\n    - `reverse`\n  - 函数\n  - 单个变量声明\n  -\
+  \ 多维数组\n  - 可变操作\n  - 一维数组\n  - 重新分配内存\n  - 移除元素\n  - 预留容量\n  - 检索值\n  - 下标语法\n\n\
+  ## B, C\n- 大 O 表示法\n  - 加法 *与* 乘法\n  - 均摊时间\n  - 元素\n  - 对数 N 运行时间\n  - 递归运行时间\n\
+  \  - 计算复杂度\n  - 忽略常数/非主导项\n  - if-else 条件语句\n  - 循环\n  - 嵌套循环\n  - 选项\n  - 空间复杂度\n\
+  \  - 时间复杂度 *参见* 时间复杂度\n- 二叉搜索树\n  - 特征\n  - 删除过程\n  - 叶节点\n  - `remove` 函数\n  -\
+  \ 实现\n  - 插入\n  - 搜索过程\n  - 结构\n- 二叉树\n  - 平衡树\n  - 基本结构\n  - 完全二叉树\n  - 满二叉树\n\
+  \  - 实现\n  - 完美二叉树\n  - 属性\n  - 树的遍历 *参见* 树的遍历\n  - 类型\n- 广度优先搜索\n  - 优势\n  - `BFSNode`\
+  \ 类\n  - 数据结构 *对比* 深度优先搜索\n  - 劣势\n  - 实现\n  - 创建 `node` 类\n  - 选择过程\n  - 树处理过程\n\
+  \  - 工作过程\n- 冒泡排序\n  - 优势\n  - 比较\n  - 劣势\n  - 实现\n  - `swapAt` 函数\n  - 时间与空间需求\n\
+  \n## D, E\n- 深度优先搜索\n  - `addChild` 函数\n  - 优势 *对比* 广度优先搜索\n  - `depthFirstSearch`\
+  \ 方法\n  - 实现\n  - 递归算法\n  - 树的目标\n- 字典\n  - 访问值\n  - 添加/修改\n  - 数组声明\n  - `count`\n\
+  \  - 声明\n  - 第一个元素\n  - 强制解包\n  - 异构\n  - `isEmpty`\n  - 键\n  - 可选绑定\n  - 移除值\n\
+  \  - 存储和检索值\n  - Swift 概念\n- 迪杰斯特拉算法\n  - 优势/劣势\n  - 算法\n  - 图数据结构\n  - `GraphNode`\
+  \ 类\n  - 实现\n  - 时间与空间复杂度\n  - `toNode` 方法\n- 有向图\n- 双向链表\n  - 追加\n  - 数据结构\n  -\
+  \ `DoublyLinkedList` 类\n  - `nodeAt` 函数\n  - `remove(at:)`\n  - 移除节点方法\n\n## F\n\
+  - 满二叉树\n\n## G\n- 图算法\n  - 广度优先搜索 *参见* 广度优先搜索\n  - 数据结构\n  - 深度优先搜索\n  - 迪杰斯特拉算法\n\
+  \  - 有向图\n  - 无向图\n  - 加权图\n- 图搜索算法\n\n## H\n- `Hashable` 协议\n- 哈希表\n  - 算法\n  -\
+  \ 创建\n  - `enumerated()` 方法\n  - `index` 和 `value`\n  - `mutating` 关键字\n  - 移除值\n\
+  \  - 检索值\n  - 更新值\n\n## I, J, K\n- `isDisjoint()` 方法\n- `isStrictSubset()` 方法\n\
+  - `isStrictSuperset()` 方法\n- `isSubset()` 方法\n- `isSuperset()` 方法\n\n## L, M, N,\
+  \ O\n- 链表\n  - 添加新值\n  - `append()` 函数\n  - `insert()` 函数\n  - 方法\n  - 跟踪首尾\n  -\
+  \ 双向 *参见* 双向链表\n  - 线性数据结构\n  - 节点\n  - 移除值的方法\n    - `remove(at:)`\n    - `removeLast`\n\
+  \  - 单向链表数据结构\n  - `SinglyLinkedList` 类\n\n## P\n- 完美二叉树\n\n## Q\n- 队列\n  - 数据结构\n\
+  \  - 入队实现\n  - `dequeue()` 方法\n  - `clear()`、`isEmpty()` 和 `isFull()` 方法\n  - `CustomStringConvertible`\
+  \ 扩展\n  - 空数组\n  - `enqueue()` 方法\n  - `peek()` 函数\n  - 队列方法\n  - 方法\n  - 使用场景\n\
+  \n## R\n- 红黑树\n  - 基本结构\n  - 删除\n  - 元素\n  - 实现\n  - `init` 方法\n  - 插入\n  - `comparable`\
+  \ 和 `equatable` 协议\n  - 属性\n  - `RBNode` 类\n  - `RedBlackTree` 类\n  - 旋转\n    -\
+  \ 左旋步骤\n    - `RBNode` 类\n    - `RedBlackTree` 类\n  - 源代码\n  - 类型\n  - 可视化\n\n##\
+  \ S\n- 搜索算法\n  - 二分查找\n    - 优势\n    - 元素\n    - 实现\n    - 列表\n    - `O(log N)`\n\
+  \    - 预排序数组\n    - 时间与空间复杂度\n  - 分类\n  - 迪杰斯特拉算法\n  - 线性查找\n    - 优势与劣势\n    -\
+  \ 实现\n    - 列表\n    - 时间与空间复杂度\n- 集合\n  - 访问值\n  - 优势\n  - 比较\n  - 操作\n    - 交集\n\
+  \    - 成员方法\n    - 差集\n    - 对称差集\n    - 并集\n  - 相等性操作\n  - `insert()` 方法\n  - 移除元素\n\
+  \  - 下标语法\n  - 语法声明\n- 排序算法\n  - 冒泡排序 *参见* 冒泡排序\n  - 插入排序\n    - 优势与劣势\n    - 数组数据集\n\
+  \    - 实现\n    - 步骤\n    - 时间与空间需求\n    - 未排序列表\n  - 归并排序\n    - 优势与劣势\n    - 数组合并过程\n\
+  \    - 分治算法\n    - 实现\n    - `mergeSort` 函数\n    - 时间与空间需求\n    - 未排序列表\n  - 快速排序\n\
+  \    - 优势与劣势\n    - 特征\n    - 辅助函数\n    - 操作\n    - 基准元素选择\n    - 时间与空间需求\n    -\
+  \ 未排序列表\n  - 选择排序\n    - 优势\n    - 劣势\n    - 实现\n    - 项目列表\n    - 时间与空间需求\n   \
+  \ - 未排序列表\n  - 类型\n- 空间复杂度 *参见* 时间复杂度\n- 栈\n  - `push()`、`pop()` 和 `peek()` 方法\n\
+  \  - 结构\n  - Swift 的值扩展\n  - 实现\n  - `peek()` 函数\n  - `pop()` 方法\n  - `push()` 函数\n\
+  \  - 结构\n\n## T\n- 时间复杂度\n  - 数据传输算法\n  - 电子传输\n  - 图搜索算法\n  - 广度优先搜索 *对比* 深度优先搜索\n\
+  \  - 迪杰斯特拉算法\n  - 线性查找 *对比* 二分查找\n  - 记法\n  - 物理交付\n  - 基准元素\n  - 场景\n  - 排序算法\n\
+  \    - 冒泡排序\n    - 插入排序\n    - 归并排序\n    - 快速排序\n    - 选择排序\n- 树结构\n  - 应用\n  -\
+  \ 创建\n  - 层级结构\n  - 插入\n  - 层级\n  - 根节点\n  - 搜索数据\n- 树的遍历\n  - 数据结构\n  - 中序遍历\n\
+  \  - 后序遍历函数\n  - 前序遍历函数\n- 字典树\n  - 数据结构\n  - 哈希表实现\n  - `insert` 方法\n  - 查询\n \
+  \ - `remove` 方法\n  - 源代码\n    - `Trie.swift` 代码\n  - 工作过程\n\n## U, V\n- 无向图\n\n\
+  ## W, X, Y, Z\n- 加权图\n"

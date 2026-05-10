@@ -1,0 +1,296 @@
+name: Android fragments
+name_cn: Android fragments
+slug: android-fragments
+toc:
+- - '#'
+  - 目录概览
+- - '##'
+  - 引言
+- - '##'
+  - 本书适合你吗？
+- - '##'
+  - 开始前你需要了解什么
+- - '##'
+  - 本书内容
+- - '#'
+  - Android Fragments 简介
+- - '##'
+  - 引言
+- - '##'
+  - 如何为 Android Fragments 做准备
+- - '##'
+  - 如何联系我们
+- - '#'
+  - 第 1 章：Fragment 基础
+- - '##'
+  - 什么是 Fragment？
+- - '##'
+  - Fragment 基础知识
+- - '##'
+  - 何时使用 Fragment
+- - '##'
+  - Fragment 的结构
+- - '##'
+  - Fragment 的生命周期
+- - '###'
+  - '`onInflate()` 回调'
+- - '###'
+  - '`onAttach()` 回调'
+- - '###'
+  - '`onCreate()` 回调'
+- - '###'
+  - '`onCreateView()` 回调'
+- - '###'
+  - '`onViewCreated()` 回调'
+- - '###'
+  - '`onActivityCreated()` 回调'
+- - '###'
+  - '`onViewStateRestored()` 回调'
+- - '###'
+  - '`onStart()` 回调'
+- - '###'
+  - '`onResume()` 回调'
+- - '###'
+  - '`onPause()` 回调'
+- - '###'
+  - '`onSaveInstanceState()` 回调'
+- - '###'
+  - '`onStop()` 回调'
+- - '###'
+  - '`onDestroyView()` 回调'
+- - '###'
+  - '`onDestroy()` 回调'
+- - '###'
+  - '`onDetach()` 回调'
+- - '##'
+  - 使用 `setRetainInstance()`
+- - '##'
+  - 展示生命周期的片段示例应用
+- - '##'
+  - FragmentTransactions 与 Fragment 返回栈
+- - '##'
+  - 片段事务与动画
+- - '###'
+  - 片段事务切换与动画
+- - '###'
+  - FragmentManager
+- - '##'
+  - 引用片段时的注意事项
+- - '##'
+  - 保存片段状态
+- - '##'
+  - ListFragments 与 `<fragment>` 标签
+- - '##'
+  - 在必要时调用独立的 Activity
+- - '###'
+  - 日志片段生命周期示例
+- - '###'
+  - 片段的持久化
+- - '###'
+  - 与片段的通信
+- - '###'
+  - 使用 `startActivity()` 与 `setTargetFragment()`
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 第 2 章：响应配置变更
+- - '##'
+  - 默认的配置变更流程
+- - '##'
+  - 在配置变更期间保护数据
+- - '###'
+  - Activity 的销毁/重建周期
+- - '###'
+  - Fragment 的销毁/重建周期
+- - '###'
+  - 使用 FragmentManager 保存 Fragment 状态
+- - '##'
+  - 处理配置变化
+- - '###'
+  - 在 Fragment 上使用 `setRetainInstance`
+- - '###'
+  - 已弃用的配置更改方法
+- - '###'
+  - 自行处理配置更改
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 第 3 章：使用对话框
+- - '##'
+  - 在 Android 中使用对话框
+- - '##'
+  - 理解对话框 Fragment
+- - '###'
+  - DialogFragment 基础
+- - '###'
+  - 构造对话框片段
+- - '###'
+  - 重写 `onCreateView`
+- - '###'
+  - 重写 `onCreateDialog`
+- - '###'
+  - 显示对话框片段
+- - '###'
+  - 关闭对话框片段
+- - '###'
+  - 对话框关闭的影响
+- - '###'
+  - DialogFragment 示例应用
+- - '###'
+  - Dialog 示例：`MainActivity`
+- - '###'
+  - Dialog 示例：`OnDialogDoneListener`
+- - '###'
+  - 对话框示例：`PromptDialogFragment`
+- - '###'
+  - 对话框示例：`HelpDialogFragment`
+- - '###'
+  - Dialog Fragment 调用方式
+- - '###'
+  - Dialog 示例：`AlertDialogFragment`
+- - '###'
+  - Dialog 示例：嵌入式对话框
+- - '###'
+  - Dialog 示例：观察结果
+- - '##'
+  - 使用 Toast
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 第 4 章：使用偏好设置与保存状态
+- - '##'
+  - 探索首选项框架
+- - '##'
+  - 理解 `CheckBoxPreference` 和 `SwitchPreference`
+- - '##'
+  - 在代码中访问偏好设置的值
+- - '###'
+  - 理解 ListPreference
+- - '###'
+  - 理解 EditTextPreference
+- - '###'
+  - 理解 MultiSelectListPreference
+- - '##'
+  - 更新 AndroidManifest.xml
+- - '##'
+  - 使用 PreferenceCategory
+- - '##'
+  - 创建具有依赖关系的子首选项
+- - '##'
+  - 带标题的首选项
+- - '##'
+  - PreferenceScreen
+- - '##'
+  - 动态偏好设置摘要文本
+- - '##'
+  - 使用偏好设置保存状态
+- - '##'
+  - 使用 DialogPreference
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 第 5 章：为旧设备使用兼容库
+- - '##'
+  - 一切始于平板电脑
+- - '##'
+  - 将库添加到项目
+- - '###'
+  - 包含 v7 Support Library
+- - '###'
+  - 包含 v8 Support Library
+- - '###'
+  - 包含 v13 支持库
+- - '###'
+  - 仅包含 v4 支持库
+- - '##'
+  - 使用 Android 支持库改造应用
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 第 6 章：高级 AsyncTask 与进度对话框
+- - '##'
+  - 介绍 AsyncTask
+- - '##'
+  - 实现一个简单的 AsyncTask
+- - '###'
+  - 实现你的第一个 AsyncTask
+- - '##'
+  - 调用 AsyncTask
+- - '##'
+  - 理解 `onPreExecute()` 回调和进度对话框
+- - '##'
+  - 理解 `doInBackground()` 方法
+- - '###'
+  - 通过 `publishProgress()` 触发 `onProgressUpdate()`
+- - '###'
+  - 理解 `onPostExecute()` 方法
+- - '###'
+  - 升级为确定性进度对话框
+- - '##'
+  - AsyncTask 与线程池
+- - '##'
+  - 正确显示 AsyncTask 进度的问题与解决方案
+- - '###'
+  - 处理活动指针与设备旋转
+- - '##'
+  - 清单 6-13：调用保留片段的活动
+- - '##'
+  - 参考资料
+- - '##'
+  - 总结
+- - '#'
+  - 索引
+- - '##'
+  - A
+- - '##'
+  - B
+- - '##'
+  - C
+- - '##'
+  - D
+- - '##'
+  - E
+- - '##'
+  - F
+- - '##'
+  - G
+- - '##'
+  - H
+- - '##'
+  - I、J、K
+- - '##'
+  - L
+- - '##'
+  - M
+- - '##'
+  - N
+- - '##'
+  - O
+- - '##'
+  - P
+- - '##'
+  - Q
+- - '##'
+  - R
+- - '##'
+  - S
+- - '##'
+  - T
+- - '##'
+  - U
+- - '##'
+  - V
+- - '##'
+  - W
+- - '##'
+  - X、Y、Z

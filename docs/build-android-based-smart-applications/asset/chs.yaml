@@ -1,0 +1,1886 @@
+- '
+
+  ![](img/A978-1-4842-3327-6_CoverFigure.jpg)
+
+
+  ![A978-1-4842-3327-6_CoverFigure.jpg](img/A978-1-4842-3327-6_CoverFigure.jpg) 钦莫伊·穆克吉
+  著 使用规则引擎、自然语言处理与自动化框架构建基于安卓的智能应用
+
+
+  ![A459602_1_En_BookFrontmatter_Figa_HTML.png](img/A459602_1_En_BookFrontmatter_Figa_HTML.png)
+
+
+  本书作者引用的任何源代码或其他补充资料，读者均可通过本书在产品页面（位于 [www.apress.com/978-1-4842-3326-9](http://www.apress.com/978-1-4842-3326-9)）上的
+  `GitHub` 链接获取。如需更详细信息，请访问 [`www.apress.com/source-code`](http://www.apress.com/source-code)。ISBN
+  978-1-4842-3326-9 电子版 ISBN 978-1-4842-3327-6 [`doi.org/10.1007/978-1-4842-3327-6`](https://doi.org/10.1007/978-1-4842-3327-6)
+  美国国会图书馆控制号：2017963550 © 钦莫伊·穆克吉 2018 版权所有。出版商保留所有权利，包括整体或部分材料的翻译、重印、插图重用、朗诵、广播、微缩胶片复制或任何其他物理形式，以及电子改编、计算机软件，或任何现有或未来开发的类似或不同方法的信息存储与检索传输。本书中可能出现商标名称、标识和图像。我们未在每次出现商标名称、标识或图像时使用商标符号，而是仅以编辑方式使用这些名称、标识和图像，以维护商标所有者的权益，无意侵犯商标权。本出版物中使用的商品名、商标、服务标记及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的立场表达。尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑及出版商对可能存在的任何错误或遗漏不承担法律责任。出版商不对本书所含材料提供任何明示或暗示的担保。本书采用无酸纸印刷，由施普林格科学与商业媒体纽约公司（地址：纽约州纽约市春街
+  233 号 6 楼，邮编 10013，电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，网址：www.springeronline.com）向全球图书贸易发行。Apress
+  Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）为 Springer Science + Business Media Finance
+  Inc（SSBM Finance Inc），后者为特拉华州公司。
+
+
+  ## 引言
+
+
+  本书描述了如何使用规则引擎、代码自动化框架和自然语言处理（`NLP`）等前沿技术构建智能应用。
+
+
+  **注意：** 智能应用是嵌入了智能的应用。这种智能可以随时更新。
+
+
+  本书提供了将九个规则引擎（`CLIPS`、`JRuleEngine`、`DTrules`、`Zilonis`、`Termware`、`Roolie`、`OpenRules`、`JxBRE`
+  和 `JEOPS`）移植到移动平台的分步指南。随后描述了如何使用每个规则引擎构建智能应用，并提供了示例代码片段，以便读者能立即开始编写自己的智能应用。本书还讨论了其他流行规则引擎（`Drools`、`JLisa`、`Take`、`Jess`
+  和 `OpenRules`）的移植问题。
+
+
+  本书将指导读者如何根据需求规格自动生成可运行的智能应用。
+
+
+  最后，本书将向读者展示如何使用 `NLP` 框架 `Stanford POS`（词性标注器）从非结构化知识中生成智能应用。
+
+
+  ## 致谢
+
+
+  对所引用的规则引擎网站上的示例进行了必要的修改，并提供了修改后的代码片段。感谢阿布舍克·钱德（剑桥大学计算机科学学士）在作者钦莫伊·穆克吉指导下开发了 `AutoQuiz`
+  原型。
+
+
+
+  '
+- '# 第一部分：规则引擎
+
+
+  ## 1. 哪种规则引擎最适合构建智能应用？
+
+
+  现在，让我们基于敏捷性、可扩展性和易用性来评估规则引擎，并确定哪种最适合开发智能应用。我们首先来定义什么是规则引擎。
+
+
+  规则引擎有助于将智能嵌入到应用程序中。这种智能可以即时更新。读者应该了解可编程计算器。规则引擎可以被视为此类计算器的高级版本。可以从 Source Forge
+  下载 `CLIPS`[24]。
+
+
+  ```
+
+  java -jar CLIPSJNI.jar
+
+  CLIPS> (+ 3 4)
+
+
+  CLIPS> (defglobal ?*x* = 3)
+
+  CLIPS> ?*x*
+
+
+  CLIPS> red
+
+  red
+
+  CLIPS> (bind ?a 5)
+
+
+  CLIPS> (+ ?a 3)
+
+
+  CLIPS> (reset)
+
+  CLIPS> ?a
+
+  [EVALUATN1] Variable a is unbound
+
+  FALSE
+
+  CLIPS>
+
+  ```
+
+
+  示例代码取自 [23]。有多种用 Java 编写的规则引擎，它们在功能和概念上差异很大。2011 年，业务规则引擎的收入超过了 4.6 亿美元 [1]。到 2015
+  年，移动应用市场的总规模将达到 250 亿美元 [2]。根据 Gartner 的说法，开发情境感知型移动应用是主要趋势之一 [3]。
+
+
+  移动应用正变得越来越复杂。这为移动平台上的规则引擎创造了发展空间。规则引擎有助于将业务逻辑与应用逻辑分离。目前，已知可在移动平台上运行的规则引擎并不多。我们已在
+  Android 上移植并评估了九种规则引擎：`CLIPS`、`OpenRules`、`JXBRE`、`JEOPS`、`Roolie`、`Termware`、`JRuleEngine`、`Zilonis`
+  和 `DTRules`。本章提供了每种规则引擎的详细描述、分步移植指南以及可用的示例代码。我们还讨论了在尝试移植其他流行规则引擎（如 `Drools`、`JLisa`、`Take`
+  和 `Jess`）时遇到的问题。我们在 Android 环境中基于许可协议、开发语言、规则语法、推理方法、多线程支持、可扩展性等对规则引擎进行了比较 [4]。如果你正尝试在移动项目中使用规则引擎，本章可以为你节省超过四个员工周的工作量。
+
+
+
+
+  ### 什么是规则引擎？
+
+
+  规则引擎是一种在运行时生产环境中执行一条或多条规则的软件，每个规则引擎都有其专有的规则存储格式和不同特性。如今，规则引擎被应用于金融、医疗、零售、制造等领域。
+
+
+  规则引擎日益流行的原因如下：
+
+
+  - 业务逻辑与应用程序分离
+
+  - 规则可与应用程序代码分开管理
+
+  - 领域专家易于编写规则
+
+
+  规则引擎让应用程序更具灵活性。使用规则引擎可以更快地发布应用程序。其他优势还包括规则易理解、工具集成、速度快、可扩展性以及声明式编程。
+
+
+  Android 已成为第一大移动平台（图 1-1）[5]。随着对上下文感知型智能应用需求的增长，规则引擎必将被集成到越来越多的 Android 应用中。
+
+
+  本章的主要贡献是对 Android 平台上的九个规则引擎进行了评估。本章详细描述了每个规则引擎，并提供了每个引擎的摘要。从许可证、语言、规则、推理、多线程支持、可扩展性等多个方面对九个规则引擎进行了评估和比较。本章最后推荐了最适合
+  Android 平台的规则引擎。
+
+
+  ![A459602_1_En_1_Fig1_HTML.jpg](img/A459602_1_En_1_Fig1_HTML.jpg)
+
+
+  图 1-1
+
+
+  智能手机销量
+
+
+  #### CLIPS
+
+
+  `CLIPS` [6] 是一个用 C 语言编写的规则引擎。由于它速度快且免费，因此是使用最广泛的规则引擎。
+
+
+  它可移植性强，可以轻松与使用 `C`、`Java`、`FORTRAN` 和 `ADA` 编写的软件集成。使用 `CLIPS` 规则可以表示各种复杂的知识。该软件属于公共领域，成为业界的选择。以下是该规则引擎的摘要（图
+  1-2）。
+
+
+  - 许可证类型：公共领域
+
+  - 语言：`C`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：类 Lisp
+
+  - 内存占用：0.83 MB
+
+  - 推理方法：`Rete` [22]
+
+  - 支持多线程：否
+
+  - 易于扩展规则引擎：是，平均运行时间为 17.4 毫秒
+
+
+  ![A459602_1_En_1_Fig2_HTML.jpg](img/A459602_1_En_1_Fig2_HTML.jpg)
+
+
+  图 1-2
+
+
+  CLIPS 规则引擎
+
+
+  #### JRuleEngine
+
+
+  `JRuleEngine` [7] 是一个基于 Java 的规则引擎，采用前向链接算法，并按照 `JSR 94` 规范设计。规则在 `XML` 文件中定义。
+
+
+  规则有两种类型。一种是有状态规则会话，它会记住事实的状态，并且可以重复查询。另一种是无状态规则会话，性能良好，但不会记住事实的状态。
+
+
+  该规则引擎使用一组输入对象并生成一组输出对象。以下是该规则引擎的摘要：
+
+
+  - 许可证类型：开源，`LGPL`
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：条件-动作模式
+
+  - 内存占用：0.062660217 MB
+
+  - 推理方法：前向链接算法
+
+  - 支持多线程：是
+
+  - 易于扩展规则引擎：是，平均运行时间为 0.24163 秒
+
+
+  #### DTrules
+
+
+  `DTrules` [8] 是一个基于 Java 的高性能规则引擎。
+
+
+  规则采用决策表的形式，提供了一种以表格形式描述逻辑的简单方法。支持不平衡决策表，从而减少了构建决策表所需的工作量。`DTRules` 可以轻松集成到 Java
+  应用程序中。
+
+
+  它支持领域特定语言（`DSL`）。内存占用小。以下是该规则引擎的摘要：
+
+
+  - 许可证类型：开源（Apache 2.0 开源许可证）
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：决策表
+
+  - 内存占用：0.540092468 MB
+
+  - 推理方法：使用结构化数据集和一组决策表来实现策略规则
+
+  - 支持多线程：是
+
+  - 易于扩展规则引擎：否
+
+
+  #### Zilonis
+
+
+  `Zilonis` [9] 是一个多线程规则引擎。它基于前向链接 `Rete` 算法的变体。其规则表示语言类似于 `LISP`。它还为基于 Java 的应用程序提供了一个脚本环境。
+
+
+  以下是该规则引擎的摘要：
+
+
+  - 许可证类型：`GPL`
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：类似于 `Lisp`
+
+  - 内存占用：0.683494568 MB
+
+  - 推理方法：前向链接 `Rete` 算法的变体
+
+  - 支持多线程：是
+
+  - 易于在云端扩展规则引擎：是，平均运行时间为 0.65863 秒
+
+
+  #### Termware
+
+
+  `Termware` [9] 是一个规则处理框架，可以轻松嵌入到 Java 应用程序中。它拥有一个基于带动作的项系统概念的形式化语义模型。它在应用程序中提供了极大的灵活性，可高度适应多变的环境、易于重新设计和组件复用。以下是该规则引擎的摘要：
+
+
+  - 许可证类型：其他
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：专有
+
+  - 内存占用：0.195205688 MB
+
+  - 推理方法：一个对象，多种模式匹配方法
+
+  - 支持多线程：是
+
+  - 易于扩展规则引擎：是，平均运行时间为 11.3892 秒
+
+
+  #### Roolie
+
+
+  `Roolie` [11] 是一个极其简单的 Java 规则引擎。它是一个非 `JSR 94` 规则引擎，专为使用 Java 创建的规则而设计。基本规则写在单独的
+  Java 文件中，并通过 `XML` 文件链接在一起以创建更复杂的规则。以下是该规则引擎的摘要：
+
+
+  - 许可证类型：开源 `LGPL`
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：`XML`
+
+  - 内存占用：0.594 MB (608 KB)
+
+  - 推理方法：专有
+
+  - 支持多线程：否
+
+  - 易于扩展规则引擎：是，平均运行时间为 2.87 秒
+
+
+  #### OpenRules
+
+
+  `OpenRules` [12] 是一个业务决策管理系统（`BDMS`），提供基于规则的应用程序开发。它通过简单的 Java `OpenRules` API 或标准的
+  `JSR-94` 接口工作。它用于创建决策支持系统，可在应用程序中创建、执行和维护业务规则。规则以决策表的形式在 Excel 文件中指定，这消除了用户的学习成本，因为只需要熟悉
+  MS Excel 即可。它允许在运行时更改 Excel 表中的业务规则/逻辑，而无需重新部署。它支持并行性，使其能够在多线程环境中工作。图 1-3 描绘了 `OpenRules`
+  的工作流程。
+
+
+  ![A459602_1_En_1_Fig3_HTML.jpg](img/A459602_1_En_1_Fig3_HTML.jpg)
+
+
+  图 1-3
+
+
+  OpenRules 规则引擎
+
+
+  以下是该规则引擎的摘要：
+
+
+  - 许可证类型：开源（`GPL`）和商业（非 `GPL`）均有
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：Excel 文件中的决策表
+
+  - 内存占用：2 MB
+
+  - 推理方法：专有
+
+  - 支持多线程：是
+
+  - 易于扩展规则引擎：否
+
+
+  #### JxBRE
+
+
+  `JxBRE` [13] 是一个轻量级的基于 Java 的业务规则引擎（`BRE`）。规则写在 `XML` 文件中，同时包含基于规则执行定义应用程序流程的逻辑。它既是前向链接的数据驱动推理引擎，也是
+  `XML` 驱动的流程控制引擎。以下是该规则引擎的摘要：
+
+
+  - 许可证类型：`GPL`
+
+  - 语言：`Java`
+
+  - 是否可在 Android 上运行：是
+
+  - 规则语法：`XML`
+
+  - 内存占用：1.44 MB (1474 KB)
+
+  - 推理方法：专有
+
+  - 支持多线程：否
+
+  - 易于扩展规则引擎：是，平均运行时间为 2.57 秒
+
+
+
+
+  #### JEOPS
+
+
+  JEOPS [14] 是一个基于 Java 的规则引擎，用于将前向链接的生产规则嵌入到 Java 应用程序中。它为应用程序提供了人工智能能力。
+
+
+  JEOPS 的生产规则可以写在文本文件（.rules 文件）中。与知识库的交互通过四种方法执行：`Tell(object)`、`Flush()`、`Retract(object)`
+  和 `Modified(object)`。由于在规则定义中使用了 Java 表达式，Java 程序员学习 JEOPS 所需的时间被最小化。以下是该规则引擎的概要：
+
+
+  * 许可证类型：开源 LGPL
+
+  * 语言：Java
+
+  * 可在 Android 上运行：是
+
+  * 规则语法：任何文本编辑器中的“条件-动作”模式
+
+  * 内存占用：0.03 MB（31.5 KB）
+
+  * 推理方法：RETE
+
+  * 支持多线程：否
+
+  * 规则引擎易于扩展：是，平均运行时间为 120 毫秒
+
+
+  '
+- "# 移植规则引擎的步骤\n\n本章将介绍如何在 Android 平台上移植主要的规则引擎。\n\n#### CLIPS\n\n使用 Android-ndk 和\
+  \ Eclipse Helios 将 CLIPS 移植到 Android。最好使用 Linux 机器进行移植。以下是将 CLIPS 移植到 Android 的步骤：\n\
+  \n* 从 Source Forge 下载 `CLIPSJNI` 源代码，并从源代码构建一个 Android 库项目。\n  * 将库项目导出为 `CLIPSJNI.jar`。\n\
+  * 创建一个虚拟的 Android 项目，并在项目目录下创建一个 JNI 目录。\n* 将 CLIPS 中所有源文件（*.c）和头文件（*.h）复制到 JNI\
+  \ 目录。\n* 在 `Android.mk` 中添加除 `main.c` 之外的所有源文件。你的 `Android.mk` 应该如下所示：\n\n```\n\
+  LOCAL_PATH := $(call my-dir)\ninclude $(CLEAR_VARS)\nLOCAL_MODULE    := CLIPSJNI\n\
+  LOCAL_SRC_FILES := agenda.c \\\nanalysis.c \\\nargacces.c \\\n.\n.\n.\nCLIPSJNI_Environment.c\n\
+  LOCAL_LDLIBS    := -lm -llog -ljnigraphics\ninclude $(BUILD_SHARED_LIBRARY)\n```\n\
+  \n* 在 JNI 目录中搜索 `setlocale` 函数。在期望 `setlocale` 返回一个值的地方，将其硬编码为 `C`，并注释掉所有其他的 `setlocale`\
+  \ 调用，因为 Android 的 `setlocale` 返回硬编码的 `0`！\n* 注释掉 main 函数（只是为了安全起见）。\n* 运行 `ndk-build\
+  \ –b`。\n* 将 `libCLIPSJNI.so` 复制到 `libs/armeabi` 和 `libs/armeabi-v7a` 目录。\n* 将 `CLIPSJNI.jar`\
+  \ 作为外部 jar 添加到你的 Android 项目中。\n\n#### JRuleEngine\n\n以下是将 JRuleEngine 移植到 Android\
+  \ 的步骤：\n\n* 下载 `jsr172.jar`。\n  * 从此 jar 文件中移除除了 `java.rmi` 之外的所有包。\n* 使用 `jarjar.jar`\
+  \ 工具重新打包该 jar，操作如下：\n  * 创建包含以下行的 `rulefile.txt` 文件：`rule java.rmi.** com.<你的公司>.java.rmi.@1`\n\
+  \  * 在命令提示符下，运行 `java -jar jarjar.jar process rulefile.txt <输入 jar> <输出 jar>`\n\
+  * 下载 `jsr94-1.1.jar`。\n* 使用 `jarjar.jar` 工具重新打包该 jar。\n  * 创建一个包含以下行的 `rulefile.txt`\
+  \ 文件：`rule java.rmi.** com.<你的公司>.java.rmi.@1`\n  * 在命令提示符下，运行：`java -jar jarjar.jar\
+  \ process rulesfile.txt <输入 jar> <输出 jar>`\n* 下载 Apache Harmony 的 `awt.jar`，并从该\
+  \ jar 中移除所有 `java.*` 包。\n* 下载内含源代码的 `jruleengine.jar`。\n* 注释所有包含 `Component.getName()`\
+  \ 函数调用的 `else if` 语句；同时移除 `import java.awt.Component;` 语句。\n* 使用 `jarjar.jar` 工具重新打包\
+  \ `jruleengine.jar`。\n* 创建包含以下规则的 `rulefile.txt` 文件：\n  * `rule java.rmi.** com.<你的公司>.java.rmi.@1\
+  \ rule java.awt.Component** org.apache.harmony.awt.ComponentInternals@1`\n  * 运行\
+  \ `java -jar jarjar.jar process rulefile.txt <输入 jar> <输出 jar>`\n* 创建一个 Android\
+  \ 项目，并将所有这些 jar 添加到项目的构建路径中。\n* 将包含规则的 XML 文件复制到模拟器中的 sdcard。\n\n#### DTrules\n\n\
+  jar 文件可以在 Android 中工作，但需要执行以下步骤才能在 Android 应用程序中使用 DTrules：\n\n* 在 Excel 表中将规则编写为决策表。示例\
+  \ Excel 表可在 `sampleprojects/<项目名>/DecisionTables` 中找到。\n* 创建如下文件结构：\n\n```\n/DecisionTables/包含决策表的\
+  \ excel 表.xls\n/edd/包含 edd 的文件.xls\n/xml/\n/DTRules.xml\n```\n\n* 通过使用如下代码，将包含规则的\
+  \ Excel 表转换为 XML：\n\n```\nExcel2XML.compile(\"根路径\", \"DTRules.xml\", \"规则集名称\"\
+  , \"仓库路径\");\n```\n\n要自动生成映射文件，可以使用类似以下的方法：\n\n```\nString [] maps = {\"main\" };\
+  \      Excel2XML.compile(path,\"DTRules.xml\",\"\",\"D:/XLS2XML/repository\",maps);\n\
+  ```\n\n* 创建一个 Android 项目。\n* 将以下 jar 添加到构建路径：`java-cup-11a.jar`、`poi-3.6-20091214.jar`、`dtrules.jar`。\n\
+  * 创建一个映射文件（如果未自动生成），用于将 XML 文件与数据映射到实体。\n* 将所需的实体添加到初始化部分，这些实体需要在第一个决策表执行之前被推入实体栈。例如：\n\
+  * 修改需要创建的每个实体的数量。例如：\n* 在 sdcard 中创建如下文件结构：\n  * `/sdcard/xml/映射文件.xml,edd 文件.xml,dt\
+  \ 文件.xml`\n  * `/sdcard/repository/DTRules.xml`\n  * `/sdcard/DTRules.xml`\n  *\
+  \ `/sdcard/testfiles/测试用例.xml`\n* 将生成的文件复制到 sdcard 的相应目录中。\n\n#### Zilonis\n\nZilonis\
+  \ 的 jar 在 Android 中可以毫无问题地工作。以下是将 Zilonis 添加到你的 Android 项目的步骤：\n\n* 创建一个 Android\
+  \ 项目。\n* 将包含规则的 .clp 文件复制到一个文件夹中，例如模拟器中 sdcard 的 temp 文件夹。\n* 将 `zilonis0.97b.jar`\
+  \ 和 `antlr.jar` 添加到项目的构建路径。\n\n在为 Zilonis 编写规则文件（.clp）时，请确保以下几点：\n\n* 在 .clp 文件中，一行只能添加一条语句，这与\
+  \ CLIPS 不同。\n* 行与行之间不应有空格。\n\n#### Termware\n\n在 Android 中移植 Termware 很简单。只需一步：\n\
+  \n* 从属于 `TermWare.jar` 中的 `ua.gradsoft.termware` 和 `ua.gradsoft.termware.util` 的\
+  \ Java 文件中，移除所有与调试存根相关的项。\n\n#### Roolie\n\n将 Roolie 移植到 Android 上无需任何额外工作——你只需将\
+  \ jar 文件添加到 Android 项目中即可开始使用。\n\n#### OpenRules\n\n* 下载 `org.apache.commons.beanutils`\
+  \ 的源代码，重新编译，并在移除以下包后将其导出为 jar，以修复多重定义问题：\n\n```\norg.apache.commons.logging\norg.apache.commons.logging.impl\n\
+  ```\n\n* 然后，使用 `jarjar.jar` 工具重新打包它：\n  * 创建包含以下规则的 `rulefile.txt` 文件：`rule java.beans.**\
+  \ com.googlecode.openbeans.@1`\n  * 在命令提示符下运行以下命令进行重新打包：`java -jar jarjar-1.4.jar\
+  \ process rulefile.txt <输入 jar> <输出 jar>`\n* 下载 `poi-3.6-20091214.jar` 用于处理 Excel\
+  \ 表。\n* 下载 `openbeans-1.0.jar` 以使用 `com.googlecode.openbeans`，因为 OpenRules 广泛使用了\
+  \ Java beans，而 Android 不支持此功能。\n* 下载 `commons-lang-2.3.jar`，移除 `org.apache.commons.lang.enum`\
+  \ 包，然后重新编译。\n* 创建一个 Android 项目，并将所有这些 jar 添加到项目的构建路径中。\n* OpenRules 似乎硬编码了 `openrules.config\
+  \ dir` 的路径，模板文件需要存储在该目录下。在 sdcard 下创建一个 `openrules.config` 目录，并将规则文件和模板文件放在那里。\n\
+  \n\n\n#### JxBRE\n\n以下是将 JXBRE 移植到 Android 需要遵循的步骤：\n\n- 下载 Xerces 1.4.4（XML 解析器）的源代码。\n\
+  - 将包名`javax`改为其他名称。\n- 重新编译源代码并构建项目。\n- 将其导出为 jar 文件`xerces.jar`。\n- 下载`jxbre.jar`和`ideaityUtil.jar`。\n\
+  - 创建一个 Android 项目，并将所有这些 jar 添加到项目的构建路径中。\n- 下载 XML Schema 文件`businessRules.xsd`。\n\
+  - 将规则文件（`.xml`）和`businessRules.xsd`复制到模拟器中，以便在项目中访问它们。\n\n#### JEOPS\n\nJEOPS 可以按如下方式移植到\
+  \ Android：\n\n- 创建一个新的 Java 项目。\n- 将 JavaBean 文件（声明所使用的变量及其访问器方法）添加到项目中。编译它，并从`bin`目录复制生成的`.class`文件。\n\
+  - 创建一个新目录，并根据`.class`文件中指定的包名，将刚刚生成的`.class`文件粘贴到该目录下对应的文件夹中。\n- 同时，将规则库文件（`.rules`）复制到此目录。\n\
+  - 下载`JEOPS.jar`并将其放入该目录。\n- 在命令提示符中，进入此新目录的路径位置，并执行以下命令以从规则库文件生成 Java 文件：\n\n```bash\n\
+  java –cp JEOPS.jar;. jeops.compiler.Main \n```\n\n- 创建一个 Android 项目，并将生成的规则库 Java\
+  \ 文件添加到项目中。\n- 使用 JavaBean 的`.java`文件创建一个新的 jar（通过编译并导出为 jar），并将其添加到 Android 项目的构建路径中。\n\
+  - 在规则库 Java 文件的代码中添加以下行以访问`tell()`：\n\n```java\n_knowledgeBase.tell(f1);\n_knowledgeBase.tell(f2);\n\
+  private jeops.AbstractKnowledgeBase _knowledgeBase;\n_knowledgeBase = knowledgeBase;\n\
+  ```\n\n- 同时将`JEOPS.jar`添加到项目的构建路径中。\n\n### 示例代码片段\n\n此代码片段将帮助您理解如何将规则引擎与 Android\
+  \ 应用程序集成。\n\n\n\n#### CLIPS\n\n让我们使用 CLIPS 规则引擎构建一个智能应用，用于评估患者的腹泻症状。\n\n图 2-1 展示了该应用的外观。\n\
+  \n![A459602_1_En_2_Fig1_HTML.jpg](img/A459602_1_En_2_Fig1_HTML.jpg)\n\n**图 2-1**\
+  \  \n应用外观\n\n腹泻指南可以轻松地用 CLIPS 编码为`diarrhoea.clp`。\n\n```\n;=======================================\n\
+  ;;\n;; ---- 腹泻管理------\n;;\n;=======================================\n;=======================================\n\
+  ;--- 打印响应代码---\n;; 如果确认了治疗方案(Rx)，则打印该方案。\n;======================================\n\
+  (defrule print_diarrhea_message2\n(Rx_diarrhea_signs_code(code ?b))\n=>\n(bind ?*WHODecisionCode*\
+  \ (create$ ?*WHODecisionCode* ?b))\n;(printout t ?*WHODecisionCode* crlf)\n)\n;;\
+  \ 评估患者状态并触发腹泻管理的规则\n;=======================================\n;--- 检查患者是否患有腹泻 ---\n\
+  ;; 如果患者数据有 (diarrhea yes) 则 (检查大便带血) 并 (分类脱水程度)\n;; 如果患者数据有 (diarrhea no) 则 (检查其他疾病)\n\
+  ;======================================\n(defrule check-diarrhea_yes\n(diarrhea_data\
+  \ (diarrhea yes))  ;; 检查患者是否患有腹泻\n=>\n(assert (check blood_in_stool))         ;;\
+  \ 触发检查大便带血\n(assert (classify dehydration)))        ;; 触发分类脱水程度\n;;-------------------------------------------------------------\n\
+  ;;-------------------------------------------------------------\n(defrule check-diarrhea_no\n\
+  (diarrhea_data (diarrhea no))\n=>\n(assert (check other disease)) )\n;=======================================\n\
+  ;--- 规则：检查大便带血 ---\n;; 如果患者 (大便带血) 则患者状态为 (痢疾)。\n;======================================\n\
+  (defrule check-blood_in_stool-yes\n(check blood_in_stool)\n;; 检查该动作是否由腹泻触发\n(diarrhea_data\
+  \ (blood_in_stool yes))\n;; 检查患者是否大便带血\n=>\n(assert (Rx_diarrhea_signs_code (code\
+  \ \"10\"))))        ;; 确认决策代码：1 表示痢疾\n;=======================================\n\
+  ;--- 规则：检查大便带血 ---\n;; 如果患者 (大便不带血) 则患者状态为 (非痢疾)。\n;======================================\n\
+  (defrule check-blood_in_stool-no\n(check blood_in_stool)                       \
+  \ ;; 检查该动作是否由腹泻规则系统触发\n(diarrhea_data (blood_in_stool no))           ;; 检查患者是否大便不带血\n\
+  =>)                        ;; 结束痢疾评估\n;=======================================\n\
+  ;--- 评估治疗目标：重度脱水 ---\n;======================================\n(defrule classify-severe_dehydration\n\
+  (classify dehydration)                        ;; 检查该动作是否由腹泻规则系统触发\n(diarrhea_data(blood_in_stool\
+  \ no))\n(diarrhea_data(severe_condition_count ?w&:(>= ?w 2)))\n;; 如果满足以下至少两项 中度脱水\
+  \ 体征\n(diarrhea_data(how_many_days ?x&:(\n(assert (Rx_diarrhea_signs_code (code\
+  \ \"5\")))\n;(assert (check-more_than_14days-severe_dehydration_case))\n)\n(defrule\
+  \ classify-severe_dehydration_child_able_to_drink\n(Rx_diarrhea_signs_code (code\
+  \ \"5\"))\n(diarrhea_data (not_able_to_drink_or_drinking_poorly no))\n=>\n(assert\
+  \ (Rx_diarrhea_signs_code (code \"5A\")))\n)\n(defrule classify-severe_dehydration_child_not_able_to_drink\n\
+  (Rx_diarrhea_signs_code (code \"5\"))\n(diarrhea_data (not_able_to_drink_or_drinking_poorly\
+  \ yes))\n=>\n(assert (Rx_diarrhea_signs_code (code \"5B\")))\n)\n;=======================================\n\
+  ;---  目标：中度脱水 ---\n;======================================\n(defrule classify-some_dehydration\n\
+  (classify dehydration)                ;; 检查该动作是否由腹泻规则系统触发\n(diarrhea_data (blood_in_stool\
+  \ no))\n(diarrhea_data(some_condition_count ?w&:(>= ?w 2)))\n(diarrhea_data (severe_condition_count\
+  \ ?y&:(\n(assert (Rx_diarrhea_signs_code (code \"6\")))\n;(assert (check-more_than_14days-some_dehydration_case))\n\
+  )\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n(defrule classify-no_dehydration\n\
+  (classify dehydration)                ;; 检查该动作是否由腹泻规则系统触发\n(diarrhea_data (blood_in_stool\
+  \ no))\n(diarrhea_data (how_many_days ?x&:(\n(assert (Rx_diarrhea_signs_code (code\
+  \ \"7\")))\n)\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n\
+  ;; 根据患者状态确定治疗目标的规则\n;=======================================\n;--- 评估迁延性腹泻的规则 ---\n\
+  ;--- 检查是否超过 14 天 ---\n;======================================\n;=======================================\n\
+  ;--- 检查是否超过 14 天的规则 - 患者被分类为重度或中度脱水 + 腹泻 >14 天\n; 则为重度迁延性腹泻\n;======================================\n\
+  (defrule check-severe_persistent_diarrhea-severe_deh_case\n;(check-more_than_14days-severe_dehydration_case)\
+  \        ;; 检查是否触发了迁延性腹泻的评估\n(or (diarrhea_data (some_condition_count ?w&:(>= ?w\
+  \ 2)))\n(diarrhea_data (severe_condition_count ?y&:(>= ?y 2))))\n(diarrhea_data\
+  \ (how_many_days ?x&:(> ?x 14)))\n(diarrhea_data (blood_in_stool no))\n;; 如果腹泻持续\
+  \ 14 天或以上\n=>\n(assert (Rx_diarrhea_signs_code(code \"8\"))) )        ;; 确认治疗目标：重度迁延性腹泻\n\
+  ;=======================================\n;--- 检查是否超过 14 天的规则 - 患者未被分类为脱水，但腹泻 >14\
+  \ 天则为迁延性腹泻\n;======================================\n(defrule check-persistent_diarrhea-no_deh_case\n\
+  ;(check-more_than_14days-no_dehydration_case)        ;; 检查是否触发了迁延性腹泻的评估\n(diarrhea_data\
+  \ (some_condition_count ?y&:( ?x 14)))\n(diarrhea_data (blood_in_stool no))\n;;\
+  \ 如果腹泻持续 14 天或以上\n=>\n(assert (Rx_diarrhea_signs_code (code \"9\"))) )       ;;\
+  \ 确认治疗目标：迁延性腹泻\n```\n\n用户输入可以建模为`diarrheaData`：\n\n```java\npublic class diarrheaData\
+  \  implements Parcelable {\nint iNumberofDays=0;\nString sBlood_In_Stool=\"no\"\
+  ;\nString sLethargic_Unconscious=\"no\";\nString sRestless_Irritable=\"no\";\nString\
+  \ sSunken_Eyes=\"no\";\nString sSkin_Pinch_Veryslow=\"no\";\nString sSkin_Pinch_Slow=\"\
+  no\";\nString sNot_Able_To_Drink_or_Drinking_Poorly=\"no\";\nString sDrinking_Eagerly_or_Thirsty=\"\
+  no\";\nString sOther_Severe_Disease=\"no\";\nString sTrained_nurse_for_iv_immediately=\"\
+  no\";\nString sIv_available_in_30min=\"no\";\nString sTrained_nurse_for_ng_tube_immediately=\"\
+  no\";\n}\nstatic {\ntry {\nSystem.loadLibrary(\"CLIPSJNI\");\nif(clips == null)\
+  \ {\nclips = new Environment();\n}\n}\ncatch(UnsatisfiedLinkError ule) {\nLog.e(\"\
+  JNI\", \"Could not load libCLIPSJNI.so!\");\n}\nprivate  static Environment clips\
+  \ = null;\nstatic {\ntry {\nif(clips == null) {\nclips = new Environment();\n}\n\
+  clips.clear();\nclips.load(\"diarrhoea.clp\");\nString myassertString = \"(diarrhea_data\
+  \ (diarrhea yes) \" +\n\"(blood_in_stool \"+mydiarrheaData.sBlood_In_Stool +\")\
+  \ \" +\n\"(how_many_days \"+mydiarrheaData.iNumberofDays+\") \" +\n\"(lethargic_unconscious\
+  \ \"+mydiarrheaData.sLethargic_Unconscious+\") \"+\n\"(restless_irritable \"+mydiarrheaData.sRestless_Irritable+\"\
+  ) \" +\n\"(sunken_eyes \"+ mydiarrheaData.sSunken_Eyes+\") \" +\n\"(skin_pinch_veryslow\
+  \ \"+mydiarrheaData.sSkin_Pinch_Veryslow+\") \" +\n\"(skin_pinch_slow \"+mydiarrheaData.sSkin_Pinch_Slow+\"\
+  ) \" +\n\"(not_able_to_drink_or_drinking_poorly \"+mydiarrheaData.sNot_Able_To_Drink_or_Drinking_Poorly+\"\
+  ) \" +\n\"(drinking_eagerly_or_thirsty \"+mydiarrheaData.sDrinking_Eagerly_or_Thirsty+\"\
+  ) \" +\n\"(other_severe_Vdisease \" + otherSevereDisease + \"))\";\nclips.assertString(myassertString);\n\
+  clips.run();\nMultifieldValue mv = (MultifieldValue) clips.eval(\"?*WHODecisionCode*\"\
+  );\nString WHODecision;\nList theList = mv.listValue();\nfor(Iterator itr = theList.iterator();\
+  \ itr.hasNext();)\n{\nStringValue myValue = (StringValue) itr.next();\nWHODecision\
+  \ = WHODecision + myValue.toString() + \" \";\n}\n```\n\n决策结果将存储于`WHODecision`变量中。\n\
+  \n如果读者能理解上述 CLIPS 示例，那么后续的示例将很容易理解。\n\n\n\n#### JRuleEngine\n\n```\nClass.forName(\
+  \ \"org.jruleengine.RuleServiceProviderImpl\" );\nString path    = Environment.getExternalStorageDirectory().getAbsolutePath()+\"\
+  /temp/example3.xml\";\nInputStream inStream = new FileInputStream( new File(path)\
+  \ );\n// 从提供者管理器中获取规则服务提供者。\nRuleServiceProvider serviceProvider = RuleServiceProviderManager.getRuleServiceProvider(\
+  \ \"org.jruleengine\" );\n// 获取规则管理器\nRuleAdministrator ruleAdministrator = serviceProvider.getRuleAdministrator();\n\
+  System.out.println(\"\\n 管理 API\\n\");\nSystem.out.println( \"已获取 RuleAdministrator:\
+  \ \" + ruleAdministrator );\n// 获取一个指向测试用 XML 规则集的输入流\n// 该规则执行集是 TCK 的一部分。\n//\
+  \  InputStream inStream = new FileInputStream( \"example3.xml\" );\nSystem.out.println(\"\
+  已获取指向 example3.xml 的 InputStream: \" + inStream );\n// 从 XML 文档解析规则集\nRuleExecutionSet\
+  \ res1 = ruleAdministrator.getLocalRuleExecutionSetProvider(\nnull ).createRuleExecutionSet(\
+  \ inStream, null );\ninStream.close();\nSystem.out.println( \"已加载 RuleExecutionSet:\
+  \ \" + res1);\n// 注册 RuleExecutionSet\nString uri = res1.getName();\nruleAdministrator.registerRuleExecutionSet(uri,\
+  \ res1, null );\nSystem.out.println( \"已将 RuleExecutionSet 绑定到 URI: \" + uri);\n\
+  // 获取 RuleRuntime 并调用规则引擎。\nSystem.out.println( \"\\n 运行时 API\\n\" );\nRuleRuntime\
+  \ ruleRuntime = serviceProvider.getRuleRuntime();\nSystem.out.println( \"已获取 RuleRuntime:\
+  \ \" + ruleRuntime );\n// 创建一个 StatefulRuleSession\nStatefulRuleSession statefulRuleSession\
+  \ =\n(StatefulRuleSession) ruleRuntime.createRuleSession( uri,\nnew HashMap(),\n\
+  RuleRuntime.STATEFUL_SESSION_TYPE );\nSystem.out.println( \"已获取有状态规则会话: \" + statefulRuleSession\
+  \ );\n// 添加一些子句...\nArrayList input = new ArrayList();\ninput.add(new Clause(\"\
+  苏格拉底是人\"));\n// 向 statefulRuleSession 添加一个对象\nstatefulRuleSession.addObjects( input\
+  \ );\nSystem.out.println( \"已对有状态规则会话调用 addObject: \" + statefulRuleSession );\n\
+  statefulRuleSession.executeRules();\nSystem.out.println( \"已调用 executeRules\" );\n\
+  // 从 statefulRuleSession 中提取对象\nList results = statefulRuleSession.getObjects();\n\
+  System.out.println( \"调用 getObjects 的结果: \" +\nresults.size() + \" 条结果。\" );\n//\
+  \ 遍历结果\nIterator itr = results.iterator();\nwhile(itr.hasNext()) {\nObject obj =\
+  \ itr.next();\nSystem.out.println(\"找到子句: \"+obj.toString());\n}\n// 释放 statefulRuleSession\n\
+  statefulRuleSession.release();\nSystem.out.println( \"已释放有状态规则会话。\" );\n```\n\n\
+  #### DTrules\n\n```\nString path = Environment.getExternalStorageDirectory().getAbsolutePath()+\"\
+  /\";\nString decisionTable = \"Compute_Eligibility\";\n//String decisionTable =\
+  \ \"Calculate Individual Income\";\nRulesDirectory rd = new RulesDirectory(\npath,\n\
+  \"DTRules.xml\");\nRuleSet rs = rd.getRuleSet(\"KidAid\");\nIRSession session;\n\
+  try {\nExcel2XML.compile(path,\"DTRules.xml\",\"KidAid\",\"sdcard\");\nsession =\
+  \ rs.newSession();\nMapping mapping = session.getMapping();\nmapping.loadData(session,\
+  \ path+\"testfiles/\"+\"TestCase_001.xml\");\nsession.execute(decisionTable);\n\
+  printReport(session, System.out);\n} catch (RulesException e) {\n// TODO 自动生成的 catch\
+  \ 块\ne.printStackTrace();\n} catch (Exception e) {\n// TODO 自动生成的 catch 块\ne.printStackTrace();\n\
+  }\n}\n```\n\n#### Zilonis\n\n```\nString fileName = \"你的规则文件\";\nFileInputStream\
+  \ fstream = new FileInputStream(fileName);\nint lineCount = getLines(fileName);\n\
+  System.out.println(\"行数为 \"+ lineCount);\nDataInputStream dis = new DataInputStream(fstream);\n\
+  BufferedReader br = new BufferedReader(new InputStreamReader(dis));\nZilonisLexer\
+  \ lexer = new ZilonisLexer(dis);\nZilonisParser parser = new ZilonisParser(lexer);\n\
+  GenericEventHandler geh = new GenericEventHandler(rete);\nparser.setEventHandler(geh);\n\
+  try {\nwhile(lineCount-- > 0) {\nparser.statement();\n}\n} catch (RecognitionException\
+  \ e) {\n// TODO 自动生成的 catch 块\ne.printStackTrace();\n} catch (TokenStreamException\
+  \ e) {\n// TODO 自动生成的 catch 块\ne.printStackTrace();\n}\n} catch (FileNotFoundException\
+  \ e3) {\n// TODO 自动生成的 catch 块\ne3.printStackTrace();\n} catch (IOException e) {\n\
+  // TODO 自动生成的 catch 块\ne3.printStackTrace();\n}\n```\n\n#### Termware\n\n```\nString[]\
+  \ args = {\"iReduce\"};\nTermWare.getInstance().init(args);\nITermRewritingStrategy\
+  \ strategy=new FirstTopStrategy();\nIFacts facts=new DefaultFacts();\nTermSystem\
+  \ termSystem=new TermSystem(strategy,facts,TermWare.getInstance());\ntermSystem.addRule(\"\
+  x->y\");\ntermSystem.addRule(\"y->z\");\nTerm inputTerm=TermWare.getInstance().getTermFactory().createAtom(\"\
+  x\");\nTerm outputTerm=termSystem.reduce(inputTerm);\nif(outputTerm.getName().equals(\"\
+  z\")){\nLog.d(\"iReduce Termware\",\"成功\");\n}\n}}catch(TermWareException ex){\n\
+  Log.e(\"iReduce Termware\", \"错误:\"+ex.getMessage());\nex.printStackTrace();\n}}\n\
+  ```\n\n#### Roolie\n\n```\npublic class AbdominalRuleArgs extends RuleArgs{\npublic\
+  \ enum ArgField\n{\n用户\n, 右下腹\n, 左下腹\n, 疼痛 _ 恶心\n, 便血\n, 尿血\n};\npublic String getUser()\n\
+  {\nreturn getString(ArgField.用户);\n}\npublic void setUser(String user)\n{\nsetString(ArgField.用户,\
+  \ user);\n}\n}\npublic abstract class AbdominalRule implements Rule{\n@Override\n\
+  public boolean passes(RuleArgs ruleArgs) {\n// TODO 自动生成的方法存根\nif (false == (ruleArgs\
+  \ instanceof AbdominalRuleArgs))\n{\nLog.msg(\"ruleArgs 必须是 AbdominalRuleArgs 的实例\"\
+  );\nreturn false;\n}\n// 将 RuleArgs 强制转换为 AbdominalRuleArgs 并进行验证\nAbdominalRuleArgs\
+  \ abArgs = (AbdominalRuleArgs) ruleArgs;\n// 必须设置所有参数\nif (false == abArgs.isright_lower_abdomenSet()\n\
+  || false == abArgs.isleft_lower_abdomenSet()\n|| false == abArgs.isUserSet()\n||\
+  \ false == abArgs.ispain_nauseaSet()\n|| false == abArgs.isblood_in_stoolSet()\n\
+  || false == abArgs.isblood_in_urineSet()\n)\n{\nLog.msg(\"AbdominalRuleArgs 中并非所有参数都已设置.\"\
+  );\nreturn false;\n}\n// 如果所有参数都存在，则让子类进行评估\nreturn passes(abArgs);\n}\npublic void\
+  \ onCreate(Bundle savedInstanceState) {\nsuper.onCreate(savedInstanceState);\n//\
+  \ 将配置文件作为 InputStream 获取\nInputStream is =\nMain.class.getClassLoader().getResourceAsStream(\n\
+  \"roolie/abdominal/roolie-config.xml\");\nRulesEngine rules = new RulesEngine(is);\n\
+  // 创建一些规则参数（即“事实”）以针对某些用户进行测试\nList abdominalRuleArgsList = createRuleArgsToTest();\n\
+  // 检查每个创建的 BankingRuleArgs 的规则是否通过。\nfor (AbdominalRuleArgs ruleArgs : abdominalRuleArgsList)\n\
+  {\nmsg(\"\\n* 评估 \" + ruleArgs.getUser()+\" 的健康状况：\\n\");\nboolean isUltrasound\
+  \ =rules.passesRule(\"超声波\", ruleArgs);\nboolean isCTScan =rules.passesRule(\"CT\
+  \ 扫描\", ruleArgs);\nboolean isStoolTest1 =rules.passesRule(\"粪便检测 1\", ruleArgs);\n\
+  boolean isStoolTest2 =rules.passesRule(\"粪便检测 2\", ruleArgs);\nboolean isStoolTest3\
+  \ =rules.passesRule(\"粪便检测 3\", ruleArgs);\nboolean isNothing =rules.passesRule(\"\
+  无需检测\", ruleArgs);\n}\n}\n```\n\n\n\n#### OpenRules\n\n```java\nUserInput userInput\
+  \ = new UserInput(\"no\", \"yes\", \"yes\", \"no\", \"yes\");\nResponse response\
+  \ = new Response();\nString fileName = \"file:sdcard/openrules.config/DecisionOneOrTwo.xls\"\
+  ;\nDecision decision = new Decision(\"DecisionAbdominalPain\", fileName);\ndecision.put(\"\
+  userInput\", userInput);\ndecision.put(\"response\", response);\ndecision.execute();\n\
+  \npublic class UserInput {\n    String right_lower_abdomen;\n    String left_lower_abdomen;\n\
+  \    String pain_nausea;\n    String blood_in_stool;\n    String blood_in_urine;\n\
+  \n    public UserInput(String rla, String lla, String pn, String bis, String biu)\
+  \ {\n        this.right_lower_abdomen = rla;\n        this.left_lower_abdomen =\
+  \ lla;\n        this.pain_nausea = pn;\n        this.blood_in_stool = bis;\n   \
+  \     this.blood_in_urine = biu;\n    }\n\n    public String getRight_lower_abdomen()\
+  \ {\n        return right_lower_abdomen;\n    }\n\n    public void setRight_lower_abdomen(String\
+  \ right_lower_abdomen) {\n        this.right_lower_abdomen = right_lower_abdomen;\n\
+  \    }\n}\n\npublic class Response {\n    String comment;\n\n    public Response()\
+  \ {\n        this.comment = \"Helllllp\";\n    }\n\n    public String getComment()\
+  \ {\n        return comment;\n    }\n\n    public void setComment(String s) {\n\
+  \        comment = s;\n    }\n\n    String[] products;\n\n    public String[] getProducts()\
+  \ {\n        if (products == null)\n            products = new String[0];\n    \
+  \    return products;\n    }\n\n    public void setProducts(String[] strings) {\n\
+  \        products = strings;\n    }\n\n    public String toString() {\n        StringBuffer\
+  \ buf = new StringBuffer(2500);\n        buf.append(\"Offered Products:\").append(\"\
+  \\n\");\n        for (int i = 0; i < getProducts().length; ++i) {\n            buf.append(\"\
+  \\t\").append(getProducts()[i]).append(\"\\n\");\n        }\n        if (comment\
+  \ != null)\n            buf.append(\"Comment: \").append(comment).append(\"\\n\"\
+  );\n        return buf.toString();\n    }\n}\n```\n\n#### JxBRE\n\n```java\npublic\
+  \ void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n\
+  \    bre = new BREImpl();\n    args = new String[]{ \"/data/data/\" + packageName\
+  \ + \"/files/abdominal.xml\" };\n    //args=\"-s D:\\\\android_training\\\\rules\\\
+  \\discount.xml\";\n    setContentView(R.layout.main);\n    copyCLPFiles(\"abdominal.xml\"\
+  );\n    copyCLPFiles(\"businessRules.xsd\");\n    AbdominalMainLoad(args);\n   \
+  \ Inputs order = new Inputs();\n    getTotal(order);\n}\n\nprivate void copyCLPFiles(String\
+  \ fileName) {\n    try {\n        File file = getFileStreamPath(fileName);\n   \
+  \     if (file.exists()) {\n            return;\n        } else {\n            InputStream\
+  \ myInput = getAssets().open(fileName);\n            OutputStream myOutput = new\
+  \ FileOutputStream(\n                \"/data/data/\" + getPackageName() + \"/files/\"\
+  \ + fileName);\n            byte[] buffer = new byte[1024];\n            int length;\n\
+  \            while ((length = myInput.read(buffer)) > 0) {\n                myOutput.write(buffer,\
+  \ 0, length);\n            }\n            myOutput.flush();\n            myOutput.close();\n\
+  \            myInput.close();\n        }\n    } catch (FileNotFoundException e)\
+  \ {\n        e.printStackTrace();\n    } catch (IOException e) {\n        e.printStackTrace();\n\
+  \    }\n}\n\npublic void AbdominalMainLoad(String[] args) {\n    try {\n       \
+  \ Document doc = loadFile(args[0]);\n        ((BREImpl) bre).addListener(this);\n\
+  \        ((BREImpl) bre).init(doc);\n    } catch (Exception e) {\n        System.err.println(\"\
+  Could not create document\");\n        e.printStackTrace();\n    }\n}\n\npublic\
+  \ void getTotal(Inputs aOrder) {\n    inp = aOrder;\n    BRERuleContext aBRC = bre.getRuleContext();\n\
+  \    aBRC.setFactory(BLOOD_IN_URINE, new BRERuleFactory() {\n        public Object\
+  \ executeRule(BRERuleContext aBrc, Map aMap, Object aStep) {\n            return\
+  \ inp.getBlood_in_urine();\n        }\n    });\n    aBRC.setFactory(BLOOD_IN_STOOL,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return inp.getBlood_in_stool();\n     \
+  \   }\n    });\n    aBRC.setFactory(RIGHT_LOWER_ABDOMEN, new BRERuleFactory() {\n\
+  \        public Object executeRule(BRERuleContext aBrc, Map aMap, Object aStep)\
+  \ {\n            return inp.getRight_lower_abdomen();\n        }\n    });\n    aBRC.setFactory(LEFT_LOWER_ABDOMEN,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return inp.getLeft_lower_abdomen();\n \
+  \       }\n    });\n    aBRC.setFactory(PAIN_NAUSEA, new BRERuleFactory() {\n  \
+  \      public Object executeRule(BRERuleContext aBrc, Map aMap, Object aStep) {\n\
+  \            return inp.getPain_nausea();\n        }\n    });\n    aBRC.setFactory(RECCTEST_BLOODURINE,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return DecisionString.getDecisionString(new\
+  \ String((String)aMap.get(TEST1)));\n        }\n    });\n    aBRC.setFactory(RECCTEST_RIGHTLOWER,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return DecisionString.getDecisionString(new\
+  \ String((String)aMap.get(TEST2)));\n        }\n    });\n    aBRC.setFactory(RECCTEST_LEFTLOWER,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return DecisionString.getDecisionString(new\
+  \ String((String)aMap.get(TEST3)));\n        }\n    });\n    aBRC.setFactory(NOTHING,\
+  \ new BRERuleFactory() {\n        public Object executeRule(BRERuleContext aBrc,\
+  \ Map aMap, Object aStep) {\n            return DecisionString.getDecisionString(new\
+  \ String((String)aMap.get(TEST4)));\n        }\n    });\n    bre.process(\"SET1\"\
+  );\n    bre.process(\"SET2\");\n    bre.process(\"SET3\");\n    bre.process(\"SET4\"\
+  );\n    if ((aBRC.getResult(RECCTEST_BLOODURINE)) != null) {\n        System.out.println((String)aBRC.getResult(RECCTEST_BLOODURINE).getResult());\n\
+  \    }\n    if ((aBRC.getResult(RECCTEST_RIGHTLOWER)) != null) {\n        System.out.println((String)aBRC.getResult(RECCTEST_RIGHTLOWER).getResult());\n\
+  \    }\n    if ((aBRC.getResult(RECCTEST_LEFTLOWER)) != null) {\n        System.out.println(aBRC.getResult(RECCTEST_LEFTLOWER).getResult());\n\
+  \    }\n    if (aBRC.getResult(NOTHING) != null) {\n        System.out.println(aBRC.getResult(NOTHING).getResult());\n\
+  \    }\n}\n```\n\n#### JEOPS\n\n```java\nfor (int i = 0; i < 100; i++) {\n    Fibonacci\
+  \ f = new Fibonacci(i);\n    FibonacciBase kb = new FibonacciBase(new PriorityConflictSet());\n\
+  \    kb.tell(f);\n    kb.run();\n    System.out.println(f.getN() + \" the number\
+  \ of the fibonacci series = \" + f.getValue());\n}\n```\n\n### 移植规则引擎时遇到的问题\n\n\
+  在尝试使用以下每个规则引擎编写规则时，我们发现了一些问题。读者应该留意这些问题。\n\n- **Jruleengine**：不支持 `OR` 运算符。\n- **Zilonis**：与\
+  \ CLIPS 不同，它不支持 `OR`、`defglobal` 或 `bind` 关键字。\n- **DTRules**：事实必须通过 XML 文件提供，因此在需要在运行时动态提供事实的环境中运行规则，既复杂又繁琐。\n\
+  - **Termware**：规则必须在代码本身中编写。\n- **Roolie**：需要开发过多的规则文件，并且每条规则都必须在单独的 Java 文件中编码。\n\
+  - **JxBRE**：`ElseIf` 在 XML 文件中无法工作（可以使用 `Set` 替代）。在规则文件 (`.xml`) 的逻辑部分中，只有一个 `If`\
+  \ 能正常工作。在 `If` 元素之前，需要存在 `{Rule, Log, Logic, While, InvokeSet, ForEach, Retract}`\
+  \ 中的任意一个。\n- **JEOPS**：用作函数调用参数的变量，必须在规则文件本身中（通过调用相应的 setter 方法）进行初始化。\n- **OpenRules**：没有说明如何编写规则的文档或自述文件。\n\
+  \n\n\n### 其他规则引擎的移植问题\n\n读者在移植其他规则引擎时可能会遇到以下问题：\n\n* **Drools**：转换为 dalvik 格式时，Eclipse\
+  \ 内存溢出（500 MB）。增加 Eclipse 的内存未能解决该问题。读者可尝试使用高端机器（RAM > 4 GB）。\n* **JLisa**：在 Android\
+  \ 上运行时，会抛出堆栈溢出问题。读者可联系 JLisa 支持团队寻求解决方案。\n* **Take**：运行时需要 Java 编译器。读者可联系 Take 支持团队获取\
+  \ Android 编译器支持。\n* **Jess**：开发许可证费用约为 15,000 美元。\n* **OpenRules**：\n  * `poi-3.6-20091214.jar`\
+  \ 中的方法 `org.apache.poi.hssf.usermodel.HSSFSheet.autoSizeColumn` 使用了类 `java.awt.font.FontRenderContext`，而该类在\
+  \ Android 中不可用。\n  * 方法 `com.googlecode.openbeans.StandardBeanInfo.getIcon` 使用了类\
+  \ `java.awt.image`，而该类在 Android 中不可用。\n  * 在处理决策时，垃圾回收会运行多次，表明内存使用量巨大。\n  * 未收到\
+  \ OpenRules 公司关于其商业许可证类型及费用的任何回复。\n\n## 4\\. 移动平台规则引擎比较\n\n本章包含用于移动平台开发的规则引擎的比较。\n\
+  \n### 规则引擎总结\n\n在所有为 Android 评估的九个规则引擎中，**CLIPS** 无疑是最出色的，因为它速度最快、免费，并且支持自己的规则编程语言。其次是\
+  \ **OpenRules**，其规则可以轻松地在 Excel 表中编写；然后是 **JEOPS**，因为算法可以很容易地表示。接下来是 **Termware**，因为将规则与应用程序集成非常直接。由于其可移植性、可扩展性和低成本，CLIPS\
+  \ 已被政府、私营企业和大学广泛使用。CLIPS 使得将人工智能嵌入到各种计算环境中的广泛应用成为可能。\n\n### 规则引擎比较\n\n表 4-1 显示了规则引擎的比较。\n\
+  \n**表 4-1** 本书中规则引擎的比较\n\n| 规则引擎 | 许可证 | 语言 | 规则语法 | 内存 | 推理 | 多线程 | 可扩展性 | 评分（1\
+  \ 到 5） |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| CLIPS | 公共领域\
+  \ | C | 类似 LISP | 83 MB | Rete | 否 | 是 | 4 |\n| Jruleengine | LGPL | Java | *条件-动作*模式\
+  \ | .03 MB | Rete | 否 | 是 | 3 |\n| DTRules | Apache 2.0 | Java | Excel 表 | .54 MB\
+  \ | 专有 | 是 | 否 | 4 |\n| Zilionis | GPL | Java | CLIPS | .68 MB | Rete | 是 | 是 |\
+  \ 3 |\n| Termware | 特殊 | Java | Java | .19 MB | 模式匹配 | 是 | 是 | 4 |\n| Roolie | LGPL\
+  \ | Java | XML | .59 MB | 专有 | 否 | 是 | 3 |\n| OpenRules | GPL/商业 GPL | Java | Excel\
+  \ 表 | 2 MB | 专有 | 是 | 否 | 4 |\n| JxBRE | GPL | Java | XML | 1.44 MB | 专有 | 否 | 是\
+  \ | 3 |\n| JEOPS | LGPL | Java | *条件-动作*模式 | .03 MB | Rete | 否 | 是 | 4 |\n\n## 5\\\
+  . 知识应用开发中的需求与挑战\n\n知识管理被定义为为一个系统或组织创建、共享、使用和管理信息。\n\n在本章中，我们将讨论两个知识管理系统——**SmartAppGen**\
+  \ 和 **AutoQuiz** 的需求、挑战、设计与实现。\n\n### 介绍 SmartAppGen 和 AutoQuiz\n\nSmartAppGen 能够从表示为\
+  \ XML、Excel 表、PPT 等形式的结构化知识中自动生成相应的知识应用。例如，假设一名卫生工作者需要接受为期数周的培训。在培训中，他们需要阅读数百页的知识材料。如果能够利用现有知识自动构建一个知识应用并安装到他们的智能手机上，会怎么样？培训时间可以大幅缩短；此外，卫生工作者也不必记住数百页的文档。他们也无需时不时地翻阅打印的指南来执行日常工作。因此，很明显，知识应用可以提高医疗服务的效率和准确性。\n\
+  \n并非所有的知识都有良好的格式，以至于可以自动开发并安装到智能手机上。因此，人们仍然需要接受培训并记住培训中学到的东西。当知识（例如培训材料、演示文稿等）以文本格式提供时，AutoQuiz\
+  \ 就派上了用场。它可以从非结构化的知识中生成有意义的测验。在任何培训或演示结束时，可以自动生成一个测验，并要求所有参与者参加。然后，他们的分数会立即计算出来。这达到了三个目的：人们会在培训中更加警觉，培训师可以立即获得关于其培训效果的反馈，并且培训师/经理可以知道哪些人在理解上有所欠缺，并采取适当措施让他们达到标准。本章将帮助您自动化公司或机构的知识管理。\n\
+  \n### 开发知识应用\n\n要设计、开发和部署一个知识应用，需要执行图 5-1 中所示的步骤。\n\n![A459602_1_En_5_Fig1_HTML.jpg](img/A459602_1_En_5_Fig1_HTML.jpg)\n\
+  \n*图 5-1 知识应用开发*\n\n以下是知识应用相关的核心需求与挑战：\n\n* 将知识表示为数字化格式并将其转换为规则是一个繁琐且耗时的过程。\n* 用户界面可能因用户画像而异。例如，对于精通技术的用户，用户界面可以是基于文本的；对于半文盲用户，可以是基于图标的；对于文盲用户，可以是基于语音的。\n\
+  * 数据持久化和维护很繁琐，如果管理不当，可能导致应用程序中断服务。\n* 同一个应用程序可能需要为多个手机平台开发，例如 Android、iOS 等。\n*\
+  \ 常见功能在这种移动应用程序中一再被重复实现，浪费了数千小时的开发时间。\n* 可能需要支持多种语言。\n* 可能需要根据用户画像定制应用程序的安装包。\n\
+  * 知识应用应能通过无线方式进行升级。\n\n让我们在下一章中看看 SmartAppGen 如何自动生成知识应用。我们还将探讨知识应用开发者面临的挑战。\n\n"
+- '# 第二部分：SmartAppGen：从结构化知识自动生成知识应用
+
+
+  ## 6\. SmartAppGen 的设计与实现
+
+
+  SmartAppGen 是一套框架，旨在帮助从结构化知识中自动生成基于知识的应用程序。结构化知识可以以多种格式提供，例如 Excel 表、文本和 XML。
+
+
+  * 从文档中提取问题、规则、信息等内容，并保存为 XML。
+
+  * 根据生成的 XML，生成相应的 Android 布局、Android Activity、CLIPS 规则和决策引擎。
+
+  * 各种框架，如语音转文本、音频捕获器、照片捕获器、上传管理器等，也会自动嵌入到项目中。
+
+  * 生成的代码框架被整合在一起，从一个新的 Android 项目生成一个功能完整的 Android 项目。
+
+
+
+
+  '
+- '# 7. SmartAppGen 的架构
+
+
+  我们为 SmartAppGen 设计了一个包含高层架构和底层架构的三层架构。见图 7-1。
+
+
+  ![A459602_1_En_7_Fig1_HTML.jpg](img/A459602_1_En_7_Fig1_HTML.jpg)
+
+
+  图 7-1
+
+
+  SmartAppGen 高层架构
+
+
+  一个复杂的知识应用需要支持社交网络、图像和语音处理、无线升级能力以及持久化管理功能。因此，SmartAppGen 必须能够生成此类功能。
+
+
+  基于应用工作流，我们为 SmartAppGen 设计了一个底层架构。
+
+
+  图 7-2 描述了 SmartAppGen 在表示层、应用层和数据层中的所有组件。
+
+
+  ![A459602_1_En_7_Fig2_HTML.jpg](img/A459602_1_En_7_Fig2_HTML.jpg)
+
+
+  图 7-2
+
+
+  底层架构
+
+
+  现在让我们详细描述每个组件。
+
+
+  ### 模型代码生成器
+
+
+  此框架用于生成代表知识/指南模型的代码（例如 `GuidelineData.java`）。
+
+
+  ### 视图代码生成器
+
+
+  此框架用于生成知识/指南的用户界面代码（例如 `Guidelinescreen.java`）。
+
+
+  ### 控制器代码生成器
+
+
+  此框架用于生成知识指南的控制器代码（例如 `Mainactivity.java`）。
+
+
+  ### 问题提取器
+
+
+  此模块提取指南类型（决策型/信息型）、问题、答案类型和答案值，并自动构建 `question.xml`。
+
+
+  ### 上下文管理器生成器
+
+
+  此框架生成与知识应用相对应的上下文管理器。
+
+
+  ### 规则生成器
+
+
+  此框架将数字化指南转换为规则。对于每条指南，会生成一组规则文件。在 `DTRules` 规则引擎中，决策在 Excel 工作表中表示。`Excel2XML` 将决策转换为可由规则引擎处理的
+  XML 文件。在 `CLIPS` 中，可以根据注册信息和问题轻松生成规则头文件。开发者只需编写规则的其余部分即可。
+
+
+  ### 语言翻译器
+
+
+  此框架为将应用文本翻译成多种语言提供支持。
+
+
+  ### 持久化助手
+
+
+  此框架有助于将应用数据持久化到本地数据库。
+
+
+  ### 交互到 XML 转换器
+
+
+  此框架将用户交互（例如模型）转换为 XML。
+
+
+  ### 规则升级器
+
+
+  此框架将有助于通过无线方式升级规则。
+
+
+  ### Cwac-updater
+
+
+  此开源框架 [1] 可用于通过无线方式升级 Android 应用。
+
+
+  ### 语音转文本转换器
+
+
+  此框架将用户的语音转换为文本。
+
+
+  ### 文本转语音转换器
+
+
+  此框架将帮助将文本转换为语音，并帮助应用通过语音与用户交互。
+
+
+  ### 照片捕获器
+
+
+  这是一个用于捕获照片的通用框架。
+
+
+  ### 音频捕获器
+
+
+  这是一个用于捕获音频（用于录音或任何其他目的）的通用框架。
+
+
+  ### 聊天框架
+
+
+  此框架支持聊天功能。
+
+
+  ### 边缘智能框架
+
+
+  此框架需要建立在规则引擎之上，并帮助应用轻松地与规则引擎通信。
+
+
+  ### REST 客户端
+
+
+  此框架将帮助应用使用任何符合 `JAX-RS` 规范的服务器公开的 RESTful Web 服务。
+
+
+  ### 安装管理器
+
+
+  此框架确保根据用户的配置文件将适当的组件和附件打包到可安装的文件中。
+
+
+  '
+- '# 8. 从知识生成知识应用的示例
+
+
+  图 8-1 展示的知识可用于根据患者的症状推导出患者需要接受的一系列医学检查。
+
+
+  ![A459602_1_En_8_Fig1_HTML.jpg](img/A459602_1_En_8_Fig1_HTML.jpg)
+
+
+  图 8-1
+
+
+  Excel 工作表中的知识
+
+
+  根据图 8-1 中所示的 Excel 工作表，生成相应的 Android 布局和 `CLIPS` 规则文件。
+
+
+  ### 与知识对应的 Android 布局
+
+
+  为完整起见，此处提供 Android 布局 XML。
+
+
+  ```
+
+  ----snipped----------------------------------------------------
+
+  ```
+
+
+  图 8-2 描绘了与上述布局代码对应的 Android 屏幕。
+
+
+  ![A459602_1_En_8_Fig2_HTML.jpg](img/A459602_1_En_8_Fig2_HTML.jpg)
+
+
+  图 8-2
+
+
+  生成的 Android 屏幕
+
+
+  使用以下方法自动生成 XML 文件，结果如下：
+
+
+  ![A459602_1_En_8_Figa_HTML.jpg](img/A459602_1_En_8_Figa_HTML.jpg)
+
+
+  使用该 XML，自动生成一个 `CLIPS` 规则。生成 `CLIPS` 规则的代码片段如下：
+
+
+  ![A459602_1_En_8_Figc_HTML.jpg](img/A459602_1_En_8_Figc_HTML.jpg)
+
+
+  ![A459602_1_En_8_Figb_HTML.jpg](img/A459602_1_En_8_Figb_HTML.jpg)
+
+
+  ### 与知识对应的 CLIPS 规则文件
+
+
+  建议读者阅读 `CLIPS` 基本编程指南，以更好地掌握 `CLIPS` 规则语法 [23]。
+
+
+  ```
+
+  (defglobal ?*Chief_Complaint__Chest_Pain_DecisionString* = (create$))
+
+  (deftemplate Chief_Complaint__Chest_Pain_message
+
+  (slot decisionString)
+
+  )
+
+  (deftemplate Chief_Complaint__Chest_Pain_data
+
+  (slot pain_exertion)
+
+  (slot pain_radiate_neck_jaw_arms)
+
+  (slot pain_squeezing_tightness_quality)
+
+  (slot it_accompanied_shortness_breath_sweating_feeling_clamminess_nausea_indigestion)
+
+  (slot If_pain_anginal_nature_it_last_more_than_15_30_minutes)
+
+  (slot Can_pain_be_reproduced_movement_arms_torso_pushing_certain_area_chest)
+
+  (slot pain_made_worse_deep_breathing)
+
+  (slot pain_brought_eating_lying_down_it_relieved_antacids)
+
+  )
+
+  (defrule print_message_Chief_Complaint__Chest_Pain
+
+  (Chief_Complaint__Chest_Pain_message(decisionString ?a))
+
+  =>
+
+  (bind ?*Chief_Complaint__Chest_Pain_DecisionString* (create$ ?*Chief_Complaint__Chest_Pain_DecisionString*
+  ?a))
+
+  )
+
+  (defrule Chief_Complaint__Chest_Pain_EKG
+
+  (or
+
+  (Chief_Complaint__Chest_Pain_data(pain_exertion yes))
+
+  (Chief_Complaint__Chest_Pain_data(pain_radiate_neck_jaw_arms yes))
+
+  (Chief_Complaint__Chest_Pain_data(pain_squeezing_tightness_quality yes))
+
+  (Chief_Complaint__Chest_Pain_data(it_accompanied_shortness_breath_sweating_feeling_clamminess_nausea_indigestion
+  yes))
+
+  (Chief_Complaint__Chest_Pain_data(If_pain_anginal_nature_it_last_more_than_15_30_minutes
+  yes))
+
+  )
+
+  =>
+
+  (assert (Chief_Complaint__Chest_Pain_message(decisionString "EKG")))
+
+  )
+
+  (defrule Chief_Complaint__Chest_Pain_No_Test
+
+  (Chief_Complaint__Chest_Pain_data(pain_exertion no))
+
+  (Chief_Complaint__Chest_Pain_data(pain_radiate_neck_jaw_arms no))
+
+  (Chief_Complaint__Chest_Pain_data(pain_squeezing_tightness_quality no))
+
+  (Chief_Complaint__Chest_Pain_data(Can_pain_be_reproduced_movement_arms_torso_pushing_certain_area_chest
+  no))
+
+  (Chief_Complaint__Chest_Pain_data(pain_made_worse_deep_breathing no))
+
+  (Chief_Complaint__Chest_Pain_data(pain_brought_eating_lying_down_it_relieved_antacids
+  yes))
+
+  (Chief_Complaint__Chest_Pain_data(it_accompanied_shortness_breath_sweating_feeling_clamminess_nausea_indigestion
+  no))
+
+  (Chief_Complaint__Chest_Pain_data(If_pain_anginal_nature_it_last_more_than_15_30_minutes
+  no))
+
+  =>
+
+  (assert (Chief_Complaint__Chest_Pain_message(decisionString "No Test")))
+
+  )
+
+  (defrule Chief_Complaint__Chest_Pain_chest_x-ray
+
+  (or
+
+  (Chief_Complaint__Chest_Pain_data(Can_pain_be_reproduced_movement_arms_torso_pushing_certain_area_chest
+  yes))
+
+  (Chief_Complaint__Chest_Pain_data(pain_made_worse_deep_breathing yes))
+
+  )
+
+  =>
+
+  (assert (Chief_Complaint__Chest_Pain_message(decisionString "chest x-ray")))
+
+  )
+
+  ```
+
+
+
+
+  ### 知识应用的处理流程
+
+
+  当用户在知识应用中选择“胸痛”指南时，系统会呈现一系列问题（图 8-2）。用户回答这些问题时，上下文管理器会构建一个 CLIPS `assert` 字符串，并将其断言到规则引擎中。生成的
+  CLIPS 规则文件在应用启动时已加载到规则引擎中。规则引擎会根据规则文件和用户输入得出结果。随后，上下文管理器从规则引擎中读取结果，并将其发送至主活动界面进行显示。
+
+
+  ### 知识应用支持功能的生成
+
+
+  根据注册和设置文件（图 8-3 与 8-4）中的信息，`SmartAppGen` 会自动为应用生成相应的 Android 布局和活动文件。
+
+
+  ![A459602_1_En_8_Fig4_HTML.jpg](img/A459602_1_En_8_Fig4_HTML.jpg)
+
+
+  图 8-4 知识管理应用设置
+
+
+  ![A459602_1_En_8_Fig3_HTML.jpg](img/A459602_1_En_8_Fig3_HTML.jpg)
+
+
+  图 8-3 用户注册信息
+
+
+  图 8-5 和 8-6 展示了生成的应用。
+
+
+  ![A459602_1_En_8_Fig6_HTML.jpg](img/A459602_1_En_8_Fig6_HTML.jpg)
+
+
+  图 8-6 生成的设置界面
+
+
+  ![A459602_1_En_8_Fig5_HTML.jpg](img/A459602_1_En_8_Fig5_HTML.jpg)
+
+
+  图 8-5 生成的注册界面
+
+
+  ### 生成数据库辅助类
+
+
+  `SmartAppGen` 还能自动生成数据库辅助类。该类用于持久化应用信息。数据库设置如图 8-7 所示。
+
+
+  ![A459602_1_En_8_Fig7_HTML.jpg](img/A459602_1_En_8_Fig7_HTML.jpg)
+
+
+  图 8-7 知识应用数据库设置
+
+
+  以下是生成的数据库辅助类的代码片段：
+
+
+  ```
+
+  public class example1_DataHelper {
+
+  private static final String DATABASE_NAME = "example1";
+
+  private static final int DATABASE_VERSION = 4;
+
+  private static final String TABLE_REG1 = "reg1";
+
+  private Context context;
+
+  private SQLiteDatabase db;
+
+  public example1_DataHelper(Context context) {
+
+  this.context = context;
+
+  OpenHelper openHelper = new OpenHelper(this.context);
+
+  this.db = openHelper.getWritableDatabase();
+
+  }
+
+  public long insert_reg1(String values)
+
+  {
+
+  long returnValue = 1;
+
+  String executeString = "insert into " + TABLE_REG1 + " values(" + values +");";
+
+  Log.d("insert",executeString);
+
+  try {
+
+  db.execSQL(executeString);
+
+  }
+
+  catch(SQLiteException e) {
+
+  Log.e("Database error while inserting",e.toString());
+
+  returnValue = 0;
+
+  }
+
+  return returnValue;
+
+  }
+
+  public long update_reg1(String pk, String Age, String Weight, String Gender, String
+  Area, String Pincode)
+
+  {
+
+  long returnValue = 1;
+
+  String executeString = "update " + TABLE_REG1 + " set "+ "Age = ''" + Age + "'',"
+  + "Weight = ''" + Weight + "''," + "Gender = ''" + Gender + "''," + "Area = ''"
+  + Area + "''," + "Pincode = ''" + Pincode + "''"  + " where Id = ''" + pk + "''
+  ;";
+
+  Log.d("update",executeString);
+
+  try {
+
+  db.execSQL(executeString);
+
+  }
+
+  catch(SQLiteException e) {
+
+  Log.e("Database error while updating",e.toString());
+
+  returnValue = 0;
+
+  }
+
+  return returnValue;
+
+  }
+
+  public String getName_reg1(String pk)
+
+  {
+
+  String str = "";
+
+  Cursor cursor = this.db.query (TABLE_REG1, new String[] {"Name"}, "Id" + "="+"?",
+  new String[]{pk}, null, null, "ID desc");
+
+  if (cursor.moveToFirst())
+
+  {
+
+  str = cursor.getString(0);
+
+  }
+
+  if (cursor != null && !cursor.isClosed()) {
+
+  cursor.close();
+
+  }
+
+  return str;
+
+  }
+
+  public void deleteAll_reg1()
+
+  {
+
+  this.db.delete(TABLE_REG1, null, null);
+
+  }
+
+  public List selectAll_reg1()
+
+  {
+
+  Listlist = new ArrayList();
+
+  Cursor cursor = this.db.query (TABLE_REG1, new String[] { "Id" }, null, null, null,
+  null, "ID desc");
+
+  if (cursor.moveToFirst()) {
+
+  do {
+
+  list.add(cursor.getString(0));
+
+  } while (cursor.moveToNext());
+
+  }
+
+  if (cursor != null && !cursor.isClosed()) {
+
+  cursor.close();
+
+  }
+
+  return list;
+
+  }
+
+  public void prune(String tableName, String condition)
+
+  {
+
+  String sql="delete from "+ tableName + " where " + condition;
+
+  db.rawQuery(sql, null).moveToFirst();
+
+  }
+
+  public void pruneAll(String[] tableName, String[] condition)
+
+  {
+
+  for(int i=0;i<tableName.length;i++){
+
+  prune(tableName[i],condition[i]);
+
+  }
+
+  }
+
+  private static class OpenHelper extends SQLiteOpenHelper {
+
+  OpenHelper(Context context) {
+
+  super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+  }@Override
+
+  public void onCreate(SQLiteDatabase db) {
+
+  try {
+
+  String execStr;
+
+  execStr = "CREATE TABLE " + TABLE_REG1 + " (Id varchar(60) not null, Name varchar(60)
+  not null, Age int(3) not null, Weight int(3) not null, Gender varchar(60) not null,
+  Area varchar(60) not null, Pincode int(6) not null, PRIMARY KEY (Id) )";
+
+  Log.d("example1_DataHelper \n",execStr);
+
+  db.execSQL(execStr);
+
+  }catch(SQLiteException e) {
+
+  Log.e("Database error",e.toString());
+
+  }
+
+  }
+
+  @Override
+
+  public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+  Log.w("Example", "Upgrading database, this will drop tables and recreate.");
+
+  db.execSQL("DROP TABLE IF EXISTS " + TABLE_REG1);
+
+  onCreate(db);
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  ### 如何使用 SmartAppGen
+
+
+  创建一个新的 Android 项目，提供主 Android 布局文件、主活动 Java 文件、`AndroidManifest.xml`、包含知识的 Excel
+  表/文本文件，以及应用配置作为运行时参数传递给 `SmartAppGen` 并运行。所有生成的代码以及作为 `SmartAppGen` 一部分开发的可复用框架都会被复制到
+  Android 项目中。只需刷新项目，执行清理构建并运行，您的知识应用即可部署。
+
+
+  ### SmartAppGen 的优势
+
+
+  以下优势显而易见：
+
+
+  * `SmartAppGen` 加速框架可将任何知识应用的开发时间显著缩短 30% 至 50%。
+
+  * 通用框架（音频捕获器、文本转语音、照片捕获器、上传管理器、规则更新器等）可在任何 Android 项目中复用。
+
+
+  '
+- '# 9. AutoQuiz：从非结构化知识自动生成测验
+
+
+  在本章中，我们将展示如何利用自然语言处理（NLP）技术，从知识中自动构建测验应用。NLP 提供了一种处理、理解并推导人类语言含义的方法。苹果的 SIRI、谷歌的
+  Home、亚马逊的 Echo 以及微软的 Cortana 都是 NLP 系统的几个例子。
+
+
+  为了验证用户对培训内容的学习效果，用户需要参加与培训材料相对应的测试，并且分数需达到公司或机构设定的阈值。
+
+
+  此类测试中最耗时的环节之一就是问题的生成。问题通常需要由该领域的专家手动构建。此外，根据问题的性质和用户数量，答案验证也同样耗时。
+
+
+  `AutoQuiz` 通过自动化生成问题来解决这一难题。我们从培训材料中提取知识，然后通过向用户呈现测验来验证其学习效果。
+
+
+  `AutoQuiz` 接受基于文本的培训材料作为输入，这在大多数情况下是可行的，因为文本可以轻松从 PPT、PDF、Word 文档等各类文件中提取，并输入到 `AutoQuiz`
+  知识管理系统中。
+
+
+  `AutoQuiz` 系统包含两个组件：问题生成器以及用于显示测验和用户分数的知识应用。
+
+
+
+
+  ### 题目生成器
+
+
+  该程序接收一个包含文本内容的 `.txt` 文件，并输出一个包含题目、答案、选项等内容的 XML 文件。启动程序后，用户输入文章的**文件名**（如果不在当前目录，需包含路径名）。程序使用
+  Stanford NER（命名实体识别）标注器来标记以下类别的词语：时间、地点、组织、人物、货币、百分比和日期。
+
+
+  随后，程序使用开源的 Stanford POS（词性）标注器 [16] v.3.2.0。它采用 Penn Treebank 标记集 API [20] 根据词语的词性进行标注。使用此
+  API 运行经过训练的标注器需要占用 60–200 MB 内存，相比其他标注器（如 `OpenNLP` [17]）要低得多，后者使用默认训练器运行时约需占 3–4
+  GB 内存。然而，`OpenNLP` 还提供了其他工具，例如句子分割和命名实体提取，这些功能虽然 Stanford POS 标注器不支持，但对我们的应用却很有用。词语标记完成后，被标记的词语会存储到一个文本文件中，程序会解析该文件中的每个句子，并将其转换为以下四种不同类型的题目：
+
+
+  *   **关键词题：** 这类题是“填空”题，没有选项，正确答案是句子中的某个关键词。这个关键词是由 POS 标注器识别出的专有名词。一般来说，专有名词是很好的关键词，因为它们通常是句子的主语。未来的扩展方向是利用
+  `OpenNLP` 工具来检测句子的核心词，并将其作为关键词。
+
+  *   **名词题：** 这是另一种“填空”题，通过 POS 标注器识别出名词，但会为答案提供选项。选项来自其他句子中的名词。这类题目的质量关键在于题目与选项的语义合理性与相关性。我们计划为选项提供属性，并在选择选项时，扫描所有答案的池子，寻找具有相同属性的选项。例如：输入句子：“一位工程师正试图开发轻量级、‘吸气式’的高超音速飞行器，这种飞行器能像火箭一样高速飞行，同时从大气中获取氧气。”
+  名词：工程师 属性：职业 我们使用 `WordNet` [18] 来寻找它在职业层级树中的同类词，例如：科学家、电工、技术专家等。
+
+  *   **探究式问题（第一类）：** 这类问题带有探究性质。例如：输入句子：“杰克是那个开车的人。” 问题：“谁是那个开车的人？” 这类问题会寻找第三人称、过去时态的动词。这是因为大多数描述性文章都使用第三人称过去的句子。此外，答案必须包含一个专有名词，以避免像“它躺在桌子上”这样琐碎的情况。如果没有这个规则，答案就会是“它”，这并非一个有意义的问题。可以使用命名实体识别软件（例如
+  Stanford 命名实体识别器 [21] 或 `OpenNLP` 工具 [17]）来细化“谁/什么”这类问题，将其细化为“谁”、“什么”（甚至“何时”、“多少钱”等）。
+
+  *   **探究式问题（第二类）：** 这类问题与第一类探究式问题类似。区别在于疑问词不是放在句子开头，而是放在句子末尾。例如：输入句子：“杰克是那个开车的人。”
+  问题：“杰克是那个开什么的人？” 类似地，可以使用命名实体识别器来细化问题的措辞。
+
+
+  这些问题会按照以下格式存储在 XML 文件中：
+
+
+  ```
+
+  question
+
+  RadioButton/Text
+
+  answer
+
+  option1:option2...
+
+  ```
+
+
+  该 XML 文件存储于第二个项目——安卓应用项目中。具体位置由用户在第一个项目中输入。该字段使用凯撒密码的一种简单变体进行加密：在 ASCII 表中，所有字符都按某个索引值进行移位。这样，如果用户试图从已安装的应用程序中提取文件，答案就不会直接可见。
+
+
+  ### 测验应用
+
+
+  该应用读取 XML 文件，并为每个文件创建一个独立的测验。用户可以设定每页的题目数量。进度条会指示测验已完成的比例。测验结束时，用户会得到该次测验的分数。图 9-1
+  至 9-3 的截图将帮助你更好地理解应用的运行流程。
+
+
+  ![A459602_1_En_9_Fig3_HTML.jpg](img/A459602_1_En_9_Fig3_HTML.jpg)
+
+
+  图 9-3
+
+
+  测验分数
+
+
+  ![A459602_1_En_9_Fig2_HTML.jpg](img/A459602_1_En_9_Fig2_HTML.jpg)
+
+
+  图 9-2
+
+
+  测验题目
+
+
+  ![A459602_1_En_9_Fig1_HTML.jpg](img/A459602_1_En_9_Fig1_HTML.jpg)
+
+
+  图 9-1
+
+
+  AutoQuiz 应用
+
+
+  ### AutoQuiz 的优点
+
+
+  我们可以轻松地观察到 AutoQuiz 系统的以下优点：
+
+
+  *   基于培训/演示材料自动生成测验，节省了手动准备测验的数小时工作量
+
+  *   自动验证测验答案，再次节省了手动验证答案的数小时工作量
+
+  *   使培训/演示更加高效，因为参加培训的人必须回答 AutoQuiz 生成的题目，他们及其经理可以立即知道分数
+
+  *   衡量培训师和培训材料的有效性
+
+
+  ### 已知问题
+
+
+  对于 AutoQuiz 系统，我们仍需解决以下问题：
+
+
+  *   在“填空”和“名词”题中，选项有时可能不具合理性，使得应试者即使不理解文章内容也能轻松答对。我们计划通过为选项池中的词语标记属性来解决此问题。
+
+  *   如果两类探究式问题只使用“谁/什么”，会变得过于单调和机械。目前使用这些词是因为 AutoQuiz 无法识别句子中的主语。
+
+  *   句子焦点：当前的原型系统无法识别句子的主语，从而无法生成更有意义的问题。例如：输入句子：“只有那个小偷偷戴黑帽子。” 这里的焦点是“小偷”，而不是帽子的颜色。合适的问题：“谁戴了黑帽子？”
+  不太合适的问题：“那个小偷戴了什么颜色的帽子？”
+
+  *   知识提取：当前的原型系统仅能浅层提取知识，而无法深入。它们没有使用规则来存储知识，因此无法用于进行推理。例如：输入：“乔是约翰的兄弟。约翰是杰克的兄弟。”
+  可能的推理结果：“乔是杰克的兄弟。”
+
+
+  在下一节中，我们将提出这些问题的可能解决方案。
+
+
+
+
+  '
+- '# 未来工作
+
+
+  命名实体识别软件可用于细化“谁/什么”类问题，使其更具针对性。这将有助于用户理解问题，同时提升问题质量。这些数据可用于生成高度专业化的问题，例如：谁、什么、何时、多少等。此外，它还将有助于识别句子的主语。
+
+
+  另一项可改进之处是允许出题者选择用于生成问题的句子，而非使用所有句子。一个关键标准可以是句子中是否存在对问题至关重要的特定词性标注的词。
+
+
+  此外，复合句既可以拆分为两个独立的句子，也可以直接用作问答对。例如：
+
+
+  输入句子：
+
+
+  - “乔去了厨房，因为他饿了。”
+
+  - (“乔去了厨房。”) + (“他饿了。”)
+
+  - 可能的问题：
+
+  - “谁去了厨房？”
+
+  - “谁饿了？”
+
+  - “乔为什么去厨房？”（答案：“因为他饿了”）
+
+
+  然而，这类问题要求程序对句子有更深的理解。第一步应以能够识别句子主干和修饰部分的方式来解析句子。可以使用`OpenNLP`解析器来确定句子结构。例如：
+
+
+  输入句子：“敏捷的棕色狐狸跳过了那只懒狗。”
+
+
+  输出：
+
+
+  ```
+
+  (TOP
+
+  (NP
+
+  (NP
+
+  (DT The)
+
+  (JJ quick)
+
+  (JJ brown)
+
+  (NN fox)
+
+  (NNS jumps)
+
+  )
+
+  (PP
+
+  (IN over)
+
+  (NP
+
+  (DT the)
+
+  (JJ lazy)
+
+  (NN dog)
+
+  )
+
+  )
+
+  (. .)
+
+  ```
+
+
+  `PP`、`IN`、`JJ`等是来自 Penn 树库标签集[20]的词性标注。以这种方式解析的句子有助于计算机理解句子的结构，并帮助它们生成比简单操作原始句子更具创造性的问题。
+
+
+  此外，以这种方式解析的句子有助于从句子中提取知识。知识可以以规则的形式存储（例如，`CLIPS`[19]是一种规则引擎）。这些规则可以作为谓词，用于推导结论。这些结论将作为新规则存储，也可以输出为问题。
+
+
+  企业需要规划知识管理自动化。“知识应用”可以从现有的结构化知识中自动生成。此类应用可以帮助知识工作者更好地完成日常工作。这将显著减少培训人员所需的时间，并提高知识工作者的效率和准确性。
+
+
+  在培训员工掌握非结构化知识方面，公司每年花费数百万美元；许多培训效果不佳，白白浪费了这些资金。实施 AutoQuiz 可以确保员工真正理解培训或演示中分享的知识。项目经理可以评估培训或演示的效果（例如，哪些培训是重复的，哪位员工学习慢，哪位培训师效果不佳等），并采取相应措施。
+
+
+  '
+- '# iEmergency
+
+
+  在大多数发展中国家，如果一个人遇到紧急情况——例如被抢劫、被殴打、被骚扰、在陌生地方迷路、遭遇事故、需要安全指南等——几乎都难以及时获得帮助。一个人处于紧急情况的时间越长，失去生命或财产的可能性就越大。在印度这样的国家，警察与民众的比例为
+  125:100000，而且在高峰时段道路严重拥堵。因此，大多数情况下警方无法快速到达犯罪现场。警方通常需要两个多小时才能到达犯罪现场！此外，据观察，普通民众要么不感兴趣，要么过于害怕，担心遭到罪犯攻击，而不愿向有需要的人提供紧急帮助。这给受害者造成了重大的身体、情感和经济损失，甚至可能导致死亡。
+
+
+  拟议的系统`iEmergency`旨在通过一个注册的紧急救援提供者网络，向受害者提供现场紧急帮助。受害者可以使用智能手机发起紧急求助请求。移动网络利用基于位置的服务找到附近的紧急救援提供者并通知他们。紧急救援提供者前往受害者处并提供所需援助。在帮助完成并令受害者满意后，将从受害者账户中扣除固定金额，并分发给那些回应请求并在规定时间内提供现场帮助的紧急救援提供者。
+
+
+  ### 方法
+
+
+  当一个人面临紧急情况时，他或她可以使用智能手机中安装的应用程序发起紧急帮助请求。请求者需要选择所需的紧急援助类型。紧急情况的详细信息以及请求者的位置（例如，`GPS`/`GPRS`）会上传到`iEmergency`服务器。人们可以根据自身能力选择和注册各种类型的紧急服务。例如，住在高速公路附近的人可以注册为事故救援服务提供者，退休的军人或警察可以注册为轻微犯罪预防服务提供者，热心社会服务的人可以注册为医院陪护人员等。服务器会识别请求者位置指定半径内可用的、符合其所需帮助类型的紧急救援人员。服务器根据人员面临的紧急情况类型确定所需的紧急救援人员数量，并将紧急情况和请求者的详细信息（姓名、位置和照片）发送给紧急救援人员。紧急救援人员会收到类似“`<姓名>`先生/女士（`<手机号码>`）在`<地点>`遇到`<类型>`紧急情况”的消息。紧急救援人员可以在地图上查看请求者的当前位置。紧急救援人员可以接受或拒绝服务请求。
+
+
+  如果紧急救援人员接受了请求，他或她可以检索与请求者相关的音频/视频文件，并收集更多关于其位置和紧急情况类型的信息。请求者端应用程序具有上传音频或视频文件的功能。他或她可以录制紧急消息并将音频上传到服务器，以便救援人员可以下载。紧急救援人员会尽量靠近请求者的位置，并大声呼喊其姓名或使用手机拨打电话联系他。服务器会定期接收可用紧急救援人员的位置信息，以便在发生任何紧急事件时，服务器知道他们的位置。
+
+
+
+
+  ### 系统架构
+
+
+  拟议系统的架构及高层工作流程如图 10-1 所示。该系统由`请求者`和`帮助者`应用程序以及一个中央服务器组成。请求者通过启动其智能手机上安装的`请求者`应用程序来发送紧急服务请求。该应用程序向服务器发送请求，要求派遣帮助者到现场。服务器将紧急情况通知附近的帮助者。帮助者到达现场，为请求者提供所需服务。然后请求者向帮助者支付费用。服务器会回复已接受请求的帮助者列表。请求者从列表中识别出实际前来提供帮助的帮助者，并向这些帮助者支付费用（图
+  10-6）。支付服务器对请求者进行身份验证，并向帮助者发送付款。
+
+
+  `帮助者`应用程序会扫描来自附近请求者的请求。服务器检索帮助者附近等待帮助人员的详细信息，并将这些详细信息作为响应发送。`帮助者`应用程序在地图上显示请求者和帮助者。帮助者可以接受或拒绝请求。帮助者为请求者提供帮助，并在收到付款通知后，标记任务完成并提供反馈（图
+  10-7）。
+
+
+  ![A459602_1_En_10_Fig1_HTML.jpg](img/A459602_1_En_10_Fig1_HTML.jpg)
+
+
+  **图 10-1**
+
+
+  iEmergency 系统架构
+
+
+  ### 系统实现
+
+
+  该系统由`请求者`（`iRescue`）和`帮助者`（`iRescuer`）两个 Android 应用程序（分别供请求者和帮助者使用）以及一个中央服务器组成。任何个人都可以在门户网站上注册成为请求者和/或帮助者。注册时，个人必须提供详细信息，例如将用于服务的手机号码、近期照片、电子邮件地址，以及上传身份证和地址证明的副本。提交的信息将通过自动验证（手机号码和电子邮件地址）或手动验证（地址）的方式核实，以确保帮助者是真实可信的个人。手动验证帮助者时，可能会寻求执法部门的帮助。
+
+
+  #### 请求者应用程序 iRescue
+
+
+  该应用程序安装在请求者的手机上。当请求者遇到紧急情况时，启动该应用程序，输入 PIN 码，并录制语音以提供所遇紧急情况的更多细节。紧急情况的详细信息及相关的音频或任何媒体文件将通过
+  HTTP `POST` 请求上传到中央服务器。此外，当服务器发现与请求者关联的帮助者已到达可听距离范围内时，应用程序会开始大声蜂鸣。当帮助者找到请求者并提供所需的紧急服务后，应用程序检索已接受请求的帮助者列表并将其显示给请求者。列表中会显示帮助者的照片、姓名和手机号码。请求者可以从列表中选择一个或多个帮助者，并验证付款。也可以为帮助者留下反馈。对帮助者的反馈会上传到服务器。
+
+
+  #### 帮助者应用程序 iRescuer
+
+
+  该应用程序安装在帮助者的手机上。通过使用基于位置的服务（LBS），它定期将帮助者的位置信息发送到服务器。它检索最近等待接收紧急帮助的请求者的详细信息。它将帮助者和请求者显示在地图上。同时还会显示请求者当前与帮助者的距离。帮助者可以接受或拒绝请求。如果请求被拒绝，服务器会更新该帮助者的记录。如果帮助者决定接受请求，则会显示需要帮助人员的更多详细信息（姓名、手机号码和照片）。帮助者还可以下载与请求者关联的任何音频，并播放以获取关于紧急情况的更多信息。
+
+
+  一旦帮助者到达请求者处，提供了紧急服务并收到付款，他/她会在应用程序中将任务标记为完成，并就请求者提供反馈。
+
+
+  #### 用户界面
+
+
+  `iRescue` 和 `iRescuer` 应用程序的一些主屏幕如图 10-2 至 10-7 所示，这些屏幕展示了 `iEmergency` 系统支持的各类紧急情况。例如，图
+  10-5 显示了一张地图，上面同时标出了帮助者和受害者。图 10-6 显示了请求者的照片，而图 10-7 则显示了实际提供服务的帮助者的照片和详细信息。
+
+
+  ![A459602_1_En_10_Fig7_HTML.jpg](img/A459602_1_En_10_Fig7_HTML.jpg)
+
+
+  **图 10-7**
+
+
+  iRescuer 任务完成
+
+
+  ![A459602_1_En_10_Fig6_HTML.jpg](img/A459602_1_En_10_Fig6_HTML.jpg)
+
+
+  **图 10-6**
+
+
+  iRescue 付款
+
+
+  ![A459602_1_En_10_Fig5_HTML.jpg](img/A459602_1_En_10_Fig5_HTML.jpg)
+
+
+  **图 10-5**
+
+
+  iRescuer 受害者详情
+
+
+  ![A459602_1_En_10_Fig4_HTML.jpg](img/A459602_1_En_10_Fig4_HTML.jpg)
+
+
+  **图 10-4**
+
+
+  iRescuer 接受/拒绝
+
+
+  ![A459602_1_En_10_Fig3_HTML.jpg](img/A459602_1_En_10_Fig3_HTML.jpg)
+
+
+  **图 10-3**
+
+
+  iRescuer 等待中
+
+
+  ![A459602_1_En_10_Fig2_HTML.jpg](img/A459602_1_En_10_Fig2_HTML.jpg)
+
+
+  **图 10-2**
+
+
+  iRescue 紧急情况类型
+
+
+  #### iEmergency 服务器
+
+
+  `iEmergency` 服务器构建于 Apache XAMPP 平台之上。它由一个 Apache 服务器和一个 MySQL 服务器组成。服务器通过 HTTP
+  `POST` 和 HTTP `GET` 接收来自帮助者和请求者的各种请求，并向 `iRescue` 和 `iRescuer` 应用程序发送 HTTP 响应。它维护着已注册请求者和帮助者的各种详细信息。服务器将附近受害者的详细信息发送给
+  `iRescuer` 应用程序。它还存储请求者的音频详细信息，并允许帮助者下载该音频。此外，服务器上还会记录请求者和帮助者之间交易的反馈。
+
+
+  '
+- '# 第三部分
+
+  用于解决实际问题的 Android 应用程序
+
+
+  ## 11. 作业
+
+
+  本章包含多个作业，旨在测试你对前一章所学内容的理解。
+
+
+  ### iEncrypt 和 iDecrypt
+
+
+  设计两个 Android 应用程序——例如，`iEncrypt` 和 `iDecrypt`。`iEncrypt` 将接受一个密码和要加密的图像文件，以及加密时要添加上下文的类型/规则。
+
+
+  以下截图（图 11-1 至 11-5）将帮助你理解应用程序的需求。
+
+
+  ![A459602_1_En_11_Fig5_HTML.jpg](img/A459602_1_En_11_Fig5_HTML.jpg)
+
+
+  **图 11-5**
+
+
+  iDecrypt 解密后的内容
+
+
+  ![A459602_1_En_11_Fig4_HTML.jpg](img/A459602_1_En_11_Fig4_HTML.jpg)
+
+
+  **图 11-4**
+
+
+  iDecrypt 输入
+
+
+  ![A459602_1_En_11_Fig3_HTML.jpg](img/A459602_1_En_11_Fig3_HTML.jpg)
+
+
+  **图 11-3**
+
+
+  iDecrypt 设置
+
+
+  ![A459602_1_En_11_Fig2_HTML.jpg](img/A459602_1_En_11_Fig2_HTML.jpg)
+
+
+  **图 11-2**
+
+
+  iEncrypt 输入
+
+
+  ![A459602_1_En_11_Fig1_HTML.jpg](img/A459602_1_En_11_Fig1_HTML.jpg)
+
+
+  **图 11-1**
+
+
+  iEncrypt 设置
+
+
+
+
+  ### iFitness
+
+
+  很多时候，用户在锻炼时（例如在跑步机上跑步），要么跑得太慢，要么跑得太快，导致锻炼效果不佳甚至对身体有害。
+
+
+  开发一款 Android 应用，帮助用户衡量其健身计划的有效性。让用户佩戴一条腕带（图 11-6），该腕带可通过蓝牙将步数、速度、心率等生命体征参数传输到 Android
+  应用。按照图 11-7 所示配置运动模式。
+
+
+  ![A459602_1_En_11_Fig7_HTML.jpg](img/A459602_1_En_11_Fig7_HTML.jpg)
+
+  图 11-7 iFitness 主屏幕
+
+
+  ![A459602_1_En_11_Fig6_HTML.jpg](img/A459602_1_En_11_Fig6_HTML.jpg)
+
+  图 11-6 Zephyr 腕带
+
+
+  在设置中，为每个类别配置速度的上下限阈值。例如，“燃脂”速度可在 10 到 20 公里/小时之间。同时，定义何为“高于正常”的心率阈值。除此之外，根据用户的速度和所选运动模式提供建议。此外，如果用户的心率超过设定的上限阈值，则建议用户立即停止锻炼。
+
+
+  ### iPocket
+
+
+  手机扒窃在发展中国家是一个巨大的威胁，甚至在西班牙、意大利和法国等发达国家也深受其害。每年有数百万部手机因扒窃而丢失。我们如何才能实时检测到手机被扒窃？
+
+
+  当有人扒窃手机时，加速度计的数据模式与用户从口袋中拿出手机接打电话时的模式显著不同。开发一个 Android 服务来监控加速度计模式。通过每次手机被拿起时收集
+  10 到 12 个数据点，并将加速度计数据与正常情况以及扒窃情况下的数据点进行比较，来识别扒窃模式。
+
+
+  ### iFall
+
+
+  老年人经常跌倒，这种情况可能发生在他们独自在家时；跌倒后他们甚至可能失去意识。Android 应用能否检测到此类紧急情况并通知相关的紧急联系人？
+
+
+  当一个人跌倒时，分别收集手机放在口袋里和拿在手中两种情况下的 10 到 12 组加速度计读数。在手机中运行一个服务来检查此类加速度计模式。当检测到类似模式时，唤醒
+  iFall Android 应用并询问用户：“你还好吗？” 如果用户回答“是”，应用退出；否则，应用会尝试再次获取用户响应。如果未收到任何响应，应用会向预配置的手机号码发送一条包含位置、时间详情以及类似“用户似乎已跌倒，过去
+  X 分钟无响应”信息的短信。必须通过 iFall 应用的设置来配置这些手机号码。
+
+
+  ### iPrescribe
+
+
+  患者经常忘记按时服药。而且，一旦症状缓解，患者往往会完全停止服药，导致无法完全康复，并可能再次生病。
+
+
+  将处方及用药计划输入到 iPrescribe 应用中。提醒用户，例如：“现在是晚上 9 点，请服用 1 片 crocin 药片，并在晚上 9 点 05 分服用
+  1 茶匙 zedex 糖浆。”在可配置的分钟后，应用会询问患者：“您是否按处方服药了？”患者可以回答“是”或“否”；如果患者回答“否”，iPrescribe 会询问他们未服药的原因，然后记录该原因，并将其与处方计划一起存储。
+
+
+  在计划结束时，数据可以上传到中央服务器进行分析，以研究所开药物的有效性。iPrescribe 还应该能够根据患者遵循处方计划的严格程度，为其计算出一个健康疏忽指数。
+
+
+  思考一下，处方是否可以自动输入到 iPrescribe Android 应用中。
+
+
+  ### iSafety
+
+
+  在发展中国家，近年来针对儿童（在上学/回家途中）的犯罪显著增加。当孩子和家人在视线之外时，我们如何确保他们的安全？
+
+
+  开发一个安全区域应用，并将其安装在孩子的手机上。配置安全区域，例如学校、家等。如果孩子离开安全区域的时间超过了可配置的分钟数，则开始定期发送包含该人 GPS 位置详情的短信。接收短信和位置详情的人可以在地图上绘制这些位置，并确定进一步的行动方案。
+
+
+  在本章中，我们学习了如何利用 Android 应用和后端服务器来设计和开发一个完整的系统，以解决现实生活中的问题。同时，我们也希望读者在阅读了这些问题之后，能够产生新的
+  Android 项目创意。
+
+  '

@@ -1,0 +1,1910 @@
+- '
+
+  '
+- '# 1. SwiftUI 简介
+
+
+  本章专为 iOS 开发的初学者而设计。我将引导你了解 `Xcode` 的主要功能，这是你创建项目并运行代码的工具。然后，我们将创建一个简单的应用程序：一张显示几个地点的地图。
+
+
+  通过这种方式，我们将探索一些用于构建用户界面的 SwiftUI API，以及 Swift 的一些基础知识（例如创建模型）。让我们开始吧！
+
+
+  ## Xcode 界面导览
+
+
+  要构建 iOS 应用程序，你首先需要 `Xcode`。这款由 Apple 开发的软件将成为你编写 Swift 代码、创建用户界面、构建和调试项目以及完成更多工作的得力工具。你可以把它想象成摄影界的
+  Photoshop，或是 UI 设计领域的 Sketch 和 Figma。
+
+
+  该软件在 Mac App Store 上架；你可以轻松地从那里下载。在你的 Mac 上打开 App Store，搜索 `Xcode`，然后点击“下载”（因为我已下载，所以显示的是“打开”）：
+
+
+  ![](img/533376_1_En_1_Fig1_HTML.jpg)
+
+
+  屏幕显示了 Xcode 应用程序 14.1 版本，并配有“打开”按钮、2 个预览屏幕、“新功能”以及其他特性。
+
+
+  **图 1-1** 从 App Store 下载 Xcode
+
+
+  在撰写本文时，最新版本是 `Xcode 14.1`。我建议你至少下载 `Xcode 14`；否则，本书中的许多功能将无法复现。
+
+
+  由于这是一个相当庞大的程序（7GB），下载需要一些时间。下载完成后，你就可以打开它。系统会询问你是否要下载 macOS 和 watchOS 的附加组件。你可以跳过此步骤，因为本书范围内我们只需要
+  iOS。
+
+
+  接着，将出现以下页面，提示你开始一个新项目：
+
+
+  ![](img/533376_1_En_1_Fig2_HTML.jpg)
+
+
+  屏幕显示了 Xcode 欢迎对话框，其中有“创建一个新的 Xcode 项目”、“克隆一个现有项目”和“打开一个项目或文件”等选项。“创建一个新的 Xcode 项目”处于选中状态。
+
+
+  **图 1-2** Xcode 欢迎界面
+
+
+  点击 **创建一个新的 Xcode 项目**，将出现以下页面：
+
+
+  ![](img/533376_1_En_1_Fig3_HTML.jpg)
+
+
+  屏幕显示了一个用于为新项目选择模板的对话框。iOS 选项卡处于高亮状态，并且从 8 个模板列表中选择了“App”图标。
+
+
+  **图 1-3** Xcode – 选择模板
+
+
+  `Xcode` 会为你提供一系列模板。事实上，你可以使用 Swift 语言构建很多东西，例如 Apple Watch 应用程序、在 iPhone 上运行的游戏、Safari
+  扩展程序或 Mac 的实用程序。我们先从 iOS 平台中选择 **App**。其他项目也是如此，尽管我们的应用程序也能在 iPad 上运行。
+
+
+  现在，请你输入 **Discover** 作为项目名称；这将是我们用 SwiftUI 编写的第一个项目名称。
+
+
+  同时，请确保已选中 SwiftUI 框架和 Swift 语言。
+
+
+  （确保在“团队”字段中填写了你的姓名或企业名称。如果你是 `Xcode` 新手，那里应填写你用于 App Store 的 Apple 帐户。该帐户应该是你的团队名称。对我来说，它是“Sullivan
+  De Carli（个人团队）”。）
+
+
+  ![](img/533376_1_En_1_Fig4_HTML.jpg)
+
+
+  屏幕显示了一个对话框，用于为新项目选择选项，包括产品名称（Discover）、团队、组织标识符、捆绑包标识符、界面（SwiftUI）、语言（Swift），并且勾选了“包含测试”。
+
+
+  **图 1-4** Xcode – 项目设置
+
+
+  太棒了！现在将你的项目保存到你喜欢的任意位置；我通常保存在桌面上。我们可以开始探索 `Xcode` 的功能了！
+
+
+  ![](img/533376_1_En_1_Fig5_HTML.jpg)
+
+
+  屏幕显示的“内容视图”被标记为 1 到 4 个面板。面板 1 包含 3 个文件夹。面板 2 中有一个代码片段被高亮显示。面板 3 包含一个带有“Hello, World!”文本的移动设备屏幕。面板
+  4 显示了身份和类型、目标成员资格以及测试设置。
+
+
+  **图 1-5** Xcode – 界面导览
+
+
+  `Xcode` 由不同的选项卡组成；每个选项卡都有不同的用途：
+
+
+
+
+  ### 1 – 左侧标签页显示了项目包含的所有文件。默认情况下，会有三个主要文件夹：一个包含应用的入口点，名为 `DiscoverApp`，类似于 Web 开发中的
+  `index.html`。`ContentView` 是默认提供的，它是一个用于呈现用户界面的起始模板。最后还有一个 `Assets` 文件夹，你可以用来存储图片和视频；这非常实用，因为它能减小你上传的任何素材文件的体积。此外，这个文件夹还会包含你的应用图标。
+
+
+  另外两个文件夹则用于测试。你可以在这里运行测试，检查代码是否健壮，或者用户界面是否响应正常。底部还有一个搜索过滤器，顶部有一系列标签页，在我们运行应用时将会非常有用。
+
+
+  ### 2 – 第二个区域正是我们要工作的地方！从这里我们可以编写代码，并查看文件的内容。另外，在 SwiftUI 中，每个 SwiftUI 视图都附带一个名为
+  `Preview` 的结构体（在绿色方框内）。它负责在右侧向你呈现屏幕预览。如果你删除这段代码，将无法使用 Canva 功能。
+
+
+  ### 3 – Canva 于 2019 年引入；它是一种便捷的方式，可以让你实时看到正在构建的用户界面。从这里，你可以观察到当你在代码中进行更改时，应用的外观会如何变化。
+
+
+  例如，尝试在第二个面板中，紧跟在 `Text("Hello, world!")` 之后添加关键字 `.bold()`。你的文本会立刻变为粗体。
+
+
+  ### 4 – 右侧标签页将显示你当前正在查看的文件的信息。在这里，你可以重命名文件、更改编程语言，甚至可以编辑一些用户界面元素，例如字体和元素间距（如果你点击顶部的最后一个按钮进行导航）。请注意，在本书中，我们不会经常用到这个部分。
+
+
+  现在，你可以构建你的项目了。我建议你点击 Xcode 左上角的构建按钮，具体位置如下：
+
+
+  ![](img/533376_1_En_1_Fig6_HTML.jpg)
+
+
+  屏幕显示了一个内容视图的代码。在 iOS 模拟器下，选择了 iPhone 14 Pro。Hello World 程序的移动预览暂停在内容视图中，并且该内容同样显示在
+  iPhone 14 Pro 的移动屏幕上。
+
+
+  **图 1-6** 在 Xcode 上运行的模拟器
+
+
+  一旦你点击它，一个模拟器应用就会弹出，并呈现一个运行着你应用的虚拟 iPhone。你也可以在顶部面板选择其他类型的 iPhone 或 iPad，这样就可以看到你所构建的内容如何适应不同的屏幕尺寸。
+
+
+  关于 Xcode 需要介绍的内容还有很多。到目前为止，我强调的都是需要了解和识别的主要点，但我们将在编码过程中发现更多的功能。我们将在下一章中实际操作，并使用
+  Xcode 和 SwiftUI 构建我们的第一个应用。
+
+
+  ## SwiftUI 的不同之处
+
+
+  SwiftUI 是由苹果公司在 2019 年的全球开发者大会上推出的；它是全球开发者用来为苹果平台构建应用的声明式框架。在撰写本文时，它的版本是 4。
+
+
+  正如苹果所说，SwiftUI 让你用更少的代码编写出更好的应用。这是真的吗？在 SwiftUI 之前，我们使用的是 UIKit，这是苹果在 2014 年推出的一个用于构建用户界面的命令式框架。它仍然可用，但随着苹果公司将重点转移到
+  SwiftUI，它正在被逐渐取代。
+
+
+  为了理解这两个框架的演变，让我们来做一个比较：构建两个用户界面，每个界面都由一个显示从 1 到 10 元素的列表组成。其中一个我们将使用 UIKit 构建，另一个将使用
+  SwiftUI 构建。用户界面看起来像这样：
+
+
+  ![](img/533376_1_En_1_Fig7_HTML.jpg)
+
+
+  一个移动屏幕上显示一个从 0 到 9 的空白编号列表。文字说明为：用 SwiftUI 和 UIKit 构建的列表。
+
+
+  **图 1-7** 在 iPhone 上显示的列表
+
+
+  观察以下 UIKit 中的代码：
+
+
+  ```
+
+  import UIKit
+
+  class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+  {
+
+  let tableView = UITableView()
+
+  override func viewDidLoad() {
+
+  super.viewDidLoad()
+
+  view.addSubview(tableView)
+
+  tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+
+  tableView.dataSource = self
+
+  tableView.delegate = self
+
+  }
+
+  override func viewDidLayoutSubviews() {
+
+  super.viewDidLayoutSubviews()
+
+  tableView.frame = view.bounds
+
+  }
+
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) ->
+  Int {
+
+  return 10
+
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+  {
+
+  let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+
+  cell.textLabel?.text = "\(indexPath.row)"
+
+  return cell
+
+  }
+
+  }
+
+  ```
+
+
+  如你所见，我们在顶部导入了 UIKit 框架。我们向类中传入了两个委托：`UITableViewDelegate` 和 `UITableViewDataSource`。然后，我们声明了一个
+  `UITableView` 来创建列表，并在 `viewDidLoad` 方法中手动添加了它。
+
+
+  这个方法在视图被加载并呈现给用户时调用。我们还遵守了这个协议，提供了两个函数，分别返回行数以及每行的组成内容，这里是一个带有显示当前行号文本的单元格。
+
+
+  为了遵守协议并呈现一个由十行组成的基本用户界面，需要写不少代码。
+
+
+  现在让我们用 SwiftUI 来编写它：
+
+
+  ```
+
+  import SwiftUI
+
+  struct ContentView: View {
+
+  var body: some View {
+
+  List(0..<10) { index in
+
+  Text("\(index)")
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  就是这样！如你所见，使用 SwiftUI，我们的列表代码要简短得多。我们在文件顶部导入框架。然后直接在 `body` 变量中声明了一个列表，它包含从 0 到 10
+  的 11 个元素及其组成：一个显示 1 到 10 的文本。创建这个 `List` 实际上只需要两行代码，更加清晰易读。
+
+
+  既然我们看到了 SwiftUI 在构建用户界面方面高效得多，那么接下来我们将介绍一些基础知识。我们将创建一个小的应用程序来介绍一些应用编程接口。
+
+
+
+
+  '
+- "# 使用 SwiftUI 编写代码\n\n要理解 SwiftUI，最好的方式就是构建一个应用程序。因此，我们将构建一个简单的应用，在地图上显示几个地点。同时，我会解释一些关于\
+  \ SwiftUI 的基础知识。\n\n前往我们之前创建的名为 *Discover* 的 Xcode 项目。运行该应用。你应该会看到以下起始模板：\n\n![](img/533376_1_En_1_Fig8_HTML.jpg)\n\
+  \n屏幕左侧面板显示 discover 应用的 ContentView 代码，右侧面板显示一个包含“Hello, World!”文本的移动设备屏幕视图。\n\n\
+  **图 1-8** – 带模拟器运行的 Xcode\n\n为了重现这个界面，因为它使用了 Apple 地图，我们需要导入一个名为 *MapKit* 的框架来访问其\
+  \ API。因此，在文件顶部添加以下代码行：\n\n```\nimport MapKit\n```\n\n然后，在代码 `struct ContentView`\
+  \ 的正上方，复制/粘贴以下代码：\n\n```\nstruct Place: Identifiable {\n    var id = UUID()\n  \
+  \  var title: String\n    var coordinate: CLLocationCoordinate2D\n    var architecte:\
+  \ String\n}\n```\n\n我们刚刚实现了一个模型，用于基于此模型创建一些数据项。\n\n让我为你解释一下这段代码：\n\nSwift 中的 `struct`\
+  \ 用于存储变量。这里我们给这个 `struct` 命名为 `Place`。\n\n`Identifiable` 是一个协议，用于使此类可被标识。由于我们将在\
+  \ *List* 中显示数据，我们需要使每个数据项变得可识别。\n\n然后，我们添加了几个变量：`UUID` 类型用于提供唯一标识符，`String` 类型用于文本，以及\
+  \ `CLLocationCoordinate2D` 类型用于传递坐标（纬度和经度）。\n\n太好了，我们刚刚创建了一个所谓的模型，即通过几个变量将我们的对象（`Place`）模块化。\n\
+  \n现在，我们可以着手处理用户界面了。\n\n在 `struct ContentView` 下方，添加以下代码行：\n\n```\n@State private\
+  \ var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.9028,\
+  \ longitude: 12.4964), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta:\
+  \ 0.1))\n```\n\n什么是 `@State` 变量？\n\n> *一种属性包装器类型，可以读取和写入由 SwiftUI 管理的值。*\n> \n>\
+  \ ——来自 Apple 文档\n\n这将允许我们操作数据。这里我们传递了对应于罗马市坐标的坐标值。\n\n然后，我们声明了一个包含地点数组的常量。由 `[]`\
+  \ 声明的数组很适合呈现一系列数据。\n\n在你之前声明的 `@State` 之后，立即复制/粘贴以下代码：\n\n```\nlet annotations =\
+  \ [\n    Place(title: \"Fontana di Trevi\", coordinate: CLLocationCoordinate2D(latitude:\
+  \ 41.900833, longitude: 12.483056), architecte: \"Nicola Salvi\"),\n    Place(title:\
+  \ \"Pantheon\", coordinate: CLLocationCoordinate2D(latitude: 41.8986, longitude:\
+  \ 12.4768), architecte: \"Marcus Agrippa\"),\n    Place(title: \"Villa Medici\"\
+  , coordinate: CLLocationCoordinate2D(latitude: 41.908, longitude: 12.483), architecte:\
+  \ \"Bartolomeo Ammannati\"),\n    Place(title: \"Colosseo\",  coordinate: CLLocationCoordinate2D(latitude:\
+  \ 41.890278, longitude: 12.492222), architecte: \"Flavian Emperors\")\n]\n```\n\n\
+  太好了，现在我们有所有必要的输入来在 *Map* 上展示位置信息以及一些要显示的地点。\n\n在 `body` 变量内部，用以下代码行替换 *VStack*：\n\
+  \n```\nMap(coordinateRegion: $region, annotationItems: annotations) {\n    MapMarker(coordinate:\
+  \ $0.coordinate)\n}\n```\n\n这个 `Map` 修饰符将在我们的应用中显示一张地图。我们传递了之前定义的 `region` 参数（包含罗马的坐标），并使用\
+  \ `$` 符号；这是用于 `@State` 变量的语法。同时，我们还添加了注释（之前声明的四个地点）。\n\n为了呈现这些注释，我们使用了 `MapMarker`，并传入对象中的坐标。\n\
+  \n如果你正确地遵循了这些简短教程，你的画布应该会显示一张带有四个标记的地图，如下所示：\n\n![](img/533376_1_En_1_Fig9_HTML.jpg)\n\
+  \n屏幕左侧面板显示 discover 应用的 ContentView 代码主体，右侧面板显示一张带有地图和四个标记位置的移动设备屏幕视图。\n\n**图 1-9**\
+  \ – 我们的地图应用\n\n## 总结\n\n如果你是 Swift 新手，本章有助于向你介绍 Xcode——你为 Apple 平台构建应用的工具。接着，我们通过创建模型和编写静态数据了解了\
+  \ Swift 的基础知识。然后，我们使用地图来显示标记，并从框架 `MapKit` 中导入以访问 Apple 的地图 API。\n\n现在，我们对如何创建静态数据模型并呈现它们有了更清晰的概念，我们可以继续讨论后端了。接下来的章节将聚焦于\
+  \ Firebase，以及如何从后端下载数据、呈现数据、修改数据和处理用户输入。让我们深入探索 Firebase 控制台。\n\n"
+- '# Firebase 简介
+
+
+  我将向你介绍 Firebase 控制台，以及如何创建一个新项目并将 iOS 应用连接到它。
+
+
+  我们将涵盖 Firebase 是什么，为什么我们选择这个后端而非其他，以及它的优缺点。
+
+
+  我们将一步步指导你直接从 Web 浏览器创建你的第一个 Firebase 项目。我们还将把 iOS 应用连接起来，以便通过其 API 与 Firebase 通信。
+
+
+  在本章结束时，你将能够创建一个连接到 Firebase 后端的新 iOS 应用。如需参考，请访问以下链接的 Firebase 文档：`HTTPS://FIREBASE.GOOGLE.COM/DOCS/IOS/SETUP`。
+
+
+
+
+  '
+- '# 什么是 Firebase？
+
+
+  Firebase 是一种我们称之为后端即服务（`BaaS`）的服务。这意味着，你无需运行自己的服务器来支撑在线应用，而是通过它们的服务来读取、写入、更新和删除数据、认证用户以及执行许多其他操作！
+
+
+  看看下面这张图，它展示了一个使用运行在云端的自定义后端构建的原生 iOS 应用：
+
+
+  ![](img/533376_1_En_2_Fig1_HTML.png)
+
+
+  **图 2-1** – 一个使用云服务上的后端主机构建的 iOS 应用
+
+
+  如你所见，该应用将与一台虚拟机通信，虚拟机通常用 `Ruby`、`Node.js` 或 `PHP` 编码，它本身由云服务（也可能是物理服务器，但如今已很少见）托管，例如亚马逊云服务、谷歌云平台、微软
+  Azure 等。在具有庞大用户群的复杂应用中，通常需要一名前端开发者（此处指 iOS 开发者）、一名后端开发者来开发逻辑和 API，以及一名 `DevOps`
+  负责将所有这些部署到云服务并分发。全栈开发者也能完成这项工作，但这较为少见，且需要非常丰富的经验。
+
+
+  现在，让我们看看一个使用 Firebase 构建的 iOS 应用：
+
+
+  ![](img/533376_1_En_2_Fig2_HTML.png)
+
+
+  **图 2-2** – 一个使用 Firebase 后端构建的 iOS 应用
+
+
+  如你所见，架构要简单得多。我们的 iOS 应用通过 Firebase 提供的、附带详尽文档的 API 来向 Firebase 发送通知和接收数据。无需在服务器端编写代码，也无需将其托管给第三方提供商，因为它已经构建在谷歌云之上，你无需任何部署！此外，如果你之后想实现更复杂的交互，借助
+  Firebase Cloud 函数，你仍然可以运行后端代码。从团队角度看，你只需要一名 iOS 开发者，就可以准备在 App Store 上发布应用了。
+
+
+  我们已经看到使用 Firebase 比运行你自己的后端代码要简单得多，但不仅如此：它还附带了一系列开箱即用的工具，有助于加速你的开发。
+
+
+  例如，它们有用于通过多个第三方提供商（如 Apple、Facebook、Google 等）认证用户的 API。它们还预装了 Google Analytics，可以直接使用。
+
+
+  此外，还有一系列第三方提供商的扩展，可以将用户注册到邮件列表，或者通过 RevenueCat 实现应用内购买而无需编写代码。
+
+
+  你可以通过这个链接了解它们：
+
+
+  `HTTPS://FIREBASE.GOOGLE.COM/PRODUCTS/EXTENSIONS`
+
+
+  Firebase 既有优点也有缺点。列表如下：
+
+
+  **优点：**
+
+
+  -   你可以更快地发布应用。除非需要执行一些更高级的功能，否则你无需在后端编写代码。
+
+  -   你可以访问谷歌云平台，而无需自己在运维方面做任何操作。
+
+  -   你获得了开箱即用的、支持第三方的认证 API。例如，你无需为一个 Google 登录接口使用一个 API，再为 Facebook 登录使用另一个 API。你可以直接通过
+  Firebase 的 API 实现。
+
+  -   你无需担心可扩展性和服务器管理。
+
+
+  **缺点：**
+
+
+  -   数据的所有权不属于你。最好的做法是每天对数据进行快照，并将其存储在一个安全的位置。
+
+  -   在一些需要完全控制后端的复杂应用中，你可能会受到限制，因为用户界面严重依赖后端。
+
+
+  总的来说，如果你想以最快、最便宜的方式发布应用（无需聘请后端开发者），那么 Firebase 是一个很好的选择。你可以专注于重要的事情：构建你的产品并监控使用情况，这样你就可以实现用户想要的功能。得益于随
+  Firebase “免费”附带的、由 Google Analytics 提供支持的事件跟踪和应用分析，这也会变得更加容易。
+
+
+  话不多说，让我们来探索 Firebase，创建我们的第一个项目，并让我们的 iOS 应用与其通信。
+
+
+  '
+- "# 设置 Firebase 账户和项目\n\n要开始使用 Firebase，你需要注册他们的服务，这些服务隶属于 Google，因此你需要一个 Gmail 账户。如果你还没有，请先注册一个\
+  \ Gmail 账户。然后访问 Firebase 网站（`https://firebase.google.com`），点击“开始使用”，你就会进入 Firebase\
+  \ 控制台。你应该会看到类似这样的界面：\n\n![](img/533376_1_En_2_Fig3_HTML.png)\n\n**图 2-3** – Firebase\
+  \ 控制台首页\n\n点击**创建项目**，在 Firebase 上创建你的第一个项目。我将引导你完成每一步，这样你就不会迷路。整个过程只需遵循三个简单的步骤。\n\
+  \n让我们从第一步开始：\n\n![](img/533376_1_En_2_Fig4_HTML.png)\n\n**图 2-4** – Firebase 新项目，步骤\
+  \ 1 – 项目名称\n\n对于步骤 1，你只需给它起个名字。我建议你将其命名为“Note”，因为这是我们将在下一章构建的应用，不过叫什么名字都无所谓。\n\n\
+  第二步是启用 Google Analytics：\n\n![](img/533376_1_En_2_Fig5_HTML.png)\n\n**图 2-5** –\
+  \ Firebase 新项目，步骤 2 – Google Analytics\n\n这是 Firebase 免费提供的功能，它让你可以访问基本数据，例如你的用户在每个屏幕上花费的时间、连续数周的用户使用情况等。你甚至可以在之后添加事件来创建漏斗。例如，你将能够找出有多少用户完成了注册流程，然后在所有已注册用户中，有多少人完成了购买。现在，只需启用它并点击**继续**。\n\
+  \n第三步看起来像这个界面：\n\n![](img/533376_1_En_2_Fig6_HTML.png)\n\n**图 2-6** – Firebase 新项目，步骤\
+  \ 3 – 配置 Google Analytics 账户\n\n现在，我们可以直接使用 Firebase 的默认账户。如果你有一个使用 Google Analytics\
+  \ 标签跟踪使用情况的网站，并且你想构建一个相关的 iOS 应用，你可能希望在此步骤中直接选择你的 Google Analytics 账户。点击**创建项目**，你就已经在\
+  \ Firebase 上创建了你的第一个项目。\n\n\n\n## Firebase 操作指南\n\n你现在位于 Firebase 控制台。它将成为你应用的支柱。尽管我们会在接下来的章节中深入开发，但这里先向你介绍一下。\n\
+  \n项目创建成功后，你会看到类似下面的界面：\n\n![](img/533376_1_En_2_Fig7_HTML.png)\n\nFirebase 窗口截图。左侧面板包含项目概览选项，以及构建、发布与监控、分析和分析工具等类别，每个类别下均有多种选项。右侧面板显示“通过将\
+  \ Firebase 添加到你的应用来开始使用”，下方列出了 5 个选项和各项功能。\n\n**图 2-7** – Firebase 控制台\n\n这是一个经典的控制面板。在左侧面板中，你可以访问按四个部分分类的不同菜单：\n\
+  \n- **构建** – 这是我们探索最多的区域。在这里，我们将设置第三方提供商的认证、创建数据库、编写安全规则并添加扩展（一种无代码解决方案）。\n- **发布与监控**\
+  \ – 一旦我们将应用发布到 App Store 甚至 TestFlight 上，你就可以查看用户是否遇到崩溃的报告，并实现后端驱动的分发。这虽非本书内容，但值得一看，因为它在迭代过程中非常强大。\n\
+  - **分析** – 通过这里，你可以免费查看应用的数据使用情况，并从我们的代码中实现一些漏斗分析，以监控用户完成某个流程的情况。\n- **互动** – 这对商店和游戏尤其强大。它提供了发送促销通知、通过\
+  \ AdMob 展示广告以及运行 A/B 测试的功能。\n\n可想而知，Firebase 的功能非常丰富。就本书而言，你 90% 的时间都会在 Xcode 和\
+  \ Firebase 的“构建”部分之间切换。\n\n在右侧，你可以像使用所有 Google 产品一样切换你的 Google 账户，还有一个“转到文档”按钮。当你想要实现某个功能或更好地理解其工作原理时，查阅文档总是个好方法。\n\
+  \n顶部是你的项目名称，你可以从这里在不同项目之间切换。\n\n“Spark 方案”标签是你的结算方案；这是免费方案，附带相当多的功能。此外，还有与 Google\
+  \ Cloud Platform 关联的“按需付费”方案。费用将根据你用户的使用量以及文档的读写数量来计算。\n\n对于本书而言，Spark 方案就足够了，尽管稍后我们在实现某些扩展时可能需要切换到按需付费方案，因为它们运行在\
+  \ Google Cloud Platform 上。不过，由于我们处于开发阶段，费用也只会是几美分而已。\n\n现在，是时候添加我们的 iOS 应用来与 Firebase\
+  \ 通信了！\n\n## 将你的 iOS 应用连接到 Firebase\n\n是时候将我们的应用与 Firebase 关联起来了。为此，我们将在 Xcode 和\
+  \ Firebase 控制台之间进行一些来回操作。\n\n本指南基于 Firebase 文档（`https://firebase.google.com/docs/ios/setup`）。在撰写本文时，该文档尚未包含\
+  \ SwiftUI，所以我建议你按照本指南操作。\n\n首先，我们需要创建一个新的 Xcode 项目。继续，点击 **创建新的 Xcode 项目**：\n\n\
+  ![](img/533376_1_En_2_Fig8_HTML.png)\n\n桌面屏幕截图显示了“欢迎使用 Xcode”窗口。第一个选项“创建新的 Xcode\
+  \ 项目”被一个边界框高亮。一个“在 Xcode 启动时显示此窗口”的复选框已被勾选。\n\n**图 2-8** – Xcode – 欢迎屏幕\n\n然后，在模板方面，它将是一个经典应用，所以请在\
+  \ **iOS** 平台下选择 **App** 模板：\n\n![](img/533376_1_En_2_Fig9_HTML.png)\n\nXcode 窗口截图，上方工具栏有各种选项，中央有一个窗格。标题为“为你的新项目选择模板”的窗格中，iOS\
+  \ 和 App 选项被边界框高亮。底部有“取消”、“上一步”和“下一步”按钮。\n\n**图 2-9** – Xcode – 选择 App 模板\n\n最后，我们需要为项目命名。我们将其命名为\
+  \ **Note**，因为这是我们在下一章将要构建的应用。请确保为界面选择 **SwiftUI**。由于我们将使用 Firebase 来存储数据，因此不需要使用\
+  \ Core Data：\n\n![](img/533376_1_En_2_Fig10_HTML.png)\n\nXcode 窗口截图，上方工具栏有各种选项，中央有一个窗格。标题为“为你的新项目选择选项”的窗格中，产品名称输入框被高亮。其他选项包括团队、组织标识符、包标识符、界面和语言。\n\
+  \n**图 2-10** – Xcode – 新项目选项\n\n你可以将项目保存在你喜欢的任何位置。我将其保存在桌面上。项目创建好后，让我们看看如何将其连接到\
+  \ Firebase。你可以导航回 Firebase 控制台。从项目概览页面，点击 **iOS+**，如下所示：\n\n![](img/533376_1_En_2_Fig11_HTML.png)\n\
+  \nFirebase 窗口截图。左侧面板有项目概览标签以及包含各种选项的类别。右侧面板显示“通过将 Firebase 添加到你的应用来开始使用”，下方列出了 5\
+  \ 个选项，其中 iOS 选项被边界框高亮。\n\n**图 2-11** – Firebase 控制台 – 添加 iOS 应用\n\nFirebase 将向你展示一个页面，引导你完成一个五步流程，以将你的应用连接到\
+  \ Firebase。\n\n你需要做的第一件事是获取 Apple 包标识符。你可以在 Xcode 的主目标中找到它。它通常由以下部分组成：\n\n- `com.[你的团队名称].[你的项目名称]`\n\
+  \n如果你不知道它在哪里，请查看以下截图：\n\n![](img/533376_1_En_2_Fig12_HTML.png)\n\n“项目 Note”窗口截图，在“目标\
+  \ Note”部分的“通用”下，包标识符输入框选项被高亮。右侧还有一个包含各种选项的“标识与类型”面板。\n\n**图 2-12** – Xcode – 查找包标识符的位置\n\
+  \n复制你的标识符后，你可以将其复制/粘贴到 Firebase。你还可以选择填写昵称和 App Store ID，但这些都是可选的：\n\n![](img/533376_1_En_2_Fig13_HTML.png)\n\
+  \nFirebase 窗口截图，标题为“将 Firebase 添加到你的 Apple 应用”。它有从 5 个类别中打开的“注册应用”类别，包含 Apple 包、应用昵称和应用商店\
+  \ ID 的输入框，以及一个“注册应用”按钮。\n\n**图 2-13** – 将 Firebase 添加到你的 Apple 应用 – 第 1 步\n\n\n\
+  好的，作为高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例格式，对给定的英文文本进行专业翻译。\n\n\n点击**继续**，这将带你进入第二步，下载\
+  \ `GoogleService-Info.plist` 文件。点击蓝色的下载按钮，将文件保存到你喜欢的任何位置。我把它保存在了桌面上：\n\n![](img/533376_1_En_2_Fig14_HTML.png)\n\
+  \n一个 Firebase 窗口的截图，标题为“将 Firebase 添加到你的 Apple 应用”。它从 4 个类别中打开了“下载配置文件”类别，其中包含一个“下载\
+  \ GoogleService-Info.plist”按钮和该文件的嵌入式截图。\n\n**图 2-14**  \n将 Firebase 添加到你的 Apple\
+  \ 应用 – 第二步\n\n现在你已经有了这个文件，可以将其从保存位置拖放到你的 Xcode 文件夹中。在我的例子中，我用鼠标直接将文件拖到 Xcode，然后点击**完成**按钮。\n\
+  \n确保选中**创建文件夹引用**、**如果需要则复制项目**以及目标**Note**。\n\n![](img/533376_1_En_2_Fig15_HTML.png)\n\
+  \nXcode 窗口截图，中间有一个用于选择添加这些文件选项的对话框。它有用于目标、添加的文件夹和添加到目标的复选框和单选按钮。一个箭头指向桌面上 `GoogleService-Info.plist`\
+  \ 文件左侧窗口面板中的**Note**。\n\n**图 2-15**  \n将 `GoogleService-Info.plist` 文件拖放到 Xcode\n\
+  \n现在你已经将文件添加到项目中，当你的应用通过 API 调用 Firebase 时，Firebase 就能识别你的应用。现在可以点击**下一步**。\n\n\
+  ## 你可能想知道这个文件是做什么用的\n\n`GoogleService-Info.plist` 文件包含了你的应用程序与 Firebase 后端通信所需的所有信息；它包含\
+  \ API 密钥、数据收集的 URL，以及一系列用于设置项目的信息。\n\n请确保正确添加此文件；否则，Firebase 将无法找到连接到你的 iOS 应用程序所需的关键信息，并在调用时导致崩溃。\n\
+  \n如果你因故丢失了此文件，你随时可以在 Firebase 控制台中找到并重新下载它。在项目概述旁边，有一个设置按钮。点击**项目设置**，然后向下滚动到**SDK\
+  \ 设置和配置**，你就可以从那里再次下载：\n\n![](img/533376_1_En_2_Fig16_HTML.png)\n\nFirebase 窗口截图，选中了**项目概览**选项，并从面板中高亮显示了**项目设置**选项的边框。在\
+  \ **Apple 应用**下选择了 **Note**，并在 **SDK 设置和配置**下高亮显示了 **GoogleService-Info.plist**\
+  \ 按钮。\n\n**图 2-16**  \n在控制台中查找 `GoogleService-Info.plist` 文件\n\n完成这些后，我们可以进入第三步，安装\
+  \ Firebase 软件开发工具包（SDK）。这可以通过多种方式实现。最流行的是 CocoaPods 和 Swift Package Manager。在我们的案例中，我们将使用后者。\n\
+  \n你可以复制 Firebase 建议的 URL，如下图所示 (`https://github.com/firebase/firebase-ios-sdk`)：\n\
+  \n![](img/533376_1_En_2_Fig17_HTML.png)\n\nFirebase 窗口截图，标题为“将 Firebase 添加到你的 Apple\
+  \ 应用”。它从 4 个类别中打开了“添加 Firebase SDK”类别，其中包含 4 个使用 Swift Package Manager 的要点，以及下方的**上一步**和**下一步**按钮。\n\
+  \n**图 2-17**  \n将 Firebase 添加到你的 Apple 应用 – 第三步\n\n复制完成后，回到 Xcode，在左上角点击**文件** ➤\
+  \ **添加软件包…**，然后会弹出一个窗口。在搜索栏中输入你刚刚复制的 URL，`firebase-ios-sdk` 软件包应会出现在图中：\n\n![](img/533376_1_En_2_Fig18_HTML.png)\n\
+  \nXcode 窗口的 2 张截图。左侧高亮了**添加软件包**选项，指向另一个高亮了添加软件包选项的窗口。\n\n**图 2-18**  \nXcode –\
+  \ 添加软件包\n\n> **注意**  \n> 由于我之前已经将它添加到之前的项目中，因此它已经出现在“最近使用”部分。\n\n点击右下角的蓝色**添加软件包**按钮，将开始获取，并会提示你添加产品。目前，我们只需要使用以下三个软件包：\n\
+  \n*   `FirebaseFirestore`\n*   `FirebaseFirestoreSwift`\n*   `FirebaseAuth`\n\n\
+  在接下来的章节中，我们只需要这三个模块来复制 Apple Notes 应用。但是，对于后续项目，我们还将用到 Firebase Analytics、Firebase\
+  \ Storage 等。\n\n选择完这三个模块后，再次点击**添加软件包**，如下图所示：\n\n![](img/533376_1_En_2_Fig19_HTML.png)\n\
+  \nXcode 窗口截图，有一个用于选择 `firebase-ios-sdk` 软件包产品的对话框。它从 6 个选项中勾选了 2 个，并高亮了**添加软件包**按钮。\n\
+  \n**图 2-19**  \nXcode ➤ 添加软件包 – 选择产品\n\n安装过程将持续几分钟，具体取决于你的网络连接。然后，你将会看到包含已安装软件包的项目，你就可以开始使用\
+  \ Firebase 的 API 了。\n\n让我们进入第四步。在这一步中，我们将从应用的主入口初始化 Firebase。\n\n![](img/533376_1_En_2_Fig20_HTML.png)\n\
+  \nFirebase 窗口截图，标题为“添加初始化代码”。它选中了 **SwiftUI** 单选按钮，下方有几行代码，以及**上一步**和**下一步**按钮。\n\
+  \n**图 2-20**  \n将 Firebase 添加到你的 Apple 应用 – 第四步\n\n前往 Xcode 中的 `NoteApp.swift` 文件，并在顶部导入\
+  \ Firebase：\n\n```swift\nimport FirebaseCore\n```\n\n然后，在 `@main` 关键字上方添加以下代码：\n\
+  \n```swift\nclass AppDelegate: NSObject, UIApplicationDelegate {\n    func application(_\
+  \ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey\
+  \ : Any]? = nil) -> Bool {\n        FirebaseApp.configure()\n        return true\n\
+  \    }\n}\n```\n\n接着，在 `struct` 内部、`body` 变量的上方添加以下代码行，以注册 App Delegate：\n\n```swift\n\
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate\n```\n\n一旦你实现了这些代码，你的应用程序就能够与\
+  \ Firebase 通信了。你可以运行你的应用（点击左侧标签页中的播放按钮），你应该能看到类似下图的控制台打印信息：\n\n![](img/533376_1_En_2_Fig21_HTML.png)\n\
+  \nXcode 窗口截图，左侧面板中选中了 **NoteApp** 选项。右侧窗格中有几行代码，最右侧是 iPhone 13 Pro 屏幕，显示“Hello World”文本。\n\
+  \n**图 2-21**  \nXcode 运行并与 Firebase 通信\n\n```\n[boringssl] boringssl_metrics_log_metric_block_invoke(144)\
+  \ Failed to log metrics\n```\n\n> **注意**  \n> 在此过程中，Xcode 将会运行大量 Firebase 模块。如果你的\
+  \ MacBook 发出类似飞机着陆时的声音，这是正常的；它正在处理大量文件。\n\n恭喜！你已经成功设置了 Firebase，以便通过 HTTP 请求与你的应用进行通信，现在你可以使用\
+  \ Firebase 的 API 来利用其出色的框架。你现在可以点击**继续进入控制台**：\n\n![](img/533376_1_En_2_Fig22_HTML.jpg)\n\
+  \nFirebase 窗口截图，标题为“将 Firebase 添加到你的 Apple 应用”。它从 5 个类别中打开了“后续步骤”类别，其中包含“一切就绪！”的消息和描述。底部有**上一步**和**继续进入控制台**两个按钮。\n\
+  \n**图 2-22**  \n将 Firebase 添加到你的 Apple 应用 – 第五步\n\n\n\n## 总结\n\n在本章中，我们了解了什么是 Firebase，以及为什么在项目开发中应考虑使用它。我们简要浏览了控制台以及如何在仪表盘中导航，因为在接下来的章节中我们将深入探索。\n\
+  \n此外，我还带你了解了如何创建第一个 Firebase 项目，并使用 Swift Package Manager 连接一个 iOS 应用程序，以便你准备好使用它们的\
+  \ API。\n\n通过这一准备工作，我们现在可以开始构建第一个可运行的应用程序，并在 Firebase 与我们的应用之间传输数据。\n\n"
+- "# 3. 体验 Firestore\n\n在本章中，我们将通过一个经典的编程练习来专注于 Firebase Firestore：创建-读取-更新-删除（CRUD）。Firestore\
+  \ 是一个基于 NoSQL 文档的数据库，它允许我们无需管理基础设施即可查询、同步和存储数据。\n\n在介绍了我们的应用架构和 MVVM 设计模式之后，我们最终将离开“它是如何工作的”理论和设置部分，进入编码环节，构建一个\
+  \ iOS 应用程序，该应用将复制苹果产品自带的 Apple Notes 应用。它将如下图所示：\n\n![](img/533376_1_En_3_Fig1_HTML.png)\n\
+  \n四个手机屏幕显示一个深色背景，上面有 3 条笔记可供编辑、发布和更新。\n\n**图 3-1** 我们将要构建的笔记应用的屏幕截图\n\n该应用将包含一个笔记列表——我们可以直接从主屏幕删除笔记——一个用于上传新笔记的表单，以及一个用于完整阅读笔记的详情页面，并且我们能够编辑笔记。\n\
+  \n在本章结束时，你将能够恰当地构建你的 iOS 项目，并向 Firestore 发起 API 调用。\n\n## 介绍 MVVM 设计模式\n\n你可能想知道\
+  \ MVVM 是什么以及它的全称。MVVM 是 Model-View-ViewModel（模型-视图-视图模型）的缩写；这是一种被 SwiftUI 开发者社区广泛使用的架构。将其视为一种“如何组织我的代码”的解决方案。\n\
+  \n在第 1 章中，我们使用了 SwiftUI，并且几乎是毫无结构地将所有代码拼凑在一起。作为入门介绍，这样做没问题。然而，随着我们的应用变得更加复杂，代码可能会变得难以阅读并引发冲突。这时，应用架构就派上用场了！\n\
+  \n它将帮助我们把代码分解成多个文件。每个文件都有一个特定的目的：\n\n-   **模型** 负责构建我们的数据结构并包含逻辑。\n-   **视图模型**\
+  \ 将负责管理数据，接收模型的更新通知，并在我们的场景中负责与 Firebase 的调用通信。\n-   **视图** 将向用户展示我们的用户界面：列表、按钮、文本、图像等等。它会将数据与我们的视图模型绑定。\n\
+  \n你可能在想，我们的应用为什么需要架构。嗯，当你希望与多人协作开发一个项目，或者应用变得复杂时，它就变得很重要。它有助于预防代码中的错误。总的来说，它具有以下优点：\n\
+  \n-   我们将实现关注点分离。这样，每个文件都有自己的职责，我们可以避免错误和冲突。\n-   更容易阅读和识别错误。例如，如果出现 UI 问题，你应该在视图中查找；如果出现\
+  \ HTTP 请求问题，视图模型就是需要检查的文件。数据缺失？你可能需要在模型中添加它。\n\n现在，请花点时间看看下面展示设计模式的图表：\n\n![](img/533376_1_En_3_Fig2_HTML.png)\n\
+  \n一个架构图。模型注意到数据和逻辑的变化，并与视图模型通信，视图模型将视图绑定到模型，充当通往后端的门户，并解释数据。视图发布更改。\n\n**图 3-2**\
+  \ 图形化的 MVVM 架构\n\n如你所见，模型与视图模型进行通信，视图模型负责解释数据并将其传递给视图，而视图仅负责呈现用户界面，并同时将用户意图通知给视图模型。\n\
+  \n例如，在我们即将构建的应用中，模型将由一个标识符和一个标题组成。此结构将通知负责向 Firebase 发起读取调用的视图模型，然后将数据在视图内的列表中呈现。\n\
+  \n当数据以相反方向流动时会发生什么？\n\n如果数据是通过视图模型从视图传递到模型，那么视图将通知视图模型，视图模型将解释此操作，然后修改模型。例如，当用户删除一条笔记时，视图将通知视图模型，视图模型会根据模型中存储的信息，通知\
+  \ Firebase 删除该文档。\n\n现在，如果这对你来说听起来仍然有点抽象，别担心。通过在本书的实践中应用它，一切都会变得清晰。\n\n\n\n## 创建\
+  \ Firestore 数据\n\n在开始编码之前，Firebase 仍需要进行一些设置才能使用 Firestore 数据库。前往你的 Firebase 控制台，在左侧面板中找到\
+  \ Firestore Database 部分，然后点击 `Create database` 按钮，如下图所示：\n\n![](img/533376_1_En_3_Fig3_HTML.png)\n\
+  \n屏幕显示了一个 Firestore 数据库，并带有 Cloud Firestore 的说明面板，用于创建数据库。\n\n**图 3-3** Firebase\
+  \ 控制台 – Firestore 部分\n\n此时会弹出一个窗口，引导你完成两个步骤。第一步是选择如何启动数据库。我们将选择测试模式，因为本章只是初步探索 Firebase。我们无需设置规则来将\
+  \ Firebase 的使用限制在已认证用户等范围内。此外，我们使用的是 Spark 计划，尚未输入信用卡信息，因此在计费方面没有问题。\n\n第二步是选择数据存储位置。只需选择离你较近的区域即可。我选择了美国中部，但如果你打算将应用分发到欧洲市场，那么选择中欧作为数据库位置会更优，因为距离更近，效率也稍高。请按照以下说明完成这两个步骤：\n\
+  \n![](img/533376_1_En_3_Fig4_HTML.png)\n\n两个屏幕分别显示了数据库的创建过程、底部的两个选项，以及右侧的警告和启用选项。\n\
+  \n**图 3-4** Firestore 两步设置\n\n现在我们的数据库已经激活，是时候回到 Xcode 了。打开我们之前创建并连接到 Firebase 的\
+  \ Note 项目。\n\n根据我们之前讨论的 MVVM 架构，接下来要创建 Model。\n\n点击 `Create a new file ➤ Swift File`\
+  \ 并将其命名为 `Note`。然后粘贴以下代码：\n\n```\nimport Foundation\nimport FirebaseFirestoreSwift\n\
+  struct Note: Codable {\n@DocumentID var id: String?\nvar title: String?\n}\n```\n\
+  \n这就是我们的 Model 所需的全部内容：一个标识符和一个用于存储稍后将在表单中输入的文本的标题。\n\n请注意，我们导入了 `FirebaseFirestoreSwift`\
+  \ 以使用 `@DocumentID` 关键字。这个关键字来自 Firebase，用于帮助我们正确地将文档与 Firebase 的标识符进行映射。\n\n下一步是创建我们的\
+  \ View Model。这个文件将负责根据我们刚创建的 Model 将数据传递给 View。它还将使用 Firebase 的 API 与 Firebase 进行通信，因此我们需要在顶部导入\
+  \ Firestore 框架。\n\n点击 `Create a new file ➤ Swift File` 并将其命名为 `NoteViewModel`，然后在顶部导入框架：\n\
+  \n```\nimport FirebaseFirestore\n```\n\n然后，你可以将以下代码复制/粘贴到你的文件中：\n\n```\nclass NoteViewModel:\
+  \ ObservableObject {\n@Published var notes = [Note]()\nprivate var databaseReference\
+  \ = Firestore.firestore().collection(\"Notes\")\n// 用于发布数据的函数\n// 用于读取数据的函数\n//\
+  \ 用于更新数据的函数\n// 用于删除数据的函数\n}\n```\n\n很好，我们刚刚创建了一个符合 `ObservableObject` 的类。它允许该类的实例稍后在视图中使用，这样当发生变化时，视图将使用更新后的更改重新加载。\n\
+  \n然后，我们使用 `Published` 创建了一个对 Model 的引用，以告知程序当 Model 发生更改时重新加载。\n\n此外，我们还添加了一个变量，以便引用我们刚刚命名为\
+  \ `Notes` 的 Firestore 集合。添加这个引用很有用，这样我们在编写获取、读取、删除或更新数据的函数时，无需多次编写它。\n\n现在是时候在之前留下的注释下方添加将数据发布到\
+  \ Firestore 的函数了：\n\n```\n// 用于发布数据的函数\nfunc addData(title: String) {\ndo {\n_ =\
+  \ try databaseReference.addDocument(data: [\"title\": title])\n}\ncatch {\nprint(error.localizedDescription)\n\
+  }\n}\n```\n\n这里没有什么太多需要评论的。我们使用的是 Firebase 的 `addDocument` API，传递我们的数据：标题（字符串）。如果出现错误，它也会捕获错误，并在控制台中通过\
+  \ `catch` 打印出来。\n\n对于 Model-View Model 将数据发布到 Firestore 来说，这已经足够了。现在是时候构建我们的用户界面了。我们将为表单创建\
+  \ UI，并处理从 `ContentView.swift` 文件中呈现它的逻辑。\n\n继续操作，点击 `Create a new file ➤ SwiftUI\
+  \ View` 并将其命名为 `FormView`：\n\n```\nimport SwiftUI\nstruct FormView: View {\n@Environment(\\\
+  .dismiss) var dismiss\n@State var titleText = \"\"\nvar body: some View {\n// ...\n\
+  }\n}\n```\n\n这些代码行将有助于处理视图的呈现和用户通过标题输入的文本。\n\n现在让我们构建一个表单。在 `body` 变量内添加以下代码：\n\n\
+  ```\nNavigationStack {\nForm {\nSection {\nTextEditor(text: $titleText)\n.frame(minHeight:\
+  \ 200)\n}\nSection {\nButton(action: {\n// TODO: 上传数据\n}) {\nText(\"立即保存\")\n}.disabled(self.titleText.isEmpty)\n\
+  .foregroundColor(.yellow)\n}\n}.navigationTitle(\"发布\")\n.toolbar {\nToolbarItemGroup(placement:\
+  \ .destructiveAction) {\nButton(\"取消\") {\ndismiss()\n}\n}\n}\n}\n```\n\n很好！我们刚刚添加了一个包含表单的\
+  \ `NavigationStack`，该表单由一个 `TextEditor`（对于长文本输入来说比 `TextField` 更好）组成。此外，我们还添加了一个发布按钮，如果没有文本输入则禁用；以及另一个按钮作为导航的一部分位于顶部，用于关闭视图。\n\
+  \n现在，我们可以从 `ContentView.swift` 文件中调用这个屏幕了！添加以下 `@State` 来观察视图的呈现状态：\n\n```\nimport\
+  \ SwiftUI\nstruct ContentView: View {\n@State private var showingSheet = false @State\
+  \ private var postDetent = PresentationDetent.medium\nvar body: some View {\n//\
+  \ ...\n}\n}\nstruct ContentView_Previews: PreviewProvider {\n// ...\n}\n```\n\n\
+  现在是时候创建带有按钮的底部栏，以模态方式呈现我们的表单了。\n\n在 `body` 变量内添加以下代码：\n\n```\nNavigationStack {\n\
+  List {\n// TODO: 显示我们的笔记\n}\n.toolbar {\nToolbarItemGroup(placement: .bottomBar)\
+  \ {\nText(\" X 条笔记\") // TODO\nSpacer()\nButton {\n// 写一条新笔记\nshowingSheet.toggle()\n\
+  } label: {\nImage(systemName: \"square.and.pencil\")\n}\n.imageScale(.large)\n.sheet(isPresented:\
+  \ $showingSheet) {\nFormView().presentationDetents([.large, .medium])\n}\n}\n} }.navigationTitle(\"\
+  笔记\")\n```\n\n我们刚刚添加了另一个 `NavigationStack`，其中包含一个列表（我们将在下一部分用数据填充它），并在底部添加了一个按钮，复制了\
+  \ Apple Notes 应用中的功能，这要感谢 SF Symbols。\n\n> **SF Symbols** 是 Apple 构建的图标库。截至目前，它提供了超过\
+  \ 4,400 个符号。这样，你无需设计师技能即可将漂亮的图标集成到你的应用程序中。如果你想查看可以选择哪些图标，可以从以下页面下载 Apple 的应用：\n\
+  > \n> [`https://developer.apple.com/sf-symbols/`](https://developer.apple.com/sf-symbols/)\n\
+  \n这个页面将在点击按钮时呈现，并且可以从表单中关闭。\n\n你可以运行你的应用程序并检查交互；你应该能够多次访问表单并关闭它。\n\n既然我们的用户界面已经准备就绪，是时候将数据发布到\
+  \ Firestore 并再次前往 `FormView` 了。\n\n在 `body` 变量上方添加以下观察者：\n\n```\n@ObservedObject\
+  \ private var viewModel = NoteViewModel()\n```\n\n这将实现 View 和 View Model 之间的数据绑定。现在我们只需要在我们之前留下\
+  \ `// TODO: upload data` 注释的地方，在按钮操作中调用我们之前创建的函数即可，如下所示：\n\n```\nvar body: some\
+  \ View {\nNavigationStack {\nForm {\nSection {\n// ..\n}\nSection {\nButton(action:\
+  \ {\nself.viewModel.addData(title: titleText)\ntitleText = \"\"\ndismiss()\n}) {\n\
+  // ..\n}\n// ...\n}\n}.navigationTitle(\"发布\")\n// ...\n}\n}\n```\n\n\n\n瞧！我们只需从视图模型中调用函数，将标题文本的内容发布到\
+  \ Firebase，然后使用 `dismiss()` 关闭视图。\n\n运行你的应用，输入一些文字，然后点击“立即保存”。\n\n![](img/533376_1_En_3_Fig5_HTML.png)\n\
+  \n左侧的移动屏幕显示“发布”下方有一条笔记，右侧的 Web 屏幕显示 Cloud Firestore 笔记面板中的数据选项卡，下方添加了相应的笔记，以及“添加字段”选项。\n\
+  \n**图 3-5** 向 Firestore 上传数据\n\n让我们看看你的 Firebase Firestore 控制台发生了什么：\n\n恭喜！我们刚刚完成了对\
+  \ Firebase API 的首次调用，在 Notes 集合中添加了一个文档。你甚至可以继续添加任意多个文档！\n\n现在是时候读取这些笔记并将它们显示在我们的列表中了！\n\
+  \n## 从 Firestore 读取数据\n\n现在该读取我们的笔记了，因为我们已经向 Firestore 发布了几条笔记。在我们的 `ContentView.swift`\
+  \ 文件中，我们添加了一个由 `List` 组成的 `NavigationView`。我们将在这个列表中显示数据，但还没有添加获取这些数据的函数。接下来进入 `NoteViewModel.swift`\
+  \ 文件，在我们留下的注释下方添加以下函数：\n\n```\n// 读取数据的函数\nfunc fetchData() {\n    databaseReference.addSnapshotListener\
+  \ { (querySnapshot, error) in\n        guard let documents = querySnapshot?.documents\
+  \ else {\n            print(\"没有文档\")\n            return\n        }\n        self.notes\
+  \ = documents.compactMap { queryDocumentSnapshot -> Note? in\n            return\
+  \ try? queryDocumentSnapshot.data(as: Note.self)\n        }\n    }\n}\n```\n\n这个从\
+  \ Firestore 读取数据的函数之前缺失了。它添加了一个监听器，以便我们的前端能够基于我们创建的 `Note` 模型实时接收来自后端的更新。\n\n现在让我们在\
+  \ `ContentView` 中使用它来获取数据并在列表中显示。就像我们在 `FormView` 中所做的那样，我们也需要观察视图模型。请在 `ContentView.swift`\
+  \ 文件中的 `body` 变量上方添加以下代码行：\n\n```\n@ObservedObject private var viewModel = NoteViewModel()\n\
+  ```\n\n现在我们已经准备好监听视图模型的更新，接下来实现 UI（仍在 `ContentView.swift` 文件中）：\n\n```\nimport SwiftUI\n\
+  \nstruct ContentView: View {\n    // ...\n    var body: some View {\n        NavigationStack\
+  \ {\n            List {\n                ForEach(viewModel.notes, id:\\.id) { Note\
+  \ in\n                    VStack(alignment: .leading) {\n                      \
+  \  Text(Note.title ?? \"\").font(.system(size: 22, weight: .regular))\n        \
+  \            }.frame(maxHeight: 200)\n                }\n            }.onAppear(perform:\
+  \ self.viewModel.fetchData)\n            .toolbar {\n                ToolbarItemGroup(placement:\
+  \ .bottomBar) {\n                    Text(\"\\(viewModel.notes.count) 条笔记\")\n \
+  \                   Spacer()\n                    Button {\n                   \
+  \     // ...\n                    } label: {\n                        Image(systemName:\
+  \ \"square.and.pencil\")\n                    }\n                    // ...\n  \
+  \              }\n            }\n        }.navigationTitle(\"笔记\")\n        // ..\n\
+  \    }\n}\n```\n\n我们刚刚基于模型实现了一个列表，并为每个元素分配了一个标识符；否则，当我们添加或删除笔记时，SwiftUI 将无法知道引用哪个元素。这就是\
+  \ `id:\\.id` 的作用。\n\n此外，我们使用 `.onAppear` 修饰符来获取数据，这样每当视图出现时就会调用该函数。\n\n我们还添加了代码\
+  \ `viewModel.notes.count`，让用户知道我们的应用中有多少条笔记注册了，类似于苹果的 Notes 应用。\n\n运行应用，你添加的所有数据都会出现在那里。我添加了几条美国总统的名言。我的列表看起来像这样：\n\
+  \n![](img/533376_1_En_3_Fig6_HTML.png)\n\n左侧的移动屏幕显示 3 条笔记，右侧的 Web 屏幕显示云存储，第三条笔记位于“添加字段”选项下。\n\
+  \n**图 3-6** 从 Firestore 读取数据\n\n## 在视图之间传递数据\n\n现在，如果我们想阅读完整的引言呢？从列表中阅读并不容易。如果能显示另一个包含更多细节的屏幕会很酷。这就是我们要实现的功能。这里的挑战是如何使用正确的标识符在视图之间传递数据。让我们开始吧。\n\
+  \n我们将创建一个 `DetailsView` 来在 `ScrollView` 中呈现文本，以便我们能阅读完整文本。\n\n创建一个新的 SwiftUI 视图文件，命名为“`DetailsView`”，并向其中添加以下代码：\n\
+  \n```\nimport SwiftUI\n\nstruct DetailsView: View {\n    var note: Note\n    var\
+  \ body: some View {\n        Text(\"\\(note.title ?? \"\")\")\n    }\n}\n\nstruct\
+  \ DetailsView_Previews: PreviewProvider {\n    static var previews: some View {\n\
+  \        DetailsView(note: Note(id: \"bKrivNkYirmMvHyAUBWv\", title: \"问题从来都不简单。我引以为傲的一点是，你很少会听到我简化问题。巴拉克·奥巴马\"\
+  ))\n    }\n}\n```\n\n这样，我们就有了一个引用，可以将数据从 `ContentView` 传递到我们的 `DetailsView`。同时，我们需要在预览中用一些默认数据进行初始化；否则，Xcode\
+  \ 不会允许我们运行应用。\n\n我们还用笔记的标题替换了“Hello, world”文本，如果数据不存在，则通过 `?? \"\"` 传递一个默认的空字符串。\n\
+  \n现在是时候让行变得可点击并传递数据了。让我们回到 `ContentView` 文件，将包含文本的 `VStack` 嵌入到 `NavigationLink`\
+  \ 修饰符中，如下所示：\n\n```\nstruct ContentView: View {\n    // ...\n    var body: some\
+  \ View {\n        NavigationStack {\n            List(viewModel.notes, id: \\.id)\
+  \ { Note in\n                NavigationLink(destination: DetailsView(note: Note))\
+  \ {\n                    VStack(alignment: .leading) {\n                       \
+  \ Text(Note.title ?? \"\").font(.system(size: 22, weight: .regular))\n         \
+  \           }.frame(maxHeight: 200)\n                }\n            }.onAppear(perform:\
+  \ self.viewModel.fetchData)\n        }\n        .toolbar {\n            // ...\n\
+  \        }\n        .navigationTitle(\"笔记\")\n    }\n}\n```\n\n这就是我们需要做的全部工作。使用\
+  \ SwiftUI 的 `NavigationLink`，我们只需要传递要呈现的视图以及它们需要包含的数据。这里我们引用了在 `DetailsView` 中也调用的\
+  \ `Note` 模型，以使其正常工作。\n\n请注意，`NavigationLink` 只能在 `NavigationView` 内部工作，因为它是该协议的一部分。\n\
+  \n现在你可以运行你的应用并点击某一行；它将打开 `DetailsView` 并根据你点击的行显示详细信息。\n\n但让我们稍微改进一下 `DetailsView`\
+  \ 的用户界面。我们将为导航栏添加一个标题，并将文本放入 `ScrollView` 中，这样当文本较长时我们可以完整阅读。在 `body` 变量中实现以下代码：\n\
+  \n```\nNavigationStack {\n    ScrollView {\n        VStack {\n            Text(note.title\
+  \ ?? \"\")\n                .font(.system(size: 22, weight: .regular))\n       \
+  \         .padding()\n            Spacer()\n        }\n    }\n}.navigationTitle(\"\
+  详情\")\n```\n\n这样看起来更好了！我们现在符合最初的用户界面设计：\n\n![](img/533376_1_En_3_Fig7_HTML.png)\n\
+  \n两个移动屏幕以两种格式显示笔记。第一个有 3 条笔记，第二个有 1 条笔记。\n\n**图 3-7** 从列表导航到另一个视图\n\n得益于 `NavigationLink`，我们的每一行都自动出现了一个\
+  \ `>` 符号，向用户指示该行是可点击的。现在，如果我们写错了一条笔记该怎么办？让我们为此实现一个编辑器吧！\n\n\n\n## 从 Firestore 更新数据\n\
+  \n在本节中，我们将实现一个新的屏幕来编辑笔记，并将文本条目保存到 Firestore。但首先，让我们前往 `View Model`，添加将其更新到 Firestore\
+  \ 的必要功能。\n\n将以下代码粘贴到 `NoteViewModel.swift` 中：\n\n```\n// 更新数据的函数\nfunc updateData(title:\
+  \ String, id: String) {\n    databaseReference.document(id).updateData([\"title\"\
+  \ : title]) { error in\n        if let error = error {\n            print(error.localizedDescription)\n\
+  \        } else {\n            print(\"笔记更新成功\")\n        }\n    }\n}\n```\n\n如您所见，我们在文档中传递了一个标识符，以让\
+  \ Firestore 知道需要更新哪个文档。然后，我们在 `updateData` 函数中传递要修改的标题。和往常一样，如果有错误，我们会打印出来。\n\n\
+  是时候处理用户界面了。我们将使用一个包含 `TextField` 的弹窗提示，让用户更新文本。在 `DetailsView` 顶部添加以下代码：\n\n```\n\
+  @State private var presentAlert = false\n@State private var titleText: String =\
+  \ \"\"\n@ObservedObject private var viewModel = NoteViewModel()\n```\n\n我们需要这些参数来进行交互：\n\
+  \n- `@State` 布尔值，用于控制弹窗的显示\n- `@State`，用于跟踪 `TextField` 的输入内容\n\n当然，我们的 View Model\
+  \ 会从我们的 View 中获取信息以进行更新。\n\n现在，我们可以从 `DetailsView` 中展示我们的 `Alert` 了。首先，我们需要在这个屏幕上添加一个“编辑”按钮；我们将通过\
+  \ `toolbar` 来实现。您可以将其直接添加到 `navigationTitle` 下方：\n\n```\n.toolbar {\n    ToolbarItemGroup(placement:\
+  \ .confirmationAction) {\n        Button {\n            presentAlert = true\n  \
+  \      } label: {\n            Text(\"编辑\").bold()\n        }.alert(\"笔记\", isPresented:\
+  \ $presentAlert, actions: {\n            TextField(\"\\(note.title ?? \"\")\", text:\
+  \ $titleText)\n            Button(\"更新\", action: {\n                // TODO: 更新数据并清空文本\n\
+  \            })\n            Button(\"取消\", role: .cancel, action: {\n         \
+  \       presentAlert = false\n                titleText = \"\"\n            })\n\
+  \        }, message: {\n            Text(\"写下您的新笔记\")\n        })\n    }\n}\n```\n\
+  \n太棒了！现在我们可以展示 `Alert`，并在过程中传递数据。我们现在可以添加更新笔记的函数了。在 `DetailsView` 中我们留下 `// TODO:`\
+  \ 注释的位置添加以下代码：\n\n```\nself.viewModel.updateData(title: titleText, id: note.id ??\
+  \ \"\")\ntitleText = \"\"\n```\n\n瞧！我们现在可以运行应用并编辑笔记了。输入的字段现在将使用相应的标识符填充选定的笔记。\n\n\
+  假设您想把亚伯拉罕·林肯的语录\n\n“今天能做的事，不要留给明天。—— 亚伯拉罕·林肯”\n\n改成巴拉克·奥巴马的另一句名言：\n\n“如果我们等待其他人，或者等待其他时间，改变就不会到来。——\
+  \ 巴拉克·奥巴马”\n\n前往您的列表，导航到详情页，点击编辑按钮。然后输入上述文本。您会看到文本将在 `DetailsView` 中更新，然后更新到我们的\
+  \ `List` 中：\n\n![](img/533376_1_En_3_Fig8_HTML.png)\n\n三个手机屏幕以三种格式显示笔记，用于编辑和更新，以及更新后的笔记。\n\
+  \n**图 3-8** 从模拟器中编辑笔记\n\n我们现在正在编辑笔记，它在后端和用户界面中都是实时编辑的。\n\n现在，如果您想删除笔记呢？让我们来实现最后一个功能。\n\
+  \n## 从 Firestore 删除数据\n\n让我们实现最后一步：从 Firestore 中删除数据。我们在 `NoteViewModel` 中为此留了一个标记。前往该文件并添加以下代码：\n\
+  \n```\n// 删除数据的函数\nfunc deleteData(at indexSet: IndexSet) {\n    indexSet.forEach\
+  \ { index in\n        let note = notes[index]\n        databaseReference.document(note.id\
+  \ ?? \"\").delete { error in\n            if let error = error {\n             \
+  \   print(\"\\(error.localizedDescription)\")\n            } else {\n          \
+  \      print(\"ID 为 \\(note.id ?? \"\") 的笔记已删除\")\n            }\n        }\n  \
+  \  }\n}\n```\n\n在删除函数中，我们提供了一个 `indexSet`，这有助于引用我们的列表，然后传递我们在 Model 中创建的标识符，以便将正确的\
+  \ ID 信息传递给 Firestore 以删除正确的文档（即在行中选定的那个）。和往常一样，如果有错误，我们会打印错误，如果成功，我们会打印文档标识符。\n\n\
+  现在，让我们在屏幕上实现它！前往 `ContentView.swift` 文件：\n\n```\nstruct ContentView: View {\n  \
+  \  // ...\n    var body: some View {\n        NavigationStack {\n            List\
+  \ {\n                ForEach(viewModel.notes, id:\\.id) { Note in\n            \
+  \        NavigationLink(destination: DetailsView(note: Note)) {\n              \
+  \          // ...\n                    }\n                }.onDelete(perform: self.viewModel.deleteData(at:))\n\
+  \            }.onAppear(perform: self.viewModel.fetchData)\n            .navigationTitle(\"\
+  笔记\")\n        }\n        .toolbar {\n            // ...\n        }\n    }.navigationTitle(\"\
+  笔记\")\n}\n```\n\n就是这样！使用 SwiftUI 从列表中删除项目非常简单。`onDelete` 修饰符处理向左滑动，显示红色的“删除”标题。我们的函数将完成其余工作，删除\
+  \ Firestore 上的文档。\n\n现在，我邀请您在模拟器上运行您的应用。在您要删除的行上向左滑动，查看 Firestore 控制台上发生了什么：\n\n\
+  ![](img/533376_1_En_3_Fig9_HTML.png)\n\n一个手机屏幕显示带有删除选项的笔记。右侧的两个屏幕显示 Cloud Firestore\
+  \ 及其字段，第三个屏幕上显示相应的代码片段和笔记。\n\n**图 3-9** 从列表和 Firestore 数据库中删除笔记\n\n通过这样做，您将看到后端实时发生删除操作。然后您的笔记将从列表中消失，我们的笔记数量将在\
+  \ `toolBar` 中更新。\n\n## 总结\n\n我们已经完成了第一个具有大多数应用中常见功能函数的笔记应用：从后端发布、读取、更新和删除内容的能力。这是一次不错的\
+  \ CRUD 练习，也是让您开始使用 SwiftUI 和 Firebase 的好方法。\n\n在本章中，我们介绍了如何使用 MVVM 设计模式构建我们的应用，以及首次使用\
+  \ Firebase 的 API、设置 Cloud Firestore 数据库并在用户界面和后端之间（更确切地说，是在 View Model 和后端之间）建立联系。\n\
+  \n接下来，您将找到第一个应用的仓库链接。如果您在途中遗漏了什么，请查阅该仓库：\n\n如何使用这个仓库？如果您克隆此仓库并运行应用，它会崩溃。为什么？因为该项目中没有\
+  \ `GoogleService-Info.plist` 文件。Firebase 会查找它，但找不到必要的 API 密钥，因此无法初始化并导致崩溃。\n\n要使其正常工作，您需要前往\
+  \ Firebase 控制台，按照我们在第 2 章中的操作添加一个新的 iOS 项目，传递正确的捆绑标识符，并将 `GoogleService-Info.plist`\
+  \ 添加到该项目中。这两个步骤对于使应用正常运行至关重要。通常，包会通过 SPM 自行获取，因此您可以跳过此步骤。\n\n是时候进入下一章了：我们将了解 Firebase\
+  \ Auth 并认证我们的第一个用户！\n\n\n\n"
+- '# 4. 使用 Firebase Auth 进行用户认证
+
+
+  本章我们将重点关注 Firebase Auth SDK。我们将创建一个认证流程，以获取对我们之前实现的创建-读取-更新-删除（CRUD）功能的访问权限。我们将借助
+  [Firebase 身份验证 API](https://firebase.google.com/docs/auth/ios/start) 来验证用户凭据与服务器返回的响应是否匹配。同时，我们还会使用
+  Firestore 将用户信息存储在一个集合中（类似于 SQL 类型数据库中的表）。
+
+
+  然后，我们将限制访问权限，仅允许拥有账户的用户登录，就像 Twitter、Instagram 等应用中的新用户引导流程一样。为此，我们需要监听 Firebase
+  提供的用户状态。
+
+
+  Firebase Auth SDK 通过其监听器 API 让我们能够知晓用户的登录或登出状态。以下是我们要构建的界面：
+
+
+  ![](img/533376_1_En_4_Fig1_HTML.jpg)
+
+
+  三张移动端界面的截图，分别展示了欢迎页面、重置密码页面和带有输入框与按钮的笔记页面。
+
+
+  **图 4-1** 我们将要创建的界面截图
+
+
+  最后，我们还会修改安全规则，仅允许已认证的用户访问我们的应用。
+
+
+  ## 设置 Firebase 身份验证
+
+
+  首先，我们需要在控制台中设置 Firebase。我们将进入控制台启用身份验证功能。只需几个步骤即可完成。为此，选择“身份验证”部分，然后点击“开始使用”：
+
+
+  ![](img/533376_1_En_4_Fig2_HTML.jpg)
+
+
+  Firebase 身份验证窗口的截图，左侧面板的“构建”类别中，“身份验证”选项已被高亮。右侧面板中，“开始使用”按钮被高亮，下方还有“了解更多”等选项。
+
+
+  **图 4-2** Firebase 控制台的身份验证部分
+
+
+  如您所见，Firebase 提供了多种用户认证方式。它原生支持邮箱密码认证、手机号认证以及匿名认证，后者可以在不要求用户输入任何信息的情况下为其生成唯一标识符。
+
+
+  至于第三方登录，主要有 Facebook、Google、Apple、Microsoft、Twitter、GitHub、Yahoo 等大型科技提供商可供选择。我们将在后续章节中实现其中一种。
+
+
+  对于本应用，我们首先只使用邮箱和密码登录。在“原生提供商”下选择“邮箱/密码”：
+
+
+  ![](img/533376_1_En_4_Fig3_HTML.jpg)
+
+
+  Firebase 窗口的截图，左侧为项目概览面板，右侧为身份验证面板。该面板已选中“登录方式”选项卡，并且在“原生提供商”下，“邮箱或密码”选项被高亮。
+
+
+  **图 4-3** 身份验证 – 选择邮箱/密码
+
+
+  然后，只需启用并保存更改即可：
+
+
+  ![](img/533376_1_En_4_Fig4_HTML.jpg)
+
+
+  Firebase 窗口的截图，左侧为项目概览面板，右侧为身份验证面板。该面板已选中“登录方式”选项卡，在登录提供商下方，“邮箱或密码”的启用开关和保存按钮被高亮。
+
+
+  **图 4-4** 身份验证 – 启用提供商并保存
+
+
+  现在，我们可以发送用户信息来注册用户，并接收来自服务器的响应。是时候构建我们的代码结构并实现 Firebase API 了。开始编码吧！
+
+
+  ## 管理用户会话
+
+
+  让我们构建调用 Firebase 来监听用户会话变化的代码。继续创建一个新文件，命名为 `AuthViewModel`；它将作为我们与 Firebase 身份验证通信的视图模型。
+
+
+  复制/粘贴如下代码：
+
+
+  ```
+
+  import SwiftUI
+
+  import FirebaseAuth
+
+  final class AuthViewModel: ObservableObject {
+
+  @Published var user: User?
+
+  func listenToAuthState() {
+
+  Auth.auth().addStateDidChangeListener { [weak self] _, user in
+
+  guard let self = self else {
+
+  return
+
+  }
+
+  self.user = user
+
+  }
+
+  }
+
+  // 登录函数
+
+  // 创建账户函数
+
+  // 登出函数
+
+  // 重置密码函数
+
+  }
+
+  ```
+
+
+  *请注意，这次我们不会使用模型。*
+
+
+  我们将直接使用 Firebase Auth SDK 提供的 `User` 对象，称为 `FIRUser`。它提供了一系列信息：`displayName`、头像
+  URL、`email`、电话号码以及提供商标识符。
+
+
+  由于我们使用邮箱/密码认证，因此只需要邮箱和标识符。这样我们就不必自己编写模型。我们仅通过以下代码行进行了引用：
+
+
+  ```
+
+  @Published var user: User?
+
+  ```
+
+
+  目前，我们添加了对用户模型的引用，以及一个从 Firebase 获取信息的函数 `listenToAuthState()`。这将有助于我们根据从 Firebase
+  获得的响应来决定是显示笔记列表视图还是注册视图。
+
+
+  首先要做的是创建两个 SwiftUI 视图来处理这两种情况。继续创建两个文件，并将它们命名为：
+
+
+  * `SignUpView`（在此输入凭据）
+
+  * `HolderView`（在此实现逻辑）
+
+
+  以下是我们将要实现的逻辑示意图：
+
+
+  ![](img/533376_1_En_4_Fig5_HTML.png)
+
+
+  一张移动端界面截图，展示了使用 Firebase 处理逻辑的判断视图。它通向两个界面：如果用户会话为 nil，则显示注册视图；如果用户不为 nil，则显示内容视图。
+
+
+  **图 4-5** 使用 Firebase Auth 监听器实现的逻辑
+
+
+  为了执行此逻辑，我们需要在应用启动时（即 `NoteApp.swift` 文件中，也就是应用程序的入口点）将此视图模型作为环境对象添加到 `body` 变量中。
+
+
+  SwiftUI 中的 `@environmentObject` 属性允许我们在视图之间共享数据，并确保视图能够根据接收到的数据自动更新。
+
+
+  在这里，我们需要告知应用入口用户会话的状态，以便我们在合适的时机显示正确的界面。
+
+
+  前往 `NoteApp` 文件，将 `ContentView()` 替换为以下代码行：
+
+
+  ```
+
+  HolderView().environmentObject(AuthViewModel())
+
+  ```
+
+
+  这有什么作用？它允许我们在应用启动时（当用户首次打开应用、杀死应用后重新打开等情况下）通知应用，我们将数据绑定到了这个视图模型，因此我们能够使用在此实现的快照监听器，并根据用户会话显示正确的界面。
+
+
+  现在，我们将前往 `HolderView` 来整合逻辑。
+
+
+  首先，让我们在 `HolderView` 中观察视图模型。复制/粘贴以下的 `@EnvironmentObject` 变量：
+
+
+  ```
+
+  @EnvironmentObject private var authModel: AuthViewModel
+
+  ```
+
+
+  现在，让我们实现条件语句，以根据 Firebase 的响应呈现相应的视图。在 `body` 变量内部，将当前的
+
+
+  ```
+
+  Text("Hello, World!")
+
+  ```
+
+
+  替换为以下代码：
+
+
+  ```
+
+  Group {
+
+  if authModel.user == nil {
+
+  SignUpView()
+
+  } else {
+
+  ContentView()
+
+  }
+
+  }
+
+  .onAppear {
+
+  authModel.listenToAuthState()
+
+  }
+
+  ```
+
+
+  现在运行应用程序，您应该会看到以下结果：
+
+
+  ![](img/533376_1_En_4_Fig6_HTML.jpg)
+
+
+  一个 Xcode 窗口的截图，左侧面板选中了判断视图。右侧是一个包含代码的窗格，最右侧则显示了一个 iPhone 14 的移动端界面，上面显示着“Hello World”信息。
+
+
+  **图 4-6** Xcode – 应用运行中，带有 Auth 监听器
+
+
+  很棒！如您所见，启动时显示了 `SignUpView`。这是合理的，因为当我们向 Firebase 请求用户信息时，由于尚未注册任何用户，它返回了 nil。
+
+
+  既然我们已经实现了逻辑，现在可以继续注册我们的用户了。让我们创建注册所需的用户界面并实现相应的函数。
+
+
+
+
+  ## 使用邮箱和密码注册
+
+
+  首先，让我们构建用户界面。我们将添加两个输入字段——一个用于邮箱，一个用于密码——以及两个按钮：一个用于注册，一个用于登录。
+
+
+  为了实现这一点，我们将使用表单，因为它自带滚动功能，并且实现速度更快。
+
+
+  前往我们的 `AuthViewModel`，实现登录、注册和注销的 API 调用：
+
+
+  ```
+
+  // 登录函数
+
+  func signIn(
+
+  emailAddress: String,
+
+  password: String
+
+  ) {
+
+  Auth.auth().signIn(emailAddress: emailAddress, password: password) { result, error
+  in
+
+  if let error = error {
+
+  print("发生错误：\(error.localizedDescription)")
+
+  return
+
+  }
+
+  }
+
+  }
+
+  // 创建账户函数
+
+  func signUp(
+
+  emailAddress: String,
+
+  password: String
+
+  ) {
+
+  Auth.auth().createUser(withEmail: emailAddress, password: password) { result, error
+  in
+
+  if let error = error {
+
+  print("发生错误：\(error.localizedDescription)")
+
+  return
+
+  }
+
+  }
+
+  }
+
+  // 注销函数
+
+  func signOut() {
+
+  do {
+
+  try Auth.auth().signOut()
+
+  } catch let signOutError as NSError {
+
+  print("注销时出错：%@", signOutError)
+
+  }
+
+  }
+
+  ```
+
+
+  很好，我们刚刚实现了必要的函数；这里的 API 语法非常清晰。我们使用了登录和创建用户功能，并将邮箱和密码对象作为参数的一部分传递。
+
+
+  至于注销，我们使用了 `do try catch` 结构来捕捉任何错误，例如在网络连接不良的情况下。
+
+
+  前往 `SignUpView`，并实现以下代码：
+
+
+  ```
+
+  @State private var emailAddress: String = ""
+
+  @State private var password: String = ""
+
+  ```
+
+
+  这两个变量将允许我们监听用户的输入，并将其传递给 Firebase 后端。现在，让我们实现用户界面并替换当前内容：
+
+
+  ```
+
+  NavigationStack {
+
+  Form {
+
+  Section {
+
+  TextField("邮箱", text: $emailAddress)
+
+  .textContentType(.emailAddress)
+
+  .keyboardType(.emailAddress)
+
+  SecureField("密码", text: $password)
+
+  }
+
+  Section {
+
+  Button(action: {
+
+  // 注册到 Firebase
+
+  }) {
+
+  Text("注册").bold()
+
+  }
+
+  }
+
+  Section(header: Text("如果您已有账户：")) {
+
+  Button(action: {
+
+  // 登录到 Firebase
+
+  }) {
+
+  Text("登录")
+
+  }
+
+  }
+
+  }.navigationTitle("欢迎")
+
+  .toolbar {
+
+  ToolbarItemGroup(placement: .cancellationAction) {
+
+  Button {
+
+  showingSheet.toggle()
+
+  } label: {
+
+  Text("忘记密码？")
+
+  }
+
+  .sheet(isPresented: $showingSheet) {
+
+  ForgotPasswordView()
+
+  }
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  很好，现在我们有了用户界面。是时候将邮箱和密码传递给 Firebase 了。让我们观察之前创建的视图模型：
+
+
+  ```
+
+  @EnvironmentObject private var authModel: AuthViewModel
+
+  ```
+
+
+  然后，在属于注册按钮的按钮动作内部实现注册函数：
+
+
+  ```
+
+  authModel.signUp(emailAddress: emailAddress,
+
+  password: password)
+
+  ```
+
+
+  接下来，对登录过程做同样的事情——在按钮动作内部添加函数：
+
+
+  ```
+
+  authModel.signIn(emailAddress: emailAddress,
+
+  password: password)
+
+  ```
+
+
+  现在，是时候注册我们的第一个用户了。继续，运行你的应用，输入邮箱和密码，然后查看 Firebase 控制台！
+
+
+  ![](img/533376_1_En_4_Fig7_HTML.jpg)
+
+
+  一个欢迎移动屏幕的截图，右侧有一个 Firebase 窗口。该窗口左侧是项目概览面板，右侧是身份验证面板。面板中用户选项卡被选中，并带有一个添加用户的按钮。
+
+
+  图 4-7
+
+
+  应用运行并将用户数据发布到 Firebase 验证服务
+
+
+  太好了！通过输入邮箱和密码，我们的应用会实时收到用户拥有活跃会话的通知。然后，它会自动将我们带到主屏幕，即 `ContentView`。
+
+
+  但是，如何注销用户呢？这一次，我们还需要更新用户界面，将用户带回注册屏幕。此外，提供注销功能将使我们能够再次在同一个设备上登录，并检查登录功能是否正常工作。
+
+
+  让我们添加这个注销按钮并执行注销函数。
+
+
+  在 `ContentView.swift` 文件顶部观察 `AuthViewModel`：
+
+
+  ```
+
+  @ObservedObject private var authModel = AuthViewModel()
+
+  ```
+
+
+  然后，就在第一个 `ToolbarItemGroup` 下方，位于 `.toolbar` 修饰符的图结构中，添加以下内容：
+
+
+  ```
+
+  ToolbarItemGroup(placement: .cancellationAction) {
+
+  Button {
+
+  authModel.signOut()
+
+  } label: {
+
+  Text("注销")
+
+  }
+
+  }
+
+  ```
+
+
+  非常简单。由于我们已经在视图模型中添加了所有函数，我们只需在用户界面中调用它们即可。
+
+
+  继续，点击注销按钮。你将被带回注册屏幕。现在是时候尝试登录功能了。输入你之前使用的邮箱和密码。
+
+
+  你可以多次执行此操作，并根据需要创建任意数量的账户，以测试代码的稳健性。就是这样。我们拥有了一个功能完整的登录流程！
+
+
+
+
+  ### 忘记密码怎么办？
+
+
+  这种情况经常发生，尤其是在如今我们管理着众多账号的时代。幸运的是，Firebase 为我们提供了重置密码的 API，甚至还能代我们发送邮件！这很棒，对吧？
+
+
+  我们只需要从前端传入一个电子邮箱地址。
+
+
+  为此，我们将创建一个新界面来重置密码。
+
+
+  那么，继续创建一个新的 SwiftUI 视图，命名为`ResetPasswordView`；我们将从`SignUpView`中作为弹出视图来调用它。
+
+
+  在实现用户界面之前，我们先实现重置密码的函数，因此转到`AuthViewModel`并实现以下代码：
+
+
+  ```
+
+  // 重置密码函数
+
+  func resetPassword(emailAddress: String) {
+
+  Auth.auth().sendPasswordReset(withEmail: emailAddress)
+
+  }
+
+  ```
+
+
+  这个 Firebase Auth 的 API 将为我们发送重置密码的邮件，无需实现任何后端代码。我们只需要从前端传入邮箱地址即可！
+
+
+  现在，我们来为这个界面构建用户界面。转到`SignUpView`，让我们的重置密码界面可被访问。
+
+
+  首先，创建一个状态变量来控制弹出视图的展示：
+
+
+  ```
+
+  @State private var showingSheet = false
+
+  ```
+
+
+  然后，在屏幕左上角添加一个按钮，并在`.NavigationTile`上方放置以下修饰符：
+
+
+  ```
+
+  .toolbar {
+
+  ToolbarItemGroup(placement: .cancellationAction) {
+
+  Button {
+
+  showingSheet.toggle()
+
+  } label: {
+
+  Text("忘记密码？")
+
+  }
+
+  .sheet(isPresented: $showingSheet) {
+
+  ResetPasswordView()
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  很好，现在我们可以访问这个界面了，让我们来实现功能与用户界面。首先，在`ResetPasswordView.swift`文件中添加以下几个`State`变量：
+
+
+  ```
+
+  @State private var emailAddress: String = ""
+
+  @EnvironmentObject var authModel: AuthViewModel
+
+  @Environment(\.presentationMode) var presentationMode
+
+  ```
+
+
+  这些变量将用于连接我们的视图模型，处理我们传入的邮箱地址，并最终以弹出视图的方式展示界面。
+
+
+  现在，让我们实现一个表单，让用户提供他们的邮箱：
+
+
+  ```
+
+  NavigationStack {
+
+  Form {
+
+  Section {
+
+  TextField("邮箱", text: $emailAddress)
+
+  .textContentType(.emailAddress)
+
+  .textInputAutocapitalization(.never)
+
+  .keyboardType(.emailAddress)
+
+  }
+
+  Section(footer: Text("发送后，请检查您的邮箱以重置密码。")) {
+
+  Button(
+
+  action: {
+
+  authModel.resetPassword(emailAddress: emailAddress)
+
+  }) {
+
+  Text("发送邮件链接").bold()
+
+  }
+
+  }
+
+  }.navigationTitle("重置密码")
+
+  .toolbar {
+
+  ToolbarItemGroup(placement: .confirmationAction) {
+
+  Button("完成") {
+
+  presentationMode.wrappedValue.dismiss()
+
+  }
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  和往常一样，我们使用了简单且原生的 iOS API 来构建用户界面，这样用户会觉得熟悉。我们使用按钮来执行在视图模型中实现的函数，并使用`toolbar`中的另一个按钮来关闭表单。
+
+
+  现在，我邀请您继续操作，用真实的邮箱注册，然后退出登录，并测试重置密码功能。
+
+
+  输入您的邮箱，点击"发送邮件链接"，然后前往您的邮箱（垃圾邮件箱也请查看），如下图所示：
+
+
+  ![](img/533376_1_En_4_Fig8_HTML.jpg)
+
+
+  三张手机界面截图，分别显示：带发送邮件链接的重置密码页面、在 Gmail 应用中重置项目密码的页面、以及带有新密码输入框和保存按钮的重置密码页面。
+
+
+  **图 4-8** 重置密码的步骤
+
+
+  完成后，您就可以用新创建的密码再次登录了。一切由 Firebase 处理！
+
+
+  ## 保护 Firestore 数据库
+
+
+  既然我们已经实现了完整的用户登录流程，您可能会想，如何让用户只能访问自己的笔记，而不是所有人都能访问的集合呢？这就是本节我们要做的事情。为此，我们需要重新组织数据库结构。
+
+
+  到目前为止，数据库由一个名为"Notes"的集合组成，其中包含一系列文档，每个文档包含两个字符串值：一个文本和一个标识符。
+
+
+  这次的迭代会稍微复杂一些，结构如下所示：
+
+
+  ![](img/533376_1_En_4_Fig9_HTML.jpg)
+
+
+  一个用户（含 ID 和邮箱）的方框图，指向包含两个 ID 和两个文本（"去购物"和"给爸爸打电话"）的笔记。
+
+
+  **图 4-9** 本次迭代的集合层级结构
+
+
+  我们将有一个用户集合，每个用户将有一个名为"Notes"的子集合，其中包含基于用户输入的一系列文档。使用子集合是合理的，因为用户在我们的应用中只会查询自己的笔记。
+
+
+  现在是注册用户并创建集合的时候了。为此，我们需要在注册时保存用户信息。我们将在`AuthViewModel`的注册函数中实现这一点。
+
+
+  首先，在顶部导入 Firestore 框架：
+
+
+  ```
+
+  import FirebaseFirestore
+
+  ```
+
+
+  现在，我们将用更完整的注册函数替换当前版本，该函数会将用户信息保存到 Firestore：
+
+
+  ```
+
+  func signUp(emailAddress: String, password: String) {
+
+  Auth.auth().createUser(withEmail: emailAddress, password: password) { result,  error
+  in
+
+  if let error = error {
+
+  print("DEBUG: 错误 \(error.localizedDescription)")
+
+  } else {
+
+  print("DEBUG: 成功创建用户，ID 为 \(self.user?.uid ?? "")")
+
+  guard let uid = Auth.auth().currentUser?.uid else { return }
+
+  Firestore.firestore().collection("Users").document(uid).setData(["email" : emailAddress,
+  "uid": uid]) { err in
+
+  if let err = err {
+
+  print(err)
+
+  return
+
+  }
+
+  print("成功")
+
+  }
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  很好，现在如果注册过程中没有错误，我们就会将用户信息（邮箱和标识符）保存到"Users"集合下；我们还在控制台中打印调试信息，以检查标识符是否匹配。
+
+
+  还差一步，就是修改数据库的路径，这样当你写笔记时，它会被保存到你自己的用户集合下，而不再是顶层集合。
+
+
+  但首先，让我们清理一下 Firestore 数据库。继续操作，按如下方式删除集合：
+
+
+  ![](img/533376_1_En_4_Fig10_HTML.jpg)
+
+
+  两张 Firebase Cloud Firestore 窗口截图。第一张截图中右侧的 Cloud Firestore 面板突出显示了"删除集合"按钮，另一张截图中的"删除此集合？"对话框上有一个箭头指向"删除"按钮。
+
+
+  **图 4-10** 删除 Firestore 集合
+
+
+  现在，我们可以将当前路径
+
+
+  ```
+
+  private var databaseReference = Firestore.firestore().collection("Notes") // 引用我们的集合
+
+  ```
+
+
+  改为：
+
+
+  ```
+
+  private lazy var databaseReference: CollectionReference? = {
+
+  guard let user = Auth.auth().currentUser?.uid else {return nil}
+
+  let ref = Firestore.firestore().collection("Users").document(user).collection("Posts")
+
+  return ref
+
+  }()
+
+  ```
+
+
+  我们还需要在`NoteViewModel.swift`文件顶部导入 Firebase Auth 框架，因为我们在继续操作之前要检查对应的用户标识符：
+
+
+  ```
+
+  import FirebaseAuth
+
+  ```
+
+
+  另外，在数据库引用后面添加一个`?`，因为我们为了安全而将其设为可选类型。
+
+
+  现在，您可以尽情创建一个全新的用户，并写几条笔记。然后您的数据库将呈现如下路径：
+
+
+  `Users`（集合） ➤ 文档 ➤ `Posts`（集合） ➤ 文档
+
+
+  ![](img/533376_1_En_4_Fig11_HTML.png)
+
+
+  两张手机界面截图和一张 Firebase 控制台 Cloud Firestore 面板截图。界面包含欢迎和笔记部分。面板在"数据"选项卡下突出显示了包含 1 个文档的"Posts"集合。
+
+
+  **图 4-11** 与前端数据匹配的 Firestore 数据库截图
+
+
+
+
+  '
+- "# 安全规则\n\n最后一步必不可少：通过规则区域来保护我们的数据库。\n\n到目前为止，我们处于开发模式，这意味着在数据库创建后的 30 天内，任何人都可以读写文档。\n\
+  \n由于本笔记应用是私密的，我们希望能将读写数据的权限限制为仅限经过身份验证的用户，并且仅限其各自的用户集合。\n\n进入 Firestore 数据库 ➤ 规则，并在控制台中输入以下规则：\n\
+  \n```\nrules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents\
+  \ {\n    match /Users/{uid}/{document=**} {\n      allow read, write: if uid ==\
+  \ request.auth.uid;\n    }\n  }\n}\n```\n\n然后，点击 **发布**：\n\n![](img/533376_1_En_4_Fig12_HTML.jpg)\n\
+  \n一张 Firebase 窗口的截图，左侧为项目概览面板，右侧为 Cloud Firestore 窗格。面板中高亮显示了 Firestore 数据库。窗格中则通过“编辑规则”按钮高亮显示了“规则”选项卡和“发布”按钮。\n\
+  \n**图 4-12** 在 Firestore 数据库中编辑规则\n\n我们实施的这段代码将告知数据库，仅允许经过身份验证的用户访问其数据，且这些用户的数据与他们注册时创建的标识符相匹配。\n\
+  \n实际上，用户只能读取、发布和编辑自己的笔记。在将任何应用发布到生产环境之前，这是一个关键步骤，因为之前的规则会允许互联网上的任何人访问所有人的文档和用户信息。\n\
+  \n## 总结\n\n通过本章，我们实现了一个包含真实业务逻辑的完整身份验证流程。得益于 Firebase SDK，我们甚至无需创建自己的模型，因为 `FIRUser`\
+  \ 已经提供了必要信息。\n\n我们能够将用户凭据发送到 Firebase，并将其与服务器的响应进行匹配，同时还只用一行代码就实现了密码恢复功能！\n\n借助它们的监听器\
+  \ API，我们还能判断用户会话是活跃还是已终止，并呈现相应的界面。\n\n完成了这些，我们就有了一个功能完备的应用，随时可以发布到 App Store！现在是时候进入下一章，开始构建一个全新的应用了！\n\
+  \n如果你在途中有所遗漏，可以在下方找到应用代码库的链接：\n\n*   [`drive.google.com/drive/folders/1UWZ4IDw5J81SxIjpjKd5QiSa5jR4mVHC?usp=share_link`](https://drive.google.com/drive/folders/1UWZ4IDw5J81SxIjpjKd5QiSa5jR4mVHC%253Fusp%253Dshare_link)\n\
+  \n"
+- "# 5. 高级 Firestore 使用\n\n## 介绍我们的新项目\n\n由于我们已经完成了一个笔记应用，现在对 SwiftUI 和 Firebase 控制台更加熟悉了。是时候创建一个新的应用了，这次会更复杂一些：它将包含一个类似\
+  \ Instagram 等知名社交媒体平台的动态视图、一个搜索功能、一个可以查看你发布内容的个人资料区域，并且支持无缝使用你的 Apple 账户登录。\n\n\
+  本章将重点介绍如何使用 Firestore 构建我们的数据库，我将向你介绍一个包含更多文档类型的大型模型。在本章结束时，你将能够发布和阅读动态视图，并显示图片、描述以及发布日期。\n\
+  \n以下是我们的应用将呈现的样子：\n\n![](img/533376_1_En_5_Fig1_HTML.png)\n\n三张移动端截屏，分别展示了个人资料、动态和发布页面，并带有各种选项。\n\
+  \n**图 5-1** 应用的截屏\n\n由于需要创建许多界面，我准备了一个入门文件，你可以通过以下链接下载：\n\n*   [`drive.google.com/drive/folders/1fXNQwIOKj9AhIxHQxWlWxjorLpp1mKs5?usp=share_link`](https://drive.google.com/drive/folders/1fXNQwIOKj9AhIxHQxWlWxjorLpp1mKs5%253Fusp%253Dshare_link)\n\
+  \n该文件已经安装了以下 Swift 包：\n\n*   `FirebaseAuth`\n*   `FirebaseFirestore`\n*   `FirebaseFirestoreSwift`\n\
+  *   `FirebaseStorage`\n\n现在，我邀请你启动一个新的 Firebase 项目。点击 **添加项目**，并将其命名为 *Socially*：\n\
+  \n![](img/533376_1_En_5_Fig2_HTML.jpg)\n\n一张标题为“您的 Firebase 项目”的 Firebase 窗口截图。其中有添加项目的选项，以及选择\
+  \ Note 项目的选项，下方还有探索演示项目的选项。\n\n**图 5-2** 在 Firebase 中启动新项目\n\n### 我们为什么要创建一个新的 Firebase\
+  \ 项目？\n\n区分应用和 Firebase 项目是很重要的。总的来说，你应该将具有共同业务逻辑的应用放在同一个 Firebase 项目中。假设你在构建优步（Uber）的竞品，一个打车应用。由于你想覆盖广阔的市场，你会在\
+  \ iOS 和 Android 上发布；因此，你可能会构建四个应用，每个平台上分别对应司机端和乘客端各两个。由于在 Android 或 iOS 上预订在后台是相同的过程，你可以考虑将所有内容放在同一个\
+  \ Firebase 项目下。那么，你的项目结构会像这样：\n\n![](img/533376_1_En_5_Fig3_HTML.jpg)\n\n一个 Firebase\
+  \ 项目的框图，分别指向 Android 和 iOS 的司机端和乘客端应用。\n\n**图 5-3** Firebase 项目与应用\n\n由于在我们的新项目中，与笔记应用没有共享任何内容，我们会创建一个新的\
+  \ Firebase 项目。\n\n现在，按照 Firebase 控制台上的逐步设置指南操作，获取 `GoogleService-Info.plist` 文件并将其添加到入门项目中。一旦你添加了该文件并完成了\
+  \ Firebase 控制台上的五个步骤，就可以成功运行你的项目并连接到 Firebase 后端。\n\n项目设置完成后，让我们开始编码。像往常一样，我们将从模型开始，在\
+  \ `Model` 文件夹中创建一个新的 Swift 文件，命名为 `Post`，然后复制/粘贴以下代码：\n\n```\nimport SwiftUI\nimport\
+  \ FirebaseFirestoreSwift\n\nstruct Post: Identifiable, Decodable {\n  @DocumentID\
+  \ var id: String?\n  var description: String?\n  var imageURL: String?\n  @ServerTimestamp\
+  \ var datePublished: Date?\n}\n```\n\n因此，用于我们动态区域的模型将由一个标识符、一段描述、一张图片和发布日期组成。`@ServerTimestamp`\
+  \ 来自 Firebase API，让我们能够获取服务器时间。而使用 `Date` 类型来记录日期是更推荐的做法。\n\n> *请注意，图片将在下一章关于 Firebase\
+  \ Storage 的内容中处理。*\n\n接下来进入视图模型。在 `View Model` 文件夹中创建一个新文件，命名为 `PostViewModel`，然后在文件顶部导入这两个框架：\n\
+  \n```\nimport SwiftUI\nimport FirebaseFirestore\n```\n\n我们可以创建我们的类，其中包含对我们之前创建的模型以及对\
+  \ Firestore 数据库的引用：\n\n```\nclass PostViewModel: ObservableObject {\n  @Published\
+  \ var posts = [Post]()\n  private var databaseReference = Firestore.firestore().collection(\"\
+  Posts\")\n  // 用于发布数据的函数\n}\n```\n\n最后，这是我们用于向服务器发布数据的函数：\n\n```\n// 发布数据的函数\nfunc\
+  \ addData(description: String, datePublished: Date) async {\n  do {\n    _ = try\
+  \ await databaseReference.addDocument(data: [\n      \"description\": description,\n\
+  \      \"datePublished\": datePublished\n    ])\n  } catch {\n    print(error.localizedDescription)\n\
+  \  }\n}\n```\n\n这个视图模型与我们之前在第 3 章中完成的类似，不同之处在于这次我们使用了 `async`/`await` 方法。你可能会好奇这些关键字的作用。\n\
+  \n\n\n## 使用 Async/Await 调用后端\n\n在我们的应用中，需要上传一些内容——一张图片和一段描述——同时保存日期和时间。问题是：数据上传到服务器可能需要时间，尤其是当图片较大时。\n\
+  \n因此，如果采用传统调用方式，用户在图片上传到数据库的几秒钟内会停留在当前屏幕。这并不是良好的用户体验。这就是我们使用此方法的原因：通过异步调用，用户可以安全地导航并`等待`。当他们执行其他操作时，代码会在后台运行。\n\
+  \n现在我们已经实现了发布函数，让我们来测试一下！前往`PostView`文件（已在入门项目中创建），并将其与我们的视图模型建立关联：\n\n```\n@ObservedObject\
+  \ private var viewModel = PostViewModel()\n```\n\n然后，在我留下注释的按钮内部直接调用它：\n\n```\n\
+  // MARK: 将数据发布到 Firestore\nTask {\n    await self.viewModel.addData(description:\
+  \ description, datePublished: Date())\n}\n```\n\n如您所见，我们正在保存用户的文本输入。至于日期，我们传入`Date()`，它会获取当前的\
+  \ iPhone 日期。目前，我们对图片不做任何处理，因为这将是下一章关于 Firebase Storage 的主题。\n\n此外，我们将函数放在`Task`中，这是必要的，因为需要使用`await`关键字告知程序：这段代码需要在后台运行，因为上传可能需要时间。\n\
+  \n现在，我们的前端已经准备好向后端发布数据，但我们尚未设置 Firestore 来接收数据。前往 Firebase 控制台的 Firestore Database\
+  \ 部分，点击**创建数据库**。与第 3 章一样，以测试模式启用数据库：\n\n![](img/533376_1_En_5_Fig4_HTML.jpg)\n\n\
+  一个 Firebase 窗口的截图，中央是创建数据库对话框。对话框中有用于在生产模式和测试模式下启动的单选按钮，测试模式已被选中，右侧显示代码行。底部右侧有取消和下一步按钮。\n\
+  \n**图 5-4** Firestore – 创建数据库\n\n然后，我们可以运行应用并尝试发布一条评论。您应该在数据库中看到它：\n\n![](img/533376_1_En_5_Fig5_HTML.jpg)\n\
+  \n手机屏幕和 Firebase 上 Cloud Firestore 面板的 2 张截图。手机屏幕显示一个帖子部分，包含文字“hello there”。该面板在数据选项卡下的面板视图中显示帖子选项和一个高亮显示的文档。\n\
+  \n**图 5-5** Firebase Firestore 控制台与运行中的应用\n\n很好，我们已经将带有文本和 iPhone 当前日期的数据发布到了 Firestore。现在是时候展示我们刚刚添加的这些数据了。\n\
+  \n为此，我们将使用一个方便的 Firebase 包装器。首先，在`FeedView`中添加以下框架：\n\n```\nimport FirebaseFirestoreSwift\n\
+  ```\n\n然后，在`FeedView`的 body 变量上方添加以下代码：\n\n```\n@FirestoreQuery(collectionPath:\
+  \ \"Posts\")\nvar posts: [Post]\n```\n\n这样，我们甚至不需要在视图模型中实现函数。这是 Firebase API 的一个优秀特性。它允许我们仅通过一行代码，传入我们的模型以及\
+  \ Firebase 集合的名称，就能获取数据。\n\n用以下代码替换`FeedView`中的当前列表：\n\n```\nList(posts) { posts\
+  \ in\n    VStack(alignment: .leading) {\n        VStack {\n            Text(posts.description\
+  \ ?? \"\")\n                .font(.headline)\n                .padding(12)\n   \
+  \         Text(\"Published on the \\(posts.datePublished?.formatted() ?? \"\")\"\
+  )\n                .font(.caption)\n        }\n    }.frame(minHeight: 100, maxHeight:\
+  \ 350)\n}\n```\n\n`formatted()` 修饰符允许我们将`Date`类型的数据转换为`String`。这样，我们就可以在应用中轻松显示日期。\n\
+  \n现在您可以运行应用，它将以一个漂亮的列表展示您发布的帖子。\n\n![](img/533376_1_En_5_Fig6_HTML.jpg)\n\n一个窗口的截图，左侧面板选中了\
+  \ Feed 视图。右侧“socially”下方的窗格中有几行代码，最右侧是一个手机屏幕，显示“hello there”消息。\n\n**图 5-6** 列表图示\n\
+  \n## 总结\n\n本章与第 3 章非常相似，涉及一个大型模型，并引入了 Firebase 的一个新属性包装器，这让我们的生活轻松了许多。\n\n我们学习了如何处理`String`和`Date`类型的数据。但我们对\
+  \ Firestore 的操作还未结束！\n\n在下一章中，我们仍将使用它来检索上传到 Storage 后的图片。让我们一起来探索如何使用 Firebase 处理大型资源。\n\
+  \n如果您在过程中遗漏了什么，可以查看以下链接中的项目：\n\n*   [`drive.google.com/drive/folders/1_qrKo171QkgGHMuX4vDsbPzi36xoXci4?usp=share_link`](https://drive.google.com/drive/folders/1_qrKo171QkgGHMuX4vDsbPzi36xoXci4%253Fusp%253Dshare_link)\n\
+  \n"
+- "# 6. 使用 Firebase Storage 管理图片\n\n我们希望在帖子中包含图片。问题在于：`Firestore`不支持如此大的文档。我们只能添加文本、数字、数组、布尔值、时间戳等类型的数据。\n\
+  \n因此，Firebase 引入了 Storage。这是一个允许我们上传和下载大型数据（如视频、图像和音频文档）的软件包。在本章中，我们将学习如何将图片上传到\
+  \ Firebase Storage，获取该图片的 URL，并将其添加到对应的 Firestore 文档中。\n\n在本章中，我们将探索如何访问 iPhone\
+  \ 的相册库、将图片上传到 Storage，并从 Firestore 后端检索它。让我们开始吧！\n\n\n\n## 访问 iPhone 相机与相册\n\n在上传图片前，我们首先需要拍摄一张照片，或者至少让用户从应用中访问照片库。在\
+  \ iOS 16 中，Apple 为 SwiftUI 引入了一个新框架：`PhotosUI`，只需几行代码即可让我们选择图片。\n\n前往 `PostView`\
+  \ 文件，并导入该框架：\n\n```\nimport PhotosUI\n```\n\n一旦我们拥有了该框架的访问权限，就可以使用 `PhotosPickerItem`。让我们在\
+  \ body 变量上方添加以下两个变量：\n\n```\n@State var data: Data?\n@State var selectedItem: [PhotosPickerItem]\
+  \ = []\n```\n\n第一个变量用于观察我们在选择图片时传递的数据。第二个变量将让我们观察用户正在选择哪个项目（哪张图片）。\n\n现在该实现用户界面了。在\
+  \ `PostView` 的 SwiftUI `Form` 中，紧接着已实现的其他两个 Section 上方，实现以下 Section：\n\n```\nSection\
+  \ {\nPhotosPicker(selection: $selectedItem, maxSelectionCount: 1, selectionBehavior:\
+  \ .default, matching: .images, preferredItemEncoding: .automatic) {\nif let data\
+  \ = data, let image = UIImage(data: data) {\nImage(uiImage: image)\n.resizable()\n\
+  .scaledToFit()\n.frame( maxHeight: 300)\n} else {\nLabel(\"选择一张图片\", systemImage:\
+  \ \"photo.on.rectangle.angled\")\n}\n}.onChange(of: selectedItem) { newValue in\n\
+  guard let item = selectedItem.first else {\nreturn\n}\nitem.loadTransferable(type:\
+  \ Data.self) { result in\nswitch result {\ncase .success(let data):\nif let data\
+  \ = data {\nself.data = data\n}\ncase .failure(let failure):\nprint(\"错误: \\(failure.localizedDescription)\"\
+  )\n}\n}\n}\n}\n```\n\n这里我们做了几件事。我们添加了 `PhotosPicker`，用于访问用户的相册。我们传递了几个参数：\n\n* \
+  \  `selection` – 这是之前的 item 变量。\n*   `maxSelectionCount` – 我们限制只能选择一张图片。\n*   `matching`\
+  \ – 你可以传递一系列选项：仅视频、仅图片、仅截图等。这里我们只关注图片。\n*   `preferredItemEncoding` – 这里我们保留为自动模式，因此系统会自行判断哪种分辨率更合适。\n\
+  \n然后，如果没有选中图片，我们会创建一个标签；否则，显示选中的图片。\n\n这就是访问照片库并显示所选图片的全部内容。新的 API 让我们轻松实现了这一功能。在\
+  \ iOS 16 之前，我们需要请求授权，并在 Xcode 中实现一些代码和配置。而现在，Apple 处理了所有事情，对我们来说更加简单。你可以从 `PostView`\
+  \ 尝试此功能。\n\n![三张手机屏幕截图，分别显示：带有“选择图片”选项的帖子界面、包含 6 张图片的照片和相册、以及已选择 1 张图片的帖子。](img/533376_1_En_6_Fig1_HTML.jpg)\n\
+  \n**图 6-1** 从相册上传图片\n\n## 将图片上传至 Firebase Storage\n\n现在我们已经能够访问图片，是时候将这些数据上传到 Firebase\
+  \ Storage 了。让我们前往 Firebase 控制台并选择 Storage。\n\n和往常一样，我们需要进行一些设置。在以下界面中点击 *“开始使用”*：\n\
+  \n![Firebase 窗口截图，左侧面板选中了 Storage 选项。右侧是 Socially Storage 窗格，包含描述、开始使用按钮和更多信息选项。](img/533376_1_En_6_Fig2_HTML.jpg)\n\
+  \n**图 6-2** Firebase Storage 中的“开始使用”\n\n接下来，你可以选择测试模式，因为我们将在开发阶段结束时再对数据库进行安全设置：\n\
+  \n![Firebase 窗口截图，中央是“设置 Cloud Storage”对话框。其中有“以生产模式启动”和“以测试模式启动”的单选按钮。已选中“以测试模式启动”，右侧显示了几行代码，右下角有“取消”和“下一步”按钮。](img/533376_1_En_6_Fig3_HTML.jpg)\n\
+  \n**图 6-3** 开发模式\n\n太好了，我们现在已经准备好接收从应用到 Firebase 后端的较大资源。让我们回到代码！前往 `PostViewModel`\
+  \ 文件。\n\n在文件顶部导入 Storage 框架：\n\n```\nimport FirebaseStorage\n```\n\n和往常一样，我们需要一个数据库引用。添加以下代码行：\n\
+  \n```\nlet storageReference = Storage.storage().reference().child(\"\\(UUID().uuidString)\"\
+  )\n```\n\n我们需要实现这段代码来获得一个引用。我们使用了 Storage API，并传递了 Swift 的一个强大特性：`UUID`。它基本上在每次被调用时都会创建一个唯一标识符。这样一来，每次上传资源时，每个资源都会有不同的标识符。\n\
+  \n现在我们有了引用，接下来需要实现上传资源的函数。首先，在上一章创建的以下函数中添加一个额外参数：\n\n```\nfunc addData(description:\
+  \ String, datePublished: Date)\n```\n\n用以下函数替换前面的函数：\n\n```\nfunc addData(description:\
+  \ String, datePublished: Date, data: Data)\n```\n\n很好，现在我们可以添加上传数据并下载该图片存储位置的 URL\
+  \ 的函数。\n\n用以下代码替换当前的 `addData()` 函数：\n\n```\nfunc addData(description: String, datePublished:\
+  \ Date, data: Data) async {\ndo {\n_ = try await\nstorageReference.putData(data,\
+  \ metadata: nil) { (metadata, error) in\nguard let metadata = metadata else {\n\
+  return\n}\nself.storageReference.downloadURL { (url, error) in\nguard let downloadURL\
+  \ = url else {\n// 哎呀，发生了错误！\nreturn\n}\nself.databaseReference.addDocument(data:\
+  \ [ \"description\": description, \"datePublished\": datePublished, \"imageURL\"\
+  : downloadURL.absoluteString])\n}\n}\n} catch {\nprint(error.localizedDescription)\n\
+  }\n}\n```\n\n这里我们添加了两个重要函数：\n\n*   `putData` – 该函数会将我们选择的资源上传到 Firebase 后端。\n* \
+  \  `downloadURL` – 该函数负责获取资源在 Firebase 后端存储位置的 URL。这样，我们在将数据传递到 Firestore 时，就可以使用\
+  \ `downloadURL.absoluteString` 这个 URL 了。\n\n\n\n### 使用 Firestore 集成大型文档\n\n现在我们来调用这个函数，以便在我们的\
+  \ `View` 中将文档上传到 Firebase Storage。请前往 `PostView` 文件。\n\n你会看到一个警告，提示你缺少一个名为 `data`\
+  \ 的参数。让我们通过将调用替换为包含 `data` 参数的以下代码来修正这个问题：\n\n```swift\nawait self.viewModel.addData(description:\
+  \ description, datePublished: Date(), data: data!)\n```\n\n通过这个感叹号，我们在程序中表示应该拥有这个数据。因此，我们需要在未选择图片时阻止用户点击按钮。请在按钮最后一个图形之后添加以下修饰符：\n\
+  \n```swift\n.disabled(data == nil)\n```\n\n太棒了，现在我们的函数包含了上传图片所需的一切。你可以继续编写另一篇帖子，添加描述并选择一张图片。之后，请检查\
+  \ Storage 控制台。你应该看到以下内容：\n\n![](img/533376_1_En_6_Fig4_HTML.jpg)\n\n两个移动屏幕和 Firebase\
+  \ 窗口的截图。屏幕上一个发布区域包含一张风景照片。窗口右侧显示 Storage 面板，文件面板下高亮显示了一个选项，上方是上传文件按钮。\n\n**图 6-4**\
+  \ Firebase Storage – 新上传\n\n我们的应用程序已成功将资源上传到 Firebase Storage 后端。你可以点击右侧的链接。它将打开一个新\
+  \ URL，下载我们刚刚上传的图片。我们基本上是将这些数据放入一个存储桶中，该存储桶会生成一个唯一的 URL 来存储它。\n\n此外，得益于 `UUID().uuidString`\
+  \ 功能，前端会生成一个唯一标识符，我们将其用作文档引用。\n\n现在，请查看你刚刚上传的 Firebase Firestore 文档：\n\n![](img/533376_1_En_6_Fig5_HTML.jpg)\n\
+  \n一个 Firebase 窗口的截图，左侧面板选择了 Firestore 数据库选项。右侧的 Cloud Firestore 面板选择了数据选项卡，面板视图中高亮显示了\
+  \ `posts` 集合及其下的一个文档。\n\n**图 6-5** Firebase Firestore – 已上传新文档\n\n如你所见，`imageURL`\
+  \ 字段下保存了一个字符串形式的 URL。\n\n如果你仔细观察，这个 URL 的结构如下：\n\n*   `https://firebasestorage.googleapis.com\
+  \ / [我们的项目引用] / [我们生成的标识符]`\n\n一旦上传到 Storage，这个 URL 会通过 `storageReference.downloadURL`\
+  \ 下载，并添加到我们的 Firestore 集合中。\n\n太棒了！现在我们可以继续在我们的信息流中读取该图片 URL。为此，我们将使用 SwiftUI 的\
+  \ `AsyncImage` 修饰符。\n\n在 `FeedView` 文件中，将以下代码添加到位于 `List` 中的两段文本之上：\n\n```swift\n\
+  AsyncImage(url: URL(string: posts.imageURL ?? \"\")) { phase in\n    switch phase\
+  \ {\n    case .empty:\n        EmptyView()\n    case .success(let image):\n    \
+  \    image\n            .resizable()\n            .frame(width: 300, height: 200)\n\
+  \    case .failure:\n        Image(systemName: \"photo\")\n    @unknown default:\n\
+  \        EmptyView()\n    }\n}\n```\n\n这段代码用于从 URL 获取图片。`AsyncImage` 已经处理了异步调用。如果服务器未返回图片，我们还会传递一个\
+  \ `EmptyView`。\n\n现在，我们已经创建了与 Firestore 中文档相匹配的信息流界面：\n\n![](img/533376_1_En_6_Fig6_HTML.png)\n\
+  \n两个移动屏幕和 Firebase 窗口的截图。屏幕上是一个信息流区域，包含两张照片。窗口右侧显示 Cloud Firestore 面板，选择了数据选项卡，面板视图中高亮显示了\
+  \ `posts` 集合及其下的一个文档。\n\n**图 6-6** 我们的信息流界面显示来自 Firestore 的文档\n\n## 总结\n\n通过本章，我们仅用几行代码就实现了一个\
+  \ SwiftUI 图片选择器。然后我们提取了用户选择的图片数据并进行了存储。接着，我们引入了 Firebase Storage 并将文件存储在一个带有唯一链接的存储桶中。最后，我们下载了存储数据的\
+  \ URL，并将其添加到我们的 Firestore 文档中。\n\n借助这个过程，我们可以用资源来丰富我们的应用程序。我们甚至可以使用视频，就像 TikTok\
+  \ 和 Instagram 这类成功的社交媒体网站一样。\n\n请通过以下链接查找本章的源代码：\n\n*   `https://drive.google.com/drive/folders/19cPyxU8AYdW_80bUZOhxryLBLPx8qtRQ?usp=share_link`\n\
+  \n现在是时候进入下一章了：实现登录流程。这一次，我们将使用“通过 Apple 登录”。\n\n## 通过 Apple 认证\n\n在本章中，我们将回到 Firebase\
+  \ Auth，但这次我们将实现更好的用户体验。我们不再要求输入电子邮件和密码，而是提供“通过 Apple 登录”的选项。\n\n此外，即使没有账户，我们也允许用户访问我们的应用程序。同时，在下一章中，我们将通过\
+  \ Firestore 规则，限制只有注册用户才能发布内容。\n\n这个逻辑如下图所示：\n\n![](img/533376_1_En_7_Fig1_HTML.png)\n\
+  \n三张移动设备屏幕截图，显示个人资料页面。退出登录的屏幕上显示“创建账户”文本和“注册”按钮。已登录的屏幕上显示“你的账户”字段和“退出登录”按钮。\n\n\
+  **图 7-1** 注册流程的逻辑\n\n\n\n"
+- '# 配置项目并集成「通过 Apple 登录」
+
+
+  「通过 Apple 登录」功能自 iOS 13 起引入，允许用户使用其 Apple ID（通常用于 iCloud 或 App Store 购买）来注册你的应用。强烈建议添加此功能，因为它更便于用户操作：无需记住密码、一键即可注册，并且用户可以通过
+  Apple 隐私中继服务隐藏电子邮件。如往常一样，这是 Apple 提供的出色隐私增强方案。
+
+
+  ## 如何在 Firebase 中实现？
+
+
+  Firebase 提供了与 Apple 登录交互的 API，用于用户注册。它会调用 Apple 服务器验证身份，将回调响应提交给 Firebase，从而在数据库中注册用户，并向我们返回注册成功或失败（含错误信息）的响应。
+
+
+  与电子邮件/密码登录方式相同，我们仍可访问 Firebase 提供的 `User` 对象。因此我们可以继续在视图模型中实现函数，并在用户界面中集成原生的 Apple
+  登录按钮。
+
+
+  ### 重要说明
+
+
+  要使用「通过 Apple 登录」功能，你需要一个 Apple 开发者账号，每年费用为 99 美元。如果你不想注册开发者账号，仍可学习本章内容——只需使用我在初始文件中以注释形式保留的电子邮件/密码注册登录代码即可。
+
+
+  ## 在 Xcode 中的配置
+
+
+  首先，我们需要添加「通过 Apple 登录」的能力。进入主目标文件，在 **Signing & Capabilities** 选项下搜索 "*Sign in with
+  Apple*"，然后按回车键，操作如下：
+
+
+  ![](img/533376_1_En_7_Fig2_HTML.jpg)
+
+
+  截图展示了包含“通过 Apple 登录”对话框的窗口。其中“社交与签名功能”选项用方框高亮标注。文字说明允许用户通过其 Apple ID 进行身份验证。
+
+
+  **图 7-2** — Xcode ➤ 签名与功能 – 通过 Apple 登录
+
+
+  如果在搜索中未出现该选项，可能是你的会员资格或证书已过期。请检查你的 Apple 开发者账号。
+
+
+  ## 在 Firebase 控制台中的配置
+
+
+  完成 Xcode 中「通过 Apple 登录」的配置后，接下来在 Firebase 控制台中进行设置。进入控制台并点击**开始使用**。在登录方式中选择 **Apple**，启用并保存。
+
+
+  ![](img/533376_1_En_7_Fig3_HTML.jpg)
+
+
+  两张身份验证窗口截图：第一张在登录方式下用方框高亮标注了 Apple 选项；第二张用方框高亮标注了启用滑动开关和保存按钮。
+
+
+  **图 7-3** — Firebase 控制台 – 启用「通过 Apple 登录」
+
+
+  现在已完成「通过 Apple 登录」的所有配置工作，是时候编写代码了。让我们进入视图模型，实现必要的函数来支持「通过 Apple 登录」。
+
+
+  '
+- "# 集成「通过 Apple 登录」\n\n现在开始编码。首先进入 `AuthViewModel`，导入处理 Apple 身份验证所需的框架：\n\n```swift\n\
+  import AuthenticationServices\nimport CryptoKit\n```\n\n需要使用 `AuthenticationServices`\
+  \ 框架与 Apple 服务器通信，`CryptoKit` 则用于创建加密密钥，确保数据传输的安全性。\n\n接下来，在 `AuthViewModel` 文件中添加这两个变量：\n\
+  \n```swift\n@Published var user: User?\nvar currentNonce: String?\n```\n\n这里再次使用\
+  \ Firebase Auth 框架中的 `User` 对象，以及一个用于生成传递数据所需唯一密钥的 `String` 变量。\n\n现在可以实现以下两个函数：\n\
+  \n```swift\nfunc randomNonceString(length: Int = 32) -> String {\n    precondition(length\
+  \ > 0)\n    let charset: [Character] =\n        Array(\"0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._\"\
+  )\n    var result = \"\"\n    var remainingLength = length\n    while remainingLength\
+  \ > 0 {\n        let randoms: [UInt8] = (0 ..< 16).map { _ in\n            var random:\
+  \ UInt8 = 0\n            let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1,\
+  \ &random)\n            if errorCode != errSecSuccess {\n                fatalError(\n\
+  \                    \"Unable to generate nonce. SecRandomCopyBytes failed with\
+  \ OSStatus \\(errorCode)\"\n                )\n            }\n            return\
+  \ random\n        }\n        randoms.forEach { random in\n            if remainingLength\
+  \ == 0 {\n                return\n            }\n            if random < charset.count\
+  \ {\n                result.append(charset[Int(random)])\n                remainingLength\
+  \ -= 1\n            }\n        }\n    }\n    return result\n}\n```\n\n很好！我们已完成第一部分代码。这段代码来自\
+  \ Firebase 官方文档推荐，用于创建从前端到 Apple 服务器的数据传递节点。接下来添加以下函数：\n\n```swift\nfunc sha256(_\
+  \ input: String) -> String {\n    let inputData = Data(input.utf8)\n    let hashedData\
+  \ = SHA256.hash(data: inputData)\n    let hashString = hashedData.compactMap {\n\
+  \        String(format: \"%02x\", $0)\n    }.joined()\n    return hashString\n}\n\
+  ```\n\n此函数用于实现 SHA-256 协议，这是一种世界级的加密协议，例如也用于比特币区块链中。添加完该函数后，我们继续前往视图层：`SignUpView`。\n\
+  \n在文件顶部导入以下框架，以访问 Apple 登录按钮和 Firebase 身份验证：\n\n```swift\nimport AuthenticationServices\n\
+  import FirebaseAuth\nimport FirebaseFirestore\n```\n\n然后，在 `body` 变量上方添加以下代码以观察视图模型：\n\
+  \n```swift\n@ObservedObject private var authModel = AuthViewModel()\n```\n\n现在，我们可以在\
+  \ `SignUpView` 的 `VStack` 中实现以下代码：\n\n\n\n```swift\nSignInWithAppleButton(onRequest:\
+  \ { request in\n    let nonce = authModel.randomNonceString()\n    authModel.currentNonce\
+  \ = nonce\n    request.requestedScopes = [.email]\n    request.nonce = authModel.sha256(nonce)\n\
+  },\nonCompletion: { result in\n    switch result {\n    case .success(let authResults):\n\
+  \        switch authResults.credential {\n        case let appleIDCredential as\
+  \ ASAuthorizationAppleIDCredential:\n            guard let nonce = authModel.currentNonce\
+  \ else {\n                fatalError(\"Invalid state: A login callback was received,\
+  \ but no login request was sent.\")\n            }\n            guard let appleIDToken\
+  \ = appleIDCredential.identityToken else {\n                fatalError(\"Invalid\
+  \ state: A login callback was received, but no login request was sent.\")\n    \
+  \        }\n            guard let idTokenString = String(data: appleIDToken, encoding:\
+  \ .utf8) else {\n                print(\"Unable to serialize token string from data:\
+  \ \\(appleIDToken.debugDescription)\")\n                return\n            }\n\
+  \            let credential = OAuthProvider.credential(withProviderID: \"apple.com\"\
+  , idToken: idTokenString, rawNonce: nonce)\n            Auth.auth().signIn(with:\
+  \ credential) { (authResult, error) in\n                if (error != nil) {\n  \
+  \                  print(error?.localizedDescription as Any)\n                 \
+  \   return\n                }\n                print(\"signed in\")\n          \
+  \      guard let user = authResult?.user else { return }\n                let userData\
+  \ = [\"email\": user.email, \"uid\": user.uid]\n                Firestore.firestore().collection(\"\
+  User\")\n                    .document(user.uid)\n                    .setData(userData)\
+  \ { _ in\n                        print(\"DEBUG: Did upload user data.\")\n    \
+  \                }\n            }\n            print(\"\\(String(describing: Auth.auth().currentUser?.uid))\"\
+  )\n        default:\n            break\n        }\n    default:\n        break\n\
+  \    }\n})\n.signInWithAppleButtonStyle(.black)\n.frame(width: 290, height: 45,\
+  \ alignment: .center)\n```\n\n我们刚刚实现了原生的“通过 Apple 登录”按钮，通过它可以将用户处理的凭证传递给 Apple 服务。同时，我们使用`guard\
+  \ let`语句检查凭证是否被正确传递。\n\n由于我们将从`ProfileView`呈现这个`SignUpView`，因此需要在那里处理呈现逻辑。我们需要加入一段逻辑：当没有用户时显示注册屏幕，当用户已注册时显示用户信息。为此，我们需要进入`AuthViewModel`并集成以下两个函数：\n\
+  \n```swift\nfunc listenToAuthState() {\n    Auth.auth().addStateDidChangeListener\
+  \ { [weak self] _, user in\n        guard let self = self else {\n            return\n\
+  \        }\n        self.user = user\n    }\n}\n```\n\n这将帮助我们监听 Firebase Auth 框架的状态变化。我们还需要实现退出登录函数：\n\
+  \n```swift\nfunc signOut() {\n    do {\n        try Auth.auth().signOut()\n    }\
+  \ catch let signOutError as NSError {\n        print(\"Error signing out: %@\",\
+  \ signOutError)\n    }\n}\n```\n\n很好！现在我们可以构建`ProfileView`中的用户界面。让我们观察这个用于控制呈现的布尔值以及`SignUpView`的`ViewModel`：\n\
+  \n```swift\n@State private var showSignUp: Bool = false\n@ObservedObject private\
+  \ var authModel = AuthViewModel()\n```\n\n并在`body`变量中添加以下代码：\n\n```swift\nVStack(alignment:\
+  \ .center) {\n    if authModel.user != nil {\n        Form {\n            Section(\"\
+  你的账户\") {\n                Text(authModel.user?.email ?? \"\")\n            }\n\
+  \            Button {\n                authModel.signOut()\n            } label:\
+  \ {\n                Text(\"退出登录\")\n                    .foregroundColor(.red)\n\
+  \            }\n        }\n    } else {\n        Form {\n            Section(\"\
+  你的账户\") {\n                Text(\"看起来你尚未登录，请创建一个账户\")\n            }\n         \
+  \   Button {\n                showSignUp.toggle()\n            } label: {\n    \
+  \            Text(\"注册\")\n                    .foregroundColor(.blue)\n       \
+  \             .bold()\n            }.sheet(isPresented: $showSignUp) {\n       \
+  \         SignUpView().presentationDetents([.medium, .large])\n            }\n \
+  \       }\n    }\n}.onAppear { authModel.listenToAuthState() }\n```\n\n现在我们的 UI\
+  \ 已就绪：登录时显示用户的电子邮件，当 Firebase 服务器检测到无会话时则显示一个按钮。我们将把所有必要信息传递给 Apple 服务器。\n\n我们能从响应中得到什么？\n\
+  \n- 一个唯一的转发性电子邮件或他们的原始电子邮件\n- 他们的全名（可选——本项目中我们未请求此项）\n\n之后，在完成时，我们将能够继续并将凭证注册到 Firebase。现在，我们可以检查\
+  \ Firebase 控制台，看看用户是否正确注册。*(建议在真实设备上测试此功能。)*\n\n![](img/533376_1_En_7_Fig4_HTML.jpg)\n\
+  \n两张截图：一张是手机屏幕，显示个人资料部分；另一张是认证窗口，窗口内有一个表格，在“认证”和“用户”选项卡下有 5 列。\n\n**图 7-4** — 通过\
+  \ Apple 登录与 Firebase Auth 协同工作\n\n## 总结\n\n我们利用 Firebase 认证 SDK 探索了一项更高级的功能：通过 Apple\
+  \ 登录。得益于它们的 API，我们能够对用户进行认证。然而，“通过 Apple 登录”需要更多的设置，因为我们需要同时与 Apple 服务器和 Firebase\
+  \ 服务器通信才能获得响应。\n\n借助其出色的监听器，我们还能判断用户是否已登录，并根据这一响应呈现正确的界面。\n\n既然我们已经知道如何使用“通过 Apple\
+  \ 登录”，我为你准备了一个挑战：将“通过 Apple 登录”集成到我们在第 3 章和第 4 章创建的笔记应用中。\n\n如果你在本章的学习中遗漏了某些内容，可以查看以下源代码：\n\
+  \n"
+- '# 8. 无需编码即可添加功能
+
+
+  我们已经为社交媒体应用打下了良好的基础，但这尚未完成。还有许多改进之处和一些功能有待实现。
+
+
+  在本章中，我们将致力于`Socially`项目，实现一项功能：在后端调整上传图片的大小，使其缩小后能更快地呈现给终端用户。我们将借助 Firebase Extension
+  实现这一目标——这是一个出色的无代码工具，无需编写代码即可在后端实现各种功能。
+
+
+  最后，我们将保护数据库，确保某些数据仅对当前用户可访问。我们还将限制只有注册用户才能发布内容。
+
+
+
+
+  '
+- "# 探索 Firebase Extension\n\nFirebase Extension 是 Firebase 开发的一个框架，允许你在无需编写任何代码的情况下实现后端功能。其中一些由\
+  \ Firebase 开发，例如触发图片、向 Google BigQuery 发送数据或调整图片大小。它还包含许多第三方提供商，如用于运行订阅服务的 Stripe、用于搜索\
+  \ Firestore 文档的 Algolia、与 RevenueCat 集成应用内购买等等。\n\n我们将从 Firebase 制作的 `Resize Images`\
+  \ 开始。\n\n这个功能在我们的应用中会很有用，因为用户正在将图片上传到数据库，并在我们的信息流中检索它们。此功能会将图片调整为指定尺寸，从而减小图片大小。这将使我们的应用效率大大提高！\n\
+  \n要安装此扩展，你需要将 Firebase 项目升级到 Blaze 计划。这意味着谷歌会向你收取使用你在后端实现的功能的费用。对于我们即将执行的测试，可能只需要几美分。\n\
+  \n前往 Firebase 控制台 ➤ Build ➤ Extensions。然后查找 `Resize Images` 并点击 Install。\n\n![](img/533376_1_En_8_Fig1_HTML.jpg)\n\
+  \n一张 Firebase 扩展市场窗口的截图。左侧选中了提供商 firebase。右侧是一个包含触发邮件、缩短 URL、限制子节点和调整图片大小等扩展的面板。调整图片大小下的\
+  \ Install 被选中。\n\n图 8-1\n\nFirebase Extension 市场\n\n如果你尚未订阅 Blaze 计划，控制台会邀请你升级。按照步骤操作并输入你的信用卡信息。如果正确遵循了指示，你将会看到如下弹出窗口：\n\
+  \n![](img/533376_1_En_8_Fig2_HTML.jpg)\n\n一张 Firebase 窗口的截图，中央是升级完成对话框。它显示：你已成功升级你的项目（按使用量付费的\
+  \ Blaze 计划），确认邮件将很快发送给你，并且你已经设置了预算提醒。\n\n图 8-2\n\n项目已更新至 Blaze 计划\n\n现在，你可以开始安装扩展。按照\
+  \ Firebase 提供的四个步骤，你可以编辑以下字段：\n\n*   `Backfill existing images` – 否\n\n*   `Sizes\
+  \ of resized images`：320 × 200\n\n这样，Firebase 会自动将图片调整为 320 × 200 像素，使其在屏幕上看起来不错，并且文件总大小也会减小。你可以点击\
+  \ `Install extension`；它需要几分钟才能生效：\n\n![](img/533376_1_En_8_Fig3_HTML.jpg)\n\n一张“安装此扩展”窗口的截图。它有一个输出选项输入框，以及三个分别用于\
+  \ GIF 和 WEBP 动画选项、云函数内存和反向填充现有图片的下拉菜单。底部的 Install extension 按钮用边框高亮显示。\n\n图 8-3\n\
+  \n安装 Firebase 扩展\n\n现在，你可以通过发布带有图片的帖子来测试你的应用。由于图片已被后端压缩尺寸，因此检索速度会更快。因此，我们在几分钟内就改进了应用，而且没有编写任何代码。\n\
+  \n## 使用 Analytics 跟踪应用使用情况\n\n弄清楚用户如何使用我们的应用是很有用的，例如，确定注册转化率（有多少用户创建账户/有多少用户下载了应用）。借助\
+  \ Firebase，我们可以轻松地使用 Google Analytics 实现这种跟踪器。\n\n首先要做的是将 Firebase Analytics 包添加到我们的应用中。前往你的主\
+  \ target。在 `General` 下向下滚动到 `Frameworks`、`Libraries` 和 `Embedded Content`，然后点击加号按钮。接着选择\
+  \ `FirebaseAnalytics` 并点击 `Add`。\n\n![](img/533376_1_En_8_Fig4_HTML.jpg)\n\n一张窗口截图，显示了“选择要添加的框架和库”对话框。从左到右依次高亮了\
+  \ social、general 和 add 按钮。一个箭头从对话框中的 Firebase 包下指向 firebase analytics。\n\n图 8-4\n\
+  \n向项目添加包\n\n现在我们可以使用 Firebase analytics API 了。我想检查的第一件事是有多少用户转化为已验证用户。为此，我需要在每次用户成功注册时添加一个事件。\n\
+  \n让我们前往 `SignUpView` 并在顶部导入该框架：\n\n``` swift\nimport FirebaseAnalytics\n```\n\n\
+  然后，在 `print(signed in)` 之后立即添加以下代码行——这样，我们就能确保身份验证已成功：\n\n``` swift\nAnalytics.logEvent(\"\
+  user_sign_up\", parameters: nil)\n```\n\n就这样。用一行代码，我们就向 Firebase 记录了一个事件，以查看注册到我们应用的每个用户。\n\
+  \n你可以在接下来的 24 小时内，在 Firebase 控制台 ➤ Analytics ➤ Events 中查看。你将看到每次用户验证时记录的事件。\n\n\
+  ## 保护我们的数据库\n\n在将我们的应用发布给公众之前，还剩下最后一步：保护我们的数据库。由于我们使用的是 Firestore，因此需要前往控制台的这一部分并编辑规则。\n\
+  \n目前，任何人都可以在未经过身份验证的情况下在我们的数据库中发布帖子和读取用户信息。这关乎安全性和成本问题。\n\n因此，我们需要限制只允许经过身份验证的用户写入数据，但可以允许任何人读取，因为个人资料是公开的，应用中的帖子也是公开的。\n\
+  \n前往 Firebase 控制台 ➤ Firestore ➤ Rules，实施以下规则，然后点击 Publish：\n\n``` sql\nrules_version\
+  \ = '2';\nservice cloud.firestore {\nmatch /databases/{database}/documents {\nmatch\
+  \ /{document=**} {\nallow read: if true;\nallow write: if request.auth != null;\n\
+  }\n}\n}\n```\n\n![](img/533376_1_En_8_Fig5_HTML.jpg)\n\n一张 Firebase 窗口的截图，左侧选中了\
+  \ firestore database 的项目概览面板。右侧是选中了 rules 选项卡的 Cloud Firestore 面板。它有编辑规则按钮、5 个日期和时间以及\
+  \ 9 行代码。\n\n图 8-5\n\nCloud Firestore 规则\n\n现在，未注册的用户将无法写入任何内容。我们有效地限制了数据的访问权限！\n\
+  \n\n\n## 总结\n\n在最后一章中，我们探索了 `Firebase Extension`，这个无代码工具可以为我们的应用添加额外功能。随后，我们记录了事件，以了解用户如何使用我们的应用，这里记录的是每次有人在我们的应用上进行身份验证时的事件。\n\
+  \n最后，我们保护了数据库安全，禁止未注册的用户在 Firestore 上发布任何文档。\n\n本书到此结束。感谢您的阅读！您可以通过以下链接找到最终项目的源代码：\n\
+  \n[`drive.google.com/drive/folders/1eF-OXxC1jn0Ob30BsfXOFH7LzV2w24pU?usp=share_link`](https://drive.google.com/drive/folders/1eF-OXxC1jn0Ob30BsfXOFH7LzV2w24pU%253Fusp%253Dshare_link)\n\
+  \n## 索引\n\nA  \n`addData()` 函数  \n`addDocument`  \nAPI  \nAlgolia  \nApple 身份验证\
+  \  \nApple ID  \nApple 服务器  \n数组  \n`AsyncImage`  \n`AuthenticationServices` 框架\
+  \  \n`AuthViewModel`\n\nB  \n后端即服务 (BaaS)  \n比特币  \n区块链  \nBlaze 计划  \n布尔值\n\nC\
+  \  \n`ContentView.swift` 文件  \n创建-读取-更新-删除 (CRUD)  \n`CryptoKit`\n\nD  \n`Data`\
+  \ 参数  \n`downloadURL.absoluteString` 函数  \n`downloadURL` 函数\n\nE  \n嵌入内容  \n`EmptyView`\n\
+  \nF  \n动态消息屏幕  \n`FeedView`  \nFirebase  \n添加 iOS 应用  \n优势  \nApple 应用  \nBaaS \
+  \ \n云服务，iOS 应用  \n连接 iOS 应用  \n`GoogleService-Info.plist`  \nSDK  \nXcode  \n另请参阅\
+  \  \nXcode 仪表盘  \n劣势  \nFirestore 部分  \nGoogle Analytics  \n首页  \niOS 应用  \n项目名称\
+  \  \n选择  \nGoogle Analytics 账户  \nSpark 计划标签  \nFirebase Analytics 包  \nFirebase\
+  \ 身份验证  \nFirebase Auth 框架  \nFirebase Auth SDK  \n身份验证部分  \n电子邮件/密码选择  \n启用提供商并保存\
+  \  \n逻辑实现  \n管理用户会话  \n保护 Firestore 数据库  \n集合层级结构  \n删除 Firestore 集合  \n导入安全规则 \
+  \ \n注册函数  \n使用电子邮件和密码注册  \n运行应用/发布用户数据  \n`AuthViewModel`  \n重置密码  \n登录过程  \n`SignUpView`\
+  \ 用户界面  \n视图模型  \nXcode  \nFirebase 集合  \nFirebase 控制台  \nFirebase 文档  \nFirebase\
+  \ 扩展  \n探索  \n安装  \n市场  \n无代码工具  \nFirebase Firestore  \nFirebase Firestore 控制台\
+  \  \nFirebase 项目  \n异步/等待，后端创建  \nFirebase 服务器  \nFirebase 软件开发工具包 (SDK)  \nFirebase\
+  \ Storage  \nFirestore  \n创建数据库  \n数据库  \n删除数据  \n文档  \nMVVM 设计模式  \n基于 NoSQL 文档的数据库\
+  \  \n笔记应用  \n传递数据，视图  \n读取数据  \n两步设置  \n上传数据  \n`FIRUser`  \n`formatted()` 修饰符 \
+  \ \n框架\n\nG, H  \nGoogle Analytics  \nGoogle BigQuery  \n`GoogleService-Info.plist`\n\
+  \nI, J, K  \n`imageURL` 字段  \n`import FirebaseAnalytics`  \n`import FirebaseStorage`\
+  \  \n`import PhotosUI`  \n集成文档  \niOS 16  \niPhone  \niPhone 相机和相册访问  \niPhone 照片库\n\
+  \nL  \n`Libraries`  \n`listenToAuthState()`\n\nM  \n匹配  \n`maxSelectionCount`  \n\
+  MVVM 设计模式\n\nN, O  \n`NavigationLink`  \n`NavigationView`  \n`NoteViewModel`  \n\
+  数字\n\nP, Q  \n`PhotosPicker`  \n`PhotosUI`  \n图片上传，Firebase 存储  \n`PostView` 文件\
+  \  \n`PostViewModel`  \n`preferredItemEncoding`  \n`ProfileView` 函数  \n`putData()`\
+  \ 函数\n\nR  \nRevenueCat\n\nS  \n保护数据库  \n`@ServerTimestamp`  \nSF Symbols  \nSHA-256\
+  \ 协议  \n通过 Apple 登录  \n高级功能  \n集成  \n笔记应用  \n项目设置  \n在 Xcode 中的视图模型  \n`SignUpView`\
+  \ 函数  \n社交媒体  \n存储控制台  \n`storageReference.downloadURL`  \n字符串  \nSwift 语言  \nSwift\
+  \ 包  \n2019 年 Apple 推出的 SwiftUI  \n`AsyncImage` 修饰符  \n代码  \n可标识地图应用  \nMapKit \
+  \ \n照片选取器  \nUIKit  \nXcode\n\nT  \n出租车应用  \n文本  \n时间戳\n\nU  \nUIKit  \n`UITableViewDataSource`\
+  \  \n用户界面  \nUUID\n\nV, W  \n`viewDidLoad` 方法  \n视图模型\n\nX, Y, Z  \nXcode  \n添加包\
+  \  \nApple App Store  \n拖放 `GoogleService-Info.plist` 文件  \n标识符  \nMac App Store\
+  \  \n新项目  \n`NoteApp.swift`  \n运行并与 Firebase 通信  \n选择应用模板  \n设置，项目  \n模拟器应用  \n\
+  在模拟器中运行  \nSwift 语言  \n标签模板  \n14.1 版本  \n欢迎屏幕\n"

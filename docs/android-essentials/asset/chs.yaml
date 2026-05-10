@@ -1,0 +1,1497 @@
+- '
+
+  '
+- '# Android 要点
+
+
+  ![](img/cover.jpeg)
+
+
+  ![](img/index-1_1.jpg)
+
+
+  ![](img/index-1_2.jpg)
+
+
+  ![](img/index-1_3.jpg)
+
+
+  专业人士为专业人士撰写的书籍®
+
+
+  提供 **PDF 电子书**版本
+
+
+  Apress 的 **firstPress** 系列是您了解前沿技术的源泉。Apress 的 firstPress 书籍篇幅短小、高度专注，并由专家撰写，能为您节省时间和精力。它们包含了您通过深入调研或每隔一周参加一次会议（如果时间允许的话）才能获得的信息。这些书籍涵盖了让您始终走在技术潮流前列的概念和技巧。Apress
+  的 firstPress 书籍是真正的书籍，**可选择电子版或按需印刷版**，即使技术本身尚不成熟，这些书籍也已臻完善。您不能错过它们。
+
+
+  '
+- '# Android 要点
+
+
+  亲爱的读者：
+
+
+  本书涵盖了构建 Android 应用程序所需的基本信息。它将帮助任何对 Android 开发感兴趣的开发者，无论是业余爱好者、专业人士，还是浅尝辄止者。在本书中，我将介绍您开始创建自己创新应用所需的要点。我之所以承担这个项目，是因为在移动软件行业工作五年后，我清楚地意识到我们需要帮助。随着移动设备变得越来越普及、功能越来越强大，甚至成为必需品，我们需要新鲜血液来克服困扰我们行业的停滞不前。作为一个行业，我们需要从制造千篇一律的铃声、壁纸和电子邮件应用中毕业。我希望，在您读完本书后，您能够开始向所有朋友夸下海口要制作的那款杀手级移动产品。
+
+
+  在 *Android 要点* 中，我将详细介绍如何安装和使用 Android SDK、创建和渲染用户界面工具、利用位置追踪和 Google 地图，以及通过 XML
+  解析器和网络客户端将这些内容整合在一起。这些工具和技巧应该足以帮助您跨越空白的编辑器——开发者世界那张令人生畏的空白画布——并踏上创建自己创新移动应用的道路。Android
+  可能代表着我们摆脱移动开发受限世界的最佳希望。用它来创造一些令人惊叹的东西吧。我迫不及待想看到您的作品。
+
+
+  此致，
+
+
+  Chris Haseman
+
+
+  Gravity Mobile 首席软件工程师
+
+
+  相关页面
+
+
+  Haseman
+
+
+  Chris Haseman
+
+
+  源代码在线
+
+
+  [www.apress.com](http://www.apress.com)
+
+
+  用户级别：初级–中级
+
+
+  ## 关于 firstPress
+
+
+  Apress 的 **firstPress** 系列是您了解前沿技术的源泉。Apress 的 firstPress 书籍篇幅短小、高度专注，并由专家撰写，能为您节省时间和精力。它们包含了您通过深入调研或每隔一周参加一次会议（如果时间允许的话）才能获得的信息。这些书籍涵盖了让您始终走在技术潮流前列的概念和技巧。Apress
+  的 firstPress 书籍是真正的书籍，您可以选择电子版或按需印刷版，即使技术本身尚不成熟，这些书籍也已臻完善。您不能错过它们。
+
+
+  '
+- '# Android 要点
+
+
+  亲爱的读者：
+
+
+  本书涵盖了构建 Android 应用程序所需的基本信息。它将帮助任何对 Android 开发感兴趣的开发者，无论是业余爱好者、专业人士，还是浅尝辄止者。
+
+
+  在本书中，我将介绍您开始创建自己创新应用所需的要点。我之所以承担这个项目，是因为在移动软件行业工作五年后，我清楚地意识到我们需要帮助。随着移动设备变得越来越普及、功能越来越强大，甚至成为必需品，我们需要新鲜血液来克服困扰我们行业的停滞不前。作为一个行业，我们需要从制造千篇一律的铃声、壁纸和电子邮件应用中毕业。我希望，在您读完本书后，您能够开始向所有朋友夸下海口要制作的那款杀手级移动产品。
+
+
+  在 *Android 要点* 中，我将详细介绍如何安装和使用 Android SDK、创建和渲染用户界面工具、利用位置追踪和 Google 地图，以及通过 XML
+  解析器和网络客户端将这些内容整合在一起。这些工具和技巧应该足以帮助您跨越空白的编辑器——开发者世界那张令人生畏的空白画布——并踏上创建自己创新移动应用的道路。Android
+  可能代表着我们摆脱移动开发受限世界的最佳希望。用它来创造一些令人惊叹的东西吧。我迫不及待想看到您的作品。
+
+
+  此致，
+
+
+  Chris Haseman
+
+
+  Gravity Mobile 首席软件工程师
+
+
+  ![](img/index-3_1.png)
+
+
+  ## 目录
+
+
+  **第 1 章：绪论**...............................................................1
+
+
+  ***开始前需要了解的内容***............................................................ 1
+
+
+  ***如何最好地利用本书*** ....................................................................
+  2
+
+
+  ***开始上手***.........................................................................................
+  2
+
+
+  安装 Eclipse ...........................................................................................
+  3
+
+
+  获取 Android SDK..............................................................................
+  3
+
+
+  安装 Eclipse 插件 ........................................................................
+  4
+
+
+  ***Android 项目***................................................................................
+  5
+
+
+  ***运行、调试与制造一般性混乱***.......................... 8
+
+
+  **第 2 章：应用程序**..........................................................9
+
+
+  ***让 Activity 活跃起来*** ..........................................................................................
+  9
+
+
+  制作启动画面...........................................................................................
+  10
+
+
+  ***创建 Intent 接收器***.................................................................
+  19
+
+
+  进行设置 ................................................................................................
+  19
+
+
+  查看运行中的 Intent 接收器........................................................... 23
+
+
+  触发 Activity................................................................................
+  26
+
+
+  ***今天你想羞辱谁？***............................................. 29
+
+
+  对 Service 感到紧张 ............................................................................
+  29
+
+
+  平心静气，伺机报复.........................................................................
+  33
+
+
+  ***在 Android 中移动数据***.......................................................................
+  34
+
+
+
+
+  '
+- '# Android 基础
+
+
+  ## 目录
+
+
+  无耻自荐 ..........................................................................
+  36
+
+
+  使用内容解析器添加邪恶的企业网址 ............................. 38
+
+
+  ## 第 3 章：用户界面 .......................................................... 41
+
+
+  简单快速的 XML 布局........................................................... 42
+
+
+  布局设计...................................................................................................
+  42
+
+
+  滚动、文本输入、按钮以及生活中所有简单的事物 ........... 51
+
+
+  唤醒控件.................................................................................................
+  55
+
+
+  Java 中的控件...........................................................................................
+  59
+
+
+  深入底层..............................................................................
+  59
+
+
+  使用 Canvas 进行自定义 UI 渲染................................................ 67
+
+
+  自定义视图.................................................................................
+  67
+
+
+  创建游戏循环.............................................................................
+  69
+
+
+  整合所有内容..............................................................................
+  74
+
+
+  使用用户界面....................................................................... 74
+
+
+  ## 第 4 章：定位，定位，定位 ...................................... 75
+
+
+  我在哪里？ .........................................................................................
+  75
+
+
+  构建 `LocationManager` 对象 ........................................................
+  76
+
+
+  抬头，挥手，卫星正在注视...... ......................................... 77
+
+
+  Google 地图..........................................................................................
+  80
+
+
+  成吨的地图对象 ..................................................................... 80
+
+
+  移动地图..........................................................................................
+  82
+
+
+  盘点................................................................................................
+  84
+
+
+  是鸟，是飞机...不，是拙劣的图片处理 ............................... 84
+
+
+  收尾...............................................................................................
+  87
+
+
+  ## 第 5 章：带 Android 出去遛遛................................... 89
+
+
+  从网络加载列表 ................................................................ 89
+
+
+  先做...最重要的事？....................................................................................
+  90
+
+
+  启动网络...............................................................................
+  92
+
+
+  将数据各归其位 ........................................................................
+  94
+
+
+  创建列表并检查它......................................................... 95
+
+
+  准备：拥抱列表.................................................................... 95
+
+
+  添加适配器 .....................................................................................
+  96
+
+
+  将数据填入适配器 .................................................................... 98
+
+
+  最后，添加数据.............................................................................
+  99
+
+
+  选择… ................................................................................................
+  100
+
+
+  下一步 ......................................................................................
+  102
+
+
+  装饰菜单...............................................................................
+  102
+
+
+  回顾 ......................................................................................
+  106
+
+
+  ## 第 6 章：最后收尾 ...................................................... 107
+
+
+  应用的制作 ................................................................... 107
+
+
+  外观并非一切，但有时一切又在于外观................ 107
+
+
+  位置不太重要，除非你在凌晨 4 点需要披萨.... 108
+
+
+  放开 Android 的束缚，让它在互联网上畅游 ... 109
+
+
+  总体概述 .......................................................................................................
+  109
+
+
+  其他信息来源 .................................................................... 109
+
+
+  获取帮助..............................................................................................
+  110
+
+
+  是时候停止阅读，开始提供帮助..................................... 110
+
+
+  版权信息 ...............................................................................
+  112
+
+
+  ---
+
+
+  '
+- '# Android 基础
+
+
+  '
+- '# Android 基础
+
+
+  Chris Haseman
+
+
+  *那么，你想成为一名 Android 开发者？很好，你来对地方了。*
+
+
+  *无论你是浅尝辄止者、专业人士、爱好者还是编码狂热者，我希望你拿起这本书是出于想了解移动开发这块有些混乱的领域。具体来说，我希望你有兴趣接受开放手机联盟 Android
+  团队所发出的挑战。*
+
+
+  *我利用这个机会写下这本书，是因为很明显，Android 有潜力以前所未有的方式打开移动空间，让我们这些疲惫的移动程序员熬夜工作。过去的平台错误、以及这个行业（至少在美国）最大的成就不过是卖出几百万首彩铃的短视行为，足以写出好几本书来批判。你和你的同僚可以为这个行业带来期盼已久的改变，或许能为一个多年来似乎停滞不前的环境带来急需的新鲜空气。请原谅我的热情；我们已经等待了太久。*
+
+
+  ---
+
+
+  '
+- '# 第 1 章：引言
+
+
+  在开始之前，我们需要快速讨论一下你的起点。
+
+
+  ## 你需要具备哪些知识才能开始
+
+
+  你可能会问自己一个很自然的问题：这本书适合你吗？
+
+
+  是的，显然是的，因为你正在读它。不过，我会对你的能力做一些假设。
+
+
+
+
+  你了解 Java；你能编写、阅读并理解它。由于本书关注的是 Android 平台而非语言本身，我会在文中大量内联 Java 代码，并假设你能跟上进度。如果你的
+  Java 技能有些生疏，我建议你查阅 Apress 网站上丰富的 Java 资料（[`java.apress.com/`](http://java.apress.com)）。
+
+
+  熟悉其他移动平台会对你有所帮助。在阅读本书的过程中，我会将 Android 与其他移动软件开发工具包（SDK）进行对比。你完全不必是一名专业的移动开发者也能跟上节奏。
+
+
+  你需要具备出色的黑客技能。其实也不尽然，但如果你习惯于撸起袖子深入问题核心，那么读这本书时你会感到得心应手。
+
+
+  我将假设你在 Android 开发方面**毫无经验**。如果你已掌握基础知识，可以跳过第一章，直接关注后面更高级的主题。
+
+
+  这个要求列表并不长，但其中包含的几点内容能帮助你轻松地阅读本书而不至于抓狂。
+
+
+  理想情况下，我希望这本书对任何有兴趣为 Android 开发应用的人都能派上用场且富有价值。业余爱好者可以在这里为自己的梦想应用找到基础。移动游戏开发者能找到图形输出和用户输入的核心细节。多媒体和应用开发者能找到构建下一个杀手级应用所需的所有技巧、窍门和核心功能。如果你是一位商界人士，正考虑将现有应用移植到
+  Android 平台，你会在这里找到如何实现这一目标的无价信息。简而言之，无论你的目标、经验、时间或兴趣如何，这本书都能为你提供丰富的内容。
+
+
+  ## 如何最好地利用本书
+
+
+  简单的答案是阅读它，但这对于不同的人可能意味着不同的方式。如果你是移动开发或 Android 的新手，最好把本书当作教程来读。逐章跟随，直到掌握所有入门所需的基础知识。
+
+
+  如果你是一位经验丰富的 Java 和移动开发者，但对 Android 不太熟悉，那么你可以在通读第一章了解概况后，把本书更多地当作参考手册来使用。
+
+
+  在整本书中，我将主要使用真实世界的示例来帮助你熟悉 Android。对于已经是资深 Android 开发者的人来说，本书可能吸引力不大。如我之前所说，我将从零基础开始，假设你对这个
+  SDK 毫无经验。本书将从简单的内容开始：闪屏、主菜单和一些简单的多媒体。随后我会深入讲解更高级的概念，如蓝牙、基于位置的服务、后台应用以及 Android 提供的其他令人兴奋的功能。
+
+
+  话不多说，现在就开始吧。
+
+
+  ## 入门指南
+
+
+  首先需要安装 SDK。就我个人而言，我是在 Mac OS X 上使用 Eclipse 进行开发。所有屏幕截图、IDE 信息、技巧和窍门都将针对 Eclipse
+  IDE。Android 开发者似乎考虑到了开源 IDE Eclipse，因为他们发布了简化设置和调试的插件。为简单起见，我使用 Eclipse 和开放手机联盟的
+  Android。我并不特别推崇这一组合。不过，我会花一点时间讲解如何下载和配置 Eclipse 以使其与 Android 集成。如果你已经可以运行 SDK，请直接跳到“Android
+  项目”部分。此外，你也可以在谷歌的 [SDK 安装页面](http://code.google.com/android/intro/installing.html#installingplugin)找到更详细的安装指南。
+
+
+
+
+  ### 安装 Eclipse
+
+
+  同样，由于本书示例中会用到 Eclipse，请下载完整版，下载地址为 [`www.eclipse.org/downloads/`](http://www.eclipse.org/downloads)。
+
+
+  务必获取 Java EE 版本。该版本包含了一些框架，可供完整的 Google Eclipse 插件中的部分编辑器使用。安装 Eclipse；使用默认配置即可正常运行。
+
+
+  ### 注意
+
+
+  无论是 Windows 还是 Mac 系统，建议将你的文件和 SDK 安装目录放在不含空格的文件夹中。许多工具（如 Ant 等）可能会因文件夹名称中的空格而出错。
+
+
+  ### 获取 Android SDK
+
+
+  你可以在 Google 网站上找到 Android SDK，地址为 [`code.google.com/android/download.html`](http://code.google.com/android/download.html)。
+
+
+  下载它，将其保存到方便的位置，然后解压。我将 SDK 放在我的开发文件夹 `/Developer/AndroidSDK` 中。你也可以轻松地将 ZIP 文件放在文件系统的任何位置。只需记住存放位置，因为后续你需要告诉
+  Eclipse 这个位置。另外，如果你是 Windows 或 Linux 用户，建议将 Android 工具的路径添加到你的 `Path` 变量中。
+
+
+  ### 安装 Eclipse 插件
+
+
+  在使用 Android 时，我喜欢带有快捷键（如 Eclipse IDE 中的快捷键）的图形用户界面。为了获得超越基本功能的使用体验，你需要下载 Android
+  开发者工具。若要从 Eclipse 内部安装它，请按照 Google 提供的指南操作，地址为 [`code.google.com/android/intro/installing.html#installingplugin`](http://code.google.com/android/intro/installing.html#installingplugin)。
+
+
+  如果你已经安装了旧版本的 SDK 和 Eclipse 插件，建议你现在就使用前面提到的链接，将其更新到 M5-RC15（或最新版本）。旧版本与最新版本之间发生了足够多的变化，这些细节变化可能会造成混淆。如果你正确遵循了指南，但在尝试安装
+  Android 编辑器时遇到错误，请返回并安装 Java EE Eclipse 的完整版本。基础 Java SDK 不包含 Android 插件所需的所有正确包。
+
+
+  别忘了将 Android 插件指向你解压 SDK 副本的位置。该路径在 Android 标签页的 `Windows/Preferences/Android` 中。
+
+
+  通过选择 `File` -> `New` -> `Android Project` 来创建一个新项目。为项目和 Activity 取一个你喜欢的简洁名称。你还需要在源包名中至少插入一个点号
+  (`.`)，例如 `apress.book.sample` 或 `crazy.flyingmonkey.application`。
+
+
+  如果你忘记提供由点号分隔的多个名称，Eclipse 会显示一个相当不友好的错误信息。我个人可以作证，当你大脑疲惫，比如正赶着交稿时，这可能会相当令人沮丧。
+
+
+  ### Android 项目
+
+
+  现在，你已经成为自己第一个基本 Android 应用的骄傲拥有者。如果你跳过了上一节，导致目前并非如此，请立即创建一个新项目。默认情况下，新项目包含一个“Hello,
+  World”的实现。在我看来，那些以解释“Hello, World”开头的书籍和文章并不特别有用。因此，我不会占用你的时间来剖析最基本 Android 应用的功能。然而，值得花些时间研究的是你新项目的内容、布局和文件。让我简要解释每个文件和目录如何构成一个可运行的
+  Android 项目（见表 1-1）。
+
+
+  **表 1-1. 基本 Android 项目中的文件**
+
+
+  | 文件名 | 用途 |
+
+  |---|---|
+
+  | `YourActivity.java` | 默认启动 Activity 的文件；后续将详细介绍。 |
+
+  | `R.java` | 包含所有资源常量 ID 的文件。 |
+
+  | `Android Library/` | 包含所有 Android SDK 文件的文件夹。 |
+
+  | `assets/` | |
+
+
+
+
+  ### 多媒体及其他必需文件
+
+
+  #### `res/`
+
+
+  UI 所用资源的基础目录。
+
+
+  ##### `res/drawable`
+
+
+  存放 UI 层需要渲染的图像文件的目录。
+
+
+  ##### `res/layout`
+
+
+  所有 XML 格式的视图布局文件都存放在这里，后续将详细介绍。
+
+
+  ***续***
+
+
+  '
+- "# Android 基础\n\n**5**\n\n![](img/index-12_1.png)\n\n### 表 1-1. 续\n\n| 文件名 | 用途\
+  \ |\n|---|---|\n| `res/values` | 存放字符串和配置文件的位置。 |\n| `AndroidManifest.xml` | 向外部操作系统描述应用程序的文件。\
+  \ |\n\n显然，你早已超越了`Hello_World.c`的时代。随着学习的深入，我会在文中提及这些文件。如果你在阅读后续章节时遇到困难，请参考此表。接下来，我将花几分钟时间解析几个关键点。\n\
+  \n在各种文件中，最核心且可能最令人困惑的就是 Android 清单文件。它是你的应用程序与外部世界之间的桥梁。在这个文件中，你需要为 Activity 注册\
+  \ intent（下一章我会详细介绍 intents 和 activities 及其工作原理）。为了让你具备进一步开发的基础，代码清单 1-1 展示了创建第一个项目时的\
+  \ Android 清单文件内容。\n\n### 代码清单 1-1. `AndroidManifest.xml`\n\n```xml\n<?xml version=\"\
+  1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\
+  \n          package=\"apress.book.sample\">\n    <application android:icon=\"@drawable/icon\"\
+  >\n        <activity android:name=\".SampleApp\"\n                  android:label=\"\
+  @string/app_name\">\n            <intent-filter>\n                <action android:name=\"\
+  android.intent.action.MAIN\" />\n                <category android:name=\"android.intent.category.LAUNCHER\"\
+  \ />\n            </intent-filter>\n        </activity>\n    </application>\n</manifest>\n\
+  ```\n\n**6**\n\n**Android 基础**\n\n![](img/index-13_1.png)\n\nXML 声明之后是带有 schema\
+  \ URL 的`<manifest>`标签。其属性之一是你的源包名称。在这个示例中，它是`apress.book.sample`。\n\n接下来是应用程序声明以及应用图标的路径。`@drawable`表示法表明该项目可以在`res/drawable`文件夹中找到。此时，该应用程序仅包含一个\
+  \ Activity：`SampleApp`。Activity 名称是硬编码的，但其标签（即用户在 Android 应用程序菜单中看到的内容）定义在`res/values/strings.xml`文件中。`@string`表示法则从上述\
+  \ XML 文件中的`app_name`项获取值。\n\n现在来看 intent 过滤器。我将在下一章详细讲解 intent 过滤器，但目前你只需要知道`android.intent.action.MAIN`和`android.intent.category.LAUNCHER`是预定义的字符串，它们告诉\
+  \ Android 在启动你的应用程序时应该激活哪个 Activity。\n\n这就是最简形式的清单文件的所有内容。为了节省篇幅，我尽量不再重复写出整个清单文件。如果后续插入新元素时你需要回顾上下文，请折起本页，以便随时查阅。\n\
+  \n**注意**\n\n> 养成尽可能将字符串、资源和屏幕布局文件放入`res`文件夹的习惯。前期多花些时间处理这些文件可能会增加一些工作量，但一旦你开始将应用程序移植到不同的语言、屏幕尺寸和功能集时，前期的准备时间将得到加倍的回报。我相信这在计算机手册中你经常读到，但值得重复强调。前期的一点规划和额外投入，可以为项目后期的移植和调试节省数周时间。这对于移动设备开发尤为重要，因为每个应用程序可能包含多个独立的构建环境。\n\
+  \n**Android 基础**\n\n**7**\n\n![](img/index-14_1.png)\n\n接下来在重要文件列表中，是`R.java`。这个文件存放了所有资源（包括图形资源和可绘制资源）的引用标识号。向`res/drawable`中添加新图形应该会\n\
+  \n\n\n"
+- '# Android 核心要素
+
+
+  `R.java 类中的对应标识符`。随后可以通过这些 ID 而非文件系统中的项目进行引用。这使得你能为本地化、屏幕尺寸以及其他在不同设备间必然变化的勘误项替换字符串。
+
+
+  在向你的技能库中添加功能时，你会接触到其他文件。
+
+
+  现在让我们启动并运行你的应用程序。
+
+
+  ## 运行、调试与制造混乱
+
+
+  值得庆幸的是，在 Android 上进行运行和调试极其直接。在 Eclipse 中，下拉运行菜单并选择……你猜对了……运行。这将启动 Android 模拟器。
+
+
+  **提示**：初次启动模拟器后，无需退出或关闭它。最新版本的 SDK 附带的模拟器可能需要几分钟才能“启动”。当模拟器运行时，每次后续的运行或调试执行都会构建并部署你的最新代码到模拟器上。模拟器会接受更改并自动启动你的新项目。这与
+  BREW 或 J2ME 相反，后者在源代码每次更改后都必须重新启动。
+
+
+  一旦 Android 模拟器启动并运行，你应看到“Hello World，*YourApplicationName*”消息。
+
+
+  再次强调，“Hello, World”作为编程示例，恕我直言，实在乏善可陈，所以我将跳过它，转而关注一个更实际的示例：一个简单的启动画面。在此过程中，你应能理解
+  activity（活动）、intent（意图）、intent filter（意图过滤器）、service（服务）和 content provider（内容提供者）。
+
+
+  '
+- "# 第 2 章：应用程序\n\nAndroid 中的应用程序由其清单文件的内容定义。每个 Android 应用程序都通过 `AndroidManifest.xml`\
+  \ 声明其所有 activity、入口点、通信层、权限和 intent。四个基本构建块组合在一起，构成了一个丰富的 Android 应用程序：\n\n- **Activity**：Android\
+  \ 应用程序最基本的构建块\n- **Intent receiver**：一个为处理特定任务而启动的反应式对象\n- **Service**：一个没有用户界面的后台进程\n\
+  - **Content provider**：一个用于处理和存储数据的基本超类框架\n\n在本章中，我将通过具体的功能示例来分解每一个特定部分。首先是 activity，这是独立\
+  \ Android 应用程序的核心构建块。\n\n## 行动起来\n\n所有传统的 Android 移动应用程序都将围绕 activity 展开。如果你有过其他移动平台的经验，Android\
+  \ 的 activity 与 BREW 的 applet 或 Java ME 的 midlet 非常相似。然而，它们之间有几个非常重要的区别。\n\n### Android\
+  \ 与 Java ME 和 BREW 的对比\n\n在绝大多数情况下，BREW 应用程序由单个 applet 组成。该 applet 通过接收和发送事件与手机的其他部分通信。另一方面，你可以将\
+  \ Java ME 应用程序视为 `Midlet` 类的扩展。midlet 具有用于启动、停止、暂停、按键处理以及执行手机与应用程序之间任何其他交互的函数。一个\
+  \ Java ME 应用程序通常由一个 midlet 组成。\n\nAndroid 应用程序可以通过 `AndroidManifest.xml` 文件在手机上注册任意数量的\
+  \ activity。Android 的多 activity 架构可能是 Android 开发与其他手机 SDK 开发之间的主要区别。这一点使得编写模块化、分区的代码变得容易得多。在\
+  \ BREW 和 Java ME 中，开发者通常会在 midlet 或 applet 的范围内实现大部分功能。而在 Android 中，你可以编写 activity、内容处理器、intent\
+  \ receiver 或 service 来处理几乎任何事情。一旦你编写了一个用于编辑文本文件的 activity，你就可以通过发送和接收 intent 动作，在所有未来的应用程序中引用这个\
+  \ activity。这并不是说在 BREW 或 Java ME 中无法实现这样的架构。只是必须在 Java、C 或 C++ 层面，或者在 BREW 中通过繁琐的扩展来完成，而无法像\
+  \ Android 那样平滑地内置于应用程序框架中。\n\n### 功能\n\n就像 midlet 一样，activity 使用一系列函数与外部世界交互。基本上，你的\
+  \ activity 必须重写 `onCreate` 方法。你希望重写的其他函数包括 `onStop`、`onPause`、`onResume` 和 `onKeyDown`。正是这几个函数让你能够将\
+  \ activity 与整个 Android 手机绑定在一起。\n\n默认情况下，在 Eclipse 中创建的新 Android 应用程序会实现一个“Hello,\
+  \ World”应用程序。我将向你展示如何从这个基础应用程序升级为一个功能完整的启动画面。\n\n### 打造启动画面\n\n如果你想将此启动画面示例作为自己\
+  \ Android 应用程序的起点，或者想以更被动的方式跟着学习，可以从 `www.apress.com` 的下载区下载打包好的版本。在本示例中，由于是你的第一个示例，我将通过一系列小步骤来讲解。我会精确分解需要编写的内容，从添加新的图像资源到修改\
+  \ XML 布局文件。在后续章节中，示例将不会细化到如此细节。这应该是唯一一个读起来像面向初学者的教程的章节。\n\n#### 添加图像资源\n\n首先，你需要一个示例启动画面图像。我提供的这个“社交尴尬”型启动画面不会赢得任何奖项，但对于当前在移动领域似乎不断涌现的社交网络应用热潮，这是一个不错的调侃。\n\
+  \n要添加这个新资源，我将 `menu_background.jpg` 放在了 `res/drawable` 目录下。确保 `R.java` 中已添加一个新的\
+  \ ID。它应该像这样：\n\n`public static final int menu_background=0x7f020001;`\n\n现在，这是你从代码中加载和绘制图像的方式。我们将在下一章关于用户交互的内容中再回到这个概念。\n\
+  \n#### 创建 XML 布局文件\n\n既然你有了图像资源，就可以将其添加到 XML 布局文件中。这些文件存放在 `res/layout/` 目录下，目前你应该有一个名为\
+  \ `main.xml` 的文件。添加一个名为 `splash.xml` 的新 XML 文件，并将 `main.xml` 的内容复制进去。然后，修改该文件，移除\
+  \ `<TextView>` 标签，并添加一个如下所示的 `<ImageView>` 标签：\n\n```\n<ImageView android:src=\"\
+  @drawable/menu_background\"\n    android:layout_width=\"fill_parent\"\n    android:layout_height=\"\
+  fill_parent\">\n</ImageView>\n```\n\n使用 Android 的 XML 布局对象简单直接。正如我提到的，`/res` 目录中的文件可以通过前面展示的\
+  \ `@` 符号进行引用，例如 `android:src=\"@drawable/menu_background\"`。此外，`layout_width` 和\
+  \ `layout_height` 决定了图像视图的大小。请确认你的新布局文件已添加到 `R.java` 中。它应显示如下：\n\n`public static\
+  \ final int splash=0x7f030001;`\n\n#### 绘制启动画面\n\n现在启动画面已定义，是时候激活并绘制它了。你现有的 Android\
+  \ activity 正在绘制 `main.xml`，因此你需要切换到新的启动布局。要进行切换，将方法 `onCreate` 中的以下代码：\n\n`setContentView(R.layout.main);`\n\
+  \n更改为：\n\n`setContentView(R.layout.splash);`\n\n运行应用程序，观察你新创建的启动画面生效。如果你到目前为止遇到了错误，请检查所有名称是否匹配。如果图像没有显示，请确保它已正确放置在\
+  \ `res/drawable` 文件夹中，并且 `splash.xml` 引用了正确的名称和文件。\n\n#### 时机几乎就是一切\n\n启动画面现在正在渲染，但仅有启动画面还不足以...\n\
+  \n\n\n"
+- "# Android 开发核心要素\n\n## 启动画面计时\n\n烦人的应用程序，所以你需要进入主菜单。你将使用一个简单内联定义的线程来完成计时。在线程之前初始化了几个常量，我已经包含在内。为了完整性，我包含了`onCreate`方法的全部内容。代码清单\
+  \ 2-1 展示了我的带计时线程的代码。\n\n***代码清单 2-1. 为启动画面计时***\n\n```java\nlong m_dwSplashTime\
+  \ = 3000;\nboolean m_bPaused = false;\n```\n\n**Android 开发核心要素**\n\n![图](img/index-19_1.png)\n\
+  \n```java\nboolean m_bSplashActive = true;\n\npublic void onCreate(Bundle icicle)\n\
+  {\n    super.onCreate(icicle);\n    // 绘制启动画面\n    setContentView(R.layout.splash);\n\
+  \n    // 非常简单的计时器线程\n    Thread splashTimer = new Thread()\n    {\n        public\
+  \ void run()\n        {\n            try\n            {\n                // 等待循环\n\
+  \                long ms = 0;\n                while(m_bSplashActive && ms < m_dwSplashTime)\n\
+  \                {\n                    sleep(100);\n                    // 仅当程序运行时推进计时器\n\
+  \                    if(!m_bPaused)\n                        ms += 100;\n      \
+  \          }\n                // 前进到下一个屏幕\n                startActivity(new Intent(\n\
+  \                    \"com.google.app.splashy.CLEARSPLASH\"));\n            }\n\
+  \            catch(Exception e)\n            {\n                Log.e(\"Splash\"\
+  , e.toString());\n            }\n            finally\n            {\n          \
+  \      finish();\n            }\n        }\n    };\n    splashTimer.start();\n}\n\
+  ```\n\n**Android 开发核心要素**\n\n**13**\n\n![图](img/index-20_1.png)\n\n终于要进入 Java 代码部分了。这个简单线程将运行直到时间计数器超过`m_dwSplashTime`。虽然还有其他实现计时器的方法，但我喜欢这个方法的两个原因：它可以被暂停。计时器仅当`m_bPaused`标志为`false`时才会推进。正如你稍后将看到的，如果你的活动的`onPause`方法被调用，挂起计时器很容易。这对启动画面来说并不总是必需的，但对于其他基于定时的操作却很重要。\n\
+  \n移动到下一个屏幕就像将`m_bSplashActive`标志设置为`false`一样简单。如果按这种方式实现，前进到下一个屏幕不需要先移动再取消更传统的计时器。\n\
+  \n有了这段代码，你应该会看到启动画面持续你以毫秒为单位设置的`m_dwSplashTime`时间。当时间到了或者用户通过按键中断启动画面时，`startActivity`将被调用（我稍后会解释）。这个函数会将用户移动到下一个章节中将成为主菜单的界面。`finish`会关闭启动活动，这样用户从主菜单按返回键时就不会回到它。你需要实现一个接受`CLEARSPLASH`意图动作的活动。同时，让我们回顾一些你想要重写的其他重要活动方法。\n\
+  \n## 暂停、恢复、冲洗、重复\n\n当你的活动被来电、短信或其他中断挂起时，暂停启动计时器非常简单，如下所示：\n\n```java\nprotected\
+  \ void onPause()\n{\n    super.onPause();\n    m_bPaused = true;\n}\n```\n\n**Android\
+  \ 开发核心要素**\n\n**14**\n\n![图](img/index-21_1.png)\n\n与大多数这些重写的方法一样，你需要在做其他任何事情之前调用超类。如果你回顾计时器线程，你会看到负责跟踪经过时间的`ms`计数器在`m_bPaused`为`true`时不会推进。此时，我相信你已经能猜到`onResume`会是什么样子：\n\
+  \n```java\nprotected void onResume()\n{\n    super.onResume();\n    m_bPaused =\
+  \ false;\n}\n```\n\n这里毫无意外。当你的应用程序恢复时，计时器线程将恢复向`ms`计数器添加时间。\n\n## 基本按键处理\n\n活动中的按键处理通过重写`onKeyDown`方法来实现。我们将使用这个函数允许用户取消你初生的启动画面。正如你在本节开头计时器线程中看到的，你已经通过`m_bSplashActive`变量在计时器循环中设置了一个退出条件。为了退出，你只需重写`onKeyDown`方法，将启动标志设置为`false`。以下是需要添加的代码：\n\
+  \n```java\npublic boolean onKeyDown(int keyCode, KeyEvent event)\n{\n    // 如果按下任何键，清除启动画面\n\
+  \    super.onKeyDown(keyCode, event);\n    m_bSplashActive = false;\n    return\
+  \ true;\n}\n```\n\n\n\n### **Android 核心要点**\n\n**15**\n\n![index-22_1.png](img/index-22_1.png)\n\
+  \n#### **补充练习**\n\n如果你想将这个启动屏打造成一个功能完整的版本，还需要添加两个元素。这给了我一个绝佳的理由来给你布置一些作业。试着添加以下两项功能：\n\
+  \n-   允许用户仅在点击“确定”或中间键时跳过启动屏。\n-   让返回键退出应用程序，而不是将其放入后台。\n\n提示：要完成这些任务，你需要查阅 Android\
+  \ SDK 文档中的按键码映射。\n\n#### **明确 Intent**\n\n在完成启动屏之前，还有一件事需要做。我相信你一定对之前那个 `startActivity`\
+  \ 方法调用感到好奇。这意味着是时候在这个有限的上下文中，简要地谈谈 Intent 了。*Intent* 是一个对象，它充当两个或多个 Activity、内容处理器、Intent\
+  \ 接收器或服务之间的通信事件。在本例中，你将使用 Intent `com.google.app.splashy.CLEARSPLASH` 来调用 `startActivity`。当调用\
+  \ `startActivity` 时，Android 会搜索其所有清单文件，查找已注册了上述 `CLEARSPLASH` Intent 动作的节点。恰好，你将添加一个名为\
+  \ `MainMenu` 的 Activity，它就会注册处理这样一个 Intent。\n\n为了创建将成为主菜单的 Activity，在你的现有源码包中添加一个名为\
+  \ `MainMenu` 的新类。接下来，确保它继承 `Activity` 类，实现 `onCreate` 方法，并在 `R.layout.main` 布局上调用\
+  \ `setContentView`。此时，你需要打开 `AndroidManifest.xml` 并向其中添加一个新的 Activity 元素。在\n\n**16**\n\
+  \n**Android 核心要点**\n\n![index-23_1.png](img/index-23_1.png)\n\n启动屏的 `</activity>`\
+  \ 结束标签之后，你应该插入以下内容：\n\n```xml\n<activity android:name=\".MainMenu\"\n          android:label=\"\
+  @string/app_name\">\n    <intent-filter>\n        <action android:name=\"com.google.app.splashy.CLEARSPLASH\"\
+  />\n        <category android:name=\"android.intent.category.DEFAULT\"/>\n    </intent-filter>\n\
+  </activity>\n```\n\n将 Activity 的名称定义为 `.MainMenu`。这将会告诉 Android 加载并运行哪个 Java 类。在\
+  \ `intent-filter` 标签内，注册 `com.apress.splash.CLEARSPLASH` Intent 动作。实际上，这个 Intent\
+  \ 的名称可以是 `beef.funkporium.swizzle`，只要该名称在 `startActivity` 调用和前面列出的 Android 清单片段中保持一致，一切就会正常运转。\n\
+  \n#### **运行应用**\n\n如果你到目前为止已经认真学习了，那么此时运行你的应用程序，结果应该是启动屏会显示几秒钟，然后由你新创建的主菜单 Activity\
+  \ 获取焦点。并且，一旦应用程序进入主菜单，就不应该再能回到启动屏。如果遇到问题，请确保你的新主菜单已列在清单文件和 `R.java` 中。同时，确保你在新的\
+  \ Intent 中绘制了正确的布局文件。\n\n#### **Activity 的生命周期**\n\nActivity 的生命周期在谷歌文档中有详尽的介绍。不过，既然我在回顾构成一个\
+  \ Activity 的基本要素，就不能错过这个重要信息。现在，有了你的启动屏，你应该已经准备好继续前进了。\n\n**Android 核心要点**\n\n**17**\n\
+  \n![index-24_1.png](img/index-24_1.png)\n\n为了便于解释，我还向启动屏 Activity 中添加了以下函数：\n\n\
+  ```java\nprotected void onStop()\n{\n    super.onStop();\n}\n\nprotected void onDestroy()\n\
+  {\n    super.onDestroy();\n}\n```\n\n如果你在新创建的启动 Activity 中的所有函数内设置断点，并以调试模式运行它，你会看到断点按以下顺序被触发：\n\
+  \n1.  `onCreate`\n2.  `onStart`\n3.  `onResume`\n4.  此时，你的 Activity 正在运行。三秒钟后，计时器线程结束，并使用清除启动屏的\
+  \ Intent 调用 `startActivity`。接下来，它会调用 `finish`，这告诉 Android 关闭启动屏 Activity。\n5.  `onPause`\n\
+  6.  `onStop`\n7.  `onDestroy`\n\n这是一个 Activity 从开始到结束的通用生命周期。你可以在谷歌文档 [`code.google.com/android/reference/android/app/Activity.html`](http://code.google.com/android/reference/android/app/Activity.html)\
+  \ 中找到关于 Android Activity 生命周期和时间的更全面阐述。你甚至还会看到一个漂亮的图表。本质上，手机利用上述函数的组合来向你提示应用中可能发生的重大事件：启动、关闭、暂停和恢复。正如我之前提到的，Activity\n\
+  \n**18**\n\n**Android 核心要点**\n\n![index-25_1.png](img/index-25_1.png)\n\n将是任何传统应用程序的核心构建块；它们让你能够控制屏幕并接收用户输入。后续章节将更深入地探讨用户交互。\n\
+  \n#### **迄今为止**\n\n到目前为止，我探讨了 Activity 如何集成到手机中，它们如何启动和停止，以及它们如何在基本层面上进行通信。我演示了如何显示一个简单的\
+  \ XML 视图屏幕，以及如何通过在按键事件发生时或设定的时间结束时，在两个 Activity 之间进行切换。短期内，你需要进一步了解 Android 如何使用\
+  \ Intent、Intent 接收器和 Intent 过滤器进行通信。为此，你需要另一个示例应用程序。\n\n### **创建 Intent 接收器**\n\n\
+  *Intent 接收器* 是 Android 中为数不多的几个名副其实的东西之一。它的作用是等待注册过的 Intent 动作（Android 版的 BREW 风格通知）。我将使用一个不太具有生产价值的应用程序来演示\
+  \ Intent 接收器的一个较为棘手的任务：接收并响应传入的短信。\n\n#### **设置场景**\n\n让我为你描绘一个场景。一天下午，你回到办公桌前，发现自己遭遇了一场“Hello\
+  \ Kitty”袭击。你的办公桌从地毯到天花板，到处都贴满了这个人类已知最令人厌烦的 icon 的可爱粉色图案。你知道是谁干的，复仇的时候到了。你还知道，你们工程副总裁对某首歌深恶痛绝，那种炽热的仇恨无与伦比。那首歌就是《La\
+  \ Bamba》。你决定通过在你同事的 Android 手机上安装一个潜伏应用程序来报复他。我将向你展示如何制作一个 Android 应用程序，它能对特定短信做出响应，播放一个音频文件，以达到最大的羞辱效果。\n\
+  \n**Android 核心要点**\n\n**19**\n\n![index-26_1.png](img/index-26_1.png)\n\n这将使你新结下的仇敌成为你们副总裁强烈愤怒的对象。同时，你也要让你的受害者知道他中招了……并给他一个关闭声音的机会。这个恶作剧应用程序需要一个\
+  \ Intent 接收器、一个 Activity、一个服务，以及这三者之间通信的方式。想象一下，当你同事的手机开始播放你们工程副总裁最痛恨的那首歌时，他会多么惊讶。\n\
+  \n##### **这有什么实际用途吗？**\n\n这是个很好的问题。虽然表面上这看起来可能不是最实用的应用程序，但我相信，只要稍加想象，你就能为这个小小的恶作剧应用程序找到各种重要的实际用途，从推送邮件通知到内部应用通信。此外，到目前为止内容一直过于严肃。我们将分四个阶段进行。在每个阶段，你都会学到更多关于\
+  \ Intent 接收器、服务以及所有这些应用程序组件之间交互的知识：\n\n-   在短信到达时接收通知\n-   打开短信内容并查找特定的有效载荷\n- \
+  \  在短信到达时启动一个 Activity，并意识到这次启动是由 Intent 接收器发起的\n-   启动一个播放音频文件的新服务\n\n##### **使用\
+  \ Intent 接收器**\n\n\n\n在开始构建意图接收器之前，你需要花一点时间了解为何要使用它。意图接收器几乎不占用内存、不需要链接或额外开销。当活动（Activity）必须在启动时加载所有繁重的导入类时，意图接收器则没有这些负担。由于某些类型的意图可能会以极高的频率到达（例如网络状态更新），一个轻量级的\
+  \ **Android 基础** 对象必须首先对数据进行解析。如果此时适合唤醒一个更大的用户界面进程或繁重的后台服务，意图接收器就应该采取这样的行动。\n\n\
+  **提示**  \n意图接收器可能会被频繁地启动和关闭（取决于它们监听的内容）；请尽量让它们保持轻量，并尽可能少地使用库。如果你在处理某个特定事件时插入了过多开销，导致手机运行缓慢，用户是不会高兴的。\n\
+  \n### 构建意图接收器\n\n首先，你需要为这个恶作剧小应用创建一个新项目。在源码目录中，创建一个新类，它将作为新的意图接收器。初步来看，它应该像这样：\n\
+  \n```\npublic class PrankSMSReceiver extends IntentReceiver\n{\n    public void\
+  \ onReceiveIntent\n    (Context context, Intent intent)\n    {\n        return;\n\
+  \    }\n}\n```\n\n现在你已经设置好了这个类，接下来需要告诉 Android 你希望接收短信事件。你需要修改 `AndroidManifest.xml`\
+  \ 文件，以获取权限并注册 `RECEIVE_SMS` 意图动作。\n\n### 权限\n\n运营商、用户甚至开发者可能都不希望让 Android 应用随意访问手机和网络的特权层。因此，Google\
+  \ 在 Android 中引入了 **Android 基础** 权限的概念（所有有移动开发经验的开发者都应该认识它）。要能够接收短信，你需要通知手机你已经获得接收权限。\n\
+  \n由于在 Android 中，权限是针对特定清单中的所有元素声明的，你需要在 `<manifest>` 声明标签之后添加权限行（代码清单 2-2）。示例应用将命名为\
+  \ `PrankApp`，其主活动称为 `PrankActivity`。对于原创性，笔者不指望获得任何命名奖项。\n\n**代码清单 2-2. 添加接收短信的权限**\n\
+  \n```xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"\
+  http://schemas.android.com/apk/res/android\"\n    package=\"com.apress.book.PrankApp\"\
+  >\n    <uses-permission android:name=\"android.permission.RECEIVE_SMS\" />\n```\n\
+  \n如果没有权限标记，Android 在收到短信时就不会启动你的应用。后面我还会介绍其他需要涉及的权限。与此同时，你可以在 [Android 官方文档：http://code.google.com/android/reference/android/Manifest.permission.html](http://code.google.com/android/reference/android/Manifest.permission.html)\
+  \ 中找到所有权限的列表。\n\n### 也把短信发给我！\n\n现在你已经获得了与手机短信层交互的权限，接下来需要告诉手机在收到新短信时该做什么。为此，你必须像之前一样打开\
+  \ `AndroidManifest.xml` 文件。你需要在现有活动旁边添加一个新的意图接收器。代码清单 2-3 展示了需要插入的内容（为了便于参考，我保留了\
+  \ `</activity>` 标签）。**Android 基础**\n\n**代码清单 2-3. 注册新的意图接收器以接收传入短信**\n\n```xml\n\
+  </activity>\n<receiver android:name=\"PrankSMSReceiver\" android:enabled=\"true\"\
+  >\n    <intent-filter>\n        <action android:name=\"android.provider.Telephony.SMS_RECEIVED\"\
+  \ />\n        <category android:name=\"android.intent.category.DEFAULT\" />\n  \
+  \  </intent-filter>\n</receiver>\n```\n\n每当手机收到一条传入短信时，这就是你接收意图通知所需的一切。\n\n\n\n\
+  ## 一窥意图接收器的实际运行\n\n实现这一点比听起来要困难一些。必须有进程正在运行，DDMS（调试器应用程序）才能附加到它。但在大多数情况下，除非有新事件触发，否则你不希望应用程序运行。解决方法是利用\
+  \ Eclipse IDE 玩一点“花招”。\n\n随着你进入后续步骤，这个过程可能会变得稍微复杂一些。\n\n在你的 `onReceiveIntent()`\
+  \ 方法内部设置一个断点。开始调试应用程序，让模拟器停留在“Hello World, PrankActivity”屏幕上。\n\n在 Eclipse 中，切换到\
+  \ DDMS 视图。你可以按几次 Command+F8 或选择菜单 `Window` → `Open Perspective` → `DDMS` 来完成此操作。\n\
+  \n图 2-1 展示了它的样子。\n\n"
+- "# Android 要点\n\n*图 2-1. DDMS 透视图*\n\n在左侧窗口的“设备”(Devices) 标签页中，你应该会看到你的应用程序旁边有一个绿色的小虫子图标高亮显示。这是\
+  \ DDMS 在告诉你，调试器已附加到你的 `PrankApp` 进程。再往下一点是“模拟器控制”(Emulator Control) 标签页。你将在这里发送短信。首先输入任意电话号码，选择“发送短信”(SMS)，输入一条测试消息，然后点击“发送”(Send)。\n\
+  \n如果你的清单文件配置正确，你应该会看到 Eclipse 切换回“调试”(Debug) 透视图，并在你新设置的断点处暂停。\n\n**注意**\n\n如果没有任何反应，首先请确保你已正确设置权限。如果权限不正确，你应该会在\
+  \ DDMS 屏幕底部的 LogCat 标签页上看到一条权限失败的消息。此外，请确保你的应用程序正在运行，并且在“设备”(Devices) 标签页上旁边有绿色的调试图标。如果其他方法都失败了，请将你的项目与我随书附带的示例项目进行比较。\n\
+  \n如果你到目前为止正确地遵循了步骤，那么每当有短信发送到手机时，你的意图的 `onReceiveIntent()` 函数就会被调用。接下来，你需要弄清楚如何检索短信的内容。\n\
+  \n### 短信里有什么？\n\n遗憾的是，到目前为止，Android 关于接收和过滤短信的文档充其量只是令人困惑。我怀疑这并不是一个需要优先告知开发者的特性。虽然我不同意这种优先级安排，但这给了我一个填补空白的机会。\n\
+  \n以下是你正在监听新短信时的 `onReceiveIntent()` 方法现在的样子：\n\n```java\npublic void onReceiveIntent(Context\
+  \ context, Intent intent)\n{\n    SmsMessage msg[] = Telephony.Sms.Intents.getMessagesFromIntent(intent);\n\
+  \    for (int i = 0; i < msg.length; i++)\n    {\n        String msgTxt = msg[i].getMessageBody();\n\
+  \        if (msgTxt.equals(\"0xBADCAT0_Fire_The_Missiles!\"))\n        {\n     \
+  \       //在这里开始恶作剧\n        }\n    }\n    return;\n}\n```\n\n你还需要导入两个库才能使其工作：\n\n\
+  ```java\nimport android.telephony.gsm.SmsMessage;\nimport android.provider.Telephony;\n\
+  ```\n\n在 `Telephony` 库中隐藏着 `getMessagesFromIntent()` 调用，它将返回一个短信息数组。剩下要做的就是提取这些短信中的有效载荷。你要寻找用于触发恶作剧活动的特殊代码是文本\
+  \ `\"0xBADCAT0_Fire_The_Missiles!\"`。它必须是一个足够独特的组合，以免被意外触发。你肯定不希望你的恶作剧出差错，过早地惊动“受害者”。\n\
+  \n**注意**\n\n在 Android 中，那些文档记录不完善的功能很可能尚未完成。由于接收短信息的文档几乎不存在，你应该预料到短信处理方式会有所变化。很可能整体方法会类似，但可以确定的是，在\
+  \ SDK 达到最终版本之前，某些细节将会改变。这个示例更多的是关于学习如何使用意图接收器，而不是关于文本消息通信的细节。\n\n## 触发 Activity\n\
+  \n\n\n### Android 核心要点\n\n请务必记住，intent 接收器的生命周期仅限于 `onReceiveIntent` 方法调用的持续时间。一旦离开该函数，Android\
+  \ 系统就可以随时终止运行你应用的进程。任何异步功能若在此之后启动，都将以混乱的方式消亡。如果你想在该方法内执行除简单处理以外的任何操作，就需要启动一个服务（service）或活动（activity）。由于你既要播放音乐，又要提醒受害者他们已中招，因此需要启动一个活动。实现方式如下：\n\
+  \n```\nif (msgTxt.equals(\"0xBADCAT0_Fire_The_Missiles!\"))\n{\n    //启动 Activity\n\
+  \    Intent startActivity = new Intent();\n    startActivity.setLaunchFlags(Intent.NEW_TASK_LAUNCH);\n\
+  \    startActivity.setAction(\"com.apress.START_THE_MUSIC\");\n    context.startActivity(startActivity);\n\
+  }\n```\n\n你在这里看到的唯一陌生代码是 `setLaunchFlags` 中新增的 `NEW_TASK_LAUNCH`。每当你想要发送一个 intent\
+  \ action 来启动一个新的 activity 时，都需要这样做。\n\n此外，正如你在闪屏示例应用中所做的那样，你必须在 activity 的 intent\
+  \ 过滤器中添加一个新的 action。这个过程看起来应该很熟悉：\n\n```\n<intent-filter>\n    <action android:name=\"\
+  android.intent.action.MAIN\" />\n    <action android:name=\"com.apress.START_THE_MUSIC\"\
+  \ />\n    <category android:name=\"android.intent.category.LAUNCHER\" />\n    <category\
+  \ android:name=\"android.intent.category.DEFAULT\" />\n</intent-filter>\n```\n\n\
+  现在，如果你已将前面的代码正确添加到位，当从 DDMS 透视图发送一条 SMS 消息时，你应该会看到你的应用出现在前台，并且屏幕上自豪地显示着“Hello World,\
+  \ PrankActivity”文本。\n\n### 设置活动\n\n在进入更邪恶的音乐播放服务之前，还有最后一部分需要添加：将 activity 设置为能正确响应由你的\
+  \ SMS intent 接收器发送的 action。如果应用是正常启动的，你需要立即将其关闭。同样，你不能让恶作剧的受害者从菜单中启动它而过早发现你的计划。为此，你需要检索启动\
+  \ intent，并调用 `getAction` 方法来找出它是在何种情况下启动的。`PrankActivity` 的 `onCreate` 方法现在应如代码清单\
+  \ 2-4 所示。\n\n#### 代码清单 2-4. 针对特定 Intent Action 启动\n\n```\npublic void onCreate(Bundle\
+  \ icicle)\n{\n    super.onCreate(icicle);\n    Intent i = getIntent();\n    String\
+  \ action = i.getAction();\n    if (action != null &&\n        action.equals(\"com.apress.START_THE_MUSIC\"\
+  ))\n    {\n        setContentView(R.layout.pranked);\n        //此处我们需要启动音乐服务\n \
+  \   }\n    else\n        finish();\n}\n```\n\n首先，你获取启动了你的 activity 的 intent。拿到 intent\
+  \ 后，你可以通过 `getAction` 方法检索调用 action。这将返回一个包含启动事件的字符串，你可以将其与你之前在 XML 中列出的已知音乐 action\
+  \ 进行比对。如果你的 activity 是通过正常方式（从菜单或启动调试器）启动的，action 字符串将为 `null`。如果是这种情况，你需要立即使用 `finish`\
+  \ 方法关闭 activity。\n\n**注意**：`onCreate` 方法仅在应用首次启动时被调用。如果你启动了应用然后退出（使用返回键），应用仍将在后台运行。此时，如果你发送\
+  \ SMS 消息，你的 activity 会回到前台，但其 `onStart` 方法会被调用，而 `onCreate` 不会被调用。如果你正在跟着做，可以随意将你自己示例中的功能移到\
+  \ `onStart` 方法中。\n\n## 今天你想羞辱谁？\n\n尽管可能有点大材小用，但你还是会使用 Android 的 `Service` 对象之一来处理音乐播放。我这样做有两个原因：\n\
+  \n\n这是一个绝佳的机会，可以在简单、不复杂的环境中演示某项服务的使用。\n\n它可能会让你在不显示应用界面的情况下启动音乐，从而使你的恶作剧应用更加“阴险”。\n\
+  \n## 对服务的疑虑\n\n为什么要使用服务？本质上，它是一个独立于用户界面、作为分离进程运行的对象。当开发者希望某项功能（无论是网络相关还是多媒体相关）能够独立运行时，它是最理想的选择。例如音频播放、后台网络事务，以及邪恶的恶作剧应用。\n\
+  \n尽管服务允许多个应用绑定（即建立通信通道），但你这里将把它作为一个简单的后台进程来使用。再次强调，服务的用途远不止你在此处应用的简单场景。\n\n**Android\
+  \ 要点**\n\n**29**\n\n![](img/index-36_1.png)\n\n### 创建服务\n\n在源包中添加一个新类。我再次将其命名为 `PrankService`（原创性方面就不加分了）。在最基本层面，服务必须重写\
+  \ `onBind` 方法。要使服务类能够编译，它至少需要像代码清单 2-5 所示。\n\n#### 代码清单 2-5. 精简版服务\n\n```java\n\
+  public class PrankService extends Service\n{\n    public IBinder onBind(Intent intent)\n\
+  \    {\n        return null;\n    }\n}\n```\n\n在这个示例中，你不会使用服务交互中的 `onBind` 方法，而只是从主\
+  \ Activity 中启动和停止服务。为此，你需要在 `Service` 类中再重写两个方法：\n\n- `onStart(int startId, Bundle\
+  \ arguments)`\n- `onDestroy()`\n\n当 `onStart` 被调用时，你将开始播放示例媒体文件。当服务被销毁时，你将显式地停止它。这并非绝对必要，但为了便于解释，稍后我们会进一步说明。\n\
+  \n### 启动服务\n\n启动一个新服务应该与启动一个 Activity 类似。由于你之前已经接触过几次，这里就直接给出代码，让你自行理解。\n\n**30**\n\
+  \n**Android Essentials**\n\n![](img/index-37_1.png)\n\n回想一下之前列出的 `PrankActivity`\
+  \ 中的 `onCreate` 方法。只需用下面这行代码替换注释“我们需要在此处启动音乐服务”：\n\n```java\nstartService(new Intent\n\
+  (\"com.apress.START_AUDIO_SERVICE\"), null);\n```\n\n同样，这段代码应该看起来很熟悉。启动 Activity\
+  \ 与启动服务之间的唯一区别（除了方法调用不同）在于，可以随 Intent 传递一个 *Bundle*（本质上是一个映射或哈希表）参数。该 Bundle 将被传递给服务的\
+  \ `onCreate` 方法。\n\n### 启动音乐\n\n与 BREW 和 Java ME 一样，Android 使媒体播放（至少是简单的播放/停止操作）变得非常简单易用。当服务的\
+  \ `onStart` 函数被调用时，你将加载并播放来自 `/res/raw` 目录的测试音频文件。首要任务是复制一个示例音频文件到 `/res/raw` 目录（如果你没有这个目录，请自行创建）。\n\
+  \n接下来，将你准备好的、尊重版权的音频文件放入 `raw` 文件夹。如果你使用 Eclipse，应该向 `R.raw` 添加一个对应元素。在你的案例中，它是\
+  \ `R.raw.test`。\n\n现在你有了可引用的音乐文件，可以按如下方式向 `PrankService` 添加过程调用：\n\n```java\npublic\
+  \ void onStart(int startId, Bundle arguments)\n{\n    MediaPlayer p;\n    super.onStart(startId,\
+  \ arguments);\n    player = MediaPlayer.create(this, R.raw.test);\n    player.start();\n\
+  }\n```\n\n请记住，`onStart` 是一个被重写的方法，因此你需要首先调用父类的同名函数，否则 Android 会报错。此时，你将使用 `MediaPlayer`\
+  \ 静态类\n\n**Android Essentials**\n\n**31**\n\n![](img/index-38_1.png)\n\n创建一个新的媒体播放器对象。由于服务是\
+  \ Activity 的子类，\n\n\n\n## 上下文类\n\n你需要传递一个指向当前上下文的指针，以及代表测试媒体的静态变量。此时，你可以调用 `play`，然后一切便已就绪。通过这项服务，音频应在后台持续播放，直到你的主\
+  \ Activity 调用了 `stopService` 方法。\n\n当 `stopService` 被调用时，将触发以下方法：\n\n```java\npublic\
+  \ void onDestroy()\n{\n    super.onDestroy();\n    player.stop();\n}\n```\n\n###\
+  \ 仁慈之举\n\n既然你是一个善良的恶作剧者，你会给受害者留一条出路。正如你之前所见，Activity 是由意图接收器触发的，而 Activity 随后会启动服务。正如你刚刚看到的，服务负责播放那段会让你的虚拟工程副总裁恼火的噪音。同样，因为你执行报复时心怀仁慈，所以你必须构建一种让受害者关掉音乐的方式。\n\
+  \n在你的 `PrankActivity` 中添加以下方法即可实现你的仁爱之举：\n\n```java\npublic boolean onKeyDown(int\
+  \ keyCode, KeyEvent event)\n{\n    stopService(new Intent(\n        \"com.apress.START_AUDIO_SERVICE\"\
+  ));\n    finish();\n    return true;\n}\n```\n\n### 清单配置\n\n以下是清单文件的内容：\n\n```xml\n\
+  <service android:name=\".PrankService\">\n    <intent-filter>\n        <action android:name=\n\
+  \            \"com.apress.START_AUDIO_SERVICE\" />\n        <category android:name=\n\
+  \            \"android.intent.category.DEFAULT\" />\n    </intent-filter>\n</service>\n\
+  ```\n\n### 报复的禅意与艺术\n\n通过使用一个狡黠的小型恶作剧应用程序，我们探索了意图、意图接收器、服务和 Activity 如何在一个高级的、主要运行在后台的应用程序中协同工作。下面我将逐步介绍你做了什么以及是如何实现的。\n\
+  \n#### 实施步骤\n\n你做了以下几件事：\n\n1.  你使用了一个具有适当权限的意图接收器，以及一个系统级的短信意图，使得每当手机收到短信时，你的 `PrankSMSReciever`\
+  \ 对象就会被实例化。如果你的意图接收器检测到一个非常特定的短信内容，它就会通过发送一个意图来启动你的 Activity 作为响应。\n\n2.  这个名为 `PrankActivity`\
+  \ 的 Activity 会监听由 `PrankSMSReceiver` 发送的特定意图动作。当它接收到那个精确的意图动作时，你的 Activity 会向受害者显示一条“逮到你了”的消息。同时，该\
+  \ Activity 会发送一个意图来启动一项服务。如果在任何时候受害者/用户按下了手机上的某个按键，应用程序将退出，音乐服务也会终止。\n\n3.  名为 `PrankService`\
+  \ 的服务类会监听 `PrankActivity` 的意图，一旦收到即开始播放一个令人讨厌的、预定义的音频文件。它会持续播放，直到被 `PrankActivity`\
+  \ 对 `stopService` 方法的调用所终止。\n\n**注意**  \n此示例应用程序不处理手机自带的短信应用程序。由于所有意图接收器都会收到传入意图的通知，你的应用程序将与\
+  \ Android 的短信收件箱应用程序争夺用户注意力。在实际产品中，这可能需要一个可观的计时器，以及一个更微妙的触发文本内容，而不是像 `“0xBADCAT0_Fire_The_Missiles!”`\
+  \ 这样直白。\n\n## 更多恶作剧思路\n\n以下是你可以自行探索和扩展这个恶作剧应用程序的几种方法：\n\n-   将 Activity 从循环中移除，变得更“邪恶”。直接从意图接收器启动\
+  \ `PrankService`。不要给受害者关闭音乐的任何途径。\n\n-   添加一个不同的文本内容来停止音乐。这个练习与上一个练习结合进行会非常棒。\n\n\
+  -   自定义你的“讨回公道”消息。创建一个触发服务的前缀，以及一个由主应用 Activity 展示的消息内容。使用意图内的额外数据将此内容从意图接收器传递给\
+  \ Activity。嘲弄，有时需要精准微调。\n\n这些只是一些让你更好地学习 Android 各个组件的方式。\n\n\n"
+- "# 在 Android 中移动数据\n\n最后，为了完善你关于 Android 应用程序构建模块的知识，你需要重点关注内容解析器。Android 并没有像 Brew\
+  \ 那样为 SDK 提供访问手机文件系统的特定权限，也不像 Java ME 那样提供 `RecordStore`。在 Activity、Intent 接收器和服务之间传递数据的主要方法，是通过\
+  \ `ContentResolver` 超类来实现的。尽管你可以通过文件、偏好设置和其他数据库来存储数据，但内容解析器可以有多种形式，而且 Android 内置了几个重要的内容解析器。以下是本书出版时，你可能需要经常与之交互的主要\
+  \ Android 内容解析器列表：\n\n- 浏览器\n  - 书签\n  - 搜索历史\n- 电话\n  - 通话记录\n  - 最近通话\n- 联系人\n\
+  - 系统设置\n  - 硬件设置（蓝牙、网络设置）\n  - 软件设置\n\nAndroid 官方文档在此处提供了关于使用联系人内容解析器的优秀演练：[`code.google.com/android/devel/data/contentproviders.html#usingacp`](http://code.google.com/android/devel/data/contentproviders.html#usingacp)。\n\
+  \n接下来，我将快速带你了解如何向手机浏览器的书签列表中添加一个书签。首先，你需要搜索当前的书签列表，以确认你的链接是否已存在。其次，如果书签不存在，你就添加它。\n\
+  \n> **注意**  \n> 你可以创建自己的内容提供器，将 Android 的 SQLite 实现封装起来以提供通用访问。你将在后续章节中学习如何实现这一点。现在，你只需处理这个内容解析器交互的“客户端”部分。\n\
+  \nAndroid 使用自定义的 SQLite 实现来在本地存储信息。如果你不熟悉 SQL 的基础知识，现在可能是复习的好时机。为了便于讲解，我将假设你理解基本的\
+  \ SQL 搜索命令。如果你需要复习，Apress 在此处有一个很棒的资源：[`apress.com/book/catalog?category=145`](http://apress.com/book/catalog?category=145)。\n\
+  \n## 毫不掩饰的自我推销\n\n假设在你的应用的“关于”部分中，你想要一个按钮，可以将你的商业软件页面添加到用户的网页书签中。你需要确保，如果用户不小心再次点击了该按钮，书签不会被添加两次。为了这个简单的演示，当用户按下某个键时，你将在示例应用中触发这个事件。\n\
+  \n> **注意**  \n> 有趣的是，如果你需要一个证据来证明 Android 作为一个开发平台仍未完全成熟，你只需查看 `android.content.ContentResolver`\
+  \ 中 `getDataFilePath` 方法的文档即可，该方法写着：“不要使用这个函数！！有人添加了它，但他们不该这么做。你无法直接访问内容提供器内部的任何文件。别碰这个。走开。”很高兴看到，即使是\
+  \ Android 官方文档的技术作家也有幽默感。\n\n### 获取用户的书签\n\n此时，应该很明显，开发者如果能够访问用户的书签，就可以做相当不道德的事情。目前尚不清楚\
+  \ Android 将采取什么措施来防止此类事情发生。我想这取决于运营商来锁定或监控这种行为。无论如何，你将调用 `managedQuery` 方法，该方法将返回用户的书签列表：\n\
+  \n```java\nCursor bookmarks = android.provider.Browser.getAllBookmarks(getContentResolver());\n\
+  int urlColumn = bookmarks.getColumnIndex(android.provider.Browser.BookmarkColumns.URL);\n\
+  \nCursor results;\nString[] proj = new String[]\n{\n    android.provider.BaseColumns._ID,\n\
+  \    android.provider.Browser.BookmarkColumns.URL,\n    android.provider.Browser.BookmarkColumns.TITLE\n\
+  };\n\nresults = managedQuery(android.provider.Browser.BOOKMARKS_URI, proj, null,\
+  \ android.provider.Browser.BookmarkColumns.URL + \" ASC\");\n```\n\n我现在来分解一下发生了什么。你首先获取书签\
+  \ URL 的列索引。再次强调，由于 Android 以 SQL 格式提供对其大部分内部数据的访问，你应该习惯于以数据库为中心的方式来引用已保存的信息。接下来，你将设置游标（一个类似于\
+  \ Java ME 中 `RecordStore` 枚举器的对象）并设置你的投影字符串数组。因为你只对包含 URL 的列感兴趣，所以可以保持非常简单。`managedQuery`\
+  \ 方法的调用将返回你的数据。你将传入书签存储的 URI 字符串，提供简单的投影数组，将 where 部分留空，并告诉它按降序对 URL 进行排序。\n\n###\
+  \ 搜索结果\n\n搜索结果非常简单：只需迭代 `Cursor` 对象，并从之前获取的 URL 列 ID 中提取字符串即可：\n\n```java\nCursor\
+  \ results = android.provider.Browser.getAllBookmarks(getContentResolver());\nint\
+  \ urlColumn = results.getColumnIndex(android.provider.Browser.BookmarkColumns.URL);\n\
+  \nresults.first();\ndo\n{\n    //url 是一个方法参数，包含我们要寻找的内容\n    if(results.getString(urlColumn).equals(url))\n\
+  \        return false;\n} while(results.next());\n```\n\n你可以根据 URL 的内容做更多事情，但这里我们只查找\
+  \ [www.apress.com](http://www.apress.com) 这个链接。显然，如果用上述 Apress 的 URL 运行这段代码，你是找不到它的。由于用户想在你的虚构的“关于”部分中添加你公司的\
+  \ URL，你就需要满足他们的要求。\n\n## 使用内容解析器添加“邪恶”的公司 URL\n\n也许它们并不邪恶，但你还是要添加它们。既然 Apress 可能是世界上最少邪恶的公司之一（请注意，不是我偏心），你就破例一次，允许它们这样做。以下是添加书签记录的奇妙的\
+  \ `ContentReceiver` 方式：\n\n```java\nContentValues inputValues = new ContentValues();\n\
+  inputValues.put(android.provider.Browser.BookmarkColumns.BOOKMARK, \"1\");\ninputValues.put(android.provider.Browser.BookmarkColumns.URL,\
+  \ \"http://www.apress.com/\");\ninputValues.put(android.provider.Browser.BookmarkColumns.TITLE,\
+  \ \"Apress，不那么邪恶的公司\");\n\nContentResolver cr = getContentResolver();\nUri uri =\
+  \ cr.insert(android.provider.Browser.BOOKMARKS_URI, inputValues);\n```\n\n与大多数 SDK\
+  \ 一样，完成同一任务的方法不止一种。之前，我们有一种更复杂的方式来添加书签。这种方法很有用，因为它为你提供了如何通过一个没有辅助函数的 `ContentResolver`\
+  \ 来添加元素的参考。现在，这是简单的方法：\n\n```java\nandroid.provider.Browser.saveBookmark(this, \"\
+  Apress\", url);\n```\n\n这个辅助函数将激活一个对话框，询问用户确认添加书签。这可能是最友好的添加书签的方式——除非你想控制对话框的外观。\n\
+  \n## 均衡早餐的一部分\n\n在前三个示例中，你探索了 Android 的所有主要构建模块。你首先研究了一个功能性的启动画面。这让你探索了启动、维护以及在不同\
+  \ Activity 对象间跳转的基本原理。它让你初步了解了 Intent 以及进程间/对象间的通信。在 Activity、服务、内容处理程序和 Intent\
+  \ 接收器之间使用和传递 Intent，很可能是使 Android 与其他移动环境区别开来的最重要特性之一。\n\n掌握了 Activity 和通信基础知识后，你接着学习了服务（Service）和\
+  \ Intent 接收器。要使用这两个构建模块，你需要...\n\n\n\n"
+- '# 用户界面
+
+
+  你设计了一个恶作剧般的应用程序，强制你使用了所有三个组件（Activity、Service 和 Intent Receiver），并让它们三者相互通信。几乎作为附带内容，你探索了当短信到达手机时如何被通知。
+
+
+  最后，你探索了如何检索和写入设备原生内容解析器：浏览器书签数据库。事实证明事情并不总是一帆风顺，Android 拒绝了你通过传统内容解析器方法添加新书签的尝试，这迫使你回退到一个旨在完成相同任务的辅助函数。既然我已经介绍了基础知识，是时候让手机用户多参与一些了。
+
+
+  ---
+
+
+  '
+- '# 第 3 章：用户界面
+
+
+  ## 在苏维埃谷歌中，界面渲染你
+
+
+  在移动 UI 开发架构的混战中，Android 的架构脱颖而出。如果你有一些移动开发经验，你会发现它是 Java ME 的 Canvas/Screen 对象与
+  BREW 控件层次结构的完美结合，并辅以一些 XML 布局工具。每个 Activity 从你的应用程序中启动时，会被放置在一个屏幕栈中。当你要求或用户按下返回键时，Android
+  已经配置好如何处理关闭顶部 Activity 并激活其下方的 Activity。这种设置让你可以将每个 Activity 视为单个屏幕的基础。
+
+
+  每个 Activity 可以包含一个层次树结构中的不同视图和视图组。你可以将视图组和布局对象想象为树干和树枝（因为视图组对象可以转换为视图），而视图或控件则是树叶。一个基本的**视图**是一个可绘制的矩形。一个基础的**视图组**是一个包含一个或多个视图的对象。这种对象层次结构允许你布置复杂的用户界面，而无需经历计算视图矩形和控件重叠图的易出错过程。另一方面，如果你喜欢那种方式，Android
+  也不会干涉，让你以 Java ME 的手绘游戏画布风格进行渲染。
+
+
+  在本章中，你将从基本的基于 XML 的屏幕布局开始，然后转向更复杂的自定义画布绘制。为了本书的叙述，我将把视图分为三大类：
+
+
+  - **XML 定义的控件/视图和视图组**：适用于基本信息显示和菜单
+
+  - **Android 原生视图**：`TextView`、`LayoutGroup`、`ScrollBar` 和文本输入
+
+  - **自定义视图**：游戏程序员的最佳朋友
+
+
+  **Android Essentials** **39**
+
+
+  ![index-46_1.png](img/index-46_1.png)
+
+
+  **Android Essentials** **40**
+
+
+  ![index-47_1.png](img/index-47_1.png)
+
+
+  **Android Essentials** **41**
+
+
+  ![index-48_1.png](img/index-48_1.png)
+
+
+  你将从一个示例登录屏幕开始，然后转变为在代码中操作和布局控件与视图，最后使用自定义视图渲染一个交互式动画。
+
+
+  ## 简单快速的 XML 布局
+
+
+  一开始，使用 XML 布局可能看起来很简单，但它很快就会变得复杂。你将先从布局开始，然后逐步深入到各个元素。
+
+
+  ### 布局
+
+
+  大多数 XML 屏幕会被包裹在一个布局对象中。布局对象有许多不同的类型，你将快速了解每一种，然后在接下来的章节中通过一个简单示例进行验证。
+
+
+  **注意**：在编译时，这些 XML 布局文件会被 Android 解析并打包成紧凑的二进制格式。这节省了启动时大量的解析时间。然而，这意味着在运行时你的代码不能更改这些
+  XML 文件。更具体地说，你也许可以在执行期间更改这些 XML 文件，但这对你的应用程序布局完全没有影响。此外，从 XML 中填充一个视图或视图组需要付出一定的性能代价。具体影响取决于
+  CPU 负载和 UI 复杂度。
+
+
+  **42**
+
+
+  **Android Essentials**
+
+
+  ![index-49_1.png](img/index-49_1.png)
+
+
+  ### `LinearLayout`
+
+
+
+
+  '
+- "# 布局类型\n\n所有元素按从上到下或从左到右的降序排列。每个元素可以具有 `gravity` 和 `weight` 属性，这些属性表示它们如何动态增长和收缩以填充空间。元素根据\
+  \ `android:orientation` 参数按行或列排列。例如（见图 3-1）：\n\n```\n<LinearLayout xmlns:android=\n\
+  [\"http://schemas.android.com/apk/res/android\"](http://schemas.android.com/apk/res/android)\n\
+  android:orientation=\"vertical\"\nandroid:layout_width=\"fill_parent\"\nandroid:layout_height=\"\
+  fill_parent\"\n>\n<TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"\
+  wrap_content\"\nandroid:text=\"元素一\"\n/>\n<TextView\nandroid:layout_width=\"wrap_content\"\
+  \nandroid:layout_height=\"wrap_content\"\nandroid:text=\"元素二\"\n/>\n<TextView\n\
+  android:layout_width=\"wrap_content\"\nandroid:layout_height=\"wrap_content\"\n\
+  android:text=\"元素三\"\n/>\n</LinearLayout>\n```\n\n**图 3-1. 线性布局示例**\n\n`RelativeLayout`\n\
+  \n每个子元素都相对于其他子元素进行布局。可以建立关联关系，使子元素从一个前一个子元素结束的位置开始。子元素只能关联到在其之前列出的元素。因此，请从 XML 文件的起始位置到末尾构建依赖关系。注意，需要指定\
+  \ ID，以便控件可以相互引用。例如（见图 3-2）：\n\n```\n<RelativeLayout xmlns:android=\n[\"http://schemas.android.com/apk/res/android\"\
+  ](http://schemas.android.com/apk/res/android)\nandroid:layout_width=\"fill_parent\"\
+  \nandroid:layout_height=\"fill_parent\"\n>\n<TextView\nandroid:id=\"@+id/EL01\"\n\
+  android:layout_width=\"wrap_content\"\nandroid:layout_height=\"wrap_content\"\n\
+  android:text=\"元素一\"\n/>\n<TextView\nandroid:id=\"@+id/EL02\"\nandroid:layout_width=\"\
+  wrap_content\"\nandroid:layout_height=\"wrap_content\"\nandroid:text=\"元素二\"\nandroid:layout_below=\"\
+  @id/EL01\"\n/>\n<TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"\
+  wrap_content\"\nandroid:text=\"元素三\"\nandroid:layout_toRight=\"@id/EL02\"\n/>\n\
+  </RelativeLayout>\n```\n\n**图 3-2. 相对布局示例**\n\n`AbsoluteLayout`\n\n每个子元素必须在父布局对象的边界内指定一个特定位置。`AbsoluteLayout`\
+  \ 对象可能最容易构建和可视化，但最难迁移到新的设备或屏幕尺寸。例如（见图 3-3）：\n\n```\n<AbsoluteLayout xmlns:android=\n\
+  [\"http://schemas.android.com/apk/res/android\"](http://schemas.android.com/apk/res/android)\n\
+  android:layout_width=\"fill_parent\"\nandroid:layout_height=\"fill_parent\"\n>\n\
+  <TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"wrap_content\"\
+  \nandroid:text=\"元素一\"\n/>\n<TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"\
+  wrap_content\"\nandroid:text=\"元素二\"\nandroid:layout_x=\"30px\"\nandroid:layout_y=\"\
+  30px\"\n/>\n<TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"\
+  wrap_content\"\nandroid:text=\"元素三\"\nandroid:layout_x=\"50px\"\nandroid:layout_y=\"\
+  50px\"\n/>\n</AbsoluteLayout>\n```\n\n**图 3-3. 绝对布局示例**\n\n`TableLayout`\n\n`TableLayout`\
+  \ 是一种布局对象，允许你指定表格行。Android 会尝试将每个子元素安排到正确的行和列中。例如（见图 3-4）：\n\n```\n<TableLayout\
+  \ xmlns:android=\n[\"http://schemas.android.com/apk/res/android\"](http://schemas.android.com/apk/res/android)\n\
+  android:layout_width=\"fill_parent\"\nandroid:layout_height=\"fill_parent\">\n<TableRow>\n\
+  <TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"wrap_content\"\
+  \nandroid:text=\"元素一 A\"\n/>\n<TextView\nandroid:layout_width=\"wrap_content\"\n\
+  android:layout_height=\"wrap_content\"\nandroid:text=\"元素一 B\"\n/>\n</TableRow>\n\
+  <TableRow>\n<TextView\nandroid:layout_width=\"wrap_content\"\nandroid:layout_height=\"\
+  wrap_content\"\nandroid:text=\"元素二 A\"\n/>\n</TableRow>\n</TableLayout>\n```\n\n\
+  \n\n```xml\n<TableLayout>\n  <TableRow>\n    <TextView\n      android:layout_height=\"\
+  wrap_content\"\n      android:text=\"元素二 A\"\n      />\n    <TextView\n      android:layout_height=\"\
+  wrap_content\"\n      android:text=\"元素二 B\"\n      />\n  </TableRow>\n</TableLayout>\n\
+  \n**Android 基础**\n\n**49**\n\n![index-56_1.png](img/index-56_1.png)\n\n![index-56_2.png](img/index-56_2.png)\n\
+  \n***图 3-4：表格布局示例***\n\n**50**\n\n**Android 基础**\n\n![index-57_1.png](img/index-57_1.png)\n\
+  \n这些是你往后会用到的主要布局对象。每个示例都包含几个简单的 `TextView` 元素，用以展示每种布局类型下布局的呈现效果，并附有一张屏幕截图，显示每个\
+  \ XML 文件将如何渲染。你可以在 Android 文档 [`code.google.com/android/`](http://code.google.com/android)\
+  \ 的 samples/ApiDemos/src/com/google/android/samples/view/ 中找到更详尽的示例。\n\n**注意**\n\
+  \n如果你是移动开发新手，在决定如何布局你的应用时，必须在脑海中重复一句格言：“移植，移植，再移植。”理想情况下，可以设置一种适用于所有可能设备的布局。但现实中，这永远行不通。如果你计划在不止一部手机上运行你的应用（正如大多数运营商要求的那样），请将重点放在动态和相对布局结构上。我保证，你使用的屏幕尺寸之后会发生显著变化。尽量减少绝对\
+  \ X/Y 值的数量，并将你确实使用的值放在容易找到的位置。\n\n接下来的任务是找到一份可以放置在布局内部的所有相关子元素的列表。该资源以令人困惑的文档形式存在于\
+  \ [`code.google.com/android/`](http://code.google.com/android) refrence/android/R.styleable.html#Menu。\n\
+  \n从那里，你可以着手处理第一个 UI 任务：为“社交尴尬”应用制作一个登录屏幕。这个登录屏幕将成为 `getSplashy` 示例应用的一部分。\n\n**滚动、文本输入、按钮以及生活中所有简单的事情**\n\
+  \n现在是时候使用其中一个布局类了。XML 布局非常适合用户输入、信息传递以及几乎所有屏幕内容相对静态的场景。你将向上文提到的“社交尴尬”应用添加一个简单的登录屏幕（见代码清单\
+  \ 3-1）。第一个任务是描述这个新视图中的屏幕外观。你将使用线性布局，这样只需垂直添加控件即可。（注意，这个 XML 需要在 `res` 文件夹中定义 `general_bg`\
+  \ 图片和 `disclaimer` 字符串。请从 Apress 网站下载本章的项目以获取更多信息。）\n\n**代码清单 3-1 `/res/layout/login.xml`**\n\
+  \n```xml\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\
+  \n  android:layout_width=\"fill_parent\"\n  android:layout_height=\"wrap_content\"\
+  \n  android:scrollbars=\"vertical\">\n  <LinearLayout\n    android:orientation=\"\
+  vertical\"\n    android:layout_width=\"fill_parent\"\n    android:layout_height=\"\
+  fill_parent\"\n    android:background=\"@drawable/general_bg\"\n  >\n    <TextView\n\
+  \      android:text=\"登录屏幕\"\n      android:layout_width=\"fill_parent\"\n     \
+  \ android:layout_height=\"wrap_content\"\n      android:textAlign=\"center\"\n \
+  \     />\n    <TextView\n      android:text=\"用户名：\"\n      android:layout_width=\"\
+  wrap_content\"\n      android:layout_height=\"wrap_content\"\n      />\n    <EditText\n\
+  \      android:id=\"@+id/username\"\n      android:layout_width=\"fill_parent\"\n\
+  \      android:layout_height=\"wrap_content\"\n      />\n    <TextView\n      android:text=\"\
+  密码：\"\n      android:layout_width=\"wrap_content\"\n      android:layout_height=\"\
+  wrap_content\"\n      />\n    <EditText\n      android:id=\"@+id/password\"\n  \
+  \    android:layout_width=\"fill_parent\"\n      android:layout_height=\"wrap_content\"\
+  \n      />\n    <Button\n      android:id=\"@+id/loginbutton\"\n      android:layout_width=\"\
+  wrap_content\"\n      android:layout_height=\"wrap_content\"\n      android:text=\"\
+  登录\"\n      />\n    <TextView\n      android:id=\"@+id/status\"\n      android:layout_width=\"\
+  fill_parent\"\n      android:layout_height=\"wrap_content\"\n      android:textAlign=\"\
+  center\"\n      android:text=\"输入用户名和密码\"\n      />\n    <TextView\n      android:layout_width=\"\
+  fill_parent\"\n      android:layout_height=\"wrap_content\"\n      />\n  </LinearLayout>\n\
+  </ScrollView>\n```\n\n\n\nandroid:text=\"@string/disclaimer\"\n\n/>\n</LinearLayout>\n\
+  </ScrollView>\n\n我将从前面的代码清单中摘取几行具体代码，并在接下来的章节中解释其作用。请记住，你尚未为组成这个屏幕的元素定义任何位置。但由于使用了`LinearLayout`对象，每个后续元素都会依次附加在前一个元素的底部。\n\
+  \n# Android 基础\n\n**53**\n\n![](img/index-60_1.png)\n\n### 滚动\n\n当视图尺寸超出设备屏幕大小时，只需将布局对象包裹在`ScrollView`中即可实现滚动。要启用垂直滚动条，你的`ScrollView`必须设置参数`android:scrollbars=\"\
+  vertical\"`，这样只有在向下翻页时才会显示滚动条。为了让视图足够长以演示此对象，我在线性布局末尾添加了一个带有虚假免责声明的`TextView`。你会注意到，如果将之前的\
+  \ XML 设置为活动视图，焦点会沿着对象下移，直到到达按钮，此时滚动条将处理向下键，并将用户移至文本底部。\n\n### 深入解析 TextView\n\n\
+  在前面的 XML 中，有两个主要的“小部件”在起作用。\n\n**注意** Android 中的*小部件*指的是`View`对象的任何自包含子类。\n\n对于标题和文本输入标签，你使用了`TextView`对象。对于用户控制的文本输入，你使用了`EditText`对象。最值得详细讲解的是最后的“状态”文本：\n\
+  \n```\n<TextView\nandroid:id=\"@+id/status\"\nandroid:layout_width=\"fill_parent\"\
+  \nandroid:layout_height=\"wrap_content\"\nandroid:textAlign=\"center\"\nandroid:text=\"\
+  输入用户名和密码\"\n/>\n```\n\n首先，由于这个文本元素稍后会在运行时被源代码修改，因此你需要为其分配一个 ID。这样你就可以在之后使用`findViewById`方法来获取它的句柄。\n\
+  \n**54**\n\n**Android 基础**\n\n![](img/index-61_1.png)\n\n如果`R.java`文件中尚不存在 ID `status`，`@+id/status`将会添加此\
+  \ ID。当你首次在代码中引用它时，IDE 可能会报错。不过不用担心，因为第一次编译时一切都会解决。\n\n接下来，你告诉`TextView`将其宽度设置为父容器的宽度，在本例中即`LinearLayout`对象。你通过为`layout_height`参数使用`wrap_content`来让高度由文本大小决定。你希望文本位于屏幕中央，因此使用了`textAlign`，因为你已将宽度设置为整个屏幕。最后，你为它提供了一些简单的文本，使其在\
+  \ Activity 启动时显示。稍后，你将更改此文本以反映当前状态。\n\n要查看这一成果，只需创建一个 Activity，并将此 XML 布局设置为主内容视图。你应该能够看到屏幕、在文本输入字段中键入内容并选中该框。然而，这些操作不会产生任何结果。要将它们与程序关联并使其可交互，你需要继续阅读。\n\
+  \n### XML 布局\n\n这里要传达的关键信息是，XML 布局方案既简单又强大。它为移动屏幕布局和设计提供了非编程接口。它还为开发者提供了在运行时动态打开并修改这些值的工具，接下来你将通过探索如何与\
+  \ Android 的内置小部件交互来实践这一点。\n\n## 唤醒小部件\n\n我已经演示了如何使用 Android 的`TextView`、`Button`和`EditText`小部件。但如果无法获取用户输入的内容，文本输入字段又有何用呢？这是个反问句；无需回答——我也听不到（但愿如此）。答案显而易见：没有目的或结果的文本输入毫无用处。要访问你之前定义的`EditText`小部件的内容，你需要做两件事：\n\
+  \n1.  获取你在 XML 中定义的小部件的对象句柄。\n\n**55**\n\n**Android 基础**\n\n![](img/index-62_1.png)\n\
+  \n\n\n2.  监听登录按钮 widget 上的点击或选择事件。\n\n### 获取句柄（Getting a Handle on Things）\n\n首要任务是获取\
+  \ XML 布局文件中定义的元素指针。为此，你需要确保每个想要访问的 XML widget 都包含 `android:id` 参数。如之前简要提到的，使用 `@+id/-id_name_here-`\
+  \ 这种表示法可以确保你的 `R.java` 文件包含所需的 ID。以下是一个示例，演示如何在应用程序启动时获取 `View` 对象的指针。这是添加到 `GetSplashy`\
+  \ 示例应用中的新登录 Activity 的 `onCreate` 方法：\n\n```java\nButton btn = null;\n\npublic void\
+  \ onCreate(Bundle args)\n{\n    super.onCreate(args);\n    setContentView(R.layout.login);\n\
+  \    btn = (Button) findViewById(R.id.loginbutton);\n}\n```\n\n这里你通过调用 `findViewById`\
+  \ 获取了登录按钮的指针。这允许你添加一个点击监听器，以便在按钮被选中（在触摸屏上使用触控笔）或通过中心软键选中时收到通知。你将以内联方式扩展 `ClickListener`\
+  \ 类，如下所示：\n\n```java\npublic class loginScreen extends Activity\n{\n    private\
+  \ OnClickListener buttonListener =\n        new OnClickListener()\n        {\n \
+  \           public void onClick(View v)\n            {\n                grabEnteredText();\n\
+  \            }\n        };\n    ...\n}\n```\n\n上述内联定义在接收到选中通知时，会调用 `grabEnteredText`\
+  \ 方法。现在你已经定义了点击监听器，可以在 `onCreate` 方法中使用 `btn` 引用了：\n\n```java\npublic void onCreate(Bundle\
+  \ args)\n{\n    //...\n    btn = (Button) findViewById(R.id.loginbutton);\n    btn.setOnClickListener(buttonListener);\n\
+  }\n```\n\n如果你在按钮监听器的 `onClick` 方法中设置断点，那么当你将焦点移动到登录按钮并选中它，或在模拟器中用鼠标点击它时，该断点都应该会触发。\n\
+  \n### 获取文本（Reeling in the Text）\n\n剩下的工作就是定义 `grabEnteredText` 方法，使其名副其实。在登录界面的最终生产版本中，你需要提取输入的文本，发起网络登录调用，并启动一个加载对话框。现在，我们只展示一个包含登录和密码字段输入内容的对话框。以下是更新后的登录\
+  \ Activity 中 `grabEnteredText` 的实现：\n\n```java\npublic void grabEnteredText()\n\
+  {\n    // 获取状态文本的指针\n    TextView status = (TextView) findViewById(R.id.status);\n\
+  \n    // 获取两个文本输入字段的句柄\n    EditText username = (EditText) findViewById(R.id.username);\n\
+  \    EditText pwd = (EditText) findViewById(R.id.password);\n\n    // 从 EditText\
+  \ 对象中提取字符串并格式化为字符串\n    String usrTxt = username.getText().toString();\n    String\
+  \ pwdTxt = pwd.getText().toString();\n\n    // HTTP 事务会在这里启动一个新线程\n    status.setText(\"\
+  Login\" + usrTxt + \" : \" + pwdTxt);\n\n    // 显示最终会转变为\n    this.showAlert(\"\
+  Login Data\", 0, \"Login\"\n        + usrTxt + \" : \" + pwdTxt, \"ok!\", false);\n\
+  }\n```\n\n首先，使用 `findViewById` 获取 `status`、`username` 和 `password` widget 的 `TextView`\
+  \ 和 `EditText` 指针。接着，通过获取 `TextEntry` 对象并将其转换为 `String` 类来提取文本输入 widget 的内容。最后，将两个字段的内容合并，添加到状态文本对象中，并弹出一个同样包含这两个字符串的对话框。\n\
+  \n就是这样——你现在已经允许用户输入文本，并且完成了获取、操作甚至显示包含这些信息的对话框。\n\n干得漂亮！花点时间拍拍自己的背，或者拍拍任何一个在你手臂可及范围内的人。\n\
+  \n到目前为止，你已经了解了如何仅使用 XML 进行屏幕布局（“社交尴尬”的闪屏），以及刚刚在登录界面中如何使用两者的混合方式。Android widget 快车的最后一站将要求仅使用代码来构建屏幕布局。\n\
+  \n### Java 中的 Widget\n\n\n\n# 深入剖析\n\n现在，你将深入剖析 Android 控件，亲自动手实践。我们将初步了解一些核心组件，其中许多你已在\
+  \ XML 形式中探索过。与之前的示例一样，为了便于解释，我会保持基础性。你应该能够轻松地将这里讨论的内容应用于更复杂的 UI 布局场景。在后续更高级的示例中，你将更深入地接触其他\
+  \ Android 控件。\n\n当你看到我仅为了生成一个简单可选菜单所编写的代码量时，你可能会像我一样感到有些震惊。在掌握了 XML 屏幕布局之后，再尝试用\
+  \ Java 手动完成所有工作，感觉就像用一双磨损的保龄球在钢琴上演奏古典音乐。请注意——这涉及大量代码输入，可能还会带来不少挫败感。\n\n另一方面，UI 布局中可能有一些特定元素你需要**在运行时**动态调整。正如我之前提到的，由于应用运行时无法编辑\
+  \ XML 布局文件，因此掌握在代码中随时修改用户界面任何部分所需的工具至关重要。Android 赋予了你这种能力，前提是你得习惯以闪电般的速度输入代码。\n\n\
+  在接下来的示例中，我费尽心思确保你几乎不会用到之前依赖的 XML 元素。这应该能让你很好地掌握非 XML 布局，但请记住，实际上，你要疯狂到用这种方式实现所有用户界面屏幕，那才会出问题。\n\
+  \n## 主菜单\n\n几乎所有移动应用程序（至少在本节撰写时）都是从图形主菜单开始的。这个图形界面将用户引导至移动应用的各项功能。由于\"主菜单\"的概念在移动应用体验中如此普遍，因此它成为了一个绝佳且实用的案例研究。在本示例中，你的目标是构建一个简单且功能齐全的主菜单。为了便于对比，我们将使用另一个线性布局来整合所有内容。该示例将分三个主要阶段构建：\n\
+  \n1.  **布局**：你将正确地在屏幕上排列主菜单的所有条目。当然，这只会用到 Android 巨大屏幕空间的一小部分。但大多数应用程序菜单会使用大图片，并占用显著更多的空间。\n\
+  2.  **焦点**：你需要设置一个焦点结构，以便用户能够在元素之间移动。当焦点变化时，你必须调整每个菜单元素的颜色。\n3.  **选择事件**：最后，你需要设置一个监听器，以便在元素被选中或点击时，能够获知信息并根据所选项目执行相应操作。\n\
+  \n当你完成这三项任务后，应该就拥有了构建约 80% 移动应用主入口屏幕的框架。虽然这不完全实用（因为我完全没用 XML），但它极好地演示了如何以自定义的、运行时驱动的方式完成工作。随着你为\"\
+  社交窘迫\"应用添加更多功能，你将逐步完善这个主菜单。\n\n### 布局，Java 风格\n\n简单主菜单的第一步是将所有菜单元素放到屏幕上。正如我之前提到的，你将使用线性布局来实现。这一切都必须在应用首次绘制之前完成，因此必须放在新\
+  \ `MainMenu` 活动的 `onCreate` 方法中。（如果你忘记了如何创建并接入一个新活动，请参考第 1 章。）代码清单 3-2 展示了其实例化和配置的样子。\n\
+  \n**代码清单 3-2. 在 `onCreate` 方法中创建布局对象**\n\n```\nLinearLayout layout = new LinearLayout(this);\n\
+  layout.setBackground(R.drawable.general_bg);\nlayout.setOrientation(LinearLayout.VERTICAL);\n\
+  layout.setLayoutParams(\n    new LayoutParams(LayoutParams.FILL_PARENT,\n      \
+  \               LayoutParams.FILL_PARENT));\nsetContentView(layout);\n```\n\n根据你目前所学的知识，这概念上应该很熟悉。你将使用\
+  \ `/res/drawable/` 文件夹中的图片设置背景，将线性布局方向设置为垂直，并将 `LayoutParams` 设置为填充父容器。（这里的父容器是控制全屏的活动。）布局参数从根本上必须定义给定控件的高度和宽度。你之后可能会发现，在未设置布局参数的情况下尝试将控件放入\
+  \ `ViewGroup` 会抛出异常。不过，既然现在有了一个要填充的布局对象，你就可以开始构建屏幕了。\n\n### 添加标题\n\n接下来，添加一个简单的标题，它将居中显示在主菜单屏幕的顶部。代码清单\
+  \ 3-3 展示了所需代码块。\n\n**代码清单 3-3. 添加标题**\n\n```\nTextView title = new TextView(this);\n\
+  title.setText(R.string.man_menu_title);\ntitle.setLayoutParams(\n    new LinearLayout.LayoutParams(\n\
+  \        LinearLayout.LayoutParams.FILL_PARENT,\n        LayoutParams.WRAP_CONTENT));\n\
+  title.setAlignment(Alignment.ALIGN_CENTER);\nlayout.addView(title);\n```\n\n创建文本对象，并从\
+  \ `/res/values/strings.xml` 中设置文本。我知道我说过不会使用任何 XML，但恐怕在这点上我撒了点小谎。在实际产品中，你会希望将所有字符串移到这个位置，而不是在代码中定义。如果你的客户和我的类似，你总不希望每次他们想更改某个屏幕上的措辞时，你都要拿出源码编辑器重新编译吧。\n\
+  \n现在有了标题，是时候添加更有趣、更活跃的菜单元素了。\n\n### 布局菜单条目\n\n接下来，你将添加各个菜单元素。因为第一个之后会变得相当重复，所以我将插入并解释第一个元素，剩下的就交给你自己处理了。欢迎前往\
+  \ Apress 网站获取完整项目，查看其余菜单项。再次提醒，你在后续学习 Android 基础内容的过程中，将会逐步填充更多菜单项。代码清单 3-4 展示了添加单个菜单项的代码。\n\
+  \n**代码清单 3-4. 添加菜单项**\n\n```\nTextView ItemOne = new TextView(this);\nItemOne.setFocusable(true);\n\
+  ItemOne.setText(\"Login Screen\");\nItemOne.setTextColor(Color.WHITE);\nItemOne.setLayoutParams(\n\
+  \    new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.FILL_PARENT,\n\
+  \        LayoutParams.WRAP_CONTENT));\n\n//给菜单项一个 ID 以便跟踪。\n//ID 是在类中本地定义的一个静态 int\n\
+  ItemOne.setId(IdOne);\n\n//将其添加到我们的线性布局中\nlayout.addView(ItemOne);\n```\n\n天哪，仔细阅读代码后，你可能会认为这看起来几乎和你已经添加的标题一模一样。你说得完全正确，真聪明。标记对象何时获得焦点、何时被选中这类繁重工作还没开始，所以先别太得意。上述菜单项与之前列出的标题文本有两个区别：\n\
+  \n-   你需要通过调用 `setFocusable` 方法告知 `TextView` 它可以接受焦点。\n-   菜单列表项需要一个 ID，以便你能够在选择处理程序中将其与其余菜单元素区分开来。\n\
+  \n正如我简要提到的，每当向 `ViewGroup` 添加控件时，`LayoutParams` 对象必须明确是在该视图组内部定义的对象。例如，在上面的 `setLayoutParams`\
+  \ 方法调用中，你必须传入一个 `LinearLayout.LayoutParams` 对象。你必须传入正确的子类布局参数，否则 Android 会在运行时向你抛出异常。\n\
+  \n\n\n### Android 基础：创建带焦点和选择功能的菜单\n\n如前所述，为了制作菜单，我将再添加两个几乎与上一段代码完全相同的文本元素。为简洁起见，此处不再罗列。若想满足好奇心，请务必参考完整项目。现在所有菜单项已就绪，接下来需要在其获得或失去焦点时进行修改。\n\
+  \n**聚焦吧，年轻学徒…**\n\n要处理焦点变化事件，必须创建 `OnFocusChangeListener` 抽象类的一个实现。示例中在 `MainMenu`\
+  \ 活动类内部本地定义的版本，如代码清单 3-5 所示。\n\n***代码清单 3-5：创建焦点监听器***\n\n```\nOnFocusChangeListener\
+  \ focusListener =\n    new OnFocusChangeListener()\n    {\n        public void onFocusChanged(View\
+  \ v, boolean hasFocus)\n        {\n            adjustTextColor(v, hasFocus);\n \
+  \       }\n    };\n\nprivate void adjustTextColor(View v, boolean hasFocus)\n{\n\
+  \    //危险的类型转换。请确保你只监听 TextView 的焦点变化，\n    //否则可能导致严重错误。\n    TextView t = (TextView)v;\n\
+  \    if(hasFocus)\n        t.setTextColor(Color.RED);\n    else\n        t.setTextColor(Color.WHITE);\n\
+  }\n```\n\n此外，你需要为菜单中每个可选元素添加以下代码行，以附加焦点变化监听器对象：`ItemOne.setOnFocusChangeListener(focusListener);`\n\
+  \n监听器就位后，每当菜单元素获得或失去焦点时，你都会收到通知。在更高级的主菜单中，此方法可用来添加图像切换、动画、3D 爆炸效果或其他花哨的图形特效。在本例中，我们仅通过改变文字颜色来实现。现在用户可以通过颜色变化得知哪个菜单项被高亮，接下来需要响应他们按下中间键选择菜单项的操作。\n\
+  \n**提示**\n\n还可以使用 `setTextColor(ColorStateList colors)` 方法设置 `TextView` 的获得焦点、失去焦点和选中颜色，这是实现文本型主菜单的更简单方式。\n\
+  \n在优秀的 IDE 中，达成目标的方法往往不止一种；我只是选择了更通用的方式（因为我希望你开发的应用程序能超越文本菜单）。关于 `setTextColor`\
+  \ 的更多信息，请参阅 Android 文档：[`code.google.com/android/reference/android/widget/TextView.html#setTextColor(int)`](http://code.google.com/android/reference/android/widget/TextView.html#setTextColor(int))。\n\
+  \n**点击与选择事件**\n\n你已经在前面的登录屏幕中学会了如何注册 `onClick` 事件，因此这部分内容应该能轻松掌握。代码清单 3-6 展示了捕获选择事件的示例代码。\n\
+  \n***代码清单 3-6：添加选择监听器***\n\n```\nOnClickListener clickListener = new OnClickListener()\n\
+  {\n    public void onClick(View v)\n    {\n        String text = \"你选择了菜单项：\";\n\
+  \        switch(v.getId())\n        {\n            case IdOne:\n               \
+  \ text += \"1\";\n                startActivity(\n                    new Intent(MainMenu.this,\
+  \ Login.class));\n                break;\n            case IdTwo:\n            \
+  \    text += \"2\";\n                startActivity(\n                    new Intent(\n\
+  \                        \"com.apress.example.CUSTOM_VIEW\"));\n               \
+  \ break;\n            case IdThree:\n                text += \"3\";\n          \
+  \      break;\n        }\n        //稍后会介绍下面这一行\n        status.setText(text);\n\
+  \    }\n};\n```\n\n前面这个 `switch` 语句正是当初创建和布局 `TextView` 控件时调用 `setID` 的原因。当菜单项被指针选中或点击时，会调用\
+  \ `onClick` 函数，并将对应视图作为参数传入。通过检查传入视图的 ID，可以判断哪个菜单项被选中，从而针对所选菜单执行相应操作。通过这种方式，你可以使用\
+  \ `startActivity` 方法跳转到之前定义的登录屏幕，以及即将编写的自定义视图。\n\n还剩最后一个小步骤，查看示例代码中 `onCreate` 函数的底部就能发现。你需要为视图添加点击监听器。在构建控件列表时，应执行以下这行代码：\n\
+  \n\n### `ItemOne.setOnClickListener(clickListener);`\n\n## ***回顾过往***\n\n回顾一下由 Java\
+  \ 驱动的主菜单，你已经完成了几个重要的工作。\n\n首先，你以编程方式实现了之前只能通过 XML 文件完成的布局。虽然完全手动操作并不实际，但这确实为你提供了在应用程序运行时修改和自定义\
+  \ XML 视图的工具。\n\n其次，你为所有菜单项注册了焦点变更事件。当焦点变更监听器被调用时，你更改了焦点所在项的颜色以突出显示它。在实际应用中，有更高效的方法可以实现同样的效果，但我假设你愿意用更——怎么说呢——更华丽的方式，来代替仅仅修改文本颜色。\n\
+  \n第三，你学会了如何监听选择事件并做出响应，辨别出哪个项目被选中，并根据选择结果执行相应的操作。\n\n同样，回顾所有这些手动在屏幕上绘制小部件所需的代码，其工作量相当大，但运用你刚刚学到的工具，你可以在应用运行时，根据数据和用户偏好来修改、增强和自定义菜单或列表的工作方式。然而，如果你需要更专业地控制屏幕绘制方式，就需要采用更不隐晦、更依赖代码的方法。\n\
+  \n## 使用 Canvas 自定义 UI 渲染\n\n这是所有初露头角的游戏开发者们期待已久的部分。Android 允许你通过简单地继承`View`类并实现`onDraw`方法来定义一个自定义的`View`对象。为了演示一个在动画循环中运行的自定义视图，我从旧金山探索馆的一个关于我们如何感知运动和声音的展品中汲取了灵感。你可以在[`www.exploratorium.edu/listen/index.php`](http://www.exploratorium.edu/listen/index.php)找到更多关于这个博物馆及该展品的信息。你可以在[`www.nature.com/neuro/journal/v7/n7/full/nn1268.html`](http://www.nature.com/neuro/journal/v7/n7/full/nn1268.html)购买相关的科学白皮书。\n\
+  \n这个示例将动画演示两个球体相向运动，然后要么相互穿过，要么碰撞后弹开。这个示例旨在说明碰撞的声音可以决定人们看到的是物体穿过彼此，还是相互弹开。从代码角度来看，我将演示自定义视图的几个关键方面：\n\
+  \n- 实现一个 Android 视图\n- 使用`Canvas`对象绘制屏幕\n- 创建一个动画循环\n- 从 Activity 中修改自定义视图并与之交互\n\
+  \n### 自定义视图\n\n你可以通过两种方式自定义视图窗口。第一种是继承`View`类。这允许你通过创建一个`android.View`的有效子类来自行创建“小部件”。另一种方法（你需要自行探索）是继承现有的小部件，如`TextView`、`ProgressBar`或`ImageView`，并使用受保护的方法修改其行为。本示例展示的是第一种选项，因为它的范围更广，也更容易理解。\n\
+  \n在最基本的层面上，自定义小部件会重写受保护的`onDraw`方法。代码清单 3-7 展示了这样一个方法的示例。\n\n#### 代码清单 3-7. 在 CanvasExample\
+  \ Activity 中声明的简单自定义视图\n\n```\nprotected class CustomView extends View\n{\n    public\
+  \ void onDraw(Canvas canvas)\n    {\n        Paint p = new Paint();\n        p.setColor(Color.WHITE);\n\
+  \        canvas.drawText(\"Yo!\", 0, 25, p);\n    }\n}\n```\n\n恭喜！通过键入这几行代码，你现在已经拥有了自己的自定义小部件。当然，它所做的只是像我那\
+  \ 17 岁的朋克表弟一样打招呼，但我猜你总得从某个地方开始。对于那些在 Java ME 中使用过`GameCanvas`对象的人来说，这应该看起来很熟悉。要接收`onDraw`调用，你需要将其设置为示例\
+  \ Activity 的主内容视图。你还必须编写代码来实例化它并使其成为当前视图。代码清单 3-8\n\n\n\n`显示了`CanvasExample`活动的外观。\n\
+  \n***代码清单 3-8. 激活自定义视图***\n\n```\nCustomView vw = null;\n\npublic void onCreate(Bundle\
+  \ args)\n{\n    super.onCreate(args);\n    vw = new CustomView(this);\n    setTitle(\"\
+  弹跳还是放过，声音改变一切\");\n    setContentView(vw);\n}\n```\n\n**68**\n\n**Android 要点**\n\
+  \n![][index-75_1.png]\n\n你为示例活动设置了标题，因为你还没有给它指定应用程序名称。然后只需创建一个新的 `CustomView` 对象，并将其设置为当前内容视图。这将调用自定义小部件中的\
+  \ `onDraw` 方法，并显示你有点另类的问候。现在，你已经掌握了以非常基本的方式在屏幕上绘制图形的技巧。你应该能够进入更复杂的渲染阶段，并启动你的动画循环。\n\
+  \n**创建游戏循环**\n\n正如所有游戏程序员都会告诉你的那样，大多数游戏的核心都是一个持续的循环。这个循环检查用户输入，并根据这些输入以及其他游戏动作，将新的帧绘制到屏幕上。\n\
+  \n你示例应用程序中的循环在复杂性和独创性方面可能不会赢得任何奖项，但它能让你在自己的游戏渲染循环开发上迈出第一步。\n\n**注意**\n\n如果你想在 `View`/`ViewGroup`\
+  \ 层次结构之外实现自己的动画循环，请考虑使用 `SurfaceView` 对象构建一个循环。你可以在此处找到该对象的文档：[`code.google.com/android/reference/android/view/SurfaceView.html`](http://code.google.com/android/reference/android/view/SurfaceView.html)。\n\
+  \n**加载音频和图像**\n\n在开始绘制 `CustomView` 之前，你需要初始化时加载一些稍后会用到的资源。代码清单 3-9 展示了 `CustomView`\
+  \ 的新构造函数，其中包含了局部类变量的声明。\n\n**Android 要点**\n\n**69**\n\n![][index-76_1.png]\n\n***代码清单\
+  \ 3-9. 初始化自定义视图***\n\n```\nprotected class CustomView extends View\n{\n    Context\
+  \ ctx;\n    Paint lPaint = new Paint();\n    int x_1=0,y_1=0;\n    MediaPlayer player\
+  \ = null;\n    Bitmap ball = null;\n    boolean running = true;\n\n    CustomView(Context\
+  \ c)\n    {\n        super(c);\n        player = MediaPlayer.create(c, R.raw.bounce);\n\
+  \        BitmapDrawable d = (BitmapDrawable) getResources().getDrawable(R.drawable.theball);\n\
+  \        ball = d.getBitmap();\n        ctx = c;\n    }\n    ...\n}\n```\n\n在构造函数中，你通过\
+  \ `R.java` 常量文件从 `/res/raw` 位置加载了弹跳媒体资源。由于之前你已经处理过其他几种资源类型，所以你应该对此驾轻就熟。你还需要加载一个将被绘制为“球”的图像。你通过资源管理器对象来完成此操作，该对象是从\
+  \ `Context` 对象中获取的。虽然你之前没有在代码中明确地从资源位置加载过图像，但它看起来几乎与其他任何资源加载一样。\n\n**实现循环…实现循环…实现……**\n\
+  \n闲话少叙，代码清单 3-10 展示了 `CustomView` 对象的 `onDraw` 方法的内容。\n\n**70**\n\n**Android 要点**\n\
+  \n![][index-77_1.png]\n\n***代码清单 3-10. 动画循环的核心***\n\n```\npublic void onDraw(Canvas\
+  \ canvas)\n{\n    //绘制白色背景\n    Rect rct = new Rect();\n    rct.set(0, 0, canvas.getBitmapWidth(),\
+  \ canvas.getBitmapHeight());\n    Paint pnt = new Paint();\n    pnt.setStyle(Paint.Style.FILL);\n\
+  \    pnt.setColor(Color.WHITE);\n    canvas.drawRect(rct, pnt);\n\n    //为精灵增加 X\
+  \ 和 Y 值\n    x_1+=2;\n    y_1+=2;\n\n    //当球移出屏幕时重置循环\n    if(x_1 >= canvas.getBitmapWidth())\n\
+  \    {\n        x_1 = 0;\n        y_1 = 0;\n    }\n\n    //绘制球 1\n    drawSprint(x_1,\
+  \ y_1, canvas);\n\n    //绘制球 2\n    drawSprint(canvas.getBitmapWidth() - x_1, y_1,\
+  \ canvas);\n\n    if(running)\n        invalidate();\n}\n```\n\n从顶部开始，你首先使用一个绘画样式对象和\
+  \ `canvas.drawRect` 调用将背景涂白。这个绘画对象与 `Rectangle` 对象结合，会告诉画布绘制一个\n\n\n\n一个覆盖整个屏幕的白色方块。接下来，你需要增加球精灵的\
+  \ `x` 和 `y` 值。然后，如果它们漂移出了屏幕边界，你需要将它们复位，最后通过你自己的 `drawSprite` 调用来绘制它们。代码清单 3-11 展示了该函数的内容。\n\
+  \n**Android 精要**\n\n**71**\n\n![](img/index-78_1.png)\n\n**代码清单 3-11. 绘制位图**\n\n\
+  ```java\nprotected void drawSprint(int x, int y, Canvas canvas)\n{\n    canvas.drawBitmap(ball,\
+  \ x, y, lPaint);\n}\n```\n\n目前这个函数只是对 `drawBitmap` 方法的直接调用。我将这个方法单独提取出来，仅仅是因为在其他上下文中绘制精灵可能需要比这个简单示例更多的功能。最后，回到\
+  \ `onDraw` 函数，只有当你的 `running` 标志为 `true` 时，才调用 `invalidate`。在 View 上调用 `invalidate`\
+  \ 是 Android 强制重绘的首选方式。在这里，你将使自身失效，这会调用 `onDraw`，然后整个过程重新开始。如果你在暂停或退出时简单地将 `running`\
+  \ 标志设为 `false`，并在恢复时再次使其失效，那么动画应该会与其父 Activity 的焦点保持同步。\n\n**添加和控制声音**\n\n由于听觉错觉需要能够打开和关闭两个物体相互碰撞的声音，你需要设置好撞击时播放的音频，然后构建一个让用户开启或关闭该音频的机制。\n\
+  \n为了播放音频，将代码清单 3-12 中的代码添加到之前的 `onDraw` 函数中，因为它实际上也是游戏控制循环。当我提到“游戏循环”时，我指的是 `onDraw`\
+  \ 末尾的 `invalidate` 调用，它会在 Android 的 UI 事件循环中放置一个重绘请求。请记住，`playSound` 是一个在自定义 View\
+  \ 内部声明的布尔变量。\n\n**72**\n\n**Android 精要**\n\n![](img/index-79_1.png)\n\n**代码清单 3-12.\
+  \ 播放和重载音频**\n\n```java\nif(playSound && canvas.getBitmapWidth() - x_1 -16 == x_1\
+  \ + 16)\n    player.start();\nif(x_1 >= canvas.getBitmapWidth())\n{\n    x_1 = 0;\n\
+  \    y_1 = 0;\n    player.stop();\n    player.release();\n    player = MediaPlayer.create(ctx,\
+  \ R.raw.bounce);\n}\n```\n\n你可能已经注意到，当两个精灵相距 16 像素时，你开始播放音频。这是为了让音频开始播放而预留的一点缓冲时间。我应该说明，这更多反映了我编辑音频文件能力的不足，而非\
+  \ Android 音频加载和播放时效率低下。你还必须确保仅在 `playSound` 布尔值为 `true` 时才播放音频。这个变量是定义自定义 View 的那个\
+  \ `Activity` 类的成员。通过使用这个布尔变量，你可以在屏幕 Activity 中控制自定义 View 类。要开启或关闭音频，你只需在 Activity\
+  \ 中实现代码清单 3-13 中的方法。\n\n**代码清单 3-13. 响应按键事件**\n\n```java\npublic boolean onKeyDown(int\
+  \ key, KeyEvent kc)\n{\n    if(key == KeyEvent.KEYCODE_DPAD_CENTER)\n    {\n   \
+  \     playSound = !playSound;\n        return true;\n    }\n    return super.onKeyDown(key,\
+  \ kc);\n}\n```\n\n**Android 精要**\n\n**73**\n\n![](img/index-80_1.png)\n\n这段代码看起来应该与你如何关闭第\
+  \ 2 章中的恶作剧应用程序类似。\n\n**整合所有内容**\n\n如果你一直紧跟步骤（或者耍了点小聪明，直接下载了完成的项目），你应该能够运行该应用程序并观看这个错觉效果。按下中间的导航键可以开启或关闭音频。关闭音频时，看起来它们会穿过彼此；开启音频时，看起来它们会相互弹开，然后各奔东西。\n\
+  \n在这个例子中，我演示了如何创建你自己的 View 子类，如何使用它在屏幕上绘制，如何设置游戏渲染循环，以及如何使用按键事件来控制这个简单的循环。\n\n**使用用户界面**\n\
+  \n在本章中，你详细学习了如何使用 Android 的 XML 模式来布局屏幕，以及如何通过一些 Java 代码在运行时与该模式进行交互和修改。\n\n\n\n\
+  # Android UI 与游戏循环的进阶探索\n\n接下来，你学习了如何仅通过源代码来布局 UI 控件和视图组。这种方法虽然在实际运用 Android 用户界面工具时不太实用，但为了深入理解其原理，仍然值得尝试。最后，你探索了构建游戏渲染循环的核心工具。你还将一些简单的多媒体和用户控制功能融入其中，创建了一个简单的听觉幻觉效果，足以让你的极客朋友们印象深刻。\n\
+  \n**提示**\n\n运用本章学到的所有知识，请使用 XML 为这个幻觉效果构建一个框架，其中包含一些解释性文本和一个边框。当活动启动时，渲染 XML 内容，并将自定义视图插入到正确的位置。对于这个任务，我建议使用一个\
+  \ `RelativeLayout` 来布局，一个 `TextView` 来显示解释文本，以及一个 `Rectangle` 来绘制边框。\n\n---\n\n\
+  # 第 4 章：位置，位置，还是位置\n\n在本章中，我们将探讨基于位置服务这一非常热门的话题。Android 的主要卖点之一是其对 Google Maps 基础设施的原生访问。虽然这是一个可选功能，但哪个运营商会不包含这个强大的软件包呢？我想，在接下来的一年左右时间里，我们就会知道答案了。本章将分两个主要部分深入探讨这个主题。首先，你将学习如何使用\
+  \ Android 的 `LocationManager` 对象，它能够利用底层多种系统来测定你的纬度和经度。其次，你将学会如何驱使 Google Maps API\
+  \ 为你所用。值得注意的是，Android 对 GPS 和基站定位系统的支持尚未完全实现。在本书撰写时，你可以通过使用默认的模拟 GPS 数据（在加州湾区行驶的路线）或构建自己的伪造\
+  \ GPS 数据来模拟 GPS 数据。我的示例将采用第一种方法，但我也会包含最终能够在正式手机上运行的代码。你可以在 Android 文档中找到更多关于构建自定义\
+  \ GPS 路线以及基于位置服务（LBS）的详细信息，网址为 [`code.google.com/android/toolbox/apis/lbs.html`](http://code.google.com/android/toolbox/apis/lbs.html)。\n\
+  \n通过示例，你将实现一个应用程序，该程序从示例 GPS 模块获取手机位置，启动一个 `MapActivity` 对象，将屏幕中心对准该位置，然后使用覆盖图在其上绘制一个图钉。\n\
+  \n### 我在哪里？\n\n总的来说，Android 的基于位置服务的工作方式与你的预期基本一致，只有一个小小的例外。Android 允许开发者指定使用哪种位置查询方法。这使你能够根据应用程序的具体用途，自定义功耗、成本和精度。\n\
+  \n### 构建 LocationManager 对象\n\n第一个任务是获取 `LocationManager` 对象的处理器，这是用于查找手机位置的高级对象。`LocationManager`\
+  \ 可以使用任意数量的 `LocationProvider` 对象来执行 GPS（或基站）定位。以下是相关的类变量声明以及后续的 `buildGPS` 方法，该方法将为稍后的位置检索做好准备：\n\
+  \n```java\nPoint m_curLocation;\nLocationProvider m_locationProvider;\nLocationManager\
+  \ m_locationMgr;\n\nprivate void buildGPS()\n{\n    List<LocationProvider> providorList\
+  \ = null;\n    Criteria c = new Criteria();\n    c.setAccuracy(50);\n    c.setAltitudeRequired(false);\n\
+  \    c.setCostAllowed(false);\n    c.setSpeedRequired(false);\n    // 以下代码行已被注释掉，因为它会导致\n\
+  \    // android 陷入无限循环。\n    //c.setPowerRequirement(c.POWER_LOW);\n    m_locationMgr\
+  \ =\n        (LocationManager)\n        getSystemService(LOCATION_SERVICE);\n  \
+  \  m_locationProvider = m_locationMgr.getBestProvider(c);\n    if(m_locationProvider\
+  \ != null)\n        return;\n    providorList = m_locationMgr.getProviders();\n\
+  \    if(providorList.size() > 0)\n        m_locationProvider = providorList.get(0);\n\
+  }\n```\n\n你会注意到，你不能简单地实例化一个新的 `LocationManager`。\n\n\n\n\n`object`。必须通过`Activity`类的公共成员`getSystemService`方法来获取它。\n\
+  \n### 一项必备标准\n\n声明相关变量后，您将构建一个（至少在 Android 设备问世前）毫无用处的`Criteria`对象。`Criteria`允许您指定所需查找方法的功能特性。\n\
+  \n在本示例中，由于需要在城市环境中持续追踪用户位置，您需要低成本、低功耗且精准的定位方案。由于仅需将信息推送至 Google Maps 屏幕，因此无需速度或海拔数据。您将通过调用`Criteria`对象来指定所有这些变量，该对象最终会被传入`LocationManager`对象。\n\
+  \n设定这些条件后，您可以请求最符合需求的最佳位置提供方。再次提醒，由于 Android 模拟器仅支持一个示例 GPS 存根，`getBestProvider`调用将返回`null`对象。\n\
+  \n在真实硬件环境下，这些条件将更加有效甚至不可或缺。由于 LBS 条件被拒绝，我们直接获取位置提供方列表的第一个元素——至少在当前的 Android 软件版本中，该元素名为`gps`。\n\
+  \n另请注意，低功耗要求已被注释掉。在发布时，启用此设置会导致 Android 陷入某种无限循环。Android 工程师们，请注意！\n\n### 仰望星空，卫星在注视着你…\n\
+  \n既然已经为定位服务奠定了基础，我们可以继续进行位置查询。应用程序将每五秒请求一次坐标，并将包含的`MapActivity`移动到正确位置（本章稍后将详细说明）。代码清单\
+  \ 4-1 展示了启动操作的代码。在您包含下一代码块中的代码之前，此代码无法编译，因为您需要定义`LocationUpdater`对象。\n\n#### 代码清单\
+  \ 4-1 注册位置更新\n\n```java\nboolean running = true;\n\nprivate void startLocationThread()\n\
+  {\n    try\n    {\n        LocationUpdater l = new LocationUpdater();\n        registerReceiver(l,\n\
+  \            new IntentFilter(\"GPS_UPDATE\"));\n        m_locationMgr.requestUpdates(\n\
+  \            m_locationProvider, 5000,\n            50, new Intent(\"GPS_UPDATE\"\
+  ));\n    } catch (Exception e){}\n}\n```\n\n要每隔五秒下载一次位置信息，您需要向位置管理器请求更新。首先，必须为`GPS_UPDATE`意图注册一个新的`LocationUpdater`。每次`LocationManager`有更新时，都会触发此意图。\n\
+  \n**提示：** 建议在`onResume`活动方法中请求更新，并在调用`onPause`时停止更新。这样可以避免应用程序在非前台可见时消耗资源。\n\n您可以指定使用哪个位置提供方（模拟器上为`gps`，但在实际设备上则为最接近您规格的提供方），并将时间间隔设为`5000`毫秒，最大距离变化设为`50`米。请记住，触发`GPS_UPDATE`意图需要同时满足这两个条件。\n\
+  \n当然，要让这段代码生效，您需要定义`LocationUpdater`。我们将在示例 Activity 内部定义它，以便访问 Activity 的私有成员；参见代码清单\
+  \ 4-2。\n\n#### 代码清单 4-2 定义意图接收器\n\n```java\nclass LocationUpdater extends IntentReceiver\n\
+  {\n    public void onReceiveIntent(\n        Context context, Intent intent)\n \
+  \   {\n        Location here;\n        if (m_locationProvider == null)\n       \
+  \     here =\n                m_locationMgr.\n                getCurrentLocation(\"\
+  gps\");\n        else\n            here =\n                m_locationMgr.\n    \
+  \            getCurrentLocation(\n                    m_locationProvider.getName());\n\
+  \        setMapLocationCenter(\n            here.getLatitude(),\n            here.getLongitude());\n\
+  \    }\n};\n```\n\n在上述代码中，当`LocationManager`发送`GPS_UPDATE`意图时，会调用`onReceiveIntent`函数。当收到五秒间隔（或\
+  \ 500 米位置变化）通知时，您将获取新位置并调用`setMapLocationCenter`来更新 Google Maps 对象上的手机位置。\n\n至此，您已能每隔五秒获取手机的经纬度。既然有了位置信息，让我们编写代码在地图上显示这些信息。\n\
+  \n**注意：** 在请求 LBS 数据时，别忘了在清单文件中添加正确权限。您需要添加`ACCESS_LOCATION`、`ACCESS_GPS`、`ACCESS_CELL_ID`和`ACCESS_ASSISTED_GPS`。顶级权限可让您访问常规定位服务。其他每个权限则允许您访问特定的位置追踪方法。请确保清单文件中包含`ACCESS_LOCATION`以及至少一种其他类型权限，否则您的`LocationProvider`将始终返回`null`。\n\
+  \n### Google Maps\n\n写一本关于 Android 的书，不可能避开这个话题。开发者们无不垂涎于配备 GPS 功能的手机与原生 Google\
+  \ Maps 实现所带来的无限可能。您可能已经翻到本章并优先阅读，这本身就说明了我们都在兴奋什么。\n\n#### 海量的地图对象\n\n在显示 Google\
+  \ Maps 屏幕时，您需要处理多个角色。快速了解所有主要角色是很有必要的。您需要像编排精妙的芭蕾舞一样协调它们，才能使地图屏幕正常运行。\n\n- `MapActivity`是\
+  \ Google Maps 家族的**老大**。`MapActivity`负责处理所有底层线程管理、网络连接以及基本的手势/按键处理。\n- `MapView`是支持并显示地图的视图。它必须包含在`MapActivity`中。\n\
+  - `MapController`是用于在屏幕上移动地图的对象。\n- `OverlayController`是管理所有单个覆盖图形的**超级对象**。\n-\
+  \ `Overlay`是绘制在`MapView`之上的单个可绘制对象。\n- `Point`是单个经纬度位置。您将使用此对象来追踪手机的位置。\n\n上面列出的每个对象（是的，有很多，而且之后不会有测验）在绘制地图和指示用户位置方面都扮演着重要角色。显然，您需要从`MapActivity`开始，因为它是包含所有其他内容的基础。以下是声明和类范围的变量列表：\n\
+  \n```java\npublic class MapExampleActivity extends MapActivity\n{\n    MapView m_mapView;\n\
+  \    MapController m_mapController;\n    Point m_curLocation;\n    LocationProvider\
+  \ m_locationProvider;\n    LocationManager m_locationMgr;\n    OverlayController\
+  \ m_overlayController;\n    boolean m_locationLoopActive = false;\n}\n```\n\n其中一些变量看起来应该很眼熟，它们来自之前的位置示例代码。我在此列出它们，只是为了给您提供一些上下文。以下是初始化海量地图对象的`onCreate`方法：\n\
+  \n```java\npublic void onCreate(Bundle ice)\n{\n    super.onCreate(ice);\n    m_mapView\
+  \ = new MapView(this);\n    m_mapController = m_mapView.getController();\n    m_overlayController\
+  \ =\n        m_mapView.createOverlayController();\n    m_overlayController.add(new\
+  \ TackOverlay(this), true);\n    m_mapController.zoomTo(9);\n    buildGPS();\n \
+  \   setContentView(m_mapView);\n}\n```\n\n如您所见，创建`MapView`只需要一个上下文指针。但是，如果您尝试在非`MapActivity`的活动中将其设置为内容视图，您将会陷入异常地狱。`MapController`（用于将地图移动到您的\
+  \ GPS 位置）是从`MapView`对象中获取的。您将使用`MapView`创建`OverlayController`，并向其中添加`TackOverlay`对象的新实例。\n\
+  \n\n\n好的，这是根据您的要求和注意事项，对给定文本进行翻译和格式整理后的 Markdown 文档。\n\n---\n\n在您的大脑中保留 `TackOverlay`\
+  \ 这一行代码，稍后您会回到它。最后，您将缩放级别设置为一个可以让您看到高速公路和城市的值。您还需要设置上一节中介绍和列出的 `GPS` 变量。完成所有这些之后，您最终可以将\
+  \ `MapView` 设置为 `activeContent` 视图。\n\n> **注意**：一个 `MapActivity` 可以包含不止一个 `MapView`\
+  \ 对象。您可以通过手动或通过 XML 来定义它和其他小部件，如第 3 章所述。在大多数情况下，`MapActivity` 类与 `Activity` 类非常相似……只是它为\
+  \ `MapView` 对象提供了额外的资源和线程处理。\n\n如果您按现状运行 `MapActivity`，您会看到 Google 地图启动并将您定位在俄克拉荷马州塔尔萨的某个中心位置。您需要咨询\
+  \ Android 工程师为什么会出现这种情况；坦白说，我不知道为什么要把地图起点设在那里，但也许我只是在塔尔萨待得不够久。\n\n## 移动地图\n\n让我们看一下将地图移动到适当位置的代码。如果您还记得位置查找循环（试着快速说五遍！），您会记得这个方法调用：\n\
+  \n```java\n\"setMapLocationCenter(here.getLatitude(), here.getLongitude());\"\n\
+  ```\n\n由于这是应用程序的下一步，让我们看一下这个简单方法的内容：\n\n```java\npublic void setMapLocationCenter(double\
+  \ lat, double lon)\n{\n    m_curLocation = new Point((int)(lat * 1E6),\n       \
+  \                       (int) (lon * 1E6));\n    m_mapController.animateTo(m_curLocation);\n\
+  }\n```\n\n现在您看到了著名的 `com.google.android.maps.Point` 对象的用法，不要把它与 `android.graphics.Point`\
+  \ 对象混淆，显然，这两个名字区别很大，所以很难混淆。`Map` 的 `Point` 对象允许您使用 `1E6` 表示法的构造函数设置其位置（如果您不是地图/GPS\
+  \ 爱好者，这意味着将 GPS 模块返回的值乘以 `1E6`，以免看起来您像是在非洲海岸附近的某个地方）。\n\n现在您已将 GPS 输出转换为 Map 的 `Point`，您可以将屏幕上的地图移动到以该点为中心。您可以通过地图控制器调用\
+  \ `animateTo` 来实现这一点。\n\n本节的最后一步是当用户按下中心键时启动位置循环。到现在，您应该已经是这方面的专家了；事实上，我敢打赌您已经很擅长了，我甚至不需要解释下面的代码：\n\
+  \n```java\npublic boolean onKeyDown(int KeyCode, KeyEvent evt)\n{\n    super.onKeyDown(KeyCode,\
+  \ evt);\n    switch(KeyCode)\n    {\n        case KeyEvent.KEYCODE_DPAD_CENTER:\n\
+  \            if(!m_locationLoopActive)\n            {\n                m_locationLoopActive\
+  \ = true;\n                startLocationThread();\n            }\n            return\
+  \ true;\n            break;\n    }\n    return false;\n}\n```\n\n## 阶段性总结\n\n如果您一直按此操作，当您按下中心键时，应该会看到地图移动到旧金山湾区的某个位置。此外，随着时间的推移，地图将随着模拟手机的运动而平行移动。恭喜您——如果您的应用程序运行在真实的手机上，您将低头看到自己的头顶……打个比方。\n\
+  \n如果您作弊并下载了示例代码，那么您的聪明才智得 5 分，但因为缺乏创造力要扣 20 分。作弊者会注意到，在手机当前所在位置（如果您没有通过点击鼠标移动地图，则为屏幕中心）会绘制一个蓝色的图钉。这个蓝色的、黏糊糊的东西，除了证明我糟糕的\
+  \ Photoshop 技能之外，还是 Google 地图示例的最后一部分。显示地图的一半乐趣在于在地图上标记东西。因为这个例子，以及本书的书名是《Android\
+  \ 基础》而不是《我来为你写手机应用，好吗？》，所以它会直截了当且简单。您将在当前用户的位置上绘制一个图钉叠加层。\n\n## 是鸟，是飞机……不，是糟糕的 Photoshop\n\
+  \n正确地渲染一个叠加层比你最初想象的要复杂一些。它需要两个主要组件：`OverlayController` 对象和扩展的 `Overlay` 对象。叠加控制器管理每个叠加层，并确保在\
+  \ `MapView` 重绘自身后调用其 `draw` 函数。如果您还记得，我在这里插入一下，因为您可能不想回头翻，您必须在 `onCreate` 方法中创建一个叠加控制器。代码如下：\n\
+  \n```java\nm_overlayController = m_mapView.createOverlayController();\n```\n\n每个可绘制的\
+  \ `Overlay` 都必须添加到 `OverlayController` 中。同样，这是您在之前的示例中使用的代码行：\n\n```java\nm_overlayController.add(new\
+  \ TackOverlay(this), true);\n```\n\n`TackOverlay` 是 `Overlay` 对象的一个扩展。任何时候您想绘制自己的“图钉”，都必须扩展\
+  \ `Overlay` 对象。当然，只要有一点高效的创造性编程，一个自定义的 `Overlay` 对象就能绘制所有叠加层。出于本示例的目的，您将扩展 `Overlay`\
+  \ 对象并添加必需的 `draw` 方法。`draw` 方法将在地图重绘自身后被调用。以下是 `TackOverlay` 的声明、类变量和构造函数；您将在 `MapActivity`\
+  \ 内部内联声明它，以便它可以访问您 `MapActivity` 的变量和函数：\n\n```java\nclass TackOverlay extends Overlay\n\
+  {\n    MapExampleActivity ctx;\n    Bitmap tack;\n\n    TackOverlay(MapExampleActivity\
+  \ c)\n    {\n        super();\n        BitmapDrawable b = (BitmapDrawable)\n   \
+  \         c.getResources().\n            getDrawable(R.drawable.tack);\n       \
+  \ tack = b.getBitmap();\n    }\n```\n\n正如您所见，`TackOverlay` 看起来就像任何其他 Android 对象扩展一样。使用上下文指针，您将保存图钉位图资源，这样在绘制时就不必每次都加载它。当您深入研究\
+  \ `draw` 方法时，代码会变得更有趣一些。\n\n```java\npublic void draw(Canvas canvas, PixelCalculator\
+  \ calculator,\n                 boolean shadow)\n{\n    super.draw(canvas, calculator,\
+  \ shadow);\n    int xy[] = new int[2];\n    try{\n        // 将中心点转换为 XY 坐标。\n  \
+  \      // 我们可以硬编码这个，\n        // 但那样有什么乐趣呢？\n        if(m_curLocation == null)\n\
+  \            return;\n        calculator.getPointXY(m_curLocation, xy);\n      \
+  \  int tackX = xy[0] - (tack.getWidth()/2);\n        int tackY = xy[1] - (tack.getHeight());\n\
+  \        canvas.drawBitmap(tack, tackX, tackY, new Paint());\n    }\n    catch (Exception\
+  \ e)\n    {\n        Log.e(\"Crap!\");\n    }\n}\n```\n\n前面的代码中没有什么令人费解的地方。唯一需要记住的技巧是，您需要将存储在\
+  \ `m_curLocation` Point 对象中的经纬度坐标转换成屏幕上的 XY 坐标。为此，`Overlay` 对象会随着 `draw` 方法传入一个\
+  \ `PixelCalculator` 对象。这个对象负责提供与经纬度位置相对应的 XY 坐标。因为 `TackOverlay` 对象是在 `MapExampleActivity`\
+  \ 内部内联定义的，所以它可以访问 `m_curLocation` 点变量。您将把这个点转换为 XY 位置。因为图钉状物体的点位于图像的底部和中间，所以您必须将它向上移动图钉资源的高度，并向左移动一半宽度。这应该会使图钉的尖端与计算出的\
+  \ XY 位置对齐。\n\n同样值得注意的是 `shadow` 布尔值的存在，尽管我尚未实现它。它会告诉您的叠加层是否应该绘制阴影。忽略它或不忽略它，由您决定。\n\
+  \n至此，您已经完成了这个示例。您现在可以在手机 GPS 位置的地图上绘制一个有些变形的图钉。当然，您绘制的是一个伪造的模拟 GPS 位置，但您新的前沿 LBS\
+  \ 应用总得有个起点。\n\n## 结束语\n\n\n# 排版后内容\n\n本章的目标并非详尽无遗漏地介绍 Android 版 Google Maps 的所有功能。我希望为你提供一个框架，让你能够自行探索这些内容。我介绍了如何通过`LocationManager`获取手机位置，以及如何将这些数值转换为\
+  \ Google Maps 中的位置坐标。\n\n接着，我讲解了如何启动`MapActivity`并在屏幕上绘制地图。最后，你学习了如何让地图在国家范围内平移动画，以及如何绘制覆盖层或标记对象。\n\
+  \n这些内容应该能为你后续的开发奠定坚实的基础。我建议你进一步探索搜索功能、绘制多个覆盖层，以及在框架内嵌入 Google 地图视图（可配合说明文字、图形或控制指示器）。\n\
+  \n**Android 精要**\n\n**87**\n\n![](img/index-95_1.png)\n\n# 第 5 章：带 Android 出门溜达\n\
+  \n在本章中，你将超越基础知识，松开缰绳，让 Android 稍微舒展一下筋骨。随着移动软件领域的发展，制作一个不严重依赖网络的应用程序变得越来越不可能。在许多方面，功能完善的互联网接入已成为移动世界的基本要素之一。Android\
+  \ 网络层的深度和广度使得它无法被塞进一本小书的一个小章节中。因此，我将像之前一样，尝试为你提供制作生产级应用程序所需的基础知识。同时，如同之前的示例，你还会探索一些\
+  \ Android 技术的周边知识点。\n\n从基础开始，你将学习如何使用简单的 HTTP 连接下载、解析并列出远程 XML 文件的元素。在你的示例应用程序中，这些元素将是一个基础\
+  \ XML 文件中包含的网络电台。事实上，你的整个示例应用程序将专注于构建一个简单的网络电台播放器。遗憾的是，Android 对音频流式传输的支持并未达到其文档所述的水平。因此，本章将更像是一次练习，而非一个功能完善的应用程序。\n\
+  \n### 从网络加载列表\n\n要制作这个漂亮的示例应用程序，你需要获取、解析并显示一个简单的电台列表。要做到这一点，我需要讲解从 HTTP 事务到`ListView`等一系列主题。作为一名参与过许多移动项目的工程师，我发现从网络下载列表并在屏幕上显示几乎是家常便饭。无论是从社交网络拉取“好友列表”，还是从在线游戏元素获取“高分榜”，下载、解析和显示列表都具有某种通用性。\n\
+  \n**Android 精要**\n\n**89**\n\n![](img/index-96_1.png)\n\n虽然我意识到你可能不会很快制作一个流媒体音乐应用程序，但这个示例足够通用，可以作为基本网络操作和处理选择菜单的指南。另外值得注意的是，你正在执行的任务与第\
+  \ 3 章中自定义控件的工作几乎相同。坦白说，我不确定这种方法是否简单很多，但也许是因为我使用的方式过于基础，没有涉及到它本可以帮助处理的更复杂的部分。无论如何，闲话少说——让我们开始了解网络连接的基础知识。\n\
+  \n### 首要任务...先做什么？\n\n你的第一个任务是从服务器拉取 XML 文件。我制作了一个简单的 XML 示例文件（在你的最终应用程序中，这将由 PHP\
+  \ 脚本或 Java servlet 提供），并将其托管在我的网站上。在进一步深入之前，我将列出一些稍后需要的变量声明。无论是对于网络连接还是我们最终的可选择列表，代码清单\
+  \ 5-1 显示了类声明和变量转储。\n\n***代码清单 5-1. 必备类变量***\n\n```\npublic class StationPicker extends\
+  \ Activity {\n    //在我们定义了 StationData 类之后\n    //取消下一行的注释\n```\n\n\n//`Vector<StationData>\
+  \ stationListVector =`\n//`new Vector<StationData>();`\n`SAXParser parser = null;`\n\
+  `XMLReader reader = null;`\n//下一行代码请自行查阅。\n//`XMLHandler handler = new XMLHandler();`\n\
+  `ArrayAdapter<StationData> adapter = null;`\n\n**90**\n\n**Android 精要**\n\n![](img/index-97_1.png)\n\
+  \n在上一个代码清单中，你看到的是完成这个小型示例应用所需的各种对象清单。你需要一个`Vector`来保存电台列表，一个`SAX`解析器、一个读取器和一个用于\
+  \ XML 解析的处理程序。最后你还需要`ArrayAdapter`，之后你将用它来填充元素，以便在屏幕菜单中渲染。\n\n此外，代码清单 5-2 展示了如何在`onCreate`函数中进行初始化。\n\
+  \n***代码清单 5-2\\. 设置 XML 解析***\n\n```\n{\n    super.onCreate(icicle);\n    try\n\
+  \    {\n        //目前这可以是任何内容\n        setContentView(R.layout.main);\n        SAXParserFactory\
+  \ f =\n            SAXParserFactory.newInstance();\n        parser = f.newSAXParser();\n\
+  \        reader = parser.getXMLReader();\n        reader.setContentHandler(handler);\n\
+  \        //下面这个函数的内容我们之后再处理。\n        // 如果你在跟着做，\n        // 先写个桩函数返回 null 即可\n\
+  \        initList();\n    }\n    catch (Exception e)\n    {\n        Log.e(\"StationPicker\"\
+  , \"解析失败!\");\n    }\n}\n```\n\n再次声明，我假设你对 Java 很熟悉，所以不会逐步讲解所有必需的步骤。如果你想要完整的上下文和相关代码，欢迎从网上获取该项目。至于`initList`方法，我会在后面章节中定义。目前，如果你在跟着做，可以遵循注释的建议，写一个返回\
+  \ null 的桩函数。\n\n**Android 精要**\n\n**91**\n\n![](img/index-98_1.png)\n\n**启动网络连接**\n\
+  \n我选择在`ListActivity`的`onStart`方法中启动网络连接。通常，你可能会在启动时执行此操作一次，然后通过 intent 转到新的 Activity\
+  \ 来显示列表。但为了尽可能简化这个示例，我将在单个 Activity 中完成尽可能多的操作。这可以让你免于处理 intent 管理，并且让我有机会向你展示如何使用\
+  \ UI 线程。更多内容将在后续章节介绍；现在，先关注网络！请参见代码清单 5-3。\n\n***代码清单 5-3\\. 创建并使用简单的 HTTP 连接***\n\
+  \n```\npublic void onStart()\n{\n    super.onStart();\n    Thread t = new Thread()\n\
+  \    {\n        public void run()\n        {\n            HttpUriRequest request\
+  \ = null;\n            HttpResponse resp = null;\n            InputStream is = null;\n\
+  \            DefaultHttpClient client =\n                new DefaultHttpClient();\n\
+  \            try{\n                //构建请求\n                request =\n         \
+  \           new HttpGet(\n                        [\"http://www.wanderingoak.net/stations.xml\"\
+  );](http://www.wanderingoak.net/stations.xml)\n                //使用默认 HTTP 客户端设置执行请求；\n\
+  \                resp = client.execute(request);\n                //取出响应实体\n   \
+  \             HttpEntity entity= resp.getEntity();\n```\n\n**92**\n\n**Android 精要**\n\
+  \n![](img/index-99_1.png)\n\n```\n                //从实体中获取响应流\n                is\
+  \ = entity.getContent();\n                //解析传入的数据\n                reader.parse(new\
+  \ InputSource(is));\n            } catch (Exception e)\n            {\n        \
+  \        Log.e(\"LoadStations\",\"加载失败!\");\n            }\n        }\n    };\n\
+  \    t.start();\n}\n```\n\n首先，你需要一个`DefaultHttpClient`实例。你可以直接通过`new`来创建它。接下来，创建一个新的`HttpGet`对象，并传入你的\
+  \ XML 数据源的位置。然后，你可以使用新的请求对象在默认客户端上执行 HTTP 请求。这是一个阻塞操作（因此需要新线程），一旦`execute`方法返回，你就可以获取`HttpEntity`。从这个对象中，你可以获得一个包含响应体的`InputStream`。\n\
+  \n如果最后的那个`reader`调用让你完全摸不着头脑，那很正常，因为我还没告诉你它是做什么的。是的，我知道没有它你的示例代码无法编译。稍等片刻，我马上就讲到。\n\
+  \n**注意** `DefaultHttpConnection`对象的启动和运行速度，至少在当前版本的模拟器中，似乎慢得可怕。你可能需要通过调整`HttpClient`类的各种子类来获得更好的性能。具体效果可能有所不同，但如果你\n\
+  \n\n# Android 基础知识\n\n### 将数据放到合适的位置\n\n需要快速简便的概念验证演示？默认方式可能就是最佳选择。\n\n如前面代码所示，从服务器拉取少量\
+  \ XML 数据（或任何数据）其实相当简单。你一直追问的`reader.parse`这行代码，就是对 SAX 解析器的简单调用。Android 提供了多种 XML\
+  \ 解析器供选择，鉴于我假设你已熟悉 Java 且为节省时间，这里就不再赘述了。\n\n若你非要了解具体原理，欢迎下载示例代码自行查看。不过目前，只需知道解析器会将`StationData`对象填充到一个`Vector`中即可。**代码清单\
+  \ 5-4**展示了其定义。\n\n***代码清单 5-4.** 定义数据容器类*\n\n```\nclass StationData\n{\n    public\
+  \ String title = \"\";\n    public String url = \"\";\n    public String toString()\n\
+  \    {\n        return title;\n    }\n}\n```\n\n为简便起见，我规避了常见的封装做法——不在私有`String`元素上定义\
+  \ getter/setter 方法，而是直接访问类内部元素。如果你是 C/C++程序员，这看起来更像\"结构体\"而非\"类\"。请特别注意那个`toString`方法。此刻它看似无用（实际上也确实如此），但几段文字后你会明白它的重要性。XML\
+  \ 文件中的每个电台都将拥有独立的`StationData`对象。同样为了示例，**代码清单 5-5**展示了 XML 中单个电台元素的结构。\n\n***代码清单\
+  \ 5-5.** 示例网络数据*\n\n```\n<xml>\n    <stationList>\n        <station>\n         \
+  \   <title>流行摇滚 TOP40</title>\n            <audioUrl>http://scfire-nyk-aa02.stream.aol.com:80/stream/1074</audioUrl>\n\
+  \        </station>\n    </stationList>\n</xml>\n```\n\n既然现在你可以通过`reader.parse`这行代码让\
+  \ XML 解析器处理这些工作，那么就可以继续创建可选元素列表了。解析器会向`StationData`向量填充若干元素。接下来你的任务是将它们从向量中取出，并以用户可交互的方式呈现在屏幕上。\n\
+  \n### 创建列表并验证功能\n\n要让列表菜单正确运行需要几个步骤：首先需要将 Activity 转换为`ListActivity`并完成相关切换工作；接着将之前构建的向量中的元素插入列表；最后响应选择事件并开始播放理论上的音频流。同样，在生产版本中你可能需要多个\
+  \ Activity，但为简单起见，此处将所有功能集中在一个 Activity 中实现。\n\n#### 准备工作：拥抱列表\n\n要显示可选择的电台列表，首要任务是将普通\
+  \ Activity 升级为全新的`ListActivity`。以下是全新的类声明形式：\n\n```\npublic class StationPicker\
+  \ extends ListActivity\n```\n\n这种转换带来了一些重要职责。若不履行这些义务，Android 会抛出大量异常。首先需要在默认布局文件中添加`ListView`，因为每个`ListActivity`都必须关联一个`ListView`。以下是示例`main.xml`的内容：\n\
+  \n```\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"\
+  http://schemas.android.com/apk/res/android\"\n    android:orientation=\"vertical\"\
+  \n    android:layout_width=\"fill_parent\"\n    android:layout_height=\"fill_parent\"\
+  \n>\n    <TextView\n        android:layout_width=\"fill_parent\"\n        android:layout_height=\"\
+  wrap_content\"\n        android:text=\"正在加载电台...\"\n        android:id=\"@+id/loadingStatus\"\
+  \n    />\n    <ListView android:id=\"@+id/android:list\"\n        android:layout_width=\"\
+  wrap_content\"\n        android:layout_height=\"wrap_content\"\n    />\n</LinearLayout>\n\
+  ```\n\n#### 添加适配器\n\n\n\n其次，你需要在列表部件中添加一个适配器。你需要定义每个元素的外观。我们将创建一个包含单个文本元素的简单 XML\
+  \ 文件，并将其命名为 `list_element.xml`，其内容如代码清单 5-6 所示。\n\n***代码清单 5-6. `res/layout/list_element.xml`***\n\
+  \n```xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<TextView id=\"@+id/textElement\"\
+  \n          android:layout_width=\"fill_parent\"\n          android:layout_height=\"\
+  wrap_content\"/>\n```\n\n这个 `TextView` 向 Android 系统描述了列表中每个元素应呈现的外观。这里也是设置字体、彩色文本和背景资源的地方。虽然可以实现更复杂的列表元素，但稍后我才会深入探讨这些变体。\n\
+  \n还记得我之前让你先存根的 `initList` 方法吗？代码清单 5-7 展示了它应有的实现，而不是仅仅返回 `null`。\n\n***代码清单 5-7.\
+  \ 必做事项：为 `ListView` 添加适配器***\n\n```java\nprivate void initList()\n{\n    adapter\
+  \ = new ArrayAdapter<StationData>(\n        StationPicker.this, R.layout.list_element);\n\
+  \    setListAdapter(adapter);\n}\n```\n\n每个 `ListView` 都必须有一个对应的适配器。适配器有多种类型和风格。表\
+  \ 5-1 简要介绍了其中最重要的几种。\n\n***表 5-1. 列表适配器***\n\n| **列表适配器** | **描述** |\n|---|---|\n\
+  | 游标适配器 | 一种简单的适配器，非常适合列出 SQL 数据库的内容、搜索结果或其他通常以游标格式存储的数据。事实上，Google 文档中有一个使用游标适配器的优秀示例：`http://code.google.com/android/intro/tutorial-ex1.html`。\
+  \ |\n| 资源游标适配器 | 用于从静态 XML 文件构建可选列表的理想适配器。如果你的菜单/列表是已知元素的列表（例如主菜单、帮助主题列表或其他熟悉的目录信息），那么这款适配器就是你的不二之选。\
+  \ |\n| 数组适配器 | 我们在此示例中使用的适配器。如果你在编译时不确定列表中会包含什么内容（因为你事先不知道站点列表会是什么），那么这是将 XML 元素列表转换为可选列表的最简单方法。\
+  \ |\n\n目前，你已拥有一个功能完备但外观极其简陋的菜单列表，随时可以使用。现在你只需要添加一些数据！\n\n### 向适配器中填充数据\n\n将数据放入适配器很简单，但有一个前提：必须在\
+  \ UI 线程中完成。你可能会问，我在说什么？UI 线程是一个特定的执行线程，它控制着重绘循环。\n\n你会注意到，如果你启动一个新的普通 Java 线程，然后尝试更改当前视图、向列表适配器添加数据元素，或执行任何其他\
+  \ UI 任务，Android 都会对你“大发雷霆”。所谓“大发雷霆”，是指它要么无法工作，要么会向你抛出一堆异常。\n\n#### 重新获取 UI 线程\n\n\
+  由于你启动了一个新的内联 Java 线程来处理阻塞的网络连接，现在你需要定义另一个“可运行”对象，以重新获得 UI 线程的“青睐”。幸运的是，Activity\
+  \ 包含一个用于为 UI 线程调度代码的方法。你将其添加到网络代码的末尾（参见代码清单 5-8）。为了上下文，我会重复最后几行。\n\n***代码清单 5-8.\
+  \ 恢复 UI 线程***\n\n```java\nThread t = new Thread()\n{\n    //---------\n    //此处省略大量代码\n\
+  \n    reader.parse(new InputSource(is));\n    //在 UI 线程上运行我们的代码。\n    UIThreadUtilities.runOnUIThread(\n\
+  \        StationPicker.this, r);\n}\n```\n\n**注意**  \n现在不要试图将上述代码粘贴到你的项目中并编译。你需要先定义那个可运行的\
+  \ `r` 对象。请耐心等待几分钟，或者根据你的阅读速度，读完几段文字。\n\n`UIThreadUtilities` 对象主要是一个静态类，它是一个\n\n\n\
+  \n`Activity`类的`member`。你必须向`runOnUIThread`传入一个上下文对象，由于该指针指向当前运行的`Thread`而非`ListActivity`，你需要通过`StationPicker.this`获取`ListActivity`（`Context`的子类）。\n\
+  \n那个`r`引用是一个“可运行对象（runnable）”，你稍后将定义它。\n\n### 最后，添加数据\n\n现在终于可以开始将`StationData`元素塞入`ArrayListAdapter`了。你将在之前提到的那个可运行对象`r`内部完成此操作（代码清单\
+  \ 5-9）。\n\n**Android 要点**\n\n**99**\n\n![](img/index-106_1.png)\n\n**代码清单 5-9. 向适配器添加元素**\n\
+  \n```\nRunnable r = new Runnable()\n{\n    public void run()\n    {\n        TextView\
+  \ t =\n            (TextView) findViewById(\n            R.id.loadingStatus);\n\
+  \        t.setText(\"Stations Loaded\");\n        try{\n            for(int i=0;\n\
+  \            i < stationListVector.size();\n            i++)\n            adapter.addObject(\n\
+  \                stationListVector.elementAt(i));\n        }catch (Exception e)\
+  \ {}\n        getListView().invalidate();\n    }\n};\n```\n\n由于你现在处于 UI 线程，可以修改加载状态文本的内容。更改状态信息后，即可开始向`ArrayAdapter`添加元素。只需循环遍历整个向量，并将每个条目添加到适配器中。你可能会问：列表元素如何知道该向构成列表中每个视觉元素的`TextView`插入什么文本？很简单，回顾一下你在`StationData`类中重写的`toString`方法。在构建列表时，`ArrayAdapter`会对数组中的每个元素调用`toString`方法，并将该文本显示在屏幕上。\n\
+  \n### 选择...\n\n现在你已经拥有了一个功能完备、可选择的电台列表！当然，当选中某个条目时，你还没有执行任何操作，所以需要处理这个问题。幸运的是，`ListView`与`ListActivity`的紧密集成让这件事变得轻而易举。只需重写受保护的方法：\n\
+  \n**100**\n\n**Android 要点**\n\n![](img/index-107_1.png)\n\n```\nprotected void onListItemClick(\n\
+  \    ListView l, View v, int position, long id)\n{\n    StationData selectedStation\
+  \ =\n        stationListVector.elementAt(position);\n    MediaPlayer player = new\
+  \ MediaPlayer();\n    try\n    {\n        player.setDataSource(selectedStation.url);\n\
+  \        player.start();\n    }\n    catch (Exception e)\n    {\n        Log.e(\"\
+  PlayerException\", \"SetData\");\n    }\n}\n```\n\n我加入了这段音频代码，据我判断，它应该符合文档规范。但文档说它能工作，并不意味着它真的能工作。实际上，上面这段连接到\
+  \ Shoutcast MP3 链接的代码不会抛出异常，但也无法播放。我只能希望 Android 工程师在应用发布前能解决这个问题。\n\n网上一直有热烈的讨论和大量的示例代码。稍微用谷歌搜索一下，就能找到各种投机取巧的解决方案。\n\
+  \n**注意** 这个示例应用中没有进行任何有用的错误处理。大多数情况下我只是捕获异常并打印到日志中。你最终的移动应用在错误处理方面必须做得比我现在更好，因为，相信我，移动设备上的网络连接有时确实不太稳定。\n\
+  \n**Android 要点**\n\n**101**\n\n![](img/index-108_1.png)\n\n### 下一步\n\n本章的最后一步是为`ListView`增添一点魅力。你需要为整个屏幕添加背景。这个过程看起来应该有点眼熟，因为你在之前的例子中已经做过类似的操作（见代码清单\
+  \ 5-10）。\n\n**代码清单 5-10. Main.xml 中的线性布局 XML 代码块**\n\n```\n<LinearLayout xmlns:android=\n\
+  \    \"http://schemas.android.com/apk/res/android\"\n    android:orientation=\"\
+  vertical\"\n    android:layout_width=\"fill_parent\"\n    android:layout_height=\"\
+  fill_parent\"\n    android:background=\"@drawable/bg\"\n>\n```\n\n`@drawable/bg`显然指向`/res/drawable/`目录中的一张图片。你还需要调整列表组件的宽度：\n\
+  \n```\n<ListView android:id=\"@+id/android:list\"\n    android:layout_width=\"fill_parent\"\
+  \n    android:layout_height=\"fill_parent\"\n/>\n```\n\n\n\n这样能防止菜单项逐个改变大小——我想你也会同意，那种效果看起来相当糟糕。将列表视图的布局宽度或高度设置为`wrap_content`会导致每个菜单项被单独包裹。想想看吧。\n\
+  \n### 装饰菜单\n\n你还可以对菜单进行一项更重要的修改，从而对它的渲染拥有更多控制权。\n\n在定义适配器的 UI 元素时，Android 允许你指定一个大的菜单项对象，然后指向其中你想要编辑的`TextView`。之前，你只能指向单个预定义的`TextView`。代码清单\
+  \ 5-11 展示了新的列表元素布局文件的样子。\n\n***代码清单 5-11\\. 改进版 `list_element.xml`***\n\n```xml\n\
+  <?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n<LinearLayout xmlns:android=\n[\"\
+  http://schemas.android.com/apk/res/android\"](http://schemas.android.com/apk/res/android)\n\
+  android:orientation=\"vertical\"\nandroid:layout_width=\"fill_parent\"\nandroid:layout_height=\"\
+  22dip”\nandroid:background=\"@drawable/listbg\"\n>\n\n<TextView android:id=\"@+id/textElement\"\
+  \nxmlns:android=\n[\"http://schemas.android.com/apk/res/android\"](http://schemas.android.com/apk/res/android)\n\
+  android:layout_width=\"fill_parent\"\nandroid:layout_height=\"fill_parent\"\nandroid:textAlign=\"\
+  center\"\n/>\n\n</LinearLayout>\n```\n\n在这段代码中，你添加了一个具有特定尺寸的线性布局。你还给它设置了背景`listbg.png`。有趣的是，Android\
+  \ 会缩放你的背景图片，以适配计算出的背景大小空间。你可能想知道——如果你已经做好了功课——为什么你要使用线性布局，而不是直接给之前的文本视图添加背景和尺寸。这纯粹是为了演示目的。我希望当你在制作一个比我好得多的应用时，能看到复杂的列表是如何组合起来的。在结束之前，你还需要更新代码中的一行来实现这个改动。这行代码位于`initList`方法中：\n\
+  \n```java\nprivate void initList()\n{\nadapter = new ArrayAdapter<StationData>(\n\
+  StationPicker.this, R.layout.list_element,\nR.id.textElement);\n...............\n\
+  setListAdapter(adapter);\n}\n```\n\n在之前的`Adapter`初始化器中，你只指定了布局元素。现在你需要指向`/res/folder/`中一个包含更复杂列表元素的文件，同时还要提供一个指针，告诉\
+  \ Android 将`StationData`对象的`toString`函数中获取的文本放置在哪里。\n\n现在，如果你正确地完成了所有步骤（或者你偷懒下载了示例文件），你应该会看到布局显示为图\
+  \ 5-1。\n\n坦白说，由于我那糟糕的平面设计技能，这个版本的 UI 实在算不上漂亮。可能也算不上好看。重点不是嘲笑我糟糕的图形设计感（尽管非常欢迎你这么做）。重点在于，这个示例应该向你展示如何让你的应用看起来比我的例子更好。现在你几乎可以用任何东西来构建这个菜单。\n\
+  \n**104**\n\n**Android 精华**\n\n![index-111_1.png](img/index-111_1.png)\n\n![index-111_2.png](img/index-111_2.png)\n\
+  \n***图 5-1\\. 装饰后的电台列表***\n\n**Android 精华**\n\n**105**\n\n![index-112_1.png](img/index-112_1.png)\n\
+  \n### 回顾\n\n在本章中，你有机会让 Android 小试牛刀。我涵盖了基本的网络通信、一些更深入的 UI 布局，以及一些 XML 解析入门知识。\n\n\
+  HTTP 层直截了当，使用起来也很方便，尽管有些繁琐和缓慢（至少在 OS X 模拟器上如此）。Android 显然具备深入研究代理、cookies、套接字级别连接以及更高级网络技术的能力。你已经学会了下载数据、使用\
+  \ XML 数据，并通过 SAX 解析器将其填充到向量中。从这个`向量`中，你构建了一个列表，当点击列表项时，\n\n\n# Android 开发核心知识\n\n\
+  # 第 6 章：收尾工作\n\n现在差不多该放下书本，开始动手编写你的 Android 应用了。在放你离开之前，我将快速回顾一下你走过的路以及你是如何走到这一步的。\n\
+  \n## 应用的构建\n\n我的首要任务是介绍 Android 应用的基本构建块。我还必须讲解如何创建新项目，以及构建和运行它的具体流程。正如我所讨论的，一个应用由一系列活动、意图接收器、服务以及内容解析器组成。我使用闪屏实现来演示活动，使用一个由短信触发的恶作剧应用来探索意图接收器和服务，最后通过一些简单的书签代码来深入内容解析器。\n\
+  \n值得庆幸的是，Android 提供了一系列清晰简单的构建块，供您创建应用。活动构成了任何 Android 应用的骨干，而意图和意图接收器则充当着通信官的角色。服务和内容解析器则服务于非常特定的需求，例如后台进程和格式化数据传输。将所有这些部分组合在一起，你就拥有了一个强大的系统，能够快速开发出移动应用。\n\
+  \n## 外表并非一切，但有时外表就是一切\n\n一旦你开发了一个可运行的应用平台，你就可以让它看起来像是用户可能愿意付费的东西——当然，这取决于你的选择。在\
+  \ Android 中，你可以通过两种主要方式来构建用户界面。你可以使用内置的小部件或视图，结合视图组，来创建一个分层的 UI 元素层级结构。或者，你也可以抛开这些现成的工具，仅使用画布以及一些简单的线条、圆形和位图渲染工具来自行绘制。Android\
+  \ 提供了 XML 布局，你可以用它来构建 UI 小部件的层次结构。此外，你还可以在代码中构建、操作和微调这些相同的视图和视图组。\n\n通过结合使用这两种方法，你可以预先设计所有静态部分（预格式化的菜单、背景、帮助屏幕），同时在代码中添加和操作这些元素，以响应网络和动态数据。最后，你可以在代码和\
+  \ XML 中指定画布区域，数据可以在这些区域中手动绘制。尽管 Android 的视图和视图组一开始可能过于复杂且难以使用，但在某些少数情况下，它们赋予开发者比我所知的任何其他平台更多的能力和灵活性。\n\
+  \n为了探索这种原始的机会和灵活性，你编写了一个简单的登录/密码屏幕，仅使用原始 Java 代码和 `TextView` 对象创建了一个主菜单，最后还使用原始画布捣鼓了一些听觉错觉效果。\n\
+  \n## 位置信息没那么重要，除非你凌晨 4 点想吃披萨\n\n一旦你掌握了应用逻辑和用户界面的坚实基础，就可以转向更有趣、更激动人心的主题了。你可以探索诸如\
+  \ Android 的 GPS 和 Google Maps 服务之类的主题。Android 为你提供了多种访问手机位置信息的方式。虽然模拟器上的实现相当粗糙，但文档表明，在最终的运行版本中可以实现更多功能。为了体验这两项强大的移动功能，你制作了一个功能稍弱的定位跟踪示例。一个蓝色的图钉——假设你做对了所有事情——会跟随模拟器假想的硅谷之旅。当在实际手机上运行时，该示例应该会选择一种更高效的定位方法，并使用那个同样烦人的图钉来跟踪用户。\n\
+  \n## 解开 Android 的束缚，让它畅游互联网\n\n最后，你抓住机会让 Android 自由地漫游互联网。你下载了一个简单的 XML 文件，解析它，将其内容推入一个列表，然后——由于\
+  \ Android 不完整的网络层——在尝试让 Android 通过网络流式传输音频时失败了。在此过程中，你发现了适配器和列表视图在其原始和稍复杂形式下的乐趣。\n\
+  \n## 总结\n\n在所有这些章节中，我一直试图为你装备一个通用的基础，让你能够创建自己的移动应用。在我们短暂的相处时间里，要传达和解释所有可供你（Android\
+  \ 开发者）使用的选项，是不可能的。相反，我试图让你掌握基础知识、核心构建块，以及创造下一个 killer 应用所需的理解。\n\n## 其他信息来源\n\n\
+  随着 Android 越来越受欢迎，我相信你会看到越来越多的信息来源涌现出来。目前已经有不少博客、网站、维基、论坛和其他信息资源。进行几次有效的谷歌搜索就能让你入门。现在，请务必收藏好\
+  \ Android 在线文档，地址如下：\n[`code.google.com/android/documentation.html`](http://code.google.com/android/documentation.html)\n\
+  \n还有一个团队正在将 Android 文档构建成 Javadoc 格式：\n[`www.androidjavadoc.com/`](http://www.androidjavadoc.com/)\n\
+  \n你可以在谷歌的“入门指南”中找到更多信息：\n[`code.google.com/android/intro/index.html`](http://code.google.com/android/intro/index.html)\n\
+  \n最后，教程中的一些更高级的主题（既然你已经基本掌握了基础）可以进一步帮助你。请务必在这里查看它们：\n[`code.google.com/android/intro/tutorial.html`](http://code.google.com/android/intro/tutorial.html)\n\
+  \n## 获取帮助\n\n当你遇到困难时，谷歌也提供了一些有用的资源。这里是 Android 初学者论坛的链接：\n[`groups.google.com/group/android-beginners`](http://groups.google.com/group/android-beginners)\n\
+  \n此外，作为开发者，你的主要活动区域将是在更通用的论坛区：\n[`groups.google.com/group/android-developers`](http://groups.google.com/group/android-developers)\n\
+  \n也请务必查看其他的谷歌讨论组。它们可能是非常宝贵的资源。\n\n## 是时候停止阅读，开始做出贡献了\n\n说真的，我们作为移动开发者社区，需要帮助。目前，我们的成就包括发送彩信、下载\
+  \ MP3 铃声，以及浏览一个封闭的小型网络花园。我们需要你，需要你的能力、你的干劲和你的创造力，来让这辆传说中的公交车掉头。裂缝已经开始显现。Verizon\
+  \ 和 AT&T 正在争夺“最开放网络”的头衔。人们在破解 iPhone SDK，而事实上，苹果也推出了自己的官方 SDK，尽管它充满了限制和约束。\n\n极客们开始对移动世界做他们当年对桌面计算世界做过的事情。他们开始在重重阻碍下进行创新。在我看来，Android\
+  \ 代表了手机访问的最高级别，仅次于高通公司的 BREW SDK。这是我同意写这本书的主要原因之一（嗯，这个原因，以及我不想学习 Objective-C）。\n\
+  \n如果设备制造商和运营商允许 Android 蓬勃发展，它代表着我们移动开发者所期待的突破性潜力。请站出来，利用开放手机联盟和谷歌给予我们的工具，用它创造出令人惊叹的东西。我们指望着你。祝你好运。\n\
+  \n---\n\n**版权**\n\nAndroid 开发核心知识\n\n© 2008 克里斯·哈斯曼\n\n\n\n版权所有。未经版权所有者及出版人事先书面许可，本书的任何部分不得以任何形式或通过任何方式（电子或机械，包括影印、录音，或任何信息存储或检索系统）进行复制或传播。\n\
+  \nISBN-13（电子版）：978-1-4302-1063-4\n\nISBN-13（平装版）：978-1-4302-1064-1\n\n本书中可能出现商标名称。为避免在每个商标名称旁都添加商标符号，我们仅在编辑层面使用这些名称，以维护商标所有者的利益，无意侵犯其商标权。\n\
+  \n本书在美国的图书经销由 Springer-Verlag New York, Inc. 负责，地址：233 Spring Street, 6th Floor,\
+  \ New York, NY 10013；在美国以外的地区由 Springer-Verlag GmbH & Co. KG 负责，地址：Tiergartenstr.\
+  \ 17, 69112 Heidelberg, Germany。\n\n在美国境内：电话 1-800-SPRINGER，传真 201-348-4505，电子邮件\
+  \ orders@springer-ny.com，或访问 http://www.springer-ny.com。 在美国境外：传真 +49 6221 345229，电子邮件\
+  \ orders@springer.de，或访问 http://www.springer.de。\n\n如需了解翻译相关信息，请直接联系 Apress，地址：2855\
+  \ Telegraph Ave, Suite 600, Berkeley, CA 94705。电话：510-549-5930，传真：510-549-5939，电子邮件：info@apress.com，或访问\
+  \ http://www.apress.com。\n\n本书中的信息按“原样”提供，不做任何担保。尽管在编写本书时已采取一切预防措施，但作者和 Apress 均不对任何人或实体因使用本书所含信息而直接或间接导致的任何损失或损害承担责任。\n\
+  \n# 文档概要\n- Android 精要\n- 版权信息\n- 目录\n- 第 1 章：简介\n    - 开始前需知\n    - 如何最好地使用本书\n\
+  \    - 入门指南\n        - 安装 Eclipse\n        - 获取 Android SDK\n        - 安装 Eclipse\
+  \ 插件\n    - Android 项目\n    - 运行、调试及制造各种混乱\n- 第 2 章：应用程序\n    - 活动状态\n        -\
+  \ Android 与 Java ME 及 BREW 的对比\n        - 功能性\n        - 制作启动画面\n            - 添加图像资源\n\
+  \            - 创建 XML 布局文件\n            - 绘制启动画面\n            - 时机至关重要\n       \
+  \     - 暂停、恢复、循环往复\n            - 基本按键处理\n            - 清晰的意图\n            - 运行它\n\
+  \            - Activity 的生命周期\n            - 迄今为止\n    - 创建 Intent 接收器\n       \
+  \ - 设置准备\n            - 这有什么实际用途？\n            - 使用 Intent 接收器\n            - 构建\
+  \ Intent 接收器\n            - 权限\n            - 也给我发送短信！\n        - 查看 Intent 接收器的实际运行\n\
+  \            - 短信里有什么？\n        - 触发 Activity\n            - 设置 Activity\n    -\
+  \ 今天你想让谁难堪？\n        - 对服务的紧张\n            - 创建服务\n            - 启动服务\n        \
+  \    - 启动音乐\n            - 仁慈之举\n            - 清单文件\n        - 报复的艺术与禅意\n      \
+  \      - 完成它\n    - 在 Android 中移动数据\n        - 无耻的自我推广\n            - 获取用户的浏览器书签\n\
+  \            - 搜索结果\n        - 使用 Content Resolver 添加邪恶的企业网址\n    - 均衡早餐的一部分\n-\
+  \ 第 3 章：用户界面\n    - 快速简便的 XML 布局\n        - 布局方式\n            - LinearLayout\n \
+  \           - RelativeLayout\n            - AbsoluteLayout\n            - TableLayout\n\
+  \        - 滚动、文本输入、按钮及生活中的所有简单事物\n            - 滚动\n            - 解析 TextView\n\
+  \            - XML 布局\n    - 唤醒 Widget 组件\n        - 获取控制权\n        - 收拢文本\n   \
+  \     - Java 中的 Widget 组件\n        - 深入内部\n            - 主菜单\n            - Java\
+  \ 风格布局\n            - 添加标题\n            - 布局菜单项\n            - 聚焦吧，年轻的学徒...\n  \
+  \          - 点击与选择事件\n            - 回顾\n    - 使用 Canvas 进行自定义 UI 渲染\n        - 自定义\
+  \ View\n        - 创建游戏循环\n            - 加载音频和图像\n            - 实现循环，实现循环，实现...\n\
+  \            - 添加和控制声音\n        - 整合所有内容\n    - 使用用户界面\n- 第 4 章：定位，定位，定位\n    -\
+  \ 我在哪？\n        - 构建 LocationManager 对象\n            - 必备标准\n        - 抬头，挥手，卫星正在注视着你...\n\
+  \    - Google 地图\n        - 海量的地图对象\n        - 移动地图\n        - 盘点现状\n        - 是鸟，是飞机……不，是糟糕的\
+  \ Photoshop 合成\n        - 收尾\n- 第 5 章：带 Android 出去散步\n    - 从网络加载列表\n        - 首要之事……是最重要的吗？\n\
+  \        - 让网络运转起来\n        - 把数据放到合适的位置\n    - 制作列表并检查它……\n        - 设置：拥抱列表\n\
+  \        - 添加 Adapter\n        - 将数据塞入 Adapter\n            - 重新夺回 UIThread\n  \
+  \      - 最后，添加数据\n        - 选择……\n    - 下一步\n        - 装扮菜单\n    - 回顾\n- 第 6 章：收尾工作\n\
+  \    - 应用程序的诞生\n        - 外观并非一切，当然，除非它是\n        - 定位不太重要，除非你在凌晨 4 点需要披萨\n    \
+  \    - 解开 Android 的枷锁，让它在互联网上自由驰骋\n        - 总体概览\n    - 其他信息来源\n        - 获取帮助\n\
+  \    - 是时候停止阅读并开始行动了\n"

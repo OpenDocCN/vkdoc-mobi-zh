@@ -1,0 +1,2357 @@
+- '
+
+  '
+- '# 1. 机器学习与自然语言处理入门简介
+
+
+  本章将为你提供机器学习（ML）和深度学习（DL）的鸟瞰式概览。为了让内容更易于理解，我们将以故事化的方式讲述这些领域的发展历史。我们将探讨它们为何兴起，以及它们有哪些应用类型。在掌握了基础知识之后，你将开始认识自然语言处理（NLP）。你将学习如何通过
+  NLP 让文本数据变得能被计算机理解。即使你对这些学科一无所知，在阅读完本章后，你也能领悟其背后的直觉。
+
+
+  ## 什么是机器学习？
+
+
+  作为*智人*，我们喜欢创造能节省时间和精力的工具。起初，人类开始利用动物来摆脱人力束缚。随着工业革命，我们开始用机器替代人体。当前人类关注的焦点是将思考和学习的技能转移给机器，以摆脱枯燥的脑力任务。过去几十年里，这一领域取得了显著进步。我们尚未拥有能完成所有智力任务的通用人工智能，但我们已经构建了能出色完成特定任务的
+  AI 模型，比如理解人类语言，或在一篇文章中寻找问题的答案。在某些任务上，如图像分类，它甚至比人类做得更好。
+
+
+  机器学习是当下的一个热词。围绕它有许多理论，但独立开发者能构建的真实应用却很难见到。开发一个端到端的机器学习系统需要线性代数、向量微积分、统计学和优化等多个领域的广泛专业知识。
+
+
+  因此，从开发者的角度来看，存在一条高难度的学习曲线挡在面前，但最新的工具能为开发者处理大部分工作，让他们专注于编码。在本书中，你将学习如何构建机器学习应用，这些应用能从图像中提取文本（光学字符识别）、对文本进行分类、在文章中寻找答案、总结文本，以及在给定输入句子时生成句子。你将掌握苹果提供的最新工具，并能够开发自己的智能应用。我们将通过编码来学习；我们将要开发的部分应用会像图
+  1-1 中所示那样。
+
+
+  图 1-1：智能应用
+
+
+  机器学习是一个活跃的研究领域，研究计算机算法如何在没有显式编程的情况下从数据中学习。
+
+
+  我们所说的“没有显式编程”是什么意思？让我们看一个例子。机器学习算法的一种类型是分类算法。假设我们想对正面和负面邮件进行分类。在常规编程中，我们会编写一些`if-else`语句来检查邮件中是否包含某些词汇，如代码
+  1-1 所示。
+
+
+  ```
+
+  if mail.contains("good") ||
+
+  mail.contains("fantastic") ||
+
+  mail.contains("elegant")
+
+  { mailEmotion = "positive"}
+
+  else {mailEmotion = "negative"}
+
+  ```
+
+
+  **代码 1-1：** 判断邮件正面情绪的代码
+
+
+  我们如何使用机器学习来解决同样的问题？我们会收集大量正面和负面邮件的样本，并将它们分类为正面和负面。我们将这些数据输入模型，模型会优化其结构以适应数据中的模式。图
+  1-2 展示了一个已分类邮件的样本数据。
+
+
+  图 1-2：训练机器学习模型
+
+
+  通过多次迭代，模型学会区分这些句子，而无需为此问题编写任何特定代码。它仅仅通过观察大量示例来学习。当我们的模型结构开始正确预测许多标签后，我们便保存这个模型结构。
+
+
+  现在，我们可以将这个保存的模型结构用于新的预测。通过给它一个邮件样本作为输入，它会输出该邮件是正面还是负面，如图 1-3 所示。
+
+
+  图 1-3：使用机器学习模型进行预测
+
+
+  机器学习通常分为两类：监督学习和无监督学习。
+
+
+  图 1-4：机器学习分类
+
+
+
+
+  ## 监督学习
+
+
+  我发现 Adam Geitgey 的这个例子非常直观，有助于理解监督学习。假设你是一名房地产经纪人，只需看一眼房子就能非常准确地估算出其价值。你想招一名实习生，但他们没有你的经验，因此无法准确预测房价。
+
+
+  为了帮助你的实习生，你记录了每笔房屋销售的一些细节，比如卧室数量、面积、街区以及过去 3 个月内成交的价格。表 1-1 展示了训练数据。
+
+
+  **表 1-1** 房屋销售记录
+
+
+  | 卧室数量 | 面积（平方英尺） | 街区 | 价格 |
+
+  | --- | --- | --- | --- |
+
+  | 3 | 2000 | 诺曼镇 | 250,000 美元 |
+
+  | 3 | 800 | 时尚小镇 | 300,000 美元 |
+
+  | 2 | 850 | 诺曼镇 | 150,000 美元 |
+
+  | 1 | 550 | 诺曼镇 | 78,000 美元 |
+
+
+  利用这些训练数据，我们希望创建一个能够估算该地区任何其他房价的程序。假设给定表 1-2 中所示的房屋详细信息，我们需要猜测其价格。
+
+
+  **表 1-2** 房价预测
+
+
+  | 卧室数量 | 面积（平方英尺） | 街区 | 价格 |
+
+  | --- | --- | --- | --- |
+
+  | 3 | 2000 | 时尚小镇 | ??? |
+
+
+  这就是所谓的监督学习。你拥有该地区每笔房屋销售的价格（标签）记录，因此你知道问题的答案。你可以逆向推导，找到某些影响价格的逻辑。
+
+
+  监督学习是一种机器学习类型，它通过像这些房地产记录中那样带有标签的示例来学习。这类似于通过展示动物并叫出它们的名字来教孩子。你利用分类好的示例来教导它。
+
+
+  标签会随着数据而变化。例如，在情感分析中，我们希望对给定文本的情感进行分类。这些标签可以采用如表 1-3 所示的形式。
+
+
+  **表 1-3** 情感数据集样本
+
+
+  | 文本 | 标签 |
+
+  | --- | --- |
+
+  | 我不喜欢它。 | 负面 |
+
+  | 这是一本好书。 | 正面 |
+
+
+  在这类数据中，我们清楚自己的目标（此示例中为情感分类）。文本和标签之间存在某种模式。我们希望通过在此数据上训练模型，以数学方式对这种模式进行建模。训练完成后，我们的模型即可用于预测文本的情感；它利用自身的数学结构，试图模仿这种功能。
+
+
+  标签可以是你能想象的任何东西：对于动物图片数据集，它可以是动物种类；对于语言翻译数据集，它是翻译后的单词；对于声音数据集，它是声音类型；对于自动补全数据集，它是下一个字母；等等。数据可以有多种形式：文本、声音、图像等等。监督学习就是通过观察这类数据来学习，就像老师通过展示对错来教导孩子一样。
+
+
+  ## 无监督学习
+
+
+  在这种学习类型中，数据没有标签列。因此，我们让机器学习模型自行找出数据中的模式或分组。想象一下，你在一个旧盒子里发现了许多没有名字的旧盒式磁带。你开始听所有这些磁带，直到你逐渐领悟出一些直觉，能够理解不同类型的音乐风格。凭借这种直觉，你可以根据流派对它们进行分类。这就是无监督学习。你并没有像房地产经纪人示例中那样获得已经分类好的磁带供你学习。
+
+
+  考虑另一个例子。假设我们有一个数据集，包含如表 1-4 所示的书籍评论。
+
+
+  **表 1-4** 文本数据集样本
+
+
+  | 文本 | 性别 | 年龄 | 位置 | 年份 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 这本书本身就是一部天才之作。 | 男 | 35 | 纽约 | 2015 |
+
+  | 这本书的物理质量非常好。 | 女 | 40 | 旧金山 | 2014 |
+
+  | 我不喜欢这本书。 | 女 | 30 | 洛杉矶 | 2019 |
+
+
+  该数据集是关于书籍购买者的个人信息。对于这类数据，我们可能希望让机器学习模型对数据进行聚类。这种聚类可能会揭示数据中我们肉眼看不到的隐藏模式。
+
+
+  例如，我们可能推断出，位于纽约且为女性的客户，年龄更可能在 35 到 50 岁之间。在这种学习类型中，我们不使用特定的类别标签来指导机器学习模型。相反，模型会自行判断数据集中是否存在更高级别的关系。
+
+
+  ## 机器学习基本术语
+
+
+  在开发机器学习应用程序时，你会经常听到训练、测试、模型、迭代、层和神经网络等概念。我们来了解一下它们是什么。
+
+
+  机器学习专注于开发能够从给定的输入数据集中学习模式的算法。这些算法通常被称为**模型**。这些模型具有可以改变以适应输入数据模式的数学结构。我们在训练期间使用的数据称为**训练数据**。我们将输入数据分成若干批次，并通过向模型输入这些批次来多次运行模型。这被称为**训练**。每次使用一批数据运行称为一次**迭代**或**周期**。在这个训练期间，模型根据**误差函数**优化自身。如果模型拟合了输入数据中的模式并产生相似的输出，那么这个错误率就会较低；否则，错误率会更高。当错误率足够低时，训练就会停止，我们保存这种形式的模型。
+
+
+  训练完成后，我们要测试模型变得有多好。这通过**测试数据**来执行，测试数据是从输入数据中分离出来且未在训练中使用的那部分（例如，输入数据的 20%）。因此，我们在模型从未见过的数据上测试它，看它是已经泛化了知识，还是仅仅记住了训练数据。这部分数据称为测试数据。
+
+
+  测试模型并确保其正常工作后，我们可以使用样本数据运行它并检查其输出；这被称为预测或推理。总结一下，我们使用训练数据来训练模型，使用测试数据来评估模型，保存模型，然后使用训练好的模型进行预测。机器学习项目通常的生命周期如图
+  1-5 所示。
+
+
+  ![../images/501003_1_En_1_Chapter/501003_1_En_1_Fig5_HTML.jpg](img/501003_1_En_1_Fig5_HTML.jpg)
+
+
+  **图 1-5** 机器学习生命周期
+
+
+  机器学习算法有很多种，例如回归、决策树、随机森林、神经网络等。这里我们只介绍神经网络，因为它们也是深度学习模型的基础。
+
+
+  神经网络是由相互连接的神经元（节点）组成的层，旨在处理信息。类似于人脑中的神经元，这些数学神经元知道如何接收输入、对其应用权重，并计算输出值。直到 21 世纪初，这些神经网络通常只有如图
+  1-6 所示的几层，并且无法学习复杂的模式。
+
+
+  ![../images/501003_1_En_1_Chapter/501003_1_En_1_Fig6_HTML.jpg](img/501003_1_En_1_Fig6_HTML.jpg)
+
+
+  **图 1-6** 神经网络
+
+
+  在那之后，研究人员发现，通过使用这些神经元的许多层，我们可以对更复杂的函数进行建模，例如图像分类。具有两层以上结构的模型被称为深度神经网络。使用深度神经网络处理信息需要大量的矩阵运算。使用计算机的
+  CPU 进行此类操作需要很长时间。由于 GPU 可以并行执行此类操作，因此它们可以更快地解决这些问题。如今它们也变得更加实惠，许多人能够用他们的个人电脑训练深度神经网络。
+
+
+
+
+  ## 什么是深度学习？
+
+
+  在过去几十年中，得益于人工神经网络，我们开始教机器识别图像、声音和文本。通过使用更多的神经网络层，我们得以教会计算机处理更复杂的事情。这开启了一个名为深度学习的新领域，其重点在于通过使用更多层次的网络（如图
+  1-7 所示）进行示例教学。
+
+
+  ![../images/501003_1_En_1_Chapter/501003_1_En_1_Fig7_HTML.jpg](img/501003_1_En_1_Fig7_HTML.jpg)
+
+
+  图 1-7
+
+
+  深度神经网络
+
+
+  深度学习让我们能够开发出多种多样的应用，这些应用可以识别人脸、检测嘈杂声音，并将文本分类为正面和负面。深度学习算法开始重塑许多领域。
+
+
+  深度学习的兴起始于`ImageNet`时刻。`ILSVRC`（`ImageNet`大规模视觉识别挑战赛）是一项视觉识别挑战赛，参赛者的算法需要在一个大型图像数据集中对物体进行分类和检测。这个`ImageNet`数据集包含超过
+  1400 万张带标签的图像，分为 21841 个类别。图 1-8 展示了`ImageNet`数据集的一些样本。
+
+
+  ![../images/501003_1_En_1_Chapter/501003_1_En_1_Fig8_HTML.jpg](img/501003_1_En_1_Fig8_HTML.jpg)
+
+
+  图 1-8
+
+
+  ImageNet 数据集
+
+
+  2012 年，一个名为`AlexNet`的深度神经网络在此挑战赛中取得了显著的成绩。随着`AlexNet`的成功，从 2013 年开始，所有参赛者都开始使用基于深度学习的技术。到了
+  2015 年，这些算法表现出了超越人类的性能，超过了我们的图像识别水平（95%）。这些进步使得深度学习模型更加流行。这些模型开始出现在从语言翻译到制造业等各行各业。
+
+
+  自 2016 年谷歌切换到神经机器翻译后，我们不能再像过去那样嘲笑它的翻译结果了。这种翻译算法让`Google Translate`支持 103 种语言（过去只有少数几种），每天翻译超过
+  1400 亿个单词。自动驾驶汽车曾经是未来的梦想；如今，它们已经行驶在道路上。`Siri`能够理解你的指令并代表你执行操作。当你在编写消息时，你的手机会为你推荐词语。我们可以生成从未存在过的面孔，甚至能让面部动起来，模仿声音，并制作名人的虚假视频。它在医疗行业也有应用。它可以帮助临床医生对皮肤黑色素瘤进行分类、解读`ECG`心律条带以及分析糖尿病视网膜病变图像。`Apple
+  Watch`能够检测房颤——一种可能导致中风的危险心律失常。
+
+
+  正如你所见，深度学习有许多应用，并且其数量与日俱增。在过去十年中，深度学习在计算机视觉和`NLP`领域都展现出了极高的有效性。
+
+
+  ## 什么是自然语言处理
+
+
+  自然语言处理（`NLP`）是人工智能的一个子集，专注于计算机与人类语言之间的交互。
+
+
+  `NLP`的主要目标是分析、理解和处理自然语言数据。如今，大多数`NLP`任务都利用机器学习来处理文本并推导其含义。借助`NLP`技术，我们可以创建许多有用的工具，这些工具能够检测文本的情感（情绪）、寻找某篇作品作者、创建聊天机器人、在文档中查找答案等等。
+
+
+  `NLP`的应用在我们的生活中非常普遍。`Amazon Echo`和`Alexa`、`Google Translate`以及`Siri`都是使用自然语言处理来理解文本数据的产品。
+
+
+  借助苹果提供的最新`ML`工具，你无需深入了解`NLP`即可将其应用于你的项目中。为了进一步理解，本书将分享更多资源。
+
+
+  让我们简要地看一下`NLP`是如何工作的，它是如何演进的，以及它被用在哪里。
+
+
+  Sebastian Ruder（`DeepMind`的研究科学家）在其综述《A Review of the Neural History of Natural
+  Language Processing》中讨论了`NLP`领域近期基于神经网络方法的主要进展。如果你对机器学习有入门级的了解，推荐阅读此书。我将从他的综述中简要总结`NLP`的里程碑。
+
+
+  语言建模是根据前面的文本预测下一个单词。2001 年，首个使用前馈神经网络的神经语言模型被提出。在这项工作之前，`n-grams`在研究界比较流行。`N-grams`基本上是一组共现的词，如表
+  1-5 所示。
+
+
+  表 1-5
+
+
+  N-grams
+
+
+  | 示例 | 1-Gram | 2-Gram |
+
+  | --- | --- | --- |
+
+  | to be or not to be | to, be, or, not, to, be | to be, be or, or not, not to, to
+  be |
+
+
+  你在自然语言处理中经常会听到的另一个关键术语是词嵌入。词嵌入在`NLP`中有着悠久的历史。词嵌入是单词的数学表示。例如，我们可以用每个词出现的次数（频率）来表示文本中的单词。这被称为`bag-of-words`模型。
+
+
+  2013 年，Tomas Mikolov 和他的团队使这些词嵌入的训练更加高效，并引入了`word2vec`——一个两层神经网络，它处理文本并输出它们的向量。这个网络不是深度学习网络，但它对深度学习模型很有用，因为它能创建计算机可处理的数学数据。
+
+
+  它非常实用，因为它可以在向量空间中表示单词，如图 1-9 所示。这使得可以对词向量进行数学计算，如加法、减法等。多亏了`word2vec`，我们可以推断出男人与女人、国王与王后之间的关系。例如，我们可以做这样的计算：`"King
+  – Man + Woman = Queen"`。
+
+
+  ![../images/501003_1_En_1_Chapter/501003_1_En_1_Fig9_HTML.jpg](img/501003_1_En_1_Fig9_HTML.jpg)
+
+
+  图 1-9
+
+
+  `word2vec`捕捉到的关系 (`Mikolov et al., 2013a, 2013b`)
+
+
+  借助`word2vec`，我们可以推断出有趣的关系；例如，我们可以问“如果唐纳德·特朗普是共和党人，那么巴拉克·奥巴马是什么？”，`word2vec`会产生`[Democratic,
+  GOP, Democrats, McCain]`。我们给出的数据表明唐纳德·特朗普是共和党人，然后我们想为巴拉克·奥巴马找到类似的关系，结果指出他是民主党人。这种类型的推断提供了从文本数据中推导出的无限可能性。
+
+
+  2013 年之后，更多的深度学习模型开始被用于`NLP`。循环神经网络（`RNNs`）和长短期记忆网络（`LSTM`）变得更加流行。
+
+
+
+
+  '
+- '# 排版后的 Markdown 文档
+
+
+  2014 年，伊利亚·苏茨克维（Ilya Sutskever）提出了一种序列到序列（`Seq2Seq`）学习框架，该框架允许通过神经网络将一种文本映射到另一种文本。这一框架被证明在机器翻译中非常实用。谷歌翻译于
+  2016 年开始使用该框架，并用深度 LSTM 网络取代了其基于短语的翻译方式。据谷歌的杰夫·迪恩（Jeff Dean）称，此举将 `500,000 行`基于短语的机器翻译代码替换成了一个仅含
+  `500 行`的神经网络模型。
+
+
+  2018 年，预训练语言模型通过相比现有技术展现出显著改进，实现了重大飞跃。这些模型在海量无标签数据（例如维基百科文章）上进行训练。这使得模型能够学习各种词汇的用法以及语言的一般运作方式。通过使用更小的特定任务数据集，模型可以将这些知识迁移到任何具体任务中。这些模型就像“博览群书”的人一样，知识渊博，相比一无所知者能够更轻松地学习新知识。
+
+
+  2018 年是自然语言处理领域取得重大进步的一年，涌现了诸如 `ULMFit`、`ELMo` 和 `OpenAI transformer` 等新型预训练语言模型。
+
+
+  在这些模型出现之前，我们需要大量的特定任务数据来训练自然语言模型。而现在，借助这些知识渊博的模型，我们可以轻松地针对任何特定语言任务训练模型。
+
+
+  在最后一章中，我们将开发一个智能 iOS 应用程序，该程序能够利用 `BERT` 模型在给定的文本中找出问题的答案。
+
+
+  ## 总结
+
+
+  本章介绍了机器学习、深度学习以及自然语言处理的基本概念。我们通过回顾深度学习与自然语言处理在过去几十年间的改进历程，试图理解其背后的原理。接下来的章节将更加注重实践，因为我们将在
+  iOS 开发中使用自然语言处理技术，并构建智能应用程序。
+
+
+  '
+- "# 2. Apple ML 工具简介\n\n在软件和机器学习领域，学习并尝试最新的工具至关重要。如果你不知道如何使用这些高效工具，可能会浪费大量时间。本章将介绍\
+  \ Apple 为 iOS 开发者提供的、用于轻松构建机器学习应用的工具。本章中介绍的框架和工具包括 `Vision`、`VisionKit`、`Natural\
+  \ Language`、`Speech`、`Core ML`、`Create ML` 以及 `Turi Create`。我们将学习这些工具具备哪些能力，以及我们可以利用它们构建哪些类型的应用。\n\
+  \n## Vision\n\n`Vision` 框架用于处理图像和视频。它提供了多种计算机视觉和机器学习能力，适用于视觉数据。`Vision` 框架的一些功能包括：人脸检测、身体检测、动物检测、文本检测与识别、条形码识别、物体追踪、图像对齐等。我将提及一些主要功能和方法，同时会涉及一些你可能未曾听说的\
+  \ iOS 隐藏特性。鉴于本书专注于文本处理，将不涉及图像处理的细节。如果你需要了解更多与计算机视觉算法相关的信息，可以在 Apple 开发者网站上找到详细资料和示例项目。\n\
+  \n### 人脸与身体检测\n\nVision 提供了多种用于在图像中检测人脸和人类的请求类型。这里我将提及其中一些请求，以回顾 Apple 通过内置 API\
+  \ 提供了哪些功能。`VNDetectFaceRectanglesRequest` 用于人脸检测，它会返回给定图像中检测到的人脸矩形区域以及偏航角。该请求还会提供人脸的偏航角和滚动角。`VNDetectFaceLandmarksRequest`\
+  \ 能够提供嘴部、眼睛、面部轮廓、眉毛、鼻子和嘴唇的位置。`VNDetectFaceCaptureQualityRequest` 用于捕获图像中人脸的质量，可用于自拍编辑应用。有一个名为“根据捕获质量选择自拍”的示例项目，演示了如何比较不同图像中的人脸质量。\n\
+  \n`VNDetectHumanRectanglesRequest` 用于检测人类，并返回定位图像中人类位置的矩形区域。\n\n要使用这些请求，你需要创建一个\
+  \ `ImageRequestHandler` 和一个特定类型的请求。通过 `perform` 方法将该请求传递给处理器，如代码清单 `2-1` 所示。这将在图像缓冲区上执行请求并返回结果。示例展示了在给定图像上进行人脸检测的代码。\n\
+  \n```\nlet handler = VNImageRequestHandler(cvPixelBuffer:\npixelBuffer, orientation:\
+  \ .leftMirrored, options:\nrequestOptions)\nlet faceDetectionRequest =\nVNDetectFaceCaptureQualityRequest()\n\
+  do {\ntry\nhandler.perform([faceDetectionRequest])\nguard let faceObservations =\n\
+  faceDetectionRequest.results as? [VNFaceObservation]\nelse {return}\n}\n} catch\
+  \ {\nprint(\"Vision error: \\\n(error.localizedDescription)\")\n}\n```\n\n**代码清单\
+  \ 2-1** 人脸检测请求\n\n\n\n### 图像分析\n\n借助内置的图像分析功能，您可以创建能够理解图像内容的应用程序。可以使用 `Vision` 框架来检测和定位图像中的矩形、人脸、条形码和文本。如果您想深入了解，Apple\
+  \ 还提供了一个示例项目，展示了如何检测图像中的文本和二维码。\n\nApple 还提供了一个内置的机器学习模型，能够对 1303 个类别进行分类，涵盖从车辆到动物和物体的众多类别。例如：杂技演员、飞机、饼干、熊、床、厨房水槽、金枪鱼、火山、斑马等。\n\
+  \n您可以通过调用 `knownClassifications` 方法获取这些类别的列表，如代码清单 2-2 所示。\n\n```\nlet handler =\
+  \ VNImageRequestHandler(cgImage:\nimage.cgImage!, options: [:])\nlet classes = try\
+  \ VNClassifyImageRequest.knownClassifications(forRevision:\nVNDetectFaceLandmarksRequestRevision1)\n\
+  let classIdentifiers = classes.map({$0.identifier})\n代码清单 2-2\n内置图像类别\n```\n\n我创建了一个\
+  \ Swift playground 来演示如何使用内置分类器。¹ Apple 让图像分类变得超级简单。代码清单 2-3 中的示例代码就是你所需要的一切。\n\n\
+  ```\nimport Vision\nlet handler = VNImageRequestHandler(cgImage: image,\noptions:\
+  \ [:])\nlet request = VNClassifyImageRequest()\ntry? handler.perform([request])\n\
+  let observations = request.results as?\n[VNClassificationObservation]\n代码清单 2-3\n\
+  图像分类\n```\n\n`Vision` 框架的另一个功能是图像相似度检测。这可以通过使用 `VNGenerateImageFeaturePrintRequest`\
+  \ 来实现。该请求会创建图像的特征指纹，然后您可以使用 `computeDistance` 方法来比较这些特征指纹。代码清单 2-4 中的代码示例展示了如何使用该方法。同样，我们创建\
+  \ `ImageRequestHandler` 和一个请求，然后调用 `perform` 来执行这个请求。\n\n```\nfunc featureprintObservationForImage(atURL\
+  \ url: URL)\n-> VNFeaturePrintObservation? {\nlet requestHandler =\nVNImageRequestHandler(url:\
+  \ url, options: [:])\nlet request =\nVNGenerateImageFeaturePrintRequest()\ndo {\n\
+  try requestHandler.perform([request])\nreturn request.results?.first as?\nVNFeaturePrintObservation\n\
+  } catch {\nprint(\"Vision error: \\(error)\")\nreturn nil\n}\n}\n代码清单 2-4\n创建图像特征指纹\n\
+  ```\n\n这个函数用于创建图像的特征指纹。它是图像的一种数学表示，我们可以用它来与其他图像进行比较。代码清单 2-5 展示了如何使用此特征指纹来比较图像。\n\
+  \n```\nlet apple1 = featureprintObservationForImage(atURL:\nBundle.main.url(forResource:\"\
+  apple1\", withExtension:\n\"jpg\")!)\nlet apple2 = featureprintObservationForImage(atURL:\n\
+  Bundle.main.url(forResource:\"apple2\", withExtension:\n\"jpg\")!)\nlet pear = featureprintObservationForImage(atURL:\n\
+  Bundle.main.url(forResource:\"pear\", withExtension:\n\"jpg\")!)\nvar distance =\
+  \ Float(0)\ntry apple1!.computeDistance(&distance, to: apple2!)\nvar distance2 =\
+  \ Float(0)\ntry apple1!.computeDistance(&distance2, to: pear!)\n代码清单 2-5\n特征指纹\n\
+  ```\n\n在这里，我正在将梨子图像与苹果图像进行比较。图像距离结果如图 2-1 所示。\n\n![../images/501003_1_En_2_Chapter/501003_1_En_2_Fig1_HTML.jpg](img/501003_1_En_2_Fig1_HTML.jpg)\n\
+  \n图 2-1\n\n比较图像距离\n\n*您可以在相应脚注的链接中找到 Swift playground 的完整代码示例。*²\n\n### 文本检测与识别\n\
+  \n要检测和识别图像中的文本，您不需要任何第三方框架。Apple 通过 `Vision` 框架提供了这些功能。\n\n您可以使用 `VNDetectTextRectanglesRequest`\
+  \ 来检测图像中的文本区域。它会返回带有原点和尺寸的矩形边界框。如果您想分别检测每个字符框，应将 `reportCharacterBoxes` 变量设置为 `true`。\n\
+  \n`Vision` 框架还提供了文本识别（光学字符识别）功能，您可以使用它来处理扫描文档或名片中的文本。\n\n图 2-2 展示了在 playground 上运行的文本识别。\n\
+  \n![../images/501003_1_En_2_Chapter/501003_1_En_2_Fig2_HTML.jpg](img/501003_1_En_2_Fig2_HTML.jpg)\n\
+  \n图 2-2\n\n文本识别结果\n\n与其它 `Vision` 功能类似，为了处理图像中的文本，我们创建 `VNRecognizeTextRequest`，如代码清单\
+  \ 2-6 所示，并使用 `VNImageRequestHandler` 执行此请求。文本请求包含一个闭包，该闭包在处理完成时被调用。它返回为检测到的每个文本矩形生成的观察结果。\n\
+  \n```\nlet textRecognitionRequest = VNRecognizeTextRequest {\n(request, error) in\n\
+  guard let observations = request.results as?\n[VNRecognizedTextObservation] else\
+  \ {\nprint(\"The observations are of an unexpected type.\")\nreturn\n}\nlet maximumCandidates\
+  \ = 1\nfor observation in observations {\nguard let candidate =\nobservation.topCandidates(maximumCandidates).first\n\
+  else { continue }\ntextResults += candidate.string + \"\\n\"\n}\n}\n}\nlet requestHandler\
+  \ = VNImageRequestHandler(cgImage:\nimage, options: [:])\ndo {\ntry\nrequestHandler.perform([textRecognitionRequest])\n\
+  } catch {\nprint(error)\n}\n代码清单 2-6\n文本识别\n```\n\n文本识别请求有一个 `recognitionLevel`\
+  \ 属性，用于在准确率和速度之间进行权衡。您可以将其设置为 `accurate`（精确）或 `fast`（快速）。\n\n### Vision 的其他功能\n\n\
+  `Vision` 框架还提供了其他功能，如图像显著性分析、水平线检测和物体识别。通过图像显著性分析，iOS 可以检测图像的哪些部分能吸引人们的注意力。它还提供了基于物体的注意力显著性分析，用于检测前景物体。您可以使用这些功能来自动裁剪图像或生成热力图。这两种请求类型分别是\
+  \ `VNGenerateAttentionBasedSaliencyImageRequest`（基于注意力）和 `VNGenerateObjectnessBasedSaliencyImageRequest`（基于物体）。与其他\
+  \ `Vision` API 类似，您创建一个请求，然后使用图像请求处理器来执行它，如代码清单 2-7 所示。\n\n```\nlet request =\n\
+  VNGenerateAttentionBasedSaliencyImageRequest()\ntry? requestHandler.perform([request])\n\
+  代码清单 2-7\n图像显著性\n```\n\n水平线检测可以让我们确定图像中的地平线角度。通过此请求（`VNDetectHorizonRequest`），您可以获取图像角度以及修复图像方向所需的\
+  \ `CGAffineTransform`。您还可以使用 `VNHomographicImageRegistrationRequest` 来确定对齐两张图像所需的透视扭曲矩阵。\n\
+  \n`Vision` 的另一个功能是物体识别。您可以使用内置的 `VNClassifyImageRequest` 来检测物体，或者如果您想使用自己的图像数据集进行训练，也可以使用\
+  \ `Create ML` 或 `Turi Create` 创建自定义模型。\n\n\n\n## VisionKit\n\n如果你曾经在 iOS 上使用过备忘录应用，你可能用过图\
+  \ 2-3 中显示的内置文档扫描仪。`VisionKit` 让我们可以在自己的应用中使用这个强大的文档扫描仪。实现起来非常简单：\n\n1.  如图 2-8 所示，展示文档相机。\n\
+  2.  实现 `VNDocumentCameraViewControllerDelegate` 以接收回调，如图 2-9 所示。它会通过以下函数返回每一页的图像。\n\
+  \n```\nlet vc = VNDocumentCameraViewController()\nvc.delegate = self\npresent(vc,\
+  \ animated: true)\n```\n\n**代码清单 2-8**：实例化文档相机\n\n```\nfunc documentCameraViewController(_\
+  \ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan)\
+  \ {\n    var scannedImageList = []\n    for pageNumber in 0 ..< scan.pageCount {\n\
+  \        let image = scan.imageOfPage(at: pageNumber)\n        self.scannedImageList.append(image)\n\
+  \    }\n}\n```\n\n**代码清单 2-9**：捕获扫描的文档图像\n\n**图 2-3**：内置文档扫描仪\n\n## 自然语言处理\n\n自然语言处理框架让你能够分析文本数据并提取知识。它提供了语言识别、分词（枚举字符串中的单词）、词形还原、词性标注以及命名实体识别等功能。\n\
+  \n### 语言识别\n\n语言识别功能让你能够确定文本的语言。我们可以通过使用 `NLLanguageRecognizer` 类来检测给定文本的语言。它支持\
+  \ 57 种语言。查看清单 2-10 中的代码来检测给定字符串的语言。\n\n```\nimport NaturalLanguage\nlet recognizer\
+  \ = NLLanguageRecognizer()\nrecognizer.processString(\"hello\")\nlet lang = recognizer.dominantLanguage\n\
+  ```\n\n**代码清单 2-10**：语言识别\n\n### 分词\n\n在对文本执行自然语言处理之前，我们需要进行一些预处理，使数据更易于计算机理解。通常，我们需要拆分单词以处理文本，并移除所有标点符号。Apple\
+  \ 提供了 `NLTokenizer` 来枚举单词，因此无需手动解析单词之间的空格。此外，一些语言（如中文和日文）不使用空格来分隔单词；幸运的是，`NLTokenizer`\
+  \ 会为你处理这些边界情况。清单 2-11 中的代码示例展示了如何枚举给定字符串中的单词。\n\n```\nimport NaturalLanguage\nlet\
+  \ text = \"A colourful image of blood vessel cells has won this year's Reflections\
+  \ of Research competition, run by the British Heart Foundation\"\nlet tokenizer\
+  \ = NLTokenizer(unit: .word)\ntokenizer.string = text\ntokenizer.enumerateTokens(in:\
+  \ text.startIndex..<text.endIndex) { tokenRange, _ in\n    print(text[tokenRange])\n\
+  \    return true\n}\n```\n\n**代码清单 2-11**：枚举单词\n\n如你所见，我们导入了 `NaturalLanguage` 框架并通过指定单元类型创建了\
+  \ `NLTokenizer`。这让我们能够确定枚举类型；在这里，我们可以枚举文档、单词、段落或句子。`enumerateTokens` 函数会枚举选定的标记类型（此处为单词），并为每个单词返回一个闭包。在闭包中，我们打印出每个枚举到的单词，结果如图\
+  \ 2-4 所示。\n\n**图 2-4**：分词\n\n### 词性标注\n\n为了更好地理解语言，我们需要识别单词及其在给定句子中的功能。词性标注允许我们对字符串中的名词、动词、形容词和其他词性进行分类。Apple\
+  \ 提供了一个名为 `NLTagger` 的语言学标记器，用于分析自然语言文本。\n\n清单 2-12 中的代码示例展示了如何使用 `NLTagger` 检测单词的标签。词汇类别（`lexicalClass`）是一种方案，根据类别对标记进行分类：词性、标点类型或空白。我们使用此方案并打印每个单词的类型。\n\
+  \n```\nimport NaturalLanguage\nlet text = \"The ripe taste of cheese improves with\
+  \ age.\"\nlet tagger = NLTagger(tagSchemes: [.lexicalClass])\ntagger.string = text\n\
+  let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]\ntagger.enumerateTags(in:\
+  \ text.startIndex..<text.endIndex, unit: .word, scheme: .lexicalClass, options:\
+  \ options) { tag, tokenRange in\n    if let tag = tag {\n        print(\"\\(text[tokenRange]):\
+  \  \\(tag.rawValue)\")\n    }\n    return true\n}\n```\n\n**代码清单 2-12**：单词标记\n\n\
+  如图 2-5 所示，它成功确定了单词的类型。\n\n**图 2-5**：确定单词类型\n\n在使用 `NLTagger` 时，你可以根据想要检测的类型，指定一个或多个标记方案（`NLTagScheme`）作为参数。例如，`tokenType`\
+  \ 方案可以对单词、标点和空格进行分类；而 `lexicalClass` 方案可以对词类型、标点类型和空格进行分类。\n\n在枚举标记时，你可以跳过特定的类型（例如，通过设置\
+  \ `options` 参数）。在上述代码中，标点和空格的选项被设置为 `[.omitPunctuation, .omitWhitespace]`。\n\n`NLTagger`\
+  \ 可以检测所有以下词汇类别：`noun`（名词）、`verb`（动词）、`adjective`（形容词）、`adverb`（副词）、`pronoun`（代词）、`determiner`（限定词）、`particle`（小品词）、`preposition`（介词）、`number`（数词）、`conjunction`（连词）、`interjection`（感叹词）、`classifier`（量词）、`idiom`（习语）、`otherWord`（其他词）、`sentenceTerminator`（句子终止符）、`openQuote`（左引号）、`closeQuote`（右引号）、`openParenthesis`（左括号）、`closeParenthesis`（右括号）、`wordJoiner`（单词连接符）、`dash`（破折号）、`otherPunctuation`（其他标点）、`paragraphBreak`（段落分隔符）和\
+  \ `otherWhitespace`（其他空白）。\n\n### 识别人物、地点和组织\n\n`NLTagger` 也让检测给定文本中的人名、地名和组织名称变得非常简单。\n\
+  \n在基于文本的应用中找到这类数据，为向用户传递信息开辟了新的途径。例如，你可以创建一个应用，能够通过显示这些名称（人物、地点和组织）在文本中（通过博客、新闻文章等）被提及的次数来自动总结文本。\n\
+  \n查看清单 2-13，了解我们如何在一个示例句子中检测这些名称。\n\n```\nimport NaturalLanguage\nlet text = \"\
+  Prime Minister Boris Johnson has urged the EU to re-open the withdrawal deal reached\
+  \ with Theresa May, and to make key changes that would allow it to be passed by\
+  \ Parliament.\"\nlet tagger = NLTagger(tagSchemes: [.nameType])\ntagger.string =\
+  \ text\nlet options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]\n\
+  let tags: [NLTag] = [.personalName, .placeName, .organizationName]\ntagger.enumerateTags(in:\
+  \ text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options)\
+  \ { tag, tokenRange in\n    if let tag = tag, tags.contains(tag) {\n        print(\"\
+  \\(text[tokenRange]):  \\(tag.rawValue)\")\n    }\n    return true\n}\n```\n\n**代码清单\
+  \ 2-13**：识别人物和地点\n\n这里我们再次使用 `NLTagger`，但这次我们设置了另一个名为 `joinNames` 的选项，它会将名和姓连接起来。为了过滤人名、地名和组织，我们创建了一个\
+  \ `NLTag` 数组。\n\n`NLTagger` 可以找到的单词标签如图 2-6 所示。\n\n**图 2-6**：识别人物和地点\n\n如你所见，我们可以利用\
+  \ iOS 的自然语言处理框架从文本中推断出特定的知识。\n\n\n\n## NLEmbedding\n\n机器学习中的嵌入（Embedding）用于对给定数据进行数学表示。在自然语言处理中，它用于将单词进行向量化表示。将单词转换为向量后，就可以对其进行算术运算。例如，可以计算单词之间的距离或对它们求和。计算单词之间的距离能够找到相似的单词。\n\
+  \n`NLEmbedding` 让我们能够计算两个字符串之间的距离，或在一个单词集合中查找某个字符串的最近邻。任意两个单词的相似度越高，它们之间的距离就越小。清单\
+  \ 2-14 中的代码示例展示了如何计算单词之间的距离。\n\n```\nimport NaturalLanguage\n//计算单词之间的距离\nlet embedding\
+  \ =\nNLEmbedding.wordEmbedding(for:  .english)\nlet distance1 = embedding?.distance(between:\
+  \ \"movie\",\nand: \"film\")\nlet distance2 = embedding?.distance(between: \"movie\"\
+  ,\nand: \"car\")\n清单 2-14\n测量单词之间的距离\n```\n\n在上述代码中，我们使用了 `wordEmbedding` 并指定了其语言。距离计算通过\
+  \ `distance` 函数完成。“movie”和“film”之间的距离是 0.64，“movie”和“car”之间的距离是 1.21。如你所见，相似的单词之间的距离更小。利用这种距离计算，你可以创建根据相似度对单词进行聚类的应用，或者创建能够检测相似文本或标题的推荐应用。你甚至可以针对任意类型的字符串创建自定义嵌入。例如，你可以创建新闻标题的嵌入，并根据用户之前的兴趣推荐新文章。要创建自定义嵌入，你可以使用\
+  \ Create ML 的 `MLWordEmbedding`，并将其导出为文件，以便在你的 Xcode 项目中使用。这将在本书后续学习 Create ML 后详细讲解。\n\
+  \n## 语音\n\n语音框架（Speech framework）可对实时或预录的音频数据进行语音识别。使用该框架，你可以在应用中创建口语单词的转录文本。iOS\
+  \ 内置的听写支持功能也使用语音识别将音频数据转换为文本。\n\n借助该框架，你可以创建能够理解像 Siri 或 Alexa 这样的语音命令的应用。Apple\
+  \ 表示，某些语言支持设备端语音识别，但务必注意，执行语音识别通常需要网络连接，因为该框架依赖 Apple 的服务器进行语音识别。\n\n要转录音频，你应该为每种要支持的语言创建一个\
+  \ `SFSpeechRecognizer` 实例。创建 `SFSpeechRecognizer` 和 `SFSpeechAudioBufferRecognitionRequest`\
+  \ 来调用 `recognitionTask` 函数，该函数会启动语音识别过程并返回结果。在此，我们通过 `result.bestTranscription.formattedString`\
+  \ 获取转录结果，如清单 2-15 的代码示例所示。\n\n```\nlet recognitionRequest =\nSFSpeechAudioBufferRecognitionRequest()\n\
+  let recognitionTask =\nspeechRecognizer.recognitionTask(with:\nrecognitionRequest)\
+  \ { result, error in\nif let result = result {\nself.textView.text =\nresult.bestTranscription.formattedString\n\
+  }\n}\n清单 2-15\n语音识别\n```\n\n如果你希望结果块在接收到部分转录结果时就被调用，可以将 `recognitionRequest.shouldReportPartialResults`\
+  \ 设置为 true。\n\n## Core ML\n\nApple 在 WWDC 2017 上宣布了 Core ML 框架。该框架是 Apple 对快速发展的机器学习世界的响应。通过\
+  \ Core ML，开发者可以将第三方机器学习模型集成到他们的应用中。Core ML API 让我们能够在用户设备上训练、微调 ML 模型并进行预测。\n\n\
+  ![../images/501003_1_En_2_Chapter/501003_1_En_2_Fig7_HTML.jpg](img/501003_1_En_2_Fig7_HTML.jpg)\n\
+  \n图 2-7\n\nCore ML\n\n如图 2-7 所示，Core ML 是为 Vision、Natural Language、Speech 和 Sound\
+  \ Analysis 框架提供底层支持的框架。\n\n一个名为 `coremltools` 的 Python 框架也被推出，用于将来自 Keras、Caffe\
+  \ 和 scikit-learn 等流行框架的深度学习模型转换为 Core ML 格式。\n\n要使用 `coremltools`，需要了解 Python。这对\
+  \ iOS 开发者构成了学习障碍。为了降低这一障碍，Apple 在 WWDC 2018 上宣布了一个更简单的机器学习工具——Create ML。\n\n## Create\
+  \ ML\n\nCreate ML 是一个类似 Xcode 的独立开发者应用程序。它让我们能够轻松创建 ML 模型，无论是图像分类、文本分类还是声音分类模型。多亏了这个工具，iOS\
+  \ 开发者现在没有借口不开发智能的 iOS 应用了。Create ML 和 Xcode 提供了一个端到端的机器学习解决方案，使得开发者可以在 Apple 的生态系统中创建自己的解决方案。\n\
+  \nCreate ML 使得使用图像、文本或声音数据集训练模型，然后再测试这些模型变得很简单。当你完成训练和测试后，可以将训练好的模型从 Create ML 拖放到你的\
+  \ Xcode 项目中。\n\n![../images/501003_1_En_2_Chapter/501003_1_En_2_Fig8_HTML.jpg](img/501003_1_En_2_Fig8_HTML.jpg)\n\
+  \n图 2-8\n\nCreate ML\n\nCreate ML 提供了现成的模板，使得训练自定义模型更加容易。这些模板包括图像分类器、物体检测器、声音分类器、活动分类器（运动分类器）、文本分类器、词性标注器、表格回归器、表格分类器和推荐器。你可以将\
+  \ Create ML 作为一个独立的应用程序使用，也可以将其作为框架在 Swift Playgrounds 中使用。\n\n\n\n## Turi Create\n\
+  \n为了简化开发者的机器学习模型训练过程，`Create ML` 在后台替你完成了许多决策。机器学习模型拥有可调整的参数，你可以通过微调来获得更高的准确率。如果你对\
+  \ `Create ML` 所提供的选项不满意，希望对自己的机器学习模型拥有更多掌控力，那么可以使用 `Turi Create`。\n\n2016 年 8 月，苹果收购了机器学习软件初创公司\
+  \ Turi，并将其库 `Turi Create` 开源并持续开发。`Turi Create` 是一个 Python 框架，用于简化自定义机器学习模型的开发过程。你可以从\
+  \ `Turi Create` 中导出模型，用于 iOS、macOS、watchOS 和 tvOS 的应用程序。\n\n它支持多种数据类型：文本、图像、音频、视频和传感器数据。你可以使用\
+  \ `Turi Create` 创建多种不同类型的自定义机器学习模型，包括文本分类、图像分类、目标检测、回归（数值预测）、聚类、活动分类、风格迁移等。\n\n\
+  在进行文本分类时，它提供了一些预处理方法，用于在训练前清洗文本数据。例如，你可以移除出现频率较低的词语，或者移除常见的词语，比如“and”、“the”等（在机器学习领域通常称为停用词）。\n\
+  \n说到文本分类，人们通常会想到情感分析，但它的应用场景远不止于此。例如，你可以在 App Store 的应用评论上训练一个模型，将评论分类为功能请求、投诉、称赞等。或者，你可以通过用某位作者的作品集训练模型，来判定一段文字的作者。任何你能想象到的、并且有足够多文本样本的场景，你都可以训练一个分类器。\n\
+  \n`Turi Create` 的另一个文本处理能力是文本分析，它能让我们理解大量的文档集合。我们可以创建“主题模型”，这是一种用于文本数据的统计模型。它们用一组数量较少的主题来表示文档，并且可以计算出任何一个词语在特定“主题”中出现的概率。这样，我们就可以用五到十个词来表示大型文档，或者找出那些可能经常一起出现的词语。在下一章中，我们将学习如何使用\
+  \ `Turi Create` 训练文本分类模型，或者创建主题模型。\n\n在本章中，我们介绍了苹果为机器学习提供的工具和框架。我们了解了如何使用 `Vision`\
+  \ 框架识别文本，`VisionKit` 扫描文档，`Natural Language` 理解文本，`Core ML` 和 `Create ML` 训练自定义模型，最后介绍了如何使用\
+  \ `Turi Create` 以更高级的技术训练模型。在接下来的章节中，我们将深入探讨，并使用 `Natural Language` 创建智能应用程序。\n\n\
+  脚注 1 2\n\n"
+- '# 3. 文本分类
+
+
+  文本分类是一种自然语言处理方法，它能让我们将文本归类到预定义的类别中。这是一种非常流行的技术，拥有多种多样的应用场景。一个著名的用途是将文本分类为情感类别（正面、负面等），这被称为情感分析。这种方法可以应用于任何已被分类的文本数据。文本分类让我们能够找出一段文字的作者，对
+  GitHub 问题进行分类，发现 App Store 评论中的投诉，或检测文本的语言。在本章中，我们将学习如何使用 `Create ML` 和 `Turi Create`
+  来创建文本分类应用程序。我们将通过制作示例应用程序来学习。我们将首先使用 `Create ML`，然后使用 `Turi Create`，开发一个垃圾短信分类器应用。
+
+
+  ## 使用 Create ML 框架进行垃圾短信分类
+
+
+  苹果在 iOS 上以多种方式使用了自然语言处理技术。得益于自然语言处理（NLP），iOS 可以自动修正拼写错误，Siri 也能理解我们说的话。在 WWDC 2018
+  上，苹果通过一个名为 `Create ML` 的工具将这些能力带给了开发者。这个工具使开发者能够轻松地创建文本分类模型（以及其他多种类型的模型）。`Create
+  ML` 从 macOS 10.14 起在 Swift Playgrounds 中可用。
+
+
+  要使用 `Create ML` 创建分类模型，我们唯一需要的就是带标签的文本数据。这为开发者打开了许多扇门。我们可以检测文章的作者，找出公司评价最好和最差的产品，甚至在给定的文本中检测各种实体（人名、地名、组织名等）。这仅仅受限于你的想象力和数据收集技巧。换句话说，一切皆有可能。
+
+
+  在本节中，我们将深入研究这些框架，在 `Create ML` 中训练一个机器学习模型，并开发一个垃圾短信分类器应用，如图 3-1 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig1_HTML.png](img/501003_1_En_3_Fig1_HTML.png)
+
+
+  图 3-1
+
+
+  使用 Create ML 进行文本分类
+
+
+  我们可以通过两种方式使用 `Create ML`：作为一个独立的应用程序（可以在 Xcode 菜单栏中选择“打开开发者工具”打开），或者作为 macOS Playgrounds
+  中的一个框架。在 Playgrounds 中，我们可以将 CSV/JSON 文件或文件夹中的数据导入到 `Create ML` 应用中。数据应分类存放于不同的文件夹中。因此在
+  Playgrounds 中，我们有更多的选项。
+
+
+  在本项目中，我们将使用 Kaggle 上的短信垃圾邮件收集数据集。Kaggle 是寻找数据集的一个极好来源。
+
+
+  从 [`www.kaggle.com/uciml/sms-spam-collection-dataset`](http://www.kaggle.com/uciml/sms-spam-collection-dataset%2520)
+  下载短信垃圾邮件收集数据集以开始项目。这是一个简单的 CSV 文件，包含两列，如图 3-2 所示。第一列是短信的标签，第二列是短信内容。我们有两种类别：正常短信和垃圾短信。该数据集包含一组
+  5,574 条英文短信，根据其是否为正常短信（合法）或垃圾短信进行了标记。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig2_HTML.jpg](img/501003_1_En_3_Fig2_HTML.jpg)
+
+
+  图 3-2
+
+
+  短信垃圾邮件收集数据集
+
+
+
+
+  ### 在 macOS Playgrounds 中训练模型
+
+
+  打开 Xcode 并创建一个空白的 **macOS playground**，如图 3-3 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig3_HTML.jpg](img/501003_1_En_3_Fig3_HTML.jpg)
+
+
+  图 3-3：Playgrounds 中的模板
+
+
+  导入所需的框架（`CreateML` 和 `Foundation`），如图 3-4 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig4_HTML.jpg](img/501003_1_En_3_Fig4_HTML.jpg)
+
+
+  图 3-4：在 Playgrounds 中导入框架
+
+
+  如果收到 `CreateML` 不可用的错误，请确保在 Playgrounds 设置中已将 **macOS** 选为平台，如图 3-5 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig5_HTML.jpg](img/501003_1_En_3_Fig5_HTML.jpg)
+
+
+  图 3-5：Playgrounds 设置
+
+
+  下载文本文件后，将文件路径作为参数传递给 `URL` 对象。除了手动编写这段代码，你也可以直接将文件拖放到 Playgrounds 中，系统会自动生成文件路径。
+
+
+  `Create ML` 可以通过两种方式读取数据：当文件按文件夹分类时，使用文件夹名作为标签；或者从单个文件（CSV、JSON）中读取数据。
+
+
+  首先，我们需要将 CSV 文件读取为 `MLDataTable`。`MLDataTable` 是 `Create ML` 中的一个结构体，用于简化文本和表格数据的加载与处理。`Create
+  ML` 中大部分内置的机器学习模型（如 `MLTextClassifier`、`MLRegressor`、`MLClassifier` 等）都以 `MLDataTable`
+  格式读取数据，因此要训练这些模型，我们需要将原始训练数据转换为这种格式。
+
+
+  ```
+
+  let datasetURL = URL(fileURLWithPath: "/Users/ozgur/Desktop/dataset/spam.csv")
+
+  var table = try MLDataTable(contentsOf: datasetURL)
+
+  ```
+
+
+  代码清单 3-1：创建 `URL` 对象
+
+
+  在上述代码中，我们创建了一个指向 CSV 文件的 `URL` 对象，并将其作为参数传递给 `MLDataTable`。
+
+
+  **提示**：如果不想手动输入，你可以将 CSV 文件拖放到 Playgrounds 中，它会自动生成文件路径。
+
+
+  你还可以像代码清单 3-2 中那样，通过 `parsingOptions` 来指导 `MLDataTable` 的解析行为，但由于我们已经手动清理了数据集，这里不需要这样做。使用这些选项，我们可以通过分隔符、行结束符（`lineTerminator`）等设置来指导解析，或者通过
+  `containsHeader` 指定数据是否包含表头。我们甚至可以通过将列名赋值给 `selectColumns` 参数来选择要解析的列。
+
+
+  ```
+
+  let parsingOptions =
+
+  MLDataTable.ParsingOptions(containsHeader: true,
+
+  delimiter: ",", comment: "", escape: "\\",
+
+  doubleQuote: true, quote: "\"", skipInitialSpaces:
+
+  true, missingValues: ["NA"], lineTerminator: "\n",
+
+  selectColumns: ["v1","v2"], maxRows: nil, skipRows: 0)
+
+  var table2 = try MLDataTable(contentsOf:
+
+  datasetURL,options: parsingOptions)
+
+  ```
+
+
+  代码清单 3-2：解析选项
+
+
+  接下来，我们使用 `MLTextClassifier` 创建一个模型，用于对自然语言文本进行分类。通过指定文本列和标签列（垃圾邮件或正常邮件），我们为 `MLTextClassifier`
+  提供指导。
+
+
+  ```
+
+  let classifier = try MLTextClassifier(trainingData:
+
+  table, textColumn: "v2", labelColumn: "v1")
+
+  ```
+
+
+  代码清单 3-3：训练文本分类器
+
+
+  由于我们的列名是 `"v1"` 和 `"v2"`，我们在上面的代码中进行了相应指定。该模型学习将标签与输入文本（可以是句子、段落甚至整个文档）的特征关联起来。
+
+
+  Apple 提供了一个名为 `MLTextClassifier` 的模型训练器。它支持 57 种语言。该模型以监督方式工作，这意味着你的训练数据需要有标签（在本例中，即短信文本及其垃圾邮件分类）。
+
+
+  当你点击播放按钮（如图 3-6 所示）运行 `Create ML` 时，模型开始训练。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig6_HTML.jpg](img/501003_1_En_3_Fig6_HTML.jpg)
+
+
+  图 3-6：使用 `MLTextClassifier` 训练文本分类器
+
+
+
+
+  在训练过程中，它会解析文本数据、对文本进行分词并提取特征。如果你尝试训练此模型，控制台会输出如图 3-7 所示的错误信息。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig7_HTML.jpg](img/501003_1_En_3_Fig7_HTML.jpg)
+
+
+  **图 3-7** 包含错误的训练结果
+
+
+  该错误信息并不详细，但问题出在我们的训练数据中存在某些标点符号。
+
+
+  要解决这个问题，只需在 `TextEdit` 或其他文本应用中打开 CSV 文件，并清理以下标点符号：`\`、`/` 和 `”`（全部替换为空字符串）。
+
+
+  该文件有五列；我们只需要使用前两列。在 `Numbers` 中打开 CSV 文件，并删除最后三列。
+
+
+  清理文本后，再次运行。你会看到如图 3-8 所示的消息。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig8_HTML.jpg](img/501003_1_En_3_Fig8_HTML.jpg)
+
+
+  **图 3-8** 控制台中的训练输出
+
+
+  不同 Mac 上的训练时长会有所不同，但在我的 2015 款 MacBook Pro 上，训练此模型仅需 0.09 秒。
+
+
+  训练模型更好的方法是将数据拆分为训练集和测试集。这样我们就可以评估训练好的模型，并查看它在未见过的数据上表现如何。
+
+
+  清单 3-4 中的代码将数据按 0.8 的比例拆分为 `trainingData`（0.8）和 `testData`（0.2）。
+
+
+  ```
+
+  let (trainingData, testingData) =
+
+  table.randomSplit(by: 0.8)
+
+  let spamClassifier = try
+
+  MLTextClassifier(trainingData: trainingData,
+
+  textColumn:
+
+  "v2",
+
+  labelColumn: "v1")
+
+  ```
+
+
+  **清单 3-4** 使用拆分数据进行训练
+
+
+  训练分类器后，你可以通过调用 `trainingMetrics` 来检查训练指标，如清单 3-5 所示。它会显示模型的准确率，如图 3-9 所示。
+
+
+  ```
+
+  spamClassifier.trainingMetrics
+
+  ```
+
+
+  **清单 3-5** 检查训练指标
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig9_HTML.jpg](img/501003_1_En_3_Fig9_HTML.jpg)
+
+
+  **图 3-9** 训练准确率
+
+
+  要评估模型在测试数据上的表现，请运行清单 3-6 中的代码。它会显示模型在未见过的数据上的表现如何。这能体现模型实际的成功率。图 3-10 展示了评估指标。
+
+
+  ```
+
+  let evaluationMetrics = spamClassifier.evaluation(on:
+
+  testingData, textColumn: "v2", labelColumn: "v1")
+
+  ```
+
+
+  **清单 3-6** 评估模型
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig10_HTML.jpg](img/501003_1_En_3_Fig10_HTML.jpg)
+
+
+  **图 3-10** 评估模型
+
+
+  这里我们看到，模型在测试数据上的准确率为 97%。这表明模型运行良好，不仅记住了训练数据，还具备了泛化能力，因为它在测试数据上同样表现出色。
+
+
+  你还可以在 Playgrounds 中使用任意文本测试训练好的模型。
+
+
+  ```
+
+  try spamClassifier.prediction(from: "We are trying to
+
+  contact you. Last weekends draw shows that you won a
+
+  £1000 prize GUARANTEED. Call 09064012160.")
+
+  //spam
+
+  try spamClassifier.prediction(from: "We are trying to
+
+  contact you. Have you arrived to your house?")
+
+  //ham
+
+  ```
+
+
+  **清单 3-7** 使用模型进行预测
+
+
+  这里我们用一些句子运行垃圾短信分类器模型，它正确地对这些文本进行了分类。
+
+
+  如果这个模型对我们有效，我们就可以保存它，并在 iOS 应用中使用。为了提供模型详情，我们创建了模型元数据。当我们在 Xcode 中打开模型时，会显示这些说明。
+
+
+  ```
+
+  let metadata = MLModelMetadata(author: "Ozgur Sahin",
+
+  shortDescription: "Spam Classifier", license: "MIT",
+
+  version: "1.0")
+
+  try? classifier.write(to: URL(fileURLWithPath:
+
+  "users/ozgur/Desktop/SpamClassifier.mlmodel"))
+
+  ```
+
+
+  **清单 3-8** 导出 Core ML 模型
+
+
+  我们通过向 `write` 函数提供路径来保存模型。请务必根据你的文件夹结构设置路径。Core ML 模型文件以 `.mlmodel` 扩展名保存，因此我们将文件名设置为
+  `SpamClassifier.mlmodel`。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig11_HTML.jpg](img/501003_1_En_3_Fig11_HTML.jpg)
+
+
+  **图 3-11** 项目中的 MLModel
+
+
+  由于我们已经导出了模型，现在可以在 iOS 应用中使用它了。打开 Xcode，使用 App 模板创建一个新项目。确保界面选择 SwiftUI，生命周期选择 SwiftUI
+  App。创建项目后，将 Core ML 模型拖放到项目中。
+
+
+  你也可以使用 Storyboard 作为用户界面，但这里我将使用 SwiftUI，因为它更容易展示结果。
+
+
+  点击模型并检查其详细信息。模型只有 148 kb，如图 3-11 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig12_HTML.jpg](img/501003_1_En_3_Fig12_HTML.jpg)
+
+
+  **图 3-12** 模型详情
+
+
+  在 Xcode 中，我们检查模型的详细信息以及导出模型时提供的元数据。它还显示了模型的输入和输出类型。
+
+
+  当我们把模型拖放到项目时，Xcode 会自动为模型生成一个类，如图 3-13 所示。如果你想查看生成的代码，请点击图 3-13 中的类图标。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig13_HTML.jpg](img/501003_1_En_3_Fig13_HTML.jpg)
+
+
+  **图 3-13** Xcode 生成的 `SpamClassifier` 类
+
+
+  该类如图 3-14 所示。此类包含加载模型和进行预测所需的函数。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig14_HTML.jpg](img/501003_1_En_3_Fig14_HTML.jpg)
+
+
+  **图 3-14** 模型自动生成的类代码
+
+
+  > **注意**：不应编辑此类。
+
+
+  我创建了一个名为 `Classifier` 的类和一个使用模型的简单函数。
+
+
+  ```
+
+  class Classifier
+
+  {
+
+  static let shared = Classifier()
+
+  func predict(text:String)->String?
+
+  {
+
+  let spamClassifier = try?
+
+  SpamClassifier(configuration: MLModelConfiguration())
+
+  let result = try?
+
+  spamClassifier?.prediction(text: text)
+
+  return result?.label
+
+  }
+
+  }
+
+  ```
+
+
+  **清单 3-9** 在项目中使用分类器模型
+
+
+  如上述代码所示，我创建了模型的实例，并对其调用了 `prediction` 方法。预测可能会抛出错误，因此我们需要使用 `try` 来调用它。理想情况下，你可以将其包装在
+  `do-catch` 块中并处理错误。
+
+
+  在项目的 `ContentView` 中，添加清单 3-10 中的代码来调用我们之前创建的预测方法。
+
+
+  ```
+
+  @State var textInput:String = ""
+
+  @State var classificationResult:String?
+
+  var body: some View {
+
+  VStack{
+
+  Text("Spam SMS
+
+  Classifier!").font(.title).foregroundColor(.blue)
+
+  Spacer()
+
+  TextField("Enter SMS Message", text:
+
+  $textInput).multilineTextAlignment(.center).font(.tit
+
+  le).textFieldStyle(RoundedBorderTextFieldStyle())
+
+  Button(action: {
+
+  self.classificationResult =
+
+  Classifier.shared.predict(text: self.textInput)
+
+  }) {
+
+  Text("Classify").font(.title)
+
+  }.frame(width:120,
+
+  height:40).foregroundColor(.white).background(Color.b
+
+  lue).cornerRadius(10)
+
+  Text("Result:\(classificationResult ??
+
+  "")").foregroundColor(.red).font(.title)
+
+  Spacer()
+
+  }
+
+  }
+
+  ```
+
+
+  **清单 3-10** 在 SwiftUI 中调用分类器
+
+
+  在上述代码中，我们创建了一个文本字段和一个按钮。当用户点击按钮时，我们从文本字段中获取输入，并将其发送给垃圾短信分类器模型。模型的分类结果显示在第二个文本字段中。
+
+
+  添加代码后，只需点击播放按钮即可运行应用程序。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig15_HTML.jpg](img/501003_1_En_3_Fig15_HTML.jpg)
+
+
+  **图 3-15** 运行垃圾短信分类器应用
+
+
+
+
+  此应用在 SwiftUI 预览中运行，如图 3-15 所示。在这里，你可以像使用模拟器一样使用应用并测试垃圾邮件分类器。在文本字段中输入一些文本，然后点击`分类`按钮来试用你的智能应用。一些示例见图
+  3-16。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig16_HTML.jpg](img/501003_1_En_3_Fig16_HTML.jpg)
+
+
+  **图 3-16** 垃圾短信分类器应用
+
+
+  恭喜！你刚刚创建了一个能够检测垃圾短信的智能应用。
+
+
+  ## 使用 Create ML 应用进行垃圾邮件分类
+
+
+  我们之前使用`Create ML`框架训练了文本分类模型。现在，我们将使用`Create ML`应用（v1.0）来训练相同的模型。`Create ML`为不同类型的数据（图像、文本、声音）提供了多个项目模板。对于本项目，请选择文本分类器，如图
+  3-17 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig17_HTML.jpg](img/501003_1_En_3_Fig17_HTML.jpg)
+
+
+  **图 3-17** `Create ML`应用中的文本分类器模板
+
+
+  首先，我们需要提供训练数据。`Create ML` v1 中的文本分类器只接受文件夹中的文本数据。`Create ML` 1.1 版本仍处于测试阶段，它将支持从`CSV`和`JSON`文件中读取。
+
+
+  对于 v1 版本，我们需要解析我们的`CSV`文件，并为`ham`或`spam`文件夹中的每一行创建一个文本文件。我编写了一个简单的函数来解析`CSV`并创建文件。
+
+
+  ```
+
+  import Cocoa
+
+  import CreateML
+
+  let datasetURL = URL(fileURLWithPath: "/Users/ozgur/
+
+  Desktop/NLP book REFS/dataset/spamCleaned.csv")
+
+  var table = try MLDataTable(contentsOf: datasetURL)
+
+  func createFiles(from rows:MLDataTable.Rows) {
+
+  for (index,row) in rows.enumerated() {
+
+  if let text = row["v2"]?.debugDescription,
+
+  let label = row["v1"]?.debugDescription
+
+  {
+
+  do {
+
+  var folder = "spam"
+
+  if label == "ham"
+
+  {
+
+  folder = "ham"
+
+  }
+
+  let fileURL = URL(fileURLWithPath: "/
+
+  Users/ozgur/Desktop/NLP book REFS/dataset/
+
+  spamsetInFolders/\(folder)/\(index).csv")
+
+  try text.write(to: fileURL,
+
+  atomically: true, encoding: .utf8)
+
+  } catch {
+
+  print("error creating file")
+
+  }
+
+  }
+
+  }
+
+  }
+
+  createFiles(from: table.rows)
+
+  ```
+
+
+  **代码清单 3-11** 读取`CSV`并创建文本文件
+
+
+  你可以根据电脑情况更改文件路径，并在 macOS Playgrounds 中运行这段代码。它将创建如图 3-18 所示的文本文件。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig18_HTML.jpg](img/501003_1_En_3_Fig18_HTML.jpg)
+
+
+  **图 3-18** 为`Create ML`应用准备的文本文件
+
+
+  现在，我们可以将父文件夹（`spamsetInFolders`）拖放到`Create ML`应用的“训练数据”面板中。或者，你也可以在访达中选择一个文件夹，方法是点击“训练数据”面板中的`选择文件`。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig19_HTML.jpg](img/501003_1_En_3_Fig19_HTML.jpg)
+
+
+  **图 3-19** `Create ML`应用训练数据面板
+
+
+  `Create ML`应用将读取文件并显示类别数量和文件数量。`Create ML`还提供了一些不同的算法来训练你的文本分类模型。目前，提供的算法有最大熵、条件随机场和迁移学习。在迁移学习中，有两个选项：静态嵌入和动态嵌入。静态嵌入为单词使用静态向量表示，不考虑单词的上下文。动态嵌入则考虑单词的上下文。因此，对于“思想食粮”和“我需要食物”这两个样本中的单词“食物”，动态嵌入会创建不同的向量。而静态嵌入则会创建相同的向量。
+
+
+  选择你的算法并点击`训练`按钮，开始训练文本分类器模型。`Create ML`会在一个简单的图表中显示当前训练状态和每次迭代的准确率，如图 3-20 所示。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig20_HTML.jpg](img/501003_1_En_3_Fig20_HTML.jpg)
+
+
+  **图 3-20** 在`Create ML`应用中训练
+
+
+  你可以通过点击标签来查看训练和验证的结果。对于验证，`Create ML`会留出一小部分训练数据，用于验证模型的进度。这能提升模型在未见过的示例上的性能。验证准确率让`Create
+  ML`知道何时停止训练。验证数据的分割是随机进行的，因此每次训练可能会看到不同的结果。
+
+
+  如果你有测试数据，可以在“测试”标签中测试你的模型。了解模型在未见过的数据上的表现非常重要。你也可以在“输出”标签中输入任意文本来测试模型。如果你对模型的准确率满意，只需将模型从“输出”面板拖放到一个文件夹或
+  Xcode 项目中即可。你刚刚使用`Create ML`应用训练了你的第一个模型，现在它就可以在你的项目中使用了。
+
+
+  ## 使用 Turi Create 进行垃圾邮件分类
+
+
+  在前面的章节中，我们学习了如何通过分别使用`Create ML`框架和`Create ML`应用来创建垃圾邮件分类器。在本节中，我们将使用`Turi Create`来训练垃圾邮件分类器。`Turi
+  Create`是一个用于创建 Core ML 模型的开源 Python 库。它支持多种任务，如图像分类、对象检测、风格迁移、推荐、文本分类等。与`Create
+  ML`相比，`Turi Create`提供了更多参数来训练 ML 模型。
+
+
+  由于这是一个 Python 库，我们无法直接开始编码；我们需要先设置好 Python 环境才能开始使用`Turi Create`。
+
+
+  ### Turi Create 环境设置
+
+
+  `Turi Create`支持 Python 2.7、3.5、3.6 和 3.7 版本。处理 Python 项目时，建议使用虚拟环境。虚拟环境通过为不同项目创建隔离的
+  Python 虚拟环境，来分离它们各自所需的依赖项。代码清单 3-12 中的代码安装了`virtualenv`包并创建了你的虚拟环境。在终端中运行并激活你的环境。
+
+
+  ```
+
+  pip install virtualenv
+
+  #### 创建一个 Python 虚拟环境
+
+  cd ~
+
+  virtualenv venv
+
+  # 激活你的虚拟环境 source ~/venv/bin/activate
+
+  ```
+
+
+  **代码清单 3-12** 创建虚拟环境
+
+
+  激活环境后，使用代码清单 3-13 中的代码安装`Turi Create`。如果你在环境中，应该在终端行首看到`venv`。使用代码清单 3-13 中的代码安装`Turi
+  Create`和`iPython`。`iPython`让我们可以使用交互式 Python 笔记本。
+
+
+  ```
+
+  pip install -U turicreate
+
+  pip install ipython
+
+  ipython notebook
+
+  ```
+
+
+  **代码清单 3-13** 安装`Turi Create`和`iPython`
+
+
+  这段代码将在你的浏览器中打开 Jupyter。点击`新建`并创建一个 Python 笔记本。在笔记本中，你可以运行单元格并立即看到结果。这对于进行实验并以交互方式查看结果非常有用。
+
+
+
+
+  ### 使用 Turi Create 训练文本分类器
+
+
+  查看清单 3-14 中的代码，了解在 Turi Create 中训练模型有多么简单。
+
+
+  ```
+
+  import turicreate as tc
+
+  #### 读取 CSV 文件
+
+  data = tc.SFrame.read_csv(''/Users/ozgur/Desktop/
+
+  dataset/spamCleaned.csv'', header=True, delimiter='','',
+
+  quote_char=''\0'')
+
+  #### 重命名列
+
+  data = data.rename({''v1'': ''label'', ''v2'': ''text''})
+
+  #### 分割数据
+
+  training_data, test_data = data.random_split(0.8)
+
+  #### 创建文本分类器模型
+
+  model = tc.text_classifier.create(training_data,
+
+  ''label'', features=[''text''], max_iterations=100)
+
+  #### 评估模型
+
+  metrics = model.evaluate(test_data)
+
+  print(metrics[''accuracy''])
+
+  #### 导出至 Core ML 使用
+
+  model.export_coreml(‘SpamClassifierWithTuri.mlmodel'')
+
+  清单 3-14
+
+  使用 Turi Create 训练垃圾邮件分类器
+
+  ```
+
+
+  使用这段代码，我们读取了 CSV 文件并将列重命名为 `label` 和 `text` 以便理解。我们将数据分割为训练集（80%）和测试集（20%）。我们创建了一个迭代
+  100 次的文本分类器模型；默认迭代次数为 10。这允许对数据进行更多次遍历，从而可能训练出更准确的模型。这里，我们还可以指定 `drop_stop_words`
+  来忽略像“the”、“a”和“is”这样非常常见的单词，指定 `word_count_threshold` 来忽略较少出现的单词，或者指定 `method` 来使用词袋模型或词袋逻辑回归（逻辑分类器）。训练模型后，我们使用测试数据对其进行评估。这显示了模型在未见过的数据上的准确度。最后，我们导出
+  Core ML 模型，以便在 Xcode 项目中使用。
+
+
+  现在，打开你导出的 MLModel 文件查看模型详细信息，如图 3-21 所示。它的输入与我们用 Create ML 训练的模型不同。
+
+
+  该模型接收文本的词袋表示。词袋表示显示了单词在文本中出现的次数。
+
+
+  ![../images/501003_1_En_3_Chapter/501003_1_En_3_Fig21_HTML.jpg](img/501003_1_En_3_Fig21_HTML.jpg)
+
+
+  图 3-21
+
+
+  使用 Turi Create 训练的垃圾邮件分类器
+
+
+  为了创建文本的词袋表示，我们可以使用 `NSLinguisticTagger`。清单 3-15 中的代码取自 Apple 在 Turi Create 文档中的示例代码。
+
+
+  ```
+
+  func bow(text: String) -> [String: Double] {
+
+  var bagOfWords = [String: Double]()
+
+  let tagger = NSLinguisticTagger(tagSchemes:
+
+  [.tokenType], options: 0)
+
+  let range = NSRange(location: 0, length:
+
+  text.utf16.count)
+
+  let options: NSLinguisticTagger.Options =
+
+  [.omitPunctuation, .omitWhitespace]
+
+  tagger.string = text.lowercased()
+
+  tagger.enumerateTags(in: range, unit: .word,
+
+  scheme: .tokenType, options: options) { _,
+
+  tokenRange, _ in
+
+  let word = (text as NSString).substring(with:
+
+  tokenRange)
+
+  if bagOfWords[word] != nil {
+
+  bagOfWords[word]! += 1
+
+  } else {
+
+  bagOfWords[word] = 1
+
+  }
+
+  }
+
+  return bagOfWords
+
+  }
+
+  let bagOfWords = bow(text: text)
+
+  let prediction = try?
+
+  SpamClassifierWithTuri().prediction(text: bagOfWords)
+
+  清单 3-15
+
+  词袋表示
+
+  ```
+
+
+  在上述代码中，`bow` 函数接收一个字符串并返回一个字典。该字典显示了每个单词在给定文本中出现的次数。在使用从 Turi Create 导出的模型之前，我们先创建文本的词袋表示，并将其作为输入提供给模型。
+
+
+  ## 本章小结
+
+
+  在本章中，我们通过编写一个能够自动检测垃圾短信的垃圾短信分类器应用，亲自动手实践。我们学习了如何使用 Apple 的机器学习工具。通过在 Create ML 框架、Create
+  ML 应用和 Turi Create 中训练文本分类器模型，我们了解了它们的优缺点。本章旨在让您熟悉这些工具。在后续章节中，我们将训练更复杂的模型，以构建更智能的应用。
+
+
+  '
+- "# 4. 文本生成\n\n文本生成允许我们使用合适的单词或短语自动补全句子。近年来，基于神经网络模型的文本生成技术得到了显著提升。这些模型通常受益于循环神经网络或\
+  \ Transformer。在本章中，我们将学习如何使用最佳文本生成模型之一（GPT-2），并基于该模型构建一个 iOS 应用。我们的应用将利用内置的 OCR\
+  \ 功能从摄像头捕获文本，并根据扫描到的句子生成文本。\n\n\n\n## GPT-2\n\n`GPT-2` 是 `OpenAI`（一家位于旧金山的人工智能研究与部署公司）发布的\
+  \ `GPT`（生成式预训练 Transformer）的后续模型。Transformer 是该模型以及许多其他语言模型背后的架构。Transformer 主要由编码器和解码器组成，还包含注意力层，能让模型聚焦于输入序列的特定部分。由于这超出了本书的范畴，我们不会深入探讨\
+  \ Transformer 的细节。如果你只是打算用这个模型开发一个移动应用，那么了解其浅层知识就足够了。\n\n原始的 `GPT-2` 模型是在 40 GB\
+  \ 的互联网文本（`GPT-2 WebText`）上训练的。`GPT-2` 是一个基于 Transformer 的大型语言模型，拥有 15 亿个参数，在一个数据集上训练而成。语言模型通过训练来根据前文预测下一个单词。\n\
+  \n出于对该技术可能被恶意应用的担忧，`OpenAI` 并未公开分享其训练好的模型。他们分享了一个较小的模型版本供研究人员实验。该模型的补全效果非常好，有时甚至能产生令人惊叹的结果。你可以通过以下网址，用任意文本输入来尝试这个模型：[`https://transformer.huggingface.co/doc/gpt2-large`](https://transformer.huggingface.co/doc/gpt2-large)。图\
+  \ 4-1 中的图片展示了给定句子后的预测结果。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig1_HTML.jpg](img/501003_1_En_4_Fig1_HTML.jpg)\n\
+  \n图 4-1\nGPT-2 文本预测\n\n要在 iOS 中使用这类模型，你需要将其转换为 Core ML 模型格式（扩展名为 `.mlmodel` 的模型）。通常使用\
+  \ `coremltools` 库来完成模型的转换。这个 Python 包由 Apple 开发，支持从 `TensorFlow` 和 `PyTorch` 进行转换。\n\
+  \n如果模型中有 `coremltools` 不支持的层，这种模型的转换有时可能会出现问题。幸运的是，Hugging Face 开源了他们的模型实现、转换脚本，甚至还有\
+  \ Core ML 模型本身。Hugging Face 是一家专注于自然语言处理的公司，以其开源框架 `transformers` 而闻名，该框架在 GitHub\
+  \ 上拥有超过 30000 颗星。他们有一个独立的仓库（`swift-coreml-transformers`），用于存放已转换为 Core ML 格式以便在\
+  \ iOS 设备上运行的 Transformer 模型。目前，该仓库包含 `GPT-2`、`DistilGPT-2`、`BERT`（来自 Transformer\
+  \ 的双向编码器表示）和 `DistilBERT` 模型。名称以“Distil”开头的模型都是经过压缩的模型，通常速度更快，参数更少。例如，`DistilBERT`\
+  \ 的参数比 `bert-base-uncased` 少 40%，运行速度快 60%，同时根据 GLUE 基准测试，保留了 `BERT` 97% 的性能。\n\n\
+  我们将使用 `DistilGPT-2` 模型，以便在移动设备上实现更快的预测。如果你对将 `DistilGPT-2` 转换为 Core ML 格式的代码感到好奇，请查阅\
+  \ [`https://github.com/huggingface/swift-coreml-transformers/blob/master/model_generation/gpt2.py`](https://github.com/huggingface/swift-coreml-transformers/blob/master/model_generation/gpt2.py)\
+  \ 的代码。我们在示例项目中将使用转换后的模型。转换后的模型可以从此处下载：[`https://github.com/huggingface/swift-coreml-transformers/blob/master/Resources/distilgpt2-64-6.mlmodel`](https://github.com/huggingface/swift-coreml-transformers/blob/master/Resources/distilgpt2-64-6.mlmodel)。\n\
+  \n我们将要开发的应用，将通过摄像头扫描文本，并使用内置的 OCR 进行识别。结果将显示在底部的文本视图中。如果用户对识别的文本满意，他们可以点击中央的扫描区域矩形，应用便会以此文本为基础开始预测。\n\
+  \n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig2_HTML.jpg](img/501003_1_En_4_Fig2_HTML.jpg)\n\
+  \n图 4-2\nOCR 应用\n\n我们将探索，当 AI 在续写《安娜·卡列尼娜》中的一句名言时，会如何发展。\n\n> *幸福的家庭都是相似的，不幸的家庭各有各的不幸。*\n\
+  > \n> —列夫·托尔斯泰\n\n## 让我们构建 OCR 和文本生成应用\n\n首先，我们将构建应用的 OCR 功能。它会扫描摄像头流，并聚焦于感兴趣的区域，如图\
+  \ 4-2 所示。扫描较小的区域可以让我们更经济地使用计算资源。\n\n对于扫描部分，我们将使用 Apple 的示例项目“实时读取电话号码”（[`https://developer.apple.com/documentation/vision/reading_phone_numbers_in_real_time`](https://developer.apple.com/documentation/vision/reading_phone_numbers_in_real_time)）作为基础项目。它展示了处理实时视频流并识别特定区域文本的最佳实践。\n\
+  \n请从这里下载初始项目：[`https://github.com/ozgurshn/Chapter3-ScanAndGenerate/tree/master/starter`](https://github.com/ozgurshn/Chapter3-ScanAndGenerate/tree/master/starter)。这是一个模板项目，我们为你设置好了，以便让你更轻松地开始。你也可以在此处找到完成的项目：[`https://github.com/ozgurshn/Chapter3-ScanAndGenerate/tree/master/final`](https://github.com/ozgurshn/Chapter3-ScanAndGenerate/tree/master/final)。我建议你从初始项目开始，并按照练习来理解实现过程。\n\
+  \n让我们打开并检查我们的初始项目。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig3_HTML.jpg](img/501003_1_En_4_Fig3_HTML.jpg)\n\
+  \n图 4-3\n初始 OCR 和文本生成项目\n\n如图 4-3 所示，我们的示例项目包含 `Views` 和 `GPT` 文件夹。`Views` 包含与 `ViewController`\
+  \ 相关的文件。`GPT` 包含与文本生成相关的类。为了让你专注于特定任务，许多像摄像头设置和视图定位这样的琐碎工作已经为你完成了。你只需要负责 OCR 和文本生成部分。我们将以初始项目为基础，一起进行开发。\n\
+  \n首先，让我们从 [`https://github.com/huggingface/swift-coreml-transformers/blob/master/Resources/distilgpt2-64-6.mlmodel`](https://github.com/huggingface/swift-coreml-transformers/blob/master/Resources/distilgpt2-64-6.mlmodel)\
+  \ 下载 `GPT-2` 的 Core ML 模型，然后将其拖放到 Xcode 项目中的 `GPT` 文件夹中。\n\n初始项目有一个视图控制器，名为 `ViewController.swift`；而\
+  \ `VisionViewController` 是这个视图控制器的一个扩展，专注于 Vision 框架相关的任务（例如，文本识别）。`PreviewView`\
+  \ 管理视频预览层，以正确显示摄像头流。\n\n你需要编写实现代码的部分已用“TODO”标记，如图 4-4 所示。只需点击 `VisionViewController`\
+  \ 并查看待办事项列表。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig4_HTML.jpg](img/501003_1_En_4_Fig4_HTML.jpg)\n\
+  \n图 4-4\nVisionViewController 函数\n\n\n\n### 使用内置 OCR\n\n在 `VisionViewController`\
+  \ 中找到 `captureOutput` 函数；每当相机捕获到一帧画面时，都会调用此函数。我们将在该函数中处理这一帧画面并对其执行文本识别。将代码清单 4-1\
+  \ 中的代码复制到 `captureOutput` 函数中。\n\n```\nif let pixelBuffer =\nCMSampleBufferGetImageBuffer(sampleBuffer)\
+  \ {\n// 配置为实时运行。\nrequest.recognitionLevel = .fast\nrequest.usesLanguageCorrection\
+  \ = true\n// 仅对感兴趣区域运行以最大化速度。\nrequest.regionOfInterest = regionOfInterest\nlet\
+  \ requestHandler =\nVNImageRequestHandler(cvPixelBuffer: pixelBuffer,\norientation:\
+  \ textOrientation, options: [:])\ndo {\ntry\nrequestHandler.perform([request])\n\
+  } catch {\nprint(error)\n}\n}\n```\n*代码清单 4-1* – 执行文本识别请求\n\n通过上述代码，我们从样本缓冲区创建了\
+  \ `CVPixelBuffer`。Vision 请求更偏好 `CVPixelBuffer` 类型而非 `CMPixelBuffer`。`VNRecognizeTextRequest`\
+  \ 是在 `viewDidLoad` 函数中创建的；这样可以避免在每帧捕获时重复创建。`VNRecognizeTextRequest` 有两种识别级别选项：准确（accurate）或快速（fast）。我们在此作出权衡，选择快速以便更适应实时场景。此请求的另一个属性是\
+  \ `usesLanguageCorrection`；它在文本识别过程中应用语言校正。为追求最大速度，我们指定了 `regionOfInterest` 来引导识别过程关注帧中的特定区域。与所有\
+  \ Vision 请求类似，我们使用像素缓冲区和方向创建一个图像请求处理器，并执行 Vision 请求。\n\n我们编写了对捕获帧执行文本识别请求的部分。接下来，编写处理文本识别结果的部分。\n\
+  \n在同一文件中找到 `recognizeTextHandler` 函数。每次文本识别过程完成后都会调用此函数。它是在 `viewDidLoad` 函数中创建\
+  \ Vision 请求时设定的。将代码清单 4-2 中的代码复制到 `recognizeTextHandler` 函数中。\n\n```\nguard let\
+  \ results = request.results as?\n[VNRecognizedTextObservation] else {\nreturn\n\
+  }\nlet maximumCandidates = 1\nif let visionResult = results.first {\nguard let candidate\
+  \ =\nvisionResult.topCandidates(maximumCandidates).first\nelse { return }\nprint(candidate.string)\n\
+  showString(string: candidate.string)\n}\n```\n*代码清单 4-2* – 文本识别过程结果\n\n在上述代码中，我们检查请求结果中是否存在结果，如果存在，则获取第一个结果。这是文本识别请求的预测结果。`topCandidates`\
+  \ 函数返回按置信度分数降序排列的预测结果，因此第一个结果是最佳预测。我们获取第一个候选对象的预测字符串并将其显示在屏幕上。`showString` 方法接收该字符串并将其显示在文本视图中。它通过调用\
+  \ `DispatchQueue.main.async` 将此调用分发到主线程，以确保 UI 更新正确执行。\n\n我们的 OCR 应用已准备就绪。现在你可以运行应用并在你的\
+  \ iPhone 上尝试。如果将相机对准任何文本，你将会看到如图 4-5 所示的 OCR 结果。你无法在模拟器上使用此应用，因为它不支持相机捕获。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig5_HTML.jpg](img/501003_1_En_4_Fig5_HTML.jpg)\n\
+  *图 4-5* – 文本识别应用\n\n既然我们已经完成了文本识别部分，接下来将继续构建我们的应用，以使用 AI 模型生成文本。\n\n### 使用 AI 模型生成文本\n\
+  \n在这部分，我们将把文本生成模型（DistilGPT-2）集成到我们的项目中。起始项目已包含你所需的文件，如图 4-6 所示。打开 `GPT` 文件夹并查看这些文件。在该文件夹中看到的第一个文件是\
+  \ `DistilGPT-2` 的 Core ML 模型版本。我们将使用此模型基于输入生成文本。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig6_HTML.jpg](img/501003_1_En_4_Fig6_HTML.jpg)\n\
+  *图 4-6* – 项目中的 GPT 文件\n\n让我们通过在 Xcode 中选择此模型来检查它。第一个标签页，即“元数据”（`Metadata`），如图 4-7\
+  \ 所示，显示了模型的元数据，如名称、类型和大小。第二个标签页，即“预测”（`Predictions`），显示了模型的输入和输出类型。最后一个标签页，即“工具”（`Utilities`），提供了一些用于模型加密或在\
+  \ CloudKit 上托管模型的功能。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig7_HTML.jpg](img/501003_1_En_4_Fig7_HTML.jpg)\n\
+  *图 4-7* – Xcode 中的 DistilGPT-2 模型\n\n模型名称是 `distilgpt2_64_6`。名称中的 64 表示模型作为输入的序列长度（token\
+  \ 数量）。\n\n此屏幕的中间部分显示了 Xcode 自动生成的 Swift 文件。下方部分显示了模型的输入和输出类型。我们需要将输入文本转换为模型输入格式。如上图所示，模型接收两个包含\
+  \ 64 个双精度值的 `MultiArray`。\n\n幸运的是，将文本转换为模型输入格式的代码由 Hugging Face 的 Julien Chaumond\
+  \ 编写。`GPT` 文件夹下的文件来自其代码库。打开 `GPT2.swift` 文件来检查此代码。\n\n它有三种解码策略：贪婪（greedy，每一步选择最可能的下一个\
+  \ token）、topK（仅从概率最高的前 k 个 token 中采样）和 topP（累积概率超过阈值的前缀 token）。这些解码策略决定了如何选择预测结果。\n\
+  \n预测通过此类中的 `predict` 函数完成，如代码清单 4-3 所示。该函数使用 `DistilGPT-2` 模型从先前 token 数组中预测下一个\
+  \ token。Token 以 `GPT2ByteEncoder.swift` 文件中映射的相应数字表示。由于 AI 模型在数字上比在文本上工作得更好，我们将文本数据转换为数字。\n\
+  \n```\nfunc predict(tokens: [Int]) -> Int {\nlet maxTokens = (tokens.count > seqLen)\n\
+  ? Array(tokens[..<seqLen])\n: tokens\n/// 在右侧填充 input_ids，直到 `seqLen`：\nlet input_ids\
+  \ = MLMultiArray.from(\nmaxTokens + Array(repeating: 0, count:\nseqLen - maxTokens.count)\n\
+  )\nlet position_ids = MLMultiArray.from(\nArray(0..<seqLen)\n)\nlet output = try!\
+  \ model.prediction(input_ids: input_ids, position_ids:\nposition_ids)\nlet outputLogits\
+  \ = MLMultiArray.slice(\noutput.output_logits,\nindexing:\n[.select(0), .select(maxTokens.count\n\
+  - 1), .slice, .select(0), .select(0)]\n)\nswitch strategy {\ncase .greedy:\nlet\
+  \ nextToken = Math.argmax(outputLogits)\nreturn nextToken.0\ncase .topK(let k):\n\
+  let logits =\nMLMultiArray.toDoubleArray(outputLogits)\nlet topk = Math.topK(arr:\
+  \ logits, k: k)\nlet sampleIndex = Math.sample(indexes:\ntopk.indexes, probs: topk.probs)\n\
+  return sampleIndex\ncase .topP(_):\nfatalError(\"topP is not implemented yet\")\n\
+  }\n}\n```\n*代码清单 4-3* – 文本预测函数\n\n该类中的另一个函数是 `generate` 函数，如代码清单 4-4 所示。它接收文本和要生成的\
+  \ token 数量作为输入。它对输入文本进行编码，调用预测函数，并返回预测结果。它将每个预测结果追加到输入 token 中，以便对文本的最新版本进行预测。\n\
+  \n最后，它将结果解码为文本格式而非数字形式进行呈现。\n\n\n\n```swift\nfunc generate(text: String, nTokens:\
+  \ Int = 10,\n              callback: ((String, Double) -> Void)?) -> String {\n\
+  \    var tokens = tokenizer.encode(text: text)\n    var newTokens: [Int] = []\n\
+  \    for i in 0..<nTokens {\n        let (nextToken, time) = Utils.time {\n    \
+  \        return predict(tokens: tokens)\n        }\n        tokens.append(nextToken)\n\
+  \        newTokens.append(nextToken)\n        print(\"![../images/501003_1_En_4_Chapter/501003_1_En_4_Figa_HTML.jpg](img/501003_1_En_4_Figa_HTML.jpg)\
+  \ <\\(time)s>\", i, nextToken, tokens.count)\n        callback?(\n            tokenizer.decode(tokens:\
+  \ newTokens),\n            time)\n    }\n    return tokenizer.decode(tokens: newTokens)\n\
+  }\n```\n\n我们实现了使用 `DistilGPT-2` 模型所需的函数。现在，只需在用户点击屏幕上的裁剪矩形时调用 `generate` 函数即可。要实现此功能，请在\
+  \ `ViewController.swift` 文件中找到 `handleTap` 方法，并按照代码清单 4-5 所示实现该函数和 `generateText`\
+  \ 函数。\n\n```swift\n@IBAction func handleTap(_ sender: UITapGestureRecognizer) {\n\
+  \    captureSessionQueue.async {\n        self.captureSession.stopRunning()\n  \
+  \      self.generateText(input: self.recognizedText)\n    }\n}\n\nfunc generateText(input:\
+  \ String) {\n    DispatchQueue.global(qos: .userInitiated).async {\n        _ =\
+  \ self.gpt2Model.generate(text: input,\n                                    nTokens:\
+  \ 50) { completion, time in\n            DispatchQueue.main.async {\n          \
+  \      self.textView.text = completion\n            }\n        }\n    }\n}\n```\n\
+  \n在 `handleTap` 函数中，我们停止摄像头会话，并用识别到的文本调用 `generateText` 函数。\n\n在 `generateText`\
+  \ 函数中，我们调用 `gpt2Model` 的 `generate` 函数，生成 50 个 token，并将生成的文本显示在文本视图中。我们在主线程中执行 UI\
+  \ 更新。\n\n恭喜！你刚刚构建了一个智能应用，它可以识别文本，并利用 AI 模型补全识别到的文本。现在，让我们在设备上运行这个应用，看看它如何补全 *安娜·卡列尼娜*\
+  \ 的名言。我的模型结果如图 4-8 所示。\n\n![../images/501003_1_En_4_Chapter/501003_1_En_4_Fig8_HTML.jpg](img/501003_1_En_4_Fig8_HTML.jpg)\n\
+  \n**图 4-8** AI 模型补全《安娜·卡列尼娜》引文\n\n## 总结\n\n在本章中，我们学习了如何利用 `Vision` 框架内置的文本识别能力，构建一个能够从手机摄像头读取文字的\
+  \ OCR 应用。我们还使用了最优秀的文本生成模型之一（`DistilGPT-2`），根据识别到的文本生成句子。\n\n"
+- "# 5. 在文本文档中寻找答案\n\n你是否曾想通过查看纸质文件来寻找答案？如今，我们可以利用最新的 AI 模型来实现这一点。NLP 技术在过去几年取得了巨大进步。借助最新的\
+  \ Transformer 模型，我们甚至能在文本文档中找出问题的答案。在本章中，我们将学习如何开发一款搭载此技术的 iOS 应用。这款智能应用能够在一份给定文档中找出答案并高亮显示，还能使用文本转语音功能朗读答案。你将了解\
+  \ 2018 年最先进的 NLP 模型——`BERT`。我们将开发一个问答应用，学习如何在 iOS 中使用该模型。\n\n## BERT\n\n`BERT`（来自\
+  \ Transformer 的双向编码器表示）由 Google AI 语言团队于 2018 年底发布。它在包括问答、命名实体识别以及其他与通用语言理解相关的任务在内的十一个自然语言处理任务上取得了新的最优结果。\n\
+  \n`BERT` 的主要创新在于 Transformer 的双向训练。包括 `GPT` 在内的许多先前模型都采用从左到右的架构，其中每个 token 只能关注之前的\
+  \ token。相比之下，`BERT` 模型一次性读取输入序列，而不是从左到右顺序读取；这使我们不仅能够考虑之前的 token，还能考虑后面的 token。`BERT`\
+  \ 模型表明，与单向模型相比，双向训练能更深入地理解单词的上下文。\n\n在训练过程中，`BERT` 模型使用两种训练策略：遮蔽语言模型（Masked LM）和下一句预测（`NSP`）。\n\
+  \n遮蔽语言模型是一种技术，通过在每个序列中随机遮蔽 15% 的单词，并强制模型预测这些词。这使模型学会如何利用整个句子的信息来推断缺失的单词。\n\n在训练过程中，模型还被强制根据上一句猜测下一句。该任务的输入由\
+  \ 50% 的连续句子对和 50% 的不相关句子组成。通过用这些数据进行训练，模型学会了根据前一句预测下一句。\n\n`BERT` 模型的架构基于 Transformer。它由编码器层组成。由于\
+  \ `BERT` 的目标是生成语言模型，因此它仅使用编码器。本章介绍了两种架构：`BERT Base` 和 `BERT Large`。基础模型的大小与 OpenAI\
+  \ Transformer 相当，以便进行性能比较。大型模型则更大，取得了最优结果。基础版本有 12 个编码器层；大型版本有 24 个层，如图 5-1 所示。\n\
+  \n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig1_HTML.jpg](img/501003_1_En_5_Fig1_HTML.jpg)\n\
+  \n**图 5-1** BERT 模型架构\n\n与 `word2vec` 不同，`BERT` 模型根据单词的周围上下文来创建单词的向量表示。它能够更深入地理解单词所使用的上下文。\n\
+  \n`BERT` 模型的知识可以轻松迁移到各种 NLP 任务中（迁移学习）。这使得它非常有用。你可以根据具体用例添加一个小型网络层。例如，你可以添加一个分类层用于分类，如图\
+  \ 5-2 所示，或者标记答案的起始和结束位置，训练一个用于问答的模型。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig2_HTML.jpg](img/501003_1_En_5_Fig2_HTML.jpg)\n\
+  \n**图 5-2** 使用 BERT 作为分类器\n\n如前所述，`BERT` 的训练策略之一是下一句预测。给定一对句子，它预测第二个句子是否是第一个句子的实际下一句。这可用于问答，因为它能建立对两个句子之间关系的理解。\n\
+  \n`BERT` 使用特殊 token 来标识输入序列的开头（`[CLS]`），使用 token（`[SEP]`）分隔句子，并使用 token（`[MASK]`）随机遮蔽单词。\n\
+  \n通过添加单层网络，我们可以微调一个用于下一句预测的模型，如图 5-3 所示。在将数据输入模型之前，我们对输入文本进行分词，并使用 token 来引导模型。基于用\
+  \ `[SEP]` token 分隔的两个句子，它可以预测下一句是否是第一个句子的实际下一句。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig3_HTML.jpg](img/501003_1_En_5_Fig3_HTML.jpg)\n\
+  \n**图 5-3** 下一句预测\n\n\n\n问答也被构建为一种预测任务。我们向模型提供一个问题和一段上下文段落，模型会预测段落中能最可能回答该问题的起始和结束标记，如图\
+  \ 5-4 所示。你可以使用标记来引导模型，指示文本中你需要的信息，并且模型会针对该特定任务（在此例中为问答任务）进行微调。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig4_HTML.jpg](img/501003_1_En_5_Fig4_HTML.jpg)\n\
+  \n图 5-4：使用 BERT 进行问答\n\n通过句子和词语进行演示可能有助于你更好地理解。图 5-5 中的示例文本来自 WWDC 2019 的一张幻灯片。我们将经过分词处理的问题和段落输入到微调后的模型中，模型会在段落中定位出答案。\n\
+  \n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig5_HTML.jpg](img/501003_1_En_5_Fig5_HTML.jpg)\n\
+  \n图 5-5：BERT 问答模型\n\n我们已经学习了`BERT`模型的工作原理。现在，我们将使用该模型构建一个问答应用。\n\n### 构建问答应用\n\n\
+  我们将使用 SwiftUI 构建一个包含两个文本视图的应用。一个用于显示段落，另一个用于输入问题。用户复制段落，写下问题，然后点击一个按钮。我们将使用`BERT`问答模型在给定的文本中找出答案，并将其高亮显示给用户。让我们通过动手实践来构建这个应用并学习。\n\
+  \n## BERT-SQuAD\n\n`SQuAD`（斯坦福问答数据集）是一个基于维基百科文章的问答数据集，其中每个问题都包含答案。`SQuAD 2.0`包含\
+  \ 10 万个可回答问题和 5 万个不可回答问题。这有助于机器学习模型不仅能够找到答案，还能检测出给定文本中是否没有答案。\n\n`BERT-SQuAD`模型就是使用该数据集针对问答任务进行微调的。它知道如何根据问题定位答案。幸运的是，苹果公司在其网站上以\
+  \ Core ML 格式发布了这个模型（[`https://ml-assets.apple.com/coreml/models/Text/QuestionAnswering/BERT_SQUAD/BERTSQUADFP16.mlmodel`](https://ml-assets.apple.com/coreml/models/Text/QuestionAnswering/BERT_SQUAD/BERTSQUADFP16.mlmodel)）。请通过此链接下载`BERT-SQuAD`模型。模型的名称为`BERTSQUADFP16.mlmodel`。`FP16`表示模型权重使用半精度（16\
+  \ 位）浮点数存储。这有助于将模型压缩到更小的尺寸。\n\n## 检查 Core ML 模型\n\n使用 Xcode 打开模型进行查看。通过这种方式，我们可以查看模型的输入、输出、大小以及许可证、模型来源等详细信息，如图\
+  \ 5-6 所示。Model 类显示了模型自动生成的类。该类由 Xcode 生成，用于使用该模型。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig6_HTML.jpg](img/501003_1_En_5_Fig6_HTML.jpg)\n\
+  \n图 5-6：Xcode 中的 BERTQA 模型元数据\n\nXcode 中的 Metadata 部分显示了模型的通用信息，如描述、作者和许可证，如图 5-7\
+  \ 所示。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig7_HTML.jpg](img/501003_1_En_5_Fig7_HTML.jpg)\n\
+  \n图 5-7：Xcode 中的 BERTQA 模型元数据（2）\n\nPredictions 部分显示了模型的输入和输出，如图 5-8 所示。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig8_HTML.jpg](img/501003_1_En_5_Fig8_HTML.jpg)\n\
+  \n图 5-8：模型的输入和输出\n\n这里，我们看到模型接受两个`MultiArray`，即`wordIDs`和`wordTypes`。这两个数组的长度均为\
+  \ 384。\n\n`wordIDs`是词元索引，是构成序列的词元的数值表示，这些序列将作为模型的输入。图 5-9 显示了这些单词的示例索引。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig9_HTML.jpg](img/501003_1_En_5_Fig9_HTML.jpg)\n\
+  \n图 5-9：对单词进行分词\n\n`wordTypes`是模型的另一个输入，代表词元类型。`wordTypes`告诉`BERT`模型`wordIDs`中的哪些元素来自文档。\n\
+  \n模型的第一和第二个输入均使用`0`值填充至长度 384，以确保它们的长度都为 384。\n\n模型的输出是两个`MultiArray`：`startLogits`和`endLogits`。它们的形状为`(1,\
+  \ 1, 384, 1)`。第三个轴包含 384 个数字，该轴上的最大值表示索引。对于`startLogits`，它表示预测的答案在输入序列中的起始索引；`endLogits`则表示预测的答案结束索引。\n\
+  \n因此，简而言之，该模型接收包含问题和段落的 384 个词元，并返回段落中答案的起始和结束索引。\n\n另一种检查 Core ML 模型的方法是使用 Netron\
+  \ 应用。它是一个神经网络模型查看器。你可以从这里下载：[`www.electronjs.org/apps/netron`](http://www.electronjs.org/apps/netron)。\n\
+  \n通过显示神经网络的每一层，它提供了更详细的视图。如果你在 Netron 中打开`BERT-SQuAD`模型，你会看到如图 5-10 所示的模型。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig10_HTML.jpg](img/501003_1_En_5_Fig10_HTML.jpg)\n\
+  \n图 5-10：Netron 中的 BERT-SQuAD 模型\n\n使用这个应用，你可以更深入地查看模型的架构，并检查层类型和参数。\n\n## 让我们构建应用\n\
+  \n我们将构建一个单视图的 SwiftUI 应用，其中包含一个用于粘贴段落的文本视图和一个用于输入问题的文本字段。当用户点击“查找”按钮时，我们将使用`BERT-SQuAD`模型在给定的段落中找出问题的答案。\n\
+  \n最终的应用将如图 5-11 所示。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig11_HTML.jpg](img/501003_1_En_5_Fig11_HTML.jpg)\n\
+  \n图 5-11：问答应用的最终效果\n\n从这里下载初始项目：[`https://github.com/ozgurshn/Chapter5-QuestionAnswering/tree/master/Starter`](https://github.com/ozgurshn/Chapter5-QuestionAnswering/tree/master/Starter)。在\
+  \ Xcode 中打开该项目开始编码。在这个项目中，许多繁琐的任务已经为你完成，以便你可以专注于核心部分。你可以在这里找到项目的完成版本：[`https://github.com/ozgurshn/Chapter5-QuestionAnswering/tree/master/Final`](https://github.com/ozgurshn/Chapter5-QuestionAnswering/tree/master/Final)。\n\
+  \n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig12_HTML.jpg](img/501003_1_En_5_Fig12_HTML.jpg)\n\
+  \n图 5-12：项目中的 BERT 文件\n\n\n\n### 在 iOS 中使用 BERT 模型\n\n您会在入门项目中看到 `Bert` 文件夹，如图 5-12\
+  \ 所示。其中的文件是在 iOS 中运行此模型所需的必要文件。这些文件取自 Apple 的示例项目（[`https://developer.apple.com/documentation/coreml/finding_answers_to_questions_in_a_text_document`](https://developer.apple.com/documentation/coreml/finding_answers_to_questions_in_a_text_document)）。我们将在项目中使用这些类，我会逐一解释所有文件。将您之前下载的\
+  \ `BERTQA` 模型拖放到 `Bert` 文件夹中。\n\n`BERTQAFP16.mlmodel` 文件是我们之前检查过的 Core ML 格式的 BERT\
+  \ 模型。\n\n`BERTInput` 类将输入数据转换为模型输入格式。打开 `BERTInput.swift` 文件，查看其 `init` 函数。\n\n\
+  它接收两个字符串参数：`documentString` 和 `questionString`，如代码清单 5-1 所示。\n\n```\ninit(documentString:\
+  \ String, questionString:\nString) {\ndocument = TokenizedString(documentString)\n\
+  question = TokenizedString(questionString)\n代码清单 5-1\nBERTInput 类的初始化函数\n```\n\n\
+  其主要功能是将这两个字符串参数转换为模型输入格式（`wordIDs` 和 `wordTypes`）。首先，它使用 `NLTagger` 将文本分割成单词。它将字符串分解为单词标记，每个标记都是原始字符串的一个子串，如代码清单\
+  \ 5-2 所示。\n\n```\nprivate static func wordTokens(from\nrawString: String) -> [Substring]\
+  \ {\n// 将分词后的子串存储到数组中。\nvar wordTokens = [Substring]()\n// 使用 Natural Language 的\
+  \ NLTagger 按单词对输入进行分词。\nlet tagger = NLTagger(tagSchemes:\n[.tokenType])\ntagger.string\
+  \ = rawString\n// 查找字符串中的所有标记并追加到数组中。\ntagger.enumerateTags(in:\nrawString.startIndex..<rawString.endIndex,\n\
+  unit: .word, scheme: .tokenType,\noptions: []) { _, tokenRange in\nwordTokens.append(rawString[tokenRange])\n\
+  return true\n}\nreturn wordTokens\n}\n代码清单 5-2\n分词\n```\n\n然后，它使用 `TokenizedString`\
+  \ 类中的 `tokenize` 函数为每个标记找到对应的 `tokenId`。`TokenIds` 是在一个基于 `bert-base-uncased-vocab.txt`\
+  \ 文件（图 5-13）中的列表构建的字典中搜索的。该文件为每个单词和分隔符都分配了一个索引号。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig13_HTML.jpg](img/501003_1_En_5_Fig13_HTML.jpg)\n\
+  \n图 5-13  \nBert-Base 的单词列表\n\n*创建 `wordID` 数组时，需按以下顺序排列标记 ID：*\n\n1.  起始标记 ID，其值为\
+  \ 101，在 `bert-base` 单词列表文件中显示为 `[CLS]`\n2.  问题文本的标记 ID\n3.  分隔符标记 ID，其值为 102，在单词列表文件中显示为\
+  \ `[SEP]`\n4.  文本字符串的标记 ID\n5.  另一个分隔符标记 ID（`[SEP]`）\n6.  如果生成的 `tokenID` 数组长度小于\
+  \ 384，则填充标记 ID 以补足 384 个标记\n\n此指令的代码如代码清单 5-3 所示。\n\n```\n// 以 `分类起始` 标记开始 wordID\
+  \ 数组。\nvar wordIDs = [BERTVocabulary.classifyStartTokenID]\n// 添加问题标记和一个分隔符。\nwordIDs\
+  \ += question.tokenIDs\nwordIDs += [BERTVocabulary.separatorTokenID]\n// 添加文档标记和一个分隔符。\n\
+  wordIDs += document.tokenIDs\nwordIDs += [BERTVocabulary.separatorTokenID]\n// 用填充标记填充剩余的标记槽位。\n\
+  let tokenIDPadding = BERTInput.maxTokens –\nwordIDs.count\nwordIDs += Array(repeating:\n\
+  BERTVocabulary.paddingTokenID, count: tokenIDPadding)\nguard wordIDs.count == BERTInput.maxTokens\
+  \ else {\nfatalError(\"`wordIDs` 数组大小不正确。\")\n}\n代码清单 5-3\n创建 WordID 数组\n```\n\n\
+  我们已经将输入（段落、问题）转换为模型所需的格式。现在，我们需要将这些输入馈送给模型，并利用这些数据进行预测。打开 `BERT.swift` 文件检查具体实现。它使用代码清单\
+  \ 5-4 中的代码创建了一个 BERT-SQuAD 模型的实例。\n\n```\nlet bertModel = try?\nBERTQAFP16(configuration:\
+  \ MLModelConfiguration())\n代码清单 5-4\n创建模型实例\n```\n\n查看 `findAnswer` 函数。该函数以段落和问题作为输入，并返回答案。它将这两个参数（段落、问题）转换为我们之前分析过的\
+  \ `BERTInput` 格式。创建所需输入后，我们使用代码清单 5-5 中的代码对 BERT 模型进行预测。\n\n```\nguard let prediction\
+  \ = try?\nbertModel?.prediction(input: modelInput) else {\nreturn \"BERT 模型无法进行预测。\"\
+  \n}\n// 分析 BERT 模型的输出。\nguard let bestLogitIndices = bestLogitsIndices(from:\nprediction,\n\
+  in:\nbertInput.documentRange) else {\nreturn \"找不到有效答案。请重试。\"\n}\n// 找到原始字符串中的索引。\n\
+  let documentTokens = bertInput.document.tokens\nlet answerStart =\ndocumentTokens[bestLogitIndices.start].startIndex\n\
+  let answerEnd =\ndocumentTokens[bestLogitIndices.end].endIndex\n// 返回原始字符串中对应部分作为答案。\n\
+  let originalText = bertInput.document.original\nreturn originalText[answerStart..<answerEnd]\n\
+  代码清单 5-5\n在 BERT 模型上进行预测\n```\n\n模型会返回给定 384 个标记中起始和结束索引预测的置信度分数。它返回 `startLogits`\
+  \ 和 `endLogits` 分别用于起始和结束索引的预测。我们需要在每张列表中找到最高值。`bestLogitsIndices` 函数会找到置信度最高的起始和结束索引对，这便指示了答案的位置。此过程的示意图如图\
+  \ 5-14 所示。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig14_HTML.jpg](img/501003_1_En_5_Fig14_HTML.jpg)\n\
+  \n图 5-14  \n寻找答案位置\n\n我们在 `startLogits` 列表中找到最高置信度分数，该分数表示答案的起始位置；在 `endLogits`\
+  \ 列表中找到最高置信度分数，该分数表示答案的结束位置。我们从段落中截取这一部分，并将其作为答案返回。\n\n\n\n### 构建应用的 UI\n\n我们已经学习了如何在\
+  \ iOS 中使用 `BERT-SQuAD` 模型。现在，我们将创建应用的用户界面，并使用问答模型。\n\n打开 `ContentView.swift` 文件。这是我们\
+  \ SwiftUI 应用的主视图。我们将添加三个 UI 元素：一个用于展示段落的文本视图、一个用于输入问题的文本字段，以及一个用于开始搜索答案的按钮。如果有答案存在，我们将用黄色背景在段落中高亮显示该答案。\n\
+  \n对于 iOS 14，SwiftUI 内置了 `TextEditor`，但它不支持富文本。我们希望通过富文本来高亮文本中的答案，因此我们将使用 UIKit 的\
+  \ `TextView`，并为它创建一个 SwiftUI 封装。打开 `TextView.swift` 文件，并复制清单 5-6 中的代码。\n\n```swift\n\
+  import SwiftUI\nstruct TextView: UIViewRepresentable {\n    @Binding var attributedText:\
+  \ NSMutableAttributedString\n    func makeUIView(context: Context) -> UITextView\
+  \ {\n        let textView = UITextView()\n        return textView\n    }\n    func\
+  \ updateUIView(_ uiView: UITextView, context: Context) {\n        uiView.attributedText\
+  \ = attributedText\n    }\n}\n```\n\n`UIViewRepresentable` 允许我们封装 UIKit 视图并在 SwiftUI\
+  \ 中使用它们。需要填充两个函数：`makeUIView`（用于创建视图）和 `updateUIView`（用于告知 SwiftUI 哪些元素需要更新）。在这里，我们将\
+  \ `attributedText` 变量绑定到 `TextView` 的 `attributedText` 属性，这样它就能自动在 UI 中反映变化。\n\n\
+  打开 `ContentView.swift` 文件。首先在 `ContentView` 类中声明将与 UI 元素绑定的状态变量。我们将为段落创建一个富文本；这样我们可以在富字符串的某些部分更改字体，从而能够高亮答案。\n\
+  \n我们为问题创建一个带有默认值的变量，但用户也可以输入任何问题。最后，我们创建 `BERT` 模型实例来使用我们的问答模型，如清单 5-7 所示。\n\n```swift\n\
+  @State var attributedText = NSMutableAttributedString(string: \"Apple Inc. is an\
+  \ American multinational technology company headquartered in Cupertino, California,\
+  \ that designs, develops, and sells consumer electronics, computer software, and\
+  \ online services. It is considered one of the Big Tech technology companies, alongside\
+  \ Amazon, Google, Microsoft and Facebook. The company's hardware products include\
+  \ the iPhone smartphone, the iPad tablet computer, the Mac personal computer, the\
+  \ iPod portable media player, the Apple Watch smartwatch, the Apple TV digital media\
+  \ player, the AirPods wireless earbuds and the HomePod smart speaker. Apple's software\
+  \ includes macOS, iOS, iPadOS, watchOS, and tvOS operating systems, the iTunes media\
+  \ player, the Safari web browser, the Shazam music identifier, and the iLife and\
+  \ iWork creativity and productivity suites, as well as professional applications\
+  \ like Final Cut Pro, Logic Pro, and Xcode. Its online services include the iTunes\
+  \ Store, the iOS App Store, Mac App Store, Apple Music, Apple TV+, iMessage, and\
+  \ iCloud. Other services include Apple Store, Genius Bar, AppleCare, Apple Pay,\
+  \ Apple Pay Cash, and Apple Card.\")\n@State var question = \"Where is Apple Inc?\"\
+  \nlet bert = BERT()\n```\n\n在 `ContentView` 类的 `body` 部分，我们将放置要显示在屏幕上的 UI 元素。我们首先创建\
+  \ `VStack`，以垂直顺序排列元素。然后，我们添加之前创建的 `TextView`，并将其绑定到 `attributedText` 状态变量。当我们更新\
+  \ `attributedText` 时，`TextView` 将自动更新 UI 并显示文本。用户将使用这个文本视图来粘贴他们想要搜索的文章。我们使用文本视图而不是文本字段，因为它支持多行文本，更适合文章等长文本。我们添加的另一个元素是一个文本字段，用户可以在其中输入问题，并将其文本绑定到\
+  \ `question` 变量，如清单 5-8 所示。\n\n```swift\nvar body: some View {\n    VStack {\n \
+  \       TextView(attributedText: $attributedText)\n        TextField(\"Enter your\
+  \ question\", text: $question)\n    }\n}\n```\n\n现在，我们有两个 UI 元素：一个用于文章内容的文本视图和一个用于输入问题的文本字段。\n\
+  \n在文本字段下方，我们将添加一个用于开始搜索的按钮。将清单 5-9 中的按钮代码复制到文本字段下方。\n\n```swift\nButton(action:\
+  \ {\n    // 在后台运行搜索，以保持 UI 响应。\n    DispatchQueue.global(qos: .userInitiated).async\
+  \ {\n        // 使用 BERT 模型搜索答案。\n        let answer = self.bert.findAnswer(for:\
+  \ self.question, in: self.attributedText.string)\n        // 在主队列上更新 UI。\n     \
+  \   DispatchQueue.main.async {\n            let mutableAttributedText = NSMutableAttributedString(string:\
+  \ self.attributedText.string)\n            let location = answer.startIndex.utf16Offset(in:\
+  \ self.attributedText.string)\n            let length = answer.endIndex.utf16Offset(in:\
+  \ self.attributedText.string) - location\n            let answerRange = NSRange(location:\
+  \ location, length: length)\n            let fullTextColor = UIColor.red\n     \
+  \       mutableAttributedText.addAttributes([.foregroundColor: fullTextColor, .backgroundColor:\
+  \ UIColor.yellow], range: answerRange)\n            self.attributedText = mutableAttributedText\n\
+  \        }\n        print(String(answer))\n        self.speechToText(text: String(answer))\n\
+  \    }\n}){ Text(\"Find\") }.padding()\n```\n\n我们创建了一个带有“Find”标签的按钮。当用户点击该按钮时，会调用其操作。在该操作中，我们调用\
+  \ `BERT` 类的 `findAnswer` 函数，传入段落和问题作为参数。该调用在一个单独的队列（`userInitiated`）中进行，以免阻塞主 UI\
+  \ 线程。模型返回结果后，我们通过调用 `DispatchQueue.main.async` 在主线程中更新 UI。这确保了 UI 更新能够正确处理。在这个主线程调用中，我们根据段落文本创建一个新的富字符串，并找到答案在该段落文本中的起始和结束索引。我们使用起始和结束索引创建一个范围（`NSRange`），并使用该索引来为段落中的答案背景着色。我们将答案文字颜色设为红色，背景颜色设为黄色。\n\
+  \n您现在可以在模拟器或设备上运行项目来测试您的应用程序。由于我们为段落和问题填充了文本，它们会自动显示。点击“Find”按钮在段落中查找答案。如图 5-15\
+  \ 所示，它会在段落中将“Cupertino, California”高亮显示，作为对“Where is Apple Inc.?”问题的回答。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig15_HTML.jpg](img/501003_1_En_5_Fig15_HTML.jpg)\n\
+  \n**图 5-15** 问答应用\n\n恭喜！您刚刚构建了一个智能应用，它能在几秒钟内从文本中找到答案，并且您学会了如何在 iOS 应用中使用最先进的自然语言模型。\n\
+  \n接下来，我们将添加语音转文字功能，允许我们通过语音提问，然后使用文字转语音功能让 Siri 朗读答案。\n\n\n\n### 使用 Speech 框架进行语音识别\n\
+  \n你需要在 `Info.plist` 文件中添加两个键（`NSSpeechRecognitionUsageDescription`、`NSMicrophoneUsageDescription`）及其描述。当\
+  \ iOS 请求用户允许使用麦克风和语音识别时，这些描述会显示给用户。我们将在视图出现时请求转录权限。请在 `ContentView` 类中添加此函数以请求权限。\n\
+  \n```\nfunc requestTranscribePermissions() {\n    SFSpeechRecognizer.requestAuthorization\
+  \ { authStatus in\n        DispatchQueue.main.async {\n            if authStatus\
+  \ == .authorized {\n                print(\"Authorized for transcription\")\n  \
+  \          } else {\n                print(\"Transcription permission was declined.\"\
+  )\n            }\n        }\n    }\n}\n```\n\n我们将在主 `VStack` 出现时调用此函数。在 `VStack`\
+  \ 调用的末尾，此函数如代码清单 5-11 所示。\n\n```\n.onAppear {\n    self.requestTranscribePermissions()\n\
+  }\n```\n\n我们将使用 `SFSpeech` 框架将音频转录为文本。请在 `ContentView` 结构体的开头添加以下声明：\n\n```\nprivate\
+  \ var recognitionTask: SFSpeechRecognitionTask?\nprivate let audioEngine = AVAudioEngine()\n\
+  private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: \"\
+  en-US\"))!\n```\n\n在上述代码中，我们创建了 `recognitionTask` 变量，并在此声明它，以便在不同的说话会话之间存储它。这样，当我们开始新的说话会话时，可以取消之前的任务。我们还声明了\
+  \ `AVAudioEngine` 来处理麦克风音频流，并为英语创建了 `SFSpeechRecognizer` 以执行语音识别。\n\n现在，我们将创建实际的转录函数。请将代码清单\
+  \ 5-12 中的代码添加到 `ContentView` 结构体中。\n\n```\nfunc transcribe(completionHandler: @escaping\
+  \ (String) -> ()) {\n    // Cancel the previous task if it's running.\n    recognitionTask?.cancel()\n\
+  \    recognitionTask = nil\n\n    // Configure the audio session for the app.\n\
+  \    let audioSession = AVAudioSession.sharedInstance()\n    try? audioSession.setCategory(.record,\
+  \ mode: .measurement, options: .duckOthers)\n    try? audioSession.setActive(true,\
+  \ options: .notifyOthersOnDeactivation)\n    let inputNode = audioEngine.inputNode\n\
+  \n    // Create and configure the speech recognition request.\n    let recognitionRequest\
+  \ = SFSpeechAudioBufferRecognitionRequest()\n    recognitionRequest.shouldReportPartialResults\
+  \ = true\n\n    // Create a recognition task for the speech recognition session.\n\
+  \    // Keep a reference to the task so that it can be canceled.\n    recognitionTask\
+  \ = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in\n\
+  \        if let result = result {\n            print(\"Text \\(result.bestTranscription.formattedString)\"\
+  )\n            completionHandler(result.bestTranscription.formattedString)\n   \
+  \     }\n    }\n\n    // Configure the microphone input.\n    let recordingFormat\
+  \ = inputNode.outputFormat(forBus: 0)\n    inputNode.installTap(onBus: 0, bufferSize:\
+  \ 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime)\
+  \ in\n        recognitionRequest.append(buffer)\n    }\n\n    audioEngine.prepare()\n\
+  \    try? audioEngine.start()\n    print(\"Ready to transcribe\")\n}\n```\n\n在上述代码中，我们取消了之前的识别任务并启动了一个新的任务。我们创建一个音频会话来处理麦克风输入，并创建一个\
+  \ `SFSpeechAudioBufferRecognitionRequest` 实例来转录音频。我们将此请求的 `shouldReportPartialResults`\
+  \ 参数设置为 `true`，以接收每次发音的部分结果。这让我们可以用部分结果更新文本字段，并让用户实时了解情况。我们通过 `result.bestTranscription.formattedString`\
+  \ 返回所有发音的完整转录文本。\n\n为了简化代码，此代码示例中忽略了许多异常。在生产应用中，我们应该使用 `do-try-catch` 块正确地捕获和处理异常。\n\
+  \n为了调用此 `transcribe` 函数，我们将添加另一个标签为“Speak”的按钮。当用户点击此按钮时，我们将处理语音并更改问题字符串。请将代码清单 5-13\
+  \ 中的按钮代码添加至上一按钮下方，并将这些按钮包裹在 `HStack` 中以使它们并排显示。\n\n```\nButton(action: {\n    self.transcribe\
+  \ { (speechText) in\n        self.question = speechText\n    }\n}) { Text(\"Speak\"\
+  ) }\n```\n\n此按钮在点击时调用 `transcribe` 函数，当方法返回完成处理器时，它会用此文本更新 `question`。现在，运行项目并在设备上测试。它应首先请求使用麦克风和转录的权限。点击“Speak”按钮并提出您的问题。您所说的内容应出现在问题字段中。结果应如图\
+  \ 5-16 所示。\n\n![../images/501003_1_En_5_Chapter/501003_1_En_5_Fig16_HTML.jpg](img/501003_1_En_5_Fig16_HTML.jpg)\n\
+  \n**图 5-16** 语音处理应用\n\n我们要添加的最后一项功能是文本转语音。这将用语音读出在段落中找到的答案。请在 `ContentView` 结构体中添加代码清单\
+  \ 5-14 中的代码。\n\n```\nfunc speechToText(text: String) {\n    let utterance = AVSpeechUtterance(string:\
+  \ text)\n    utterance.voice = AVSpeechSynthesisVoice(language: \"en-GB\")\n   \
+  \ let synthesizer = AVSpeechSynthesizer()\n    synthesizer.speak(utterance)\n}\n\
+  ```\n\n在上述代码中，我们使用文本创建了一个 `AVSpeechUtterance` 实例。使用这个类，我们可以改变语音的口音或语速。最后，我们创建 `AVSpeechSynthesizer`\
+  \ 来朗读答案。这就是为您的应用添加文本转语音功能的全部步骤。\n\n我们将在代码清单 5-15 所示的位置调用此函数，即在“Find”按钮的操作中处理 `findAnswer`\
+  \ 方法结果的地方。\n\n```\nprint(String(answer))\nself.speechToText(text: String(answer))\n\
+  ```\n\n我们的应用已准备好朗读。在设备上测试它，点击“Speak”按钮，提出您的问题，然后点击“Find”按钮。它将在文章中查找并高亮显示答案，同时朗读该答案。\n\
+  \n## 总结\n\n在本章中，我们研究了 BERT 模型；学习了它的工作原理、输入和输出是什么，以及它如何对字符串进行分词。本章还介绍了 BERT-SQuAD\
+  \ 模型及其使用的数据集（SQuAD 2.0）。我们还学习了如何使用 Xcode 或 Netron 应用程序检查 Core ML 模型。我们使用 SwiftUI\
+  \ 和 BERT-SQuAD 模型构建了问答应用，并学习了如何将 NLP 模型集成到我们的 iOS 应用中。此外，我们还使用 Speech 框架添加了语音识别和文本转语音功能，使我们的应用更加智能。\n\
+  \n"
+- '# 6. 文本摘要
+
+
+  本章将介绍使用自然语言处理技术进行文本摘要。将通过示例介绍不同类型的文本摘要技术。您将深入了解摘要的原理，并能够将其应用到您的 iOS 项目中。在掌握主要知识后，我们将使用
+  iOS 内置的 NLP 功能开发一个智能 iOS 应用，该应用能够对给定的文章进行摘要。
+
+
+
+
+  ## 什么是文本摘要？
+
+
+  文本摘要是指通过计算方式缩短文本，生成一个代表原始内容中最重要信息的子集的过程。文本摘要试图找出文章中最具信息量的句子并提取这些信息。文本摘要通常分为两种技术：抽取式摘要和生成式摘要。
+
+
+  抽取式摘要是通过从文本中找出最重要的句子并提取这些句子来完成的，如图 6-1 所示。在这种技术中，句子根据其重要性进行评分，然后将排名前`k`个最重要的句子拼接在一起生成摘要。摘要中直接使用原始句子，不做任何改写。
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig1_HTML.jpg](img/501003_1_En_6_Fig1_HTML.jpg)
+
+
+  图 6-1 抽取式摘要
+
+
+  生成式文本摘要利用自然语言技术解释文本，并生成一段新的、更短的文本，如图 6-2 所示。这是一种更复杂的方法，因为它需要对内容有全面的理解，并用更短的文本改写关键信息。使用这种技术生成的摘要更接近人类可能表达的摘要形式。近年来，生成式方法开始利用深度学习领域的发展成果。
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig2_HTML.jpg](img/501003_1_En_6_Fig2_HTML.jpg)
+
+
+  图 6-2 生成式摘要
+
+
+  本章将要开发的应用使用抽取式摘要技术。我们将找出得分高的句子，并用这些句子来代表文本。
+
+
+  本章我们不会开发生成式摘要的示例，但你可以使用序列到序列（`Seq2Seq`）模型，通过在其中一个深度学习框架（`Keras`、`PyTorch` 等）上对摘要数据集进行训练来开发它，然后使用
+  `coremltools` 将其转换为 Core ML 格式。
+
+
+  让我们动手实践，使用抽取式摘要方法构建文本摘要应用。我建议你亲自完成它，但如果你觉得有点懒，可以在这里找到本章的完整项目：[`https://github.com/ozgurshn/Chapter6-TextSummarizer`](https://github.com/ozgurshn/Chapter6-TextSummarizer)。
+
+
+  ## 构建文本摘要应用
+
+
+  首先，在 Xcode 中创建一个空的 SwiftUI 项目。选择“App”模板，并确保用户界面设置为 SwiftUI，如图 6-3 所示。
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig3_HTML.jpg](img/501003_1_En_6_Fig3_HTML.jpg)
+
+
+  图 6-3 新建项目
+
+
+  首先，我们将创建一个文本视图来显示要摘要的文章。SwiftUI 提供了 `TextEditor` 来代替 UIKit 的 `TextView`。创建一个名为“`TextView.swift`”的
+  Swift 文件，并复制代码清单 6-1 中的代码。
+
+
+  `ContentView` 是我们的主视图。让我们打开它并设计屏幕。将代码清单 6-1 中的代码复制到 `ContentView` 文件中。
+
+
+  ```
+
+  struct ContentView: View {
+
+  @State var text = ""
+
+  @State var summary = ""
+
+  var body: some View {
+
+  VStack
+
+  {
+
+  TextEditor(text:$text)
+
+  Button(action:{
+
+  self.summary =
+
+  Summarizer().summarize(text:self.text)
+
+  }){
+
+  Text("Summarize")
+
+  }
+
+  TextEditor(text:$summary)
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 6-1 `ContentView`
+
+
+  在 `ContentView` 中，我们创建了两个状态属性来保存 `text` 和 `summary`。它们被创建为状态，因为我们希望它们绑定到 UI 并反映更改。在
+  `body` 中，我们使用的主要元素是 `VStack`，它垂直组织 UI 元素。在它内部，我们放置了一个用于文章文本的编辑器、一个用于生成摘要的按钮，以及一个用于显示摘要的编辑器。我们暂时将按钮操作留空，稍后在我们编写完文本摘要类后再填充它。
+
+
+  让我们检查一下应用，看看一切是否正常。除非预览可见，否则请打开画布查看预览，如图 6-4 所示。从菜单中点击 **Editor** ➤ **Canvas**，或使用快捷键
+  `option+command+enter`。
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig4_HTML.jpg](img/501003_1_En_6_Fig4_HTML.jpg)
+
+
+  图 6-4 SwiftUI 预览测试
+
+
+  创建一个名为“`Summarizer.swift`”的 Swift 文件。在这个类中，我们将通过对文章中的句子进行评分，并根据得分高的句子创建摘要来处理文本摘要过程。
+
+
+  导入自然语言框架，如代码清单 6-2 所示，我们将使用它对文章进行分词。
+
+
+  ```
+
+  import NaturalLanguage
+
+  ```
+
+
+  代码清单 6-2 导入自然语言框架
+
+
+  然后，我们创建一个结构体来保存句子及其排名和索引，如代码清单 6-3 所示。`Rank` 表示句子的重要性，`index` 表示句子在文章中的位置。
+
+
+  ```
+
+  struct SentenceAndRank
+
+  {
+
+  var sentence:String
+
+  var rank:Int
+
+  var index:Int
+
+  }
+
+  ```
+
+
+  代码清单 6-3 `SentenceAndRank`
+
+
+  接下来，让我们创建一个名为 `Summarizer` 的类，并声明我们的停用词，如代码清单 6-4 所示。
+
+
+
+
+  ```swift
+
+  class Summarizer
+
+  {
+
+  let stopWords = ["a", "about", "above", "across",
+
+  "after", "afterwards", "again", "against", "all",
+
+  "almost", "alone", "along", "already", "also",
+
+  "although", "always", "am", "among", "amongst",
+
+  "amoungst", "amount", "an", "and", "another", "any",
+
+  "anyhow", "anyone", "anything", "anyway",
+
+  "anywhere", "are", "around", "as", "at", "back",
+
+  "be", "became", "because", "become", "becomes",
+
+  "becoming", "been", "before", "beforehand", "behind",
+
+  "being", "below", "beside", "besides", "between",
+
+  "beyond", "bill", "both", "bottom", "but", "by",
+
+  "call", "can", "cannot", "cant", "co", "con",
+
+  "could", "couldnt", "cry", "de", "describe",
+
+  "detail", "do", "done", "down", "due", "during",
+
+  "each", "eg", "eight", "either", "eleven", "else",
+
+  "elsewhere", "empty", "enough", "etc", "even",
+
+  "ever", "every", "everyone", "everything",
+
+  "everywhere", "except", "few", "fifteen", "fify",
+
+  "fill", "find", "fire", "first", "five", "for",
+
+  "former", "formerly", "forty", "found", "four",
+
+  "from", "front", "full", "further", "get", "give",
+
+  "go", "had", "has", "hasnt", "have", "he", "hence",
+
+  "her", "here", "hereafter", "hereby", "herein",
+
+  "hereupon", "hers", "herself", "him", "himself",
+
+  "his", "how", "however", "hundred", "ie", "if", "in",
+
+  "inc", "indeed", "interest", "into", "is", "it",
+
+  "its", "itself", "keep", "last", "latter",
+
+  "latterly", "least", "less", "ltd", "made", "many",
+
+  "may", "me", "meanwhile", "might", "mill", "mine",
+
+  "more", "moreover", "most", "mostly", "move", "much",
+
+  "must", "my", "myself", "name", "namely", "neither",
+
+  "never", "nevertheless", "next", "nine", "no",
+
+  "nobody", "none", "noone", "nor", "not", "nothing",
+
+  "now", "nowhere", "of", "off", "often", "on", "once",
+
+  "one", "only", "onto", "or", "other", "others",
+
+  "otherwise", "our", "ours", "ourselves", "out",
+
+  "over", "own", "part", "per", "perhaps", "please",
+
+  "put", "rather", "re", "same", "see", "seem",
+
+  "seemed", "seeming", "seems", "serious", "several",
+
+  "she", "should", "show", "side", "since", "sincere",
+
+  "six", "sixty", "so", "some", "somehow", "someone",
+
+  "something", "sometime", "sometimes", "somewhere",
+
+  "still", "such", "system", "take", "ten", "than",
+
+  "that", "the", "their", "them", "themselves", "then",
+
+  "thence", "there", "thereafter", "thereby",
+
+  "therefore", "therein", "thereupon", "these", "they",
+
+  "thickv", "thin", "third", "this", "those", "though",
+
+  "three", "through", "throughout", "thru", "thus",
+
+  "to", "together", "too", "top", "toward", "towards",
+
+  "twelve", "twenty", "two", "un", "under", "until",
+
+  "up", "upon", "us", "very", "via", "was", "we",
+
+  "well", "were", "what", "whatever", "when", "whence",
+
+  "whenever", "where", "whereafter", "whereas",
+
+  "whereby", "wherein", "whereupon", "wherever",
+
+  "whether", "which", "while", "whither", "who",
+
+  "whoever", "whole", "whom", "whose", "why", "will",
+
+  "with", "within", "without", "would", "yet", "you",
+
+  "your", "yours", "yourself", "yourselves"]
+
+  }
+
+  ```
+
+  **列表 6-4** — 停用词
+
+
+  停用词是语言中最常见的词汇。通常，我们会在处理文本之前先过滤掉这些词。由于我们将根据词频来衡量句子重要性，这些词可能会产生负面影响，因为它们是最频繁出现的词。
+
+
+  然后，我们创建一个文本拆分函数，将给定的文本拆分成句子或单词。我们使用 `Natural Language` 框架中的 `NLTokenizer` 来枚举标记（单词、句子等），如列表
+  6-5 所示。创建一个这些标记的列表并返回该列表。
+
+
+  ```swift
+
+  private func splitTo(text:String,
+
+  unit:NLTokenUnit) -> [String]
+
+  {
+
+  let tokenizer = NLTokenizer(unit: unit)
+
+  tokenizer.string = text
+
+  var tokens = [String]()
+
+  tokenizer.enumerateTokens(in:
+
+  text.startIndex..<text.endIndex) { range, _ in
+
+  tokens.append(String(text[range]))
+
+  return true
+
+  }
+
+  return tokens
+
+  }
+
+  ```
+
+  **列表 6-5** — 文本拆分函数
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig5_HTML.jpg](img/501003_1_En_6_Fig5_HTML.jpg)
+
+
+  **图 6-5** — 词频
+
+
+  接下来，我们将创建一个函数，用于计算给定文本中单词的频率（出现次数），如列表 6-6 所示。我们使用 `NSLinguisticTagger` 来枚举文本中的单词。通过指定
+  `NSLinguisticTagger.Options`，我们可以忽略标点符号和空白。我们使用单词的小写版本来标准化列表中的词汇。枚举通过 `NSLinguisticTagger`
+  的 `enumerate` 函数执行。单词计数被放入一个字典中并返回。
+
+
+  ```swift
+
+  private func calculateWordFrequencies(text: String)
+
+  -> [String: Int] {
+
+  var frequencyList = [String: Int]()
+
+  let tagger = NSLinguisticTagger(tagSchemes:
+
+  [.tokenType], options: 0)
+
+  let range = NSRange(location: 0, length:
+
+  text.utf16.count)
+
+  let options: NSLinguisticTagger.Options =
+
+  [.omitPunctuation, .omitWhitespace]
+
+  tagger.string = text.lowercased()
+
+  tagger.enumerateTags(in: range, unit: .word,
+
+  scheme: .tokenType, options: options) { _,
+
+  tokenRange, _ in
+
+  let word = (text as NSString).substring(with:
+
+  tokenRange)
+
+  if frequencyList[word] != nil {
+
+  frequencyList[word]! += 1
+
+  } else {
+
+  frequencyList[word] = 1
+
+  }
+
+  }
+
+  return frequencyList
+
+  }
+
+  ```
+
+  **列表 6-6** — 计算词频
+
+
+  例如，如果我们计算维基百科上关于苹果的那篇文章的词频，可以看到最频繁出现的词是像 "and" 和 "the" 这样的停用词，如图 6-5 所示。
+
+
+  现在，我们需要计算给定句子中所有单词的频率总和。这将显示句子重要性。这里，我们假设最具信息量的单词往往会在一篇文章中反复出现，但我们忽略那些非常频繁的停用词。列表
+  6-7 展示了如何创建这个函数。
+
+
+  ```swift
+
+  private func getWordFrequencySum(sentence:String,
+
+  frequencies:[String:Int])->Int
+
+  {
+
+  let wordList = splitTo(text: sentence,
+
+  unit: .word)
+
+  var rank = 0
+
+  for word in wordList
+
+  {
+
+  if !stopWords.contains(word)
+
+  {
+
+  rank += frequencies[word, default: 0]
+
+  }
+
+  }
+
+  return rank
+
+  }
+
+  ```
+
+  **列表 6-7** — 计算句子的词频总和
+
+
+  我们要编写的最后一个函数是摘要生成函数。如列表 6-8 所示，我们计算给定文本中每个单词的频率，然后将文章拆分成句子。我们遍历这些句子，计算每个句子的词频总和。然后，根据句子的评分对列表进行降序排序。我们选择评分最高的前三句，并根据它们在原文中的索引将它们拼接在一起。
+
+
+  ```swift
+
+  func summarize(text:String)->String
+
+  {
+
+  let wordFrequencies =
+
+  calculateWordFrequencies(text: text)
+
+  let sentences = splitTo(text: text,
+
+  unit: .sentence)
+
+  var sentenceAndRank:[SentenceAndRank] = []
+
+  for (index, sentence) in sentences.enumerated()
+
+  {
+
+  let rank = getWordFrequencySum(sentence: sentence,frequencies: wordFrequencies)
+
+  sentenceAndRank.append(SentenceAndRank(sentence:
+
+  sentence, rank: rank, index:index))
+
+  }
+
+  // 按评分对句子排序
+
+  let sentencesByRanking = sentenceAndRank.sorted {
+
+  $0.rank > $1.rank }
+
+  // 选择最重要的 3 个句子
+
+  let keySentences = sentencesByRanking.prefix(3)
+
+  // 按句子顺序返回，并将所有句子合并成一个句子
+
+  return keySentences.sorted {$0.index <
+
+  $1.index }.map{$0.sentence}.joined()
+
+  }
+
+  ```
+
+  **列表 6-8** — 摘要生成函数
+
+
+  摘要类已经准备好生成文本摘要了。最后要做的事情是从 `ContentView` 中调用这个函数。打开 `ContentView` 并在按钮的操作中调用 "summarize"
+  函数，如列表 6-9 所示。
+
+
+  ```swift
+
+  Button(action:{
+
+  self.summary =
+
+  Summarizer().summarize(text:self.text)
+
+  })
+
+  ```
+
+  **列表 6-9** — 摘要生成按钮的操作
+
+
+  在模拟器或 SwiftUI 实时预览中运行你的应用。将一段长文本复制到你的第一个文本编辑器中，然后点击 "Summarize" 按钮。摘要将显示在按钮下方的文本编辑器中，如图
+  6-6 所示。
+
+
+
+
+  ![../images/501003_1_En_6_Chapter/501003_1_En_6_Fig6_HTML.jpg](img/501003_1_En_6_Fig6_HTML.jpg)
+
+
+  **图 6-6** 文本摘要应用
+
+
+  ## 总结
+
+
+  在本章中，我们介绍了使用自然语言处理进行文本摘要的核心技术。分别讲解了抽象式和抽取式摘要方法。在掌握理论知识后，我们利用 iOS 内置的 NLP 能力和抽取式摘要技术，构建了一个文本摘要应用。在开发过程中，我们学会了如何过滤常见词或停用词，以及如何使用`NSLinguisticTagger`计算词频。
+
+
+  '
+- "# 7. 集成 Keras 模型\n\n本章将介绍一些高级用例，包括集成在第三方深度学习框架（如 Keras）中训练的模型。虽然使用 Create ML 可以轻松训练模型，但有时你可能需要使用\
+  \ Create ML 中不存在的新型深度学习架构。针对这些场景，我们将学习如何将 Keras 模型集成到应用中。在本章中，我们还将利用`coremltools`库将\
+  \ Keras 模型转换为 Core ML 格式，并通过开发一个示例文本分类应用来实践学习。此外，你还会学到如何使用 Google Colab 服务——一个在线且免费的\
+  \ Python 环境。\n\n## 将 Keras 模型转换为 Core ML 格式\n\nKeras 是对 TensorFlow 或 Theano 等更复杂深度学习库的封装。它的代码编写风格比所封装的库更简单直观，支持快速原型开发，并兼容多种神经网络架构。\n\
+  \n本节中，我们将在 Google Colab 上训练模型。这是一个免费的在线平台，可用于训练神经网络和运行实验，同时还提供免费的高性能 GPU 以加速训练。如果你希望在本地\
+  \ PC 上训练，也可以使用之前章节创建的本地虚拟环境运行这些示例——但我建议使用 Colab。Colab 同样采用 Jupyter 笔记本，但这些笔记本由 Google\
+  \ 托管。通过它们，我们可以逐单元执行代码并实时查看结果。\n\n访问[`https://colab.research.google.com/`](https://colab.research.google.com/)并创建一个新笔记本（文件\
+  \ ➤ 新建笔记本）。复制粘贴并运行代码清单 7-1 中的代码，以安装所需的库。通常 TensorFlow 和 Keras 都已预装在 Colab 中，但我们需要重新安装，因为它们的版本与`coremltools`不兼容。如果直接使用\
+  \ Colab 当前安装的版本，会遇到一些问题。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig1_HTML.jpg](img/501003_1_En_7_Fig1_HTML.jpg)\n\
+  \n**图 7-1** Google Colab 单元\n\n### 在 Keras 中训练文本分类模型\n\n将代码清单 7-1 中的代码复制到 Colab\
+  \ 的一个代码单元中。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig2_HTML.jpg](img/501003_1_En_7_Fig2_HTML.jpg)\n\
+  \n**图 7-2** IMDB 数据集中的词表示\n\n```\n!pip install tensorflow==1.14\n!pip install keras==2.2.4\n\
+  !pip install coremltools==3.4\n```\n\n**代码清单 7-1** 安装库\n\n要运行代码单元，只需点击左侧的播放按钮，如图\
+  \ 7-1 所示。执行过程中，你会看到一个旋转的循环图标。\n\n运行完上述单元后，我们执行代码清单 7-2 中的代码来导入库。将代码复制到新代码单元并运行。\n\
+  \n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig3_HTML.jpg](img/501003_1_En_7_Fig3_HTML.jpg)\n\
+  \n**图 7-3** 词频分布\n\n```\nimport numpy as np\nfrom keras.preprocessing.text import\
+  \ Tokenizer\nfrom keras.preprocessing.sequence import\npad_sequences\nfrom keras.models\
+  \ import Sequential, Model\nfrom keras.layers import Dense, Input, Bidirectional,\n\
+  GRU, TimeDistributed, Activation, Flatten, Embedding\nfrom keras.optimizers import\
+  \ Adam\nfrom keras.datasets import imdb\n```\n\n**代码清单 7-2** 导入库\n\n在这里，我们导入了 NumPy\
+  \ 以使用其数组功能，同时还导入了文本分词器和 Keras 库中的特定层。最后，我们从 Keras 数据集中导入了 IMDB 数据集。`Keras.datasets`（[`https://keras.io/api/datasets/`](https://keras.io/api/datasets/)）模块提供了一些小型数据集（已向量化，采用\
+  \ NumPy 格式），因此你无需自行处理数据下载、解压和预处理。\n\n我们将使用 IMDB 电影评论情感分类数据集来训练一个分类模型。根据 Keras 文档，该数据集包含来自\
+  \ IMDB 的 25,000 条电影评论，并标注了情感（正面/负面）。\n\n评论已经过预处理，每条评论被编码为一个词索引（整数）列表，如图 7-2 所示。为方便起见，单词按在数据集中出现的总频率进行索引，例如整数“3”表示数据集中第三高频的词。这使得快速过滤操作成为可能，例如“仅考虑最常见的\
+  \ 10,000 个词，但排除最常用的 20 个词”。\n\n我们将从该数据集中选取最常见的 10,000 个词，并基于这些数据训练模型。代码清单 7-3 展示了如何从\
+  \ Keras 数据集中加载这些数据。将代码复制到新单元并运行。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig4_HTML.jpg](img/501003_1_En_7_Fig4_HTML.jpg)\n\
+  \n**图 7-4** 模型概要\n\n```\n# 选取 imdb 数据集中最常见的 10000 个词\nmaxNumberOfWords = 10000\n\
+  ## 解决 imdb.load_data 在该版本中无法直接加载的问题：https://\nstackoverflow.com/a/56243777/4156490\n\
+  ## 错误提示为：'ValueError: Object arrays cannot be\nloaded when allow_pickle=False'\n\
+  # 保存 np.load\nnp_load_old = np.load\n# 修改 np.load 的默认参数\nnp.load = lambda *a,**k:\
+  \ np_load_old(*a,\nallow_pickle=True)\n# 以隐式设置 allow_pickle=True 的方式调用 load_data\n\
+  (x_train, y_train), (x_test, y_test) =\nimdb.load_data(num_words=maxNumberOfWords)\n\
+  # 恢复 np.load 以供后续正常使用\nnp.load = np_load_old\n```\n\n**代码清单 7-3** 加载 IMDB 数据集\n\n\
+  \n\n#### 基于 RNN 的 IMDB 评论情感分析\n\n##### 加载数据集\n\n通常，`imdb.load_data` 函数足以加载数据集，但对于本版本的\
+  \ TensorFlow，我们需要实现一种变通方案。方案实现后，我们加载数据并将其分为训练集和测试集。默认分割比例为 0.5，因此我们将数据集对半分成训练集和测试集。测试集不会用于训练，它将用于测试，以检验我们训练好的模型在未见过的数据上表现如何。以\
+  \ `x` 开头的参数表示 IMDB 评论，`y` 表示该评论的情感。\n\n##### 检查单词分布\n\n现在我们已经加载了数据，接下来将检查单词数量的分布。我们将创建一个包含每条评论单词数量的\
+  \ Pandas 数据框，并绘制图表。复制粘贴清单 7-4 中的代码并运行，即可创建如图 7-3 所示的图表。\n\n```python\nimport matplotlib.pyplot\
+  \ as plt\nimport pandas as pd\ntext_word_count = []\n##### 填充单词计数的列表\nfor i in x_train:\n\
+  \    text_word_count.append(len(i))\nlength_df = pd.DataFrame({'text':text_word_count})\n\
+  length_df.hist(bins = 30)\nplt.show()\n```\n\n从图表中我们看到，大多数评论的单词数量少于 500 个。我们需要尽可能将单词表示为少量\
+  \ token，以缩短训练时间。在本教程中，我选择 300。我们将用 300 个 token 来表示评论，并训练一个以 300 个 token 作为输入的神经网络模型。\n\
+  \n##### 序列填充\n\n由于我们的模型接受固定大小的输入，因此需要将序列填充到固定长度。对于少于 300 个单词的电影评论，我们将用零填充其余部分，如清单\
+  \ 7-5 所示。\n\n```python\nmaxlen = 300\nx_train = pad_sequences(x_train, maxlen=maxlen,\
+  \ padding='post')\nx_test = pad_sequences(x_test, maxlen=maxlen, padding='post')\n\
+  ```\n\n在上述代码中，我们指定将序列填充到长度 300，并且在序列之后填充零。该方法的默认行为是在序列之前填充零，因此我们通过 `padding` 参数显式指定。\n\
+  \n##### 创建 Keras 模型\n\n我们已经准备好了输入数据。现在可以创建 Keras 模型了。对于模型结构，我参考了 Jacopo Mangiavacchi\
+  \ 实现的基础代码。这里，我们将创建一个基于简单循环神经网络（RNN）的文本分类模型。\n\nRNN 模型在反向传播过程中存在梯度消失问题。在每次迭代中，神经网络权重被更新；对于较早的层，梯度更新幅度很小，从而停止学习。长短期记忆网络（LSTM）和门控循环单元（GRU）旨在解决这个问题。\n\
+  \n我们将使用门控循环单元（GRU）。这是一种 RNN 架构，它使用门控机制来控制神经网络中细胞之间的信息流。这些门是两个向量，用于决定哪些信息应该传递到输出。\n\
+  \n```python\nmodel = Sequential([\n    Embedding(maxNumberOfWords, 128, input_length=maxlen),\n\
+  \    GRU(128, batch_size=1, return_sequences=True),\n    TimeDistributed(Dense(64)),\n\
+  \    Activation('relu'),\n    TimeDistributed(Dense(32)),\n    Activation('relu'),\n\
+  \    Flatten(),\n    Dense(1, activation=\"sigmoid\")\n])\nmodel.summary()\n```\n\
+  \n如清单 7-6 所示，我们使用 `Sequential` 类来堆叠模型层。嵌入层接收来自 IMDB 数据集的整数表示的单词，并将它们转换为固定大小的密集向量。我们将嵌入层的输入维度设置为最大单词数（词汇量），密集嵌入维度设置为\
+  \ 128。其输入长度设置为 `maxlen`，本次训练中为 300。这意味着输入序列长度将为 300。\n\n在嵌入层之后，我们放置一个具有 128 个单元的\
+  \ GRU 层，这将其输出大小设置为 128。`return_sequences` 参数如果设置为 `true`，则返回最后一个输出；如果设置为 `false`，则返回完整序列。\n\
+  \n`TimeDistributed` 层允许将某一层应用于输入的每个时间片。我们使用 `relu` 作为激活函数，并在层末尾添加一个具有 `sigmoid`\
+  \ 激活函数的单单元密集层。输出将介于 0 和 1 之间。最后，我们打印模型的摘要。在 Jupyter Notebook 中不需要添加 `print` 语句；它会默认打印输出。\n\
+  \n打印模型摘要有助于检查模型的输入、输出、参数和数据流。图 7-4 显示了模型的摘要。\n\n##### 编译并训练模型\n\n我们的模型已经准备好了。我们可以编译并训练模型。编译操作用损失函数和评估指标配置模型，使其准备好进行训练。复制粘贴清单\
+  \ 7-7 中的代码来编译并训练你的模型。\n\n```python\nmodel.compile(loss='binary_crossentropy', optimizer='adam',\
+  \ metrics=['accuracy'])\nmodel.fit(x_train, y_train, epochs=50, validation_split=0.2)\n\
+  ```\n\n在 `compile` 方法中，我们将损失函数设置为 `binary_crossentropy`，因为我们只有两个类别（正面/负面）。我们使用 Adam\
+  \ 优化器，并将准确率作为评估指标。评估指标是用于评估模型性能的函数。\n\n我们使用 `fit` 方法来训练模型。在这里提供验证数据是可选的，但如果你设置了，就可以跟踪训练过程中的验证指标。\n\
+  \n通常，我们会使用 `x_test` 和 `y_test` 进行验证；但为了使训练时间更短，我将 `validation_split` 设置为 `0.2`，从训练数据中分离出\
+  \ 20% 用于验证。模型不会用验证数据进行训练；它仅用于在每个 epoch 结束时评估模型。在模型训练过程中，我们可以像图 7-5 所示那样跟踪训练结果。\n\
+  \n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig5_HTML.jpg](img/501003_1_En_7_Fig5_HTML.jpg)\n\
+  \n经过 50 个 epoch 的训练后，我们的训练准确率 (acc) 达到了 1.0，验证准确率 (val_acc) 达到了 0.8816。这意味着模型正确预测了\
+  \ 88% 的验证数据（它之前未见过的数据）。\n\n##### 导出模型\n\n训练完成后，我们的模型就可以使用了。我们将把它转换为 Core ML 格式，并使用清单\
+  \ 7-8 中的代码导出模型。\n\n```python\nimport coremltools\ncoreml_model = coremltools.converters.keras.convert(model,\
+  \ input_names=\"input\", output_names=\"output\")\ncoreml_model.save('imdbGRU.mlmodel')\n\
+  ```\n\n此代码将 mlmodel 保存到 Colab 环境中。点击左侧的文件夹图标查看并下载该文件。\n\n\n\n### 测试 Core ML 模型\n\
+  \n为了确保转换过程顺利，我们需要验证转换后的模型能否预测出与 Keras 模型相同的数值。由于 Core ML 模型仅在 macOS 上运行，我们无法在 Colab\
+  \ 环境中对其进行测试。使用 Core ML 模型进行预测有两种方式：通过 Xcode 运行，或者在 macOS 上使用 Python 环境和 `coremltools`\
+  \ 来运行。我将向你展示这两种方法。\n\n首先，我们需要一个参考值来测试模型。为此，我将使用 Keras 模型来预测一段任意文本的情感倾向。然后我会将这个值与\
+  \ Core ML 的预测结果进行比较，并期望它们保持一致。如果结果不一致，则表明模型没有正确转换。\n\n让我们用一些任意文本数据进行尝试。首先，我们需要获取\
+  \ IMDB 数据集中单词的整数表示。清单 7-9 中的代码会以 JSON 格式下载这些数据，并将其加载到一个字典中。\n\n```\nwordDictionary\
+  \ = imdb.get_word_index(\npath='imdb_word_index.json'\n)\n清单 7-9\n加载单词的整数表示\n```\n\
+  \n包含单词及其整数表示的字典如图 7-6 所示。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig6_HTML.jpg](img/501003_1_En_7_Fig6_HTML.jpg)\n\
+  \n图 7-6\n\n词嵌入\n\n清单 7-10 中的代码用于预测这段任意文本“super cool”的情感倾向。我们从字典中找到其整数表示，然后用零填充至长度\
+  \ 300，因为我们的模型就是按照这种方式训练的。\n\n```\npaddedText = pad_sequences(\nnp.array([[wordDictionary[\"\
+  super\"],wordDictionary[\"cool\"]]]), maxlen=300,padding='post'\n)\nmodel.predict(paddedText)\n\
+  清单 7-10\nKeras 模型预测\n```\n\n运行上述代码会得到结果 `[[0.6204907]]`。接下来，让我们检查转换后的 Core ML 模型对于相同的文本输入是否也会产生相同的输出。\n\
+  \n### 在 Jupyter Notebook 中测试 Core ML 模型\n\n激活你在之前章节中创建的虚拟环境，并启动一个 Jupyter notebook。清单\
+  \ 7-11 中的代码使用了我的虚拟环境路径；请记得将其修改为你自己的路径。\n\n```\ncd environment/coremlenv/\nsource\
+  \ bin/activate\nipython notebook\n清单 7-11\n激活虚拟环境并运行 Jupyter Notebook\n```\n\n这将打开\
+  \ Jupyter 仪表盘。在其中创建一个新的 Python 3 notebook。将清单 7-12 中的代码复制粘贴进去，以加载你之前转换好的 Core ML\
+  \ 模型。\n\n```\nimport coremltools as ct\n#### 加载模型\nmodel = ct.models.MLModel('/Users/ozgur/Downloads/imdbGRU.mlmodel')\n\
+  清单 7-12\n加载 Core ML 模型\n```\n\n如果你想查看模型的规格说明，可以运行清单 7-13 中的代码。这会打印出模型的输入和输出类型。\n\
+  \n```\n#### 从模型中获取规格说明\nspec = model.get_spec()\n#### 打印模型的输入/输出描述\nprint(spec.description)\n\
+  清单 7-13\n打印模型规格说明\n```\n\n模型的输入和输出描述如图 7-7 所示。模型接受两个输入：`input` 和 `gru_2_h_in`，其形状分别为\
+  \ 1 和 128。它的输出是 `output` 和 `gr_2_h_out`，形状也分别为 1 和 128。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig8_HTML.jpg](img/501003_1_En_7_Fig8_HTML.jpg)\n\
+  \n图 7-8\n\n模型的输出\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig7_HTML.jpg](img/501003_1_En_7_Fig7_HTML.jpg)\n\
+  \n图 7-7\n\n模型规格说明\n\n通过检查这个规格说明，我们就能了解模型的预期行为、需要输入什么以及会输出什么。现在，我们可以使用 Core ML 模型进行预测了。\n\
+  \n```\nfrom keras.preprocessing.sequence import pad_sequences\nimport numpy as np\n\
+  wordArray = np.array([[1162,643]])\npaddedArray = pad_sequences(wordArray,maxlen=300,padding='post')\n\
+  reshapedArray = paddedArray.reshape(300,1,1)\nprint(model.predict({'input':reshapedArray}))\n\
+  清单 7-14\n在 Core ML 模型上进行预测\n```\n\n如清单 7-14 所示，我们使用了 IMDB 数据集中单词“super”（1162）和“cool”（643）的整数表示。利用\
+  \ `pad_sequences` 函数，我们添加零直到列表长度为 300。然后，我们将数组重塑为 (300,1,1) 维度。如果不重塑数组，而是使用形状为 (300)\
+  \ 的数组，则会抛出清单 7-15 中所示的错误，提示输入大小不符合预期。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig9_HTML.jpg](img/501003_1_En_7_Fig9_HTML.jpg)\n\
+  \n图 7-9\n\n拖放模型\n\n```\n{\nNSLocalizedDescription = \"For input feature 'input',\
+  \ the provided shape (1 \\U00d7 300) is not compatible with the model's feature\
+  \ description.\";\nNSUnderlyingError = \"Error Domain=com.apple.CoreML Code=1 \\\
+  \"Neural Network (<=version 3) inputs can only be of size 1, 3, or 5.\\\" UserInfo={NSLocalizedDescription=Neural\
+  \ Network (<=version 3) inputs can only be of size 1, 3, or 5.}\";\n}\n清单 7-15\n\
+  输入大小错误\n```\n\n我们使用重塑后的数组进行预测，并打印输出结果，如图 7-8 所示。\n\n注意最后一个名为 `output` 的元素及其数值。这个结果与我们使用\
+  \ Keras 模型进行预测时得到的结果相同。因此，我们可以确认转换成功，并且转换后的模型运行正常。\n\n你可以在此处找到该 Colab notebook 的完整代码：[`https://colab.research.google.com/drive/1p4ArC9yN-mXp1D4YXWZHuKbfXKnJvk7O?usp=sharing`](https://colab.research.google.com/drive/1p4ArC9yN-mXp1D4YXWZHuKbfXKnJvk7O?usp=sharing)。\n\
+  \n\n\n### 在 Xcode 中测试 Core ML 模型\n\n使用 App 模板创建一个新的 SwiftUI 项目。将 Core ML 模型拖放到项目中，如图\
+  \ 7-9 所示。通常，这类测试会使用单元测试包进行，但即使 `mlmodel` 的类在 Xcode 11 中可以正常使用，在 Xcode 12 的测试项目中却无法使用。因此，我将在\
+  \ Xcode 12 中通过调试来进行测试。\n\n创建一个名为 `GRUModel` 的类，并将代码清单 7-16 中的代码复制到该类中。\n\n```\n\
+  func testModel()\n{\nlet model = try? imdbGRU(configuration:\nMLModelConfiguration())\n\
+  let maxLength = 300\nguard let input_data = try?\nMLMultiArray(shape:[NSNumber(value:\
+  \ maxLength),1,1],\ndataType:.double) else {\nfatalError(\"Unexpected runtime error:\n\
+  input_data\")\n}\ninput_data[0] = NSNumber(value: 1162)\ninput_data[1] = NSNumber(value:\
+  \ 643)\n//padding rest with 0s\nfor i in 2..<maxLength {\ninput_data[i] = NSNumber(value:\
+  \ 0.0)\n}\nlet input = imdbGRUInput(input: input_data,\ngru_2_h_in: nil)\n//prediction\n\
+  guard let prediction = try?\nmodel?.prediction(input: input) else {\nfatalError(\"\
+  Unexpected runtime error:\nprediction\")\n}\nprint(prediction)\n//~0.6204907\nprint(prediction.output[0])\n\
+  }\n代码清单 7-16 测试 Core ML 模型\n```\n\n在上述代码中，我们创建了一个模型实例，并将输入数据构建为形状为 `[300,1,1]` 的\
+  \ `MLMultiArray`。Core ML 模型通常使用这种名为 `MLMultiArray` 的数组类型。我们用单词 \"super\" 和 \"cool\"\
+  \ 的整数表示填充该输入数组。数组的其余部分用零填充（即补零）。这个输入数组通过 `prediction` 函数输入到模型中。我们打印模型的预测结果，查看是否符合预期。\n\
+  \n打开 `ContentView` 文件。我们将像代码清单 7-17 所示，在 `VStack` 的 `onAppear` 回调中调用此方法。当 `VStack`\
+  \ 出现在屏幕上时，该方法将被调用。\n\n```\nvar body: some View {\nVStack{\nText(\"\")\n}.onAppear{\n\
+  GRUModel().testModel()\n}\n}\n代码清单 7-17 调用模型测试函数\n```\n\n现在，通过选择 Xcode 菜单栏中的 Product\
+  \ ➤ Run，或使用快捷键 `cmd+R`，在模拟器上运行应用。我们的预期值是 0.6204907。调试时，应看到如图 7-10 所示的调试器输出。\n\n\
+  ![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig11_HTML.jpg](img/501003_1_En_7_Fig11_HTML.jpg)\n\
+  \n图 7-11 Xcode 中的 imdbGRU 模型\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig10_HTML.jpg](img/501003_1_En_7_Fig10_HTML.jpg)\n\
+  \n图 7-10 调试器输出\n\n既然我们已经检查了模型并确认其工作正常，那么就可以在 Xcode 项目中使用我们的模型了。\n\n## 在 Xcode 中使用\
+  \ Core ML 模型\n\n我们已经测试了 Core ML 模型，并确认其运行正确。通过在 Xcode 中选择该模型，可以查看其他详细信息。\n\n如图 7-11\
+  \ 所示，我们看到 Xcode 自动生成了 `imdbGRU` 类，用于使用该模型。我们将使用这个类对模型进行预测。本章将逐步实现整个项目。我建议跟随示例并编写代码，你也可以在这里找到完成的项目：[`github.com/ozgurshn/Chapter7-TextClassificationWithGRUModel`](https://github.com/ozgurshn/Chapter7-TextClassificationWithGRUModel)。\n\
+  \n创建一个名为 `GRUModel.swift` 的新文件。在此文件中，我们将对输入进行预处理，并使用 Core ML 模型进行预测。\n\n我们将从 IMDB\
+  \ 数据集中加载单词列表到数组中。你可以从此链接下载 JSON 文件：[`storage.googleapis.com/tensorflow/tf-keras-datasets/imdb_word_index.json`](https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb_word_index.json)。将该\
+  \ JSON 文件拖放到 Xcode 项目中，然后复制粘贴代码清单 7-18 中的代码。\n\n![../images/501003_1_En_7_Chapter/501003_1_En_7_Fig12_HTML.jpg](img/501003_1_En_7_Fig12_HTML.jpg)\n\
+  \n图 7-12 在实时预览中运行转换后的 Keras 模型\n\n```\nvar wordDictionary: [String: Int] = {\nreturn\
+  \ try!\nJSONDecoder().decode(Dictionary.self,\nfrom: Data(contentsOf:\nBundle.main.url(forResource:\"\
+  imdb_word_index\",\nwithExtension: \"json\")!))\n}()\n代码清单 7-18 加载单词列表\n```\n\n\
+  我们将创建的第一个函数是 `splitToWords` 函数，它从字符串中生成单词列表，如代码清单 7-19 所示。记得在此类中导入 `NaturalLanguage`。\n\
+  \n```\nprivate func splitToWords(text:String) -> [String]\n{\nlet lowerCasedText\
+  \ = text.lowercased()\nlet tokenizer = NLTokenizer(unit: .word)\ntokenizer.string\
+  \ = lowerCasedText\nvar tokens = [String]()\ntokenizer.enumerateTokens(in:\nlowerCasedText.startIndex..<lowerCasedText.endIndex)\n\
+  { range, _ in\ntokens.append(String(lowerCasedText[range]))\nreturn true\n}\nreturn\
+  \ tokens\n}\n代码清单 7-19 分词\n```\n\n在上述代码中，我们将文本转换为小写，因为我们的 IMDB 文本表示文件包含小写单词。然后，我们使用\
+  \ Natural Language 框架中的 `NLTokenizer` 来枚举给定字符串中的单词。我们将这些单词添加到一个数组中并返回该数组。\n\n下一步是创建预测函数。将代码清单\
+  \ 7-20 中的代码复制粘贴到 `GRUModel` 类中。\n\n```\nfunc predict(text:String)->String {\nlet\
+  \ words = splitToWords(text: text)\nvar embedding = [Int]()\nfor word in words {\n\
+  embedding.append(wordDictionary[word] ?? 0)\n}\nlet model = try? imdbGRU(configuration:\n\
+  MLModelConfiguration())\nlet maxLength = 300\nlet maxLengthNumber = NSNumber(value:\n\
+  maxLength)\nguard let input_data = try?\nMLMultiArray(shape:[maxLengthNumber,1,1],\n\
+  dataType:.double) else {\nfatalError(\"MLMultiArray error:\ninput_data\")\n}\nfor\
+  \ (index,element) in embedding.enumerated()\n{\ninput_data[index] = NSNumber(value:\n\
+  element)\n}\n//padding rest with 0s\nfor i in embedding.count..<maxLength {\ninput_data[i]\
+  \ = NSNumber(value: 0.0)\n}\nlet input = imdbGRUInput(input: input_data,\ngru_2_h_in:\
+  \ nil)\nguard let prediction = try?\nmodel?.prediction(input: input) else {\nfatalError(\"\
+  Unexpected runtime error:\nprediction\")\n}\n//prediction.output[0] is an array\
+  \ of\n//doubles of size 1\n//prediction.output[0][0] is a double\n//value representing\
+  \ the probability\nif prediction.output[0][0].doubleValue > 0.5\n{return \"positive\"\
+  }\nelse\n{return \"negative\"}\n}\n代码清单 7-20 预测\n```\n\n代码的工作原理如下：\n\n1. 从输入字符串创建单词列表，然后将这些单词转换为\
+  \ `wordDictionary` 中的整数表示。\n2. 创建模型实例。\n3. 创建大小为 `[300,1,1]` 的 `MLMultiArray`。我们将其设置为\
+  \ 300，是因为模型训练时输入尺寸为 300。\n4. 将输入数据用零填充至 300 个元素，以保证固定大小。\n5. 创建模型输入。当您将模型拖放到 Xcode\
+  \ 中时，Xcode 会自动生成这个类。\n6. 使用输入数据进行预测，并返回结果。如果结果高于 0.5，则判定为正面情绪；如果低于 0.5，则判定为负面情绪。\n\
+  \n\n\n接下来，我们将设置应用程序的用户界面。打开`ContentView.swift`文件。复制粘贴清单 7-21 中的代码。\n\n```swift\n\
+  struct ContentView: View {\n@State var sentiment = \"\"\n@State var text = \"super\
+  \ cool\"\nvar body: some View {\nVStack{\nTextField(\"Text\", text: $text)\nButton(action:\
+  \ {\nself.sentiment =\nGRUModel().predict(text: self.text)\n}){Text(\"Predict\"\
+  )}\nText(sentiment)\n}\n}\n}\n```\n\n在上述代码中，我们创建了两个字符串状态来保存预测结果（`sentiment`）和输入文本。我们使用`@State`，因为我们希望这些变量中的变化能够反映在\
+  \ UI 中。\n\n在`ContentView`的`body`中，我们将元素放入`VStack`中以垂直组织它们。我们放置了一个文本字段用于接收用户输入，一个文本视图用于显示结果，以及一个按钮用于执行预测。当按钮被点击时，我们会在机器学习模型上执行预测。\n\
+  \n在模拟器或实时预览模式下运行应用程序，如图 7-12 所示。\n\n点击“Predict”按钮并检查结果。恭喜！你已经使用`Keras`训练了一个循环神经网络模型（`GRU`），将其转换为`Core\
+  \ ML`格式，并在`Xcode`项目中使用了它。\n\n## 总结\n\n在本章中，你学习了如何在没有本地`Python`环境或良好`GPU`来训练模型的情况下，使用免费的`Google\
+  \ Colab`服务在线训练深度学习模型。我们了解了如何使用`Keras`数据集，并利用`Keras`框架训练了一个自定义文本分类模型。通过利用`coremltools`库，我们将训练好的模型从`Keras`转换为`Core\
+  \ ML`格式，并将其集成到`Xcode`项目中。你学习了使用`Jupyter Notebook`或`Xcode`测试`Core ML`模型的不同方法。通过使用`SwiftUI`构建示例应用程序，我们能够轻松地向用户展示预测结果。\n\
+  \n## 结论\n\n恭喜！你已经完成了使用机器学习构建智能应用的旅程。你已经掌握了相关的技术知识，希望这些知识能帮助你在未来的所有移动端`NLP`项目中取得成功。\n\
+  \n`NLP`领域在不断发展。我们希望本书能作为你使用`NLP`技术构建首个理解语言的智能应用程序的指南，并对你有所帮助。\n\n## 索引\n\nA\n- 抽象文本摘要\n\
+  - AlexNet\n- 算法\n- Apple 开发者网站\n- Core ML 框架\n  - ML 和 Xcode 创建\n  - 自然语言\n  - 语音识别\n\
+  \  - Turi 创建\n  - 视觉\n- VisionKit\n\nB\n- BERT\n  - 架构\n  - 分类层\n  - Core ML 模型\n\
+  \  - 输入/输出\n  - 元数据部分\n  - Netron\n  - 分词\n  - Xcode\n- 掩码语言模型\n- 下一句预测\n- 操作系统（iOS）\n\
+  - BERTInput 类\n- bestLogitsIndices 函数\n- 模型实例\n- 预测\n- 项目文件\n- 分词\n- WordID 数组\n\
+  - 词表\n- 主要创新\n- 问答模型\n- SQuAD\n- SwiftUI 应用程序\n- 训练策略\n- 用户界面（UI）\n  - attributedText\n\
+  \  - question-answering App\n  - 搜索按钮\n  - 状态变量\n  - SwiftUI App\n  - TextView 创建\n\
+  \  - UI 元素\n\nC\n- Core ML 框架\n\nD\n- 深度学习（DL）\n- DistilGPT-2 模型\n- 文档模型\n- BERT\n\
+  \nE, F\n- 误差函数\n- 抽取式摘要\n\nG, H\n- 门控循环单元（GRU）\n- 生成式预训练 Transformer（GPT）\n  - 内置\
+  \ OCR 模型\n  - coremltools\n  - DistilGPT-2 模型\n  - 文本预测\n  - 转换\n\nI\n- ImageNet\
+  \ 数据集\n- 迭代/周期\n- 数据\n\nJ\n- Jupyter notebook\n  - Core ML 模型输入尺寸\n  - 错误\n  - 模型规范\n\
+  \  - 输出预测\n  - 打印模型规格\n  - 虚拟环境\n\nK, L\n- Keras 模型\n  - 分类模型\n  - Colab 单元格\n \
+  \ - 编译方法\n  - Core ML 格式\n  - 分布图\n  - IMDB 数据集\n  - 库\n  - 模型摘要\n  - 填充序列\n  -\
+  \ Sequential 类\n  - 训练结果\n  - 词频分布\n  - 词表示\n- Colab 深度学习库\n- 测试 Core ML 模型\n- Xcode\
+  \ 模型\n\nM\n- 机器学习（ML）\n  - AI 模型\n  - 类别\n  - 前沿工具\n  - DL\n  - 历史\n  - 正面/负面邮件预测\n\
+  \  - 智能应用\n  - 监督学习\n  - 训练模型\n  - 无监督学习\n- macOS playground\n  - 准确率\n  - 自动生成类代码\n\
+  \  - 检查训练指标\n  - 分类器模型\n  - Core ML 模型\n  - CreateML/Foundation\n  - 错误处理\n  - 评估\n\
+  \  - MLModel 项目\n  - MLTextClassifier 模型详情\n  - 解析选项\n  - Playground 设置\n  - 预测\n\
+  \  - SpamClassifier 类\n  - 垃圾短信分类器应用\n  - 拆分数据\n  - SwiftUI\n  - 模板\n  - 文本分类\n\
+  \  - 训练输出\n  - URL 对象\n\nN, O, P, Q\n- 自然语言处理（NLP）\n  - 优势\n  - 框架模型\n    - 枚举单词\n\
+  \    - 语言识别\n    - NLEmbedding\n    - 词性标注\n    - 人物、地点/组织\n    - 分词\n    - 词标注\n\
+  \  - 语言建模\n  - 数学计算\n  - 基于神经网络的方法\n  - N-grams\n  - 目标\n  - 预训练语言模型\n  - 序列到序列（Seq2Seq）\n\
+  \  - 词嵌入\n- 下一句预测（NSP）\n- NLEmbedding\n- NLTagger\n\nR\n- 循环神经网络（RNN）\n\nS\n- 垃圾邮件分类\n\
+  \  - Create ML\n  - Create ML 应用\n  - CSV/文本文件\n  - 创建项目模板\n  - 静态和动态嵌入\n  - 文本文件\n\
+  \  - 训练数据面板\n  - 训练状态/准确率\n  - 实体\n  - SMS 收集数据集\n  - 文本分类\n  - Turi 创建\n  - 词袋表示\n\
+  \  - iPython\n  - 含义\n  - 设置文本分类器\n  - 虚拟环境\n- 语音框架\n  - 语音识别/框架\n  - 音频转录\n  -\
+  \ ContentView 结构体\n  - 描述\n  - 权限请求\n  - 处理应用\n  - 说话按钮\n  - 文本转语音函数\n  - 转录权限\n\
+  - 斯坦福问答数据集（SQuAD）\n- 摘要技术\n  - 抽象式\n  - 按钮操作\n  - ContentView 文件\n  - 抽取式\n  - 自然语言框架\n\
+  \  - 项目创建\n  - 句子排序与评分\n  - 拆分函数\n  - 停用词声明\n  - SwiftUI 预览\n  - 测试\n  - 文本编辑器\n\
+  \  - 词频\n- 监督学习\n\nT\n- 测试 Core ML 模型\n  - Colab 环境\n  - 整数表示\n  - Jupyter notebook\n\
+  \  - 预测\n  - 词嵌入\n  - Xcode\n- 文本分类\n  - macOS playground\n  - 情感分析\n  - 垃圾邮件\n\
+  - 文本生成模型\n  - AI 模型\n  - Anna Karenina\n  - 解码策略\n  - 生成函数\n  - GPT 文件\n  - 处理点击手势\n\
+  \  - 元数据\n  - 预测函数\n  - 生成式预训练 Transformer\n  - OCR 函数\n  - captureOutput 函数\n \
+  \ - recognizeTextHandler 函数\n  - 扫描资源\n  - showString 方法\n  - 起始项目\n  - 文本识别请求\n\
+  \  - viewDidLoad 函数\n  - 视图和 GPT 文件夹\n  - VisionViewController 函数\n- 文本转语音函数\n\n\
+  U\n- 无监督学习\n\nV, W\n- Vision 框架\n  - 面部/身体检测\n  - 水平线检测\n  - 图像分析能力\n  - 分类\n  -\
+  \ 比较\n  - ImageRequestHandler\n  - knownClassifications 方法\n  - 数学表示\n  - 意义\n \
+  \ - ML 能力\n  - 物体识别\n  - 显著度分析\n  - 文本检测与识别\n- VisionKit\n\nX, Y, Z\n- Xcode 模型\n\
+  \  - ContentView 文件\n  - 调试器输出\n  - 拖放模型\n  - imdbGRU 模型\n  - MLMultiArray\n  -\
+  \ 模型测试函数\n  - 预测函数\n  - 预览模式\n  - 拆分单词\n  - 测试词表加载\n  - 工作流程\n"
