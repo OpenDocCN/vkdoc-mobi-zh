@@ -1,0 +1,970 @@
+- '
+
+  '
+- '# 使用 Arduino 开发 iOS 传感器应用
+
+
+  ## 阿拉斯代尔·艾伦
+
+
+  #### 编辑
+
+
+  ## 布莱恩·杰普森
+
+
+  #### 编辑
+
+
+  ## 肖恩·华莱士
+
+
+  版权所有 © 2011 阿拉斯代尔·艾伦
+
+
+  O’Reilly 书籍可用于教育、商业或销售推广目的。大多数书籍也提供在线版本 ([`my.safaribooksonline.com`](http://my.safaribooksonline.com/?portal=oreilly))。如需更多信息，请联系我们的企业/机构销售部门：(800)
+  998-9938 或 corporate@oreilly.com。
+
+
+  Nutshell Handbook、Nutshell Handbook 徽标以及 O’Reilly 徽标是 O’Reilly Media, Inc. 的注册商标。*使用
+  Arduino 开发 iOS 传感器应用*、刺豚鼠图像及相关商业装潢是 O’Reilly Media, Inc. 的商标。
+
+
+  制造商和销售商用于区分其产品的许多标识被视为商标。当这些标识出现在本书中，且 O’Reilly Media, Inc. 已知晓相关商标声明时，这些标识将以全大写或首字母大写形式印刷。
+
+
+  尽管在编写本书时已采取一切预防措施，但出版商和作者对其中可能存在的错误、遗漏或因使用本书所含信息而造成的损失概不负责。
+
+
+  ![](img/oreilly_large.gif)
+
+
+  O''Reilly Media
+
+
+  * * *
+
+
+  '
+- "# 前言\n\niPhone（iPod touch 和 iPad）平台配备了一系列日益丰富的内置传感器：GPS、加速度计、磁力计以及最新的陀螺仪。这些设备还拥有几乎无处不在的数据连接，无论是通过本地无线热点还是运营商数据网络，并可通过多种方法（包括\
+  \ GPS）进行用户定位。它们堪称分布式传感器网络的卓越中心。\n\n然而，直到最近，要将这些原本有趣的设备与 iPhone 连接起来仍然相当困难。苹果专有的底座连接器是一大主要障碍。现在情况已经改变，读完本书后，你将能够将你的手机用作传感器网络的中心，使其成为物联网的一部分。\n\
+  \n## 谁应该阅读本书？\n\n本书介绍了如何将你的 iOS 设备连接到现实世界。为此，我们将广泛使用 [Arduino](http://arduino.cc/)\
+  \ 开源电子原型平台。如果你是有一定 iPhone 开发经验的程序员，本书将帮助你连接 iOS 设备与外部硬件。如果你是一位经验丰富的 Mac 程序员，已熟悉\
+  \ Objective-C，本书将向你介绍 iPhone 编程中与硬件相关的部分。\n\n## 你应该具备哪些知识？\n\n本书假设你已有一些 Objective-C\
+  \ 语言的经验。此外，还假设你对 iPhone 平台有一定了解。如果你是 iPhone 平台的新手，可能对阿拉斯代尔·艾伦的另一本著作 *[学习 iPhone\
+  \ 编程](http://oreilly.com/catalog/9780596806439/)*（O'Reilly）感兴趣。本书不要求或期望读者熟悉 Arduino\
+  \ 平台。本书面向希望学习如何与外部硬件通信的 Objective-C 程序员。不过，如果你完全不熟悉 Arduino 平台，你可能想阅读马西莫·班齐所著的 *[Arduino\
+  \ 入门](http://oreilly.com/catalog/9780596155520)*（O'Reilly）。\n\n#### 警告\n\n本书假设你具备如何构建和部署应用到你的\
+  \ iPhone、iPod touch 或 iPad 的工作知识。如果你没有 iOS 经验，建议你结合 *[学习 iPhone 编程](http://oreilly.com/catalog/9780596806439/)*\
+  \ 来阅读本书。\n\n## 你将学到什么？\n\n本书将引导你为 iOS 平台开发应用程序，利用 [Redpark 串行电缆](http://www.redpark.com/)\
+  \ 和 External Accessory 框架，将你的 iPhone、iPod touch 或 iPad 连接到任何标准串行（RS-232）设备。除此之外，我们还会探讨一些不那么官方（但可能更有趣）的方法来实现相同目标。\n\
+  \n## 本书内容概览\n\n第 1 章\n\n本章面向不熟悉 Arduino 的 Objective-C 程序员。它将向你介绍该平台，并带你完成硬件的“Hello\
+  \ World”范例——闪烁的 LED。我们还将讨论如何使用 Arduino 和你的开发机器之间的串行连接。\n\n第 2 章\n\n本章将介绍 Redpark\
+  \ 串行电缆，并引导你构建两个基本应用。第一个将允许 Arduino 与 iPhone 通信，第二个将允许 iPhone 与 Arduino 通信。\n\n第\
+  \ 3 章\n\n本章将指导你为 iPad 构建一个完整的应用程序，以便通过用户友好的界面实现对 Arduino 的任意控制。\n\n第 4 章\n\n在本章中，我们将把传感器连接到\
+  \ Arduino，然后使用串行电缆将读数传输到 iPhone。我们还将研究用于绘制图表的 Core Plot 库。\n\n第 5 章\n\n本章介绍 Digi\
+  \ XBee 无线电模块，并指导你将它们连接到 Arduino 和 iOS 平台。\n\n第 6 章\n\n本章探讨将 iPhone 或 iPad 连接到串行设备的其他方法。我们将研究使用\
+  \ MIDI 协议（iOS SDK 官方支持），以及使用 iOS 设备的耳机插孔作为软件调制解调器。\n\n## 本书使用的约定\n\n本书使用以下排版约定：\n\
+  \n*斜体*\n\n表示新术语、URL、电子邮件地址、文件名和文件扩展名。\n\n`等宽字体`\n\n用于程序清单，以及在段落中引用程序元素，如变量或函数名、数据库、数据类型、环境变量、语句和关键字。\n\
+  \n**`等宽粗体`**\n\n表示应由用户原样输入的命令或其他文本。\n\n*`等宽斜体`*\n\n表示应替换为用户提供的值或由上下文确定的值的文本。\n\n\
+  ### 注意\n\n此图标表示提示、建议或一般性说明。\n\n#### 警告\n\n此图标表示警告或注意事项。\n\n## 使用代码示例\n\n本书旨在帮助你完成工作。通常，你可以在自己的程序和文档中使用本书中的代码。除非你复制了代码的实质性部分，否则无需联系我们获得许可。例如，编写一个使用本书中多个代码段的程序无需许可。出售或分发\
+  \ O'Reilly 书籍示例的 CD-ROM 则需要许可。通过引用本书并引用示例代码来回答问题无需许可。将本书中的大量示例代码整合到你产品的文档中则需要许可。\n\
+  \n我们感谢署名，但并非强制要求。署名通常包括书名、作者、出版商和 ISBN。例如：“*使用 Arduino 开发 iOS 传感器应用*，阿拉斯代尔·艾伦著（O'Reilly）。版权所有\
+  \ 2011 阿拉斯代尔·艾伦，978-1-449-30848-3。”\n\n如果你认为你对代码示例的使用超出了合理使用或此处授予的许可范围，请随时通过 permissions@oreilly.com\
+  \ 联系我们。\n\n#### 警告\n\n本书中的几乎所有代码都无法在 iPhone 或 iPad 模拟器上运行，必须在你的设备上直接部署和测试。\n\n##\
+  \ Safari® 在线图书\n\n\n\n### 注意\n\nSafari Books Online 是一个按需提供的数字图书馆，可让您轻松搜索超过 7,500\
+  \ 本技术与创意参考书籍和视频，快速找到所需答案。\n\n订阅后，您可以阅读在线图书馆中的任何页面并观看任何视频。在手机和移动设备上阅读书籍。在新书印刷版上市前抢先阅读，并专享访问开发中的手稿，为作者提供反馈。复制和粘贴代码示例、整理收藏夹、下载章节、为关键部分添加书签、创建笔记、打印页面，并享受众多其他省时功能。\n\
+  \nO’Reilly Media 已将此书上传至 Safari Books Online 服务。要获得对本书以及 O’Reilly 和其他出版商类似主题书籍的完整数字访问权限，请免费注册\
+  \ [`my.safaribooksonline.com`](http://my.safaribooksonline.com)。\n\n## 如何联系我们\n\n\
+  请将与本书相关的评论和问题发送给出版商：\n\nO’Reilly Media, Inc.  \n1005 Gravenstein Highway North \
+  \ \nSebastopol, CA 95472  \n800-998-9938（美国或加拿大）  \n707-829-0515（国际或本地）  \n707-829-0104（传真）\n\
+  \n我们为本书设立了一个网页，其中列出了勘误、示例以及任何补充信息。您可以通过以下网址访问该页面：\n\n[`oreilly.com/catalog/9781449308483`](http://oreilly.com/catalog/9781449308483)\n\
+  \n补充材料也可在以下网址获取：\n\n[`www.programmingiphonesensors.com/`](http://www.programmingiphonesensors.com/)\n\
+  \n若要就本书发表评论或提出技术问题，请发送电子邮件至：\n\nbookquestions@oreilly.com\n\n有关我们的书籍、会议、资源中心以及 O’Reilly\
+  \ Network 的更多信息，请访问我们的网站：\n\n[`www.oreilly.com`](http://www.oreilly.com)\n\n"
+- "# 第 1 章 Arduino 简介\n\n每隔一段时间，总会有一种技术成为撬动世界的杠杆，哪怕只是微小的改变。Arduino 就是这样的杠杆之一。尽管它最初只是一个让艺术家能够使用嵌入式微处理器进行交互设计项目的工具，但我认为它最终会作为现代世界的基石之一走进博物馆。它让嵌入式系统的原型开发变得快速而廉价，将曾经相当棘手的硬件问题转化为更简单的软件问题。\n\
+  \nArduino，以及与之共同成长并某种程度上围绕其发展的开源硬件运动，正在让一代高科技爱好者能够凭借相当有限的硬件知识构思新想法并制作原型。\n\n## Arduino\
+  \ 平台\n\n尽管市面上有许多其他微控制器平台，但对于物理计算领域的新手来说，最易上手的可能还是 Arduino（见图 1-1）。这部分归功于其庞大的社区支持，同时，Arduino\
+  \ 从一开始就是为新手易于使用而设计的。\n\n![搭载 ATmega328 微控制器的 Arduino Uno 板](img/httpatomoreillycomsourceoreillyimages895842.png.jpg)\n\
+  \n图 1-1. 搭载 ATmega328 微控制器的 Arduino Uno 板\n\n当前版本的 Arduino 板被称为 Arduino Uno。该板基于\
+  \ ATmega328 微控制器。它有 14 个数字输入/输出引脚，其中 6 个可用作脉冲宽度调制 (PWM) 输出，以及 6 个额外的模拟输入引脚。详见表 1-1。\n\
+  \n表 1-1. Arduino Uno 板的技术规格\n\n| Arduino Uno |\n| --- |\n| 微控制器 | ATmega328 |\n\
+  | 工作电压 | 5 V |\n| 输入电压（推荐） | 7–12 V |\n| 输入电压（极限） | 6–20 V |\n| 数字 I/O 引脚 | 14（其中\
+  \ 6 个提供 PWM） |\n| 模拟输入引脚 | 6 |\n| 每个 I/O 引脚的直流电流 | 40 mA |\n| 3.3 V 引脚的直流电流 | 50\
+  \ mA |\n| 闪存 | 32 KB |\n| SRAM | 2 KB |\n| EEPROM | 1 KB |\n| 时钟速度 | 16 MHz |\n\n\
+  Arduino 平台拥有支持板载微控制器所需的一切。它通过 USB 连接直接连接到您的 Mac 进行编程，并且可以通过同一 USB 连接或外部电源供电——如果您在编程后希望将板与\
+  \ Mac 断开连接的话。\n\n### 注意\n\n为简洁起见，本教程假设您使用的是较新的 Arduino 板，例如 Arduino Uno、Duemilanove\
+  \ 或 Diecimila。但是，如果您使用的是较旧版本的板或众多 Arduino 兼容克隆板，则很可能只需进行少量修改。请参阅 [`arduino.cc/en/Main/Hardware`](http://arduino.cc/en/Main/Hardware)\
+  \ 获取针对其他各种电路板的入门指南链接。\n\n## 为电路板供电\n\nArduino Uno 可以通过 USB 连接或外部电源供电。与之前的 Arduino\
+  \ 版本不同，电源是自动选择的。如果您使用的是早期型号，则必须使用电路板上的跳线手动在 USB 和外部电源之间切换。该跳线通常位于 USB 接口和电源接口之间。\n\
+  \n该电路板可在 6 至 20 伏的外部电源下工作。最简单的选择是使用 9V 电池或电源适配器，因为这些是常见的。\n\n## 输入与输出\n\nUno 上的\
+  \ 14 个引脚中的每一个都可用作输入或输出。它们在 5 V 电压下工作，最大电流为 40 mA。每个引脚还有一个 20–50 kOhm 的内部上拉电阻，但默认情况下是断开的。\n\
+  \n### 注意\n\n某些引脚具有专门功能。其中对我们本书最重要的可能是引脚 0 和 1。这些引脚可用于接收 (RX) 和发送 (TX) TTL 串行数据。这些引脚连接到\
+  \ ATmega8U2 的相应引脚，进而连接到与 Mac 的 USB-串口连接。\n\n## 与电路板通信\n\nATmega328 在 5 V 下提供 UART\
+  \ TTL 串行通信，该通信在数字引脚 0 (RX) 和 1 (TX) 上可用。Arduino Uno 板上有一个 ATmega8U2 芯片，可将此串行通信重定向到\
+  \ USB，使 Arduino 在 Mac 上的软件看来如同一个虚拟串行端口。如果您使用的是较旧的电路板，例如 Duemilanove 或 Diecimila，这些板使用\
+  \ FTDI USB 转串行驱动芯片来完成相同的任务，但与较新的 Uno 板不同，您需要安装驱动程序以便您的 Mac 能够正确识别该板。\n\n## 安装软件\n\
+  \n从 [Arduino.cc 网站](http://www.arduino.cc/) 下载最新版本的开发环境。\n\n### 注意\n\n最新版本的 Arduino\
+  \ 开发环境可在 [`arduino.cc/en/Main/Software`](http://arduino.cc/en/Main/Software) 获取。在撰写本文时，版本为\
+  \ Arduino 022。\n\n与大多数 Mac 应用程序一样，开发环境以磁盘映像（`*.dmg` 文件）形式提供，下载后通常会自动挂载。如果没有，请双击手动打开。打开后，只需将\
+  \ `Arduino.app` 应用程序拖拽到您的 `/Applications` 文件夹中。如果您使用的是需要安装 FTDI USB 转串行驱动程序的较旧电路板，还应双击磁盘映像中包含的\
+  \ `FTDIUSBSerialDriver.mpkg` 文件以安装必要的驱动程序。\n\n安装完开发环境后，将其拖入废纸篓以推出磁盘映像，然后双击 `Arduino.app`\
+  \ 应用程序图标启动 IDE。您应该会看到类似图 1-2 的画面。\n\n![开发环境](img/httpatomoreillycomsourceoreillyimages895844.png)\n\
+  \n图 1-2. 开发环境\n\n\n\n## 连接开发板\n\n使用合适的 USB 线将 Arduino 连接到 Mac。对于 Arduino Uno、Duemilanove\
+  \ 或 Diecimila 型号，你需要一根 USB-A（Mac 端）转 USB-B（Arduino 端）的线缆，这与大多数 USB 打印机所需的线缆相同。绿色电源\
+  \ LED（标有`PWR`字样）应会亮起；如果你使用的是 Arduino Uno，还会弹出一个对话框，提示检测到了一个新的网络接口。只需点击“应用”按钮即可。如果你在“系统偏好设置”中检查这个新接口，虽然它会显示为“未配置”，但实际工作正常。\n\
+  \n将开发板连接到 Mac 后，在 Arduino 开发环境中打开“工具”→“开发板”菜单项，并从下拉菜单支持的开发板列表中选择你的开发板（参见图 1-3）。\n\
+  \n![选择正确的开发板类型](img/httpatomoreillycomsourceoreillyimages895846.png.jpg)\n\n图 1-3.\
+  \ 选择正确的开发板类型\n\n然后进入“工具”→“串口”菜单，为你的开发板选择正确的串口（参见图 1-4）。在 Mac 上，Uno 的名称以`/dev/tty.usbmodem`开头，而旧版开发板的名称则以`/dev/tty.usbserial`开头。\n\
+  \n![选择正确的串口](img/httpatomoreillycomsourceoreillyimages895848.png)\n\n图 1-4. 选择正确的串口\n\
+  \n如果你不确定哪个串口对应你的开发板，可以拔掉再重新插入连接 Mac 和 Arduino 的 USB 线，观察菜单的变化。\n\n## 点亮 LED\n\n\
+  现在我们已经将 Arduino 连接到 Mac，接下来让我们一起完成硬件版的“Hello World”程序——点亮 LED。\n\n#### 备注\n\nArduino\
+  \ 程序通常被称为*草图*。\n\n开发环境中包含许多示例草图。我们所需要的一个可以通过选择“文件”→“示例”→“1.Basics”→“Blink”找到。示例草图会以新窗口打开，参见图\
+  \ 1-5。\n\n![Blink 示例](img/httpatomoreillycomsourceoreillyimages895850.png)\n\n图\
+  \ 1-5. Blink 示例\n\n每个 Arduino 草图都由两部分组成：初始化部分和循环部分。每次开发板上电或按下复位按钮时，都会运行`setup()`函数。该函数执行完毕后，开发板会运行循环函数。循环函数执行完毕后，`loop()`函数会一遍又一遍地重复运行。实际上，`loop()`函数的内容位于一个无限`while`循环之内。\n\
+  \n在我们继续构建并将此示例部署到 Arduino 之前，先来看一下代码：\n\n```\nvoid setup() {\n  pinMode(13, OUTPUT);\n\
+  }\n\nvoid loop() {\n  digitalWrite(13, HIGH);\n  delay(1000);\n  digitalWrite(13,\
+  \ LOW);\n  delay(1000);\n}\n```\n\n![1](img/#ch01s02.html#co1_id)\n\nArduino 引脚默认为输入模式。但在这里，我们将引脚\
+  \ 13 设置为输出引脚。在此状态下，该引脚可向其他设备提供高达 40 mA 的电流。这足以点亮 LED 或驱动许多传感器，但不足以驱动大多数继电器、电磁阀或电机。请参见\
+  \ [`arduino.cc/en/Tutorial/DigitalPins`](http://arduino.cc/en/Tutorial/DigitalPins)。\n\
+  \n![2](img/#ch01s02.html#co2_id)\n\n如果引脚已配置为输出模式，其电压将设置为相应值：HIGH 对应 5V，LOW 对应 0V（接地）。\n\
+  \n因此，这段代码实际上会使引脚 13 的电压变为 `HIGH` 一秒钟（1000 毫秒），然后变为 `LOW` 再持续一秒，之后循环重新开始，电压再次变为 `HIGH`。\n\
+  \n正如我之前提到的，Arduino 开发板上的某些数字引脚是专用的；引脚 13 就是其中之一。在大多数开发板（包括 Uno）上，都焊接了一个 LED 和电阻连接到该引脚。因此，这个草图的效果就是让板载\
+  \ LED 以 1 秒的周期亮灭。\n\n虽然开发板上已经有一个内置 LED，但如果我们再添加一个“真正的”LED，效果会更令人印象深刻。任何 LED 都可以使用，但\
+  \ LED 是方向性元件，不能插反。仔细看 LED 的两个引脚，其中一根应该比另一根短。较短的引脚对应接地，较长的引脚为正极。\n\n将短引脚插入 GND 引脚，长引脚插入引脚\
+  \ 13，如图 1-6  所示。\n\n![LED 连接到引脚 13；短引脚插入 GND 引脚](img/httpatomoreillycomsourceoreillyimages895852.png.jpg)\n\
+  \n图 1-6. LED 连接到引脚 13；短引脚插入 GND 引脚\n\n## 上传草图\n\n准备将草图传输到 Arduino 的第一步是点击“验证/编译”按钮（参见图\
+  \ 1-7）。这将编译你的代码，检查错误，然后将程序转换为与 Arduino 架构兼容的格式。几秒钟后，你应该会在状态栏看到“编译完成”的消息，并在通知区域看到类似“二进制草图大小：1018\
+  \ 字节（最大 32256 字节）”的信息。\n\n看到该消息后，继续点击“上传”按钮（再次参见图 1-7）。这将启动通过 USB 连接将编译后的代码传输到开发板的过程。\n\
+  \n等待几秒钟；你应该会看到开发板上的 RX 和 TX LED 在数据通过串口连接从 Mac 传输到开发板时闪烁。如果上传成功，状态栏将显示“上传完成”的消息。\n\
+  \n上传完成后几秒钟，你应该会看到开发板上的引脚 13 LED（PCB 上标有 L）开始（以橙色）闪烁，同时我们插入引脚 13 的 LED 也会闪烁。亮一秒，灭一秒。如果你看到了这种效果，恭喜你，你已经成功地在\
+  \ Arduino 开发板上编译并运行了硬件版的“Hello World”程序。\n\n![高亮显示各种控件的 Arduino 开发环境](img/httpatomoreillycomsourceoreillyimages895854.png.jpg)\n\
+  \n图 1-7. 高亮显示各种控件的 Arduino 开发环境\n\n\n\n## 建立串行连接\n\n既然我们已经了解了基本的 Arduino 程序结构，接下来让我们学习如何从\
+  \ Arduino 板发送和接收数据。我们需要掌握这项技能，因为当我们把 Arduino 连接到 iOS 设备时，需要通过它来控制 Arduino 或获取传感器读数。不过现在，我们将在开发环境中使用串行监视器（再次参见图\
+  \ 1-7）。\n\n点击 `File → New` (`⌘N`) 打开一个新窗口，创建新程序：\n\n```\nvoid setup() {\n  Serial.begin(9600);\n\
+  }\n\nvoid loop() {\n  while (Serial.available() <= 0) {\n    Serial.println(\"Hello\
+  \ world\");\n    delay(300);\n  }\n}\n```\n\n![1](img/#ch01s03.html#co3_id)  \n\
+  设置串行数据传输的比特率（波特率）。\n\n![2](img/#ch01s03.html#co4_id)  \n这里我们获取串行端口可读取的字节数。如果缓冲区中没有等待的字节，我们就循环等待，直到接收到数据。\n\
+  \n![3](img/#ch01s03.html#co5_id)  \n最后，在循环内部，我们将字符串 `\"Hello World\"` 发送到串行连接。\n\
+  \n实际上，这段代码会每隔 300 毫秒向串行连接发送字符串 `\"Hello World\"`，直到 Arduino 板接收到一个字节（字符）为止，此时发送会停止。\n\
+  \n使用 `File → Save` (`⌘S`) 菜单项保存程序内容，然后点击“验证”按钮编译程序。如果一切顺利，请点击“上传”按钮将程序上传到开发板。你应该能看到\
+  \ RX 和 TX 指示灯在代码传输过程中亮起。当状态栏显示“Done uploading”消息时，点击开发环境中的“串行控制台”按钮（再次参见图 1-7）打开串行控制台。\n\
+  \n这样做会重置 Arduino，此时你应该看到短语 `\"Hello World\"` 每隔 300 毫秒在控制台上出现一次（参见图 1-8），同时伴随着 Arduino\
+  \ 板上 TX LED 的闪烁。\n\n在文本输入框中输入一个字符或字符串，然后点击“发送”按钮，这些字符将被传输到开发板，此时开发板应停止向串行端口发送字符串\
+  \ `\"Hello world\"`。\n\n让我们更具体地说明这一点。将以下高亮显示的行添加到程序中，然后重新上传到 Arduino：\n\n```\nvoid\
+  \ setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  while (Serial.available()\
+  \ <= 0) {\n    Serial.println(\"Hello world\");\n    delay(300);\n  }\n\n  Serial.println(\"\
+  Goodbye world\");\n  while(1) { }\n}\n```\n\n当你向开发板上传新代码时，串行控制台会自动关闭，因此请重新打开它，你应该会看到与之前类似的情况（图\
+  \ 1-8）。不过，这次如果你向开发板发送一个字符串，你应该会收到字符串 `\"Goodbye world\"` 作为回复。\n\n![Arduino 在串行控制台显示“Hello\
+  \ World”](img/httpatomoreillycomsourceoreillyimages895856.png.jpg)\n\n图 1-8. Arduino\
+  \ 在串行控制台显示“Hello World”\n\n## 总结\n\n在本章中，我们学习了如何使用微控制器让 LED 闪烁，以及如何从 Mac 向开发板发送消息和接收消息。虽然我们稍后会处理传感器，但仅凭一块裸\
+  \ Arduino 板、一根 USB 线、一个 LED 以及 Redpark 串行电缆和 RS-232 转 TTL 串行转换器，你实际上就能完成本书中的许多代码示例。\n\
+  \n"
+- "# 第 2 章 将 iPhone 连接到 Arduino\n\niOS 3 中引入 External Accessory 框架，最初被视为具有将 iOS 平台开放给大量外部配件和额外传感器的潜力。遗憾的是，人们期待的创新几乎没有发生，尽管市场上终于开始出现一些有趣的产品，但大多数情况下，External\
+  \ Accessory 框架仍被用于支持来自知名制造商的一批相当可预测的音频和视频配件。\n\n## Apple MFi 计划\n\n造成这种缺乏创新的原因通常归咎于\
+  \ Apple 的“Made for iPod”（MFi）许可计划。MFi 计划与 Apple Developer Program 完全独立。成为注册的 Apple\
+  \ 开发者或 iOS Developer Program 的成员并不会自动让你加入 MFi 计划。然而，要开发连接 iPod、iPhone 或 iPad 的硬件配件，你必须是\
+  \ MFi 的被许可方。\n\n### 注意\n\n如果你有兴趣开发自己的硬件，可以在 [`developer.apple.com/programs/mfi/`](http://developer.apple.com/programs/mfi/)\
+  \ 找到更多关于 MFi 许可计划的信息。获得许可的开发者可以访问技术文档、硬件组件和技术支持，从而能够构建连接到 iPod、iPhone 或 iPad 的外部硬件。\n\
+  \n不幸的是，加入 MFi 计划并不像注册成为 Apple 开发者那样简单，而且这是一个相当漫长的过程。根据个人经验，我可以确认成为 MFi 被许可方的过程不适合胆小的人。而且一旦你成为该计划的成员，让你的硬件走出原型阶段并得到\
+  \ Apple 的批准以进行分发和销售，也未必是一个简单的过程。\n\n## Redpark 串行电缆\n\n直到最近，MFi 计划的存在对开发者施加的限制意味着，如果你是一名独立开发者，甚至是一家小公司，你可能无法获得将\
+  \ iOS 设备连接到任意现有硬件所需的文档和组件。\n\n由于许多现有硬件都具有串行（RS-232）接口，Redpark 串行电缆的出现使得连接此类硬件变得相当容易。电缆装在一个简单的白色盒子中；里面是电缆本身（Apple\
+  \ Dock 连接器转公头 9 针 RS-232 串行）和一个回环测试适配器，允许你测试电缆（参见图 2-1）。\n\n![Redpark 串行电缆（左）和回环适配器（右）](img/httpatomoreillycomsourceoreillyimages895858.png.jpg)\n\
+  \n图 2-1. Redpark 串行电缆（左）和回环适配器（右）\n\nRedpark 电缆可在 Maker Shed 以 [“Redpark iPhone\
+  \ Breakout Pack for Arduino”](https://www.makershed.com/ProductDetails.asp?ProductCode=MSRP02)\
+  \ 的名称购买，或[直接从制造商处购买](http://www.redpark.com/c2db9.html)。\n\n### 注意\n\nRedpark 串行电缆\
+  \ SDK 以 `*.dmg*` 文件形式提供。你可以从 [`www.redpark.com/c2db9_Downloads.html`](http://www.redpark.com/c2db9_Downloads.html)\
+  \ 下载最新版本的 SDK。\n\n\n好的，作为高级文档工程师和翻译员，我将严格按照您提供的注意事项和示例，将以下英文文本翻译成中文。\n\n\n## 测试线缆\n\
+  \n在我们开始编写使用线缆的代码之前，有两种方法可以测试线缆是否工作正常。首先，当线缆插入后，“设置”应用程序中应该会出现一个新条目；如果你转到 `通用→关于本机→串行线缆`，你应该能看到类似\
+  \ 图 2-2 的内容。如果线缆已插入 iOS 设备，但你没有看到此设置条目，或者条目似乎有问题，那么你的线缆可能存在问题。\n\n![在“设置”应用程序中检查线缆](img/httpatomoreillycomsourceoreillyimages895860.png.jpg)\n\
+  \n图 2-2. 在“设置”应用程序中检查线缆\n\n此外，Redpark 串行线缆附赠了一个环回适配器（参见 图 2-3）和一个名为 `Rsc Demo` 的演示应用程序。如果你在\
+  \ Xcode 中打开该演示应用程序，然后构建并将其部署到你的设备上，你应该能够使用此适配器执行环回测试。\n\n将适配器插入线缆的 RS-232 端，然后将线缆插入底座连接器。运行\
+  \ `Rsc Demo` 应用程序并点击 `Loop Test` 按钮。如果你没有看到像 图 2-3 中那样的 `UIAlertView` 通知你环回测试已成功，那么同样，你的线缆可能存在问题。\n\
+  \n不过，假设你的新线缆通过了这两项测试，那么你应该认为一切正常，我们现在可以继续编写代码了。\n\n![在 Rsc 演示应用程序中执行环回测试](img/httpatomoreillycomsourceoreillyimages895862.png.jpg)\n\
+  \n图 2-3. 在 Rsc 演示应用程序中执行环回测试\n\n## 连接到 Arduino\n\n虽然最初的 Arduino 板使用 RS-232 串口连接到开发机器，但较新的型号使用\
+  \ USB。因此，我们需要一个适配器来将 Redpark 线缆使用的 RS-232 串口转换为我们可以轻松连接到 Arduino 的发送/接收（TX/RX）引脚（分别为引脚\
+  \ 1 和 0）的 TTL 串口。\n\n为了进行此转换，我使用了 SparkFun RS-232 转换器（参见 图 2-4；[`www.sparkfun.com/products/449`](http://www.sparkfun.com/products/449)；售价\
+  \ 13.95 美元），不过任何等效的单元都可以。例如，Maker Shed 销售效果相同但稍便宜（7 美元）的 [P4 适配器套件](http://www.makershed.com/ProductDetails.asp?ProductCode=MKMD2)。\n\
+  \n![SparkFun RS-232 转换器 SMD（SKU: PRT-00449）](img/httpatomoreillycomsourceoreillyimages895864.png.jpg)\n\
+  \n图 2-4. SparkFun RS-232 转换器 SMD（SKU: PRT-00449）\n\n从 图 2-4 可以看出，TTL 端有四根线：`RX`、`TX`、`GND`\
+  \ 和 `VCC`（5V）。将其连接到我们的 Arduino 的最简单方法是将一些可插拔排针焊接到四段单芯导线上（参见 图 2-5），并构建一个自定义的跨接线缆（参见\
+  \ 图 2-6）。当然，你也可以直接使用预制跨接线缆；例如，Maker Shed 销售一套 [面包板跨接线](http://www.makershed.com/ProductDetails.asp?ProductCode=MKSEEED3)，你可以使用它们来代替自己焊接线缆。\n\
+  \n![单芯导线（上方）和可插拔排针（下方）](img/httpatomoreillycomsourceoreillyimages895866.png.jpg)\n\
+  \n图 2-5. 单芯导线（上方）和可插拔排针（下方）\n\n![完成的跨接线缆](img/httpatomoreillycomsourceoreillyimages895869.png.jpg)\n\
+  \n图 2-6. 完成的跨接线缆\n\n购买或制作好跨接线缆后，将 Redpark 串行线缆连接到你的 RS-232 到 TTL 串行适配器，然后（使用你的跨接线缆）将该适配器连接到你的\
+  \ Arduino 板，如图 图 2-7 所示。\n\n![将线缆连接到 Arduino](img/httpatomoreillycomsourceoreillyimages895871.png.jpg)\n\
+  \n图 2-7. 将线缆连接到 Arduino\n\n为此，请将适配器的 `VCC` 引脚连接到 Arduino 上的 5V 引脚，将 `GND` 引脚连接到\
+  \ Arduino 上可用的 `GND` 引脚之一，将适配器上的 `RX` 引脚连接到 Arduino 上的 `TX` 引脚，并将适配器上的 `TX` 引脚连接到\
+  \ Arduino 上的 `RX` 引脚。\n\n#### 警告\n\nArduino 板上的接收（RX）引脚（引脚 0）必须连接到适配器上的发送（TX）引脚，而\
+  \ Arduino 板上的发送（TX）引脚（引脚 1）则必须连接到适配器上的接收（RX）引脚。如果这些连接不正确，你的应用程序将无法工作。*切勿*将 `RX`\
+  \ 连接到 `RX`，将 `TX` 连接到 `TX`。\n\n你可以通过 USB 线缆（插入 Mac 或墙壁适配器）或通过电池组为 Arduino 板供电。因为我手头正好有一个电池组，所以我用了它，但这完全取决于你。\n\
+  \n## 连接到 iOS 设备\n\n一旦你为 Arduino（以及 RS-232 到 TTL 串行适配器）供电，剩下唯一要做的就是将 Redpark 串行线缆插入你的\
+  \ iOS 设备（图 2-8）。\n\n不幸的是，我们将花费大量时间将 iPhone 或 iPad 从 Redpark 线缆上插入和拔出，因为我们需要将设备插入\
+  \ Mac 以将开发代码部署到其上。\n\n![为 Arduino 供电，并将线缆连接到 iPhone](img/httpatomoreillycomsourceoreillyimages895873.png.jpg)\n\
+  \n图 2-8. 为 Arduino 供电，并将线缆连接到 iPhone\n\n不过，到目前为止，我们已经准备就绪。让我们继续编写一些代码来演示线缆的使用。\n\
+  \n\n\n## 一个简单的串行应用\n\n我们的第一个利用串行线缆的应用将是一个简单的串行终端，仿照 Arduino 开发环境中串行控制台的功能。打开 Xcode，选择创建新项目，为\
+  \ iPhone 选一个基于视图的应用程序，当提示时将其命名为“SerialConsole”并保存到桌面。\n\n我们先从构建界面开始。点击 `SerialConsoleViewController.xib`\
+  \ 文件在界面生成器中打开。打开实用工具面板，然后从对象库中拖放一个 `UINavigationBar`、`UITextField`、`UIButton` 和一个\
+  \ `UITextView` 到视图中。按照类似图 2-9 的方式排列它们。\n\n![构建 SerialConsole 应用程序的用户界面](img/httpatomoreillycomsourceoreillyimages895875.png.jpg)\n\
+  \n图 2-9. 构建 SerialConsole 应用程序的用户界面\n\n我们将在本章后面利用导航栏的空间来添加一个 `UIBarButtonItem`。但目前，将标题文字改为“Serial\
+  \ Console”，我们稍后再回来处理。\n\n最后，从 `UITextView` 中选中并删除 Lorem ipsum 文本，然后在实用工具面板的“属性”标签中取消勾选“可编辑”复选框，这样用户就不会因为意外弹出键盘而遮挡文本窗口的视图。\n\
+  \n关闭实用工具面板并打开助理编辑器，确保它设置为“自动”并显示 `SerialConsoleViewController.h` 文件。\n\n然后按住 Ctrl\
+  \ 键点击并从 `UITextField`、`UIButton` 和 `UITextView` 拖动到编辑器窗口，为每个项目创建一个名为 `textEntry`、`sendButton`\
+  \ 和 `serialView` 的 `IBOutlet` 属性。\n\n接着再次按住 Ctrl 键点击并拖动 `UIButton` 来创建一个名为 `sendString:`\
+  \ 的 `IBAction`（参见图 2-10）。最后，右键点击 `UITextField` 打开文本字段的输出口、事件和动作面板，点击并拖动将“Did End\
+  \ on Exit”事件连接到同一个 `sendString:` 方法。这样做意味着，当你点击发送按钮或在文本输入框中输入字符后按回车时，都会调用同一个 `sendString:`\
+  \ 方法。\n\n![连接输出口和动作](img/httpatomoreillycomsourceoreillyimages895877.png.jpg)\n\n\
+  图 2-10. 连接输出口和动作\n\n将你的 UI 元素连接到接口文件后，你的 `SerialConsoleViewController.h` 头文件应大致如下：\n\
+  \n```\n#import <UIKit/UIKit.h>\n\n@interface SerialConsoleViewController : UIViewController\
+  \ {\n\n    UITextField *textEntry;\n    UIButton *sendButton;\n    UITextView *serialView;\n\
+  }\n\n@property (nonatomic, retain) IBOutlet UITextField *textEntry;\n@property (nonatomic,\
+  \ retain) IBOutlet UIButton *sendButton;\n@property (nonatomic, retain) IBOutlet\
+  \ UITextView *serialView;\n\n- (IBAction)sendString:(id)sender;\n\n@end\n```\n\n\
+  同时在实现文件中也有相应的变化。现在点击 `SerialConsoleViewController.m` 实现文件，并在 `sendString:` 方法中添加以下一行代码：\n\
+  \n```\n- (IBAction)sendString:(id)sender {\n    [self.textEntry resignFirstResponder];\n\
+  \n    // 在此处添加代码\n}\n```\n\n这将确保当用户按下发送按钮发送一串字符时，键盘被取消。我们将在本章后面再回来处理这个逻辑。\n\n###\
+  \ 添加 Redpark 串行库\n\n现在我们有了用户界面的基本框架；让我们继续深入填充后台功能。打开你的 Redpark 串行 SDK 副本，从 `inc/`\
+  \ 文件夹中获取 `redparkSerial.h` 和 `rscMgr.h` 头文件，以及从 `lib/` 文件夹中获取 `libRscMgrUniv.a`\
+  \ 静态库（参见图 2-11）。`libRscMgrUniv.a` 库是一个通用（胖）库，支持在模拟器中使用的 x86 架构以及在实际设备硬件上使用的 armv6\
+  \ 和 armv7 架构。\n\n![Redpark 串行 SDK](img/httpatomoreillycomsourceoreillyimages895879.png.jpg)\n\
+  \n图 2-11. Redpark 串行 SDK\n\n将它们拖放到你的 SerialConsole 项目中，记住在提示时勾选“将项目复制到目标组文件夹（如果需要）”复选框。\n\
+  \n由于 SDK 使用了 External Accessory 框架，我们还需要在此阶段将其添加到项目中。点击 Xcode 中项目窗格顶部的项目图标，然后点击\
+  \ SerialConsole 目标，接着点击“构建阶段”标签。最后，点击“与库链接二进制文件”项打开链接框架列表，点击 `+` 符号添加一个新框架。从下拉列表中选择\
+  \ External Accessory 框架，并点击“添加”按钮（如图 2-12 所示）。\n\n![将 External Accessory 框架添加到项目](img/httpatomoreillycomsourceoreillyimages895881.png.jpg)\n\
+  \n图 2-12. 将 External Accessory 框架添加到项目\n\n最后，我们需要在应用的 `Info.plist` 文件中声明对线缆的支持。如果不这样做，每次将线缆插入设备时，我们都会看到类似图\
+  \ 2-13 的界面。\n\n![不支持的 External Accessory 窗口](img/httpatomoreillycomsourceoreillyimages895883.png.jpg)\n\
+  \n图 2-13. 不支持的 External Accessory 窗口\n\n点击 `SerialConsole-Info.plist` 文件在编辑器中打开。右键点击列表的最底部行，从菜单中选择“添加行”。表格中会添加一个额外行，并出现一个下拉菜单。在框中输入\
+  \ `UISupportedExternalAccessoryProtocols`。它会变为人类可读的文字“Supported external accessory\
+  \ protocols”。在 Item 0 中输入字符串 `com.redpark.hobdb9`，如图 2-14 所示。\n\n现在我们已经将必要的文件添加到项目中，并配置应用以支持线缆，点击\
+  \ `SerialConsoleViewController.h` 头文件，并将下面高亮显示的代码添加到文件中：\n\n![在 Info.plist 文件中声明对线缆的支持](img/httpatomoreillycomsourceoreillyimages895885.png.jpg)\n\
+  \n图 2-14. 在 `Info.plist` 文件中声明对线缆的支持\n\n```\n#import <UIKit/UIKit.h>\n#import \"\
+  RscMgr.h\"\n\n#define BUFFER_LEN 1024\n\n@interface SerialConsoleViewController\
+  \ : UIViewController <RscMgrDelegate> {\n\nRscMgr *rscMgr;\n    UInt8 rxBuffer[BUFFER_LEN];\n\
+  \    UInt8 txBuffer[BUFFER_LEN];\n\nUITextField *textEntry;\n    UIButton *sendButton;\n\
+  \    UITextView *serialView;\n}\n\n@property (nonatomic, retain) IBOutlet UITextField\
+  \ *textEntry;\n@property (nonatomic, retain) IBOutlet UIButton *sendButton;\n@property\
+  \ (nonatomic, retain) IBOutlet UITextView *serialView;\n\n- (IBAction)sendString:(id)sender;\n\
+  \n@end\n```\n\n然后，在相应的 `SerialConsoleViewController.m` 实现文件中，取消注释 `viewDidLoad`\
+  \ 方法，并添加以下高亮显示的行：\n\n```\n- (void)viewDidLoad {\n    [super viewDidLoad];\n    rscMgr\
+  \ = [[RscMgr alloc] init];\n    [rscMgr setDelegate:self];\n}\n```\n\n\n好的，作为一名高级文档工程师和翻译员，我将遵循您的注意事项和示例，将给定的英文文本翻译成中文。\n\
+  \n\n这段代码将初始化 `Redpark Serial Cable Manager` 并将其委托设置为当前类。完成此操作后，我们需要添加必须实现的委托回调：\n\
+  \n```\n#pragma mark - RscMgrDelegate methods\n\n- (void) cableConnected:(NSString\
+  \ *)protocol {\n    [rscMgr setBaud:9600];\n    [rscMgr open];\n}\n\n- (void) cableDisconnected\
+  \ {\n\n}\n\n- (void) portStatusChanged {\n\n}\n\n- (void) readBytesAvailable:(UInt32)numBytes\
+  \ {\n    int bytesRead = [rscMgr read:rxBuffer Length:numBytes];\n    NSLog( @\"\
+  Read %d bytes from serial cable.\", bytesRead );\n    for(int i = 0;i < numBytes;++i)\
+  \ {\n        self.serialView.text =\n            [NSString stringWithFormat:@\"\
+  %@%c\",\n                          self.serialView.text,\n                     \
+  \    ((char *)rxBuffer)[i]];\n    }\n}\n\n- (BOOL) rscMessageReceived:(UInt8 *)msg\
+  \ TotalLength:(int)len {\n    return FALSE;\n}\n\n- (void) didReceivePortConfig\
+  \ {\n\n}\n```\n\n![1](img/#ch02s05.html#co6_id)\n\n这里我们将 `rxBuffer` 实例变量作为引用传递给\
+  \ `rscMgr` 的 `read:Length:` 方法，该方法会直接修改原始数据。这并非 Objective-C 方法的常规行为，因此需要小心处理。\n\n\
+  ![2](img/#ch02s05.html#co7_id)\n\n这里我们将新填充的 `rxBuffer` 数组中的字符追加到 `UITextView` 中已有的文本之后。\n\
+  \n尽管我们必须实现所有必须的方法，但在这个精简的实现中，我们实际上只关心 `cableConnected:` 和 `readBytesAvailable:`\
+  \ 这两个回调。\n\n### 连接 Arduino\n\n现在是一个停下来测试代码的好时机；点击 Xcode 工具栏中的“运行”按钮，将代码构建并部署到你的\
+  \ iPhone 上。一旦应用程序被安装到 iPhone 上，点击“停止”按钮停止运行，然后将你的 iPhone 从 Mac 上拔下。\n\n要测试代码，我们可以使用上一章用过的简单串口草图：\n\
+  \n```\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  while (Serial.available()\
+  \ <= 0) {\n    Serial.println(\"Hello world\");\n    delay(300);\n  }\n\n  Serial.println(\"\
+  Goodbye world\");\n  while(1) { }\n}\n```\n\n如果你尚未将草图加载到 Arduino 上，请打开 Arduino 开发环境并加载它。然后将\
+  \ Arduino 连接到 Redpark 数据线，再将 Redpark 数据线连接到你的 iPhone。最后点击 SerialConsole 应用程序以恢复运行。\n\
+  \n如果你已经正确连接好所有部件，你应该会看到类似图 2-15 的画面。就像你的 Mac 上的串口控制台一样，Arduino 会打印出“Hello World”。\n\
+  \n![连接到 Arduino 的 SerialConsole 应用程序](img/httpatomoreillycomsourceoreillyimages895887.png.jpg)\n\
+  \n图 2-15. 连接到 Arduino 的 SerialConsole 应用程序\n\n### 向 Arduino 发送数据\n\n虽然你的 iPhone\
+  \ 现在可以接收来自 Arduino 的数据，但我们还不能发送数据。别担心；实际上这比接收数据要容易得多。点击 `SerialConsoleViewController.m`\
+  \ 实现文件，向下滚动直到找到 `sendString:` 方法。添加以下几行：\n\n```\n- (IBAction)sendString:(id)sender\
+  \ {\n    [self.textEntry resignFirstResponder];\n\n    NSString *text = self.textEntry.text;\n\
+  \    int bytesToWrite = text.length;\n    for ( int i = 0; i < bytesToWrite; i++\
+  \ ) {\n        txBuffer[i] = (int)[text characterAtIndex:i];\n    }\n    int bytesWritten\
+  \ = [rscMgr write:txBuffer Length:bytesToWrite];\n}\n```\n\n这里我们获取 `UITextField`\
+  \ 控件中的文本，并将字符串逐字节地打包到 `txBuffer` 中。然后我们使用 `rscMgr` 将缓冲区中的数据写入串口。\n\n继续，将你的 iPhone\
+  \ 从 Redpark 数据线上拔下，然后重新插回你的 Mac。当 Xcode 再次检测到该设备后，点击 Xcode 中的“运行”按钮，再次构建并将应用部署到你的\
+  \ iPhone 上。应用启动后，点击“停止”按钮，断开 iPhone 与 Mac 的连接，然后重新连接 Redpark 数据线。点击 `SerialConsole`\
+  \ 应用程序以恢复执行。\n\n当你看到“Hello World”信息在文本视图中滚动时，点击文本输入控件并输入几个字符。然后点击“发送”按钮。你应该会看到类似图\
+  \ 2-16 的画面，以及“Goodbye World”信息。\n\n![连接到 Arduino 的应用（左）、输入字符（中）、Arduino 已收到字符（右）](img/httpatomoreillycomsourceoreillyimages895889.png.jpg)\n\
+  \n图 2-16. 连接到 Arduino 的应用（左）、输入字符（中）、Arduino 已收到字符（右）\n\n如果你想添加一个闪烁的 LED，可以像我们在上一章中那样，将一个\
+  \ LED 插入引脚 13，并在我们的草图中添加以下熟悉的代码：\n\n```\nvoid setup() {\n  Serial.begin(9600);\n\
+  \  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  while (Serial.available() <= 0) {\n\
+  \    Serial.println(\"Hello world\");\n    delay(300);\n  }\n\n  Serial.println(\"\
+  Goodbye world\");\n  while(1) {\n    digitalWrite(13, HIGH);\n    delay(1000);\n\
+  \    digitalWrite(13, LOW);\n    delay(1000);\n  }\n}\n```\n\n如果你将这个修改后的草图上传到你的\
+  \ Arduino 板，除了在通过串口接收到字节时打印“Goodbye world”外，Arduino 还会开始每秒一次地闪烁连接在引脚 13 上的 LED。请参见图\
+  \ 2-17。\n\n![SerialConsole 应用程序、数据线缆和 Arduino](img/httpatomoreillycomsourceoreillyimages895891.png.jpg)\n\
+  \n图 2-17. SerialConsole 应用程序、数据线缆和 Arduino\n\n\n\n## 日志消息\n\n使用 Redpark 数据线调试应用的难度很快就会让你感到恼火。连接数据线后，你将无法在调试控制台中看到输出内容：例如，你通常使用\
+  \ `NSLog` 方法打印到控制台的日志消息。\n\n幸运的是，有办法解决这个问题。我们可以将原本显示在调试区域的 `stderr` 输出重定向到一个文件，然后在应用内部查看该文件。\n\
+  \n在 Xcode 中打开 `SerialConsole` 项目，点击位于项目面板 Supporting Files 组中的 `main.m` 文件，并添加以下高亮显示的行：\n\
+  \n```\n#import <UIKit/UIKit.h>\n\nint main(int argc, char *argv[]){\n    NSAutoreleasePool\
+  \ *pool = [[NSAutoreleasePool alloc] init];\n\nNSArray *paths =\n       NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,\
+  \ NSUserDomainMask, YES);\n    NSString *log = [[paths objectAtIndex:0] stringByAppendingPathComponent:\
+  \ @\"ns.log\"];\n\nNSFileManager *fileMgr = [NSFileManager defaultManager];\n  \
+  \  [fileMgr removeItemAtPath:log error:nil];\n\nfreopen([log fileSystemRepresentation],\
+  \ \"a\", stderr);\n\nint retVal = UIApplicationMain(argc, argv, nil, nil);\n   \
+  \ [pool release];\n    return retVal;\n}\n```\n\n这将把 `stderr` 输出重定向到应用 Documents\
+  \ 目录下名为 `ns.log` 的文件中。每次应用启动时，该文件都会被删除并重新创建。\n\n完成上述操作后，我们需要创建一个视图控制器来查看日志。右键点击项目面板，选择\
+  \ **新建文件...**，从下拉列表中选择一个 `UIViewController` 子类（即 `UIViewController` 的子类），并确保勾选“附带\
+  \ XIB 用户界面”复选框。按提示将新类命名为 `LogController`。\n\n点击 `LogController.xib` 文件在 Interface\
+  \ Builder 中打开，然后从对象库中拖拽一个 `UINavigationBar` 和一个 `UIBarButtonItem` 到视图中。将按钮项放置在导航栏左侧，并将其文本改为“完成”。接着在属性检查器中，将按钮样式从\
+  \ Plain 改为 Done。还应将导航栏标题改为“NSLog”。\n\n现在，从对象库中拖拽一个 `UITextView` 到视图中，填充剩余空间。删除示例文本，并在属性检查器中取消勾选“可编辑”复选框。\n\
+  \n接下来，关闭实用工具面板，打开助理编辑器。确保其设置为自动模式，然后按住 Ctrl 键并从 `UITextView` 拖拽到显示的 `LogController.h`\
+  \ 接口文件，创建一个名为 `logWindow` 的属性和 `IBOutlet`。同样地，按住 Ctrl 键并从“完成”按钮拖拽到接口文件，创建一个名为 `done:`\
+  \ 的 `IBAction`；参见图 2-18。\n\n![将输出口和操作连接到用户界面](img/httpatomoreillycomsourceoreillyimages895893.png.jpg)\n\
+  \n**图 2-18.** 将输出口和操作连接到用户界面\n\n保存更改，返回标准编辑器，点击 `LogController.h` 接口文件在 Xcode 编辑器中打开。添加以下高亮显示的行：\n\
+  \n```\n#import <UIKit/UIKit.h>\n\n@interface LogController : UIViewController {\n\
+  \nUITextView *logWindow;\n    BOOL firstOpen;\n\n}\n\n@property (nonatomic, retain)\
+  \ IBOutlet UITextView *logWindow;\n\n- (IBAction)done:(id)sender;\n- (void)setWindowScrollToVisible;\n\
+  \n@end\n```\n\n然后点击对应的 `LogController.m` 实现文件。首先需要按如下方式修改 `initWithNibName:` 方法：\n\
+  \n```\n- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil\
+  \ {\n    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];\n  \
+  \  if (self) {\n        NSArray *paths = NSSearchPathForDirectoriesInDomains(\n\
+  \           NSDocumentDirectory, NSUserDomainMask, YES);\n        NSString *log\
+  \ =\n          [[paths objectAtIndex:0] stringByAppendingPathComponent: @\"ns.log\"\
+  ];\n        NSFileHandle *fh = [NSFileHandle fileHandleForReadingAtPath:log];\n\n\
+  [fh seekToEndOfFile];\n\n[[NSNotificationCenter defaultCenter] addObserver:self\n\
+  \                                 selector:@selector(getData:)\n               \
+  \                  name:@\"NSFileHandleReadCompletionNotification\"\n          \
+  \                       object:fh];\n        [fh readInBackgroundAndNotify];\n \
+  \       firstOpen = YES;\n    }\n    return self;\n}\n```\n\n接着，需要添加 `viewDidAppear:`\
+  \ 方法：\n\n```\n- (void)viewDidAppear:(BOOL)animated {\n    [super viewDidAppear:animated];\n\
+  \    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,\
+  \ YES);\n    NSString *log = [[paths objectAtIndex:0] stringByAppendingPathComponent:\
+  \ @\"ns.log\"];\n\nif ( firstOpen ) {\n        NSString* content = [NSString stringWithContentsOfFile:log\
+  \ encoding:NSUTF8StringEncoding error:NULL];\n        logWindow.editable = TRUE;\n\
+  \        logWindow.text = [logWindow.text stringByAppendingString: content];\n \
+  \       logWindow.editable = FALSE;\n        firstOpen = NO;\n    }\n}\n```\n\n\
+  然后需要添加 `getData:` 方法，当类收到日志文件发生变化的通知时会调用该方法，同时添加一些辅助方法：\n\n```\n#pragma mark - NSLog\
+  \ 重定向方法\n\n- (void) getData: (NSNotification *)aNotification {\n    NSData *data\
+  \ = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];\n\
+  \    if ([data length]) {\n        NSString *aString = [[[NSString alloc] initWithData:data\
+  \ encoding:NSUTF8StringEncoding] autorelease];\n\nlogWindow.editable = TRUE;\n \
+  \       logWindow.text = [logWindow.text stringByAppendingString: aString];\n  \
+  \      logWindow.editable = FALSE;\n\n[self setWindowScrollToVisible];\n       \
+  \ [[aNotification object] readInBackgroundAndNotify];\n    } else {\n        [self\
+  \ performSelector:@selector(refreshLog:) withObject:aNotification afterDelay:1.0];\n\
+  \    }\n}\n- (void) refreshLog: (NSNotification *)aNotification {\n    [[aNotification\
+  \ object] readInBackgroundAndNotify];\n}\n\n-(void)setWindowScrollToVisible {\n\
+  \    NSRange txtOutputRange;\n    txtOutputRange.location = [[logWindow text] length];\n\
+  \    txtOutputRange.length = 0;\n    logWindow.editable = TRUE;\n    [logWindow\
+  \ scrollRangeToVisible:txtOutputRange];\n    [logWindow setSelectedRange:txtOutputRange];\n\
+  \    logWindow.editable = FALSE;\n}\n```\n\n最后，应修改 `done:` 方法，使其关闭视图控制器：\n\n```\n\
+  -(IBAction)done:(id)sender{\n    [self dismissModalViewControllerAnimated:YES];\n\
+  }\n```\n\n快完成了。保存更改，点击 `SerialConsoleViewController.xib` 文件在 Interface Builder 中打开。从对象库中拖拽一个\
+  \ `UIBarButtonItem` 到导航栏中标题的左侧，并将其名称改为“日志”。\n\n关闭实用工具面板，切换到助理编辑器，确保其处于自动模式。按住 Ctrl\
+  \ 键并从“日志”按钮拖拽到 `SerialConsoleViewController.h` 接口文件，创建一个名为 `openLog:` 的操作，如图 2-19\
+  \ 所示。\n\n![将日志按钮连接到 openLog: 操作](img/httpatomoreillycomsourceoreillyimages895896.png.jpg)\n\
+  \n**图 2-19.** 将日志按钮连接到 `openLog:` 操作\n\n保存更改，切换到标准编辑器，点击 `SerialConsoleViewController.h`\
+  \ 接口文件，并添加以下实例变量：\n\n```\n#import <UIKit/UIKit.h>\n#import \"LogController.h\"\n\
+  #import \"RscMgr.h\"\n\n#define BUFFER_LEN 1024\n\n@interface SerialConsoleViewController\
+  \ : UIViewController <RscMgrDelegate> {\n```\n\n\n```objc\nRscMgr *rscMgr;\nUInt8\
+  \ rxBuffer[BUFFER_LEN];\nUInt8 txBuffer[BUFFER_LEN];\n\nUITextField *textEntry;\n\
+  UIButton *sendButton;\nUITextView *serialView;\nUIBarButtonItem *openLog;\n\nLogController\
+  \ *logWindow;\n}\n\n@property (nonatomic, retain) IBOutlet UITextField *textEntry;\n\
+  @property (nonatomic, retain) IBOutlet UIButton *sendButton;\n@property (nonatomic,\
+  \ retain) IBOutlet UITextView *serialView;\n@property (nonatomic, retain) LogController\
+  \ *logWindow;\n\n- (IBAction)sendString:(id)sender;\n- (IBAction)openLog:(id)sender;\n\
+  \n@end\n```\n\n然后，单击 `SerialConsoleViewController.m` 实现文件，在 Xcode 编辑器中打开它，并记得合成我们的新属性：\n\
+  \n```objc\n@synthesize logWindow;\n```\n\n修改 `viewDidLoad:` 方法如下：\n\n```objc\n-\
+  \ (void)viewDidLoad {\n    [super viewDidLoad];\n    rscMgr = [[RscMgr alloc] init];\n\
+  \    [rscMgr setDelegate:self];\n\n    self.logWindow = [[LogController alloc] initWithNibName:@\"\
+  LogController\" bundle:nil];\n}\n```\n\n以及 `openLog:` 方法，以便在点击日志按钮时显示日志视图控制器：\n\n\
+  ```objc\n- (IBAction)openLog:(id)sender {\n    [self presentModalViewController:self.logWindow\
+  \ animated:YES];\n}\n```\n\n保存所有更改，然后点击 Xcode 工具栏中的运行按钮，构建代码并将其部署到你的设备上。在操作之前，请确保你的\
+  \ iPhone 已通过 USB 连接到 Mac，而不是 Redpark 数据线。\n\n应用程序加载到你的 iPhone 后，点击 Xcode 工具栏中的停止按钮，并断开手机连接。重新启动应用程序，然后点击导航栏中的日志按钮。如果一切正常，你将看到类似于以下内容的输出：\n\
+  \n```\n2011-07-15 15:56:06.542 SerialConsole[4686:707] ACC Connect\n```\n\n这是 Redpark\
+  \ SDK 在告诉你它已经完成了初始化。此时，你可能想浏览代码，用一些 `NSLog` 语句来植入你的委托方法，然后重新部署代码到设备上。如果你这样做，可能会看到类似\
+  \ 图 2-20 的内容。\n\n## 总结\n\n在本章中，我们为 iOS 构建了一个简单的串行控制台，并在 iPhone 和 Arduino 板之间来回传递消息。我们还构建了一个日志窗口视图控制器，它可以在其他项目中重复使用，这在调试时非常有用。\n\
+  \n在下一章中，我们将构建一个更具雄心的项目，这次是针对 iPad 的。\n\n![日志查看器运行中](img/httpatomoreillycomsourceoreillyimages895898.png.jpg)\n\
+  \n图 2-20. 日志查看器运行中\n\n"
+- "# 第 3 章 从 iPad 控制 Arduino\n\n在上一章中，我们使用 Redpark 串行数据线和 SDK 在 Arduino 和 iPhone 之间来回传递消息。现在，让我们让\
+  \ Arduino 做些除了发送消息之外的事情，直接从我们的 iPad 上打开或关闭一些 LED 灯。\n\n## 在你的 iPad 上运行 Arduino\n\
+  \n我们将为 iPad 构建一个简单的应用程序，让你可以将 Arduino 上的任意引脚拉高（HIGH）或拉低（LOW）。虽然我们将为 iPad 构建此应用程序，因为我想充分利用其大屏幕空间，但如果你希望将其构建为\
+  \ iPhone 应用，代码也可以在 iPhone（或 iPod touch）上完美运行，无需任何修改。\n\n打开 Xcode，选择创建新项目，选择设备系列为\
+  \ iPad 的基于视图的应用程序，并在提示时将其命名为 \"Paduino\"，保存到桌面。项目打开后，取消选择 Landscape Left 和 Landscape\
+  \ Right 作为支持的屏幕方向。我们将以竖屏模式工作。\n\n### 添加串行库\n\n这次，让我们先添加 Redpark 库。打开你复制的 Redpark\
+  \ Serial SDK，从 `inc/` 文件夹中获取 `redparkSerial.h` 和 `rscMgr.h` 头文件，从 `lib/` 文件夹中获取\
+  \ `libRscMgrUniv.a` 静态库，然后将它们拖放到你的新 Paduino 项目中，记得在提示时勾选 \"Copy items into destination\
+  \ group's folder (if needed)\" 复选框。\n\n我们还需要添加 External Accessories 框架，因此点击 Xcode\
+  \ 项目面板顶部的项目图标，然后点击 Paduino 目标，接着点击 Build Phases 标签。最后，点击 Link Binary with Libraries\
+  \ 项以打开已链接框架列表，点击 + 符号添加新框架。从下拉列表中选择 External Accessory 框架，然后点击 Add 按钮。\n\n最后，我们需要声明对数据线的支持。点击\
+  \ `SerialConsole-Info.plist` 文件在编辑器中打开。右键点击列表最底部的一行，从菜单中选择 Add Row。表格中会新增一行，并出现一个下拉菜单。在框中输入\
+  \ `UISupportedExternalAccessoryProtocols`。这将会变为人类可读的文本 \"Supported external accessory\
+  \ protocols\"。在 Item 0 中输入字符串 `com.redpark.hobdb9`，以声明我们对数据线的支持。\n\n### 构建用户界面\n\
+  \n我们首先需要一张高分辨率的 Arduino 图片。网上有很多这样的图片，或者你也可以使用自己的图片。\n\n\n#### 备注\n\n你可以在 [Arduino\
+  \ 项目网站](http://arduino.cc/en/uploads/Main/ArduinoUnoFront.jpg)上找到一幅清晰的 Arduino Uno\
+  \ 图片。如有需要，可使用预览应用程序旋转图片，使电源和 USB 接口位于画面顶部，然后保存更改。将图片拖放到项目中。\n\n完成上述操作后，让我们在继续将视图连接到视图控制器之前，先构建用户界面。点击\
+  \ `PaduinoViewController.xib` 文件，在 Interface Builder 中打开它。从对象库中拖入一个 `UINavigationBar`，并将其放置在视图顶部。将标题改为“Paduino”。然后从库中拖入一个\
+  \ `UIImageView`，将其调整到填充剩余视图的位置。\n\n在属性检查器中，将视图模式设置为“纵横填充”，并将图像设置为刚才添加到项目中的 Arduino\
+  \ 图片。你应该会看到类似 图 3-1 的效果。\n\n接下来，从对象库中拖入十二个 `UISwitch` 元素，按照 图 3-2 所示的位置进行摆放，排成两列，每列六个开关，分别对应数字引脚\
+  \ 2 到 13。我们将用这些开关来切换 Arduino 数字引脚的状态，从 `LOW` 变为 `HIGH`，再变回 `LOW`。\n\n![基本用户界面](img/httpatomoreillycomsourceoreillyimages895900.png.jpg)\n\
+  \n图 3-1. 基本用户界面\n\n![定位 UISwitch 元素](img/httpatomoreillycomsourceoreillyimages895902.png.jpg)\n\
+  \n图 3-2. 定位 UISwitch 元素\n\n对于每个开关，在属性检查器中将其状态设置为“关”。这将对应 Arduino 引脚保持为 `LOW` 状态；我们将编写\
+  \ Arduino 代码，以此作为初始状态。然后，在同一检查器窗口中，将视图的标签（tag）设置为与引脚编号相同，参见 图 3-3。\n\n![设置视图的标签属性](img/httpatomoreillycomsourceoreillyimages895904.png.jpg)\n\
+  \n图 3-3. 设置视图的标签属性\n\n完成上述操作后，切换到标识检查器，将开关的标签（label）设置为引脚名称（参见 图 3-4）。虽然这不是绝对必要的，但在后续连接输出口和操作时，这将帮助我们识别各个开关。\n\
+  \n![设置视图的标签属性](img/httpatomoreillycomsourceoreillyimages895906.png.jpg)\n\n图 3-4.\
+  \ 设置视图的标签属性\n\n完成这些设置后，关闭工具面板并打开辅助编辑器。确保其设置为“自动”，然后按住 Ctrl 键点击并从每个开关拖拽到 `PaduinoViewController.h`\
+  \ 接口文件，为每个开关创建实例变量和属性。\n\n完成之后，点击其中一个开关将其选中，然后按住 Ctrl 键点击并拖拽到接口文件，创建一个名为 `toggle:`\
+  \ 的 `IBAction`（参见 图 3-5）。之后，按住 Ctrl 键点击并从所有其他开关拖拽到同一个方法。更改任意开关的状态都将调用这一个方法，并将该 `UISwitch`\
+  \ 作为发送者参数传递进去。\n\n![将所有十二个开关连接到 toggle: 方法](img/httpatomoreillycomsourceoreillyimages895908.png.jpg)\n\
+  \n图 3-5. 将所有十二个开关连接到 toggle: 方法\n\n完成这些操作后，如果你在对象视图中右键点击“File’s Owner”，应该会看到类似 图\
+  \ 3-6 的内容。这个弹出窗口显示了 File’s Owner（在本例中为 `PaduinoViewController`）与视图中各个元素之间的连接。\n\n\
+  ![File’s Owner 与用户界面元素之间的连接](img/httpatomoreillycomsourceoreillyimages895910.png)\n\
+  \n图 3-6. File’s Owner 与用户界面元素之间的连接\n\n目前的工作暂时告一段落。我们做了很多更改，请确保已保存文件，然后点击 `PaduinoViewController.h`\
+  \ 接口文件，在标准编辑器中打开它。\n\n\n\n## 集成串行库\n\n如果你跟随着上一章的进度，紧密集成用户界面和串行库的步骤应该看起来非常熟悉。实际上，你甚至可以复制粘贴来节省时间。如果这样做，记得要小心；复制粘贴错误可能会让人头疼。\n\
+  \n将以下高亮行添加到 `PaduinoViewController.h` 接口文件中：\n\n```\n#import <UIKit/UIKit.h>\n#import\
+  \ \"RscMgr.h\"\n\n#define BUFFER_LEN 1024\n\n@interface PaduinoViewController :\
+  \ UIViewController <RscMgrDelegate> {\n\n    UISwitch *pin13;\n    UISwitch *pin12;\n\
+  \    UISwitch *pin11;\n    UISwitch *pin10;\n    UISwitch *pin9;\n    UISwitch *pin8;\n\
+  \    UISwitch *pin7;\n    UISwitch *pin6;\n    UISwitch *pin5;\n    UISwitch *pin4;\n\
+  \    UISwitch *pin3;\n    UISwitch *pin2;\n\n    RscMgr *rscMgr;\n    UInt8 rxBuffer[BUFFER_LEN];\n\
+  \    UInt8 txBuffer[BUFFER_LEN];\n\n}\n\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin13;\n@property (nonatomic, retain) IBOutlet UISwitch *pin12;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin11;\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin10;\n@property (nonatomic, retain) IBOutlet UISwitch *pin9;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin8;\n\n@property (nonatomic, retain)\
+  \ IBOutlet UISwitch *pin7;\n@property (nonatomic, retain) IBOutlet UISwitch *pin6;\n\
+  @property (nonatomic, retain) IBOutlet UISwitch *pin5;\n@property (nonatomic, retain)\
+  \ IBOutlet UISwitch *pin4;\n@property (nonatomic, retain) IBOutlet UISwitch *pin3;\n\
+  @property (nonatomic, retain) IBOutlet UISwitch *pin2;\n\n- (IBAction)toggle:(id)sender;\n\
+  \n@end\n```\n\n保存更改并切换到对应的实现文件，取消注释 `viewDidLoad:` 方法，并按如下方式初始化 Redpark 串行电缆管理器：\n\
+  \n```\n- (void)viewDidLoad {\n    [super viewDidLoad];\n    rscMgr = [[RscMgr alloc]\
+  \ init];\n    [rscMgr setDelegate:self];\n}\n```\n\n完成此操作后，将以下必需的委托方法添加到你的实现中：\n\
+  \n```\n- (void) cableConnected:(NSString *)protocol {\n    [rscMgr setBaud:9600];\n\
+  \    [rscMgr open];\n}\n\n- (void) cableDisconnected {\n}\n\n- (void) portStatusChanged\
+  \ {\n}\n\n- (void) readBytesAvailable:(UInt32)numBytes {\n    int bytesRead = [rscMgr\
+  \ read:rxBuffer Length:numBytes];\n    NSLog( @\"Read %d bytes from serial cable.\"\
+  , bytesRead );\n\n    NSString *string = nil;\n    for(int i = 0;i < numBytes;++i)\
+  \ {\n        if ( string ) {\n            string =  [NSString stringWithFormat:@\"\
+  %@%c\", string, rxBuffer[i]];\n        } else {\n            string =  [NSString\
+  \ stringWithFormat:@\"%c\", rxBuffer[i]];\n        }\n    }\n    NSLog(@\"Received:\
+  \ %@\", string);\n}\n\n- (BOOL) rscMessageReceived:(UInt8 *)msg TotalLength:(int)len\
+  \ {\n    return FALSE;\n}\n\n- (void) didReceivePortConfig {\n}\n```\n\n所有这些应该看起来和上一章非常相似。那么让我们继续看看我们的\
+  \ `toggle:` 方法：\n\n```\n- (IBAction)toggle:(id)sender {\n\n    NSLog(@\"Toggled\
+  \ output pin %i to %i\", [sender tag], [(UISwitch *)sender isOn] );\n    txBuffer[0]\
+  \ = [sender tag];\n    txBuffer[1] = [(UISwitch *)sender isOn];\n    int bytesWritten\
+  \ = [rscMgr write:txBuffer Length:2];\n    NSLog( @\"Wrote %d bytes to serial cable.\"\
+  , bytesWritten);\n}\n```\n\n虽然代码很短，但这却是我们应用程序的核心。你还记得吗，在构建界面时，我确保每个 `UISwitch` 都有一个与开关编号对应的唯一标签？这里我们正是使用这个标签来构建发送给\
+  \ Arduino 板的两字节消息。第一个字节是开关编号，第二个字节是 1 或 0，对应开关的开启或关闭状态。在 Arduino 端，这将对应于引脚状态 `HIGH`\
+  \ 或 `LOW`。\n\n至此，至少目前我们完成了 iPad 端的代码。确保所有更改都已保存，然后点击 Xcode 工具栏中的运行按钮，构建并将应用程序部署到你的\
+  \ iPad 上。一旦成功加载，点击停止按钮，将 iPad 放在一边。\n\n## 在 Arduino 上监听消息\n\n打开 Arduino 开发环境，输入以下代码，并将其上传到你的\
+  \ Arduino 板（如果不确定如何操作，请重新查看第 1 章和第 2 章）：\n\n```\n#define LENGTH 2\n\nint rxBuffer[128];\n\
+  int rxIndex  = 0;\n\nvoid setup() {\n\n  Serial.begin(9600);\n  Serial.println(\"\
+  Arduino reset\");\n\n  pinMode(2, OUTPUT);\n  pinMode(3, OUTPUT);\n  pinMode(4,\
+  \ OUTPUT);\n  pinMode(5, OUTPUT);\n  pinMode(6, OUTPUT);\n  pinMode(7, OUTPUT);\n\
+  \  pinMode(8, OUTPUT);\n  pinMode(9, OUTPUT);\n  pinMode(10, OUTPUT);\n  pinMode(11,\
+  \ OUTPUT);\n  pinMode(12, OUTPUT);\n  pinMode(13, OUTPUT);\n\n  digitalWrite( 12,\
+  \ HIGH);\n  digitalWrite( 13, HIGH);\n  delay(500);\n  digitalWrite( 12, LOW );\n\
+  \  digitalWrite( 13, LOW );\n}\n\nvoid loop (){\n\n if (Serial.available() > 0)\
+  \ {\n\n   rxBuffer[rxIndex++] = Serial.read();\n   if (rxIndex == LENGTH) {\n\n\
+  \       Serial.print( \"Set: \" );\n       Serial.print( rxBuffer[0], DEC );\n \
+  \      Serial.print( \" to: \" );\n       Serial.println( rxBuffer[1], DEC );\n\n\
+  \       if( rxBuffer[1] == 0 ) {\n         digitalWrite((int)rxBuffer[0], LOW);\n\
+  \       } else {\n         digitalWrite((int)rxBuffer[0], HIGH);\n       }\n   \
+  \    rxIndex = 0;\n   }\n }\n delay(10);\n\n}\n```\n\n我们有可用的字节，因此从串行缓冲区读取一个字节，并将其放入\
+  \ `rxBuffer` 数组的下一个可用索引位置。然后对缓冲区索引进行后递增。\n\n如果我们已经接收到 `LENGTH` 个字节（在本例中 `LENGTH`\
+  \ 为 2 个字节），我们就得到了来自远程主机的完整消息，现在应该处理它。如果没有，则循环并从串行缓冲区读取更多字节。\n\n如果第二个字节是 0，我们将把引脚设置为\
+  \ `LOW`。读取缓冲区的第一个字节，因为那是引脚编号，并将该引脚拉低为 `LOW`。\n\n或者，如果接收到的第二个字节是 1，我们将把引脚设置为 `HIGH`。读取缓冲区的第一个字节，因为那是引脚编号，并将该引脚拉高为\
+  \ `HIGH`。\n\n除非我们手头有电压表，否则无法知道 Arduino 板上的某个引脚是 `LOW` 还是 `HIGH`，因此我们需要某种方式来确认。一个简单的方法是在每个引脚上放置一个\
+  \ LED。我们可以单独为每个引脚接线，但图 3-7 展示了一个简便的方法。这里我将三个 LED 的接地引脚连接到一个跳线上，然后可以将其插入 Arduino\
+  \ 板的 GND 引脚。\n\n![将一些 LED 连接在一起](img/httpatomoreillycomsourceoreillyimages895912.png.jpg)\n\
+  \n图 3-7. 将一些 LED 连接在一起\n\n另外三个引脚将分别插入引脚 13、12 和 11，如图 3-8 所示。\n\n![将 LED 组连接到 Arduino](img/httpatomoreillycomsourceoreillyimages895914.png.jpg)\n\
+  \n图 3-8. 将 LED 组连接到 Arduino\n\n\n\n## 整合所有内容\n\n至此，我们已经完成了串行连接两端代码的编写。拔掉之前插入 Mac\
+  \ 的所有设备，将所有线缆连接起来。启动 Paduino 应用程序，并拨动一到两个开关。您应该会看到类似下图（图 3-9）的画面。\n\n请记住，一旦您将某个引脚拨至\
+  \ `HIGH` 状态，就可以拔掉 iPad 和 Arduino 之间的串行线缆，因为该引脚的状态会保持不变。\n\n![iPad 通过 Redpark 线缆连接至\
+  \ Arduino 板（上方），以及 Arduino 板上 UISwitch 位置和 LED 的局部特写（下方）](img/httpatomoreillycomsourceoreillyimages895916.png.jpg)\n\
+  \n图 3-9. iPad 通过 Redpark 线缆连接至 Arduino 板（上方），以及 Arduino 板上 UISwitch 位置和 LED 的局部特写（下方）\n\
+  \n## 更进一步\n\n我们的应用程序显然还有改进空间。目前，后台发生了什么完全没有提示，这使得调试变得困难。让我们开始解决这个问题：向用户界面添加一个标签，并将其连接到\
+  \ `cableConnected` 和 `cableDisconnected` 委托方法，这样我们就能确切知道线缆是否正确连接到了 iPad。\n\n点击 *PaduinoViewController.xib*\
+  \ 接口文件，在 Interface Builder 中打开它，然后将两个 `UILabel` 元素拖放到视图中。将它们放在界面的顶部以及左上角。将第一个标签的文本改为\
+  \ \"Cable:\"，并将第二个标签放在其右侧。您可以保留第二个标签的默认文本不变，或者将其改为更适合初始状态的文本（例如 \"Disconnected\"\
+  ）。打开 Assistant Editor，然后按住 Ctrl 键点击第二个标签并拖拽到关联的接口文件中，以创建一个实例变量和属性（参见图 3-10）。\n\n\
+  ![将 UILabel 连接到接口文件](img/httpatomoreillycomsourceoreillyimages895919.png.jpg)\n\n\
+  图 3-10. 将 UILabel 连接到接口文件\n\n保存您的更改，然后切换到 Standard Editor 并返回到 *PaduinoViewController.m*\
+  \ 实现文件。找到 `cableConnected` 和 `cableDisconnected` 委托方法，并添加以下高亮显示的代码：\n\n```\n- (void)\
+  \ cableConnected:(NSString *)protocol {\n    [rscMgr setBaud:9600];\n    [rscMgr\
+  \ open];\n    self.statusLabel.text = @\"CONNECTED\";\n    self.statusLabel.textColor\
+  \ = [UIColor greenColor];\n}\n\n- (void) cableDisconnected {\n    self.statusLabel.text\
+  \ = @\"DISCONNECTED\";\n    self.statusLabel.textColor = [UIColor redColor];\n}\n\
+  ```\n\n这样，当我们连接和断开线缆时，状态文本及其颜色将会改变。\n\n### 添加日志窗口\n\n实际上，重用我们在前一章编写的日志窗口相当容易。\n\n\
+  打开上一章的 SerialConsole，从项目管理窗格中选择 *LogController.h*、*LogController.m* 和 *LogController.xib*\
+  \ 文件。将它们拖放到 Paduino 项目中，记得勾选 \"Copy files into destination group’s folder (if needed)\"\
+  \ 复选框。\n\n完成此操作后，在 Interface Builder 中打开 *PaduinoViewController.xib* 文件，并从对象库中将一个\
+  \ `UIBarButtonItem` 拖放到导航栏中。将该按钮的标题改为 \"Log\"。关闭 Utilities 窗格，打开 Assistant Editor。然后按住\
+  \ Ctrl 键点击 Log 按钮并拖拽到编辑器中关联的头文件，创建一个名为 `openLog:` 的 `IBAction` 方法（参见图 3-11）。\n\n\
+  ![将日志按钮连接到视图控制器](img/httpatomoreillycomsourceoreillyimages895921.png.jpg)\n\n图 3-11.\
+  \ 将日志按钮连接到视图控制器\n\n切换回标准编辑器，保存更改，然后点击 *PaduinoViewController.h* 文件在编辑器中打开。添加以下高亮显示的代码：\n\
+  \n```\n#import <UIKit/UIKit.h>\n#import \"RscMgr.h\"\n#import \"LogController.h\"\
+  \n\n#define BUFFER_LEN 1024\n\n@interface PaduinoViewController : UIViewController\
+  \ <RscMgrDelegate> {\n\n    UISwitch *pin13;\n    UISwitch *pin12;\n    UISwitch\
+  \ *pin11;\n    UISwitch *pin10;\n    UISwitch *pin9;\n    UISwitch *pin8;\n    UISwitch\
+  \ *pin7;\n    UISwitch *pin6;\n    UISwitch *pin5;\n    UISwitch *pin4;\n    UISwitch\
+  \ *pin3;\n    UISwitch *pin2;\n    UILabel *statusLabel;\n\n    RscMgr *rscMgr;\n\
+  \    UInt8 rxBuffer[BUFFER_LEN];\n    UInt8 txBuffer[BUFFER_LEN];\n\n    LogController\
+  \ *logWindow;\n}\n\n@property (nonatomic, retain) IBOutlet UISwitch *pin13;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin12;\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin11;\n@property (nonatomic, retain) IBOutlet UISwitch *pin10;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin9;\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin8;\n\n@property (nonatomic, retain) IBOutlet UISwitch *pin7;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin6;\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin5;\n@property (nonatomic, retain) IBOutlet UISwitch *pin4;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *pin3;\n@property (nonatomic, retain) IBOutlet\
+  \ UISwitch *pin2;\n@property (nonatomic, retain) IBOutlet UILabel *statusLabel;\n\
+  \n@property (nonatomic, retain) IBOutlet LogController *logWindow;\n\n- (IBAction)toggle:(id)sender;\n\
+  - (IBAction)openLog:(id)sender;\n\n@end\n```\n\n然后，切换到相应的 *PaduinoViewController.m*\
+  \ 实现文件，您应该记得进行：\n\n```\n@synthesize logWindow;\n```\n\n接着添加以下代码，在 `viewDidLoad:`\
+  \ 方法中初始化日志窗口：\n\n```\n self.logWindow = [[LogController alloc] initWithNibName:@\"\
+  LogController\" \n                                            bundle:nil];\n```\n\
+  \n并在 `dealloc` 方法中释放它：\n\n```\n [logWindow release];\n```\n\n最后，在 `openLog:` 方法中，您应该以模态方式呈现日志控制器：\n\
+  \n```\n- (IBAction)openLog:(id)sender {\n    [self presentModalViewController:self.logWindow\
+  \ animated:YES];\n}\n```\n\n保存您的更改，然后点击位于项目管理窗格中 Supporting Files 组内的 *main.m* 文件。如同我们在上一章所做的那样，向其添加以下高亮显示的行：\n\
+  \n```\n#import <UIKit/UIKit.h>\n\nint main(int argc, char *argv[]){\n    NSAutoreleasePool\
+  \ *pool = [[NSAutoreleasePool alloc] init];\n\n    NSArray *paths =\n       NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,\
+  \ NSUserDomainMask, YES);\n    NSString *log = [[paths objectAtIndex:0] stringByAppendingPathComponent:\
+  \ \n                     @\"ns.log\"];\n\n    NSFileManager *fileMgr = [NSFileManager\
+  \ defaultManager];\n    [fileMgr removeItemAtPath:log error:nil];\n\n    freopen([log\
+  \ fileSystemRepresentation], \"a\", stderr);\n\n    int retVal = UIApplicationMain(argc,\
+  \ argv, nil, nil);\n    [pool release];\n    return retVal;\n}\n```\n\n这会将 `stderr`\
+  \ 输出重定向到应用程序 Documents 目录下名为 *ns.log* 的文件中。\n\n此时，您应该继续在各个关键位置（例如 `RscMgr` 委托方法）添加\
+  \ `NSLog` 消息，以报告应用程序内部发生的情况。现在，如果您保存更改，并点击 Xcode 编辑器中的 Run 按钮，将应用程序构建并部署到您的设备上，那么当您插入和拔出线缆时，应该会获得更多的反馈信息。\n\
+  \n## 总结\n\n在本章中，我们构建了一个简单的应用程序，用于直接从 iPad 控制您的 Arduino。在下一章中，我们将更进一步，开始采集传感器测量数据。\n\
+  \n\n\n"
+- "# 第 4 章 使用 iPhone 的外部传感器\n\n到目前为止，我们已经成功地在 Arduino 板和 iPhone 之间来回传递消息，接着又从 iPad\
+  \ 直接控制开发板。在本章中，我们将再进一步，构建一个能够开启远程传感器、解析从传感器获取的数值并实时绘制结果测量值的应用程序。\n\n## LV-MaxSonar-EZ1\
+  \ 超声波测距传感器\n\n本章将使用的传感器是由 MaxBotics 公司生产的 LV-MaxSonar-EZ1 超声波测距传感器（见图 4-1），工作电压为\
+  \ 5V 或 3.3V。\n\n![LV-MaxSonar-EZ1 超声波测距传感器](img/httpatomoreillycomsourceoreillyimages895923.png.jpg)\n\
+  \n图 4-1. LV-MaxSonar-EZ1 超声波测距传感器\n\nEZ1 是一款多功能超声波测距仪，可从多家供应商处广泛购买，包括 [SparkFun](http://www.sparkfun.com/products/639)，售价约为\
+  \ 25 美元。\n\n#### 注\n\nLV-MaxSonar-EZ1 可检测 0 至 6.45 米（约 21 英尺）范围内的物体，对于超过 15 厘米（6\
+  \ 英寸）的距离，分辨率为 2.5 厘米（1 英寸）。0 至 15 厘米之间的物体将显示为 15 厘米。\n\n有趣的是，该传感器提供了三种不同的接口：模拟电压输出、脉宽输出和串行数字输出。所有三个接口同时激活。更多信息请参阅[产品数据手册](http://www.maxbotix.com/documents/MB1010_Datasheet.pdf)。\n\
+  \n## 模拟输出\n\n连接 EZ1 传感器最简单且最常用的方式可能是利用其模拟输出。我们只需要将三根线连接到传感器的 GND、+5V 和 AN 引脚。详情请参见图\
+  \ 4-1 和图 4-2。\n\n![为模拟输出接线的 EZ1](img/httpatomoreillycomsourceoreillyimages895925.png.jpg)\n\
+  \n图 4-2. 为模拟输出接线的 EZ1\n\n在此模式下使用 EZ1 传感器相当简单。如果将 5V 和 GND 引脚分别连接到 Arduino 板上的对应引脚，并将\
+  \ AN 引脚连接到模拟引脚 A0，以下草图将距离测量值发送到 Arduino 的串行引脚（RX、TX）以及 USB 连接：\n\n```\nint ez1Analog\
+  \ = 0; // 模拟引脚, A0\n\nvoid setup() {\n   pinMode(ez1Analog,INPUT);\n   Serial.begin(9600);\n\
+  }\n\nvoid loop() {\n   int val = analogRead(ez1Analog);\n   if (val > 0) {\n   \
+  \   val = val / 2;\n      float cm = float(val)*2.54;\n      Serial.println( int(cm)\
+  \ ); // 厘米\n   }\n}\n```\n\n## 脉宽输出\n\n另一种可选方法是使用 EZ1 传感器上的 PW 引脚，利用其脉宽输出。\n\n####\
+  \ 注\n\n脉宽为每厘米 58 微秒，或每英寸 147 微秒。\n\n如果断开 AN 引脚，并将 EZ1 的 PW 引脚连接到 Arduino 上支持 PWM\
+  \ 的引脚之一——数字引脚 5，以下草图以略微不同的方式复制了上一节草图的功能：\n\n```\nint ez1Pulse = 5; // 数字引脚 5（带有\
+  \ PWM）\n\nvoid setup() {\n   pinMode(ez1Pulse,INPUT);\n   Serial.begin(9600);\n\
+  }\n\nvoid loop() {\n   int val = pulseIn(ez1Pulse, HIGH);\n   if (val > 0) {\n \
+  \     float cm = val / 58; // 脉宽为每厘米 58 微秒\n      Serial.println( int(cm) ); //\
+  \ 厘米\n   }\n}\n```\n\n## RS-232 串行输出\n\n我选择 EZ1 作为本章示例传感器的主要原因之一是，该传感器除了模拟和脉宽输出外，还提供测量值的异步串行报告。这意味着我们可以绕过\
+  \ Arduino 板和 RS-232 转 TTL 适配器，将传感器直接连接到 Redpark 线缆。我们将在本章末尾探讨如何实现这一点。\n\n#### 注\n\
+  \nTX 输出提供具有 RS-232 格式的异步串行数据（尽管电压范围为 0–Vcc）。输出为一个 ASCII 大写字母“R”，后跟三个 ASCII 字符数字，表示以英寸为单位的距离（最大\
+  \ 255），最后跟一个回车符（ASCII 字符 13）。\n\n尽管 0–Vcc 的电压超出了 RS-232 标准，但大多数 RS-232 设备具有足够的余量来读取\
+  \ 0–Vcc 的串行数据。波特率为 9600，8 位数据位，无奇偶校验，1 位停止位。\n\n## 适用于 iPhone 的 MaxSonar 测距仪\n\n\
+  至少在最初阶段，我们将以模拟模式使用该传感器，并将其连接到 Arduino 板，Arduino 板再通过 Redpark 线缆连接到我们的 iPhone。\n\n\
+  打开 Xcode，选择创建一个新项目，为 iPhone 设备系列选择基于视图的应用程序，在提示时将其命名为“MaxSonar”并保存到桌面。\n\n### 添加串行库\n\
+  \n打开你的 Redpark 串行 SDK 副本，从 `inc/` 文件夹中获取 `redparkSerial.h` 和 `rscMgr.h` 头文件，并从 `lib/`\
+  \ 文件夹中获取 `libRscMgrUniv.a` 静态库。将它们拖放到你的新 MaxSonar 项目中，记得在提示时勾选“将项目复制到目标组的文件夹中（如果需要）”复选框。\n\
+  \n我们还需要添加 External Accessories 框架，因此点击 Xcode 项目窗格顶部的项目图标，然后点击 MaxSonar 目标，接着点击 Build\
+  \ Phases 选项卡。最后，点击“Link Binary with Libraries”项以打开链接框架列表，并点击 + 符号添加新框架。从下拉列表中选择\
+  \ External Accessory 框架，然后点击 Add 按钮。\n\n最后，我们需要声明对线缆的支持。点击 `SerialConsole-Info.plist`\
+  \ 文件以在编辑器中打开它。右键点击列表最底部的行，从菜单中选择“Add Row”。表格中会添加一个额外的行，并出现一个下拉菜单。在框中输入 `UISupportedExternalAccessoryProtocols`。这将变为人类可读文本“Supported\
+  \ external accessory protocols”。在 Item 0 中输入字符串 `com.redpark.hobdb9` 以声明我们对线缆的支持。\n\
+  \n### CorePlot 库\n\n在处理传感器数据时，开发应用程序时经常需要显示某种图表或图形，这也许并不令人意外。不幸的是，iOS SDK 中没有原生的图表支持。Core\
+  \ Plot 库填补了这一空白（见图 4-3）。\n\n![在 iPhone 模拟器中运行的 CorePlot 测试应用程序](img/httpatomoreillycomsourceoreillyimages895927.png.jpg)\n\
+  \n图 4-3. 在 iPhone 模拟器中运行的 CorePlot 测试应用程序\n\nCore Plot 库是一个用于 iOS 和 Mac OS X 的第三方\
+  \ 2D 绘图框架，与 Core Animation 紧密集成，并处于积极开发中。在撰写本文时，最新版本是 0.4。你可以从 [`code.google.com/p/core-plot/`](http://code.google.com/p/core-plot/)\
+  \ 下载。\n\n#### 注\n\n如果你想尝鲜，可以直接使用 Mercurial 从 Core Plot 的仓库中检出源代码：\n\n```\nhg clone\
+  \ http://core-plot.googlecode.com/hg/ core-plot\n```\n\nMercurial 并未随 Xcode 一起提供，因此除非你已经安装，否则在此之前的第一步可能是安装\
+  \ Mercurial 本身。你可以从 [`mercurial.selenic.com/wiki/`](http://mercurial.selenic.com/wiki/)\
+  \ 下载最新版本的 Mercurial。\n\n\n\n#### 从源代码编译 Core Plot 库\n\n从 Core Plot 网站下载 `CorePlot_0.4.zip`\
+  \ 文件，或从项目的 Mercurial 仓库中获取最新版本。打开 `CorePlot/framework/` 文件夹，点击 `CorePlot-CocoaTouch.xcodeproj`\
+  \ 项目文件，在 Xcode 中打开它。\n\n从方案下拉菜单中选择“Universal Library | iOSDevice”，然后从产品菜单中选择构建 (`⌘B`)，以构建一个通用（胖）静态库，以便我们在设备和\
+  \ iPhone 模拟器上都能使用。\n\n构建完成后，向上回退一级文件夹，进入新创建的 `build` 目录。在 `build/Release-universal/`\
+  \ 目录中，你会找到 `libCorePlot-CocoaTouch.a` 静态库；但除此之外，我们还需要相关的头文件。创建通用库的自定义构建脚本不会从各个构建目录复制这些头文件。不过，你可以在\
+  \ `build/Release-iphoneos/usr/local/include/` 或 `build/Release-iphonesimulator/usr/local/include/`\
+  \ 目录中找到它们。你在项目中使用哪组头文件其实无关紧要；这两组文件是相同的。\n\n#### 将 Core Plot 库添加到项目中\n\n将 `libCorePlot-CocoaTouch.a`\
+  \ 静态库从 `build/Release-universal/` 文件夹拖放到你的项目中，记得在提示时勾选“将项目复制到目标组的文件夹中（如果需要）”复选框。然后，将两组头文件中的任意一组（全部文件）复制到你的项目中。再次记得勾选“将项目复制到目标组的文件夹中（如果需要）”复选框。\n\
+  \n点击项目窗格顶部的 MaxSonar 项目文件，选择 MaxSonar 目标，然后点击构建设置标签页。找到其他链接器标志设置（位于链接部分下），双击打开弹出窗口，为目标添加\
+  \ `-ObjC -all_load` 标志（参见图 4-4）。\n\n最后，由于 Core Plot 库使用了 QuartzCore 框架，我们需要将其添加到项目中。点击构建阶段标签页，然后点击“将二进制文件与库链接”项，打开链接框架列表，点击\
+  \ + 符号添加一个新框架。从下拉列表中选择 QuartzCore 框架，然后点击添加按钮。\n\n![为目标添加其他链接器标志](img/httpatomoreillycomsourceoreillyimages895929.png.jpg)\n\
+  \n图 4-4. 为目标添加其他链接器标志\n\n### 构建用户界面\n\n现在我们已经添加了构建应用程序所需的第三方基础设施，是时候构建用户界面了。点击 `MaxSonarViewController.xib`\
+  \ 文件，在 Interface Builder 中打开它，然后将一个 `UINavigationBar`、一个 `UISwitch`、几个 `UILabel`\
+  \ 元素，最后是一个通用的 `UIView` 拖放到你的视图中。按图 4-5 所示排列它们。将导航栏中的文本改为“LV-MaxSonar-EZ1”，将两个标签中的文本分别改为“距离：”和“0.00”。\n\
+  \n![构建用户界面](img/httpatomoreillycomsourceoreillyimages895932.png.jpg)\n\n图 4-5. 构建用户界面\n\
+  \n在视图中点击通用的 `UIView`，然后打开右侧实用工具窗格中的标识检查器。我们需要将视图的类从 `UIView` 更改为 `CPTGraphHostingView`。参见图\
+  \ 4-6。\n\n#### 警告\n\n根据你使用的 Core Plot 库版本，你可能需要将自定义视图指定为 `CPGraphHostingView`。\n\
+  \n这个自定义视图将用于绘制来自 EZ1 传感器（通过 Arduino 和串行链路连接到我们的 iPhone）的实时传感器读数图表。\n\n![设置自定义视图](img/httpatomoreillycomsourceoreillyimages895934.png.jpg)\n\
+  \n图 4-6. 设置自定义视图\n\n更改视图类后，关闭实用工具面板，打开辅助编辑器。确保它处于自动模式，然后按住 Control 键从 `CPTGraphHostingView`\
+  \ 拖拽到 `MaxSonarViewController.h` 接口文件，以创建一个 `graph` 实例变量和属性。类似地，按住 Control 键从右侧的\
+  \ `UILabel` 和 `UISwitch` 拖拽，创建 `distance` 和 `toggle` 实例变量和属性。最后，再次按住 Control 键从\
+  \ `UISwitch` 拖拽到一个 `toggled` 方法和 IBAction，如图 4-7 所示。\n\n![连接输出口和操作](img/httpatomoreillycomsourceoreillyimages895936.png.jpg)\n\
+  \n图 4-7. 连接输出口和操作\n\n保存更改，切换回标准编辑器，然后点击 `MaxSonarViewController.h` 接口文件，在编辑器中打开它。你应该注意到\
+  \ `CPTGraphHostingView` 实例变量旁边有一个错误；这是因为 Xcode 还不知道它是什么。继续在代码顶部添加以下导入语句：\n\n```\n\
+  #import \"CorePlot-CocoaTouch.h\"\n```\n\n如果在此时从产品菜单中选择构建 (`⌘B`) 来构建你的项目，一切应该都能编译通过。如果情况并非如此，你应该在开始排查其他问题之前，先确认已将\
+  \ External Accessory 和 QuartzCore 框架添加到项目中。\n\n\n\n## 构建后端\n\n用户界面已经完成。现在需要将我们的界面与\
+  \ Arduino 板传入的测量数据连接起来。显然，首先要做的是将 Redpark 库集成到代码中。这部分代码与我们在前几章中看到的代码几乎完全相同。不过，我们还需要为图表建立一些基础设施。为此，我们将使用一个简单的\
+  \ XY 散点图。\n\n打开 `MaxSonarViewController.h` 接口文件，添加以下代码：\n\n```\n#import <UIKit/UIKit.h>\n\
+  #import \"CorePlot-CocoaTouch.h\"\n#import \"RscMgr.h\"\n\n#define BUFFER_LEN 1024\n\
+  #define MAX_POINTS 200\n\n@interface MaxSonarViewController : UIViewController\n\
+  \                                    <CPTPlotDataSource, RscMgrDelegate> {\n\nCPTGraphHostingView\
+  \ *graph;\n\nCPTXYGraph *plot;\n    NSMutableArray *dataForPlot;\n\nUILabel *distance;\n\
+  \    UISwitch *toggle;\n\nRscMgr *manager;\n    UInt8 rxBuffer[BUFFER_LEN];\n  \
+  \  UInt8 txBuffer[BUFFER_LEN];\n}\n\n@property (nonatomic, retain) IBOutlet CPTGraphHostingView\
+  \ *graph;\n@property (nonatomic, retain) IBOutlet UILabel *distance;\n@property\
+  \ (nonatomic, retain) IBOutlet UISwitch *toggle;\n@property (nonatomic, retain)\
+  \ NSMutableArray *dataForPlot;\n\n- (IBAction)toggled:(id)sender;\n\n- (NSNumber\
+  \ *) yValueForIndex:(NSUInteger)index;\n\n@end\n```\n\n这使我们的类既成为 Core Plot 的数据源，也成为\
+  \ Redpark 串行电缆的委托对象。现在打开对应的 `MaxSonarViewController.m` 实现文件。我们需要记得合成新属性：\n\n```\n\
+  @synthesize dataForPlot;\n```\n\n然后在 `dealloc` 方法中释放它：\n\n```\n [dataForPlot release];\n\
+  ```\n\n最后在 `viewDidUnload` 方法中将其设为 nil：\n\n```\n [self setDataForPlot:nil];\n```\n\
+  \n我们继续添加 `viewDidLoad` 方法。这里我们将像往常一样设置电缆管理器对象，同时也要设置 Core Plot 的绘图对象。进行这些设置涉及大量样板代码，这里我不打算详细讨论，因为这与我们实际要做的事情略有偏离：\n\
+  \n```\n- (void)viewDidLoad {\n    [super viewDidLoad];\n\n// 电缆管理器\n    rscMgr =\
+  \ [[RscMgr alloc] init];\n    [rscMgr setDelegate:self];\n\n// 通过主题创建图表\n    plot\
+  \ = [[CPTXYGraph alloc] initWithFrame:CGRectZero];\n    CPTTheme *theme = [CPTTheme\
+  \ themeNamed:kCPTPlainBlackTheme];\n    [plot applyTheme:theme];\n    graph.collapsesLayers\
+  \ = NO;\n    graph.hostedGraph = plot;\n\nplot.paddingLeft = 10.0;\n    plot.paddingTop\
+  \ = 10.0;\n    plot.paddingRight = 10.0;\n    plot.paddingBottom = 10.0;\n\n// 设置绘图空间\n\
+  \    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)plot.defaultPlotSpace;\n    plotSpace.allowsUserInteraction\
+  \ = YES;\n    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0)\
+  \ \n                                     length:CPTDecimalFromFloat(MAX_POINTS)];\n\
+  \    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0)\
+  \ \n                                     length:CPTDecimalFromFloat(MAX_POINTS)];\n\
+  \n// 坐标轴\n    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)plot.axisSet;\n\nCPTXYAxis\
+  \ *x = axisSet.xAxis;\n    x.majorIntervalLength = CPTDecimalFromString(@\"100\"\
+  );\n    x.minorTicksPerInterval = 4;\n    x.minorTickLength = 5.0f;\n    x.majorTickLength\
+  \ = 7.0f;\n\nCPTXYAxis *y = axisSet.yAxis;\n    y.majorIntervalLength = CPTDecimalFromString(@\"\
+  50\");\n    axisSet.yAxis.minorTicksPerInterval = 2;\n    axisSet.yAxis.minorTickLength\
+  \ = 5.0f;\n    axisSet.yAxis.majorTickLength = 7.0f;\n\n// 创建一个绿色绘图区域\n    CPTScatterPlot\
+  \ *line = [[[CPTScatterPlot alloc] init] autorelease];\n    CPTMutableLineStyle\
+  \ *lineStyle = [CPTMutableLineStyle lineStyle];\n    lineStyle.miterLimit = 1.0f;\n\
+  \    lineStyle.lineWidth = 3.0f;\n    lineStyle.lineColor = [CPTColor greenColor];\n\
+  \    line.dataLineStyle = lineStyle;\n    line.identifier = @\"Green Plot\";\n \
+  \   line.dataSource = self;\n    [plot addPlot:line];\n\n// 添加绿色渐变\n    CPTColor\
+  \ *areaColor = [CPTColor colorWithComponentRed:0.3 \n                          \
+  \          green:1.0 blue:0.3 alpha:0.8];\n    CPTGradient *areaGradient = [CPTGradient\
+  \ gradientWithBeginningColor:areaColor \n                                      \
+  \       endingColor:[CPTColor clearColor]];\n    areaGradient.angle = −90.0f;\n\
+  \    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];\n    line.areaFill\
+  \ = areaGradientFill;\n    line.areaBaseValue = [[NSDecimalNumber zero] decimalValue];\n\
+  \n// 添加绘图符号\n    CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];\n\
+  \    symbolLineStyle.lineColor = [CPTColor blackColor];\n    CPTPlotSymbol *plotSymbol\
+  \ = [CPTPlotSymbol ellipsePlotSymbol];\n    plotSymbol.fill = [CPTFill fillWithColor:[CPTColor\
+  \ greenColor]];\n    plotSymbol.lineStyle = symbolLineStyle;\n    plotSymbol.size\
+  \ = CGSizeMake(10.0, 10.0);\n    line.plotSymbol = plotSymbol;\n\nCABasicAnimation\
+  \ *fadeInAnimation = [CABasicAnimation \n                                      \
+  \   animationWithKeyPath:@\"opacity\"];\n    fadeInAnimation.duration = 1.0f;\n\
+  \    fadeInAnimation.removedOnCompletion = NO;\n    fadeInAnimation.fillMode = kCAFillModeForwards;\n\
+  \    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];\n\n// 添加一些初始数据\n\
+  \    NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:200];\n  \
+  \  self.dataForPlot = contentArray;\n}\n```\n\n现在我们需要添加 CorePlot `CPTPlotDataSource`\
+  \ 数据源方法：\n\n```\n#pragma mark - CPTPlotDataSource 方法\n\n-(void)pointReceived:(NSNumber\
+  \ *)point{\n\nCPTPlot *thisPlot = [plot plotWithIdentifier:@\"Green Plot\"];\n \
+  \   [self.dataForPlot addObject:point];\n    [thisPlot insertDataAtIndex:self.dataForPlot.count-1\
+  \ numberOfRecords:1];\n    self.distance.text = [NSString stringWithFormat:@\"%@\"\
+  , point];\n\n}\n\n-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {\n    return\
+  \ [dataForPlot count];\n}\n\n-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum\
+  \ recordIndex:(NSUInteger)index {\n\nif (fieldEnum == CPTScatterPlotFieldX) {\n\
+  \        return [NSNumber numberWithInteger:index];\n    } else {\n        return\
+  \ [self yValueForIndex:index];\n    }\n}\n```\n\n以及我们的 `yValueForIndex:` 便捷方法：\n\
+  \n```\n- (NSNumber *) yValueForIndex:(NSUInteger)index {\n     return [self.dataForPlot\
+  \ objectAtIndex:index];\n}\n```\n\n最后添加 Redpark 串行委托方法：\n\n```\n#pragma mark - RscMgrDelegate\
+  \ 方法\n\n- (void) cableConnected:(NSString *)protocol {\n    [rscMgr setBaud:9600];\n\
+  \    [rscMgr open];\n\n}\n\n- (void) cableDisconnected {\n}\n\n- (void) portStatusChanged\
+  \ {\n}\n\n- (void) readBytesAvailable:(UInt32)numBytes {\n    int bytesRead = [rscMgr\
+  \ read:rxBuffer Length:numBytes];\n\nNSString *string = nil;\n    for(int i = 0;i\
+  \ < numBytes;++i) {\n        if ( string ) {\n            string =  [NSString stringWithFormat:@\"\
+  %@%c\", string, rxBuffer[i]];\n        } else {\n            string =  [NSString\
+  \ stringWithFormat:@\"%c\", rxBuffer[i]];\n        }\n    }\n    [self pointReceived:[NSNumber\
+  \ numberWithInt:[string intValue]]];\n\n}\n\n- (BOOL) rscMessageReceived:(UInt8\
+  \ *)msg TotalLength:(int)len {\n    return FALSE;\n}\n\n- (void) didReceivePortConfig\
+  \ {\n}\n```\n\n通过在模拟器中运行应用来检查一切是否构建并正常运行。你应该会看到类似[图 4-8](http://example.com/placeholder)\
+  \ 的内容。如果看起来没问题，就切换到设备上，在你的 iPhone 上构建并部署应用。\n\n![MaxSonar 应用在 iPhone 模拟器中运行](img/httpatomoreillycomsourceoreillyimages895938.png.jpg)\n\
+  \n**图 4-8.** MaxSonar 应用在 iPhone 模拟器中运行\n\n如果一切顺利，现在我们需要暂时把 iPhone 应用以及 Xcode 本身放到一边。是时候看看我们构建的\
+  \ Arduino 端了。\n\n\n\n### 编写 Arduino 程序\n\n打开 Arduino 开发环境，输入以下代码并上传到你的 Arduino 板。我们将使用模拟引脚\
+  \ `0`（大多数板上通常标记为 `A0`）作为 EZ1 传感器的模拟输入：\n\n```\nint statusLed = 13;\nint ez1Analog\
+  \ = 0;\n\nvoid setup() {\n   pinMode(statusLed,OUTPUT);\n   pinMode(ez1Analog,INPUT);\n\
+  \   Serial.begin(9600);\n}\n\nvoid loop() {\n   int val = analogRead(ez1Analog);\n\
+  \   if (val > 0) {\n      val = val / 2;\n      float cm = float(val)*2.54;\n  \
+  \    Serial.println( int(cm) );\n   }\n   blinkLed( statusLed, 100 );\n\n}\n\nvoid\
+  \ blinkLed(int pin, int ms) {\n   digitalWrite(pin,LOW);\n   digitalWrite(pin,HIGH);\n\
+  \   delay(ms);\n   digitalWrite(pin,LOW);\n   delay(ms);\n}\n```\n\n![1](img/#ch04s02.html#co12_id)\n\
+  \n这里我们使用一个简便方法来闪烁板载 LED（引脚 `13`），闪烁持续时间为 `100` 毫秒。这样做一方面是为了确认程序确实在运行，另一方面也是为了在发送到手机的读数之间加入时间间隔。\n\
+  \n### 组装全部组件\n\n通常情况下，EZ1 需要 `5` V 电压；但根据数据手册，我们也可以在 `3.3` V 电压下运行它，不过性能会有所降低。这简化了将所有组件连接到\
+  \ Arduino 板的过程。将 EZ1 的 `+VE` 线插入 Arduino 板的 `3.3V` 引脚，将 `GND` 线插入任意一个可用的 `GND` 引脚，然后将\
+  \ `AN` 线连接到模拟引脚 `0`（`A0`）。最后，照常将 RS-232 转 TTL 串口适配器连接到 `5V`、`GND`、`RX` 和 `TX` 引脚（参见\
+  \ 图 4-9）。\n\n![连接所有组件](img/httpatomoreillycomsourceoreillyimages895940.png.jpg)\n\
+  \n图 4-9. 连接所有组件\n\n如果你确实想将 EZ1 连接到 `+5V` 引脚而非 `3.3V` 引脚，最简单的办法可能就是使用一块面包板和一些跳线。\n\
+  \n确认所有连接正确无误后，给 Arduino 板上电并启动应用程序。将 EZ1 指向天花板以获取一个较远的距离测量值，然后将手放在传感器上方。你应该会看到测得的距离急剧下降。慢慢抬起手，保持在传感器上方，观察读数变化。此时，你应该能看到类似于图\
+  \ 4-10 所示的效果。\n\n![在 iPhone 上运行的 MaxSonar 应用程序](img/httpatomoreillycomsourceoreillyimages895942.png.jpg)\n\
+  \n图 4-10. 在 iPhone 上运行的 MaxSonar 应用程序\n\n### 控制开关\n\n你可能已经注意到，我们还没有对拨动开关进行任何处理。现在让我们来让它变得可用。首先，我们需要修改\
+  \ Arduino 程序：\n\n```\nint statusLed = 13;\nint powerLed = 12;\nint ez1Analog = 0;\n\
+  \nint aByte;\nint flag = 0;\n\nvoid setup() {\n   pinMode(statusLed,OUTPUT);\n \
+  \  pinMode(ez1Analog,INPUT);\n   Serial.begin(9600);\n\n   pinMode(powerLed,OUTPUT);\n\
+  \   blinkLed( statusLed, 500 );\n}\n\nvoid loop() {\n\n   if (Serial.available()\
+  \ > 0) {\n          aByte = Serial.read();\n          if ( flag == 0 ) {\n     \
+  \       flag = 1;\n            digitalWrite(powerLed, HIGH);\n          } else {\n\
+  \            flag = 0;\n            digitalWrite(powerLed, LOW);\n          }\n\
+  \    }\n\n   if ( flag == 1 ) {\n     int val = analogRead(ez1Analog);\n\n     if\
+  \ ( val > 0 ) {\n         val = val / 2;\n         float cm = float(val)*2.54;\n\
+  \         Serial.println( int(cm) ); // cm\n         blinkLed( statusLed, 100);\n\
+  \      }\n   }\n\n}\n\nvoid blinkLed(int pin, int ms) {\n   digitalWrite(pin,LOW);\n\
+  \   digitalWrite(pin,HIGH);\n   delay(ms);\n   digitalWrite(pin,LOW);\n   delay(ms);\n\
+  }\n```\n\n这里我们重写了 `loop()` 函数，使得 Arduino 仅在接收到来自手机的字节从而被“打开”时，才向 iPhone 发送数据；收到另一个字节后，则停止发送数据。我还使用了引脚\
+  \ `12` 上的第二个 LED 来指示数据正在发送，但这完全是可选的，如果你不想费事在 Arduino 板上再连接一个 LED，可以省略它。\n\n你会注意到，我们假设初始状态为“关闭”，但目前我们的用户界面初始状态是“打开”。我们需要修复这个问题，因此在\
+  \ Interface Builder 中打开 `MaxSonarViewController.xib` 文件，点击视图中的开关，然后在工具面板的属性检查器中，将开关的初始状态改为“关闭”。\n\
+  \n最后，为了将所有部分整合在一起，我们在切换回调中添加一些代码：\n\n```\n- (IBAction)toggled:(id)sender {\n   \
+  \ txBuffer[0] = 1;\n    int bytesWritten = [rscMgr write:txBuffer Length:1];\n\n\
+  }\n```\n\n现在，如果你重新构建并重新将 MaxSonar 应用程序部署到 iPhone 上，应该就能使用开关来启动和停止从手机接收数据了。\n\n\n\
+  \n## 直接连接线缆\n\n由于 `EZ1` 配备有 `RS-232` 接口，实际上可以直接将其连接至 `Redpark` 线缆，而完全无需使用 `Arduino`\
+  \ 板。`Redpark 串行线缆`采用标准方式接线，末端为公头 `DB-9` 连接器；该连接器的引脚排列如图 4-11 所示，并在表 4-1 中进行了说明。\n\
+  \n![Redpark 串行线缆 DB-9 连接器](img/httpatomoreillycomsourceoreillyimages895945.png.jpg)\n\
+  \n**图 4-11.** Redpark 串行线缆 DB-9 连接器\n\n**表 4-1.** Redpark 串行线缆 DB-9（公头）连接器引脚排列\n\
+  \n| 引脚号 | 功能 | I/O | 描述 |\n| --- | --- | --- | --- |\n| 1 | `DCD` | I | 数据载波检测 |\n\
+  | 2 | `RX` | I | 接收 |\n| 3 | `TX` | O | 发送 |\n| 4 | `DTR` | O | 数据终端就绪 |\n| 5 |\
+  \ `GND` | - | 接地 |\n| 6 | `DSR` | I | 数据设备就绪 |\n| 7 | `RTS` | O | 请求发送 |\n| 8 |\
+  \ `CTS` | I | 允许发送 |\n| 9 | `RI` | I | 振铃指示 |\n\n比较图 4-1 和图 4-11，我们只需连接 9 个可用引脚中的\
+  \ 3 个：`GND`、`RX` 和 `TX`。因此，使用一个母头 `DB-9` 连接器，应按图 4-12 所示进行接线。对比图 4-11 和图 4-12，您会注意到在母头连接器中，我们将引脚\
+  \ 2 连接到 `TX`，引脚 3 连接到 `RX`。这意味着 `EZ1` 的 `TX` 连接到线缆的 `RX`，反之亦然。\n\n![LV-MaxSonar-EZ1\
+  \ 连接至 DB9（母头）的引脚接线图](img/httpatomoreillycomsourceoreillyimages895947.png.jpg)\n\n\
+  **图 4-12.** LV-MaxSonar-EZ1 连接至 DB9（母头）的引脚接线图\n\n接线完成后，继续在 `EZ1` 传感器板上焊接一个排针座（请参见图\
+  \ 4-13）。\n\n![焊接至 EZ1 传感器的排针座](img/httpatomoreillycomsourceoreillyimages895949.png.jpg)\n\
+  \n**图 4-13.** 焊接至 EZ1 传感器的排针座\n\n在连接 `EZ1` 传感器时，应注意不要遮挡传感器头部本身；否则通电后会得到不准确的测量值。根据您的应用需求，您可能希望将排针焊接在电路板背面，或者使用直角排针座，以确保不会遮挡传感器。\n\
+  \n在将排针座焊接到传感器板上后，您需要找到一个合适的 3.3 V 或 5 V 电源。我使用 `2 × 1.5 V` 电池提供 3 V 电源，这足以测试传感器。然后我们需要汇集地线连接并为传感器供电。最简单的方法可能是使用面包板（请参见图\
+  \ 4-14）。\n\n![连接 EZ1 传感器、线缆和电池组](img/httpatomoreillycomsourceoreillyimages895951.png.jpg)\n\
+  \n**图 4-14.** 连接 EZ1 传感器、线缆和电池组\n\n现在硬件部分已经完成，让我们看看在软件方面需要做些什么。查看数据手册，我们发现传感器的输出是一个\
+  \ ASCII 大写字母 `\"R\"`，后面跟着三个表示距离（以英寸为单位，最大 255）的 ASCII 数字字符，最后是一个回车符（ASCII 字符 13），消息总长度为\
+  \ 5 个字节。\n\n我们之前已经编写了能够完美处理此类输出的软件，即第 2 章中的 `SerialConsole` 应用程序。将您的 `Redpark` 线缆连接到母头\
+  \ `DB9` 连接器，再连接到您的 `iPhone`，然后运行 `SerialConsole` 应用程序。您应该会看到类似于图 4-15 的画面。\n\n![SerialConsole\
+  \ 应用程序中 EZ1 的输出](img/httpatomoreillycomsourceoreillyimages895953.png.jpg)\n\n**图\
+  \ 4-15.** SerialConsole 应用程序中 EZ1 的输出\n\n您会发现数据手册并不完全准确；传感器首次通电时会显示一条版权声明。幸好我们检查了一下。如果您在文本输入小部件中键入一些内容并点击发送，您将在控制台视图中看到另一个读数出现（请参见图\
+  \ 4-16）。\n\n![SerialConsole 应用程序显示来自 EZ1 的多个读数](img/httpatomoreillycomsourceoreillyimages895955.png.jpg)\n\
+  \n**图 4-16.** SerialConsole 应用程序显示来自 EZ1 的多个读数\n\n从这里开始，修改我们现有的 `readBytesAvailable:`\
+  \ 方法以查找与 `EZ1` 的 `RS-232` 接口距离读数格式匹配的字符串，就成了一项相对简单的工作。\n\n"
+- "# 第 5 章 连接至 XBee 网络\n\niPhone、iPod touch 和 iPad 的所有版本都配备了 WiFi 网络功能，或者更正式地称为 IEEE\
+  \ 802.11。这是一套用于在 2.4、3.6 和 5 GHz 频段实现无线局域网 (WLAN) 计算机通信的标准，尽管现有基于 iOS 的设备仅支持 2.4\
+  \ GHz 频段。\n\n然而，还有许多其他无线通信标准，其中许多也使用 2.4 GHz 频段，但它们旨在用于其他目的，因此设计方式不同。它们可能使用相同的波长频段，但协议却大相径庭。\n\
+  \n处理传感器网络时最常用的协议之一是 IEEE 802.15.4。与 IEEE 802.11 相比，该协议专注于设备间的低成本、低速通信，并适用于低功耗场景。它是更高级别的\
+  \ ZigBee 协议的基础，在处理传感器网络时也同样常见；ZigBee 通过开发上层协议以支持设备间的网状网络，进一步扩展了该标准。\n\n虽然存在许多其他基于\
+  \ 802.15.4 的硬件频段，但最广泛使用的可能还是 XBee 品牌无线电模块。它们被普遍使用，无论是用于原型设计的专业人士，还是在爱好者市场中，都因其对初学者特别友好而广受欢迎。出于这个原因及其他考虑，我将重点关注由\
+  \ [Digi International](http://www.digi.com/) 生产的 XBee 品牌无线电模块。\n\n\n\n## XBee 模块\n\
+  \nDigi 公司生产了一系列令人眼花缭乱的 XBee 品牌无线电模块；粗略统计显示，至少有 30 种不同的硬件、固件和天线组合，并且这个数字只会越来越大。不幸的是，面对日益增多的\
+  \ XBee 品牌无线电模块，人们很容易感到困惑。\n\n有两种引脚兼容的 XBee 模块。Series 1 模块适用于点对点和点对多点应用，而 Series\
+  \ 2 模块则适用于需要网状网络的应用。在本章中，我将使用 Series 1 无线电模块（见图 5-1）。\n\n![带芯片天线的 XBee Series 1\
+  \ 模块](img/httpatomoreillycomsourceoreillyimages895957.png.jpg)\n\n图 5-1. 带芯片天线的\
+  \ XBee Series 1 模块\n\n我使用 Series 1 无线电模块，主要是因为它们对初学者来说非常易于使用和配置，而且或许更重要的是，它们很容易买到。你可以从多家供应商那里买到\
+  \ Series 1 无线电模块，包括 SparkFun，它提供种类繁多的模块（见 [`www.sparkfun.com/categories/111`](http://www.sparkfun.com/categories/111)）。尽管其展示的种类令人眼花缭乱，但仍未涵盖所有型号。你也可以从\
+  \ Maker Shed 购买这些无线电模块（[`www.makershed.com/ProductDetails.asp?ProductCode=MKAD14`](http://www.makershed.com/ProductDetails.asp?ProductCode=MKAD14)）。\n\
+  \n### Series 1 还是 Series 2？\n\n在处理 XBee 模块时，一个常见的误解是认为 Series 2 模块比 Series 1 模块“更好”。事实并非如此。实际上，这两种类型是为不同的用途而设计的。Series\
+  \ 1 模块深受爱好者市场的欢迎，非常适合直接替代线缆或用于小型网络。Series 2 模块则实现了完整的 ZigBee 协议，适用于较大的网络。\n\n####\
+  \ 警告\n\n虽然 XBee Series 1 和 XBee Series 2 模块具有相同的尺寸且引脚完全兼容，但它们的芯片组不同，运行的协议也不同，因此它们在无线通信上并不兼容。你不能在同一个无线网络中混合使用\
+  \ Series 1 和 Series 2 模块。\n\nSeries 1 模块开箱即可用于点对点通信（即替代线缆），无需任何配置，这也是我们在本章中使用它们的方式。因此，如果你是刚开始接触无线网络，我建议你从\
+  \ Series 1 无线电模块开始。\n\n如果你对构建基于 XBee 的更大网络感兴趣，可以看看 Robert Faludi 所著的《构建无线传感器网络》（O'Reilly\
+  \ 出版）。虽然那本书专门使用了 Series 2 模块，但它对你了解 Series 1 网络也有帮助，因为 Series 1 的命令在很大程度上只是 Series\
+  \ 2 命令集的一个子集。Tom Igoe 在《让物体说话》（O'Reilly 出版）中也有几个有趣的项目用到了我在本章中提到的 Series 1 模块。\n\n\
+  ### 普通版还是 Pro 版？\n\nSeries 1 和 Series 2 模块都有两种版本：普通版和 Pro 版。Pro 版模块尺寸稍大，不过尽管如此，它们仍然引脚兼容，但功耗更高。然而最关键的是，它们的通信距离要远得多。可以预见的是，它们的价格也高得多，所以除非你需要它们提供的更远通信距离，否则坚持使用普通版\
+  \ XBee 模块即可。由于它们引脚兼容，如果你后来决定需要更远的通信距离（并且能承受更高的功耗），随时可以在你的项目中换用 Pro 版。\n\n### 802.15.4\
+  \ 还是 ZigBee？\n\n关于这两种 XBee 协议存在很多混淆。Series 1 模块使用 IEEE 802.15.4 标准协议，支持点对点和点对多点网络，不过它们也有一个专有的网状网络协议。Series\
+  \ 2 模块使用 ZigBee 协议，这是一种基于 802.15.4 协议构建的网状网络标准，该协议不仅限于 XBee 无线电模块，还被许多其他硬件所使用。\n\
+  \n### 选择哪种天线？\n\n有四种不同类型的天线可供选择：芯片天线、线状天线、UFL 天线和 RP-SMA 天线。芯片天线和线状天线预装在无线电模块上；而\
+  \ UFL 和 RP-SMA 版本发货时仅在板上带有连接器，你需要购买带有相应连接器的合适天线才能让它们工作。除非你打算将项目封装在盒子中，此时使用 UFL 或\
+  \ RP-SMA 天线将天线安装在盒子外部可能是个好主意，或者你需要它们提供的高功率传输性能，否则坚持使用芯片天线或线状天线就足够安全了。\n\n## 如何配置\
+  \ XBee Series 1 无线电模块\n\n要配置 XBee 模块，我们需要能够与其通信。通常，我们会使用你的 Mac 来配置 XBee，当然我们也可以编写\
+  \ iPhone 或 iPad 应用程序来实现配置。不过目前，我们需要找到一种方法将 XBee 连接到你的 Mac 的 USB 端口。\n\n由于 XBee 模块设计为直接焊接到\
+  \ PCB 上，因此它们遗憾地使用了 2 毫米间距的排针，而不是我们更熟悉的 0.1 英寸间距排针。因此，它们通常需要某种转接板才能在标准面包板或原型板上使用，还需要一个适配器才能连接到你的\
+  \ Mac。\n\n市场上有多种转接板。通常，你只需要一个能将 XBee 引脚转接到标准 0.1 英寸排针的简单板子，比如 SparkFun 的 [XBee 模块转接板](http://www.sparkfun.com/products/8276)。\n\
+  \n要将 XBee 连接到你的电脑，你需要一个更复杂的板子，它负责将输入电压调节到模块所需的 3.3V、进行信号调理并提供基本的活动指示 LED 灯。同样，这类产品在市场上有很多，比如\
+  \ SparkFun 的 [XBee Explorer Regulated](http://www.sparkfun.com/products/9132) 和\
+  \ Adafruit 的 [XBee 适配器套件](http://www.adafruit.com/products/126)。见图 5-2。\n\n甚至还有允许你将\
+  \ XBee 直接插入 Mac USB 端口的板子，比如 SparkFun 的 [XBee Explorer Dongle](http://www.sparkfun.com/products/9819)；再次参见图\
+  \ 5-2。\n\n### 注意\n\n几乎所有的 XBee USB 适配器都需要 [FTDI 的驱动程序](http://www.ftdichip.com/Drivers/VCP.htm)。在使用适配器之前，请确保你已经安装了这些驱动程序。如果你有一块较旧的\
+  \ Arduino 板，由于 Uno 之前的板子使用了相同的 USB 芯片组，你可能已经安装了正确的驱动程序。\n\n![Adafruit XBee 适配器（左）和\
+  \ SparkFun XBee Explorer（右）](img/httpatomoreillycomsourceoreillyimages895959.png.jpg)\n\
+  \n图 5-2. Adafruit XBee 适配器（左）和 SparkFun XBee Explorer（右）\n\n\n\n## 将 XBee 连接到你的\
+  \ Mac\n\n由于我手头恰好有几个闲置的，我打算使用 Adafruit 的扩展板，这款扩展板在[Maker Shed](http://www.makershed.com/ProductDetails.asp?ProductCode=MKAD13)也有售。它的设计是与\
+  \ FTDI 线缆配合使用的（参见图 5-3），正因如此，它也可以轻松与面包板配合使用，将 XBee 连接到 Arduino，这样我就不需要单独的转接板了。\n\
+  \n![安装在 Adafruit 适配器套件上的 XBee 模块，连接 FTDI 线缆用于编程](img/httpatomoreillycomsourceoreillyimages895961.png.jpg)\n\
+  \n图 5-3. 安装在 Adafruit 适配器套件上的 XBee 模块，连接 FTDI 线缆用于编程\n\n虽然 Digi 自己的配置工具 X-CTU 可以免费获取，但它仅支持\
+  \ Windows 系统。除非你在 BootCamp 或虚拟机中运行 Windows，否则无法使用它。幸运的是，只需偶尔用它来更新 XBee 模块的固件。对于配置无线电模块，我们通常只需要一个终端程序即可。\n\
+  \n### 注意\n\nMac OS X 系统上有很多终端程序可用。我将使用[Roger Meier 开发的 CoolTerm](http://freeware.the-meiers.org/)。这是一个相对简单的应用程序，非常适合用来配置你的\
+  \ XBee 无线电模块。\n\n将你的 XBee 无线电模块插入适配器板，然后将板子连接到你的 Mac。如果你像我一样使用 Adafruit 的板子，你应该会看到板子上的绿色（ASC）LED\
+  \ 灯开始闪烁。\n\n打开你的终端应用程序，并确保它设置到了正确的串行端口。你可以通过命令行找出可用的串行端口：\n\n```\n% ls /dev/tty.*\n\
+  crw-rw-rw-  1 root  wheel   11,   2  8 Jul 09:01 /dev/tty.Bluetooth-Modem\ncrw-rw-rw-\
+  \  1 root  wheel   11,   0  8 Jul 09:01 /dev/tty.Bluetooth-PDA-Sync\ncrw-rw-rw-\
+  \  1 root  wheel   11,  66  3 Aug 14:15 /dev/tty.usbserial-FTE4XVKD\n```\n\nXBee\
+  \ 模块正确的端口（至少通常来说）应该相当明显。在我的例子中，它是`/dev/tty.usbserial-FTE4XVKD`。如果你使用的是 CoolTerm，你可以通过点击工具栏中的\
+  \ Options 按钮来更改连接的串行端口（参见图 5-4）。\n\n### 注意\n\n默认情况下，CoolTerm 的本地回显是关闭的。你可能需要在 Options\
+  \ 菜单中启用此功能，以便操作更轻松。如果它被关闭，你将看不到自己输入的内容，只会显示 XBee 无线电模块的响应。\n\n![在 CoolTerm 选项中配置端口和本地回显](img/httpatomoreillycomsourceoreillyimages895963.png.jpg)\n\
+  \n图 5-4. 在 CoolTerm 选项中配置端口和本地回显\n\n如果你的终端程序默认设置不是这样，请将其设置为使用 9600 波特率和 8-N-1，且无流控制。\n\
+  \n一旦你确认终端程序设置正确，就将其连接到选定的串行端口。在 CoolTerm 中，你只需点击工具栏中的 Connect 按钮即可完成此操作。此时，在主窗口中输入`+++`（快速连续输入三个加号）。如果一切连接正确，你应该会从\
+  \ XBee 无线电模块收到一个`OK`响应（参见图 5-5）。\n\n![XBee 无线电模块已正确连接到你的 Mac](img/httpatomoreillycomsourceoreillyimages895965.png.jpg)\n\
+  \n图 5-5. XBee 无线电模块已正确连接到你的 Mac\n\n通过输入这三个加号，我们已将 XBee 置于配置模式。此时我们可以向模块发送`AT`命令，以便配置无线电模块。过一会儿，XBee\
+  \ 会超时并返回到直通连接模式。如果在配置过程中发生这种情况，只需再次输入`+++`，它就会重新开始响应。\n\nXBee 的基本配置包括：串行通信的波特率、网络标识符（PAN）、节点地址（MY）以及目标节点地址（DL）。\n\
+  \n## XBee 寻址\n\n802.15.4 协议使用寻址来区分不同的无线电模块，并防止数据包重复。每个模块拥有唯一的源地址（MY）非常重要，这样可以防止非重复消息因被误判为重复而被忽略。\n\
+  \n模块之间存在两种基本的寻址形式：广播和单播。广播消息是指定 PAN 上所有模块都会接收到的消息。该消息仅发送一次且不会重发，因此无法保证任何特定节点能接收到该消息。要发送广播消息，请将目标节点地址（DL）设置为`0xFFFF`。通过这些设置，所有在广播节点范围内的\
+  \ XBee 模块都将收到该消息。\n\n单播消息更可靠。它根据模块的寻址方式从一个模块发送到另一个模块。如果消息被正确接收，接收方的无线电模块将发回一个确认（或\
+  \ ACK）。如果发送模块未收到 ACK，它将尝试 MAC 层重试，每次传输重试三次，总共尝试四次，直到收到 ACK。这大大提高了数据到达目的地的概率。要发送单播消息，请将目标节点地址（DL）设置为你希望通信的节点的节点地址（MY）。\n\
+  \n\n\n## 配置两个 XBee 无线电模块\n\n现在我们将配置两个 XBee 无线电模块，将其作为直连电缆的替代方案。换言之，第一个模块将配置为向第二个模块发送消息，反之亦然。\n\
+  \n按照上一节的方法，将两个无线电模块中的第一个插入你的 Mac，并通过终端程序向相应的串口发送 `+++`，使其进入命令模式。\n\n我们需要做的第一件事是设置波特率。在配置模式下输入\
+  \ `ATBD`。你应该会返回一个 0 到 7 之间的数字，如下所示：\n\n```\nATBD\n```\n\n该数字表示无线电模块当前设置为 9600 波特。我们暂时保留\
+  \ 9600 波特。不过，如果你希望设置不同的波特率，可以输入命令 `ATDB n`，其中 `n` 是一个值，对应表 5-1 中你想要的波特率。\n\n**表\
+  \ 5-1. ATBD 命令返回的值及对应波特率**\n\n| ATBD 值 | 波特率 |\n| --- | --- |\n| 0 | 1200 |\n| 1\
+  \ | 2400 |\n| 2 | 4800 |\n| 3 | 9600 |\n| 4 | 19200 |\n| 5 | 38400 |\n| 6 | 57600\
+  \ |\n| 7 | 115200 |\n\n因此，例如要将模块设置为 57600 波特，我们可以输入命令 `ATBD6`：\n\n```\nATBD6\nOK\n\
+  ```\n\n然后，我们可以再次输入 `ATBD` 命令，检查波特率是否已设置。这次应该返回六：\n\n```\nATBD\n```\n\n设置完波特率后，我们需要继续使用\
+  \ `ATID` 命令设置 PAN ID，使用 `ATMY` 命令设置节点地址，并使用 `ATDL` 命令设置目标节点地址。最后，我们需要通过写入命令 `ATWR`\
+  \ 来提交更改，以保存设置。\n\n因此，对于两个模块中的第一个，我们应该输入以下命令：\n\n```\n+++\nATBD 3\nATID 1111\nATMY\
+  \ 2345\nATDL 7890\nATWR\n```\n\n在所有情况下，你都应该从调制解调器收到 `OK` 响应。你可能希望沿途检查这些值；例如，参见图\
+  \ 5-6。\n\n![配置两个 XBee 模块中的第一个](img/httpatomoreillycomsourceoreillyimages895967.png.jpg)\n\
+  \n**图 5-6. 配置两个 XBee 模块中的第一个**\n\n配置完第一个模块后，断开串口连接，并从适配器上拔下 XBee 模块。然后将第二个模块插入适配器，连接到相应的串口，并输入以下命令：\n\
+  \n```\n+++\nATBD 3\nATID 1111\nATMY 7890\nATDL 2345\nATWR\n```\n\n这将第二个模块配置为第一个模块的目标，反之亦然。参见表\
+  \ 5-2。\n\n**表 5-2. 无线电模块配置**\n\n| 无线电模块 | PAN | MY | DL |\n| --- | --- | --- | ---\
+  \ |\n| 1 | 1111 | 2345 | 7890 |\n| 2 | 1111 | 7890 | 2345 |\n\n配置完第二个模块后将其拔下。我们稍后再回来处理\
+  \ XBee 模块。不过，既然已经配置完成，我们现在就继续测试连接，将一个模块连接到 Arduino，另一个连接到我们的 Mac。\n\n## 将 XBee 连接到\
+  \ Arduino\n\n实际上，你可以直接利用 Arduino 板上的 3.3V 引脚为 XBee 模块提供稳压电源，从而将其直接连接到 Arduino。参见图\
+  \ 5-7。\n\n![将 XBee 连接到 Arduino](img/httpatomoreillycomsourceoreillyimages895969.png.jpg)\n\
+  \n**图 5-7. 将 XBee 连接到 Arduino**\n\n不过，如果你使用转接板或合适的适配器板（例如我们之前用来将 XBee 连接到 Mac 的\
+  \ Adafruit 板），会容易得多（参见图 5-8）。\n\n或者，如果你要大量使用 XBee 模块，可以考虑购买一个 Arduino Fio 板（参见图\
+  \ 5-9），这是一块带有 XBee 插座的 Arduino 板。你可以从 [SparkFun 购买 Arduino Fio](http://www.sparkfun.com/products/9712)。\n\
+  \n![连接在一起的 Arduino Uno 和 Adafruit XBee 适配器](img/httpatomoreillycomsourceoreillyimages895971.png.jpg)\n\
+  \n**图 5-8. 连接在一起的 Arduino Uno 和 Adafruit XBee 适配器**\n\n![连接了 LiPo 电池的 Arduino Fio\
+  \ 与 XBee](img/httpatomoreillycomsourceoreillyimages895973.png.jpg)\n\n**图 5-9. 连接了\
+  \ LiPo 电池的 Arduino Fio 与 XBee**\n\n我们将使用在第 1 章中用到的那段简单草图，将 \"Hello World\" 打印到串口。将\
+  \ Arduino 板连接到你的 Mac，并上传以下草图：\n\n```\nvoid setup() {\n  Serial.begin(9600);\n}\n\
+  \nvoid loop() {\n  while (Serial.available() <= 0) {\n    Serial.println(\"Hello\
+  \ world\");\n    delay(300);\n  }\n}\n```\n\n#### 警告\n\n如果 XBee 或其他硬件连接到引脚 0（RX）和\
+  \ 1（TX），你将无法将草图从 Mac 上传到开发板，因为这会干扰来自 Mac 的 USB 串口连接。因此，在上传草图之前，必须先从 Arduino 板上断开\
+  \ XBee 模块。\n\n断开 Arduino 板与 Mac 的连接，并将其连接到外部电源。\n\n完成此操作后，将一个 XBee 模块连接到你的 Mac，并再次打开\
+  \ CoolTerm 应用程序。连接到相应的串口，以便查看模块的输出。\n\n然后，将另一个模块连接到你的 Arduino 板上，如图 5-8 所示，并为其供电。你应该会在终端程序中看到与图\
+  \ 5-10\n\n**图 5-10. Arduino 通过 XBee 连接输出“Hello World”**\n\n## 将 XBee 连接到 iOS 设备\n\
+  \n既然我们已经在 Arduino 板和 Mac 之间完成了测试，那么要在 Arduino 板和 iPhone 之间做同样的事情，需要做些什么呢？\n\n\n\n\
+  ### XBee 转 RS-232 串行接口\n\n我们首先需要一个 RS-232 适配器。幸运的是，SparkFun 出售 [XBee Explorer Serial](http://www.sparkfun.com/products/9111)，售价\
+  \ 29.95 美元（参见 图 5-11）。\n\n据我所知，目前市场上没有其他同样容易买到的适配器；不过，如果你不想购买 SparkFun 的适配器，用我们之前一直使用的\
+  \ RS-232 转 TTL 串行适配器在面包板上搭建一个适配器也应该是相当容易的。\n\n但是，如果你这样做，请记住 XBee 模块的工作电压是 3.3 V，而\
+  \ Redpark 线缆的工作电压是 5 V。你需要在 XBee 模块的 3.3 V RX 和 TX 引脚与 TTL 串行适配器的 5 V 引脚之间添加一个电压电平转换器。\n\
+  \n![SparkFun XBee Explorer Serial 串行接口](img/httpatomoreillycomsourceoreillyimages895978.png.jpg)\n\
+  \n图 5-11. SparkFun XBee Explorer Serial 串行接口\n\n接下来，拔掉原来连接到 Mac 的 XBee 模块，并将其插入串行适配器。然后将串行适配器插入\
+  \ Redpark 线缆，再将线缆插入你的 iPhone。连接电源并打开电源；你应该会看到类似 图 5-12 的样子。\n\n![一切连接并正常工作](img/httpatomoreillycomsourceoreillyimages895980.png.jpg)\n\
+  \n图 5-12. 一切连接并正常工作\n\n恭喜你，你已经成功通过 XBee 串行直通连接，将你的 Arduino 和 iPhone 连接起来了。\n\n###\
+  \ 进一步探索\n\n此时，一个相当简单的练习是获取上一章中的声纳示例，并用 XBee 替代直接线缆连接。无需任何软件更改，只需更改硬件。将下面的 图 5-13\
+  \ 与上一章的 图 4-9 进行比较。\n\n![使用 XBee 模块连接第 4 章的 EZ1 示例](img/httpatomoreillycomsourceoreillyimages895982.png.jpg)\n\
+  \n图 5-13. 使用 XBee 模块连接第 4 章中的 EZ1 示例\n\n如果一切顺利，你应该会看到与上一章完全相同的效果。\n\n"
+- "# 第 6 章. 其他连接方式\n\n本书大部分内容都在讨论 Redpark 串行线缆，因为这是将外部硬件直接连接到 iPhone 或 iPad 的最简单方法。然而，在\
+  \ Redpark 线缆出现之前，我们必须更具创造性，在本章中，我将介绍一些将外部硬件连接到 iOS 设备的其他方法。\n\n## 使用网络\n\n我之前没有过多讨论网络，但众所周知，无处不在的数据可用性改变了一切。如果我们可以将传感器或其他硬件连接到互联网，使其成为物联网的一部分，那么我们的\
+  \ iPhone（或 iPad）就已经具备了与之通信的能力。\n\n### 使用以太网\n\n将任意传感器硬件连接到互联网的最简单方法（到了这个阶段可能相当可预测）是使用\
+  \ Arduino。有几种方法可以实现这一点，但如果你有一个静态传感器平台，最简单的方法可能是使用有线以太网。参见 图 6-1。\n\n### 注意\n\nArduino\
+  \ 扩展板是一种可以插在 Arduino PCB 顶部的电路板，用于扩展其功能。它可能会使用部分或全部 Arduino 引脚。但是，未使用的引脚通常会直通引出，供其他用途使用。参见\
+  \ [`shieldlist.org/`](http://shieldlist.org/) 以获取许多 Arduino 扩展板的引脚使用情况列表。\n\n你可以从多家供应商处购买官方的\
+  \ Arduino Ethernet Shield，包括 [Maker Shed](http://www.makershed.com/ProductDetails.asp?ProductCode=MKSP7)\
+  \ 和 [SparkFun](http://www.sparkfun.com/products/9026)。\n\n![Arduino Ethershield（顶部）和\
+  \ Arduino Uno（底部）](img/httpatomoreillycomsourceoreillyimages895984.png.jpg)\n\n\
+  图 6-1. Arduino Ethershield（顶部）和 Arduino Uno（底部）\n\n一旦你将 Ethernet Shield 连接到 Arduino，并将扩展板插入网络，就可以相当容易地搭建一个简单的\
+  \ web 客户端。下面的代码建立了一个网络连接，然后对“Arduino”一词执行 Google 搜索，并将请求返回的页面发送到串行连接：\n\n```\n#include\
+  \ <Ethernet.h>\n\nbyte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };\nbyte ip[]\
+  \ = { 144,173,229,19 };\nbyte server[] = { 64, 233, 187, 99 }; // Google\n\nClient\
+  \ client(server, 80);\n\nvoid setup()\n{\n  Ethernet.begin(mac, ip);\n  Serial.begin(9600);\n\
+  \ndelay(1000);\n\nSerial.println(\"connecting...\");\n\nif (client.connect()) {\n\
+  \    Serial.println(\"connected\");\n    client.println(\"GET /search?q=arduino\
+  \ HTTP/1.0\");\n    client.println();\n  } else {\n    Serial.println(\"connection\
+  \ failed\");\n  }\n}\n\nvoid loop()\n{\n  if (client.available()) {\n    char c\
+  \ = client.read();\n    Serial.print(c);\n  }\n\nif (!client.connected()) {\n  \
+  \  Serial.println();\n    Serial.println(\"disconnecting.\");\n    client.stop();\n\
+  \    for(;;)\n      ;\n  }\n}\n```\n\n![1](img/#ch06.html#co13_id)\n\nArduino Ethernet\
+  \ 库要求你为 Ethernet Shield 定义一个 MAC 地址。这通常由制造商完成，大多数系统管理员不会喜欢你试图为 Arduino 提供一个随机 MAC\
+  \ 的做法。如果你打算将 Arduino + Ethernet Shield 连接到一个你不直接控制的网络，你应该事先咨询你的系统管理员。\n\n![2](img/#ch06.html#co14_id)\n\
+  \n官方 Ethernet 库的另一个问题是它尚不支持 DHCP，因此你必须为你的草图提供一个静态 IP 地址。同样，这可能是你的系统管理员有异议的问题，因为大多数现代网络都使用\
+  \ DHCP 来动态分配 IP 地址。如果你将 Arduino 连接到一个你不直接控制的网络，你应该再次事先咨询你的系统管理员。\n\n你可以使用 Arduino\
+  \ 开发环境提供的串行控制台，或者我们之前在本书中编写的 `SerialConsole` 应用程序，来查看此草图返回的结果。\n\n**如何生成 MAC 地址？**\n\
+  \n介质访问控制（MAC）地址的目的是区分网络上的物理设备。你网络上的每个设备都必须具有唯一的 MAC 地址，通常联网设备的 MAC 地址由制造商嵌入其固件中，是半唯一的。但是，在这种情况下，你就是制造商，而你的草图（实际上）就是你正在创建的嵌入式设备的固件。因此，你需要为设备提供\
+  \ MAC 地址。\n\nMAC 地址的前 6 个八位字节对设备制造商来说是唯一的；IEEE 负责管理这些地址的分配。但是，你可以在代码中分配一个本地管理的地址。\n\
+  \nMAC 地址的第一个八位字节中有两个位用于定义 MAC 地址的某些方面。MAC 地址第一个八位字节的最低有效位是单播/组播（I/G）地址位，而次最低有效位是全局或本地（U/L）管理地址位。\n\
+  \n\n\nI/G 位用于指示目标 MAC 地址是**单播地址**还是**多播地址**。如果该位设置为 0，则为单播地址。如果该位设置为 1，则为多播地址。在分配本地管理地址时，应将此位设置为\
+  \ 0。\n\nU/L 位用于指示 MAC 地址是固化地址（BIA）还是**本地管理地址**。当该位设置为 1 时，该 MAC 地址被识别为本地管理地址。\n\n\
+  因此，有四组本地管理地址可以在你的网络上使用而无需担心冲突，假设没有其他开发者使用它们。这些地址是 `X2:XX:XX:XX:XX:XX`、`X6:XX:XX:XX:XX:XX`、`XA:XX:XX:XX:XX:XX`\
+  \ 和 `XE:XX:XX:XX:XX:XX`（其中 `X` 应替换为适当的十六进制值）。\n\nIEEE 分配的 MAC 地址块的完整列表可在 [`standards.ieee.org/develop/regauth/oui/oui.txt`](http://standards.ieee.org/develop/regauth/oui/oui.txt)\
+  \ 中找到。\n\n或许更有用的是，这里有一个如何构建一个简单 web 服务器的示例，该服务器向请求的客户端返回一个简短的 HTML 文档：\n\n```cpp\n\
+  #include <Ethernet.h>\n\n#define HTTP_HEADER \"HTTP/1.0 200 OK\\r\\nServer: arduino\\\
+  r\\nContent-Type: text/html\\r\\n\\r\\n\"\n\nint LED = 9;\n\n// network configuration.\
+  \  gateway and subnet are optional.\nbyte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE,\
+  \ 0xED };\nbyte ip[] = { 192, 168, 1, 99 };\nbyte gateway[] = { 192, 168, 1, 1 };\n\
+  byte subnet[] = { 255, 255, 255, 0 };\n\nServer server = Server(8080);\n\nvoid setup()\n\
+  {\n  // sets the digital pin as output\n   pinMode(LED, OUTPUT);\n\n// Start talking\
+  \ to the serial port\n  Serial.begin(9600);\n  Serial.println( \"Start setup()\"\
+  );\n\n// initialize the ethernet device\n  Serial.println(\"Ethernet.begin()\");\n\
+  \  Ethernet.begin(mac, ip, gateway, subnet );\n\n// start listening for clients\n\
+  \  Serial.println(\"server.begin()\");\n  server.begin();\n\n// Flash the LED twice\n\
+  \  digitalWrite(LED, HIGH);\n  delay(1000);\n  digitalWrite(LED, LOW);\n  delay(1000);\n\
+  \  digitalWrite(LED, HIGH);\n  delay(1000);\n  digitalWrite(LED, LOW);\n\nSerial.println(\
+  \ \"Done setup()\\n\");\n\n}\n\nvoid loop(){\n  Client client = server.available();\n\
+  \  if (client) {\n\nSerial.println(\"Connection from client\");\n    boolean current_line_is_blank\
+  \ = true;\n    while (client.connected()) {\n      digitalWrite(LED, HIGH);\n  \
+  \    if (client.available()) {\n        char c = client.read();\n        Serial.print(c);\n\
+  \nif (c == '\\n' && current_line_is_blank) {\n          client.println( HTTP_HEADER\
+  \ );\n          client.println();\n          Serial.println(\"Sent header\");\n\n\
+  client.println(\"<html><head><title>Test</title></head><body>\");\n          client.println(\"\
+  <p>Test String</p>\");\n          client.println(\"</body></html>\");\n        \
+  \  Serial.println(\"Sent page\");\n          break;\n        }\n        if (c ==\
+  \ '\\n') {\n          current_line_is_blank = true;\n        } else if (c != '\\\
+  r') {\n          current_line_is_blank = false;\n        }\n      }\n    }\n   \
+  \ client.stop();\n    Serial.println(\"Closed client connection\\n\");\n    digitalWrite(LED,\
+  \ LOW);\n\n}\n}\n```\n\n![1](img/1.png)\n\nHTTP 请求以空行结束。我们在此处查找它，以便找到请求数据包的结尾。如果我们已经到达该行的末尾（接收到换行字符）并且该行为空，则\
+  \ HTTP 请求已结束，我们现在可以发送回复。\n\n![2](img/2.png)\n\n我们发送标准的 HTTP HEADER 响应。这与 HTML `<HEAD>`\
+  \ 块不同，而是所有 web 服务器在发送请求的 HTML 页面之前返回的单独标头。\n\n虽然实现一个 web 服务器相对简单，但你也可以考虑使用 `Webduino`\
+  \ 库。这是一个用于 Arduino 的通用 web 服务器库，可在 [`github.com/sirleech/Webduino`](https://github.com/sirleech/Webduino)\
+  \ 找到。它支持 URL 参数解析、处理 GET 和 POST 方法、Web 表单和图像，以及 JSON，并且重要的是，开箱即用支持 RESTful 接口。\n\
+  \n下面的代码使用通用库重新实现了我们的简单 web 服务器：\n\n```cpp\n#include \"SPI.h\"\n#include \"Ethernet.h\"\
+  \n#include \"WebServer.h\"\n\nstatic uint8_t mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE,\
+  \ 0xED };\nstatic uint8_t ip[] = { 192, 168, 1, 99 };\n\n#define PREFIX \"/\"\n\
+  WebServer webserver(PREFIX, 80);\n\nvoid helloCmd(WebServer &server, WebServer::ConnectionType\
+  \ type, char *, bool) {\n  server.httpSuccess();\n  if (type != WebServer::HEAD){\n\
+  \    P(helloMsg) = \"<html><head><title>Test</title></head><body><p>Test String</p><body></html>\"\
+  ;\n    server.printP(helloMsg);\n  }\n}\n\nvoid setup() {\n  Ethernet.begin(mac,\
+  \ ip);\n  webserver.setDefaultCommand(&helloCmd);\n  webserver.addCommand(\"index.html\"\
+  , &helloCmd);\n  webserver.begin();\n}\n\nvoid loop() {\n  char buff[64];\n  int\
+  \ len = 64;\n  webserver.processConnection(buff, &len);\n}\n```\n\n现在我们有了一个 web\
+  \ 服务器，相对简单地提供一个 RESTful 接口，返回一个包含当前传感器读数的静态 JSON 片段就变得可行了。解析此类文档是大多数 iPhone 应用的生命线，对于大多数人来说也将很熟悉。我不打算在此详述，但我在\
+  \ *[Learning iPhone Programming](http://oreilly.com/catalog/9780596806439/)* 中做了深入讨论。\n\
+  \n## 解析 JSON\n\nJSON 是一种轻量级的数据交换格式，几乎人类可读，同时仍然易于机器解析。虽然 XML 面向文档，但 JSON 面向数据。如果你需要传输高度结构化的数据，应该使用\
+  \ XML 来呈现它。然而，如果你的数据交换需求不那么苛刻，JSON 可能是一个不错的选择。\n\nJSON 相比于 XML 的明显优势在于，由于它面向数据并且（几乎）可以作为哈希映射来解析，因此不需要重量级的解析库。此外，JSON\
+  \ 文档比等效的 XML 文档小得多。在带宽有限的情况下，例如在 iPhone 上可能会遇到的情况，这可能非常重要。传输相同数据时，JSON 文档通常消耗大约相当于等效\
+  \ XML 文档一半的带宽。\n\n虽然 Cocoa Touch 框架本身不支持 JSON，但 Stig Brautaset 的 `json-framework`\
+  \ 库同时实现了 JSON 解析器和生成器，并且可以相当简单地集成到你的项目中。你可以从 [`code.google.com/p/json-framework/`](http://code.google.com/p/json-framework/)\
+  \ 下载包含该库最新版本的磁盘映像。\n\n\n\n## 使用 WiFi\n\n如果你的传感器组件或设备不是固定安装的，或者不方便靠近有线以太网，也可以使用 WiFi\
+  \ 扩展板。目前比较常用的扩展板之一是 SparkFun 的 `WiFly` 扩展板（见图 6-2）。`WiFly` 扩展板可以直接从 [SparkFun](http://www.sparkfun.com/products/9954)\
+  \ 购买，价格为 89.95 美元。你可以从 [`github.com/sparkfun/WiFly-Shield`](https://github.com/sparkfun/WiFly-Shield)\
+  \ 下载相关库，从而轻松使用该扩展板。遗憾的是，`WiFly` 以及市面上大多数其他 WiFi 扩展板都相当昂贵。\n\n![Arduino WiFly Shield\
+  \ (top) and Arduino Diecimila (bottom)](img/httpatomoreillycomsourceoreillyimages895986.png.jpg)\n\
+  \n图 6-2. Arduino WiFly 扩展板（上）与 Arduino Diecimila（下）\n\n有趣的是，既然本书前面已经介绍过 `XBee` 无线电模块，现在市面上还出现了一种\
+  \ `XBee WiFi` 无线电模块，它支持 IEEE 802.11 无线标准，而非 IEEE 802.15.4 点对点标准。该模块与现有的 Series 1\
+  \ 和 Series 2 模块引脚兼容。更多信息可访问 [`www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/point-multipoint-rfmodules/xbee-wi-fi#overview`](http://www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/point-multipoint-rfmodules/xbee-wi-fi#overview)。\n\
+  \n如果你正在大量使用 `XBee` 模块，此选项可能让你无需花费额外大成本即可将传感器网络连接到互联网。\n\n## 使用软调制解调器\n\n在 `Redpark`\
+  \ 数据线问世之前，将硬件直接连接到设备的最简单方法是使用软调制解调器。这种做法的一个著名例子是 Square 信用卡读卡器（见图 6-3）。\n\n![The\
+  \ Square credit card reader](img/httpatomoreillycomsourceoreillyimages895988.png.jpg)\n\
+  \n图 6-3. Square 信用卡读卡器\n\n当你在 Square 读卡器上刷卡时，它会读取数据并将其转换成模拟音频信号。然后，音频信号被麦克风拾取、处理并传输到\
+  \ iOS 版 Square 应用中，在那里再转换回数字信号。\n\n### Switch Science 板\n\nSwitch Science 推出的适用于\
+  \ iPhone 和 Android 的音频插孔调制解调器可从 [SparkFun](http://www.sparkfun.com/products/10331)\
+  \ 购买，价格为 11.95 美元（见图 6-4）。\n\n![The Switch Science SoftModem Board](img/httpatomoreillycomsourceoreillyimages895990.png.jpg)\n\
+  \n图 6-4. Switch Science 软调制解调器板\n\n这是一块相当简单的板子，或多或少地模仿了 Square 读卡器的方案，区别在于它提供了 `TTL`\
+  \ 串行接口。有关 `SoftModem Board` 的更多详细信息，以及适用于 iOS 和 Arduino 的示例代码和支持库，请访问 [`code.google.com/p/arms22/wiki/SoftModemBreakoutBoard`](http://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard)。\n\
+  \n#### 警告\n\n该板子的文档是日文的。不过，借助谷歌翻译和页面上的代码示例，弄清楚如何使用该板子并不太难。\n\n### HiJack 板\n\n虽然使用了类似的技术，但\
+  \ `HiJack` 板（见图 6-5）与 `Switch Science` 板略有不同。有趣的是，它板载了自己的微控制器，该控制器直接通过从 iPhone 获取的能量供电。当由\
+  \ 22 kHz 音调驱动时，能量捕获器能以 47% 的功率转换效率向负载提供 7.4 mW 的电力。该板由密歇根大学开发，旨在支持开发可轻松部署到发展中国家的简易医疗硬件。更多关于\
+  \ `HiJack` 项目的信息可访问 [`www.eecs.umich.edu/~prabal/projects/hijack/`](http://www.eecs.umich.edu/~prabal/projects/hijack/)。\n\
+  \n![The HiJack board (right) and programmer (left)](img/httpatomoreillycomsourceoreillyimages895992.png.jpg)\n\
+  \n图 6-5. HiJack 板（右）与编程器（左）\n\n你可以从 Seeed Studio ([`www.seeedstudio.com/depot/hijack-development-pack-p-865.html`](http://www.seeedstudio.com/depot/hijack-development-pack-p-865.html))\
+  \ 购买 `HiJack` 板，作为开发套件的一部分，该套件包含一块板子、一个编程器、两块原型板和跳线，价格为 79 美元。\n\n有关该开发套件的更多信息，请访问\
+  \ [供应商的维基网站](http://garden.seeedstudio.com/index.php?title=Hijack#Introduction)。\n\
+  \n## 使用 MIDI 协议\n\n随着 iPad 和相机连接套件（可从苹果商店购买，[`store.apple.com/us/product/MC531ZM/A`](http://store.apple.com/us/product/MC531ZM/A)）的问世，将\
+  \ USB 设备直接连接到 iPad 成为可能（见图 6-6）。虽然大多数 USB-HID 配置文件不受支持，并且该连接器最初仅用于让你将已连接相机的图像传输到\
+  \ iPad，但有一个有趣的例外。该连接器还允许你的 iPad 直接与 USB MIDI 设备通信。\n\n![The USB dongle from the\
+  \ iPad Camera Connection Kit](img/httpatomoreillycomsourceoreillyimages895994.png.jpg)\n\
+  \n图 6-6. iPad 相机连接套件中的 USB 适配器\n\n### 注意\n\n在 iOS 4.x 之前，iPad 相机连接套件中的 USB 适配器也允许你将\
+  \ USB 配件连接到 iPhone 4。不幸的是，在这次操作系统更新中，对手机固件进行了更改，导致提供给 Dock 连接器的电流降低，USB 设备因此不再有足够的电力运行。\n\
+  \n市面上有多种适用于 Arduino 的 MIDI 扩展板，包括 [SparkFun 的扩展板](http://www.sparkfun.com/products/9595)（见图\
+  \ 6-7）。图 6-8 展示了该扩展板通过一个 `Screw Shield` 连接到一个 `Arduino Uno` 板。该项目（详见 [`github.com/bjepson/iPad-MIDI-Simple-Demo`](https://github.com/bjepson/iPad-MIDI-Simple-Demo)）允许你直接从\
+  \ Arduino 板控制 iPad 上现成的 MIDI 软件。\n\n![Arduino Uno with MIDI shield](img/httpatomoreillycomsourceoreillyimages895996.png.jpg)\n\
+  \n图 6-7. 带有 MIDI 扩展板的 Arduino Uno\n\n![An Arduino connected to an iPad running standard\
+  \ off-the-shelf MIDI-enabled software via a MIDI shield and the Camera Connection\
+  \ Kit](img/httpatomoreillycomsourceoreillyimages895998.png.jpg)\n\n图 6-8. 通过 MIDI\
+  \ 扩展板和相机连接套件连接到运行标准现成 MIDI 软件的 iPad 的 Arduino\n\n有趣的是，`MIDI` 协议的可用性和灵活性意味着，在与 Arduino\
+  \ 通信（使其模拟成 MIDI 设备）时，实际上并不需要 `MIDI` 协议去完成大多数人期望它做的事情。实际上，我们可以扭曲该协议，从而允许你在 `MIDI`\
+  \ 数据包中嵌入任意串行数据。虽然我怀疑这种滥用协议的应用能否通过审核团队进入 `App Store`（从某些标准来看，这完全合理），但技术上是可行的。\n\n\
+  \n  \n## HIDDUINO  \n\n最新一代的 Arduino 开发板（包括 Arduino Uno）将常用的 FTDI USB 芯片替换为 `Atmega8u2`\
+  \ 微控制器。这是一个有趣的进展，因为这意味著最新一代的 Arduino 实际上具有双核处理能力——如果你不打算使用 USB 连接，原本用于 USB 串行通信的辅助微控制器可以被重新用于其他用途。其中一种用途是将其当前固件替换为符合\
+  \ USB-HID 协议的新固件。本质上，这意味着 Arduino 开发板可以在主机电脑上被识别为鼠标、键盘、摇杆或任何其他 USB 设备。重要的是，这一切无需在主机电脑端安装任何新驱动软件。对于你的\
+  \ Mac 而言，Arduino 看起来就是一个普通的 USB 设备。  \n\n### 注意  \n\n`Atmega8u2` 可以使用现成的 AVR 编程器轻松重新编程，或者通过\
+  \ DFU 引导加载程序刷写新固件。  \n\n其中一种可操作的方式是重新刷写该微控制器，使 Arduino 被识别为 MIDI HID 设备，从而无需自定义解析或转换软件。你的\
+  \ iPad 上支持 MIDI 的程序将能直接识别 Arduino，无需 MIDI 扩展板或其他硬件。你还可以使用 iOS SDK 中的 MIDI 框架与 Arduino\
+  \ 开发板进行通讯。详情请参见 [`mtiid.calarts.edu/research/hiduino`](http://mtiid.calarts.edu/research/hiduino)。\
+  \  \n\n## 总结  \n\n将硬件连接到 iOS 设备的方法显然在很大程度上取决于你使用的硬件类型，以及最初将硬件连接到 iPhone 或 iPad 的目的。如果你不需要通过串行连接直接将硬件连接到\
+  \ iPhone，希望本章为你提供了一些替代方案。  \n\n## 关于作者  \n\nAlasdair Allan 是埃克塞特大学天文学系的高级研究员，正在构建一个自主、分布式、对等网络的望远镜系统，该系统能够反应式地调度对时间关键事件的观测。他还经营一家小型技术咨询公司，专注于编写定制软件和构建开源硬件，并正在开发一系列用于监控和管理云端服务及分布式传感器网络的\
+  \ iPhone 应用程序。  \n"

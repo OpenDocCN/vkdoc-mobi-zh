@@ -1,0 +1,168 @@
+# 向前迈进
+
+现在，你对 iOS 应用开发中最常用的架构（以及那些不那么广为人知的架构如何工作）有了更广泛的理解。
+
+但这并非终点；为了继续进步，你应该将这些架构应用到不同的项目中，亲自体会它们带来的优势以及可能遇到的困难。
+
+无论你选择哪一种或哪几种架构来开发应用，我都建议你深入研究，寻找相关资料（书籍、博客、视频、会议……），做好文档记录，并研究应用了这些架构的项目。这样，你就能更清晰地看到它们的优缺点、实现中可能遇到的问题，或解决让你卡在某一点的方案。
+
+请记住，任何给定的架构本身既不好也不坏，它们都有各自的优点和缺点。并且，虽然它是应用开发中非常重要的一部分，但你不应忘记其他需要关注的重点：
+
+-   TDD 或测试驱动开发
+-   SOLID 原则
+-   依赖注入
+
+最后，希望你觉得这本书在你的开发生涯中既有趣又有用。
+
+## 索引
+
+-   `addListAction` 方法
+-   `AddListConfigurator`
+-   `AddListInteractor`
+-   `addList` 方法
+-   `AddListModel`
+-   `addListPresenter`
+-   `AddListRouter`
+-   `AddList` 场景
+-   `AddListConfigurator`
+-   `AddListInteractor`
+-   `AddListModel` 类
+-   `AddListPresenter`
+-   `AddListRouter`
+-   `AddListView`
+-   `AddListViewController` 组件
+-   `AddListView`
+-   `AddListViewController`
+-   `addListWithTitle` 方法
+-   `addTaskAction` 函数
+-   `AddTaskInteractor`
+-   `addTaskList` 方法
+-   `addTask` 方法
+-   `AddTaskPresenter`
+-   `AddTaskRouter`
+-   `AddTaskView`
+-   `AddTaskInteractor`
+-   `AddTaskListView`
+-   `AddTaskModel`
+-   `AddTaskPresenter`
+-   `AddTaskRouter`
+-   `AddTaskViewController`
+-   `AddTaskViewDelegate`
+-   `AddTaskViewController`
+-   `AddTaskViewDelegate`
+-   `AppDelegate`
+-   架构模式（优点、设计、缺点、高级设计）
+-   MVC
+-   MVP
+-   项目
+-   SOLID
+-   VIP
+-   VIPER
+-   `backAction` 和 `addList` 函数
+-   `backButton` 函数
+-   `backToHome` 方法
+-   `bindToViewModel` 方法
+-   `bindViewToModel` 方法
+-   整洁架构（开发应用层、优点、数据、依赖规则、领域、表示层、SOLID 原则、结构）
+-   Core Data
+-   `CoreDataManager.swift`
+-   创建实体（数据库模型/实体数据模型，创建数据模型文件模板，`NSManagedObject` 子类）
+-   `Task` 实体（创建）
+-   `TasksList` 实体（创建）
+-   `createScreen` 方法
+-   创建型模式
+-   数据绑定
+-   委托模式
+-   `deleteList` 方法
+-   依赖注入
+-   依赖反转原则（DIP）
+-   依赖规则
+-   设计模式（行为型、创建型、实现、结构型）
+-   `dismissFrom` 方法
+-   `dispose()` 方法
+-   Elm 架构（优点、组件、缺点、历史、工作原理）
+-   `fetchList` 方法
+-   `fetchTasksLists` 方法
+-   `gotAddList` 方法
+-   `gotoAddTask` 方法
+-   HomePresenter（依赖）
+-   `HomeView`
+-   `HomeViewController`（初始化）
+-   `loadLists` 方法
+-   `MockHomeRouter`（代码、协议、设置）
+-   Home 场景（组件、`HomeConfigurator`、`HomeInteractor`、`HomeModel`、`HomePresenter`、`HomeRouter`、`HomeView` 类）
+-   `HomeViewController`
+-   Home 屏幕（添加列表、`backToHome` 方法、通信模式）
+-   `HomeView`
+-   `HomeViewModel`（初始化、展示器）
+-   `HomeViewController` 类
+-   `HomeViewModel`（测试、单元格删除、创建实例、`EmptyState`、列表选择、`TasksListService`）
+-   `init` 方法
+-   接口隔离原则（ISP）
+-   键值观察（KVO）模式
+-   里氏替换原则（LSP）
+-   `loadLists` 方法
+-   臃肿的视图控制器
+-   `methodToExecute`
+-   模型-视图-控制器（MVC）（Apple、应用开发、组件、优点、控制器、缺点、模型、视图、设计模式、历史）
+-   模型-视图-展示器（MVP）（优点、组件、缺点、历史、层）
+-   MyToDos（应用屏幕、测试）
+-   `AddListViewController`
+-   `AddListViewPresenter`
+-   模型-视图-视图模型-协调器（MVVM-C）（添加列表屏幕、添加任务屏幕、协调器、主屏幕、`SceneDelegate`、任务列表屏幕）
+-   模型-视图-视图模型（MVVM）（优点、特性、缺点、历史、层、模型、视图、`ViewModels`）
+-   MyToDos（应用屏幕，*参见* 屏幕，MVVM）
+-   MyToDos（数据绑定、测试）
+-   `HomeViewModel`
+-   `RxSWift`、`RxTest`（项目文件夹结构、工作原理）
+-   MVC（应用开发、控制器、模型、常量、Core Data 实体、扩展、函数、层文件、服务）
+-   MyToDos（应用屏幕、项目文件夹结构、测试）
+-   `HomeViewTest` 类（创建）
+-   MVC-MyToDos（测试）
+-   MyToDos（测试文件、系列标准、Xcode、Xcode 测试、视图层文件、`XCTest`）
+-   MVC-MyToDos（测试、控制器、模拟对象、`TasksListService`类、视图）
+-   MVP（项目文件夹结构、模型、`CoreDataManager.extensions`、`CoreDataManager.swift` 文件、层文件、展示器、初始化、展示器、视图）
+-   MyToDos（应用开发、Core Data、数据库、故事板依赖（移除））
+-   屏幕（添加列表、添加任务、主页、启动、任务列表）
+-   MyToDos 应用屏幕（添加列表屏幕组件、添加任务屏幕组件、`AppDelegate`、委托模式、主页信息流、`SceneDelegate`、任务列表屏幕组件）
+-   MyToDos 应用屏幕，MVP（添加列表屏幕：`AddListPresenter`, `AddListView`, `AddListViewController` 组件；添加任务：`AddTaskPresenter`, `AddTaskView`, `AddTaskViewController` 组件；`AppDelegate`；主屏幕组件：`HomeController`, `HomePresenter`, `HomeView`；`SceneDelegate`；任务列表组件：`TaskListPresenter`, `TaskListView`, `TaskListViewController`）
+-   `navigateBack` 方法
+-   开闭原则（OCP）
+-   `ParentCoordinator`
+-   `popToHomeFrom` 方法
+-   代理
+-   `PublishRelay`
+-   Redux（优点、组件、定义、缺点、工作原理）
+-   路由-交互器-构建器（RIB）（优点、组件、定义、缺点、示例、历史、工作原理）
+-   路由器
+-   RxSwift（定义、输入/输出、安装、库、*可观察序列*、观察者）
+-   `SceneDelegate`
+-   屏幕，MVVM（添加列表屏幕：`AddListView`, `AddListViewController`, `AddListViewModel` 组件；添加任务屏幕：`AddTaskView`, `AddTaskViewController`, `AddTaskViewModel`；`AppDelegate`/`SceneDelegate`；主屏幕组件：`HomeView`, `HomeViewController`, `ViewModel`；任务列表组件：`TaskListView`, `TaskListViewController`, `TaskListViewModel`）
+-   `selectedList` 方法
+-   `selectList` 方法
+-   `setTasksList` 方法
+-   `setUpWithError` 方法
+-   单一职责原则（SRP）
+-   软件架构（架构模式、定义、MVVM 模式）
+-   SOLID 原则（DIP、ISP、LSP、OCP、SRP）
+-   `start()` 方法
+-   结构型模式
+-   Swift 包管理器（SPM）
+-   SwiftUI
+-   TaskList 场景（组件：`TaskListConfigurator`, `TaskListInteractor`, `TaskListModel`, `TaskListPresenter`, `TaskListRouter`, `TaskListView`, `TaskListViewController`）
+-   `TaskListView` 的 `bindToModel` 方法
+-   `TaskService` 方法
+-   测试驱动开发（TDD）
+-   可组合架构（TCA）（优点、组件、缺点、历史、问题、工作原理、`typealias` 命令）
+-   `UIColor` 扩展
+-   `UITableView` 方法
+-   `viewDidLoad` 方法
+-   视图-交互器-展示器-实体-路由器（VIPER）（添加列表模块：`AddListInteractor`, `AddListPresenter`, `AddListRouter`, `AddListViewController`, 组件, 协议；添加任务模块：优点，组件间通信：`Presenter/Interactor`, `Presenter/Router`, `Presenter/View`，组件，定义，缺点，文件夹项目结构；`HomeInteractor`；主模块组件：`HomeInteractor`, `HomeRouter`, `HomeViewController` 类, `HomeViewPresenter`, `ViewToPresenterHomeProtol`；层；`SceneDelegate`；任务列表模块组件，协议：`TaskListInteractor`, `TaskListRouter`, `TaskListsPresenter`, `TaskListViewController`；工作原理）
+-   视图-交互器-展示器（VIP）（组件、优点、配置器、缺点、交互器、模型、展示器、路由器、视图（+`UIViewController`）、工作者/服务、历史、场景：`AddList`, `AddTask`, `AddTaskConfigurator`, `AddTaskView`, 主页；`SceneDelegate`；测试：`HomeInteractor`, `HomePresenter`, `HomeViewController`；工作原理）
+-   `ViewModel` 的 `init` 方法
+-   `ViewModels`
+-   `ViewToPresenterHomeProtol`
+-   `XCAssert` 函数
+-   Xcode（Swift 包管理器）
+-   `XCTAssertEqual` 函数
+-   `XCTAssert` 函数

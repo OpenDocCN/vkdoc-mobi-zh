@@ -1,0 +1,215 @@
+# T
+
+## S
+-   `sandbox applications`（沙盒应用），创建，73
+-   `sign bit`（符号位），13
+-   `SAX`（XML 简单 API），207
+-   XML 简单 API（`SAX`），207
+-   `scalar conversions`（标量转换），118
+-   `single-process communication`（单进程通信），211
+-   `scaling`（缩放），MVC 设计模式与，358
+-   `singletons`（单例），411，429—432
+-   `scope`（作用域），41—43
+-   `sizeof()` 运算符，19
+-   Scrapbook Words（示例）应用程序，55—72
+    -   业务逻辑，68—71
+    -   配置，58
+    -   创建，56—58
+    -   设计，59—68
+    -   完成的项目文件，55
+-   `sockets`（套接字），212，213
+-   `sorting`（排序）集合，310—312
+-   源文件（`.m`），28
+-   `spin locks`（自旋锁），278
+-   `square brackets`（方括号）（`[...]`），方法与，27, 30
+-   线程的`stack`（栈）大小，264
+-   线程的`state management`（状态管理），275
+-   `scripting`（脚本），键值编码与，150, 153
+-   `static` 关键字，19
+-   `@selector` 指令，34
+-   `static variables`（静态变量），19
+-   `selectors`（选择器），30, 34
+-   `stopping`（停止）运行循环，267
+-   `self` 变量，44, 46, 50
+-   `streams`（流），215
+-   `semaphores`（信号量），258, 270—280
+    -   线程协调与，260
+    -   线程终止与，265
+-   `senders`（发送者），30, 330
+-   `sending`（发送）消息给对象，30, 34, 87—96
+    -   直接调用方法与，96
+    -   `nil` 与，104—107
+    -   通过编程方式发送与，90—94
+    -   步骤，87
+    -   未实现的方法与，100—102
+-   `separation of concern`（关注点分离），357
+-   `sequential archiving`（顺序归档），186
+    -   向后兼容性与，200
+    -   支持，添加到类中，192
+-   `serial data streams`（串行数据流），215
+-   `serialization`（序列化），185—210
+    -   归档与，185—203
+    -   Java vs. Objective-C，185, 210
+    -   Objective-C 序列化与，203—207
+-   `sets`（集合），299—303
+    -   过滤集合与，312
+-   `@synchronized` 指令，270
+-   `synchronous notifications`（同步通知），发布，329
+-   `syntax`（语法），11, 27
+-   `@synthesize` 指令，35, 37—40
+
+## T
+-   `targeted actions`（定向动作），392
+-   `tasks`（任务），280
+-   项目的`templates`（模板），56
+-   `terminating`（终止）线程，264
+-   `terminology`（术语），9
+    -   文件与，165
+    -   消息与，30
+    -   方法与，30
+-   `testing`（测试）
+    -   类成员资格，149
+    -   针对类，467
+    -   针对函数，467
+    -   针对方法，147, 467
+-   `this` 变量，44
+-   `thread`（线程）通知，268
+-   `thread-specific notification centers`（线程特定通知中心），263
+-   `thread synchronization`（线程同步），269—280
+-   `threads`（线程），68, 257—283
+    -   Java vs. Objective-C，258
+    -   生命周期，258
+    -   主线程与，260, 465
+    -   命名，264
+    -   属性，263—264
+    -   休眠，260—263
+    -   运行循环与，92
+    -   启动，258
+    -   状态管理，275
+    -   终止，264
+-   `thread safety`（线程安全），集合与，314
+-   `timers`（定时器）与，281
+-   `@throw` 指令，240
+    -   遗留异常处理与，248
+    -   重新抛出异常与，242
+-   TicTacToe（示例）应用程序，353, 359, 400—402
+    -   动画与，381
+    -   链与，393
+    -   `ChalkboardView` 类与，367
+    -   自定义数据模型与，397
+    -   基于文档的应用程序与，383
+    -   `Info.plist` 文件，401
+    -   `TTTDocument` 类与，367
+-   `time`（时间），格式化，133
+-   `timer events`（定时器事件），265
+-   `timers`（定时器），281
+-   `token substitution`（标记替换），23
+-   `toll-free bridge`（免费桥接），458, 459—462
+-   `tools`（工具）。*参见* 实用工具
+-   `transient properties`（瞬态属性），194
+-   `tree data sources`（树形数据源），394
+-   `troubleshooting`（故障排除），针对归档，193—203
+-   `@try` 指令，240
+-   `typecasts`（类型转换），90
+-   `typedefs`（类型定义），15
+-   `types`（类型）（对象），458
+
+## U
+-   iPhone 与 `UICell` 类，382
+-   UIs。*参见* 用户界面
+-   `UITableView` 类，396
+-   `UITableViewDataSource` 类，396
+-   `UITableViewDelegate` 类，396
+-   iPhone 与 `UIView` 类，382, 391
+-   `UIViewController` 类，391
+-   iPhone 与 `UIWindow` 类，382
+-   `unary`（一元）运算符（`*`），16, 18
+-   `uncaught exceptions`（未捕获异常），244—247
+-   `unchecked exceptions`（未检查异常），241
+-   `undeclared methods`（未声明方法），88
+-   `underreleased (overretained) objects`（释放不足（过度保留）的对象），447
+-   `underretained (overreleased) objects`（保留不足（过度释放）的对象），448
+-   `undo`（撤销），401
+-   统一资源定位符。*参见相关条目于* URLs
+-   `unimplemented methods`（未实现方法），100—102
+-   `uninitialized stack references`（未初始化的栈引用），垃圾回收陷阱与，145
+-   统一资源标识符（`URIs`），168
+-   统一资源定位符。*参见相关条目于* URLs
+-   通用唯一标识符（`UUIDs`），458
+-   `unrecognized selector`（无法识别的选择器）异常，77, 100, 246
+-   `unretained references`（非保留引用），引用计数与，451
+-   `untargeted actions`（无定向动作），392
+-   `URIs`（统一资源标识符），168
+-   `URL` 加载，232—237
+-   `URL` 对象工厂，411
+-   `URLs`（统一资源定位符），232
+    -   下载，236
+    -   文件 URL 与，168
+    -   写入，235
+-   `user defaults`（用户默认设置），466, 470
+-   `user interface events`（用户界面事件），265
+-   用户界面（UIs）
+    -   设计，61—64
+    -   iPhone 与，382
+    -   集合排序与，312
+-   `userInfo` 字典，330
+-   `users`（用户）
+    -   向用户显示错误，254
+    -   提示用户选择文件，171
+-   `utilities`（实用工具）
+    -   `atos`，243
+    -   Interface Builder。*参见* Interface Builder
+    -   `NSZombies`，448
+    -   `ObjectAlloc`，448
+    -   Xcode 开发工具，55, 448
+-   `UUIDs`（通用唯一标识符），458
+
+## V
+-   `value`（值）方法，35
+-   `variable arguments`（可变参数），97—100
+-   `variables`（变量），117
+    -   自动，24
+    -   实例，34—45
+    -   惰性初始化与，404—407
+    -   成员，17, 34
+    -   静态，19
+-   `version properties`（版本属性），200
+-   框架/操作系统的`versions`（版本），467
+-   `view objects`（视图对象），59, 63—69
+-   `views`（视图），354, 369—383
+    -   高级，382
+    -   动画，380
+    -   类，369—372
+    -   上下文，377
+    -   自定义，376—383
+    -   绘制/重绘，376
+    -   几何属性，372—375
+    -   失效，376
+    -   术语与，385
+-   `void methods`（无返回值方法），33
+
+## W
+-   `weak collections`（弱集合），314
+-   `weak linking`（弱链接），467
+-   `__weak` 修饰符，139
+-   `weak references`（弱引用），135, 138, 451
+-   WebKit 框架，382
+-   `windows`（窗口），术语与，385
+-   `working directory`（工作目录），167
+-   `wrapping`（包装）
+    -   任意值，121
+    -   数组，119
+    -   `nil`，123
+    -   原始值，117
+-   `write barriers`（写入屏障），142
+
+## X
+-   `Xcode`，55, 357
+    -   Interface Builder 与，61
+    -   通过 Xcode 创建的 Scrapbook Words 示例应用程序，55—72
+-   Xcode 开发工具，55, 448
+-   `.xib` 文档，61
+-   `XML`，序列化与，206
+
+## Z
+-   `Zeroconf`，231

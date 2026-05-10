@@ -1,0 +1,2617 @@
+- "\n![](img/979-8-8688-0485-4_CoverFigure.jpg)\n\nISBN 979-8-8688-0484-7  \n电子书 ISBN\
+  \ 979-8-8688-0485-4  \n[`doi.org/10.1007/979-8-8688-0485-4`](https://doi.org/10.1007/979-8-8688-0485-4)\n\
+  \n© Rap Payne 2024  \n本作品受版权保护。所有权利均独家授权给出版商，涉及材料的全部或部分内容，具体包括翻译、重印、插图复用、朗诵、广播、以微缩胶片或任何其他物理形式复制，以及电子方式的信息传输或存储检索、电子改编、计算机软件，或当前已知或未来开发的类似或不同方法。在本出版物中使用通用描述性名称、注册商标、商标、服务标志等，即使未明确声明，也不意味着这些名称不受相关保护法律和法规的约束，因此可自由使用。出版商、作者和编辑假定本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对材料内容或可能存在的任何错误或遗漏提供明示或暗示的保证。出版商对已出版地图中的管辖权主张及机构隶属关系保持中立。\n\
+  \n本 Apress 印记由隶属于 Springer Nature 的注册公司 APress Media, LLC 出版。  \n注册公司地址为：1 New York\
+  \ Plaza, New York, NY 10004, U.S.A.\n\n*本书献给 Flutter 社区的各位同仁。我从未见过一个团体如此致力于帮助他人成功。你们是我的灵感和榜样。*\n\
+  \n*特别感谢以下社区成员在 Flutter 问题上给予我的帮助。我这个得克萨斯人欠你们一份情！*\n\n*Andrew “Red” Brogdon（俄亥俄州哥伦布市）、Brian\
+  \ Egan（蒙大拿州）、Frederik Schweiger（德国杜塞尔多夫）、Jeroen “Jay” Meijer（荷兰鹿特丹）、Jochum van der\
+  \ Ploeg（荷兰兹沃勒）、Martin Rybak（纽约）、Martin Jeret（爱沙尼亚）、Nash Ramdial（特立尼达）、Nilay Yenner（旧金山）、Norbert\
+  \ Kozsir（德国卡尔斯鲁厄）、Pooja Bhaumik（印度班加罗尔）、Randal Schwartz（俄勒冈州波特兰市）、Raouf Rahiche（经阿尔及利亚的卡萨布兰卡）、Remi\
+  \ Rousselet（巴黎）、Rohan Tanaja（柏林）和 Scott Stoll（俄亥俄州克利夫兰市）。*\n\n*但尤其要感谢 Simon Lightfoot（伦敦），我们都称他为“Flutter\
+  \ 低语者”。我所了解的 Flutter 知识中，有很大一部分是他教给我的。*\n\n## 前言\n\n移动开发的世界已经发生了变化。为 iOS 和 Android\
+  \ 分别维护独立代码库的日子一去不复返。如今的开发者渴望效率、速度，以及用单一代码库触达更广泛受众的能力。这正是 Flutter 的闪光之处。\n\n作为 Google\
+  \ 开发者专家，我亲眼见证了 Flutter 的变革性潜力。其优雅的架构，结合强大的 widget 库，让开发者能够以前所未有的速度创建美观且高性能的应用。热重载的魔力让实验变得轻而易举，大幅缩减了开发时间并加速了迭代过程。\n\
+  \n但不要被 Flutter 的强大所迷惑——它也并非没有挑战。学习一门新语言并驾驭庞大的工具和库生态系统可能会令人望而生畏。而这正是本书的价值所在。\n\n\
+  本书提供了 Flutter 的全面指南，带你从最基础的入门知识一直深入到状态管理和 API 集成等更高级的主题。本书精心编排，包含清晰的解释、实用的示例和动手练习，这将巩固你的理解，并赋能你构建出色的应用。\n\
+  \n无论你是一位寻求拓展技能栈的经验丰富的开发者，还是一位渴望进入移动开发世界的好奇新手，本书都是你的完美伴侣。它是我朋友 Rap Payne 的奉献和专业知识的证明，我相信它将为你提供成为成功\
+  \ Flutter 开发者所需的知识和信心。\n\n那么，拥抱跨平台开发的未来，深入阅读这本宝贵资源的每一页吧。准备好用 Flutter 构建美观且高性能的应用！\n\
+  \nRandal L. Schwartz  \n2024 年 5 月\n\n## 全球赞誉：*Flutter App Development: How to Write\
+  \ for iOS and Android at Once*\n\n> “Rap 为 Flutter 多平台开发的新手撰写了一本出色的入门指南，内容丰富。”\n\
+  > \n> —Frederik Schweiger（德国杜塞尔多夫），国际 Flutter 黑客马拉松组织者，Flutter School 创始人\n\n> “一本很棒的书！它涵盖了一个初学者可能想知道的一切，甚至更多。它不仅解释了\
+  \ Flutter 是什么，还解释了它为什么以这样的方式存在和工作。同时，它还就沿途常见的陷阱提供了极好的建议。强烈推荐。”\n> \n> —Jeroen “Jay”\
+  \ Meijer（荷兰鹿特丹），Flutter Community GitHub 负责人\n\n> “Rap 的书是一本很好的 Flutter 入门书籍。它涵盖了编写第一个应用所需的所有重要主题，同时也为更有经验的开发者提供了宝贵的信息。”\n\
+  > \n> —Norbert Kozsir（德国卡尔斯鲁厄），Flutter Community 编辑\n\n> “作为一名非英语母语者，我对这本书的简洁性以及我能毫不厌倦地阅读和理解这么多内容感到非常震撼。”\n\
+  > \n> —Raouf Rahiche（阿尔及利亚），Flutter 演讲者、开发者与讲师\n\n> “作为 Flutter 的早期采用者和 Flutter\
+  \ Community 的原始成员之一，Rap 是世界上最重要的 Flutter 权威之一。如果说文档是为工程师而写、由工程师所写，那么 Rap 则是一个（谢天谢地！）能用令人愉悦的风格写作并能被其他人类轻松理解的人。”\n\
+  > \n> —Scott Stoll（俄亥俄州克利夫兰市），Flutter 代码库贡献者，Flutter Study Group 联合创始人\n\n## 本书适合谁？\n\
+  \n如果你是一位具有一定面向对象语言（如 Java、C#、C++ 或 Objective-C）开发经验的开发者，并且希望使用 Flutter 创建 Android\
+  \ 应用、iOS 应用或 Web 应用，那么本书适合你。如果你希望创建一个在多个平台上运行的应用，并且是 Flutter 新手，那么本书尤其重要。\n\n如果你已经有一些\
+  \ Flutter 经验，你无疑会学到新东西，但我们并不假设你具备任何 Flutter 的预备知识或经验。我们编写所有章节时，都假设 Flutter 中的一切对你来说都是全新的。\n\
+  \n如果你了解任何关于 iOS 开发、Android 开发或 Web 开发的知识，那肯定有助于理解相关主题，因为其中有许多与 Flutter 的类比。你对这些了解得越多越好，尤其是\
+  \ JavaScript 和 React。但即使你一无所知，也无需担心。它们绝不是必需的。\n\n了解 Dart 语言也会有帮助。Dart 有一些独特但非常酷的特性，我们认为这些是最佳实践。我们本可以通过不使用这些最佳实践来“简化”代码，但从长远来看，这对你没有好处。相反，我们直接使用它们，但会在附录\
+  \ A “Dart 语言概述”中解释这些内容。在那里，我们为你提供一份速查表，其中包含足够编写代码的细节，随后会对那些可能让其他语言开发者感到意外的特性进行更深入的说明。请特别注意名为“关于\
+  \ Dart 的意外之处”的部分。\n\n\n\n## 涵盖内容\n\n本书将教你如何创建功能完备且特性丰富的应用程序，使其能够运行在 iOS、Android、桌面端和\
+  \ Web 端。\n\n1.  Hello Flutter – 欢迎来到 Flutter！我们会让你感受到为何选择它。Flutter 解决了哪些问题？为什么老板会选择\
+  \ Flutter 而非其他解决方案。\n\n2.  Flutter 开发 – Flutter 的工具集并非总是简单明了。我们会解释每个工具的用途及使用方法。本章将引导你完成编写-调试-测试-运行的流程，让你了解包括安装和维护在内的工具使用。\n\
+  \n3.  万物皆 Widget – Widget 对 Flutter 至关重要，因为它们是每个 Flutter 应用的构建块。我们将展示其重要性，并提供创建\
+  \ Widget 的动机和方法。主题包括组合、UI 即代码、Widget 类型、键值、无状态与有状态 Widget。\n\n4.  值 Widget – 深入探讨承载值的\
+  \ Widget，特别是用户输入字段。主题包括 `Text`、`Image` 和 `Icon` Widget，以及如何在 Flutter 中创建表单。\n\n\
+  5.  响应手势 – 如何让你的程序响应用户操作，如点击、滑动、捏合等。我们将介绍按钮家族和 `GestureDetector` Widget。\n\n6. \
+  \ 导航与路由 – 导航是指应用根据用户操作隐藏一个 Widget 并显示另一个，让用户感觉在不同场景间切换。我们将涵盖堆栈导航、标签导航和抽屉导航。\n\n\
+  7.  状态管理 – 如何在 Widget 之间传递数据以及如何修改这些数据。我们将介绍如何创建 `StatefulWidgets` 并以最佳方式设计它们。\n\
+  \n8.  状态管理库 – 概述多个库，并详细介绍一个超级简单的库——Raw State，以及最流行的库——Riverpod。\n\n9.  使用 HTTP 进行\
+  \ RESTful API 调用 – 如何从 HTTP API 服务器读取数据和向其写入数据。这里将展示如何发起 `GET`、`POST`、`PUT`、`DELETE`\
+  \ 和 `PATCH` 请求。\n\n10. 使用主题美化样式 – 本章将解答所有必要问题，让实际应用外观美观且通过样式和主题保持一致性。\n\n11. 布局你的\
+  \ Widget – 作为最后部分的开始，本章介绍布局的概念、控制布局的步骤，并揭示 Flutter 的布局算法。\n\n12. 布局 – Widget 定位\
+  \ – 如何控制 Widget 并排或上下排列。\n\n13. 布局 – 解决溢出 – 当试图绘制*超出*屏幕可容纳范围时的处理方法。\n\n14. 布局 –\
+  \ 填充额外空间 – 当试图绘制*少于*可容纳范围时的处理方法。如何利用多余空间使其看起来美观？\n\n15. 布局 – 微调定位 – 如何使用边框、内边距和外边距调整最后细节。如何制作非矩形形状。\n\
+  \n16. 布局 – 特殊展示 Widget – 当简单布局无法满足需求时的 Widget——滑动列表、Stack、Card、Positioned 和 Table。\n\
+  \n此外，我们还提供了五个附录。\n\n1.  Dart 语言概述 – 一份易于查阅的 Dart 速查表，涵盖预期功能和令人惊喜的特性。\n\n2.  Futures、Async\
+  \ 和 Await – 处理 Flutter 中的异步活动。\n\n3.  在 Flutter 应用中引入包 – 如何查找并引入丰富的第三方、公开且免费的包。同时介绍如何编写和发布自己的包。\n\
+  \n4.  如何处理文件 – 使用库、Futures、async 和 await。将文件捆绑到应用中。读写文件。JSON 序列化。\n\n5.  如何调试布局\
+  \ – 解读在 VS Code 和 Android Studio 可视化调试器中看到的内容。\n\n## 未涵盖的内容及查找途径\n\n同样重要的是，你应该了解本书不涵盖哪些内容。除了上述附录外，我们不会提供\
+  \ Dart 编程语言入门。我们只是认为这并非对你时间的最佳利用，而是希望直接深入 Flutter。如果你后续觉得需要入门指导，请访问：[`https://dart.dev/guides/language/language-tour`](http://dart.dev/guides/language/language-tour)，接着是\
+  \ [`https://dart.dev/tutorials`](http://dart.dev/tutorials)。我们选择不讨论如何部署到应用商店。商店本身已经很好地解释了如何提交应用。此外，流程变化频繁，因此你的最终参考资源应是商店本身。你可以在\
+  \ [`https://developer.apple.com/ios/submit/`](http://developer.apple.com/ios/submit/)\
+  \ 和 [`https://play.google.com/apps/publish`](http://play.google.com/apps/publish)\
+  \ 找到说明。我们也不会涵盖某些高级主题，如 iOS 和 Android 的设备特定开发，或将 Flutter 添加到现有 iOS/Android 项目。这些及其他众多主题可以通过网络搜索找到。\n\
+  \n序言\n\n欢迎阅读《Flutter 应用开发：如何同时为 iOS 和 Android 编写代码》！如果你熟悉我之前的工作《Flutter 入门应用开发》，你可能会在这里那里发现一些熟悉的影子。这是因为本书在第一本的基础上扩展并更新了主题，融入了使其有价值的核心概念。\n\
+  \n然而，请将此视为一次全新的旅程，进入不断发展的 Flutter 开发世界。自从我的第一本书出版以来，Flutter 已经取得了显著进步，提供了令人兴奋的新功能和改进的工作流程。本书反映了这些变化，对该框架进行了全面且最新的探索。\n\
+  \n虽然某些部分可能包含熟悉的内容，但你会在这些页面中找到大量新材料。在第一本书中，我们试图用一章来涵盖布局。这是个重大错误。在本书中，我们将其扩展到*六*章。在第一本书中，我们讨论了状态管理库，但没有解释它们的工作原理。感谢\
+  \ Remi Rousselet 的批评，我们将这些章节提前了许多，并编写了关于他的 Riverpod 库的使用指南。感谢迪士尼和美国国务院等客户，我扩展了现有概念，深入探讨了特定功能，引入了涵盖最新发展的全新章节，并重新调整了流程以使学习\
+  \ Flutter 更加容易。\n\n无论你是基于基础进行构建的中级 Flutter 开发者，还是开始第一个项目的新手，本书都旨在成为你可信赖的伙伴。我们将引导你掌握使用\
+  \ Flutter 构建美观且高性能的 iOS 和 Android 应用的复杂性，为你提供在不断发展变化的环境中游刃有余的知识和技能。\n\n所以，即使你以前走过这条路，也请准备好与《Flutter\
+  \ 应用开发：如何同时为 iOS 和 Android 编写代码》一起踏上新的冒险之旅！\n\n拉普·佩恩\n2024 年 9 月\n\n关于作者 关于技术审阅者\n\
+  \n\n\n"
+- '# 你好，Flutter
+
+
+  请在你的脑海中想象这样一幅画面：你是一家新公司的 CEO。显然，你的使命是在最小化成本的同时最大化销售额。“嗯，”你思索着，“如果我把产品放到网上，确实能大幅提升销量。”于是你向朋友们请教如何制作一个网页应用，他们回答说……
+
+
+  “你需要雇一个网页开发者。他们必须掌握`HTML`、`CSS`、`JavaScript`，很可能还需要某个框架，比如`React`、`Vue`或`Angular`。”
+
+
+  这虽然开销不菲，但你还是照做了，并且你的冒险得到了回报。销售额显著增长。为了紧跟需求，你时刻关注社交媒体并与客户互动。你听到他们说这个网页应用很棒，但是“如果你们在
+  App Store 里有个应用，我们早就来了。”于是你找到你的团队——他们虽然是网页专家，但并非 iOS 开发者。他们告诉你……
+
+
+  “你需要雇一个 iOS 专家。他们必须精通 iOS、`Swift`或`Objective-C`、`Xcode`、`macOS`以及用于开发的`CocoaPods`。”
+
+
+  你的调研显示，这类人才比你的网页开发者更为*专业*，因此也更昂贵。但再一次，这似乎是正确的选择，所以你咬咬牙雇用了他们。然而，就在这个应用还在开发时，你发现客户的反馈并不仅仅针对
+  iOS 应用，而是关注所有移动设备。而且——哦，糟糕！——全球 85%的设备运行的是 Android，而非 iOS。你双手抱头，纠结着是否能够承受忽略 85%潜在客户的代价。你的顾问告诉你……
+
+
+  “你需要雇一个 Android 专家。他们必须了解 Android 操作系统、`Gradle`、`Android SDK`、`XML`、`Android Studio`以及`Java`或`Kotlin`。”
+
+
+  “真的吗？！还要再招一个开发者？”你问道。“是的，而且费用和你那位 iOS 开发者一样高，”他们回答。
+
+
+  难道就没有一个人能同时胜任这三项工作吗？有没有办法在这些不同的环境之间共享代码？那样你只需要雇用一个人。事实上，他们可以一次编写代码，然后将其部署到网页、App
+  Store 和 Google Play Store。只需维护一套代码库。在一个地方进行改进和升级。在一个地方修复缺陷。
+
+
+  女士们，先生们，请允许我向你们介绍 Flutter！
+
+
+  ## Flutter 是什么？
+
+
+  Flutter 是一套工具集，它使我们能够创建在 iOS、Android、网页、Windows、MacOS 以及 Linux 桌面系统上运行的漂亮应用。
+
+
+  Flutter 是……
+
+
+  *   免费（如同免费啤酒；不收费）
+
+  *   开源（这是“免费”这个词的另一种含义）
+
+  *   由谷歌支持并起源于谷歌
+
+  *   由谷歌的开发团队和全球数百名非谷歌贡献者共同增强和维护
+
+  *   目前被全球众多组织的数千名开发者用于生产环境应用
+
+  *   速度飞快，因为它编译成真正的原生应用，无需依赖像`WebViews`和 JavaScript 桥接这样的辅助工具
+
+  *   一次编写，然后编译成面向数十亿浏览器的网页应用、面向 iPhone 和 iPad 的 iOS 应用，以及面向其他所有手机和平板的 Android 应用
+
+
+  ## 为什么选择 Flutter？
+
+
+  谷歌对 Flutter 的使命是……
+
+
+  > *为移动端开发打造更优方式*
+
+
+  请注意这个使命中*没有*提到什么。它既没有提及 Android（同样归谷歌所有），也没有提及 iOS 或网页。Flutter 的目标是为所有设备创造一种更好的开发方式。换句话说，Flutter
+  应该比`Swift`更适合创建 iOS 应用。它应该比`Kotlin`更适合创建 Android 应用。它应该比`HTML`/`JavaScript`更适合创建网页应用。而如果你能用一套代码库同时实现所有这些，那就更好了。
+
+
+  Flutter 团队已经出色地完成了这一使命。
+
+
+  作为证明，Eric Seidel 提供了这样一个例子^(¹)：谷歌 CRM 团队使用 Flutter 构建了一个内部 Android 应用，速度比使用他们传统的
+  Android 工具链快了**三倍**！
+
+
+  > **注意**
+
+  >
+
+  > Flutter 已经兑现了创建网页应用和桌面应用的承诺。但我们必须指出，相对而言，选择使用 Flutter 开发这些应用的人并不多。Flutter 真正成功的领域是
+  iOS 和 Android 应用。请将其他平台看作是锦上添花，而非主菜。
+
+
+  但事实证明，Flutter 并不是跨平台开发的唯一选择。你还有其他选项。
+
+
+  ## 其他选项
+
+
+  跨平台开发通常分为三大类，如表 1-1 所示。
+
+
+  **表 1-1** 跨平台开发分类
+
+
+  | | 部分技术 | 缺点 | 优点 |
+
+  | --- | --- | --- | --- |
+
+  | 渐进式网页应用 (PWA) | `HTML`/`CSS`、`React`、`Vue`、`Angular` | 不是真正的应用。在网页浏览器中运行。不在应用商店中提供。难以创建桌面快捷方式。无法访问设备的许多资源，如后台处理、指南针、接近传感器、蓝牙、NFC
+  等 | 易于编写 |
+
+  | 混合应用 | `PhoneGap`、`Cordova`、`Sencha`、`Capacitor`、`Ionic` | 在`WebView`中运行，因此可能速度较慢。几乎不可能与网页应用共享代码
+  | 网页开发者更容易学习，因为它使用 HTML 和 JavaScript 作为语言和结构 |
+
+  | 编译为原生方案 | `React Native`、`NativeScript`、`Flutter`、`Maui` | 学习框架可能比较困难。掌握工具链绝对是个挑战
+  | 是真正的应用，可以在应用商店中找到并且运行速度快 |
+
+
+  如果你的用户群体别无选择，他们非常看重你的应用以至于愿意接受较差的用户体验，那么最便宜的方案是创建一个 PWA。如果你的应用极其简单且速度预计不成问题，那么混合方案可能适合。但如果速度、流畅度和复杂功能很重要，你将需要选择原生方案。
+
+
+  ## 原生方案
+
+
+  截至目前，有四个相当流行的编译为原生方案（表 1-2）。
+
+
+  **表 1-2** 编译为原生的跨平台框架
+
+
+  | | Maui | NativeScript | React Native | Flutter |
+
+  | --- | --- | --- | --- | --- |
+
+  | 推出年份 | 2011 | 2014 | 2015 | 2018 |
+
+  | 支持方 | 微软 | Telerik | 脸书 | 谷歌 |
+
+  | 界面呈现语言 | XAML | 专有但类似 XML | 专有但类似 JSX | `Dart` |
+
+  | 过程式语言 | `C#` | `JavaScript` | `JavaScript` | `Dart` |
+
+
+  这些都是相当不错的选择。它们都可免费用于开发，且经过了充分测试，已有大量生产应用被创建出来。它们都已被大型组织所使用。
+
+
+  Flutter 是这些框架中最新发布的。正因如此，它在观察前驱者方面拥有独特的优势。Flutter 团队留意了其他框架中哪些做得好、哪些失败了。此外，Flutter
+  还加入了新的创新和理念——所有这些从一开始就内置其中，而不是事后作为改进修补上去的。
+
+
+  不过，我猜想既然你买了这本书，可能不需要我过多说服，那么我就此打住。只需说一句：Flutter 太棒了！它易于编写、优雅且设计精良——用它编码绝对是一种享受^(²)。
+
+
+  ## 结论
+
+
+  现在，如果你是我所期望的那种开发者，你已经准备好撸起袖子编写代码了！那么，我们开始吧。我们将从安装和学习 Flutter 开发工具链入手。
+
+
+  ---
+
+
+  **脚注**
+
+
+  [1] Eric Seidel 例子的出处参考。
+
+  [2] Flutter 编码体验愉快的出处参考。
+
+
+
+
+  '
+- "# 2. 使用 Flutter 进行开发\n\n如上一章所述，Flutter 让我们能够创建在 Web、桌面电脑和移动设备上运行的应用程序（这确实是其主要吸引力所在）。但稍等片刻，我们究竟如何创建这些应用程序？应该使用哪种编辑器？Flutter\
+  \ 项目中需要什么？如何编译 Dart 源代码？我们是否需要其他工具来支持项目？如何将其部署到浏览器或设备上进行测试？都是好问题，对吧？\n\n让我们在本章中解答这些问题以及更多内容。我们将涵盖两个重要主题：\n\
+  \n1.  **所需工具** – 如何安装和维护 Flutter 工具链\n2.  **开发流程** – 如何创建、运行和调试应用程序\n\n> **注意**\n\
+  >\n> 就其性质而言，跨平台应用开发工具涉及来自各个组织的大量变动部件，而这些组织在做出更改前很少相互协商。并且，由于我们面对的是前沿且年轻的技术，变化频繁发生。在本章中，我们尽量坚持提供永恒不变的信息，但即便如此，信息最终也可能变得过时。请查阅这些工具的开发者以获取最新和最好的信息。\n\
+  \n## Flutter 工具链\n\n开发社区生产的有用工具不胜枚举，真可谓令人眼花缭乱。我们不打算涵盖所有工具。我们只想提供足够让你变得熟练，但又不会让你感到负担过重的信息。如果我跳过了你最喜欢的工具，还请见谅。\n\
+  \n### Flutter SDK\n\nFlutter SDK 是唯一必不可少的工具。它包含 Flutter 编译器、项目创建器、设备管理器、测试运行器以及用于诊断甚至修复\
+  \ Flutter 配置问题的工具。\n\n#### 安装 Flutter SDK\n\n安装说明可在此处找到：[`https://flutter.dev/docs/get-started/install`](https://flutter.dev/docs/get-started/install)。简而言之——这将涉及下载最新的工具压缩包，并设置你的\
+  \ `PATH` 环境变量指向你解压该压缩包的文件夹。具体的步骤因操作系统而异，但该网站上的说明非常清晰。\n\n> **提示**\n>\n> 这一步看起来非常底层，而且听起来令人生畏，但完成这一步后，事情会变得更容易，也更不容易出错。不要让它使你气馁。\n\
+  \n### 集成开发环境（IDE）\n\n理论上来说，并不真正需要 IDE。可以使用任何编辑器编写 Flutter 代码，然后使用你之前安装的 Flutter\
+  \ SDK 进行编译和运行。但实际上，几乎没有人会这么做。他们为什么要这么做呢？以下 IDE 都内置了 Flutter 支持！\n\n#### 来自微软的 VS\
+  \ Code\n\nVS Code 来自微软。它的官方名称是“Microsoft Visual Studio Code”，但我们大多数人只是叫它 VS Code。无论你怎么称呼它，请不要将其与微软的另一款名为“Microsoft\
+  \ Visual Studio”的产品混淆。尽管名称相似，但它们不是同一回事。\n\n你可以在此处获取 VS Code：[`https://code.visualstudio.com`](https://code.visualstudio.com)。\n\
+  \n#### 来自 JetBrains 的 Android Studio/IntelliJ\n\nAndroid Studio 和 IntelliJ 本质上是同一回事。它们基于相同的代码库构建，并具有相同的功能。\n\
+  \n你可以在此处获取 Android Studio：[`https://developer.android.com/studio`](https://developer.android.com/studio)，此处获取\
+  \ IntelliJ IDEA：[`www.jetbrains.com/idea/download`](http://www.jetbrains.com/idea/download)。\n\
+  \n#### 我应该使用哪个 IDE？\n\nVS Code 和 Android Studio/IntelliJ 都是免费且开源的。它们都跨平台运行于 Windows、Mac\
+  \ 和 Linux 上。两者在 Flutter 开发者中的受欢迎程度大致相当^(³)，彼此之间都没有明显的市场优势。选择哪一个都不会错。\n\n但如果你必须选一个，我们发现你的背景可能会影响你对工具的喜好。来自\
+  \ Web 开发领域、使用诸如 HTML、CSS、JavaScript、NodeJS、React、Angular 或 Vue 等技术栈的开发者，强烈倾向于 VS\
+  \ Code。另一方面，来自 Java 世界的开发者，尤其是 Android 开发者，似乎更倾向于 Android Studio/IntelliJ。\n\n好消息是，这是一个压力很小的选择。切换编辑器非常容易——即使在处理特定项目时也是如此。从其中一个开始，看看你是否喜欢它。如果不喜欢，你可以试用另一个一段时间。来回切换几次，直到你有了强烈的偏好。切换真的不是什么大问题。\n\
+  \n### IDE 开发工具\n\n虽然这些 IDE 很棒，但它们并非专为 Flutter 构建；它们也用于其他语言和框架的开发。因此，为了改善 Flutter\
+  \ 的开发流程，我们应该安装 Flutter DevTools。它增加了调试器支持，让你可以查看日志，与模拟器无缝连接，以及提供一些其他功能。\n\n安装 DevTools\
+  \ 是在每个 IDE *内部*完成的。在 Android Studio/IntelliJ 中，从主菜单进入“偏好设置 ➤ 插件”（图 2-1）。在 VS Code\
+  \ 中，进入“视图 ➤ 扩展”（图 2-2）。Flutter DevTools 被简称为“Flutter”，搜索一下就能找到。在任一平台上，点击绿色的“安装”按钮。\n\
+  \n![在 Android Studio 中安装 DevTools](img/638603_1_En_2_Fig1_HTML.jpg)\n\n**图 2-1**\
+  \ 在 Android Studio 中安装 DevTools\n\n![在 VS Code 中安装 DevTools](img/638603_1_En_2_Fig2_HTML.jpg)\n\
+  \n**图 2-2** 在 VS Code 中安装 DevTools\n\n安装后，你可能需要重启 IDE。\n\n### 模拟器\n\n一旦你安装好了 IDE\
+  \ 和 DevTools，就可以编译你的应用了。要运行它，让我们将它部署到设备上。模拟器——一种在你的笔记本电脑/台式机上运行的虚拟设备——使得运行、测试、调试和展示你的应用变得非常容易。你可能希望在\
+  \ iOS 和 Android 上都进行测试，因此你需要两者的模拟器。有几种可用的模拟器，但我只提两个，Xcode 的 iOS 模拟器和 AVD 的 Android\
+  \ 模拟器。\n\n#### iOS 模拟器\n\n如果你没有 Mac 电脑，你就无法运行 iOS 模拟器，甚至无法为 iOS 进行编译。^(⁴) 但如果你有\
+  \ Mac 并且安装了 Xcode，那么你很幸运；你已经拥有了 iOS 模拟器。要运行它，打开 Xcode，然后转到 **Xcode ➤ 打开开发者工具 ➤ 模拟器**（图\
+  \ 2-3）。模拟器将启动，在其中，你可以选择任何 iOS 设备，包括 iPhone 和 iPad。\n\n![从 Xcode 打开 iOS 模拟器](img/638603_1_En_2_Fig3_HTML.jpg)\n\
+  \n**图 2-3** 从 Xcode 打开 iOS 模拟器\n\n#### Android 模拟器\n\n就像有大量的 Android 机型一样，也有大量的\
+  \ Android 模拟器，但与它们交互只有一种流行方式：AVD（Android 虚拟设备）管理器。AVD 管理器可以在 Android Studio 的 **工具**\
+  \ 菜单下找到（图 2-4）。\n\n![在 Android Studio 中查找 AVD 管理器](img/638603_1_En_2_Fig4_HTML.jpg)\n\
+  \n**图 2-4** 在 Android Studio 中查找 AVD 管理器\n\n打开后，你将看到当前已安装的模拟器列表。一开始应该是空的。通过点击顶部的“创建设备”按钮（图\
+  \ 2-5），你可以安装数百种可用的 Android 设备模拟器中的一个或多个。\n\n![AVD 管理器显示可用设备列表。点击“创建设备”以添加更多](img/638603_1_En_2_Fig5_HTML.jpg)\n\
+  \n**图 2-5** AVD 管理器显示可用设备列表。点击“创建设备”以添加更多\n\n点击它，你可以从各种设备中选择，或者创建你自己的设备。你只需安装一个设备一次。安装完成后，该模拟设备就可从任何\
+  \ IDE 中使用，无论是 IntelliJ/Android Studio 还是 VS Code。无需在 VS Code 上进行单独设置。\n\n\n\n###\
+  \ 保持工具更新\n\n早期，使用 `Xamarin` 和 `React Native` 这类工具进行跨平台开发极其困难，原因在于涉及的工具数量庞大且相互依赖。那段痛苦的经历至今让我心有余悸。\n\
+  \n但由于 `Flutter` 面世较晚，它能够借鉴前人的教训。`Flutter` 团队意识到了这些痛点，为我们提供了一项创新工具来管理其余的工具链。它会检查你的开发机，寻找开发\
+  \ `Flutter` 应用所需的所有工具、你当前安装的版本、可用的版本以及它们之间的依赖关系，然后对问题进行诊断。它甚至能针对这些问题给出解决方案。“检查、诊断并开药方？”听起来像是医生，对吧？那么，让我来介绍\
+  \ `flutter doctor`！\n\n#### Flutter doctor\n\n你可以在命令行中运行 `flutter doctor`。它会检查工具链中的所有工具，并报告遇到的任何问题。下面是一个\
+  \ `Xcode` 需要处理的示例：\n\n```\n$ flutter doctor\nDoctor summary (to see all details,\
+  \ run flutter doctor -v):\nFlutter (Channel beta, vX.Y.Z, on Mac OS X X.Y.Z, locale\
+  \ en-US)\nAndroid toolchain - develop for Android devices (SDK version X.Y.Z)\n\
+  Xcode - develop for iOS and macOS (Xcode X.Y)\nXcode requires additional components\
+  \ to be installed in\norder to run.\nLaunch Xcode and install additional required\
+  \ components\nwhen prompted.\nAndroid Studio (version X.Y)\nVS Code (version X.Y.Z)\n\
+  Connected device\nNo devices available\nDoctor found issues in 2 categories.\n$\n\
+  ```\n\n“No devices available”这个错误很常见，通常可以忽略。它仅仅表示此刻没有模拟器在运行。\n\n以下是我们更希望看到的结果——一切检查通过：\n\
+  \n```\n$ flutter doctor\nDoctor summary (to see all details, run flutter doctor\
+  \ -v):\nFlutter (Channel beta, vX.Y.Z, on Mac OS X X.Y.Z, locale en-US)\nAndroid\
+  \ toolchain - develop for Android devices (SDK version X.Y.Z)\nXcode - develop for\
+  \ iOS and macOS (Xcode X.Y)\nAndroid Studio (version X.Y)\nVS Code (version X.Y.Z)\n\
+  Connected device (1 available)\n• No issues found!\n```\n\n`flutter doctor` 不仅能检测并报告问题，通常还会针对每个问题给出修复方案。它甚至会在需要升级自身时，通过\
+  \ `flutter upgrade` 命令提示你。\n\n#### Flutter Upgrade\n\n没错，首次安装 `Flutter` SDK 时可能会有些令人望而生畏，但升级过程却轻而易举。你只需输入两个单词：`flutter\
+  \ upgrade`：\n\n```\n$ flutter upgrade\nUpgrading Flutter from /usr/local/bin/flutter...\n\
+  From https://github.com/flutter/flutter\n2d2a1ff..a72edc2  beta       -> origin/beta\n\
+  3932ffb..cc3ca9a  dev        -> origin/dev\n5a3a46a..a085635  master     -> origin/master\n\
+  * [new branch]      refactor   -> origin/refactor\n\n* [new tag]         vX.A.B\
+  \    -> vX.Y.Z\nUpdating c382b8e..a72edc2\n11 files changed, 413 insertions(+),\
+  \ 302 deletions(-)\nBuilding flutter tool...\nUpgrading engine...\nDownloading ios-deploy...\
+  \                                 0.3s\nFlutter X.Y.Z • channel beta • https://github.com/flutter/flutter.git\n\
+  Framework • revision a72e06 (23 hours ago) • 20XX-YY-ZZ 15:41:01 -0700\nEngine •\
+  \ revision b863200c37\nTools • Dart X.Y.Z\nRunning flutter doctor...\nDoctor summary\
+  \ (to see all details, run flutter doctor -v):\nFlutter (Channel beta, vX.Y.Z, on\
+  \ Mac OS X X.Y.Z, locale en-US)\nAndroid toolchain - develop for Android devices\
+  \ (SDK version X.Y.Z)\nXcode - develop for iOS and macOS (Xcode X.Y)\nAndroid Studio\
+  \ (version X.Y)\nVS Code (version X.Y.Z)\nConnected device (1 available)\n• No issues\
+  \ found!\n```\n\n请注意，`flutter doctor` 作为最后一步自动运行，以确认一切正常。升级简直是小菜一碟。\n\n## Flutter\
+  \ 开发流程\n\n现在我们已经安装并更新了所有工具，接下来让我们创建一个应用并通过调试器运行它。\n\n### 搭建应用和文件架构\n\n通过运行以下命令创建一个全新的\
+  \ `Flutter` 应用……\n\n```\n$ flutter create my_app\n```\n\n这将在当前文件夹下创建一个名为 `my_app`\
+  \ 的子文件夹。其中将包含大量可直接运行的 `Dart` 代码。\n\n提示\n\n应用名称不区分大小写，因此建议全部使用小写。连字符是非法的字符，所以不能使用烤串命名法。推荐的命名方式是\
+  \ `小写字母加下划线`。\n\n### Flutter 项目结构剖析\n\n了解你刚刚创建的项目中所有文件和文件夹并非至关重要。但如果你好奇，我们可以快速浏览一下图\
+  \ 2-6 所示的新创建的 `Flutter` 项目结构。\n\n![](img/638603_1_En_2_Fig6_HTML.jpg)\n\n图 2-6\n\
+  \n由 `flutter create` 生成的一个崭新的 `Flutter` 项目\n\n你将看到以下这些文件夹：\n\n*   `android`, `ios`,\
+  \ `web`, `linux`, `windows`, `macos` – 这些是项目中平台相关的部分。除非你需要让应用在不同平台上有不同表现，否则通常无需修改它们。\n\
+  \n*   `lib` – 这是你所有 `Dart` 源代码的存放位置。你将在此构建应用的层级结构。这里将占据你绝大部分的时间和精力。\n\n*   `test`\
+  \ – 如果你有单元测试（最终你很可能需要它们），请放在这里。\n\n你还会看到以下这些文件：\n\n*   `pubspec.yaml` – 这本质上是 `Dart`\
+  \ 项目的项目文件。我们可以在这里设置项目名称、描述、依赖项等。请务必阅读其中的注释，以便更好地了解建议和可能的配置。\n\n*   `.gitignore`\
+  \ 和 `README.md` – 对于使用 `Git` 和 `GitHub` 作为源代码仓库的开发者来说，这些文件非常熟悉。其他人则无需关注。\n\n*  \
+  \ `analysis_options.yaml` – 项目的代码检查规则和配置。它指示 `IDE` 如何在编写不规范的代码时发出警告。如果规则过于严苛，你想关闭某些规则，只需删除相应行或用注释符号将其注释掉即可。所有代码检查规则的说明可在此处找到：[`http://dart-lang.github.io/linter/lints/`](http://dart-lang.github.io/linter/lints/)。\n\
+  \n\n\n## 运行你的应用\n\n现在你已经创建了一个 Flutter 应用，让我们来运行它。有多种方式可以运行你的应用。最常用的方法是点击 Android\
+  \ Studio/IntelliJ 或 VS Code 中的绿色“播放”按钮（图 2-7）。你可以通过设置断点并使用开发者工具单步执行代码来调试应用（图 2-8）。\n\
+  \n图 2-8  \nVS Code 中的播放按钮位于左上角\n\n图 2-7  \nAndroid Studio 中的播放和调试按钮位于顶部\n\n显然，你需要在某种设备上运行你的应用。有几种选择：用于\
+  \ Web 应用的 Chrome 浏览器、模拟器，或者通过数据线连接到开发机的物理设备。当你点击播放/调试按钮时，你可以选择当前要运行的设备。请注意，在前面的\
+  \ Android Studio 截图中，有一个下拉菜单列出了可用的设备。在 VS Code 中，点击播放按钮，会立即弹出一个菜单供你选择。无论使用哪种 IDE，都由你掌控。\n\
+  \n> **提示**  \n> 你可以通过从命令行运行 `flutter devices` 来检查当前可用的设备。\n\n```\n$ flutter devices\n\
+  3 connected devices:\nVivo XL3   • 55S...KF • android-arm64 • Android 8.0.0 (API\
+  \ 26)\nAndroid SDK • emul...4 • android-x86   • Android 9 (API 28)\niPhone X   \
+  \ • E6...39A • ios • com.apple...OS-12-1 (simulator)\n```\n\n上面的示例输出告诉我们有三台设备。第一台和第二台是\
+  \ Android 设备，第三台运行的是 iOS。第一台设备是连接线连接的物理设备，第二台和第三台是模拟器。\n\n请注意，此命令与 `flutter emulators`\
+  \ 命令不同，后者会告诉你所有*可能*选择的模拟器。而 `flutter devices` 命令会告诉你哪些设备是*当前*可用于运行你的应用的。\n\n###\
+  \ 作为 Web 应用运行\n\n这是最简单的选择。当你作为 Web 应用运行时，Flutter 会将你的浏览器视为一个设备。因此，作为 Web 应用运行所需的全部操作就是启用\
+  \ Google Chrome 浏览器作为设备。当你获得运行应用的可选设备列表时，“Chrome”会出现在其中。只需选择在 Chrome 中运行你的应用，IDE\
+  \ 就会在其中加载你的 Web 应用。\n\n## 在连接线的设备上运行\n\n有时你需要在物理设备上运行你的应用。例如，我正在开发一个涉及通过蓝牙连接到物理打印机打印标签的项目。模拟器无法通过蓝牙配对。为了测试打印功能，我需要一个已经与我的蓝牙打印机配对的真实物理设备。\n\
+  \n要将物理设备连接到你的开发机，你需要使用物理数据线。\n\n> **提示**  \n> #1 连接 Android 设备时，它最初会认为你正在尝试充电或传输照片。要让设备知道你正在尝试调试，请打开设备上的“开发者选项”屏幕，并选择“启用\
+  \ USB 调试”。  \n> #2 许多连接问题可能是由劣质数据线引起的。与直觉相反，并非所有数据线都一样。如果在更改设置后仍然无法连接，请换用质量更高的数据线。\n\
+  \n#### 热重载\n\n初始编译可能会有点慢。但是一旦应用在你的模拟器/浏览器/物理设备或其他设备上运行，你就可以对源代码进行修改并重新运行。这里有一个非常酷的特性：每次你保存对源代码的更改，它都会被重新编译，并且新版本会立即加载。你的应用会从你离开的地方继续运行——在相同的位置，具有相同的状态和相同的数据。我们称之为“热重载”，它使开发周期变得异常快速且无摩擦。\n\
+  \n#### 调试\n\n两种 IDE 都拥有你在所有 IDE 中已经习惯的基本调试工具。当你启动项目运行时，调试工具将会出现。\n\n在 Android Studio\
+  \ 中，调试窗口会打开，通常位于 IDE 底部。它有一个小工具栏，如图 2-9 所示。\n\n图 2-9  \nAndroid Studio 中的调试工具栏 \
+  \ \n\n从左到右的选项分别是“单步跳过”、“单步进入”、“强制单步进入”和“单步跳出”。\n\n在 VS Code 中，工具栏会浮动显示在你的源代码上方（图\
+  \ 2-10）。\n\n图 2-10  \nVS Code 中的调试工具栏  \n\n其选项包括“播放/暂停”、“单步跳过”、“单步进入”、“单步跳出”、“热重载”、“重启”和“停止调试”。\n\
+  \n> **注意**  \n> Flutter 在调试时比在实际设备上运行时更挑剔。这是一件好事，因为在调试过程中，它会明确显示某些你本应修复但不一定是致命的错误。在发布版本中，它会忽略这些相同的错误，并（希望如此）允许我们的用户继续运行我们的应用。\n\
+  \n其中一类错误是“运行时断言”。当你调试器给出如下错误时，你就会知道正在处理这类问题：\n\n```\n════════ Exception caught by\
+  \ gesture ════════\nThe following assertion was thrown while handling a gesture:\n\
+  setState() callback argument returned a Future.\nThe setState() method on _FooState#236\
+  \ was called with a closure or method that returned a Future. Maybe it is marked\
+  \ as \"async\".\n等等，等等，等等。\n```\n\n你要记住的是：当你看到这类问题时，请修复它。这是正确的做法。但如果在部署后发现同样的问题，请不要感到困惑。\n\
+  \n## 结论\n\n我知道，这些内容很多，需要吸收。跨平台开发的本质使得工具链变得棘手。但最困难的部分已经过去了。一旦你安装了 Flutter SDK 和 IDE（VS\
+  \ Code/Android Studio/IntelliJ IDEA），你就拥有了真正需要的一切。当然，DevTools 和一两个模拟器确实会很有帮助。剩下的就是多多练习。你会变得非常出色！\n\
+  \n那么，既然我们已经了解了 Flutter 工具链，让我们开始创建小部件吧！\n\n---\n\n脚注 1 2\n\n\n\n"
+- "# 3. 万物皆组件\n\n假设你是一个极具天赋的乐高迷，并且获得了令人垂涎的乐高大师建造师职位之一。恭喜！我们再假设你的第一个任务是用 26,000 块乐高积木建造一个六英尺高的雷神托尔（图\
+  \ 3-1）。\n\n![](img/638603_1_En_3_Fig1_HTML.png)\n\n***图 3-1***\n*乐高版托尔。作者曾在一家电影院拍下这张照片*\n\
+  \n你会怎么做？想一想。别急，我们等着。\n\n你会直接抓起积木然后拼在一起吗？可能不会。你会先铺好托尔的脚底，然后从下往上搭建吗？也不会。我猜你的常识性策略是这样的：\n\
+  \n1.  对你建造的东西有个整体构想，先想清楚全貌。\n2.  意识到整个项目太复杂，无法一蹴而就。\n3.  将项目分解成各个部分（腿、左臂、右臂、躯干、左手剑、右手剑、头盔、披风、头部）。\n\
+  4.  意识到每个部分仍然过于复杂。\n5.  对于每个部分，再将其分解成子部分。\n6.  重复步骤 4 和 5，直到得到足够简单的组件，使得你和你的队友都能轻松理解、构建和维护。\n\
+  7.  创建每个简单的组件。\n8.  将简单组件组合成更大、更复杂的组件。\n9.  重复步骤 7 和 8，直到完成整个项目。\n\n这个过程有一个名字，叫做*组件化*，这正是我们在\
+  \ Flutter 应用中要遵循的思考过程。\n\n组件化并非什么新鲜事物。实际上，它早在 1968 年就被提出了。^(⁵) 但得益于 Angular、React、Vue、Svelte、SolidJS\
+  \ 以及原生 Web 组件等 Web 框架，这项技术近年来才迅速流行起来。如今，似乎所有酷孩子都在做软件组件。将复杂部分递归分解为更简单部分的想法称为*分解*。而将编写好的部分重新组合成更大组件的行为称为*组合*。\n\
+  \n在 Flutter 的世界里，这些组件被称为*widget*。Flutter 社区的人喜欢说“万物皆 widget”，这意味着你和我都会使用 Flutter\
+  \ 自带的內建 widget。我们会将它们组合在一起来创建自定义 widget。然后，我们的自定义 widget 会再被组合，创建出越来越复杂的自定义 widget。这个过程一直持续，直到你构建出一个完整的应用。\n\
+  \n每个应用都可以从两个方面来考虑：\n\n1.  **行为** – 软件的功能。所有的业务逻辑都在这里：数据读取、写入和处理。\n2.  **呈现** – 软件的外观。用户界面。如按钮、文本框和标签。\n\
+  \n而 Flutter 将这两者融合在了一种语言中，而不是两种。\n\n## 界面即代码\n\n其他开发框架已经证明了组件化是正确的发展方向。Flutter 团队公开表示，他们深受基于组件化的\
+  \ React^(⁶)的启发。事实上，所有框架的创造者似乎都在相互借鉴。但 Flutter 在用户界面表达方式上是独一无二的。开发者使用同一种 Dart 语言来同时描述应用的图形用户界面和行为（表\
+  \ 3-1）。我们称之为“UI as code（界面即代码）”。\n\n***表 3-1***\n*只有 Flutter 使用同一种语言来处理呈现和行为*\n\n\
+  | 框架 | 行为用…表达 | 界面用…表达 |\n| --- | --- | --- |\n| Maui | C# | XAML |\n| React Native\
+  \ | JavaScript | JSX |\n| NativeScript | JavaScript | XML |\n| Flutter | Dart |\
+  \ Dart |\n\n那么，这个界面是如何创建的呢？像许多其他框架和语言一样，Flutter 应用从一个`main`函数开始。在 Flutter 中，`main`会调用一个名为`runApp()`的函数。这个`runApp()`接收一个\
+  \ widget，即根 widget，它可以被任意命名，但它必须是一个继承了 Flutter `StatefulWidget`/`StatelessWidget`的类。它看起来像这样：\n\
+  \n```\n// 导入所有 Flutter 应用所需的 Dart 包\nimport 'package:flutter/material.dart';\n//\
+  \ 这里是 main 调用 runApp\nvoid main() => runApp(RootWidget());\n// 这是你的根 widget\nclass\
+  \ RootWidget extends StatelessWidget {\n@override\nWidget build(BuildContext context)\
+  \ {\nreturn Text(\"Hello world\");\n}\n}\n```\n\n这就是在 Flutter 中创建一个“Hello world”所需的全部代码。\n\
+  \n但是等等……这个`Text()`是什么东西？它是一个內建的 Flutter widget。由于这些內建 widget 非常重要，我们需要仔细看看它们。\n\n\
+  ## 內建 Flutter Widget\n\nFlutter 的基础 widget 是我们构建一切事物的基石，而且数量众多——上次统计有超过 1300 个。^(⁷)\
+  \ 这对于你我来说需要了解的数量相当大。但是，如果你在脑海中将它们进行分类整理，就会容易管理得多。\n\n它们大致可分为以下几类：\n\n*   数值型 widget\n\
+  *   布局型 widget\n*   导航型 widget\n*   其他 widget\n\n> **注意**\n> 这些并非 Flutter 官方分类列表。其\
+  \ 15 个官方分类列在此处：[`https://flutter.dev/docs/development/ui/widgets`](https://flutter.dev/docs/development/ui/widgets)。我们只是觉得重新组织一下有助于理清思路。\n\
+  \n我们将通过一两个例子快速浏览每个类别，然后在后续章节中进行深入探讨。让我们从数值型 widget 开始。\n\n### 数值型 Widget\n\n某些 widget\
+  \ 持有数值，这些数值可能来自本地存储、互联网服务或用户本身。它们用于向用户显示数值，以及从用户那里获取数值进入应用。典型的例子是`Text` widget，它用于显示一小段文本。另一个是`Image`\
+  \ widget，用于显示 `.jpg`、`.png` 或其他图片。\n\n以下是更多数值型 widget：\n\n| AlertDialog Badge Checkbox\
+  \ Chip CircularProgressIndicator Date & Time Pickers DataTable DropdownButton ElevatedButton\
+  \ FlatButton | FloatingActionButton FlutterLogo Form FormField Icon IconButton Image\
+  \ LinearProgressIndicator Menu PopupMenuButton Radio | RawImage RefreshIndicator\
+  \ RichText SegmentedButton Slider SnackBar Switch Text TextField Tooltip |\n\n我们将在下一章更详细地探索数值型\
+  \ widget。\n\n### 布局型 Widget\n\n布局型 widget 赋予我们大量控制能力，使场景能够正确布局——使用`Row` widget 将\
+  \ widget 并排放置，或使用`Column` widget 上下堆叠；使用`SingleChildScrollView`使它们可滚动，使用`Wrap`使其自动换行，使用`Padding`确定\
+  \ widget 周围的空间以避免拥挤感，等等：\n\n| Align AppBar AspectRatio BottomAppBar BottomSheet\
+  \ Card Center Column ConstrainedBox Container Divider Expanded ExpansionPanel FittedBox\
+  \ | Flow FractionallySizedBox GridView IntrinsicHeight IntrinsicWidth LayoutBuilder\
+  \ LimitedBox ListTile ListView MediaQuery NestedScrollView OverflowBox Padding PageView\
+  \ | Placeholder Row Scaffold Scrollable Scrollbar SingleChildScrollView SizedBox\
+  \ SizedOverflowBox Slivers* SnackBar Stack Table Transform Wrap |\n\n这是一个庞大的主题，我们将在本书的最后六章进行介绍。\n\
+  \n### 导航型 Widget\n\n当你的应用有多个场景（“屏幕”、“页面”，随便你怎么称呼）时，你需要某种方式在它们之间切换。导航型 widget 就派上用场了。它们将控制用户如何看到一个场景，然后移动到下一个。通常，当用户点击按钮时会发生这种切换。有时，导航按钮位于标签栏或从屏幕左侧滑入的抽屉中。以下是一些导航型\
+  \ widget：\n\n| AlertDialog Drawer MaterialApp NavigationBar | NavigationDrawer NavigationRail\
+  \ Navigator | SimpleDialog TabBar TabBarView |\n\n我们将在第六章“导航与路由”中学习它们的工作原理。\n\n\n\
+  \n### 其他小组件\n\n当然，并非所有小组件都能归入这些整齐的类别。让我们把其余部分归为一个杂项类别。以下是一些杂项组件：\n\n| `ClipPath`\
+  \ `Cupertino` `Dismissible` | `FutureBuilder` `GestureDetector` `Semantics` | `StreamBuilder`\
+  \ `Theme` `Transitions` |\n\n本书会在各章节中自然而然地介绍这些杂项组件中的许多内容。`GestureDetector` 和 `Dismissible`\
+  \ 出现在第 5 章“响应手势”中。`Theme` 在第 10 章“使用主题进行样式设计”中介绍。`FutureBuilder` 和 `StreamBuilder`\
+  \ 在第 9 章“使用 HTTP 进行 RESTful API 调用”中介绍。\n\n### 如何创建你自己的无状态组件\n\n我们知道，我们将组合这些内置组件来形成我们自己的自定义组件，然后这些自定义组件再与其他内置组件组合，最终形成一个应用。\n\
+  \n组件设计得非常巧妙，因为每个组件都易于理解，因此也易于维护。组件从外部看是抽象的，而在内部则是逻辑清晰且可预测的。它们用起来令人愉悦。\n\n每个组件都是一个类，可以拥有属性和方法。每个组件都可以有一个包含零个或多个参数的构造函数。最重要的是，每个组件都有一个\
+  \ `build` 方法，该方法接收一个 `BuildContext`^(⁸) 并返回一个单一的 Flutter 组件。\n\n**提示**\n\n如果你曾好奇某个组件的外观是如何形成的，请找到它的\
+  \ `build` 方法。\n\n```\nclass RootWidget extends StatelessWidget {\n@override\nWidget\
+  \ build(BuildContext context) {\nreturn Text('Hello world');\n}\n}\n```\n\n在这个我们本章前面重复过的\
+  \ hello world 示例中，我们展示了一个 `Text` 组件（图 3-2）。一个单独的内部组件是可以工作的，但现实世界的应用会复杂得多。根组件可以由许多其他子组件组成：\n\
+  \n![](img/638603_1_En_3_Fig2_HTML.jpg)\n\n**图 3-2** 这个简单组件创建的应用\n\n```\nclass FancyHelloWidget\
+  \ extends StatelessWidget {\nWidget build(BuildContext context) {\nreturn MaterialApp(\n\
+  home: Scaffold(\nappBar: AppBar(\ntitle: Text(\"一个更花哨的应用\"),\n),\nbody: Container(\n\
+  alignment: Alignment.center,\nchild: Text(\"Hello world\"),\n),\nfloatingActionButton:\
+  \ FloatingActionButton(\nchild: Icon(Icons.thumb_up),\nonPressed: () => {},\n),\n\
+  ),\n);\n}\n}\n```\n\n所以正如你所见，`build` 方法返回一个单一的组件 `MaterialApp`，但它包含一个 `Scaffold`，其中又包含三个子组件：一个\
+  \ `AppBar`、一个 `Container` 和一个 `FloatingActionButton`（图 3-3）。这些组件中的每一个又分别包含它们自己的子子组件。\n\
+  \n![](img/638603_1_En_3_Fig3_HTML.png)\n\n**图 3-3** 上面示例应用中的组件树\n\n这就是你的 `build`\
+  \ 方法始终的工作方式。它将返回一个单一的、庞大的、嵌套的表达式。正是组件内部的组件内部的组件，使你能够创建自己精心设计的自定义组件。\n\n### 组件拥有键\n\
+  \n让我们暂时谈谈 Flutter 的架构。如果 Flutter 在每次做出微小更改时都尝试重新渲染整个屏幕，那将会很慢。相反，Flutter 将状态更改应用到屏幕的内存副本上，这个副本被称为元素树。这非常快，因为它们实际上并没有绘制在屏幕上。绘制工作保留给了“渲染树”。\n\
+  \n嗯，这种结构的美妙之处在于——当渲染树被绘制时，它会重用所有自上次渲染以来*没有*改变的组件。只有那些需要重新渲染的组件才会被重新渲染。但 Flutter\
+  \ 是如何知道的呢？它使用了键。\n\n每个组件都有一个唯一的键。它会自动获得一个键，但如果你愿意，也可以手动分配键。当一个组件需要重绘时，它会在内存中被重新创建并获得一个新键。Flutter\
+  \ 假定任何类型和键都没有改变的组件都可以保持不变。\n\n但偶尔，Flutter 在匹配元素树中的组件时也会出错。如果你的组件被绘制到了错误的位置、屏幕上的数据没有更新，或者滚动位置没有保留，你就会知道需要手动分配键了。\n\
+  \n通常你不需要担心键的问题。它们很少被需要，以至于如果你能理解以下几点，我们就很满意了……\n\n1.  键是存在的，以及为什么 Flutter 可能需要它们。\n\
+  2.  当你的组件没有按预期重绘时，键可能可以解决问题。\n3.  你有机会为组件分配键。\n\n如果这对你来说还不够，那么伟大的 Emily Fortuna\
+  \ 已经录制了一个关于键的超级 10 分钟视频。^(⁹)\n\n### 向组件传递值\n\n你知道这个公式是什么意思吗？\n\n*y = f(x)*\n\n数学专业的人会认出这读作“*y*\
+  \ 是 *x* 的函数”。它简洁地传达了当 *x*（自变量）变化时，*y*（因变量）将以可预测的方式变化。Flutter 依赖于这个理念，但在 Flutter\
+  \ 中，这个公式读作：\n\n*场景 = f(数据)*\n\n换句话说，随着你应用中数据的变化，屏幕也会相应变化。而你，作为开发者，可以在编写组件的 `build`\
+  \ 方法时决定如何呈现这些数据。这是 Flutter 的一个基本概念。\n\n那么数据可能如何变化呢？有两种方式：\n\n1.  组件可以使用从外部传入的新数据进行重新渲染。\n\
+  2.  数据可以在某些组件*内部*维护。\n\n让我们谈谈第一种方式。要将数据传入组件，你可以将其作为构造函数参数发送：\n\n```\nWidget build(BuildContext\
+  \ context) {\nreturn Person(firstName: \"Sarah\", lastName: \"Ali\");\n}\n```\n\n\
+  下面是你如何编写组件来接收这个值：\n\n```\nclass Person extends StatelessWidget {\nfinal String firstName;\n\
+  final String lastName;\nPerson({this.firstName = \"\", this.lastName = \"\"}) {}\n\
+  @override\nWidget build(BuildContext context) {\nreturn Text('$firstName $lastName');\n\
+  }\n}\n```\n\n我们将名字和姓氏传递给了组件。编写 Dart 构造函数还有别的方法。请查看附录 A“Dart 语言概述”或 Dart 参考文档来了解它们。\n\
+  \n**提示**\n\n请注意，在前面的示例中，我们使用了一个 `Person` 类，该类可能是在你使用它的同一个 dart 文件中定义的。但更好的做法是，在每个单独的\
+  \ dart 文件中创建类，并将其导入到使用它的其他 dart 文件中。\n\n`import 'Person.dart';`\n\n### 无*状态*组件和*有*状态组件\n\
+  \n到目前为止，我们一直在刻意创建无状态组件。所以你可能已经猜到还有一种有状态组件。你猜对了。无*状态*组件是不维护自身状态的组件。有*状态*组件则维护自身状态。\n\
+  \n在此上下文中，“状态”指的是组件内在其生命周期中可以更改的数据。想想我们之前的 `Person` 组件。如果它只是一个显示人员信息的组件，那么它应该是无状态的。但如果它是一个人员**维护**组件，我们允许用户通过在\
+  \ `TextField` 中输入数据来更改信息，那么我们就需要一个 `StatefulWidget`。\n\n后面有一整章是关于有状态组件的。如果你等不及想了解更多关于它们的信息，可以阅读本书后面的第\
+  \ 7 章“管理状态”。然后再回到这里。\n\n\n\n### 那么我该创建哪种 Widget？\n\n简而言之，创建无状态 widget。除非万不得已，永远不要使用有状态\
+  \ widget。假设你创建的所有 widget 都是无状态的，并以此为基础开始开发。当你确信确实需要状态时，再将它们重构为有状态 widget。但要认识到，状态其实比开发者想象的更容易避免。尽可能避免状态的使用，这能让\
+  \ widget 更简单，从而更易于编写、维护和扩展。你的团队成员会因此感谢你。\n\n> **注意**  \n> 实际上还有第三种 widget，即 `InheritedWidget`。你可以在\
+  \ `InheritedWidget` 中设置一个值，任何后代 widget 都可以沿 widget 树向上追溯，直接请求该数据。你可以在第 8 章“状态管理库”中了解更多信息，或者在此处观看关于\
+  \ `InheritedWidget` 的简明概述：[`http://bit.ly/inheritedWidget`](http://bit.ly/inheritedWidget)。\n\
+  \n## 总结\n\n现在我们知道了 Flutter 应用的核心就是 widget。你将组合自定义的无状态或有状态 widget，它们包含一个 `build`\
+  \ 方法，该方法会渲染出一棵由 Flutter 内置 widget 组成的树。因此，我们显然需要了解这些内置的 Flutter widget，我们将在下一章开始学习它们。\n\
+  \n脚注 1   2   3   4   5\n\n"
+- "# 4. 数值型 Widget\n\n在上一章我们了解到，*万物皆 widget。* 你创建的所有东西都是 widget，Flutter 提供给我们的所有东西也都是\
+  \ widget。当然，也存在例外，但这样思考并无坏处，尤其是在你刚入门 Flutter 的时候。在本章中，我们将深入探讨 Flutter 提供的最基础的一组\
+  \ widget——那些承载数值的 widget。我们将介绍 `Text` widget、`Icon` widget 和 `Image` widget，它们所显示的内容正如其名。我们还会简单了解\
+  \ `SnackBar` widget。然后，我们将深入讲解输入型 widget——那些设计用来获取用户输入的 widget。\n\n## Text Widget\n\
+  \n如果你想在屏幕上显示一个字符串，`Text` widget 就是你需要的工具。它接收一个字符串作为输入（即你想要显示的文本），并将其显示在屏幕上。默认情况下，所有文本都在一行内显示，但如果容器宽度不够，它会自动换行到多行。\n\
+  \n```\nWidget build(BuildContext context) {\n  String str = 'Hello world';\n  return\
+  \ Text(str);\n}\n```\n\n> **提示**  \n> 如果你的 `Text` 内容是字面量，在其前面加上 `const` 关键字，该 widget\
+  \ 将在编译时而非运行时创建。你的 `apk/ipa` 文件会略微增大，但它们能在设备上运行得更快。这点付出是值得的。\n\n你可以通过 `style` 属性控制\
+  \ `Text` 的大小、字体、粗细、颜色等。但我们将在第 10 章“使用主题进行样式设计”中介绍这部分内容。\n\n`Text()` 能满足大部分单一风格文本的需求。但如果文本的不同部分需要不同的样式呢？这时就需要用到\
+  \ `RichText`。它允许你在同一个文本 widget 内，使用 `TextSpan` 对象混合搭配不同的样式。\n\n## Icon Widget\n\n\
+  Flutter 内置了大量图标（图 4-1），从相机、人物、卡片、交通工具、箭头、电池到 Android/iOS 设备，应有尽有。完整列表可以在这里找到：[`https://api.flutter.dev/flutter/material/Icons-class.html`](https://api.flutter.dev/flutter/material/Icons-class.html)，但该页面不太容易搜索。这里有一个可以按名称搜索的网站：[`https://fonts.google.com/icons`](https://fonts.google.com/icons)。\n\
+  \n![](img/638603_1_En_4_Fig1_HTML.jpg)\n\n图 4-1：一组随机颜色的 Flutter 内置图标\n\n要放置一个图标，你需要使用\
+  \ `Icon` widget。这并不意外。你需要使用 `Icons` 类来指定具体图标。这个类拥有数百个静态值，例如 `Icons.phone_android`、`Icons.phone_iphone`\
+  \ 和 `Icons.cake`。每个值都指向一个不同的图标，就像上面展示的那些。以下是如何在你的应用中放置一个红色大生日蛋糕（图 4-2）的代码：\n\n![](img/638603_1_En_4_Fig2_HTML.jpg)\n\
+  \n图 4-2：红色蛋糕图标\n\n```\nIcon(\n  Icons.cake,\n  color: Colors.red,\n  size: 200,\n\
+  )\n```\n\n如果近 9000 个内置图标仍不能满足你的需求，你完全可以引入其他图标集。Flutter 可以使用 Font Awesome，它可在 [`https://pub.dev/packages/font_awesome_flutter`](https://pub.dev/packages/font_awesome_flutter)\
+  \ 获取，能提供另外 2000 个图标。而 [`https://pub.dev/packages/icons_flutter`](https://pub.dev/packages/icons_flutter)\
+  \ 上的 `icons_flutter` 包则提供了另外 14,000 个图标。这些应该足够你用一阵子了。\n\n## Image Widget\n\n在 Flutter\
+  \ 中显示图片比使用 `Text` 或 `Icons` 要复杂一些。它涉及几个方面：\n\n1.  **获取图片来源**——图片可以嵌入在应用本身内，也可以从互联网实时获取。如果图片在应用整个生命周期内都不会改变（例如标志或装饰图案），则应该使用嵌入图片。\n\
+  \n2.  **调整大小**——将图片缩放或裁剪到合适的尺寸和形状。\n\n### 嵌入图片\n\n嵌入图片在运行时速度更快，但会在编译时增加应用的安装包大小。要嵌入图片，请将图片文件放入你的项目文件夹中。放在项目中的任何位置都可以，但惯例是将其放在名为\
+  \ `assets` 的子文件夹中，可能还需要一个子文件夹以保持结构清晰。像 `assets/images` 这样的路径就很合适。\n\n然后编辑 `pubspec.yaml`\
+  \ 文件。添加以下内容：\n\n```\nflutter:\n  assets:\n    - assets/images/photo1.png\n    -\
+  \ assets/images/photo2.jpg\n```\n\n保存文件并在命令行中运行 `flutter pub get`，让项目处理该文件。\n\n\
+  > **提示**  \n> `pubspec.yaml` 文件保存了关于你项目的各种重要信息。它包含项目元数据，如名称、描述、仓库位置和版本号。它列出了库依赖项和字体。对于刚接触你项目的其他开发者来说，这是首要查看的文件。对于\
+  \ JavaScript 开发者来说，它相当于 Dart 项目中的 `package.json` 文件。更多信息请参见附录 C“在你的 Flutter 应用中包含包”。\n\
+  \n你可以通过调用 `asset()` 构造器将图片放入 widget，如下所示：\n\n```\nImage.asset('assets/images/photo1.jpg'),\n\
+  ```\n\n### 网络图片\n\n网络图片更接近 Web 开发者所习惯的方式。它只是通过 HTTP 从互联网上获取图片。你需要使用 `network` 构造器，并传入一个\
+  \ URL 字符串作为参数。\n\n```\nImage.network(imageUrl),\n```\n\n正如你所料，这些图片比嵌入图片慢，因为在通过互联网向服务器发送请求和你的设备下载图片的过程中存在延迟。其优势在于这些图片是实时的；只需更改图片\
+  \ URL，就可以动态加载任何图片。\n\n\n\n### 调整图像尺寸\n\n图像几乎总是被放置在一个容器中。这并不是硬性要求，只是我无法想象在实际使用中，图像会不被包裹在其他控件里。容器对图像的绘制尺寸有决定权。如果图像的原始尺寸能恰好匹配容器的尺寸，那将是非常惊人的巧合。实际上，Flutter\
+  \ 的布局引擎会缩小图像以适配其容器，但不会放大它。这种适配方式被称为 `BoxFit.scaleDown`，并且作为默认行为是合理的。但还有哪些其他选项可用？我们又如何决定使用哪一个呢？表\
+  \ 4-1 列出了 `BoxFit` 的可用选项。\n\n**表 4-1** *BoxFit 选项*\n\n| `fill` | 拉伸图像，使其宽度和高度都精确适配。可能会扭曲图像\
+  \ | ![](img/638603_1_En_4_Figa_HTML.jpg) |\n| `cover` | 缩小或放大图像，直至填满空间。顶部/底部或两侧可能会被裁剪。不会扭曲图像\
+  \ | ![](img/638603_1_En_4_Figb_HTML.jpg) |\n| `fitHeight` | 使高度精确适配。根据需要裁剪宽度或添加额外空间\
+  \ | ![](img/638603_1_En_4_Figc_HTML.jpg) |\n| `fitWidth` | 使宽度精确适配。根据需要裁剪高度或添加额外空间\
+  \ | ![](img/638603_1_En_4_Figd_HTML.jpg) |\n| `contain` | 缩小图像，直至高度*和*宽度都适配。顶部/底部或两侧可能会留有额外空间\
+  \ | ![](img/638603_1_En_4_Fige_HTML.jpg) |\n\n*照片来源：[Eye for Ebony](https://unsplash.com/%2540eyeforebony%253Futm_source%253Dunsplash%2526utm_medium%253Dreferral%2526utm_content%253DcreditCopyText)\
+  \ 在 [Unsplash](https://unsplash.com/search/photos/black-woman%253Futm_source%253Dunsplash%2526utm_medium%253Dreferral%2526utm_content%253DcreditCopyText)\
+  \ 上发布*\n\n以上就是所有可选项，但你该如何选择呢？图 4-3 或许能帮助你在不同情况下决定使用哪种适配方式。\n\n![](img/638603_1_En_4_Fig3_HTML.png)\n\
+  \n**图 4-3** 如何决定图像的适配方式\n\n要指定适配方式，你需要设置 `fit` 属性。\n\n```\nImage.asset('assets/images/woman.jpg',\
+  \ fit: BoxFit.contain,),\n```\n\n### SnackBar 控件\n\n我知道这个名字很奇怪。听起来像某种美味的小吃，但这个控件实际上是向用户发出通知的标准方式。一个\
+  \ `SnackBar`（图 4-4）会出现在屏幕底部，遮挡住原本在底部的任何内容，并在短暂时间后自动消失。你可以决定 `SnackBar` 显示什么文字，甚至可以在其上放置一个按钮供用户执行操作。\n\
+  \n![](img/638603_1_En_4_Fig4_HTML.jpg)\n\n**图 4-4** SnackBar 显示一条消息和可选的交互按钮\n\n\
+  你可以在任何场景中显示一个 `SnackBar`，只要这个操作是在嵌套在 `Scaffold` 内部的控件中进行的。你必须：\n\n1.  创建 `SnackBar`\n\
+  2.  调用 `ScaffoldMessenger.of(context).showSnackBar(sb)`\n3.  处理操作按钮（可选）\n\n请注意，`showSnackBar()`\
+  \ 是异步运行的，以避免阻塞 UI 线程。默认情况下它会显示四秒钟，但可以通过 `duration` 属性覆盖此设置。示例如下：\n\n```\nIconButton(\n\
+  icon: const Icon(Icons.delete, size: 36),\nonPressed: () {\nbool goAheadAndDeletePerson\
+  \ = true;\nfinal SnackBar sb = SnackBar(\ncontent: Text(\"${person.name} 已删除。\"\
+  ),\nduration: const Duration(seconds: 5),\naction: SnackBarAction(\nlabel: \"撤销\"\
+  ,\nonPressed: () => goAheadAndDeletePerson = false,\n),\n);\nScaffoldMessenger.of(context).showSnackBar(sb);\n\
+  Future.delayed(const Duration(seconds: 5), () {\nif (goAheadAndDeletePerson) {\n\
+  deletePerson(person);\n}\n});\n},\n),\n```\n\n在这个例子中，我们对用户撒了个小谎 \U0001F632。我们告诉用户记录已被删除，但实际上他们有五秒钟的时间可以通过点击“撤销”来取消删除。`Future.delayed()`\
+  \ 表示在五秒延迟后，在一个独立的 isolate 中执行 `deletePerson()`。如果用户在此期间点击了“撤销”，那么 `Future` 就会跳过删除操作。\n\
+  \n当然，你可能只想显示一条不带操作按钮的消息。这完全取决于你。\n\n### 输入控件\n\n我们很多人都有 Web 开发的背景，从一开始就接触到了包含 `<input>`\
+  \ 和 `<select>` 的 HTML `<form>`。所有这些元素都是为了使用户能够向 Web 应用输入数据，而这项活动在移动应用中同样不可或缺。Flutter\
+  \ 提供了类似 Web 上用于输入数据的控件，但它们的工作方式并不相同。创建和使用这些控件需要更多的工作量。对此深表歉意。不过，好的一面是，它们也更安全，并且为我们提供了更多的控制能力。\n\
+  \n造成这种复杂性的部分原因是，这些控件并不维护自己的状态；你需要手动管理。\n\n另一个复杂之处在于，输入控件彼此之间并不知道对方的存在。换句话说，除非你使用\
+  \ `Form` 控件将它们组合在一起，否则它们彼此间的协作性并不好。我们最终需要重点学习 `Form` 控件。但在那之前，让我们先研究如何创建文本字段、复选框、单选按钮、滑块和下拉菜单。\n\
+  \n**警告**\n\n> 输入控件只有在 `StatefulWidget` 内部使用时才易于操作，因为它们本质上是会改变状态的。请记住，我们在上一章简要提到了\
+  \ `StatefulWidget`，我们将在第 7 章“管理状态”中深入讨论它们。但在那之前，请暂且相信我们，目前先把它们放在有状态控件中使用。\n\n####\
+  \ 文本字段\n\n如果你只需要一个简单的文本框，那么 `TextField` 控件可能就是你想要的。下面是一个 `TextField` 控件的简单示例，其上方带有一个\
+  \ `Text` 标签：\n\n```\nconst Text('搜索词'),\nTextField(\ninitialValue: \"一些初始值\",\n\
+  onChanged: (val) => _searchTerm = val,\n),\n```\n\n这里的 `onChanged` 属性是一个事件处理程序，会在每次按键后触发。它接收一个\
+  \ `String` 类型的值。这是用户正在输入的值。在这个示例中，我们将用户输入的内容赋值给一个名为 `_searchTerm` 的局部变量。\n\n你注意到\
+  \ `Text('搜索词')` 了吗？这是我们试图在 `TextField` 上方添加标签的拙劣尝试。其实有更好得多的方法。看看这个……\n\n##### 让\
+  \ TextField 变得更精致\n\n有很多选项可以让你的 `TextField` 更有用——虽然不是无限的选项，但也很多。所有这些选项都可以通过 `InputDecoration`\
+  \ 控件（图 4-5）来设置：\n\n![](img/638603_1_En_4_Fig5_HTML.jpg)\n\n**图 4-5** 一个带有 InputDecoration\
+  \ 的 TextField\n\n```\nreturn TextField(\ndecoration: InputDecoration(\nlabelText:\
+  \ '邮箱',\nhintText: 'you@email.com',\nicon: Icon(Icons.contact_mail),\n),\n),\n```\n\
+  \n表 4-2 列出了更多 `InputDecoration` 的选项。\n\n**表 4-2** *InputDecoration 选项*\n\n| 属性 |\
+  \ 描述 |\n| --- | --- |\n| `labelText` | 显示在 `TextField` 上方。告知用户这个 `TextField` 的作用\
+  \ |\n| `hintText` | `TextField` 内部浅色的提示文字。用户开始输入时消失 |\n| `errorText` | 显示在 `TextField`\
+  \ 下方的错误信息。通常为红色。由验证机制自动设置（稍后介绍），但你也可以在需要时手动设置 |\n| `icon` | 在整个 `TextField` 的左侧绘制一个图标\
+  \ |\n| `prefixIcon` | 在 `TextField` 内部靠左绘制一个图标 |\n| `suffixIcon` | 与 `prefixIcon`\
+  \ 类似，但位于最右侧 |\n\n#### 密码框\n\n要将其变为密码框（图 4-6），将 `obscureText` 属性设置为 `true`。用户输入时，每个字符短暂显示一秒后会替换成一个圆点。\n\
+  \n![](img/638603_1_En_4_Fig6_HTML.jpg)\n\n**图 4-6** 设置了 `obscureText` 的密码框\n\n```\n\
+  return TextField(\nobscureText: true,\ndecoration: InputDecoration(\nlabelText:\
+  \ '密码',\n),);\n```\n\n\n\n## 调整软键盘\n\n想要一个特殊的软键盘？没问题。只需使用 `keyboardType` 属性即可。效果分别如图\
+  \ 4-7 至 4-10 所示。\n\n![](img/638603_1_En_4_Fig10_HTML.jpg)\n\n图 4-10\n\n`TextInputType.phone`\n\
+  \n![](img/638603_1_En_4_Fig9_HTML.jpg)\n\n图 4-9\n\n`TextInputType.number`\n\n![](img/638603_1_En_4_Fig8_HTML.jpg)\n\
+  \n图 4-8\n\n`TextInputType.email`。请注意 @ 符号\n\n![](img/638603_1_En_4_Fig7_HTML.jpg)\n\
+  \n图 4-7\n\n`TextInputType.datetime`\n\n```\nreturn TextField(\nkeyboardType: TextInputType.number,\n\
+  );\n```\n\n软键盘会显示不同的键盘，但它不控制可以在每个字段中输入什么内容。换句话说，即使软键盘是数字类型，你仍然可以将普通文本输入到 `FormField()`\
+  \ 中。想解决这个问题吗？方法如下……\n\n## 限制可输入的数据\n\n如果你想限制允许输入的文本类型，可以通过 `TextInput` 的 `inputFormatters`\
+  \ 属性来实现。它实际上是一个数组，因此你可以组合使用一个或多个以下格式化器：\n\n*   `BlacklistingTextInputFormatter`\
+  \ – 禁止输入某些字符。用户输入时，这些字符根本不会出现。\n*   `WhitelistingTextInputFormatter` – 只允许输入这些字符。列表之外的任何字符都不会出现。\n\
+  *   `LengthLimitingTextInputFormatter` – 最多只能输入 X 个字符。\n\n前两个格式化器允许你使用正则表达式来指定你想要（白名单）或不想要（黑名单）的模式。示例如下：\n\
+  \n```\nreturn TextField(\ninputFormatters: [\nWhitelistingTextInputFormatter(RegExp('[0-9\
+  \ -]')),\nLengthLimitingTextInputFormatter(16)\n],\ndecoration: InputDecoration(\n\
+  labelText: 'Credit Card',\n),\n);\n```\n\n在 `WhitelistingTextInputFormatter` 中，我们只允许输入数字\
+  \ 0-9、空格或短横线。然后 `LengthLimitingTextInputFormatter` 将最大长度限制为 16 个字符。\n\n## 复选框\n\n\
+  Flutter 复选框（图 4-11）具有一个布尔类型的 `value` 属性和一个 `onChanged` 方法，该方法在每次更改后触发。与其他所有输入小部件一样，`onChanged`\
+  \ 方法接收用户设置的值。因此，在复选框的情况下，该值是 `bool` 类型。\n\n![](img/638603_1_En_4_Fig11_HTML.jpg)\n\
+  \n图 4-11\n\n*一个 Flutter 复选框小部件*\n\n```\nCheckbox(\nvalue: true,\nonChanged: (val)\
+  \ => print(val),\n),\n```\n\n提示\n\nFlutter 开关（图 4-12）与复选框的用途相同 – 用于表示开或关。因此 `Switch`\
+  \ 小部件具有相同的选项并且工作方式相同，只是外观不同。\n\n![](img/638603_1_En_4_Fig12_HTML.jpg)\n\n图 4-12\n\
+  \n一个 Flutter 开关小部件\n\n## 单选按钮\n\n当然，单选按钮的妙处在于，如果你选中一个，同一组中的其他按钮就会取消选中。所以显然我们需要以某种方式对它们进行分组。在\
+  \ Flutter 中，当你将 `groupValue` 属性设置为同一个局部变量时，`Radio` 小部件就会被分组。该变量保存当前处于选中状态的*那个* `Radio`\
+  \ 的值。\n\n每个 `Radio` 也有自己的 `value` 属性，该属性与*那个*特定小部件相关联（无论它是否被选中）。在 `onChanged` 方法中，你将\
+  \ `groupValue` 变量设置为该单选按钮的值。\n\n| value | 每个单选按钮都有自己独特的值 |\n| groupValue | 当前选中的一个值，取决于最后点击的是哪个单选按钮。\
+  \ |\n\n以下是它们协同工作的方式：\n\n```\nSearchLocation? searchLocation;\n//其他代码放在这里\nRadio(\n\
+  groupValue: searchLocation,\nvalue: SearchLocation.anywhere,\nonChanged: (val) =>\
+  \ setState(() => searchLocation = val)),\nconst Text('Search anywhere'),\nRadio(\n\
+  groupValue: searchLocation,\nvalue: SearchLocation.text,\nonChanged: (val) => setState(()\
+  \ => searchLocation = val)),\nconst Text('Search page text'),\nRadio(\ngroupValue:\
+  \ searchLocation,\nvalue: SearchLocation.title,\nonChanged: (val) => setState(()\
+  \ => searchLocation = val)),\nconst Text('Search page title'),\n```\n\n请注意，每个 `Radio`\
+  \ 都有其自己的值，第一个是 `SearchLocation.anywhere`，第二个是 `SearchLocation.text`，第三个是 `SearchLocation.title`。但它们都共享\
+  \ `groupType`，正是这个属性将它们分组在一起。还要注意，当选中一个时，其 `onChanged` 会触发，我们将 `searchLocation`\
+  \ 变量设置为选中的项。\n\n这段简化后的代码将生成类似图 4-13 的效果。\n\n![](img/638603_1_En_4_Fig13_HTML.jpg)\n\
+  \n图 4-13\n\n*Flutter 单选按钮小部件*\n\n提示\n\n对 `SearchLocation` 感到困惑？我不怪你。它是一个枚举。单选按钮与枚举配合使用效果非常好。\n\
+  \n以下是上面提到的 `SearchLocation` 枚举的创建方式：\n\n```\nenum SearchLocation { anywhere, title,\
+  \ text }\n```\n\n## 滑块\n\n当你希望用户选择一个介于上限和下限之间的数值时，滑块是一种方便的交互方式（图 4-14）。\n\n![](img/638603_1_En_4_Fig14_HTML.jpg)\n\
+  \n图 4-14\n\n值为 25 的滑块\n\n要在 Flutter 中实现一个，你需要使用 `Slider` 小部件，它需要 `onChanged` 事件和\
+  \ `value` 属性（类型为 `double`）。它还有 `min`（默认为 `0.0`）和 `max`（默认为 `1.0`）。零到一的范围很少有用，所以你通常会改变它们。它还有一个可选的\
+  \ `label` 属性，这是一个指示器，用于告知用户他们正在选择的值。\n\n```\nSlider(\nlabel: numberOfResults.toString(),\n\
+  min: 0.0,\nmax: 100.0,\ndivisions: 100,\nvalue: numberOfResults.toDouble(),\nonChanged:\
+  \ (val) {\nsetState(() => numberOfResults = val.round());\n},\n);\n```\n\n## 下拉菜单\n\
+  \n当需要从少量选项中选择一个时（比如枚举），下拉菜单非常有用。假设我们有这样一个枚举：\n\n```\nenum SearchType { web, image,\
+  \ news, shopping }\n```\n\n显然，我们定义了一个 `SearchType` 类型，它可以是 `web`、`image`、`news`\
+  \ 或 `shopping`。如果我们希望用户从中选择一个，我们可能会向他们展示一个 `DropdownButton` 小部件，初始状态可能看起来像图 4-15。\n\
+  \n![](img/638603_1_En_4_Fig15_HTML.jpg)\n\n图 4-15\n\n*未选择任何内容时的 `DropdownButton`*\n\
+  \n然后，当他们点击下拉菜单时，它看起来像图 4-16。\n\n![](img/638603_1_En_4_Fig16_HTML.jpg)\n\n图 4-16\n\
+  \n*展开后显示选项的 `DropdownButton`*\n\n当他们点击其中一个选项时，该选项被选中（图 4-17）。\n\n![](img/638603_1_En_4_Fig17_HTML.jpg)\n\
+  \n图 4-17\n\n*选中了一个选项的 `DropdownButton`*\n\n要创建这个 `DropdownButton`，我们的 Flutter 代码可能如下所示：\n\
+  \n```\nSearchType searchType = SearchType.web;\n//其他代码放在这里\nreturn DropdownButton(\n\
+  value: searchType,\nitems: [\nDropdownMenuItem(\nvalue: SearchType.web, child: Text('Web')\
+  \ ),\nDropdownMenuItem(\nvalue: SearchType.image, child: Text('Image') ),\nDropdownMenuItem(\n\
+  value: SearchType.news, child: Text('News') ),\nDropdownMenuItem(\nvalue: SearchType.shopping,\
+  \ child: Text('Shopping') ),\n],\nonChanged: (val) => searchType = val,\n);\n```\n\
+  \n请注意，所有项的类型都是 `DropdownMenuItem`。它们有 `value` 和 `child` 属性，但 `onChanged` 事件处理程序位于菜单上，而不是菜单项上。仔细想想，这还挺有道理的。\n\
+  \n## 整合表单小部件\n\n我们拥有了所有这些不同类型的字段，它们外观漂亮且功能出色，这很棒。但你通常希望将它们组合在一起，以便可以作为一个组进行某种程度的控制。为此，你将使用\
+  \ `Form` 小部件。\n\n\n\n## 表单组件\n\n在 Flutter 中，当有多个相互依赖的字段或需要添加验证逻辑时，`Form` 组件会很有帮助。但并非所有场景都必然需要它。如果不需要，你可以忽略\
+  \ `Form` 组件。在真正需要了解 `Form` 组件之前，尽管跳过这一节去读下一章，我完全不会介意。\n\n……还在看？好吧。让我们看看 `Form` 组件能为我们做些什么。系好安全带，因为接下来的旅程会有些颠簸……\n\
+  \n表单需要一个 `GlobalKey`。还记得上一章我们介绍过键（keys）吗？当时我们说除了少数情况外，键通常可以忽略。而这里正是需要键的场景之一。如果你决定使用\
+  \ `Form`，就需要一个类型为 `FormState` 的 `GlobalKey`：\n\n```\nGlobalKey _key = GlobalKey();\n\
+  ```\n\n然后将这个键设置为 `Form` 的一个属性：\n\n```\n@override\nWidget build(BuildContext context)\
+  \ {\nreturn Form(\nkey: _key,\nautovalidate: AutovalidateMode.always,\nchild: //\
+  \ 所有表单字段都将放在这里\n);\n}\n```\n\n乍一看，`Form` 似乎没有带来什么变化。但仔细观察，你会发现我们现在可以访问以下内容：\n\n\
+  *   `autovalidate` – `always` 表示当任何字段发生变化时立即运行验证。`disabled` 表示你需要手动触发验证。`onUserInteraction`\
+  \ 表示每次用户交互时都运行验证。（我们将在几页后讨论验证。）\n\n*   键本身，我们在上面的代码中称其为 `_key`。\n\n这个 `_key` 拥有一个\
+  \ `currentState` 属性，该属性又包含以下方法：\n\n1.  `save()` – 通过调用每个字段的 `onSaved` 方法来保存表单内的所有字段。\n\
+  \n2.  `validate()` – 运行每个字段的 `validator` 函数。\n\n3.  `reset()` – 将表单内的每个字段重置为 `initialValue`。\n\
+  \n**注意：** `currentState` 是一个可空属性。这意味着我们必须使用 `?` 或 `!` 来安抚编译器。记住，`?` 表示如果它为 null，则在此处停止处理（即什么也不做）。而\
+  \ `!` 表示我们确信它此时永远不可能为 null。为了简洁起见，你会看到我使用 `!`。\n\n有了这些，你就可以理解 `Form` 如何处理其嵌套字段了。当你调用这三个方法中的任何一个时，它都会遍历所有内部字段并对每个字段调用相应的方法。在\
+  \ `Form` 级别的一次调用将触发所有字段的对应操作。\n\n但请稍等！如果 `_key.currentState.save()` 调用了字段的 `onSaved()`，我们需要提供一个\
+  \ `onSaved` 方法，对吗？`validate()` 调用 `validator` 同理。但是 `TextField`、`DropdownButton`、`Radio`、`Checkbox`\
+  \ 和 `Slider` 这些组件本身并没有这些方法。现在该怎么办？我们需要将每个字段包裹在一个 `FormField` 组件中，而这个组件**确实**拥有这些方法。（这坑越来越深了。）\n\
+  \n### FormField 组件\n\n这个组件存在的全部意义就是为内部组件提供 `onSaved` 和 `validator` 事件处理器。`FormField`\
+  \ 组件可以通过 `builder` 属性包裹任何组件：\n\n```\nFormField(\nbuilder: (state) {\nreturn TextField();\
+  \ // 任何字段组件，如 Switch、Radio、Checkbox 或 Slider。\n},\nonSaved: (String initialValue)\
+  \ {\n// 在此处将值推送到仓库或其他地方。\n},\nvalidator: (String val) {\n// 在此处放置验证逻辑（下文将进一步说明）。\n\
+  },\n),\n```\n\n所以，我们首先用 `FormField` 组件包裹每个输入组件，并在一个名为 `builder` 的方法中完成此操作。然后，我们可以添加\
+  \ `onSaved` 和 `validator` 方法。\n\n**注意：** 虽然 `Switch`、`Checkbox` 和 `Slider` 被包裹在\
+  \ `FormField` 中，但 `Radio` 有所不同。你需要将整个 `Radio` 组包裹在一个 `FormField` 中。仔细想想，这很合理——因为整个组确定的是一个值——即\
+  \ `groupValue`。\n\n### TextFormField 和 DropdownButtonFormField\n\nFlutter 团队贴心地为我们提供了一个快捷方式。如果你在\
+  \ `Form` 内部使用 `TextField`，无需*包裹*它，而是直接*替换*为 `TextFormField` 组件。这个新组件很容易与 `TextField`\
+  \ 混淆，但它们是不同的。本质上……\n\n`TextFormField` = `TextField` + `FormField`\n\n`TextFormField`\
+  \ 拥有 `TextField` 的所有属性，并额外增加了 `onSaved` 和 `validator`：\n\n```\nTextFormField(\n\
+  initialValue: \"一些初始字符串\",\ndecoration: InputDecoration(labelText: '邮箱'),\nonSaved:\
+  \ (val) => print(\"表单已保存: $val\"),\nvalidator: (val) {\n// 在此处放置你的验证逻辑\n},\n),\n\
+  ```\n\n类似地，当在 `Form` 中使用 `DropdownButton` 时，可以将其替换为 `DropdownButtonFormField`：\n\
+  \n```\nDropdownButtonFormField(\nonChanged: (val) => _searchType = val,\nonSaved:\
+  \ (val) => _dbRecord[\"searchType\"] == val,\nvalidator: _searchTypeValidator,\n\
+  value: _searchType,\nitems: [...],\n),\n```\n\n现在是不是好多了？终于，我们得到了一个让事情变得更简单的喘息之机。复选框没有这个快捷方式，`Radio`\
+  \ 和 `Slider` 也没有。只有 `TextField` 和 `DropDownButton` 有。\n\n#### onSaved\n\n记住，你的 `Form`\
+  \ 有一个键，这个键拥有一个 `currentState`，而 `currentState` 又有一个 `save()` 方法。都记住了吗？没有？不太清楚？我们换个方式理解：当点击“保存”按钮时，你需要编写代码来调用……\n\
+  \n```\n_key.currentState!.save();\n```\n\n……而它会依次调用 `Form` 中每个 `FormField` 的 `onSaved`\
+  \ 方法。\n\n#### validator\n\n类似地，你可能已经猜到可以调用……\n\n```\n_key.currentState!.validate();\n\
+  ```\n\n……然后 Flutter 会调用每个 `FormField` 的 `validator` 方法。每个 `validator` 函数将接收其待验证的值，并返回一个可为空的字符串。你需要编写函数：如果输入值有效，则返回\
+  \ `null`；如果无效，则返回一条错误消息。返回的字符串就是 Flutter 会显示给用户的信息：\n\n```\nreturn Form(\nchild:\
+  \ TextFormField(\nvalidator: (val)=> (val == null || val.isEmpty)\n? \"请输入一些文本\"\
+  \n: null,\n),\n);\n```\n\n#### 提交表单\n\n我们（终于）准备好实际提交表单了。通常你会在按钮点击时执行此操作，并且只有当所有数据都有效时才希望提交表单。代码可能如下所示：\n\
+  \n```\nElevatedButton(\nonPressed: () {\nif (_key.currentState!.validate()) {\n\
+  _key.currentState!.save();\nprint(\"表单已保存。\");\n}\n},\nchild: const Text(\"提交\"\
+  ),\n);\n```\n\n## 一个大型表单示例\n\n我知道，我知道。这相当复杂。在具体的上下文中看看这些东西是如何组合在一起的可能会有所帮助。请查看代码仓库中名为\
+  \ `search_form.dart` 的文件，它在一个大型 `StatefulWidget` 中整合了所有这些部分。\n\n## 总结\n\n理解 Flutter\
+  \ 表单需要一些时间。请不要气馁。当你实际使用表单时，很快就会弄明白。虽然表单这个话题可能让你有点望而生畏，但文本、图片、图标和 SnackBar 这些内容是非常直观的，对吧？\n\
+  \n在下一章中，我们将学习如何创建各种类型的按钮，并使它们——或任何组件——能够响应点击及其他手势，届时我们的应用将真正活起来！\n\n"
+- "# 5. 响应手势\n\n到目前为止，我们已经取得了很大的进展！你现在知道 Flutter 是关于什么的。你对开发和调试过程的工作原理已经相当熟悉。你明白为什么我们使用组件，并且对上一章的值组件已经相当熟悉了。天呐，你甚至可以创建自己的无状态组件了。但我们仍然缺少一个主要的、基础的功能：事件处理。\n\
+  \n假设你有一个屏幕，用户在其中选择商品并将其放入购物车。他们将需要在一个商品列表中上下滚动（图 5-1）。向上和向下滑动以滚动是一种手势。要选择商品，他们会点击它。那也是一种手势。然后要将其放入购物车，也许会让他们向右滑动。那又是另一种不同的手势。\n\
+  \n![](img/638603_1_En_5_Fig1_HTML.jpg)\n\n图 5-1\n\n一个购物应用\n\n本章的全部内容就是处理这些手势。我们将手势分为两类：内置组件上的手势和自定义组件上的手势。让我们从内置组件上的手势开始讲起。\n\
+  \n\n\n## 认识按钮家族\n\n有些手势非常简单，因为它们是某些小部件的内置功能。例如，按钮小部件的创建者知道它们存在的唯一目的就是被按下，然后做出相应的响应。因此，所有按钮都有一个名为\
+  \ `onPressed` 的属性。要使用它，你只需将其指向用户按下按钮时想要运行的函数：\n\n```\nIconButton(\n  icon: const\
+  \ Icon(Icons.delete),\n  // 回调函数必须返回 void\n  onPressed: () => print(\"tapped\"),\n\
+  )\n```\n\n图 5-2 显示了输出结果。\n\n![](img/638603_1_En_5_Fig2_HTML.jpg)\n\n**图 5-2** 一个\
+  \ `IconButton`\n\n你可以把 `Button` 看作是所有其他按钮的基类。实际并非如此，但你把其他所有按钮都看作是具有某些特殊功能的 `Button`\
+  \ 也没什么坏处。例如，以下这些都是按钮的专用类型的小部件。\n\n| `TextButton` | ![](img/638603_1_En_5_Figa_HTML.jpg)\
+  \ |\n| `ElevatedButton` | ![](img/638603_1_En_5_Figb_HTML.jpg) |\n| `IconButton`\
+  \ | ![](img/638603_1_En_5_Figc_HTML.jpg) |\n| `FloatingActionButton` | ![](img/638603_1_En_5_Figd_HTML.jpg)\
+  \ |\n| `SegmentedButton` | ![](img/638603_1_En_5_Fige_HTML.jpg) |\n| `CupertinoButton`\
+  \ | ![](img/638603_1_En_5_Figf_HTML.jpg) |\n\n让我们仔细看看它们。\n\n### `ElevatedButton`\n\
+  \n这种按钮看起来像是浮动在页面上方：\n\n```\nElevatedButton(\n  onPressed: () => {},\n  child: const\
+  \ Text(\"ElevatedButton\"),\n),\n```\n\n### `TextButton` 和 `IconButton`\n\n这两种按钮有点像是\
+  \ `ElevatedButton` 的对立面。它们看起来完全是扁平的，很不起眼，只有简单的文字或图标，不会强烈暗示用户去按下，比如“撤销”按钮或“返回”按钮。\n\
+  \n```\nIconButton(\n  icon: const Icon(Icons.delete),\n  onPressed: () => {},\n\
+  ),\nTextButton(\n  onPressed: () => {},\n  child: const Text(\"TextButton\"),\n\
+  ),\n```\n\n### `FloatingActionButton` (FAB)\n\n这是你常在屏幕右下角看到的那种按钮。它通常是圆形的，明确地向用户提示如何进入工作流的下一步（图\
+  \ 5-3）。\n\n![](img/638603_1_En_5_Fig3_HTML.jpg)\n\n**图 5-3** 浮动操作按钮\n\n在 Flutter\
+  \ 中，FAB 是 Scaffold 的三个主要组成部分之一。你通常会看到它像这样被包含进来：\n\n```\nWidget build(BuildContext\
+  \ context) {\n  return Scaffold(\n    appBar: ...,\n    body: ...,\n    floatingActionButton:\
+  \ FloatingActionButton(\n      child: const Icon(Icons.help),\n      onPressed:\
+  \ (){},\n    ),\n  );\n}\n```\n\n### `SegmentedButton`\n\n这是一组被视为一个整体的按钮。可以选择一项，也可以选择多项。\n\
+  \n```\nSegmentedButton(\n  emptySelectionAllowed: true,\n  multiSelectionEnabled:\
+  \ true,\n  selected: selectedValue, // 当前选中的值\n  onSelectionChanged: (value) =>\n\
+  \    setState(() => selectedValue = value),\n  segments: const [\n    ButtonSegment(label:\
+  \ Text('Option 1'), value: 'option1'),\n    ButtonSegment(label: Text('Option 2'),\
+  \ value: 'option2'),\n    ButtonSegment(label: Text('Option 3'), value: 'option3'),\n\
+  \  ],\n),\n```\n\n### `CupertinoButton`\n\n一种 iOS 风格的按钮。在 iPhone 上看起来很棒，但在 Android\
+  \ 设备上使用 iOS 风格会感觉有点奇怪。如果你使用它，可能打算将它包裹在 `CupertinoApp` 中，而不是本章中其他按钮使用的 `MaterialApp`。如果这样做，请确保在\
+  \ Dart 文件顶部添加以下内容：\n\n```\nimport 'package:flutter/cupertino.dart';\n```\n\n## `Dismissible`\n\
+  \n所有按钮的创建目的只有一个：响应按下操作。类似地，`Dismissible` 的创建目的也只有一个：响应滑动操作。要使用它，你通常需要构建一个小部件，然后用\
+  \ `Dismissible` 将其包裹起来。这样，该小部件就能响应滑动手势：\n\n```\nDismissible(\n  // 向右滑动时给蓝色背景，\n\
+  \  // 向左滑动时给红色背景\n  background: Container(color: Colors.blue),\n  secondaryBackground:\
+  \ Container(color: Colors.red),\n  onDismissed: (direction) => print(\"You swiped\
+  \ $direction\"),\n  child: SomeWidget(),\n);\n```\n\n注意，顾名思义，它用于取消（dismiss）一个小部件，在将其“滑走”时从视图中移除它。但如果我只想滑动它，而不想取消它呢？这就需要自定义手势了。\n\
+  \n## 为自定义小部件创建自定义手势\n\n为什么 `Dismissible` 能理解滑动手势？为什么按钮能理解 `onPressed` 手势？因为开发者将它们写入了代码中。你的自定义小部件也需要编写手势程序。但由于是*你*在编写它们，你可以创建自己的手势。并且你可以创建比简单按下更有趣的手势。你可以让你的小部件响应滑动、长按、双击和捏合缩放。\n\
+  \n| `Tap` | 即按下。包括双击（点按两次） |\n| `LongPress` | 长时间按在屏幕上——大约一两秒钟 |\n| `Scale` | 即捏合或展开，当你的手指分开时\
+  \ |\n| `Drag` | 即滑动 |\n\n**注意**\n\n还有一个 `Pan` 手势，它与 `Drag` 非常相似，为了简化，我们在此略过。\n\n\
+  响应自定义手势需要以下步骤：\n\n1.  确定你的手势及其行为。\n2.  正常创建你的自定义小部件。\n3.  添加一个 `GestureDetector`\
+  \ 小部件。\n4.  将手势与其行为关联起来。\n\n### 第一步：确定你的手势及其行为\n\n这一步很简单。你的用户体验专家可能在你拿到设计稿之前就已经完成了。你只需列出你想响应的手势，以及检测到该手势时应执行的操作。\n\
+  \n我们将通过一个例子来演示。假设用户看到一个人物列表，需要选择他们喜欢和不喜欢的人。我们让用户向右滑动他们喜欢的每个人，向左滑动他们不喜欢的每个人。再假设用户有时想在两个人之间添加一个新人物。我们会让他们用双指将两个人分开——就像在他们之间为新条目腾出空间一样。最后，也许我们会让用户长按来删除一个人物。\n\
+  \n| 手势 | 动作 |\n| --- | --- |\n| 向右滑动 | 将他们添加到“喜欢”列表 |\n| 向左滑动 | 将他们添加到“不喜欢”列表 |\n\
+  | 捏合（实际上是反向捏合） | 插入一个新人物 |\n| 长按 | 删除那个人物 |\n\n### 第二步：创建你的自定义小部件\n\n按照我们在前几章中学到的方法编写\
+  \ Dart 代码。这是一个人物列表：\n\n```\nclass ManagePeople extends StatelessWidget {\n  List\
+  \ fetchPeople() {\n    return [\n      {\"first\":\"Kevin\", \"last\":\"Malone\"\
+  },\n      {\"first\":\"Kelly\", \"last\":\"Kapoor\"},\n      {\"first\":\"Creed\"\
+  , \"last\":\"Bratton\"},\n      {\"first\":\"Dwight\", \"last\":\"Schrute\"},\n\
+  \      {\"first\":\"Andy\", \"last\":\"Bernard\"},\n      {\"first\":\"Pam\", \"\
+  last\":\"Beasley\"},\n      {\"first\":\"Jim\", \"last\":\"Halpert\"},\n      {\"\
+  first\":\"Robert\", \"last\":\"California\"},\n      {\"first\":\"David\", \"last\"\
+  :\"Wallace\"},\n      {\"first\":\"Ryan\", \"last\":\"Howard\"},\n    ];\n  }\n\n\
+  \  @override\n  Widget build(BuildContext context) {\n    var _peopleObjects = fetchPeople();\n\
+  \    return ListView(\n      children: _peopleObjects.map((person) =>\n        Person(person:person)).toList(),\n\
+  \    );\n  }\n}\n```\n\n### 第三步：添加一个 `GestureDetector` 小部件\n\n`GestureDetector`\
+  \ 小部件与大多数 UX 小部件不同——它是不可见的。你可以将某个小部件用 `GestureDetector` 包裹起来，或者将其嵌套在 `child` 属性中；它非常灵活。无论哪种方式，它都能检测并处理该小部件的手势。由于看不见它，它除了\
+  \ `child` 属性或 `build` 方法之外没有多余的其他属性或方法，正如你所期望的那样。事件才是关键所在！\n\n在这里，我们用 `GestureDetector`\
+  \ 包裹每个 `Person`：\n\n```\nreturn ListView(\n  children: _peopleObjects\n    .map((person)\
+  \ =>\n      GestureDetector(child: Person(person: person))\n    ).toList(),\n);\n\
+  ```\n\n\n\n#### 第四步：将手势与其行为关联起来\n\n最后一步。为你在第一步中设计的每个事件分配一个方法。`GestureDetector`（手势检测器）支持大量事件^(¹⁰)，因此它们可能会让人感到非常困惑。我们在这里将其归纳为最常用的一些事件。\n\
+  \n| 手势 | 要使用的事件 |\n| --- | --- |\n| 点击（按下） | `onTap` |\n| 双击 | `onDoubleTap` |\n\
+  | 长按 | `onLongPress` |\n| 左右滑动 | `onHorizontalDragUpdate`、`Start`、`End` |\n| 上下滑动\
+  \ | `onVerticalDragUpdate`、`Start`、`End` |\n| 斜向滑动 | `onPanUpdate`、`Start`、`End`\
+  \ |\n| 捏合 | `onScaleUpdate`、`Start`、`End` |\n\n#### 示例 1：响应长按\n\n长按（图 5-4）会忽略简单的点击，但当用户持续按下较长时间（比如一两秒）时会触发。假设我们的用户体验设计团队决定，长按将表示用户想要删除一个用户。\n\
+  \n![](img/638603_1_En_5_Fig4_HTML.jpg)\n\n图 5-4\n\n长按\n\n为了实现这一点，我们将添加 `onLongPress`\
+  \ 事件处理器：\n\n```\nGestureDetector(\n  child: Person(person: person),\n  onLongPress:\
+  \ () {\n    _people.remove(person);\n    print(\"已删除 ${person['first']}\");\n  },\n\
+  );\n```\n\n#### 示例 2：通过捏合添加新项目\n\n假设我们的用户体验专家建议，用户可能想要向列表中添加项目，并指定插入的位置。为了表达这一点，他们将通过反向捏合（双指张开）来展开列表（图\
+  \ 5-5）。\n\n![](img/638603_1_En_5_Fig5_HTML.jpg)\n\n图 5-5\n\n捏合\n\n我们需要检测用户是在向内捏合还是向外张开。正常的向内捏合应该被忽略。但向外张开——即他们张开手指——意味着我们正在添加一个新用户。请注意，某些事件处理器会接收到一个事件对象。这个对象包含了关于该特定事件的信息。在缩放/捏合的情况下，它包含一个名为\
+  \ `scale` 的属性。如果 `scale` 大于 1.0，则这是一个向外张开（放大）。假设如果用户进行的向外张开操作达到正常缩放的两倍，我们就认为他们想要向列表中添加一个新用户：\n\
+  \n```\nonScaleUpdate: (e) {\n  if (e.scale > 2.0)\n    addPerson(context);\n},\n\
+  ```\n\n#### 示例 3：向左或向右滑动\n\n现在，我们的用户体验团队决定，如果用户在列表中的某个人上向右滑动，我们应该将其添加到“好人”列表；如果用户向左滑动，则将其添加到“坏人”列表（图\
+  \ 5-6）。\n\n![](img/638603_1_En_5_Fig6_HTML.jpg)\n\n图 5-6\n\n滑动\n\n要检测滑动，我们会寻找拖拽或平移。当我们预期用户可能进行*斜向*滑动时，会使用平移（pan）。`HorizontalDrag`（水平拖拽）仅针对左和右；它会忽略\
+  \ Y 方向。`VerticalDrag`（垂直拖拽）仅针对上和下；它会忽略 X 方向上的任何变化。由于我们只关心左滑或右滑，我们将专注于 `HorizontalDrag`\
+  \ 手势。\n\n我们的应用可以通过使用 `onHorizontalDragEnd` 事件来响应任何滑动。在这种情况下，我们还需要关注滑动的方向：是从左到右还是从右到左？因此，我们必须在每种情况下都查看事件对象。在拖拽开始时，我们保存用户手指所在的\
+  \ X 位置。然后随着每个像素的移动，拖拽更新事件会捕获当前的 X 位置。最后，在拖拽结束时，我们做一个简单的计算；如果结束时的 X 位置更大，我们就知道是向右滑动了。否则，就是向左滑动：\n\
+  \n```\ndouble swipeStartX = 0;\nString swipeDirection = \"\";\nreturn GestureDetector(\n\
+  \  child: Person(person: person),\n  onHorizontalDragStart: (e) {\n    swipeStartX\
+  \ = e.globalPosition.dx;\n  },\n  onHorizontalDragUpdate: (e) {\n    swipeDirection\
+  \ =\n      (e.globalPosition.dx > swipeStartX) ? \"Right\" : \"Left\";\n  },\n \
+  \ onHorizontalDragEnd: (e) {\n    if (_swipeDirection == \"Right\")\n      updatePerson(person,\
+  \ status: \"nice\");\n    else\n      updatePerson(person, status: \"naughty\");\n\
+  \  },\n);\n```\n\n## 结论\n\nFlutter 的手势直观易懂。它们的工作方式与普通开发者预期的一致，使我们易于编写代码，也让用户易于使用。当被触发时，所有事件都会在单独的线程上运行，因此让它们返回\
+  \ `Async<>` 对象是完全没问题的。因此，请随意将你的事件处理函数标记为 `async`，并用 `await` 来填充它们。^(¹¹)\n\n脚注 1\
+  \ 2\n\n"
+- "# 6. 导航与路由\n\n所有应用都涉及从一个屏幕*移动*到另一个屏幕的概念。用户点击购物车按钮，我们就进入购物车场景。用户点击“继续购物”按钮，我们就继续浏览以购买更多商品。一些应用开发者称之为路由。另一些则称之为导航。不管你怎么称呼它，这都是\
+  \ Flutter 让事情变得简单的领域之一，因为只有四种导航方式：\n\n- **堆栈（Stacks）** – 每个 widget 都是全屏的。用户通过点击按钮来遍历预定义的工作流程。历史记录会被维护，用户可以通过按返回按钮回溯。\n\
+  - **抽屉（Drawers）** – 屏幕的大部分区域显示一个 widget，但在左边缘，有一个抽屉正对着用户。当用户按下它或向右滑动它时，它会滑出并显示一个菜单选项。按下一个选项会更改主屏幕区域的\
+  \ widget。\n- **标签页（Tabs）** – 在屏幕的顶部或底部会预留一些空间来放置一组标签页。当你点击某个标签页时，我们会显示与该标签页对应的 widget。\n\
+  - **对话框（Dialogs）** – 虽然严格来说它们不属于导航的一部分，但它们也是一种查看另一个 widget 的方式，所以我们将其纳入。对话框是模态的（即弹出窗口），会一直显示直到用户将其关闭。\n\
+  \n这些方法中的每一种都依赖于你的应用拥有一个 `MaterialWidget` 作为其祖先。让我们从堆栈导航开始，深入探讨这些方法。\n\n## 堆栈导航\n\
+  \n如果你是一位经验丰富的开发者，你对队列和堆栈应该不陌生。如果不是，让我简要解释一下。假设你在厨房工作。盘子洗完后，会被堆叠起来，对吧？每个盘子都被放在堆栈的顶部。这被称为*压入（pushing）*堆栈。当需要上菜时，你自然会拿起最后一个放入的盘子，也就是堆栈顶部的那个。这被称为从堆栈顶部*弹出（popping）*。\n\
+  \nFlutter 的导航就是使用堆栈工作的。当你想将用户带到一个新场景时，你会将一个 widget `push()` 到堆栈的顶部，用户就会看到该 widget。每次你\
+  \ `push()` 时，都会使场景堆栈变得越来越高。当你希望用户返回到他们之前的位置时，你会从堆栈顶部 `pop()` 掉最后一个场景，然后会露出什么？是之前的那个场景。\n\
+  \n使用 Flutter 的堆栈，你通常会预先定义场景（也称为路由）并为每个场景命名。这必须在 `MaterialApp` 层面完成，如下所示：\n\n```\n\
+  Widget build(BuildContext context) {\n  return MaterialApp(\n    title: '购物应用',\n\
+  \    initialRoute: '/',\n    routes: {\n      '/': (ctx) => LandingScene(),\n  \
+  \    '/browse': (ctx) => Browse(),\n      '/product': (ctx) => ViewProduct(),\n\
+  \      '/checkout': (ctx) => Checkout(),\n    },\n  );\n}\n```\n\n请注意，使用路由时，我们不再使用\
+  \ `home` 属性。取而代之的是使用 `initialRoute` 属性。\n\n提示\n\n如果你的 `initialRoute` 是 `\"/\"`，你可以完全省略它，Flutter\
+  \ 会假定它是 `\"/\"`。\n\n\n\n### 向前与向后导航\n\n要在场景间导航，你需要使用 `Navigator.pushNamed(context,\
+  \ route)` 和 `Navigator.pop(context)`。\n\n要将用户推送到另一个路由：\n\n```\nRaisedButton(\nchild:\
+  \ const Text('结账'),\nonPressed: () => Navigator.pushNamed(context, '/checkout'),\n\
+  ),\n```\n\n当他们完成任务并想要返回时：\n\n```\nRaisedButton(\nchild: const Text('返回'),\nonPressed:\
+  \ () => Navigator.pop(context),\n),\n```\n\n等等，还有更多！注意，如果你使用了 `Scaffold`，`appBar`\
+  \ 中会自动添加一个返回箭头（图 6-1）。点击它即可返回。如果你的用户在 Android 设备上，无处不在的 Android 返回键也同样有效（图 6-2）。\n\
+  \n![](img/638603_1_En_6_Fig2_HTML.jpg)\n\n图 6-2 —— Android 返回键与栈协同工作\n\n![](img/638603_1_En_6_Fig1_HTML.jpg)\n\
+  \n图 6-1 —— `appBar` 中的返回箭头\n\n### 使用匿名路由\n\n使用命名路由时，你的路由方案是自文档化的。当你的团队成员想要审查场景级别的组件时，只需前往\
+  \ `MaterialApp` 找到路由即可。瞧！所有可访问的页面一目了然。\n\n还有一种路由方式，不需要在 `MaterialApp` 中预定义路由表。相反，你可以动态生成路由。由于没有名称，我们将之称为匿名路由。匿名路由更加即兴和灵活，但对于你的团队成员来说，也更容易变得不可预测。\n\
+  \n你随时可以：\n\n```\nNavigator.push(\ncontext,\nMaterialPageRoute(builder:\n(BuildContext\
+  \ context) => SecondRoute()\n)\n);\n```\n\n如你所见，这种方式要复杂得多。但如果想要自定义过渡效果，或者不想使用预定义路由，它就很受欢迎。通过这种方式，你可以导航到任意组件，无论它是否在命名路由列表中。\n\
+  \n### 场景关闭后获取结果\n\n使用栈式导航时，每次调用 `pop()` 都会返回其调用者。因此，每个场景都有可能返回一个值。这虽然不常见，但在将用户引导至工作流时却非常有用。假设你的应用有一个维护\
+  \ `person` 对象的区域。该 `person` 对象在 `MyPersonWidget` 中定义，我们提供了一个按钮来修改登录凭据，另一个按钮来修改电话号码，还有一个按钮来修改\
+  \ X/Twitter 账号。当用户点击每个按钮时，我们可能会通过 `push()` 将他们导航到一个路由来修改数据。如果这样，当我们在 `pop()` 时，需要将修改后的数据返回给\
+  \ `MyPersonWidget`。在这种情况下，我们会以略微不同的方式使用 `push()`；我们需要一个变量来接收返回值：\n\n```\n// 这里需要\
+  \ 'async'，因为下面要使用 'await'。\nonPressed:  () async {\n_person.xHandle =\nawait Navigator.pushNamed(context,\
+  \ '/xHandle');\n},\n```\n\n注意\n\n`await` 关键字意味着 `pushNamed()` 返回一个 `Future`。同时请注意，从此路由返回的任何值都将赋值给\
+  \ `_person.xHandle`。\n\n那么这个值是如何从 `XWidget` 返回的呢？当然是在 `pop()` 中！\n\n```\nNavigator.pop(context,\
+  \ xHandle);\n```\n\n`Navigator.pop()` 是重载的。如果你添加第二个参数，它将会被返回给最初调用 `push()` 的组件。在上述示例中，`xHandle`\
+  \ 将被返回。\n\n对于层级较浅的应用，使用 `push()` 和 `pop()` 的效果很好。但你的应用可能具有深层导航树且包含大量选项。这类应用通常不适合用大量按钮来进行\
+  \ `push()` 和 `pop()`。相反，它们应该有一个导航菜单。Flutter 为我们提供了两种类型。较简单的应用可以使用标签页。更复杂的应用则可以使用抽屉。下面我们来看看抽屉。\n\
+  \n## 抽屉导航\n\n当我们有大量导航选项——多到无法放入标签页时，抽屉是非常好的选择。在许多响应式网站上，你会看到页面顶部有一个菜单，包含指向网站其他页面的链接。当网站被放置在小型设备或甚至狭窄的浏览器窗口中查看时，该菜单会被一个汉堡菜单替代，点击后会下拉出一个包含相同选项的菜单。本质上，这是网站对有限屏幕空间的响应，提供了用户需要时才显示的菜单选项。\n\
+  \n由于大多数手机屏幕空间已经有限，你可能会选择将菜单选项放在抽屉里，这样在用户准备好查看之前，它不会占用宝贵的屏幕空间（图 6-3）。用户将点击如今常见的汉堡菜单（那个有三条横线的图标），选项会从左侧滑出（图\
+  \ 6-4）。当用户选择某个选项后，我们将通过 `Navigator.push()` 将他们导航到一个新的路由。\n\n![](img/638603_1_En_6_Fig4_HTML.jpg)\n\
+  \n图 6-4 —— 抽屉打开时的场景\n\n![](img/638603_1_En_6_Fig3_HTML.jpg)\n\n图 6-3 —— 抽屉关闭时的场景\n\
+  \n### 抽屉组件\n\n你需要一个 `NavigationDrawer` 组件，这是一个内置的 Flutter 组件，具有滑出、滑入以及包含菜单选项的功能。使用抽屉时，你总是将其放在\
+  \ `Scaffold` 的 `drawer` 属性中，如下所示：\n\n```\nWidget build(BuildContext context) {\n\
+  return Scaffold(\nbody: SomeFullPageWidget(),\ndrawer: NavigationDrawer(child: Column(\n\
+  children: [\nText('选项 1'),\nText('选项 2'),\nText('选项 3'),\n],\n),),\n);\n}\n```\n\
+  \n请注意，当你的 `Scaffold` 中有抽屉时，它的汉堡图标会取代 `appBar` 的返回按钮。除非你手动创建自己的按钮，否则这两个按钮无法同时显示。因此，虽然抽屉导航和栈式导航*可以*协同工作，但可能会显得有些尴尬。一个让它们很好配合的例子是，在顶层使用抽屉，然后在所有下层使用栈式导航。\n\
+  \n提示\n\n你希望整个应用都能使用一致的抽屉吗？如果是，我们通常在每个场景中放置一个 `Scaffold`，并在其中包含抽屉。因此，最好将抽屉放在独立的组件中，然后包含它。\n\
+  \n```\nreturn Scaffold(\nappBar: AppBar(\ntitle: const Text('抽屉导航'),\n),\nbody:\
+  \ const Text('抽屉导航'),\ndrawer: MyDrawer(),\n);\n```\n\n\n\n### 填充抽屉\n\n添加抽屉本身很简单。关键在于如何将条目放入抽屉，并让它们导航到其他组件。请注意，`Drawer`\
+  \ 有一个*child*属性，它只接受单个组件。要让抽屉中有多个子组件，你需要使用支持多个子组件的组件，例如`Column`（不可滚动）或`ListView`（可滚动）。\n\
+  \n无论你选择哪种，都需要在其中放入可点击的内容，因为要进行导航，你需要像使用堆栈导航一样调用`Navigator.push()`或`Navigator.pushNamed()`。\n\
+  \n**提示**  \n有一个很酷的组件叫`DrawerHeader`，它专门用于占据抽屉顶部的大片区域。它非常适合放置你的 Logo 或其他品牌信息，让用户知道他们正在使用哪个应用。这虽然只是装饰性的，但效果确实很棒。\n\
+  \n以下是完整的代码。它生成了图 6-4 中的截图。\n\n```dart\nreturn Drawer(\n  child: ListView(\n    children:\
+  \ [\n      DrawerHeader(\n        child: Stack(\n          children: [\n       \
+  \     Image.asset('lib/assets/Logo.jpg'),\n            Container(\n            \
+  \  alignment: Alignment.bottomRight,\n              child: Text('My Brand')),\n\
+  \          ],\n        ),\n      ),\n      ListTile(\n        leading: const Icon(Icons.looks_one),\n\
+  \        title: const Text('Widget 1'),\n        onTap: () => Navigator.pushNamed(context,\
+  \ '/widget1')\n      ),\n      ListTile(\n        leading: const Icon(Icons.looks_two),\n\
+  \        title: const Text('Widget 2'),\n        onTap: () => Navigator.pushNamed(context,\
+  \ '/widget2')\n      ),\n      ListTile(\n        leading: const Icon(Icons.looks_3),\n\
+  \        title: const Text('Widget 3'),\n        onTap: () => Navigator.pushNamed(context,\
+  \ '/widget3')\n      ),\n    ],\n  ),\n);\n```\n\n抽屉导航虽然很好，但用户体验专家对此有一些疑虑。他们声称^((12))这会显著降低应用的可用性，使得你的应用更难被发现和操作。他们认为问题在于选项在用户主动请求之前是隐藏的。他们的异议可以通过一个始终可见的提示（affordance）来解决。说到这个……\n\
+  \n## 标签导航\n\n正如你所想，标签系统将 N 个标签与 N 个组件一一对应。当用户按下标签 1 时，他们看到组件 1，依此类推（图 6-5）。这种匹配是通过`DefaultTabController`、一个包含`Tab`组件的`TabBar`组件以及一个`TabBarView`组件来实现的。\n\
+  \n![](img/638603_1_En_6_Fig6_HTML.jpg)\n\n图 6-6  \n同一个`TabBar`，选中了第四个标签\n\n![](img/638603_1_En_6_Fig5_HTML.jpg)\n\
+  \n图 6-5  \n一个`TabBar`，选中了第二个标签\n\n**提示**  \n虽然标签数量没有硬性上限，但如果`TabBar`上的标签太多，你的应用会变得极其难用。因为点击那些微小的标签实在太困难。如果实在没办法，你可以将`isScrollable`设置为`true`，并让用户知道他们可以向左滑动来滚动标签列表。\n\
+  \n### DefaultTabController\n\n`DefaultTabController`是最不直观的部分。你只需要知道必须有它，否则你会得到图\
+  \ 6-7 中的错误。\n\n![](img/638603_1_En_6_Fig7_HTML.jpg)\n\n图 6-7  \n当你忘记添加`TabController`时\n\
+  \n创建它的最简单方法是将所有内容包裹在一个带有`length`属性的`DefaultTabController()`中。问题就解决了。这部分非常简单——简单到你可能会想，为什么\
+  \ Flutter 不为你隐式创建一个？如果你这么想，那也不算错：\n\n```dart\nWidget build(BuildContext context)\
+  \ {\n  return DefaultTabController(\n    length: 5,\n    child: Scaffold(\n    \
+  \  ...\n    );\n  }\n}\n```\n\n### TabBarView\n\n接下来，你需要添加一个`TabBarView`组件。这个组件包含的是当用户按下标签时最终会显示的组件，并定义了它们将显示在*哪里*。通常，这会占据屏幕的其余部分，但你也可以将其他组件放在`TabBarView`的上方、下方或任何位置。你应该提供与`DefaultTabController`的`length`属性相同数量的组件（理所当然）：\n\
+  \n```dart\nchild: Scaffold(\n  ...\n  body: TabBarView(\n    children: [\n     \
+  \ WidgetA(),\n      WidgetB(),\n      WidgetC(),\n      WidgetD(),\n      WidgetE(),\n\
+  \    ],\n  ),\n```\n\n### TabBar 和 标签\n\n最后，我们来定义标签本身。标签可以包含文本、图标，或者两者兼有。下面是一个包含五个标签的`TabBar`，每个标签只有图标：\n\
+  \n```dart\nchild: Scaffold(\n  appBar: AppBar(\n    title: const Text('标签导航演示'),\n\
+  \    bottom: const TabBar(\n      tabs: [\n        Tab(icon: Icon(Icons.looks_one)),\n\
+  \        Tab(icon: Icon(Icons.looks_two)),\n        Tab(icon: Icon(Icons.looks_3)),\n\
+  \        Tab(icon: Icon(Icons.looks_4)),\n        Tab(icon: Icon(Icons.looks_5)),\n\
+  \      ],\n    ),\n  ),\n  ...\n```\n\n要为`Tab()`添加文本，请提供一个`child`属性：`Tab(child:\
+  \ Text('选项 1'))`。\n\n**注意**  \n每个标签与`TabBarView`中的每个子组件存在一一对应的关系，它们按位置进行匹配。你必须有相同数量的标签和`TabBarView`内的组件，并且顺序必须一致。\n\
+  \n### 将 TabBar 放在底部\n\n请注意，之前我们选择将`TabBar`放在`appBar`中，它自然出现在屏幕顶部。但有时你的设计需要标签显示在屏幕底部。这很容易实现，因为`Scaffold`有一个名为`bottomNavigationBar`的属性，它设计用于容纳一个`TabBar`：\n\
+  \n```dart\nchild: Scaffold(\n  ...\n  bottomNavigationBar: const TabBar(\n    tabs:\
+  \ [\n      Tab(icon: Icon(Icons.looks_one)),\n      Tab(icon: Icon(Icons.looks_two)),\n\
+  \      Tab(icon: Icon(Icons.looks_3)),\n      Tab(icon: Icon(Icons.looks_4)),\n\
+  \      Tab(icon: Icon(Icons.looks_5)),\n    ],\n  ),\n),\n```\n\n![](img/638603_1_En_6_Fig8_HTML.jpg)\n\
+  \n图 6-8  \n位于底部的`TabBar`\n\n**注意**  \n`TabBar`的默认外观是在深色背景上显示浅色文字。因此，当你将`TabBar`放置在浅色背景上时，文字可能难以辨认（浅色叠加浅色）。要解决这个问题，可以将你的`TabBar`包裹在一个具有更深背景颜色的`Material`组件中。\n\
+  \n## 对话框组件\n\n我们最后一个导航类别严格来说可能根本不算导航类别——对话框。从某种意义上说，你是在显示另一个组件，所以……算导航？但从另一种意义上说，你基本上是在显示一个弹出窗口，所以……不算导航。¯\\\
+  _(ツ)_/¯\n\n无论哪种方式，对话框都是常见的东西，我们应该介绍一下。由于它们在本章其他部分不太好归类，我们暂时假装它们是导航主题之一。嗯，配合一下。\n\
+  \n### `showDialog()` 和 `AlertDialog`\n\n`showDialog()`是 Flutter 的一个内置方法。你必须提供一个`context`和一个返回`Widget`的`builder`方法，通常返回的是`SimpleDialog`或`AlertDialog`。`AlertDialog`有一个*actions*参数——这是一个由（通常是）`TextButton`组成的`List`，用于让用户关闭对话框（图\
+  \ 6-9）。\n\n![](img/638603_1_En_6_Fig9_HTML.jpg)\n\n图 6-9  \n一个简单的`AlertDialog`\n\
+  \n```dart\nElevatedButton(\n  child: const Text('我是一个按钮。点我'),\n  onPressed: () =>\
+  \ showDialog(\n    context: context,\n    builder: (BuildContext context) {\n  \
+  \    return AlertDialog(\n        content: const Text('按“确定”继续'),\n        actions:\
+  \ [\n          TextButton(\n            child: const Text('确定'),\n            onPressed:\
+  \ () => Navigator.pop(context)),\n        ],\n      );\n    },\n  ),\n),\n```\n\n\
+  这看起来比实际需要的更复杂。而这已经是最简单的形式了！如果你想给用户提供更多选择，它会变得更复杂。\n\n\n\n### 响应式对话框\n\n`showDialog()`\
+  \ 返回一个 `Future<T>`，这意味着它可以向调用者返回一个值。假设你想要用户通过“是”或“否”来回应（图 6-10）。\n\n![](img/638603_1_En_6_Fig10_HTML.jpg)\n\
+  \n**图 6-10** – 可返回值的 `AlertDialog`\n\n你可以像这样创建对话框并处理响应：\n\n```\nElevatedButton(\n\
+  child: const Text('获取响应'),\nonPressed: () async {\n// 构建器在此处返回用户的选择。\n// 由于这是一个\
+  \ Future，我们使用 'await' 来\n// 将其转换为 String\nString response = await showDialog(\n\
+  context: context,\nbuilder: (BuildContext context) {\nreturn AlertDialog(\ncontent:\
+  \ const Text('你确定吗？'),\nactions: [\nTextButton(\nchild: const Text('是'),\n// 关闭时返回\
+  \ \"是\"。\nonPressed: () => Navigator.pop(context, '是')),\nTextButton(\nchild: const\
+  \ Text('否'),\n// 关闭时返回 \"否\"。\nonPressed: () => Navigator.pop(context, '否')),\n\
+  ],\n);\n},\n);\n// 对上面 'await' 得到的响应进行处理。\nprint(response);\n},\n),\n```\n\n**提示**\
+  \ – 顾名思义，`SimpleDialog` 组件是 `AlertDialog` 的简化版本。它没有操作按钮，因为点击任意位置即可关闭。它的构造函数参数较少，例如\
+  \ `titleTextStyle`、`contentTextStyle` 等。当你不需要用户对提示做出响应，而只是进行通知时，主要使用它。\n\n## 导航方法可以组合使用\n\
+  \n虽然你可以通过堆叠导航进入带抽屉的组件，再从那里导航到带选项卡的组件，但你需要谨慎。这些方法并非不兼容，但混合使用时可能会变得相当复杂！试想一下；如果你通过\
+  \ `push()` 堆叠导航到一个带抽屉的组件，`appBar` 中的返回按钮将不再可用。Android 底部有软返回按钮，但 iOS 没有。因此用户将陷入无法返回的困境。另一个例子，`TabBarView`\
+  \ 包含组件，但这些组件可以说是被托管的，因此它们不应该有 `Scaffold`。如果你尝试使用另外两种方法中的任何一种导航到同一个组件，你将无法返回……既没有抽屉可显示，也没有返回按钮可点击。用户再次陷入困境。\n\
+  \n我们建议只坚持使用两种不同的类型，并保持层级一致。例如，为用户提供带选项卡的导航体验非常常见，而在每个选项卡内部，你可以使用堆叠导航。但若设计得比这复杂得多，你可能会忙得不可开交。\n\
+  \n脚注 1\n\n"
+- "# 7. 管理状态\n\n我们从第一章开始就一直铺垫这个主题，因为我们一直在编写继承自 `StatelessWidget` 的类。既然 Flutter 有一个\
+  \ `State**less**Widget`，那么你可能会想它也应该有一个 `State**ful**Widget`。没错，你想对了。\n\n但究竟什么是 `StatefulWidget`？它与无状态组件有何不同？我们何时选择一种而非另一种？`StatefulWidget`\
+  \ 的结构是怎样的？使用它有什么规则吗？如果数据发生变化，如何重新渲染？都是好问题，对吧？耐心点，年轻的绝地武士，我们将在本章中回答所有这些以及更多问题。\n\n\
+  **警告** – 本章不适合胆小者。本章将介绍一些令人费解的概念。不是说你应付不了！我们只是提前给你打个预防针，这样当你遇到一些更深层次的概念和代码时，不会灰心。做好准备就好。\n\
+  \n### 什么是状态？\n\n> *状态是值发生变化时需要重新渲染的组件数据。*\n> \n> *——Rap Payne ;-)*\n\n`StatelessWidgets`\
+  \ 可能包含数据，但这些数据要么在组件存活期间不会改变，要么不会改变屏幕的外观。当然，当 Flutter 销毁并重新创建组件时，这些数据可能会改变，但这不算。要成为状态，它必须在组件处于活动状态时发生变化。\n\
+  \nFlutter 提供了一些开箱即用且自带状态的组件。\n\n| - `AppBar` | - `InputDecorator` |\n| - `BottomNavigationBar`\
+  \ | - `MonthPicker` |\n| - `Checkbox` | - `Navigator` |\n| - `DefaultTabController`\
+  \ | - `ProgressIndicator` |\n| - `Dismissible` | - `Radio` |\n| - `DrawerController`\
+  \ | - `RefreshIndicator` |\n| - `DropdownButton` | - `Scaffold` |\n| - `EditableText`\
+  \ | - `Scrollbar` |\n| - `Form` | - `Slider` |\n| - `FormField` | - `Switch` |\n\
+  | - `GlowingOverscrollIndicator` | - `TextField` |\n| - `Image` | - `YearPicker`\
+  \ |\n\n……以及更多。这些组件都拥有需要维护和监控的内部数据，以便当其变化时，Flutter 能重新渲染组件以在屏幕上显示所述变化。这很难理解吗？让我们举一个简单的例子：`TextField`\
+  \ 组件。\n\n是的，我们正在讨论这个行为类似于文本框的内置组件；最终用户可以在其中输入字符。你当然意识到，当用户输入时，组件会跟踪并显示他们正在输入的内容。我的朋友，这就是状态——发生变化并实时显示的数据。\n\
+  \n这听起来很棒，但我们如何编写自己的 `StatefulWidget` 呢？请继续阅读！\n\n\n\n## `StatefulWidget` 的结构\n\n\
+  每个 `StatefulWidget` 看起来都是这样的：\n\n```\nclass Foo extends StatefulWidget {\n  @override\n\
+  \  State createState() => _FooState();\n}\n\nclass _FooState extends State {\n \
+  \ // 这里的私有变量即被视为“状态”\n  @override\n  Widget build(BuildContext context) {\n    return\
+  \ someWidget;\n  }\n}\n```\n\n**注意：** 这里有两个类：一个是组件类，一个是状态类！\n\n任何有状态的组件初看都很复杂，但一旦你熟悉了它的结构，就会变得得心应手。我们通常将这两个类写在同一个\
+  \ Dart 文件中。组件类继承自 `StatefulWidget`，并且是公开的，因为它会被放置在其他组件中。\n\n状态类始终是私有的，因为只有当前组件才能访问到这个类。状态类负责以下工作：\n\
+  \n1. 定义和维护状态数据。\n2. 定义 `build()` 方法——它知道如何在屏幕上绘制组件。\n3. 定义数据收集或事件处理所需的任何回调函数。\n\n\
+  那么组件类还剩下什么工作呢？不多了。组件类基本上只是让出空间而已。\n\n那么为什么要把它们分开呢？有两个原因。首先，[单一职责原则](https://en.wikipedia.org/wiki/Single_responsibility_principle)（SRP）建议我们由一个部分负责绘制组件，另一个部分负责处理数据。这是良好的软件设计。其他框架也建议你将\
+  \ UI 与状态管理分离，但大多数并不强制要求。Flutter 则强制执行。\n\n其次是性能。重绘需要时间。重新计算状态也需要时间。当我们像这样分离它们时，Flutter\
+  \ 就有机会独立处理这两件事。有时，仅仅因为状态发生变化，并不需要进行重绘。这样我们就节省了重绘的周期。\n\n此外，当我们重绘时，Flutter 会创建并绘制一个全新的组件。内存中的旧组件不再需要，因此会被取消引用并最终被垃圾回收。这很棒，但状态仍然需要保留。如果\
+  \ Flutter 保留那个旧的状态对象，它就可以被重用，而不是被垃圾回收和重新创建。通过分离这些对象，Flutter 解耦了它们，使它们能够各自以最高效的方式被处理。这是一个精妙的设计！\n\
+  \n## 关于状态的最重要规则！\n\n对状态数据的所有更改都必须满足以下条件：\n\n1. 在状态类中\n2. 在 `setState()` 的函数调用内部：\n\
+  \n```\nsetState(() {\n  // 在此处对所有状态变量进行更改...\n  _value = 42; // <-- ...就像这样\n});\n\
+  ```\n\n`setState()` 接收一个函数，这个函数会在……嗯……不久之后运行。Flutter 子系统会批量处理这些更改，并在它认为最优的时间统一执行。这极其高效，原因之一就是它会减少屏幕重绘的次数。\n\
+  \n`setState()` 不仅以最高效、最可控的方式设置变量，而且它总是强制此组件重新渲染。它会在幕后调用 `build()`。最终结果是：当你更改一个值时，组件会自行重绘，用户就能看到新版本。请注意，如果此组件内部包含子组件（即*内部*组件），它们也会在\
+  \ `build()` 方法中，因此调用 `setState()` 实际上会重绘此组件中的**所有内容**，包括其所有子树。\n\n如果这让你瞬间惊慌，请记住\
+  \ Flutter 使用的是虚拟组件树，所以即使我们告诉它绘制所有内容，它也能智能地判断屏幕的哪些部分不需要刷新，并且只在技术上重绘那些真正需要更新的部分。它超级高效！\n\
+  \n## 向下传递状态\n\n好吧，被你说中了。从技术上讲，你不能将状态从宿主组件传递给内部组件，因为状态只存在于组件*内部*。但我们确实想向下传递数据。这些数据可能是宿主组件中的有状态数据，并且可能会被转移到内部组件的状态中。\n\
+  \n但这并不新鲜。我们在 `StatelessWidget` 中已经这样做过。提醒一下，你只需声明类级别的 final 变量，并在构造函数参数中提供它们的初始值即可。\n\
+  \n但是，传递进来的值如何在状态类中可见呢？Flutter 为我们提供了一个名为 `widget` 的对象，它代表了 `StatefulWidget`。换句话说，如果在\
+  \ `StatefulWidget` 中有一个名为 `\"x\"` 的变量，那么在 `State` 类中就可以通过 `widget.x` 来访问它：\n\n```\n\
+  class Foo extends StatefulWidget {\n  // 从其宿主传递进来的值\n  Foo({required this.passedIn,\
+  \ super.key});\n  final String passedIn;\n\n  State createState() => _FooState();\n\
+  }\n\nclass _FooState extends State {\n  @override\n  Widget build(BuildContext context)\
+  \ {\n    return Text(widget.passedIn); // <-- 看到了吗？\"widget.\"！\n  }\n}\n```\n\n\
+  现在我们知道了如何将数据从宿主组件向下传递给内部组件，接下来我们反其道而行之，看看如何将数据从内部组件向上传递回宿主组件。\n\n## 将状态向上提升\n\n\
+  又……又被你说中了。你不能传递状态。但情况更糟。在 Flutter 中，你什么都不能往*上*传。\n\nFlutter 的数据流是单向的。没有例外。数据只能从宿主组件向下流向内部组件。我们这样做已经，大概，有\
+  \ 200 页了吧？但有时我们需要数据从内部组件向上流回宿主组件。\n\n例如，假设我们有一个 `Login` 组件，包含用户名/密码的 `TextField`\
+  \ 和一个提交按钮。我们会把这个 `Login` 组件放在其他组件中，前提是用户尚未登录。登录的业务逻辑必须放在 `Login` 组件本身。但当用户成功登录后，我们确实需要让宿主组件——甚至所有组件——知道用户现在已经认证通过。令牌需要被传回上层。但当我们无法将数据（状态）向上传递给宿主时，该怎么做呢？\n\
+  \n诀窍在这里。不要将数据往*上*传。而是将处理方法往*下*传！在 Dart 中，函数是一等公民。这意味着它们的引用可以像数据一样被传递。这也意味着你可以将一个函数从宿主组件向下传递给内部组件。现在内部组件拥有了这个函数的句柄，它可以像调用自己的函数一样调用它。当然，当内部组件调用它时，如果它往这个函数传递了一个值，那么该值就会在最初定义该函数的宿主组件中可见。\n\
+  \n这种技术被称为*提升状态*（图 7-1）。\n\n![](img/638603_1_En_7_Fig1_HTML.png)\n\n**图 7-1** 提升状态\n\
+  \n\n\n## 状态管理示例\n\n我们最好通过一些代码来巩固这些概念。假设有一个应用，允许用户通过三个滑块分别调节红、绿、蓝数值来创建颜色。这些颜色会混合并显示在一个大圆中（图\
+  \ 7-2）。\n\n![](img/638603_1_En_7_Fig2_HTML.jpg)\n\n图 7-2  \n一个有状态组件的示例\n\n显然，当滑块数据变化时，大圆需要重绘。这种需要触发重绘的变化数据就是状态！虽然我们可以在技术上把所有内容都放在一个名为`ColorMixer`的大组件中，但本书已经讲过，要将大组件拆分为更小、更专一的小组件。让我们提取出`ColorCircle`，用于顶部的大圆和底部的收藏颜色。既然我们有三个带标签的滑块，它们的功能完全相同，那么最好也将滑块/标签提取为一个`ColorValueChanger`组件。那么，图\
+  \ 7-3 中的布局如何？\n\n![](img/638603_1_En_7_Fig3_HTML.png)\n\n图 7-3  \n组件树的可能布局方式\n\n\
+  `ColorMixer`必须是有状态的：\n\n```\nimport 'package:flutter/material.dart';\nimport 'color_circle.dart';\n\
+  import 'color_value_changer.dart';\n\n// 有状态组件\nclass ColorMixer extends StatefulWidget\
+  \ {\n  const ColorMixer({super.key});\n\n  @override\n  State createState() => _ColorMixerState();\n\
+  }\n\n// 状态类\nclass _ColorMixerState extends State {\n  // 这三个变量是组件的'状态'\n  int _redColor\
+  \ = 0;\n  int _blueColor = 0;\n  int _greenColor = 0;\n\n  @override\n  Widget build(BuildContext\
+  \ context) {\n    return Column(\n      children: [\n        // 该组件使用了变量（即状态）\n\
+  \        ColorCircle(\n          color: Color.fromRGBO(\n              _redColor,\
+  \ _greenColor, _blueColor, 1),\n          radius: 200,\n        ),\n        // 以下三个组件将\
+  \ _setColor 函数向下传递，以便\n        // *此处*的状态能在下层被修改。这被称为\"状态提升\"。\n        ColorValueChanger(property:\
+  \ \"Red\", value: _redColor,\n            changeColorValue: _setColor),\n      \
+  \  ColorValueChanger(property:\"Green\",value:_greenColor,\n            changeColorValue:_setColor),\n\
+  \        ColorValueChanger(property: \"Blue\",value:_blueColor,\n            changeColorValue:\
+  \ _setColor),\n      ],\n    );\n  }\n\n  void _setColor(String property, int value)\
+  \ {\n    setState(() {\n      _redColor = (property == \"Red\") ? value : _redColor;\n\
+  \      _greenColor = (property == \"Green\") ? value : _greenColor;\n      _blueColor\
+  \ = (property == \"Blue\") ? value : _blueColor;\n    });\n  }\n}\n```\n\n请注意这一点：我们将`ColorCircle`所需的一切——颜色和尺寸——全部传递给了它。这两者在`ColorCircle`内部都不会改变，因此它可以是无状态的。如果`ColorMixer`的状态发生变化，我们只需调用`setState()`，从而重新渲染它，并进而重新渲染其所有子组件`ColorCircle`的实例。你看到了吗？子组件`ColorCircle`可以保持无状态，因为其有状态的父组件`ColorMixer`将状态变量向下传递了！\n\
+  \n同样地，我们向每个`ColorValueChanger`传递一个初始值，并传递一个对`_setColor`方法的引用。请记住，向下传递一个函数意味着该函数在子组件中可用并可执行。尽管是子组件执行它，但该函数实际上存在于父组件中！\n\
+  \n以下是在内部的`ColorValueChanger`组件中的实现方式：\n\n```\nimport 'package:flutter/material.dart';\n\
+  \nclass ColorValueChanger extends StatefulWidget {\n  // 从宿主组件传入的值\n  const ColorValueChanger({\n\
+  \    required this.property,\n    required this.value,\n    required this.changeColorValue,\
+  \ super.key});\n\n  final String property;\n  final int value;\n  final Function\
+  \ changeColorValue; // createState() => _ColorValueChangerState();\n}\n\nclass _ColorValueChangerState\
+  \ extends State {\n  int _value = 0;\n\n  @override\n  Widget build(BuildContext\
+  \ context) {\n    _value = widget.value;\n    return Column(\n      children: [\n\
+  \        Text(widget.property),\n        Slider(\n          min: 0, max: 255,\n\
+  \          value: _value.toDouble(),\n          label: widget.property,\n      \
+  \    onChanged: _onChanged,\n        )\n      ],\n    );\n  }\n\n  _onChanged(double\
+  \ value) {\n    setState(() => _value = value.round());\n    // 这里是调用从宿主（父）组件传入的设置函数的地方。\n\
+  \    widget.changeColorValue(widget.property, value.round());\n  }\n}\n```\n\n##\
+  \ 何时使用状态？\n\n但你知道吗？避免复杂状态的最佳方法就是完全避免状态。几乎每一位专家都同意，如果能够完全避免状态，那就这样做。但何时需要状态、何时不需要，有时会令人困惑。\n\
+  \n例如，颜色选择器上的标签是组件内的数据。这应该是状态吗？不，当然不是；它不会改变。`for`循环中的循环计数器呢？也不是；它从不会影响`build()`方法中的任何内容，因此不需要放入`setState()`中。看到了吗？状态有时是可以简化或消除的。\n\
+  \n图 7-4 总结了如何判断。\n\n![](img/638603_1_En_7_Fig4_HTML.jpg)\n\n图 7-4  \n如何判断是否应在组件中使用状态\n\
+  \n## 结论\n\n现在你明白了。状态是可能发生变化并会以某种方式影响显示的数据。它必须在`setState()`方法内修改，否则用户永远无法看到变化。它只能私有地存在于`StatefulWidget`中——其他组件无法访问。\n\
+  \n但这带来了一个非常、非常大的问题。如果状态是完全私有的，那么当我们需要在多个不同的组件之间共享数据时该怎么办？我们可以通过构造函数向下传递数据，也可以通过传递函数向上提升状态。但远亲组件之间呢？共享大量复杂数据呢？我们为你准备了几种解决方案，这正是下一章的主题——状态管理库！\n\
+  \n脚注\n\n## 状态管理库\n\n我们在上一章学到的内容，即使组件树变得无限深，也能按预期工作。我们可以一直将状态向上提升并向下传递。但请意识到，随着你的应用变得越来越大，状态管理也会变得愈发复杂。当复杂度太高时，使用更高级的状态管理模式会更好。这些模式通常不易学习，但在你的应用发展到一定阶段时，它们就值得你付出努力去掌握。\n\
+  \n在本章中，我们将探讨几种模式、几个组件和几个库。然后，我们将重点介绍两个库：一个简单的库，以及目前最流行的库——`Riverpod`。\n\n### InheritedWidget\n\
+  \n这是一个相对简单的解决方案，可能对于大多数需求来说过于简单了。`InheritedWidget`是 Flutter 内置的一个组件。本质上，它暴露了一小部分变量，这些变量对其组件树中的所有后代组件都是可用的。从某种意义上说，它创建了伪全局变量。它们在`InheritedWidget`之下的任何地方都可用，但只能以非常可控的方式访问。`InheritedWidget`定义了需要在其所有后代组件之间共享的变量。然后，后代组件可以沿着组件链向上查询`InheritedWidget`并访问这些变量。其他几种方法（Provider、Redux、Riverpod\
+  \ 等）都是对`InheritedWidget`的封装。\n\n优点：是本章所有解决方案中最简单的。\n\n缺点：尽管如此，对于许多 Flutter 新手来说，它仍然令人望而却步。它功能简陋，只适用于最基础的应用状态。\n\
+  \n\n\n### BLoC 模式\n\nBLoC 是业务逻辑组件的缩写，它既不是一个库，也不是一个小部件，而是一种设计模式。BLoC 模式最初是为了让代码能够在网页、移动应用和后端之间复用而创建的。由于它诞生于谷歌，Flutter\
+  \ 社区自然而然地接受了它，并一度使其成为状态管理的代名词。\n\nBLoC 将数据视为流，并以响应式的方式改变状态。它将 UI（用户界面）与业务逻辑分离，使你的代码更具以下优势：\n\
+  \n*   **可维护性** – 关注点分离更清晰，代码导航和更新更轻松。\n*   **可测试性** – 你可以独立于 UI 交互来测试业务逻辑。\n*  \
+  \ **可扩展性** – 有效处理复杂的应用状态。\n\nBLoC 包含多个不同的部分：\n*   `StreamControllers`：控制数据流\n* \
+  \  `StreamTransformers`：在数据流入时进行处理\n*   `StreamBuilders`：在新值到达时运行，并将其渲染到 UI 中\n\n\
+  优点：社区中有很多人可以（并且愿意）帮助你。它是一个可靠且经过充分验证的模式。\n\n缺点：BLoC 理解起来和写起来都不简单。虽然有 `bloc` 库可以提供帮助，但大多数人在编写\
+  \ BLoC 组件时并不使用该库，因此它处于非常底层的水平。\n\n#### 一些库\n\n##### ScopedModel\n\n[ScopedModel](https://pub.dartlang.org/packages/scoped_model)^(¹⁵)\
+  \ 是一个由 Brian Egan 从 [Fuchsia](https://fuchsia.googlesource.com/)^(¹⁶) 代码库“厚颜无耻地借用”而来的库（嘿，这是\
+  \ Brian 自己的话，可不是我的！他是个谦虚的人）。ScopedModel 创建了能够注册监听器的数据模型。每个模型在数据发生变化时通知其监听器，以便它们进行自我更新。巧妙的设计。\n\
+  \n这是由 Brian 维护的一个外部第三方包。它构建在 `InheritedWidget` 之上，提供了一种稍好一些的方式来访问、更新和改变状态。它允许你轻松地将数据模型从父级小部件向下传递给其子孙后代，并在模型更新时重新构建使用该模型的所有子级小部件。\n\
+  \n优点：很好地完成了分离表示层和数据的任务。与本章其他方法相比，它更易于理解。\n\n缺点：该代码库目前未得到维护，可能是因为开发者倾向于使用更现代的解决方案。一些人认为\
+  \ `ScopedModel` 在处理复杂应用时存在性能问题。\n\n##### Redux 与 Hooks\n\n我之所以包含这两个库，是专为 React 开发者准备的。这两个库都模拟了同名的\
+  \ React 功能。如果你并非来自 React 世界，请跳过本节。但如果你热爱 React，这些可能是你最简单的选择。瞧，你已经跨越了学习曲线。[flutter_​redux](https://pub.dartlang.org/packages/flutter_redux)^(¹⁷)\
+  \ 由我们之前在 `ScopedModel` 中提到过的 Brian Egan 编写，[flutter_​hooks](https://pub.dartlang.org/documentation/flutter_hooks)^(¹⁸)\
+  \ 则由巴黎的 Rémi Rousselet 编写，你稍后将在 Provider 和 Riverpod 部分了解到他。\n\n优点：性能非常好。可扩展性很强。\n\
+  \n缺点：除非你已经熟悉 React，否则学习曲线非常陡峭。\n\n##### Provider\n\n我在这里提及 Provider，并不是因为你可能会用到它，而是因为你可能会听到它的名字，我不希望你被它诱惑。有更好的选择。Provider\
+  \ 一度是最流行的 Flutter 状态管理库。但它已被一个更优的选择所取代：Riverpod（在本章最后一节中介绍）。\n\n优点：一个功能强大且相对简单的包。\n\
+  \n缺点：由于其继任者 Riverpod 的出现，未得到积极维护。\n\n##### 哇！好多包！\n\n是不是感到困惑了？这不能怪你。这些包以不同的方式解决同一个问题，有些相似，另一些则采用截然不同的策略。没人期望你除了知道存在这些工具之外还有什么更多了解。当你听到有人说“我们的状态变得混乱了。也许我们应该考虑一下\
+  \ BLoC 或 ScopedModel”时，你至少能明白他们在谈论哪种类型的东西。然后，你就可以深入研究这些技术，看看自己可能想用哪一个。\n\n但是，要是能对一两种实际可用的解决方案有所了解，岂不是很好？让我们为其中两个状态管理解决方案编写一点代码：最简单的\
+  \ `raw_state`，以及最流行且最健壮的 `flutter_riverpod`。\n\n### Raw State\n\n`raw_state` ([`https://pub.dev/packages/raw_state`](https://pub.dev/packages/raw_state))\
+  \ 是学习 Flutter 的理想选择，这也是我们在此介绍它的原因。它也适用于非常简单的应用程序和启动你的 MVP。它通过创建一个名为 `rawState` 的全局变量来解决小部件之间的共享问题。一旦你执行\
+  \ `flutter pub add raw_state` 并导入 `raw_state`，这个 `rawState` 变量就会自动定义。\n\n```dart\n\
+  import 'package:raw_state/raw_state.dart';\n```\n\n然后，在任何小部件中，你可以将任意数量的值写入 `rawState`：\n\
+  \n```dart\nString foo = \"raw_state is stupidly simple\";\nrawState.set(\"aString\"\
+  , foo);\nrawState.set(\"aDate\", DateTime.now());\nrawState.set(\"aMap\", {\"foo\"\
+  :\"bar\",\"baz\":100} );\n```\n\n注意\n\n键可以是任意字符串，值可以是任何东西——`String`、`double`、`int`、`bool`、`Array`、`Map`、对象……等等。\n\
+  \n在任何其他小部件中，你可以从 `rawState` 读取这些值。只需调用 `get` 并传入键即可：\n\n```dart\nString foo = rawState.get(\"\
+  aString\");\nDateTime someDate = rawState.get(\"aDate\");\nMap aMap = rawState.get<Map>(\"\
+  aMap\");\n```\n\n提示\n\n数据类型（即泛型）是可选的，但出于安全原因，这是一种良好的实践。请注意，为了演示，我们在第一次使用时省略了它，但在其余部分都包含了。\n\
+  \n`raw_state` 简单得离谱。也许太简单了。它缺乏许多其他库具备的许多保护机制和任何自动更新功能。因此，让我们把注意力转向最后一个库——Riverpod，它由前面提到的\
+  \ Rémi Rousselet 编写。\n\n### Riverpod\n\n在撰写本文时，Riverpod 是首选的状态管理解决方案。它功能完备且健壮，并且比上面的一些库更简单。这是一个成功的组合。\n\
+  \n警告\n\n请不要误解。我并没有说 Riverpod 很简单。它并不简单。所以，如果你近期不打算使用 Riverpod，直接跳到下一章也没关系。我将列出使用\
+  \ Riverpod 最简单的步骤，仅供你入门。但即便如此，它仍令人望而生畏。\n\n以下是使用 Riverpod 的六个基本步骤。\n\n一次性前期准备工作：\n\
+  \n1. 安装 `flutter_riverpod`\n2. 用 `ProviderScope` 包裹你的应用\n3. 编写一个 `Provider`\n\n\
+  然后，在每个需要的小部件中：\n\n1. 继承自 `ConsumerStateWidget`\n2. 使用 `ref.watch()` 读取数据\n3. 使用\
+  \ `ref.read()` 写入数据\n\n让我们逐一审视这些步骤。\n\n#### 1. 安装 `flutter_riverpod`\n\n这一步很简单。要么将其添加到你的\
+  \ `pubspec.yaml` 并运行 `flutter pub get`，要么直接运行：\n\n```bash\nflutter pub add flutter_riverpod\n\
+  ```\n\n#### 2. 用 `ProviderScope` 包裹你的应用\n\n记住，在你的 `main` 函数中，我们调用 `runApp(App())`。只需用从\
+  \ `flutter_riverpod` 导入的 `ProviderScope` 包裹该应用即可：\n\n```dart\nvoid main() => runApp(\n\
+  ProviderScope(\nchild: App()\n)\n);\n```\n\n\n\n### 3\\. 编写一个 Provider\n\n在存储值之前，我们需要为*每项*要共享的内容创建一个\
+  \ provider。假设我们允许用户在一个 widget 中选择他们最喜欢的颜色，然后在其余 widget 中读取它。我们可以创建一个 `favColorProvier`:\n\
+  \n```\nfinal favColorProvider =\nStateProvider((_) => Colors.red);\n```\n\n显然，`StateProvider`\
+  \ 是 Riverpod 的一部分。\n\n##### 等等，你所说的这个 *Provider* 到底是什么？\n\n准备工作已经完成，这些步骤只需一次性预先完成。在我们将注意力转向在单个\
+  \ widget 中使用 Riverpod 之前，让我们先聚焦于这个 provider 本身。用 Riverpod 的术语来说，provider……嗯……*提供*一个保存的值给任何请求它的对象。为了在彼此封装、相互独立的\
+  \ widget 之间共享值，我们会在一个 widget 中写入 provider，然后在另一个 widget 中从同一个 provider 读取。但是如何做到呢？\n\
+  \n使用 Riverpod，我们不再继承自 `StatefulWidgets`。相反，我们要继承自 *Consumer*`StateWidgets`。明白了吗？你编写一个*提供*值的\
+  \ provider，以及一个*消费*该值的 consumer。很巧妙，对吧？这个 consumer 拥有一个可以访问所有 provider 的 `ref` 属性。来看看……\n\
+  \n### 4\\. 继承自 ConsumerStateWidget\n\n每个需要访问共享数据的 widget 都应该以略微不同的方式编写。\n\n**不要这样做：**\n\
+  \n```\nclass FavColor extends StatefulWidget {\nconst FavColor({super.key});\n@override\n\
+  State createState() => _FavColorState();\n}\nclass _FavColorState extends State\
+  \ {}\n```\n\n**相反，应该这样做：**\n\n```\nclass FavColor extends ConsumerStatefulWidget\
+  \ {\nconst FavColor({super.key});\n@override\nConsumerState createState() => _FavColorState();\n\
+  }\nclass _FavColorState extends ConsumerState {}\n```\n\n你看，神奇之处在于这些 Riverpod 提供的类有一个名为\
+  \ `ref` 的属性。而 `ref` 知道所有你在上面创建的 provider。现在让我们来使用它。\n\n### 5\\. 使用 `ref.watch( )`\
+  \ 读取数据\n\n在状态化 widget 中，从给定 provider 读取数据的最佳方式是使用 `ref.watch(theProvider)`，它会监视该\
+  \ provider，并在 provider 中的值发生变化时，触发其所属的 widget 重新渲染。\n\n```\nColor favColor = ref.watch(favColorStateProvider);\n\
+  int favNumber = ref.watch(favNumberStateProvider);\nPerson favPerson = ref.watch(favPersonStateNotifierProvider);\n\
+  ```\n\n提示\n\n你也可以使用 `ref.read()` 读取数据。只是 `ref.read()` 只绑定一次；`ref.read()` 不会实时更新，而\
+  \ `ref.watch()` 可以。\n\n### 6\\. 使用 `ref.read( )` 写入数据\n\n具有讽刺意味的是，你可以用 `ref.read()`\
+  \ 来写入数据。虽然还有其他方法，但这是最直接的方式。只需这样做：\n\n```\nref.read(favColorStateProvider.notifier).state\
+  \ = newColor;\n```\n\n当你为这个 provider 的状态赋值时，它会设置值并通知所有监听者——那些之前使用 `ref.watch()`\
+  \ 订阅过的对象。\n\n就是这样。你可以设置、写入和读取 Riverpod provider。我们就先讲到这里。这个健壮而强大的包还有更多内容，但你已经掌握了基本概念。我们的篇幅有限，而且\
+  \ Riverpod 无疑会继续发展。所以，如果你准备深入探索（我建议你这样做），可以从这里开始：[`https://pub.dev/packages/riverpod`](https://pub.dev/packages/riverpod)。它会引导你前往\
+  \ Riverpod 的主页和文档，获取更多信息。\n\n## 结论\n\n我们拥有的状态化 widget 越多，需要在它们之间传递的状态就越多。这可能会很快变得非常复杂，因此我们求助于像\
+  \ Redux、Hooks、raw_state 和 ScopedModel 这样的包，但最流行的是 Riverpod，用以管理状态。当然，你也可以手动使用其他工具和技术，如\
+  \ BLoC 和 InheritedWidget 来实现，但当你的应用规模变大时，这种方法就变得不切实际了。\n\n既然我们现在可以处理 widget *内部*和\
+  \ widget *之间*的数据，接下来让我们看看如何处理我们的应用与某个远程服务器之间的数据。让我们探讨如何发起 HTTP 调用来读取和写入数据。继续往下读！\n\
+  \n脚注 1 2 3 4 5\n\n"
+- "# 9\\. 使用 HTTP 进行 RESTful API 调用\n\n我们已经非常擅长管理应用程序的状态，但这些数据从何而来？本地文件？本地数据库？用户输入？当然可以。这些都是可能的来源，但真实的应用程序会从云端的某台服务器获取真实数据。你的应用程序会发起\
+  \ HTTP 调用，最好是异步的 RESTful HTTP API 调用。它会等待并处理响应，然后通常显示这些数据。哇！这有很多流行词，对吧？在本章中，我们将学习这些术语的含义，以及如何在\
+  \ Flutter 应用中处理所有类型的 HTTP 请求和响应。以下是需要了解的内容：\n\n*   究竟什么是 API 调用\n*   发起 HTTP GET\
+  \ 或 DELETE 请求\n*   发起 HTTP POST、PUT 或 PATCH 请求\n*   以最简单的方式处理响应\n*   使用 `FutureBuilder`\
+  \ 和 `StreamBuilder` 进行更清晰的处理\n*   使用强类型对象实现更清晰的代码\n\n这将是我们本章的计划。此外，还将通过一个允许 HTTP\
+  \ 请求的 API 服务进行动手实践。为了确保大家在同一页面上（这里绝对是双关语），我们可能应该从 API 究竟是什么开始讲起。如果你已经熟悉，可以随意浏览或跳过。\n\
+  \n## 什么是 *API* 调用？\n\nFlutter 应用程序已经具备从微小的本地数据库读取数据的能力。但它无法读取位于*其他地方*的数据库。换句话说，你不能直接连接到\
+  \ SQL Server/MongoDB/PostgresSQL 数据库并读取或写入记录。这是不可能做到的，即使你拥有数据库凭据。我的意思是，想想如果公共应用可以从任何地方连接并直接修改数据，会带来多么严重的安全隐患。因此，开发人员的做法是创建一个服务器端程序，以可控的方式进行读写，然后通过特定的协议（通常是\
+  \ `https`）在特定地址上，将该程序暴露在你的网络或互联网上。\n\n为了读取这些服务器端数据，任何用户都可以在发送其凭据（形式为用户名/密码，或更佳的方式是使用一个称为\
+  \ API 密钥的唯一且秘密的密钥）后，发起 `http` 请求。\n\n又是 *API* 这个术语。它代表应用程序编程接口（Application Programming\
+  \ Interface）。在不同情境下含义不同，但其默认含义已演变为开发人员为了读写数据而向其发送 `http` 请求的任何互联网地址。有大量公开可用的 API，也有许多选项供你自己创建。\n\
+  \n当 API 响应时，它会返回一个数据流，这些数据几乎总是以 JSON^(¹⁹) 格式呈现。\n\n\n\n## API 请求的几种类型\n\n与 API 服务器的通信只通过少数几种类型完成（表\
+  \ 9-1）。\n\n**表 9-1** HTTP 方法及描述\n\n| HTTP 方法 | 意图 | 说明 |\n| --- | --- | --- |\n\
+  | `GET` | 读取记录 | 类似于数据库读取，仅向服务器请求数据 |\n| `DELETE` | 删除记录 | 删除由提供的 ID 指向的记录，不返回数据\
+  \ |\n| `POST` | 插入新记录 | 即使已存在类似记录，也创建一条新记录 |\n| `PUT` | 替换现有记录 | 用此记录覆盖现有记录，完全删除旧记录并在此位置添加新记录\
+  \ |\n| `PATCH` | 更新现有记录 | 保留原有记录，但用此请求中的数据更新其字段 |\n\n此外还有 `HEAD`、`CONNECT`、`OPTIONS`\
+  \ 和 `TRACE` 用于其他类型的请求。典型应用很少使用这些方法。想了解的话，可以查阅 [`http://bit.ly/HTTPMethods`](http://bit.ly/HTTPMethods)。\n\
+  \n开发者很少使用除 `GET`、`POST`、`PUT`、`PATCH` 和 `DELETE` 之外的方法。在 Flutter 中，所有这些都是通过导入 `http.dart`\
+  \ 使用一个 Dart 库来完成的。\n\n首先，你需要在 `pubspec.yaml` 的依赖部分添加 `http` 包。当你运行 `flutter pub\
+  \ get` 后，该包将从 [`https://pub.dev/packages/http`](https://pub.dev/packages/http) 下载。\n\
+  \n然后，在任何需要发出这些请求的 Dart 文件中导入 `http.dart`：\n\n```dart\nimport 'package:http/http.dart';\n\
+  ```\n\n这将暴露 `http` 类，该类包含与每个 HTTP 方法对应的方法。现在，让我们看看如何使用这个库发送请求。\n\n## 发送 HTTP GET\
+  \ 或 DELETE 请求\n\n我们先介绍 `GET` 和 `DELETE` 请求，因为它们是最简单的——它们永远没有请求体。^(²⁰) 事实上，唯一的复杂性在于\
+  \ HTTP 请求是异步执行的。它们返回一个 `Future`^(²¹)，你需要用 `.then()` 处理或使用 `await` 等待它。所以你可以这样发出请求：\n\
+  \n```dart\nUri uri = Uri.parse('https://us.com/people/1234');\nResponse response\
+  \ = await get(uri);\nprint(response.statusCode); // 希望是 200\nMap person = json.decode(response.body);\n\
+  print(person['name']);\nprint(person['phone']);\nprint(person['email']);\n```\n\n\
+  或者像这样使用 `.then()`：\n\n```dart\nget(uri).then((Response res) {\n  print(res.statusCode);\
+  \ // 希望是 200\n  Map person = jsonDecode(res.body);\n  print(person['name']);\n \
+  \ print(person['phone']);\n  print(person['email']);\n});\n```\n\n`DELETE` 请求以相同方式完成。实际上，它们通常更简单，因为它们常常没有响应值。`DELETE`\
+  \ 要么成功且无返回值，要么失败并返回 400 或 500 系列的响应：\n\n```dart\nResponse response = await delete(uri);\n\
+  ```\n\n**注意**\n\n在发送任何类型的 HTTP 请求时，你应该始终在发送之前对 URL 进行编码。这有助于确保 URL 有效，也有助于安全性，尤其是在获取用户输入时。你可以使用\
+  \ `Uri.encodeComponent()`、`Uri.encodeQueryComponent()` 和/或 `Uri.encodeFull()` 来实现。像这样调用\
+  \ `Uri.encodeFull`：\n\n```dart\nString url = Uri.encodeFull('http://us.com/api/ppl?query=Jo\
+  \ Ki');\n```\n\n为简单起见，我们将在示例中省略编码。但在实际开发中，请记住这一点。\n\n## 发送 HTTP PUT、POST 或 PATCH\
+  \ 请求\n\n`PUT`、`POST` 和 `PATCH` 与 `GET` 和 `DELETE` 非常相似。最大的区别在于 `PUT`、`POST` 和 `PATCH`\
+  \ 都需要请求体——通常是包含 JSON 格式键值对的字符串：\n\n```dart\nString payload = '''\n{\"first\": \"\
+  Kamala\", \"last\": \"Khan\", \"id\": 374}\n''';\nResponse response = await post(uri,\
+  \ body: payload);\n```\n\n与 `GET` 和 `DELETE` 请求一样，对此响应进行解析。\n\n**注**\n\n使用 `POST`、`PUT`\
+  \ 和 `PATCH` 时，我们正在将数据从客户端发送到服务器。明智的做法（有时也是必要的要求）是同时告知服务器我们是如何编码这些数据的。我们将在请求的 HTTP\
+  \ 标头中完成此操作。提供一个名为 `Content-Type` 的键，其值为 `application/json`。具体操作如下：\n\n```dart\n\
+  Map<String, String> headers = {'Content-Type': 'application/json'};\nResponse res\
+  \ = await post(url, headers: headers, body: payload);\n```\n\n既然说到这里，还有许多你可能觉得有用的标头变量，例如\
+  \ `Accept`、`Accept-Encoding`、`Authorization`、`Content-MD5`、`Cookie`、`Date`、`Host`、`If-Modified-Since`\
+  \ 等。在此处了解它们：[`https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Request_fields`](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields%2523Request_fields)。\n\
+  \n从 API 发送 HTTP 请求并不难，对吧？我们很快就让 Flutter 应用能够发送请求、反序列化响应并将其打印到调试控制台。但 Flutter 的核心在于将这些数据显示在炫酷的组件中。那么，我们该如何将请求集成到组件中呢？\n\
+  \n## HTTP 响应到组件\n\n有几种方法可以等待 `Future` 解析然后显示数据。我们通过向你展示三种方法来简化说明：\n\n1.  暴力法\n2.\
+  \  `FutureBuilder`\n3.  `StreamBuilder`\n\n暴力法显而易见且易于理解，但我认为你会更喜欢 `FutureBuilder`/`StreamBuilder`，因为它们更简洁、更优雅。\n\
+  \n### 暴力法——简单的方式\n\n你已经拥有了显示数据所需的所有工具：你理解 `Future`，也知道如何告诉有状态组件用新数据重绘自身——`setState()`。因此，只需在\
+  \ `.then()` 内部或 `await` 之后放置一个 `setState()` 即可：\n\n```dart\nUri uri = Uri.parse('http://us.com/api/people/12345');\n\
+  Response response = await get(uri);\nMap body = json.decode(response.body);\nString\
+  \ first = body['name'];\nString email = body['email'];\nString imageUrl = body['profilePictureUrl'];\n\
+  Widget card = Stack(\n  children: [\n    Image.network(imageUrl,\n        height:\
+  \ 300, width: 300, fit: BoxFit.cover),\n    Text(\"$name\"),\n  ],\n);\nsetState(()\
+  \ => _cardWidget = card);\n```\n\n当然，只要你的构建方法在某处显示了 `card`，一旦 `Future` 解析完毕（这只有在\
+  \ HTTP `GET` 请求返回数据时才会发生），它就会用正确的数据进行渲染。小菜一碟！但这并非最优雅的方式。\n\n\n\n### `FutureBuilder`\
+  \ – 更优雅的方式\n\n更好的解决方案可能是使用 `FutureBuilder` 组件。当你面临一个 `Future`，其完成后产生的数据需要在 Flutter\
+  \ 组件中渲染时，请考虑使用 `FutureBuilder`。这个场景听起来熟悉吗？应该很熟悉，因为这正是我们在 Flutter 中使用 `Future` 的主要原因。之前那个简单的代码示例，使用\
+  \ `FutureBuilder` 可以更加简洁地实现：\n\n```\nFutureBuilder(\nfuture: get(uri),\nbuilder:\
+  \ (ctx, AsyncSnapshot snapshot) {\nif (snapshot.connectionState != ConnectionState.done)\
+  \ {\nreturn const CircularProgressIndicator();\n}\nif (snapshot.hasError) {\nreturn\
+  \ Text('噢不！出错了！ ${snapshot.error}');\n}\nif (!snapshot.hasData) {\nreturn const\
+  \ Text('没有可显示的内容');\n}\nfinal Map body =\njson.decode(snapshot.data.body);\nfinal\
+  \ int statusCode = snapshot.data.statusCode;\nif (statusCode > 299) {\nreturn Text('服务器错误：$statusCode');\n\
+  }\nString first = body['name'];\nString imageUrl = body['profilePictureUrl'];\n\
+  return Stack(\nchildren: [\nImage.network(imageUrl,\nheight: 300, width: 300, fit:\
+  \ BoxFit.cover),\nText(\"$name\"),\n],\n);\n},\n);\n```\n\n这里不再需要 `setState()`，因为\
+  \ `FutureBuilder` 可以直接访问 `Future` 本身，从而知晓何时以及如何重绘自身。在上面的例子中，你可以看到它能够针对每种情况渲染不同的内容：在等待\
+  \ `Future` 完成时显示 `ProgressIndicator`，出现错误时显示错误信息，`Future` 中没有数据时显示提示，当然，数据成功返回时则显示对应的组件。\n\
+  \n**注意**\n\n在访问 `snapshot.data` 之前，务必检查 `snapshot.hasData` 和/或 `snapshot.hasError`。同时要留意\
+  \ HTTP 状态码，它位于 `response.statusCode` 中。如果该数字是 4xx 或 5xx，说明你从服务器收到了一个有效响应，但请求本身有问题，此时你的数据将是\
+  \ `null`。\n\n### `StreamBuilder`\n\n`FutureBuilder` 对 `Future` 的处理方式，就是 `StreamBuilder`\
+  \ 对 `Stream` 的处理方式。这两个类几乎完全相同，具有相同的格式，使用相同形式的快照，并同样检查 `snapshot.hasError` 和 `snapshot.hasData`。但有时候，我们处理的不是像\
+  \ Future 那样的一次性数据返回，而是一个*数据流*，它可能以间断或连续的方式不断到达。在这种情况下，你应该使用 `StreamBuilder`：\n\n\
+  ```\nStreamBuilder(\nstream: anythingThatReturnsAStream(),\nbuilder: (BuildContext\
+  \ ctx, AsyncSnapshot snapshot){\n// 以下大部分内容与 FutureBuilder 类似，\n// 但这里的数据是一个文档集合，每个文档代表一条记录\n\
+  if (snapshot.connectionState != ConnectionState.done) {\nreturn const CircularProgressIndicator();\n\
+  }\nif (snapshot.hasError) {\nreturn Text('噢不！出错了！ ${snapshot.error}');\n}\nif (!snapshot.hasData)\
+  \ {\nreturn const Text('暂无数据，请稍候...');\n}\nreturn ListView.builder(\nitemCount:\
+  \ snapshot.data.documents.length,\nitemBuilder: (BuildContext context, int i) {\n\
+  String first = snapshot.data.documents[i]['name'];\nString imageUrl =\nsnapshot.data.documents[i]['imageUrl'];\n\
+  return Stack(\nchildren: [\nImage.network(imageUrl,\nheight: 300, width: 300, fit:\
+  \ BoxFit.cover),\nText(\"$name\"),\n],\n),\n},\n);\n);\n},\n);\n```\n\n**提示**\n\n\
+  像这样编写能够根据新到达的数据自动唤醒并更新自身的代码，有一个专门的术语：*响应式编程*。当我们的应用能够感知外部影响并指示其做出相应反应时，就实现了响应式编程。你可能听说过像\
+  \ `rxJava`、`rxJS` 和 `rx.NET` 这样的响应式扩展，它们是为这种风格设计的类库。毫无疑问，Flutter 也有一个对应的库，名为 `rxDart`。你可以在\
+  \ [`https://github.com/ReactiveX/rxdart`](https://github.com/ReactiveX/rxdart) 找到它。\n\
+  \n## 强类型类\n\n至此，你已经知道如何对 API 发起 HTTP 调用，并在收到响应后如何解包数据并使用它。这为我们使用类型化反序列化模式将这些数据转换为强类型类提供了绝佳条件。\n\
+  \n**注意**\n\n发起 HTTP 调用并不强制要求这样做。这仅仅是一种更清晰的处理调用并将数据拉取到可预测结构中的方法。HTTP 数据本质上是非结构化的。这是许多\
+  \ Flutter 开发者使用的一种最佳实践，但并非强制要求。所以，如果你不喜欢，完全可以跳过。\n\n类型化反序列化通过三个简单步骤完成：\n\n1.  创建业务类。\n\
+  \n2.  编写一个 `.fromJSON()` 方法和/或一个 `.fromJSONArray()` 方法。\n\n3.  在通过 HTTP 调用读取数据时，使用\
+  \ `.fromJSON()` 来实例化对象。\n\n### 创建一个业务类\n\n假设我们要读写人员数据。我们应该创建一个 `Person` 类：\n\n```\n\
+  class Person {\nString? name;\nString? email;\nString? imageUrl;\n}\n```\n\n###\
+  \ 编写一个 `.fromJSON()` 方法\n\n这应该是一个静态方法，它会返回业务类（这里是 `Person`）的一个实例：\n\n```\nclass\
+  \ Person {\n// 此处编写更多类代码\nstatic Person fromJson(String jsonString) {\nMap data\
+  \ = jsonDecode(jsonString);\nreturn Person()\n..name = data['name']\n..email = data['email']\n\
+  ..imageUrl = data['imageUrl'];\n}\n// 可能这里还有更多类代码\n}\n```\n\n注意这里使用了 Dart 的级联运算符，并省略了\
+  \ `new` 关键字。两者都是最佳实践。\n\n### 使用 `.fromJSON()` 来实例化对象\n\n“实例化”这个词的字面意思是“注水”。在这个上下文中，数据就是水，我们通过将数据添加到新创建的\
+  \ `Person` 对象中来“注水”。你可以使用 `.get()` 方法从 HTTP 服务读取数据，然后像这样将其传入 `.fromJSON()`：\n\n\
+  ```\n// 发起 HTTP 调用\nfinal Response res = await get(url);\n// 从响应体（一个 JSON 字符串）中实例化一个\
+  \ Person 对象\nPerson p = Person.fromJson(res.body);\n```\n\n看到代码是多么简洁和直接了吗？\n\n我想此刻，你可能想要实践一下这些新学到的知识。接下来，我们就通过一个免费的\
+  \ API 服务来练习。\n\n## 一个大综合示例\n\n一个真正的 API 服务会涉及一个数据库，并暴露 GET、POST、DELETE、PUT 和/或 PATCH\
+  \ 等端点，这些都需要在服务器端进行大量设置。你最终肯定想达到那种水平，但除非你是全栈开发者，否则那是后端人员的事情。现在，我们先使用 `JSONPlaceholder`，一个用于测试\
+  \ API 的免费服务。你可以从 [`https://jsonplaceholder.typicode.com/guide`](https://jsonplaceholder.typicode.com/guide)\
+  \ 了解它。\n\n**注意**\n\n`JSONPlaceholder` 接受所有类型的 RESTful 请求，但出于显而易见的原因，他们不能让全世界在未经认证的情况下进行\
+  \ `PUT`、`POST` 和 `DELETE` 操作。所以他们实际上不会更改任何服务器数据。如果该服务支持，我们编写的代码本可以更改服务器数据，但既然它不支持，请勿期望看到你的更改被持久化。\n\
+  \n如果你想测试这个服务器，可以在你喜欢的浏览器中打开 [`https://jsonplaceholder.typicode.com/users`](https://jsonplaceholder.typicode.com/users)，你将看到前十位用户。恭喜，你已经成功发起了一个\
+  \ GET 请求。再试试打开 [`https://jsonplaceholder.typicode.com/users/1`](https://jsonplaceholder.typicode.com/users/1)，你将看到用户\
+  \ ID 为 1 的那个人。事实上，你可以尝试不同的 ID 来查看不同的用户。\n\n另外三种 HTTP 方法则不那么简单。你需要使用像 `cURL`、`Postman`\
+  \ 或 `SoapUI` 这样的工具来发送 `POST`、`PUT` 或 `DELETE` 请求。\n\n| 方法 | URL | 功能 |\n| --- |\
+  \ --- | --- |\n| `DELETE` | [`https://jsonplaceholder.typicode.com/users/1`](https://jsonplaceholder.typicode.com/users/1)\
+  \ | 删除用户 #1 |\n| `PUT` | [`https://jsonplaceholder.typicode.com/users/1`](https://jsonplaceholder.typicode.com/users/1)\
+  \ | 更新用户 #1 |\n| `POST` | [`https://jsonplaceholder.typicode.com/users`](https://jsonplaceholder.typicode.com/users)\
+  \ | 创建新用户 |\n\n那么我们如何在应用中使用这些方法呢？继续往下看吧！\n\n\n\n### 应用程序概览\n\n启动时，应用程序会发送一个 `GET`\
+  \ 请求来读取用户列表，并绘制屏幕来显示这些用户（图 9-1）。\n\n![](img/638603_1_En_9_Fig1_HTML.jpg)\n\n图 9-1：人物卡片列表\n\
+  \n当用户点击垃圾桶图标时，应用程序会发送一个 `DELETE` 请求来删除该人员。\n\n当用户点击任意用户卡片时，我们会显示一个包含该用户当前信息的表单（图\
+  \ 9-2），用户可进行修改并保存。点击保存的 FAB 按钮会向服务器发送一个 `PUT` 请求。\n\n![](img/638603_1_En_9_Fig2_HTML.jpg)\n\
+  \n图 9-2：用于添加或更新人员的“upsert”表单\n\n类似地，当用户点击人员列表上的“+”FAB 按钮时，我们会显示相同的表单，但字段为空，以便他们创建新用户。\n\
+  \n### 创建 Flutter 应用\n\n这个项目会很有趣，因为这是我们第一次将本书中的多个主题结合起来。首先，使用 `flutter create people_maintenance`\
+  \ 创建 flutter 应用。接下来，确保已安装 `http` 包。\n\n```\nflutter pub add http\n```\n\n打开 `main.dart`\
+  \ 并找到你的 `MaterialApp` 组件。移除“home”属性，并添加两个命名路由：\n\n```\nroutes: {\n'/': (_) => const\
+  \ ListPeople(),\n'/upsert': (_) => const UpsertPerson(),\n},\n```\n\n然后创建两个新的 `StatefulWidget`，一个命名为\
+  \ `list_people.dart`，另一个命名为 `upsert_person.dart`。我们稍后会填充它们的细节。但首先，创建一个业务类来表示 `Person`\
+  \ 对象可能是个好主意。\n\n### 创建强类型业务类\n\n由于我们要处理 `Person` 对象，创建一个 `Person` 类来保存每个人员可能是个好主意。这个可选的最佳实践有助于避免在序列化和反序列化服务器数据时出现错误，并为我们提供一个集中管理所有与\
+  \ `Person` 相关逻辑的地方：\n\n```\nimport 'dart:convert' show jsonDecode;\nclass Person\
+  \ {\nPerson({this.id, this.name, this.email, this.phone});\nint? id;\nString? name;\n\
+  String? email;\nString? phone;\n// 单个人员的类型化反序列化模式\nstatic Person fromJson(String\
+  \ jsonString) {\nMap json = jsonDecode(jsonString);\nreturn Person(\nid: json['id'],\n\
+  email: json['email'],\nname: json['name'],\nphone: json['phone']);\n}\nMap toJson()\
+  \ =>\n{'id': id, 'email': email, 'name': name, 'phone': phone};\n// List 的类型化反序列化模式使用\
+  \ .map() 方法\nstatic List fromJsonArray(String jsonString) {\nList json = jsonDecode(jsonString);\n\
+  return json\n.map((p) => Person(\nid: p['id'],   email: p['email'],\nname: p['name'],\
+  \ phone: p['phone']))\n.toList();\n}\n}\n```\n\n### list_people.dart\n\n我们很快会从 RESTful\
+  \ 服务中读取人员列表，并希望显示他们的数据。`PeopleList` 组件负责显示这个人员列表：\n\n```\nimport 'package:flutter/material.dart';\n\
+  import './people.dart';\nimport './person_widget.dart';\nimport './person.dart';\n\
+  class ListPeople extends StatefulWidget {\nconst ListPeople({super.key});\n@override\n\
+  State createState() => _ListPeopleState();\n}\nclass _ListPeopleState extends State\
+  \ {\n@override\nWidget build(BuildContext context) {\nreturn Scaffold(\nappBar:\
+  \ AppBar(title: const Text('People')),\nbody: scaffoldBody,\nfloatingActionButton:\
+  \ FloatingActionButton(\nchild: const Icon(Icons.add),\nonPressed: () {\nNavigator.pushNamed(context,\
+  \ '/upsert');\n},\n),\n);\n}\n// 注意我们如何提取细节以便让组件对你更抽象。\n// 下面我们对 PersonWidget 也做了同样处理。\n\
+  Widget get scaffoldBody {\nreturn FutureBuilder(\nfuture: fetchPeople(), // 获取人员列表的方法\n\
+  builder: (ctx, snapshot) {\nif (snapshot.hasError) {\nreturn Text('哦不！出错了！ ${snapshot.error}');\n\
+  }\nif (!snapshot.hasData) {\nreturn const Text('未找到人员');\n}\n// 将 JSON 数据转换为 Person\
+  \ 数组\nList people =\nPerson.fromJsonArray(snapshot.data.body);\n// 将人员列表转换为组件列表\n\
+  List personTiles = people\n.map((Person person) => PersonWidget(\nperson: person,\n\
+  editPerson: () => setState(() {\nNavigator.of(context)\n.pushNamed('/upsert', arguments:\
+  \ person);\n})))\n.toList();\n// 在可滚动的 ListView 中显示所有人员卡片\nreturn ListView(\nchildren:\
+  \ personTiles,\n);\n},\n);\n}\n}\n```\n\n`PersonWidget` 是在屏幕上绘制每个 `Person` 的组件（图\
+  \ 9-3）。由于这不是本章的重点，我们暂时省略其细节。但你可以查看 GitHub 仓库以了解细节。\n\n![](img/638603_1_En_9_Fig3_HTML.jpg)\n\
+  \n图 9-3：每个 `PersonWidget` 显示一个人员\n\n### Flutter 中的 GET 请求\n\n回顾一下 `getScaffoldBody()`\
+  \ 方法。它包含一个 `FutureBuilder`。`future` 属性指向一个名为 `fetchPeople()` 的方法，该方法只是向 URL 发送一个\
+  \ `GET` 请求，该 URL 会以 JSON 数组的形式返回 `Person` 记录：\n\n```\nconst String _baseUrl =\n\
+  'https://jsonplaceholder.typicode.com';\nFuture fetchPeople() {\nUri uri = Uri.parse('$_baseUrl/users');\n\
+  return get(uri);\n}\n```\n\n一旦你创建了 Flutter 基础设施，`GET` 请求就相当简单，对吧？\n\n### Flutter\
+  \ 中的 DELETE 请求\n\n每个 `PersonWidget` 右侧都有一个垃圾桶 `IconButton`。点击它会调用 `deletePerson()`\
+  \ 方法，接收我们想要删除的人员。这个 `deletePerson()` 方法应该发送一个 HTTP `DELETE` 请求，通过 ID 指定要删除的人员：\n\
+  \n```\nFuture deletePerson(person) {\nUri uri = Uri.parse('$_baseUrl/users/${person.id}');\n\
+  return delete(uri);\n}\n```\n\n### upsert_person.dart\n\n我们已经处理了读取人员和删除人员的功能。但添加新人员需要一个表单供用户输入信息。细心的读者会注意到，更新现有人员也需要一个相同的表单。为了遵循\
+  \ DRY 原则^(²²)，让我们创建一个表单并同时用于添加和更新操作。\n\n```\nclass _UpsertPersonState extends State\
+  \ {\nlate Person person;\n@override\nWidget build(BuildContext context){\n// 获取导航期间设置的'当前'人员。如果该人员\n\
+  // 为 null，则我们正在添加新人员，必须实例化一个。\n// 如果该人员不为 null，则我们正在更新该人员。\nPerson? routePerson\
+  \ =\nModalRoute.of(context)?.settings.arguments as Person?;\nperson = (routePerson\
+  \ == null) ? Person() : routePerson;\nreturn Scaffold(\nappBar: AppBar(\ntitle:\
+  \ Text(\n(person.id == null) ? '添加人员' : '更新人员',\n),\n),\nbody: _body,\nfloatingActionButton:\
+  \ FloatingActionButton(\nonPressed: () {\n// 保存人员信息\nupsertPerson(person);\n// 然后返回到来的地方\n\
+  Navigator.pop(context);\n},\nchild: const Icon(Icons.save),\n),\n);\n}\nWidget get\
+  \ _body {\n// 表单代码请查看 github。\n}\n}\n```\n\n注意，在 FAB 的 `onPressed` 处理程序中，我们保存了表单数据并调用了\
+  \ `upsertPerson()`。以下是它的实现：\n\n### Flutter 中的 POST 和 PUT 请求\n\n如果是添加操作，我们希望进行 `POST`\
+  \ 调用。如果是更新操作，我们希望进行 `PUT` 调用：\n\n```\nFuture upsertPerson(Person person) {\nfinal\
+  \ String payload = '''\n{\n\"id\": ${person.id},\n\"name\":\"${person.name}\",\n\
+  \"phone\":\"${person.phone}\",\n\"email\":\"${person.email}\"\n}\n''';\nfinal headers\
+  \ = {'Content-type': 'application/json'};\n// 如果 id 为 null，则是在添加。如果不是，则是在更新。\nif\
+  \ (person.id == null) {\nUri uri = Uri.parse('$_baseUrl/people');\nreturn post(uri,\
+  \ headers: headers, body: payload);\n} else {\nUri uri = Uri.parse('$_baseUrl/people/${person.id}');\n\
+  return put(uri, headers: headers, body: payload);\n}\n}\n```\n\n\n\n## 结论\n\n不算太糟，对吧？我们从对通过\
+  \ HTTP 读写数据几乎一无所知，到能够使用一些相当高级的技术（如类型化反序列化模式和 `FutureBuilder` 组件）来完成一个综合性示例。\n\n\
+  如果你按照我上面的代码示例操作，你的应用已经能够完美地读取 HTTP 数据。但它看起来仍然不会像截图那样。你看，我使用了样式和主题来让它更赏心悦目。样式对我们来说仍然有点神秘。嘿，让我们在下一章揭开这个谜团吧！\n\
+  \n脚注 1   2   3   4\n\n"
+- "# 10. 使用主题进行样式设计\n\n为组件设置样式对你来说并不完全陌生。我们在之前的章节中已经触及了一些小的样式特性，并且在代码示例中你也看到了样式技术。但本章，我们将深入探讨样式。终于到了！\n\
+  \n你可以始终进行底层样式设计，所以我们先从它开始。然后，我们将过渡到更复杂但更清晰的——使用主题。最后，我们将通过颜色和自定义字体的细节来结束本章。\n\n\
+  ## 思考 Flutter 样式\n\nFlutter 中的样式借鉴了 Android、iOS 开发和 Web 开发的最佳理念。但它并没有*完全照搬*它们的技术。Flutter\
+  \ 有自己的方式，如果将 Web 的类比过度延伸，那将是一个错误。Flutter 的样式不是 CSS。虽然 CSS 有某些属性会传递给子元素，但 Flutter\
+  \ 样式*不会*继承。例如，你*不能*在你的自定义组件上设置字体系列，然后让其中所有的 `Text`、`TextField` 和按钮都立即开始使用该字体渲染。为了实现这种效果，我们需要创建并应用一个主题。但首先，让我们学习如何将样式应用到元素上。\n\
+  \n## 单独样式\n\n我们在之前的章节和代码示例中已经窥见过这一点。大多数组件都接受一个 `style` 属性，以及通常与样式相关的属性，如内边距、边框等。你可以（有时也确实会）手动设置这些值，通常是在你只需要对某个组件的单个实例（例如一个单独的\
+  \ `Text` 组件）进行样式设置时。\n\n### 文本样式设计\n\n```\nText(aString, style: TextStyle(\nfontSize:\
+  \ 12.0,\nfontWeight: FontWeight.bold,\ncolor: Colors.blue,\nfontStyle: FontStyle.italic,\n\
+  )),\n```\n\n`Text` 组件有一个 `style` 属性，它接受一个 `TextStyle` 对象（图 10-1）。\n\n![](img/638603_1_En_10_Fig1_HTML.jpg)\n\
+  \n图 10-1\n\n有样式和无样式的对比\n\n你只需将 `style` 属性设置为一个 `TextStyle` 组件的实例，并设置其属性。`TextStyle`\
+  \ 支持大约 20 个属性。以下是最常用的几个：\n\n*   `color` – 任何有效的 1600 多万种颜色之一\n*   `decoration` –\
+  \ `TextDecoration.underline`、`overline`、`strikethrough`、`none`\n*   `fontSize` –\
+  \ 双精度浮点数。字符的高度（像素数）。默认大小为 14.0 像素\n*   `fontStyle` – `FontStyle.italic` 或 `normal`\n\
+  *   `fontWeight` – `FontWeight.w100` 到 `w900`。或者 `bold`（即 `w700`）或 `normal`（即 `w400`）\n\
+  *   `fontFamily` – 一个字符串\n\n`fontFamily` 是一个更大的话题，我们将在本章末尾讨论。\n\n许多组件都有一个 `style`\
+  \ 属性，如果你只需要设置一个组件的样式，这是最佳方式。但最佳实践是尽可能避免使用单独样式。创建并应用一个主题会更好、更清晰。\n\n## 批量更改值\n\n\
+  真人真事。我有一个接近完成的应用。它美轮美奂。我从客户的品牌标志中选择了颜色，以为他们会感激我遵循他们的营销方案。嗯，他们的一种颜色是深栗色，我大量使用了它。我的客户讨厌那种颜色，认为它的红色调会传达“危险”或“错误”的信息。你知道吗？他们是对的！我之前就是没建立那种联系。所以我当然想把它全部改掉。\n\
+  \n现在，想象一下我必须做什么。遍历整个应用？在数百个 `Text` 组件、边框、阴影、按钮、卡片和磁贴中找到所有出现该颜色的地方？不。因为我使用了主题，在客户等待的时候，我在一个地方就把它改好了。事实上，我们反复尝试了不同的颜色，直到找到他们喜欢的配色方案。这超级简单，一点也不麻烦！让我们来看看使用主题设置样式的正确方法。\n\
+  \n## 主题\n\n当你使用主题时，你可以预先在一个文件中一次性地定义样式。为什么呢？\n\n1.  你的整个应用会有一致、连贯的外观和感觉。\n2.  在整个应用中更改样式变得几乎不费吹灰之力。\n\
+  \n使用主题包括五个相当简单的步骤：\n\n1.  设置 `ColorScheme`\n2.  设置 `TextTheme`\n3.  创建特定组件的主题\n\
+  4.  将所有内容组合到主题中\n5.  如有需要，覆盖底层组件的样式\n\n让我们来逐一完成这些步骤。\n\n### 1. ColorScheme（配色方案）\n\
+  \n`ColorScheme` 构成了应用的基本颜色：\n\n*   `primary` – 主要品牌颜色\n*   `secondary` – 强调色\n*\
+  \   `tertiary` – 较不突出的颜色\n*   `error` – 用于突出显示错误\n*   `background` – 常规背景颜色\n* \
+  \  `outline` – 用于边框\n*   `surface` – 用于卡片和容器背景色\n\n其中四种颜色——`primary`、`secondary`、`tertiary`\
+  \ 和 `error`，各自进一步细分为“on”、“container”和“onContainer”。例如，`primary` 有：\n\n*   `primary`\
+  \ – 主要品牌颜色\n*   `onPrimary` – 与 `primary` 对比鲜明的颜色；适合阅读\n*   `primaryContainer` –\
+  \ 适合 `primary` 的背景色\n*   `onPrimaryContainer` – 在 `primaryContainer` 背景上可读的文本颜色\n\
+  \n这些都是经过科学选择、看起来赏心悦目的颜色，它们由单一的主色（*种子*颜色）生成。\n\n```\nvar _scheme = ColorScheme.fromSeed(seedColor:\
+  \ );\n```\n\n**注意：** `ColorScheme.fromSwatch( )` 本身并未废弃，但它是为 Material 1 和 2 设计的。如果你使用的是\
+  \ Material 3 及更高版本，请使用 `ColorScheme.fromSeed( )`。\n\n来看看三种不同配色方案下的标准颜色（图 10-2 至\
+  \ 10-4）：\n\n![](img/638603_1_En_10_Fig4_HTML.jpg)\n\n图 10-4\n\n焦橙色方案\n\n![](img/638603_1_En_10_Fig3_HTML.jpg)\n\
+  \n图 10-3\n\n蓝色方案\n\n![](img/638603_1_En_10_Fig2_HTML.jpg)\n\n图 10-2\n\n绿色方案\n\n\
+  你当然可以手动创建 `ColorScheme` 对象并设置其每种颜色，但那工作量巨大！相反，让 Flutter 通过 `ColorScheme.fromSeed()`\
+  \ 为你完成创建初始方案的艰巨工作，并提供你的种子颜色。\n\n**提示：** 除了上面列出的颜色之外，还有 `shadow`、`scrim`、`surface`、`surfaceVariant`\
+  \ 等——总共大约 30 种。不必费心去记住它们。既然你已经明白了概念，到时候查一下你需要的即可。\n\n如果你决定调整一种或多种默认颜色，请使用 `copyWith()`：\n\
+  \n```\nColorScheme _colorScheme = ColorScheme.fromSeed(\nseedColor: Colors.green,\n\
+  ).copyWith(\nerror: Color.fromARGB(255, 191, 87, 0),\nonError: Colors.white,\n);\n\
+  ```\n\n这将用一个命令设置所有颜色。\n\n\n\n### 2\\. `TextTheme`\n\n您的`textTheme`由 15 个`TextStyle`组成。设置它们将自动设置某些小部件的样式。例如，更改`bodyMedium`的`textStyle`将依次改变您添加的每个`Text`小部件、每个`ListItem`和每个`Navigator`的外观。设置`labelLarge`的`textStyle`将依次设置您添加的每个`TextButton`、每个`ElevatedButton`、每个`FAB`和每个`Chip`。您有以下通用分组：\n\
+  \n*   Display\n*   Headline\n*   Title\n*   Body\n*   Label\n\n在每个组别背后，您都有 `small`、`medium`\
+  \ 和 `large` 三种尺寸。图 10-5 展示了它们的外观。\n\n![](img/638603_1_En_10_Fig5_HTML.jpg)\n\n**Figure\
+  \ 10-5** 实际尺寸下的 `TextTheme` 文本样式\n\n同样，我建议使用`.copyWith()`来更改默认值。例如，如果您想让每个`Text`小部件更大，可以这样做：\n\
+  \n```dart\nTextTheme _textTheme = const TextTheme().copyWith(\n  bodyMedium: const\
+  \ TextStyle().copyWith(fontSize: 18.0),\n);\n```\n\n> **小贴士**\n> `.copyWith()` 是\
+  \ Dart 中一种常见的模式。许多许多类都编写了`.copyWith()`方法，允许您对实例的副本进行增量更改。留意这种模式，您会惊讶于它出现的频率。事实上，在您自己的类中编写一个`.copyWith()`方法，您的开发者同行们会感谢您的。\n\
+  \n### 3\\. 小部件特定主题\n\n当您不喜欢默认样式时，许多其他显示小部件也具有您可以覆盖的样式。例如，如果您想更改所有`AppBar`和所有`ListTile`的外观该怎么办？\n\
+  \n```dart\n// Widget-specific themes\nAppBarTheme _appBarTheme = const AppBarTheme().copyWith(\n\
+  \  foregroundColor: _colorScheme.onTertiaryContainer,\n  color: _colorScheme.tertiary,\n\
+  \  titleTextStyle: _textTheme.displayLarge!\n    .copyWith(fontFamily: 'Courier'));\n\
+  ListTileThemeData _listTileThemeData = ListTileThemeData(\n  tileColor: _colorScheme.secondary,\n\
+  \  textColor: _colorScheme.onSecondary,\n  contentPadding: const EdgeInsets.all(10.0));\n\
+  ```\n\n请注意，这些主题的层级要低得多，并且仅适用于那些特定的部件。许多小部件都有自己的主题，这些主题由特定于该小部件类型的样式组成。当然，一旦在`Theme`中设置并应用于`MaterialApp`，所有该类型的小部件都将遵循该主题。实际上，您拥有相当多的小部件主题：\n\
+  \n`appBarTheme`, `textButtonTheme`, `elevatedButtonTheme`, `cardTheme`, `inputDecorationTheme`,\
+  \ `iconTheme`, `sliderTheme`, `tabBarTheme`, `drawerTheme`, `tooltipTheme`, `chipTheme`,\
+  \ `dialogTheme`, `pageTransitionTheme`, `floatingActionButtonTheme`, `NavigationRailTheme`,\
+  \ `snackBarTheme`, `bottomSheetTheme`, `popupMenuTheme`, `bannerTheme`, `buttonBarTheme`,\
+  \ `bottomNavigationBarTheme`, `timePickerTheme`, `outlinedButtonTheme`, `textSelectionTheme`,\
+  \ `dataTableTheme`, `checkboxTheme`, `radioButtonTheme`, `sliderTheme`, `switchTheme`,\
+  \ `progressIndicatorTheme`。\n\n### 4\\. 将它们整合到一个主题中\n\n是时候将所有这些整合到一个主题中了。我们已经写了很多代码，对吧？主题比您预期的要冗长得多，所以我建议在一个单独的文件中创建它，例如在`theme.dart`中：\n\
+  \n```dart\nThemeData themeData = ThemeData(\n  colorScheme: _colorScheme,\n  textTheme:\
+  \ _textTheme,\n  // Widget-specific themes only when needed\n  appBarTheme: _appBarTheme,\n\
+  \  listTileTheme: _listTileThemeData,\n  // Optionally set other specialized things\
+  \ here\n  fontFamily: 'Courier',\n  fontFamilyFallback: const ['monospace', 'serif'],\n\
+  );\n```\n\n然后将该主题导入到您的`main.dart`文件中，并将其应用于您的`MaterialApp`：\n\n```dart\nimport './theme.dart';\n\
+  class MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext\
+  \ context) {\n    return MaterialApp(\n      title: 'Themes and Styles Demo',\n\
+  \      theme: themeData,\n      routes: {\n        \"/\": (_) => const Dashboard(),\n\
+  \        ...,\n      },\n    );\n  }\n}\n```\n\n就是这样！运行您的应用并观察您出色设计的辉煌！无需其他操作。除非，您需要零星地应用单个样式。\n\
+  \n### 5\\. 覆盖单个小部件的样式\n\n最后一步。设置您的`ColorScheme`、`TextTheme`和单个小部件主题为您的应用建立了默认的外观和感觉。但有时我们希望某个单独的小部件具有特殊样式。也许您放在页面顶部的`Text()`应该作为页面标题。或者如果您希望一个按钮看起来不同。比如一个“您确定吗？”按钮。也许我们希望那一个按钮——仅仅那一个——从其他按钮中脱颖而出。因此，我们偶尔需要为单个小部件设置样式。当您有主题时，最佳实践是基于主题样式创建一个样式，使用`.copyWith()`来扩展它。然后将其应用于您的特殊小部件。\n\
+  \n```dart\n// First, copy the default style & apply your customizations\nTextStyle\
+  \ dangerButtonStyle = Theme.of(context)\n    .textTheme\n    .labelLarge\n    .copyWith(\n\
+  \        fontSize: 18.0,\n        fontWeight: FontWeight.bold,\n        color: Colors.red,\n\
+  \    );\n// Use the custom style in your button widget\nTextButton(\n    onPressed:\
+  \ () => deleteEverything(),\n    child: Text(\"Are you sure?\", style: dangerButtonStyle),\n\
+  );\n```\n\n> **小贴士**\n> 我们已经看到`MaterialApp`有一个*theme*。碰巧这个主题就是`lightTheme`。`MaterialApp`还有一个*`darkTheme`*。像创建常规（亮色）主题一样创建一个`darkTheme`，并将`MaterialApp`指向它。现在，您的应用可以响应操作系统的亮色和暗色主题变化。\n\
+  \n## 关于样式设计的最后思考\n\n在我们结束样式设计这个话题之前，我们确实应该简要讨论一下颜色和字体。如果这些不是您当前立即感兴趣的内容，请随意跳到本章结尾。当您有迫切需求时，再回来看这部分。但在\
+  \ Flutter 中，颜色和字体并非完全简单明了。有一些需要注意的陷阱我们将进行讨论。\n\n### 关于颜色的补充说明\n\n大多数 Flutter 样式的应用范围非常狭窄；它们仅对某些严格定义的情况有意义。另一方面，颜色几乎应用于所有地方（图\
+  \ 10-6）。边框、文本、背景、图标、按钮和阴影都有颜色。并且它们都以相同的方式指定。例如，下面是一个红色容器中的白色文本，带有黄色边框，所有这些小部件都使用语法`color:\
+  \ Colors.somethingOrOther`进行着色：\n\n![](img/638603_1_En_10_Fig6_HTML.jpg)\n\n**Figure\
+  \ 10-6** Flutter 中的颜色无处不在\n\n```dart\nchild: Container(\n  decoration: BoxDecoration(\n\
+  \    color: Colors.red,\n    border: Border.all(color: Colors.yellow)\n  ),\n  child:\
+  \ Text('Colors!',\n    style: TextStyle(color: Colors.white,),\n  ),\n),\n```\n\n\
+  您看到背景中那些彩色方块了吗？它们的创建方式如下：\n\n```dart\nList _randomColors() {\n  Random rnd = Random();\n\
+  \  return List.generate(25,\n    (int i) => Container(\n      color: Color.fromRGBO(\n\
+  \        rnd.nextInt(255), rnd.nextInt(255),\n        rnd.nextInt(255), 1.0),\n\
+  \    ));\n}\n```\n\n因此，您可以使用`Color.fromRGBO(red, green, blue, opacity)`创建超过 1600\
+  \ 万种颜色中的任何一种，其中三个 RGB 颜色分量每个都是 0 到 255 之间的数字，`opacity`（不透明度）为 1.0 表示完全不透明，0.0 表示完全透明。还有一个`Color.fromARGB(alpha,\
+  \ red, green, blue)`，它执行相同的功能，只是将不透明度作为`alpha`移到前面，它是一个介于 0（完全透明）到 255（完全不透明）之间的数字。\n\
+  \n如果您有 Web 开发背景，您可能更习惯使用十六进制数字创建颜色。这同样有效：\n\n```dart\ncolor: Color(0xFFFF7F00),\n\
+  ```\n\n> **注意**\n> 请小心。那个十六进制数字实际上是“ARGB”，其中前两个十六进制字符是 alpha 通道。如果您忘记了这一点，例如写成`Color(0xFFF700)`，您将绘制出完全透明的颜色，并且永远看不到它。请记住，如果您的颜色不显示，请将典型的网页十六进制数字前面加上“FF”。\n\
+  \n\n\n### 自定义字体\n\n有一些内置字体，例如 `Courier`、`Times New Roman`、`serif` 等等。还有多少种？这取决于应用运行的设备类型。由于我们无法控制用户的设备，最佳实践是坚持使用默认字体系列，除非你安装并使用自定义字体。我们来谈谈如何做到这一点。\n\
+  \n某些设计师在设计场景时会要求使用自定义字体。事实证明，使用 Flutter 实现自定义字体非常简单，并且它们可以跨平台工作。这涉及三个步骤：\n\n![](img/638603_1_En_10_Fig7_HTML.jpg)\n\
+  \n图 10-7：字体通常存储在一个名为 `fonts` 的文件夹中\n\n1.  下载格式为 `ttf`、`woff` 或 `woff2` 的自定义字体文件。这些文件通常存储在根级别的\
+  \ `fonts` 文件夹中，但名称由你决定（图 10-7）。\n\n    **提示：** 你可以在 `http://fonts.google.com` 找到一些优秀的免费字体。可以通过类型搜索它们，查看示例，并轻松下载。\n\
+  \n2.  将字体文件添加到 `pubspec.yaml` 文件的 `flutter/fonts` 部分，以便通知编译器将它们打包到安装文件中。\n\n   \
+  \ ```\n    flutter:\n      fonts:\n        - family: MrDafoe\n          fonts:\n\
+  \            - asset: fonts/MrDafoe-Regular.ttf\n        - family: NanumBrushScript\n\
+  \          fonts:\n            - asset: fonts/NanumBrushScript-Regular.ttf\n   \
+  \ ```\n\n3.  像我们在前几节中讨论的那样，在 `TextStyle`  widget 的 `fontFamily` 属性中使用不区分大小写的字体名称：\n\
+  \n    ```\n    Text(loremIpsums[0]),  // 无样式\n    Text(loremIpsums[1],   // 有些字体，比如\
+  \ Courier，可能是内置的\n          style: TextStyle(fontFamily: 'Courier'),),\n    Text(loremIpsums[2],\n\
+  \          style: TextStyle(fontFamily: 'NanumBrushScript'),),\n    Text(loremIpsums[3],\n\
+  \          style: TextStyle(fontFamily: 'MrDafoe'),),\n    ```\n\n上述示例可能看起来像图 10-8。\n\
+  \n![](img/638603_1_En_10_Fig8_HTML.jpg)\n\n图 10-8：可用的字体\n\n## 结论\n\n如你所见，在 Flutter\
+  \ 中设置样式的选项几乎是无限的。Flutter 的样式设置与 CSS 完全不同。首先，它更加冗长。其次，它不支持继承。有些人可能不喜欢这些特性，但另一些人则会喜欢由此带来的简洁性。\n\
+  \n无论你对此有何看法，你都会对 Flutter 提供的样式能力印象深刻，尤其是当你考虑到样式是如何在主题中组织，以便我们可以在整个应用中呈现一致且专业的观感时。\n\
+  \n现在，大家期待已久的时刻到了……让我们学习如何在场景中布局我们的 widget！\n\n"
+- "# 11. 布局你的 Widget\n\n我们已经取得了很大进展，但一个主要话题仍然存在——控制应用 app 的视觉布局。我们需要精细控制 widget 在屏幕上的显示方式——大小、位置和间距。以下是我们将如何解决这个问题。\n\
+  \n## 我们的方法\n\n要掌握布局，我们需要知道如何做五件事：\n\n1.  布局整个场景\n2.  相对于彼此定位 widget\n3.  解决溢出问题，例如当你的\
+  \ widget 无法在屏幕上容纳时\n4.  处理额外空间，例如当你的屏幕比所需空间更大时\n5.  微调位置\n\n这将是我们接下来五章的计划，每章一步。\n\
+  \n### 1. 布局整个屏幕（即场景）\n\n在本章中，我们将学习 Flutter 在布局时的思考方式。我们将设置整个应用的观感（使用 `MaterialApp`），并创建场景的外部结构，例如标题和菜单（使用\
+  \ `Scaffold`）（图 11-1）。\n\n![](img/638603_1_En_11_Fig1_HTML.jpg)\n\n图 11-1：标题和菜单出现在顶部，此外还有其他元素，如操作按钮\n\
+  \n### 2. 将 Widget 上下放置或并排放置\n\n在设计任何场景时，我们将其分解为 widget 并放置在屏幕上。例如，以下场景（图 11-2）必须分解为\
+  \ widget 。由于这是一个人员列表，我们可能会创建一堆自定义的 `PersonCard` widget（图 11-3），并将它们上下放置。我们可以使用 `Column`\
+  \ widget 来实现这一点。\n\n![](img/638603_1_En_11_Fig3_HTML.jpg)\n\n图 11-3：我们可能会创建一个 `PersonCard`\
+  \ widget\n\n![](img/638603_1_En_11_Fig2_HTML.jpg)\n\n图 11-2：`Column` 可以将 widget\
+  \ 上下放置\n\n然后反过来，每个 `PersonCard` widget 应该有一个图像与文本并排放置（图 11-4）。如何让文本出现在图像旁边？我们将使用\
+  \ `Row` widget。还要注意，文本是关于该人员的一系列数据。如何让文本上下排列？我们将再次使用 `Column` widget。\n\n![](img/638603_1_En_11_Fig4_HTML.jpg)\n\
+  \n图 11-4：`Row` widget 和 `Column` widget 可用于放置元素\n\n放置 widget 将是第 12 章“布局 – 定位 Widget”的主题。\n\
+  \n### 3. 处理空间不足和场景溢出的情况\n\n在包含所有 `PersonCard` 的场景中，我们的人数超过了屏幕的显示能力，因此发生了溢出。这通常会导致错误，但有几种方法可以解决这个问题。我们将在第\
+  \ 13 章“布局 – 解决溢出”中探讨相关策略。\n\n### 4. 处理场景中的额外空间\n\n嘿，每个人的右侧都有额外的空间。如果我们希望将这部分空间放置在图片和文本之间会怎样？或者如果我们希望将部分额外空间放在图片的左侧会怎样？第\
+  \ 14 章“布局 – 填充额外空间”将向我们展示如何以悦目的方式分配这些空间。\n\n### 5. 对定位进行更精细的调整\n\n对于布局的最后一步，你可能会希望通过调整内边距、外边距和对齐方式来完善你的场景。这样可以防止场景显得拥挤。我们能做些什么来创造一些活动空间？在第\
+  \ 15 章“布局 – 微调定位”中，我们将学习如何使布局看起来更像图 11-5。\n\n![](img/638603_1_En_11_Fig5_HTML.jpg)\n\
+  \n图 11-5：微调后的间距\n\n好了，这就是我们在本书整个部分的计划。我们将在每章中深入探讨这五个步骤中的每一个。准备好开始第一步了吗？开始吧！\n\n\
+  ## 布局整个场景\n\n这里有一个提示给你：应用永远不应该让用户感到惊讶。^((23)) 当应用以用户期望的方式运行时，用户会认为该应用友好、简单且易用。用户已经被训练成习惯在顶部看到一个状态栏，后面跟着一个标题栏。虽然其他屏幕功能会根据需要有所不同，但存在明确的约定。Flutter\
+  \ 拥有使你的布局感觉……嗯……*正常* 的 widget。\n\n\n\n### `MaterialApp` 组件\n\n根应用组件为你的应用创建了外层框架。尽管它至关重要，用户却从未见过应用组件，因为其任何部分在技术上都不可见。它包裹着整个应用，允许设置应用标题，以便当\
+  \ iOS/Android 将应用移至后台时能显示名称。应用组件是设置应用默认主题的地方——包括字体、大小、颜色等。它也是指定路由的地方。\n\n对于应用，你有三种选择：`MaterialApp`、`CupertinoApp`\
+  \ 或自定义的应用组件。\n\n大多数 Flutter 组件在这三种应用中都能工作。应用组件只是让你选择基础的外观和感觉。如果你在 `CupertinoApp`\
+  \ 中放置 Cupertino 组件，它们看起来会完全像 iOS 应用。如果你在 `MaterialApp` 中放置符合 Material 规范的组件，它们看起来会更像\
+  \ Android 应用。\n\n“没错，但我需要它在 iOS 上像 iOS，在 Android 上像 Android！”你说。好吧，我明白。这是可行的。你可以创建自己的自定义应用组件，它继承自\
+  \ `WidgetApp`，并进行大量条件绘制，就像这样：\n\n```\nPlatform.isIOS ? CupertinoButton(...) : ElevatedButton(...)\n\
+  ```\n\n但是，哎呀！这需要编写大量底层代码，坦白说这抵消了跨平台的优势，所以大多数开发者不会费这个功夫。在社区中，超过 95% 的项目使用 `MaterialApp`。只有一小部分使用\
+  \ `CupertinoApp` 或从 `WidgetApp` 派生的自定义应用组件。使用 `MaterialApp` 是标准做法。\n\n|   | `MaterialApp`\
+  \ | `CupertinoApp` | `WidgetApp` |\n| --- | --- | --- | --- |\n| 遵循的标准 | Google\
+  \ 的 Material 设计指南 | Apple 的人机界面指南 | 无 |\n| 外观和感觉 | Google/Android | iOS | 通用且灵活\
+  \ |\n| 实际使用情况 | 大多数应用 | 优先适配 iOS 或仅 iOS 应用 | 自定义应用组件创建的基类 |\n\n以下是 `MaterialApp`\
+  \ 可能的样子：\n\n```\nWidget build(BuildContext context) {\n  return MaterialApp(\n \
+  \   home: MainWidget(),\n    title: \"我的酷应用\",\n    theme: _themeDefinedElsewhere,\n\
+  \    routes: ({\n      '/scene1': (ctx) => MyWidget1(),\n      '/scene2': (ctx)\
+  \ => MyWidget2(),\n      '/scene3': (ctx) => MyWidget3(),\n    },\n    debugShowCheckedModeBanner:\
+  \ false,\n  );\n}\n```\n\n### `Scaffold` 组件\n\n`MaterialApp` 组件创建了一个**外层不可见**的框架，而\
+  \ `Scaffold` 组件则创建了**内层可见**的框架。\n\n`Scaffold` 只有一个使命：为每个场景的可见结构进行布局，赋予其可预测且因此可用的布局——就像许多其他应用一样。它创建的内容包括：\n\
+  \n*   用于标题的 `AppBar`\n*   用于主体内容的部分\n*   底部的导航栏或左侧的导航抽屉\n*   浮动操作按钮\n*   底部面板——通常处于折叠状态，但可以向上滑动以显示当前场景的上下文相关信息\n\
+  \n```\n@override\nWidget build(BuildContext context) {\n  return Scaffold(\n   \
+  \ appBar: MyAppBar(),\n    drawer: MyNavigationDrawer(),\n    body: TheRealContentOfThisPartOfTheApp(),\n\
+  \    floatingActionButton: FloatingActionButton(\n      child: Icon(Icons.add),\n\
+  \      onPressed: () { /* 在这里执行操作 */},\n    ),\n    bottomSheet: MyBottomSheet,\n\
+  \  );\n}\n```\n\n`Scaffold` 的所有部分都是可选的。这很合理，因为你并不总是需要 `floatingActionButton`、`drawer`\
+  \ 或 `bottomNavigationBar`。我们的屏幕设计将决定我们需要哪些部分，不需要哪些部分。\n\n### `AppBar` 组件\n\n要在屏幕顶部创建一个标题栏，请使用\
+  \ `AppBar` 组件（图 11-6）。这严格来说是可选的。但你的用户几乎完全期望每个非游戏类应用都有 `AppBar`。你几乎总是需要一个标题。并且你可能希望在开头添加一个图标。图标是\
+  \ *leading* 属性：\n\n![](img/638603_1_En_11_Fig6_HTML.jpg)\n\n图 11-6\n\n带有 leading\
+  \ 图标和标题的 `AppBar` 组件\n\n```\nreturn Scaffold(\n  appBar: AppBar(\n    leading: Icon(Icons.traffic),\n\
+  \    title: Text(\"我的酷应用\"),\n  ),\n  /* 此处更多内容：浮动操作按钮、主体、抽屉等。 */\n);\n```\n\n不过有一个问题。如果你同时设置了\
+  \ leading 图标和导航抽屉，Flutter 就无法使用该空间来显示汉堡菜单（图 11-7）：\n\n![](img/638603_1_En_11_Fig7_HTML.jpg)\n\
+  \n图 11-7\n\n没有 leading 图标的 `AppBar` 能够显示汉堡菜单图标\n\n```\nreturn Scaffold(\n  appBar:\
+  \ AppBar(\n    /* 这次没有 leading。 */\n    title: Text(\"我的酷应用\"),\n  ),\n  /* 此处更多内容：浮动操作按钮、主体、抽屉等。\
+  \ */\n);\n```\n\n如果你有导航抽屉，你可能希望省略 leading 图标。\n\n### `SafeArea` 组件\n\n物理设备屏幕很少是整齐的矩形。它们有圆角、刘海和顶部的状态栏。如果我们忽略这些，应用的某些部分就会被裁剪或隐藏。不想这样？只需用\
+  \ `SafeArea` 组件包裹所有主体内容，它就会限制你的应用渲染在刘海、状态栏和圆角下方。将其放在 `Scaffold` 内部但包裹主体内容是一个绝佳的位置：\n\
+  \n```\nWidget build(BuildContext context) {\n  return Scaffold(\n    drawer: LayoutDrawer(),\n\
+  \    body: SafeArea(\n      child: MyNormalBody(),\n    ),\n    floatingActionButton:\
+  \ FloatingActionButton(\n      child: Icon(Icons.next),\n      onPressed: () {},\n\
+  \    ),\n  );\n}\n```\n\n## Flutter 的布局算法\n\n朋友们，请做好准备。本章的最后一部分并不适合胆小者。这是相当高层次的思考，但直接跳过会是对你的不负责任。一旦你理解了\
+  \ Flutter 是如何布局的，许多组件及其正确用法就会突然变得清晰。没有这种理解，我们只能胡乱修改代码，直到它勉强能工作——这令人沮丧，并且会产生脆弱的代码。\n\
+  \n所以，和我一起深入探究，我们来谈谈 Flutter 的布局算法。我们先从……\n\n\n\n### 可怕的“无限高度”错误\n\n我敢保证，在你的开发生涯中，你一定会遇到\
+  \ Flutter 抛出这个错误：\n\n```\n══╡ Exception caught by rendering library ╞═════════════\n\
+  The following assertion was thrown during performResize(): Vertical viewport was\
+  \ given unbounded height.\nViewports expand in the scrolling direction to fill their\
+  \ container. In this case, a vertical viewport was given an unlimited amount of\
+  \ vertical space in which to expand. This situation typically happens when a scrollable\
+  \ widget is nested inside another scrollable widget. If this widget is always nested\
+  \ in a scrollable widget there is no need to use a viewport because there will always\
+  \ be enough vertical space for the children. In this case, consider using a Column\
+  \ or Wrap instead. Otherwise, consider using a CustomScrollView to concatenate arbitrary\
+  \ slivers into a single scrollable.\n```\n\n这个错误信息对开发者并不友好，对吧？大多数人在看到这条错误信息时，都会完全搞不懂代码中的问题所在。类似的错误信息可能还会说“RenderFlex\
+  \ children have non-zero flex”或者“RenderViewport does not support returning intrinsic\
+  \ dimensions.”这些消息都没什么帮助。如果它们能友好一点，应该会这样说：\n\n```\n══╡ You're doing it wrong ╞═════════════════════════\n\
+  The ListView you're drawing wants to be infinitely tall and it needs a parent widget\
+  \ that will keep it reasonably short. Maybe tell it to be small by wrapping it with\
+  \ an Expanded widget?\n```\n\n这样是不是清晰多了？你就能明白问题所在以及如何修复。\n\n让我帮你解读 Flutter 试图告诉我们什么：某些\
+  \ widget 想要填满所有可用空间。换句话说，它们是“贪婪的”。它们需要一个父 widget 来约束自己。如果它们处于一个拒绝提供这种约束的父 widget\
+  \ 内，Flutter 就会崩溃，因为它无法绘制无限高的东西。下面用一些代码来说明这个问题。\n\n这段代码在一个 `Column()` 中绘制了一个标题和 20\
+  \ 个随机的 `Text()`。它看起来很正常（图 11-8）：\n\n```\nWidget build(BuildContext context) {\n\
+  List randomTexts = List.generate(20,\n(i) => Text(\"Random number: ${Random().nextInt(1000)}-$i\"\
+  ));\nreturn Column(\nchildren: [\nText(\"Some random strings for you\", style: big),\n\
+  Column(\nchildren: randomTexts,\n),\n],\n);\n}\n```\n\n![](img/638603_1_En_11_Fig8_HTML.jpg)\n\
+  \n图 11-8\n\n一个短小的 Column 绘制得很好。\n\n当数量增加到 80 个随机的 `Text()` 时，就会溢出视口（图 11-9）。\n\n\
+  ![](img/638603_1_En_11_Fig9_HTML.jpg)\n\n图 11-9\n\n子元素过多的 Column 会溢出屏幕\n\n这看起来很难看，但这不是运行时错误。我们应该怎么做？我知道了！让我们把\
+  \ `randomTexts` 列表放入一个 `ListView` 中使其可滚动。这是一个完全合乎逻辑的想法。\n\n```\n@override\nWidget\
+  \ build(BuildContext context) {\nList randomTexts = List.generate(80,\n(i) => Text(\"\
+  Random number: ${Random().nextInt(1000)}-$i\"));\nreturn Column(\ncrossAxisAlignment:\
+  \ CrossAxisAlignment.center,\nchildren: [\nText(\"Some random strings for you\"\
+  , style: big),\nListView(\nchildren: randomTexts,\n),\n],\n);\n}\n```\n\n我们只是把其中一个\
+  \ widget 从 `Column` 换成了 `ListView`，然后就——砰！它崩溃了。看到了吗？`Column()` 认为它没有责任限制任何子元素的高度。“你想多大就多大，”`Column`\
+  \ 说。而 `ListView` 会试图变得和它的父 widget 允许的一样大。由于 `ListView` 的父 widget 没有限制它，它就会变得无限高。\n\
+  \n坦白说，这是开发者没有真正理解 Flutter 如何处理布局的典型症状。所以让我试着解释一下 Flutter 的布局算法，希望能预测并避免像上面例子那样的混乱局面。然后我会解释一种解决方法。\n\
+  \n### 算法本身\n\n你的 widget 在 `main` 方法的顶部总会有一个根 widget。它有分支、分支的分支，一直延续下去。我们称之为渲染树（图\
+  \ 11-10）。Flutter 必须决定树中每个 widget 的大小。它通过询问每个 widget 它希望有多大，并询问其父 widget 是否允许这样做来实现。\n\
+  \n![](img/638603_1_En_11_Fig10_HTML.png)\n\n图 11-10\n\n每个场景都有一个 widget 树\n\nFlutter\
+  \ 从顶部开始向下遍历树。它会读取根 widget 的 `BoxConstraints`（最大宽度和最大高度）。它记住这些约束，然后与每个子 widget 通信。对于每个子\
+  \ widget，它会将其 `BoxConstraints` 传递给它，然后继续向下遍历到孙 widget。它会一直这样做，直到每条分支的末端。我们称之为叶子层。\n\
+  \n然后它询问每个叶子的 `RenderBox`——它希望有多大。有些子元素是贪婪的，会说“尽可能大”。其他的则占用较小的空间。Flutter 允许叶子在其所有祖先的*约束之内*以其首选大小绘制。如果首选大小对于其父\
+  \ widget 的 `BoxConstraints` 来说太大，Flutter 会在运行时裁剪它——这是我们极力避免的！如果首选大小太小，Flutter 会用额外的空间填充它，直到它合适为止。\n\
+  \n然后它会向上返回一层，尝试将这些分支放入它们的共同父 widget 中，而这个父 widget 有自己的约束。以此类推，一直回到顶部。\n\n结果是，每个子\
+  \ widget 都可以得到它喜欢的高度和宽度——只要它的父 widget 允许。并且，在所有子 widget 都有最终大小之前，没有父 widget 会有最终大小。\n\
+  \n所以你可以看到我们是如何得到“无限高度”错误的。如果我们有一个子 widget 试图变得尽可能大，而又没有父 widget 来阻止它，Flutter 就会恐慌，因为这个子\
+  \ widget 现在无限高了。\n\n要解决这个问题，父 widget 只需要指示它的子 widget 停止增长。在我们的 `ListView`/`Column`\
+  \ 例子中，有几种解决方案。一种是将 `Column` 和 `ListView` 互换。`Column` 并不贪婪，所以它可以放在 `ListView` 中。但这样一来，标题\
+  \ `Text` 就会滚动出页面。另一种方法是将 `ListView` 包裹在 `SizedBox` 中，以精确锁定大小，或者包裹在 `LimitedBox`\
+  \ 中，以提供 `maxWidth` 和 `maxHeight`。但这些解决方案都很笨拙。第三种方法是把 `ListView` 包裹在一个 `Expanded`\
+  \ 中。我们将在几章后详细讲解 `Expanded`，但在这里它对我们有利，因为 `Expanded` 会扩展以占据剩余（不是无限的）空间，并告诉它的子 widget\
+  \ 它现在有了 `BoxConstraints`。完美！我们只需要这样做：\n\n```\nWidget build(BuildContext context)\
+  \ {\nList randomTexts = List.generate(80,\n(i) => Text(\"Random number: ${Random().nextInt(1000)}-$i\"\
+  ));\nreturn Column(\ncrossAxisAlignment: CrossAxisAlignment.center,\nchildren: [\n\
+  Text(\"Some random strings for you\", style: big),\nExpanded(         // <-- 添加这个\
+  \ widget\nchild: ListView(\nchildren: randomTexts,\n),\n),\n],\n);\n}\n```\n\n##\
+  \ 结论\n\n你明白为什么我说理解布局策略很重要了吗？在你真正搞懂它之前，你只是在猜测解决方案。理解它们需要很多工作，但这是值得的。\n\nFlutter 有大量的\
+  \ widget 来控制大小和位置。在接下来的几章中，我们将学习那些最关键的布局 widget——那些你绝对必须掌握的 widget。我们将从 `Row` 和\
+  \ `Column` 开始。\n\n脚注 1\n\n"
+- "# 12. 布局 – 定位 Widget\n\n请记住，应用程序视觉部分的步骤是：\n\n1.  布局整个场景\n\n2.  将 widget 相对于彼此进行定位\n\
+  \n3.  修复溢出问题，例如当 widget 不适合屏幕时\n\n4.  处理多余空间，例如当屏幕比所需空间更大时\n\n5.  微调位置\n\n在上一章中，我们学习了\
+  \ Flutter 的布局算法，并学会了如何使用 `MaterialApp`、`Scaffold` 及其典型子 widget 来为布局做好准备。现在是时候进入第二步了：`Row`\
+  \ 和 `Column`。\n\n\n\n## 将控件并排或上下排列\n\n顾名思义，`Row` 和 `Column` 分别用于将控件并排（`Row`，如图 12-1\
+  \ 所示）或上下排列（`Column`，如图 12-2 所示）。除了子控件的布局方向不同，它们几乎没有区别。\n\n![图 12-1](img/638603_1_En_12_Fig1_HTML.png)\n\
+  \n**图 12-1** `Row` 控件用于并排布局\n\n```\nRow(\n  children: [\n    SomeWidget(),\n   \
+  \ SomeWidget(),\n    SomeWidget(),\n  ],\n),\n```\n\n![图 12-2](img/638603_1_En_12_Fig2_HTML.png)\n\
+  \n**图 12-2** `Column` 控件用于上下排列\n\n```\nColumn(\n  children: [\n    SomeWidget(),\n\
+  \    SomeWidget(),\n    SomeWidget(),\n  ],\n),\n```\n\n注意，它们都有一个 `children` 属性，该属性是一个控件数组。`children`\
+  \ 数组中的所有控件将按照你添加的顺序依次显示。你甚至可以在列中嵌套行，或者在行中嵌套列，嵌套的层数不限。通过这种方式，你几乎可以在任何应用中创建出能想象到的任何布局。\n\
+  \n`Row` 和 `Column` 将是你最常用的布局控件。诚然，还有其他布局控件，但这两种会是你的首选。\n\n## 响应式设计\n\n响应式设计诞生于 2010\
+  \ 年代初期，当时网络正从以桌面浏览为主的时代，转向智能手机和平板电脑普及的时代，这就要求网站能够适应各种不同屏幕尺寸的新格局。Web 应用会根据其所在设备的屏幕尺寸和方向来调整布局。你明白我的意思了吗？这是一种会对屏幕尺寸和方向做出*响应*的*设计*。\n\
+  \n### Flutter 中的响应式设计\n\nFlutter UI 需要适配移动设备。响应式设计确保了你的应用布局能够适应不同的屏幕尺寸和方向，无论用户是竖屏持握手机，还是将其旋转为横屏。\n\
+  \n想象一下你在竖屏模式下使用应用的情形：布局整洁，所有元素都易于点击和阅读。然而，当旋转到横屏时，设备的文本可能会溢出，按钮会靠得太近，甚至有些元素会完全被隐藏。使用\
+  \ `Flex` 控件配合 `MediaQuery`，你可以创建一个能够智能适应可用空间的 UI。这确保了用户无论以何种方式持握设备，都能获得流畅无阻的体验。\n\
+  \n### Flex 与 MediaQuery\n\n与 `Row` 或 `Column` 一样，`Flex` 控件也是将其子控件并排或上下排列。但 `Flex`\
+  \ 更加灵活。它有一个 `orientation` 属性，可以设置为垂直或水平方向。\n\n- 方向设置为水平的 `Flex` 实际上等同于 `Row()`。\n\
+  - 方向设置为垂直的 `Flex` 实际上等同于 `Column()`。\n\n请注意，这个 `orientation` 属性可以被设置为条件性的。这正是 `MediaQuery`\
+  \ 的用武之地。\n\n`MediaQuery` 从设备本身获取特定数据。\n\n- `MediaQuery.sizeOf(context)` – 宽度和高度\n\
+  - `MediaQuery.displayFeaturesOf(context)` – 摄像头开孔、刘海等\n- `MediaQuery.platformBrightnessOf(context)`\
+  \ – 浅色或深色模式\n- `MediaQuery.textScaleFactorOr(context)` – 当前字体大小\n- `MediaQuery.viewInsetsOf(context)`\
+  \ – 设备应用了多少内边距？\n- `MediaQuery.devicePixelRatioOf(context)` – 像素密度\n\n> **注意** \
+  \ \n> 在 Flutter 中，所谓的像素实际上是*逻辑*像素。iOS 开发者称其为*点*，而 Android 开发者则称之为*密度无关像素*。`MediaQuery.devicePixelRatioOf(context)`\
+  \ 能帮助我们确定真实的像素密度，以备不时之需。\n\n- `MediaQuery.orientationOf(context)` – 横屏或竖屏\n\n最后这一个属性是关键。你需要检查屏幕方向，如果是横屏，则使用\
+  \ `Row`；否则，应使用 `Column`。以下是相关代码：\n\n```\nFlex(\n  direction:\n    MediaQuery.orientationOf(context)\
+  \ == Orientation.landscape ?\n    Axis.horizontal : Axis.vertical,\n  children:\
+  \ [\n    SomeWidget(),\n    SomeWidget(),\n    SomeWidget(),\n  ],\n),\n```\n\n\
+  ## 总结\n\n现在，你已经能够将控件并排放置或上下排列了。你甚至可以在需要时使用 `Flex` 来实现响应式布局。但是，如果布局引擎没有足够的屏幕空间来显示所有内容，会发生什么？我们该怎么办？让我们在下一章中探讨这个问题。\n\
+  \n"
+- "# 13. 布局 – 解决溢出问题\n\n你的控件永远不可能恰好适配屏幕。\n\n如果所有元素都能完美地适配在一个场景中，那将是一个极其罕见的巧合。即使它们现在完美适配，一旦应用在其他不同尺寸的屏幕上运行，或者从竖屏旋转为横屏，情况就会发生变化。因此，我们需要处理两种情况：\n\
+  \n1.  空间不足怎么办？（给定空间内的控件过多）\n2.  如果还有剩余空间怎么办？（屏幕显示面积大于控件占用的像素）\n\n这两种情况很可能*同时*发生在你场景的不同部分。我们将在本章着手解决空间不足的问题，并在下一章处理空间过多的问题。\n\
+  \n## 溢出警告条\n\n容器内容溢出并非致命错误，但会造成不良后果。在调试时，如果任何控件溢出屏幕，Flutter 会友好地通过显示溢出警告来通知你（如图\
+  \ 13-1 所示）。这些警告是黄黑相间的条纹，旁边还有一些微小的红色文字，显示溢出了多少像素。\n\n![图 13-1](img/638603_1_En_13_Fig1_HTML.jpg)\n\
+  \n**图 13-1** 溢出条\n\n> **提示**  \n> 该警告仅在调试模式下显示。正式发布的应用永远不会显示这些溢出条。相反，溢出的控件会被直接裁剪。我不确定这算不算更好。\n\
+  \n## 纠正溢出的可选方案\n\n在现实中，如果你有一个固定大小的容器，比如一个纸板箱，你需要放进去一个太大而装不下的东西，你会怎么做？\n\n1.  折叠或拆卸物品（假设它们可以被拆卸或折叠）。\n\
+  2.  挤压物品，直到它能被装下（假设它是可挤压的）。\n3.  将其放入多个箱子中。\n\n从逻辑上讲，我们只有这些选择。让我们将同样的思路应用到 Flutter\
+  \ 屏幕上。我们有相同的三种选择：\n\n1.  允许子控件换行（假设它们可以换行）。\n2.  挤压子控件，直到它们适应（假设它们可以缩放）。\n3.  允许用户滚动。\n\
+  \n让我们看看在 Flutter 中如何实现这三件事。\n\n## 待解决的示例问题\n\n为了说明我们的三种方案，我们准备了一个随机的 lorem ipsum\
+  \ 字符串列表。我创建了一个名为 `Word()` 的自定义控件，它只是 `Text()` 的一个封装，并添加了样式和内边距。我将使用 `.map` 把这些字符串转换为\
+  \ `Word` 控件，并将它们放入一个 `Column` 中，如下所示：\n\n```\nWidget build(BuildContext context)\
+  \ {\n  var wordWidgets = words.map((w) => Word(w)).toList();\n  return Column(\n\
+  \    children: wordWidgets,\n  );\n}\n```\n\n图 13-2 展示了这段代码可能产生的效果。\n\n![图 13-2](img/638603_1_En_13_Fig2_HTML.jpg)\n\
+  \n**图 13-2** 在 `Column` 中显示效果不错\n\n到目前为止还不错？在 `Column` 中，它显示得很好——有足够的空间。但是，当我们把它改成一行时：\n\
+  \n```\nWidget build(BuildContext context) {\n  var wordWidgets = words.map((w) =>\
+  \ Word(w)).toList();\n  return Row(\n    children: wordWidgets,\n  );\n}\n```\n\n\
+  就出现了问题。所有单词无法在此设备上水平排列，右侧出现了溢出条（如图 13-3 所示）。\n\n![图 13-3](img/638603_1_En_13_Fig3_HTML.jpg)\n\
+  \n**图 13-3** 溢出条显示我们向右溢出了屏幕\n\n记住，我们有三种方案来解决溢出问题。第一种方案可能最适合我们当前的情况——允许 `Word` 控件在其行内自动换行。\n\
+  \n\n\n### 让子控件自动换行\n\n顾名思义，`Wrap` 控件的作用就是“包裹”。它的子控件可以自动换行，显示成所需的任意行数，直到所有内容都能在屏幕上完整显示。\n\
+  \n```dart\nWidget build(BuildContext context) {\n  var wordWidgets = words.map((w)\
+  \ => Word(w)).toList();\n  return Wrap(\n    children: wordWidgets,\n  );\n}\n```\n\
+  \n我们只做了一处改动，就是把 `Row` 换成了 `Wrap`。仅此而已。它现在的效果如图 13-4 所示。\n\n![](img/638603_1_En_13_Fig4_HTML.jpg)\n\
+  \n**图 13-4** 子控件自动换行\n\n对于我们当前这种单词列表的场景，这是理想的解决方案。但大多数情况下，我们会处理其他类型的控件。接下来我们看看第二种解决方案。\n\
+  \n### 挤压子控件直至适配\n\n如果你的控件是可压缩的，一个合乎逻辑的选择就是水平挤压`Row`的子控件，或垂直挤压`Column`的子控件，直到它们适配。听起来不舒服？确实有点。这种方式通常不会带来可预测且美观的呈现效果。但偶尔，这也正是我们需要的。\n\
+  \n让内容变小的一种方法是将它们放入 `Flexible()` 控件中。`Flexible()` 会对它的子控件说：“我会把你缩小，直到你适配，或者直到你被压缩到极限。如果你无法被压缩到足够的程度，那我就干脆放弃。”这意味着\
+  \ `Flexible` 并不是一个万无一失的解决方案。\n\n> **提示**  \n> `Flexible` 只有在 `Row()` 或 `Column()`\
+  \ 内部直接使用时才有意义。\n\n`Flexible` 包裹着 `Row` 或 `Column` 中的每一个子控件：\n\n```dart\nWidget build(BuildContext\
+  \ context) {\n  var wordWidgets = words.map((w) => Word(w)).toList();\n  return\
+  \ Row(\n    children: wordWidgets\n        .map((w) => Flexible(child: w))\n   \
+  \     .toList(),\n  );\n}\n```\n\n> **注意**  \n> `Iterable.map()` 只是将一个 X 数组转换成一个\
+  \ Y 数组。在上面的代码中，我们所做的就是将*每一个* `Word()` 控件都嵌套在一个 `Flexible()` 控件中。请不要为此分心。本章你应重点关注的是\
+  \ `Flexible` 及其对场景的影响——它让每个子控件协同工作以适配空间。（不过，你不得不承认，`.map()` 是一种简洁的转换方法。）\n\n每个 `Flexible`\
+  \ 会与 `Row` 中所有其他的 `Flexible` 进行“沟通”，沿着水平轴挤压它的子控件，从而产生了图 13-5 中不太美观的结果。\n\n![](img/638603_1_En_13_Fig5_HTML.jpg)\n\
+  \n**图 13-5** `Flexible` 控件挤压其子控件\n\n#### 挤压的另一种选择\n\n请记住，Flutter 有数百个控件，它们在用途和功能上有很多重叠。如果你想挤压子控件，而\
+  \ `Flexible` 不能满足需求，可以考虑 `FittedBox`。\n\n位于 `FittedBox` 中的子控件会根据你指定的 `BoxFit` 进行缩放和/或裁剪。还记得第\
+  \ 4 章“值控件”中的 `BoxFit` 吗？所有这些值都适用于 `FittedBox`。\n\n- `fitWidth` – 使宽度完全适配。如果需要，则裁剪高度或在顶部/底部添加内边距。\n\
+  - `fitHeight` – 使高度完全适配。如果需要，则裁剪宽度或在左侧/右侧添加内边距。\n- `cover` – 适配最小的尺寸（宽/高），裁剪另一侧。\n\
+  - `contain` – 适配最大的尺寸（宽/高），为另一侧添加内边距。\n- 等等。更多细节请参考第 4 章“值控件”。\n\n在这种情况下，这不是最佳选择，但当您确切知道要压缩多少内容以及一个或多个控件可以占用多少像素时，它非常适用。\n\
+  \n### 允许用户滚动\n\n解决溢出问题的最后一个选项是允许用户滚动。坦白说，这是最常选择的方案，在大多数情况下都非常合理。它也是最容易理解的选项，也许也是实现起来最简单的。我把最好的留到了最后！\n\
+  \n和 Flutter 的典型风格一样，有很多滚动选项可供选择。我们将介绍三种：`SingleChildScrollView`、`ListView` 和 `GridView`。\n\
+  \n#### SingleChildScrollView 控件\n\n`SingleChildScrollView` 这个名字很形象。它包裹一个*单一子控件*并允许*滚动*。Flutter\
+  \ 不会裁剪该子控件，而是让用户通过滑动来水平或垂直（默认）滚动。这是使用 `SingleChildScrollView` 的代码：\n\n```dart\n\
+  Widget build(BuildContext context) {\n  var wordWidgets = words.map((w) => Word(w)).toList();\n\
+  \  return SingleChildScrollView(\n    scrollDirection: Axis.horizontal,\n    child:\
+  \ Row(\n      children: wordWidgets,\n    ),\n  );\n}\n```\n\n图 13-6 展示了它的样子。嘿，没有溢出条了！与之前的截图相比，可以看到文本的位置发生了变化。\n\
+  \n![](img/638603_1_En_13_Fig6_HTML.jpg)\n\n**图 13-6** 使用 `SingleChildScrollView`\
+  \ 包裹后允许滚动\n\n> **提示**  \n> `SingleChildScrollView` 允许水平*或*垂直滚动，但不能同时进行。`InteractiveViewer`\
+  \ 控件则允许两者同时进行。如果你需要显示某个在水平和垂直方向上都过大的内容，可以了解一下 `InteractiveViewer`，它允许在两个方向上平移/滚动，并支持通过捏合进行放大和缩小。这对于高分辨率图片或大型地图非常有用。\n\
+  \n#### ListView 控件\n\n`ListView` 没有 `child` 属性，它有 `children` 属性。因此，如果我们将 `Row` 转换为\
+  \ `ListView` 并将其 `scrollDirection` 属性设置为水平，它的外观和行为就与 `SingleChildScrollView` 非常相似。\n\
+  \n```dart\nWidget build(BuildContext context) {\n  var wordWidgets = words.map((w)\
+  \ => Word(w)).toList();\n  return ListView(\n    scrollDirection: Axis.horizontal,\n\
+  \    children: wordWidgets,\n  );\n}\n```\n\n但 `ListView` 拥有 `SingleChildScrollView`\
+  \ 所不具备的超能力。`ListView` 在内存上更高效，也更灵活。\n\n##### ListView 内存效率更高\n\n`SingleChildScrollView`\
+  \ 在显示其子控件及其所有后代控件之前，会将它们全部构建到内存中，无论其大小或数量如何。`ListView` 则不同。`ListView` 会跟踪哪些子控件当前正在显示，哪些即将离开屏幕。它只构建这些控件。因此，当用户专注于阅读或滚动屏幕上的内容时，Flutter\
+  \ 正在忙于构建更多可能很快就会出现的控件。如果用户向下滚动，Flutter 会构建当前视口下方的控件。如果用户向上滚动，Flutter 则构建上方的控件。明白了吗？\n\
+  \n它还会将滚动离屏的控件从内存中移出，因此无论你的列表有多大，任何时候都只有少数几个控件在内存中。\n\n聪明的读者可能已经发现了其中的几个缺陷。首先，用户滚动速度可能超过\
+  \ Flutter 创建控件的速度。这没什么大不了的；它只是会短暂地显示空白区域，一旦控件创建完成就会立即显示。其次，如果用户反复上下滚动，Flutter 将会浪费一些时间来销毁和重新创建相同的控件。诚然，这些都是问题，但它们很次要，当你考虑所获得的效率提升时，这点代价是完全值得的。\n\
+  \n> **提示**  \n> 当你有大量（甚至是无限！）的项目需要显示时，`ListView` 是最佳选择。只有靠近视口的那些项目才会在内存中。\n\n#####\
+  \ ListView 非常灵活\n\n`ListView` 有四种不同的使用方式：\n\n1. **常规 `ListView`** – 常规用法。它有一个 `children`\
+  \ 属性，用于接收静态控件的集合。\n2. **`ListView.builder`** – 用于根据项目列表动态创建子控件。\n3. **`ListView.separated`**\
+  \ – 类似于 builder，但在每个项目*之间*放置一个控件。非常适合在列表中定期插入广告。更多信息请阅读 [`http://bit.ly/flutter_listview_separated`](http://bit.ly/flutter_listview_separated)。\n\
+  4. **`ListView.custom`** – 用于创建自定义的高级 `ListView`。更多信息请阅读 [`http://bit.ly/flutter_listview_custom`](http://bit.ly/flutter_listview_custom)。\n\
+  \n让我们先看看前两个选项，从常规的 `ListView` 开始。\n\n\n\n##### 常规 ListView\n\n此版本的 `ListView` 非常适合显示大量预定义的多样化小部件。你只需将\
+  \ `children` 属性设置为已经定义好的列表即可。我们上面的代码示例已经展示了这一点。\n\n但 `ListView` 真正有趣的地方在于，你可以让它根据一个事物列表来构建新小部件——比如人员、产品、商店——任何你可以从数据库或\
+  \ RESTful 服务中获取的数据。为了显示可滚动条目的动态数量，我们需要使用 `ListView.builder` 构造方法。\n\n##### `ListView.builder`：当你需要从对象列表构建小部件时\n\
+  \n`ListView` 的另一个构造方法 `ListView.builder` 接收两个参数：一个 `itemCount` 整数和一个 `itemBuilder`\
+  \ 函数。`itemBuilder` 函数会根据需要动态创建子小部件。当用户滚动时，`itemBuilder` 函数会运行并创建新的条目。\n\n`itemCount`\
+  \ 属性是一个整数，它告诉我们将要绘制多少个内容，因此我们通常将其设置为要滚动浏览的数组/集合的长度。`itemBuilder` 函数接收两个参数：上下文 (context)\
+  \ 和一个整数，该整数对于第一个条目为 0，并且每次运行时递增。\n\n```\nWidget build(BuildContext context) {\n\
+  return ListView.builder(\nscrollDirection: Axis.horizontal,\nitemCount: words.length,\n\
+  itemBuilder: (context, i) => Word(\"$i - ${words[i]}\"),\n);\n}\n```\n\n在这个例子中，我们为每个打印出的单词添加了一个索引。请注意，我再次向右滚动了（图\
+  \ 13-7）。\n\n![图 13-7](img/638603_1_En_13_Fig7_HTML.jpg)\n\n`ListView.builder` 动态构建每个子小部件\n\
+  \n创建能够按行或列滚动的小部件列表非常棒。但如果你需要滚动的是方形小部件呢？\n\n#### GridView 小部件\n\n让我们调整一下示例。假设我们不再提供一些占位文本，而是给你一个人员列表，我们希望为每个人创建一个小的、大致方形的\
+  \ `PersonCard` 小部件，其中包含照片和姓名。你可能希望它们以行和列的形式出现，而不是列表形式。`GridView` 拥有与 `ListView`\
+  \ 相同的魔力，但它会在一个自动换行的网格中绘制内容。\n\n你可以像使用 `Row`、`Column`、`Wrap` 和 `ListView` 一样，将 `GridView`\
+  \ 的 `children` 属性设置为你想要显示的小部件列表。`GridView` 会以网格形式显示它们，横向填充然后自动换行到下一行，并调整其可用空间直到刚好合适。最棒的是，它会自动滚动！\n\
+  \n`GridView` 有两个构造方法：`GridView.extent()` 和 `GridView.count()`。\n\n##### `GridView.extent()`\n\
+  \n*Extent* 这个词指的是子元素的最大宽度。`GridView` 仅允许其子元素增长到该尺寸。如果子元素试图变得更大，它就会在该行上放置另一个元素，并均匀地缩小所有子元素，直到它们刚好能横跨整个宽度。请看这个例子：\n\
+  \n```\nWidget build(BuildContext context) {\nreturn GridView.extent(\nmaxCrossAxisExtent:\
+  \ 300.0,\nchildren: _peopleList\n.map((Person person) => PersonCard(person))\n.toList(),\n\
+  );\n}\n```\n\n请注意在图 13-8 和图 13-9 中，容器是如何调整到小于 300 像素的。`GridView` 决定在竖屏方向上可以并排容纳两个。但当旋转到横屏时，这两个容器本可以调整到大于\
+  \ 300 像素，所以它每行放置了三个。\n\n![图 13-9](img/638603_1_En_13_Fig9_HTML.jpg)\n\n同样的 `GridView.extent()`\
+  \ 旋转到横屏模式\n\n![图 13-8](img/638603_1_En_13_Fig8_HTML.jpg)\n\n竖屏模式下的 `GridView.extent()`\n\
+  \n##### `GridView.count()`\n\n使用 `count()` 构造方法时，你可以指定所需的列数，*无论屏幕方向如何*。`GridView`\
+  \ 会负责调整其内容的大小以适应需求。在下面的例子中，我们告诉 `GridView.count()` 无论屏幕方向如何，我们都想要四列，然后 `GridView`\
+  \ 会调整其子元素的大小，使其恰好并排为四列。这些显示在图 13-10 和图 13-11 中。\n\n![图 13-11](img/638603_1_En_13_Fig11_HTML.jpg)\n\
+  \n竖屏模式下同样的 `GridView.count()`\n\n![图 13-10](img/638603_1_En_13_Fig10_HTML.jpg)\n\
+  \n横屏模式下的 `GridView.count()`\n\n```\nWidget build(BuildContext context) {\nreturn\
+  \ GridView.count(\ncrossAxisCount: 4,\nchildren: _peopleList\n.map((Person person)\
+  \ => PersonCard(person))\n.toList(),\n);\n}\n```\n\n`GridView.extent()` 可能更有用，因为无论设备如何，内容的大小都大致保持不变，这比保持列数一致更符合常见的需求。\n\
+  \n## 结论\n\n设备上容纳不下足够多的小部件可能是最常见的情况，而这也许是最难优雅解决的问题，因此能坚持学到这里本身就是一个重要的成就。在本章中，我们为你提供了针对该问题的多种解决方案，并帮助你判断在给定情况下哪种方案最佳。\n\
+  \n这是我们布局场景五步中的第三步。接下来，让我们在第四部分（下一章）中介绍如何优雅地分配额外空间。\n\n"
+- '# 14. 布局——填充额外空间
+
+
+  我们正深入进行场景布局的过程。请记住，这是我们遵循的步骤。
+
+
+  1.  布局整个场景
+
+  2.  相对定位小部件
+
+  3.  处理溢出，例如当小部件无法适应屏幕时
+
+  4.  处理额外空间，例如当屏幕比实际需要更大时
+
+  5.  微调位置
+
+
+  我们现在已经知道如何处理整个场景，如何使小部件彼此相对定位——上下排列或并排显示——以及如何处理它们过大而无法容纳的情况。这些是步骤一、二和三。现在，让我们来处理在
+  `Row` 或 `Column` 中填充可能看起来不太美观的额外空间的任务。
+
+
+  ### 如果留有额外空间怎么办？
+
+
+  与空间不足相比，这是一个好问题。你真正需要回答的唯一问题是如何分配这些额外空间。你希望在每个子小部件周围分配多少空间？你有几个选择。最简单快捷的方法是使用 `mainAxisAlignment`
+  和 `crossAxisAlignment`。
+
+
+  ### `mainAxisAlignment`
+
+
+  `mainAxisAlignment` 是 `Row` 或 `Column` 的一个属性（图 14-1）。通过它，你可以控制如何沿着主轴分配额外空间——对于 `Column`
+  是垂直方向，对于 `Row` 是水平方向：
+
+
+  ```
+
+  child: Column(
+
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+  children: [
+
+  SubWidget(),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  你有几种选择。
+
+
+  ![图 14-1](img/638603_1_En_14_Fig1_HTML.png)
+
+
+  `mainAxisAlignment` 指定如何沿着主轴分配额外空间
+
+
+  ### `crossAxisAlignment`
+
+
+  `crossAxisAlignment` 也是 `Row` 或 `Column` 的一个属性；它决定当小部件在 `Row` 中高度不同或在 `Column` 中宽度不同时，额外空间应放置在哪里。在图
+  14-2 中，我们有意让其中一个成员比其他成员更宽。图中显示了 `crossAxisAlignment` 的可选值。
+
+
+  ![图 14-2](img/638603_1_En_14_Fig2_HTML.png)
+
+
+  `crossAxisAlignment` 指定如何沿着交叉轴分配额外空间
+
+
+  还有一个选项：baseline。但它仅在 `Row` 中，并且当你对齐不同高度的 `Text()` 组件时才有意义。它会将文本的基线对齐。
+
+
+
+
+  ### IntrinsicWidth
+
+
+  如果你希望 `Column` 的所有子组件宽度一致，但又不一定占满整个屏幕宽度，可以使用 `IntrinsicWidth` 组件。使用 `crossAxisAlignment.stretch`
+  时，它们会拉伸至最大宽度（图 14-3），但如果包裹在 `IntrinsicWidth` 中，它们都会和最宽的子组件保持相同尺寸（图 14-4 和 14-5）。
+
+
+  ![](img/638603_1_En_14_Fig5_HTML.jpg)
+
+
+  图 14-5
+
+
+  使用 `IntrinsicWidth`，当有一个更宽的成员时，所有成员都会随之变宽
+
+
+  ![](img/638603_1_En_14_Fig4_HTML.jpg)
+
+
+  图 14-4
+
+
+  使用 `IntrinsicWidth`，它们只会和最宽的成员一样宽
+
+
+  ![](img/638603_1_En_14_Fig3_HTML.jpg)
+
+
+  图 14-3
+
+
+  未使用 `IntrinsicWidth` 时，所有子组件都会拉伸至整个宽度
+
+
+  ```
+
+  IntrinsicWidth(
+
+  child: Column(
+
+  mainAxisAlignment: MainAxisAlignment.center,
+
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+
+  children: [ ... ],
+
+  ),
+
+  ),
+
+  ```
+
+
+  注意第三个子组件，在图 14-4 中它原本较长，但在图 14-5 中变得更宽。因此你可以看到，当最宽的子组件变宽时，所有子组件都会随之变宽。
+
+
+  ## Expanded 组件
+
+
+  当间距需求明确（比如希望等距分布）时，`mainAxisAlignment` 非常实用。这是常规情况。但如果你根本不需要间距呢？如果你希望子组件扩展以填满剩余空间呢？`Expanded`
+  组件来救场！
+
+
+  以下面的代码为例，如图 14-6 所示。
+
+
+  ![](img/638603_1_En_14_Fig6_HTML.jpg)
+
+
+  图 14-6
+
+
+  这个 `Row` 组件有大量额外空间
+
+
+  ```
+
+  Row(
+
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+  children: [
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  当你用 `Expanded` 组件包裹 `Row`/`Column` 的某个子组件时，该子组件会变得*可伸缩*，这意味着如果有额外空间，它会沿着主轴方向拉伸以填满该空间。
+
+
+  下面展示同样的代码，只是第二个子组件包裹了 `Expanded()`。请见图 14-7，该组件现在扩展并吞噬了所有可用空间。
+
+
+  ![](img/638603_1_En_14_Fig7_HTML.jpg)
+
+
+  图 14-7
+
+
+  第二个子组件被包裹在 `Expanded` 中
+
+
+  ```
+
+  Row(
+
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+  children: [
+
+  SubWidget(),
+
+  Expanded(child: SubWidget()),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  注意，此时 `mainAxisAlignment` 不再起作用，因为没有额外空间了——所有空间都被 `Expanded` 占用。
+
+
+  如果再加一个 `Expanded` 会怎样？让我们把第三个和第四个组件也用该组件包裹（图 14-8）：
+
+
+  ![](img/638603_1_En_14_Fig8_HTML.jpg)
+
+
+  图 14-8
+
+
+  多个 `Expanded` 会平分剩余空间
+
+
+  ```
+
+  Row(
+
+  children: [
+
+  SubWidget(),
+
+  Expanded(child: SubWidget()),
+
+  Expanded(child: SubWidget()),
+
+  Expanded(child: SubWidget()),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  注意第二个组件现在变小了，因为额外空间被第三和第四个子组件共享，并平均分配。
+
+
+  等等！还有更多功能！我们可以控制每个 `Expanded` 获取的空间大小。`Expanded` 有一个名为 *flex* 的属性，类型为整数。当布局 `Row`/`Column`
+  时，刚性元素会先被确定尺寸，然后弹性元素根据其 flex 系数扩展（图 14-9）。在前面的例子中，`Expanded` 的默认 flex 系数为 1，因此它们获得了等量空间。但如果赋予它们不同的
+  flex 系数，它们会以不同速率扩展：
+
+
+  ![](img/638603_1_En_14_Fig9_HTML.jpg)
+
+
+  图 14-9
+
+
+  `Expanded` 的 flex 属性用于控制每个组件获得额外的空间量
+
+
+  ```
+
+  Row(
+
+  children: [
+
+  SubWidget(),
+
+  Expanded(flex: 1, child: SubWidget()),
+
+  Expanded(flex: 3, child: SubWidget()),
+
+  Expanded(flex: 2, child: SubWidget()),
+
+  SubWidget(),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  请注意，剩余空间仍然分配给 `Expanded`，但比例是 1、3 和 2，而非均分。因此 flex 系数为 3 的组件获得的额外空间是 flex 系数为 1
+  的组件的三倍。
+
+
+  ### 使用 `Expanded` 创建开放空间
+
+
+  也许你希望像使用 `mainAxisAlignment` 那样在元素之间留出空白，同时又想控制这些空白的大小。这时 `Spacer` 和 `SizedBox`
+  组件就能派上用场。
+
+
+  `Spacer` 在 `Row`/`Column` 的子组件之间插入空白空间。每个 `Spacer` 都有一个 flex 系数，该系数会与该轴上的所有其他 flex
+  系数协调工作。因此，如果你想按比例分配空间，`Spacer` 就能实现。
+
+
+  提示
+
+
+  `Spacer` 实际上就是内部包含一个空 `Container` 的 `Expanded`。
+
+
+  但有时你需要固定的空白空间，比如精确知道要留多少像素。这时 `SizedBox` 就有用了。`SizedBox` 拥有 `height` 和 `width` 属性，可实现精细控制。图
+  14-10 展示了这一点。
+
+
+  ![](img/638603_1_En_14_Fig10_HTML.jpg)
+
+
+  图 14-10
+
+
+  `Spacer()` 和 `SizedBox()` 重新引入了自由空间，但让你精准控制其位置和大小
+
+
+  ```
+
+  Row(
+
+  children: [
+
+  SubWidget(),
+
+  Spacer(),
+
+  Expanded(flex: 1, child: SubWidget()),
+
+  Spacer(flex: 2),
+
+  Expanded(flex: 3, child: SubWidget()),
+
+  Expanded(flex: 2, child: SubWidget()),
+
+  SubWidget(),
+
+  SizedBox(width: 10.0),
+
+  SubWidget(),
+
+  ],
+
+  ),
+
+  ```
+
+
+  ## 总结
+
+
+  本章涵盖了场景布局的相关内容，包括当场景中有多余空间或空间不足时该如何处理。接下来让我们学习五个主题中的最后一个：如何微调组件的间距和位置。我们将通过探索盒模型来完成这一目标。
+
+
+  '
+- '# 15. 布局——微调定位
+
+
+  我们的学习旅程即将结束，掌握了如何布局 Flutter 场景。你已完成了除最后一步之外的所有步骤。
+
+
+  1. 布局整个场景
+
+
+  2. 相对于其他组件定位组件
+
+
+  3. 处理溢出问题（例如组件无法在屏幕上完整显示）
+
+
+  4. 处理多余空间（例如屏幕比实际需要更大时）
+
+
+  5. 微调位置
+
+
+  至此，我们能够在场景中放置任意内容，并按任何可想象的配置将它们彼此相邻或重叠摆放。如果空间不足，我们可以处理溢出问题；如果空间过多，我们可以熟练地分配空间。
+
+
+  现在，如果你准备好进入更高阶的阶段，让我们来讨论微调。在本章中，我们将学习如何精细控制屏幕上的每一个像素，而这一切都将围绕盒模型展开。
+
+
+
+
+  ## 容器组件与盒模型
+
+
+  Flutter 大量借鉴了其他技术，包括 HTML 和 Web，它们拥有边框（border）、内边距（padding）和外边距（margin）的概念。这些统称为盒模型。参见图
+  15-1。它们用于在屏幕元素周围及之间创建赏心悦目的间距。这是一个经过实战检验的概念，在 Web 上表现出色，那么为什么不将其借鉴到 Flutter 中呢？
+
+
+  ![](img/638603_1_En_15_Fig1_HTML.png)
+
+
+  **图 15-1**
+
+
+  盒模型定义了内边距、边框和外边距
+
+
+  假设我们有一个指定尺寸的图片，想要对其进行“装裱”，具体来说，设置内边距为 8、外边距为 10、边框为 1。Flutter 新手可能会首先尝试这样写：
+
+
+  ```
+
+  Image.network(
+
+  _peopleList[i][''picture''][''thumbnail''],
+
+  padding: 8.0,
+
+  margin: 10.0,
+
+  border: 1.0,
+
+  ),
+
+  ```
+
+
+  这样是行不通的，因为 `Image` 组件并没有 `padding`、`margin` 或 `border` 属性。但你知道什么有吗？容器（Container）！
+
+
+  Web 开发者有时会通过将元素包裹在一个名为 `<div>` 的通用容器中，然后应用样式来为网页创建舒适的间距。
+
+
+  Flutter 没有 `<div>`，但它有一个类似 div 的组件，叫做 `Container`，它的作用就是……嗯……*包含*其他东西。实际上，它存在的全部意义就是对其内部的内容应用布局和样式。一个
+  HTML 的 `<div>` 可以包含多个东西，但 Flutter 的 `Container` 只能包含一个子元素。它拥有名为 `padding`、`margin`
+  和 `decoration` 的属性。我们将把 `decoration` 留到本章末尾再讲，但 `padding` 和 `margin` 对于创建美观的间距非常有用：
+
+
+  ```
+
+  Container(
+
+  padding: EdgeInsets.all(8.0),
+
+  margin: EdgeInsets.all(10.0),
+
+  decoration: BoxDecoration(border: Border.all(width: 1.0)),
+
+  child:  Image.network(thePicture),
+
+  ),
+
+  ```
+
+
+  ### 用于内边距和外边距的 `EdgeInsets`
+
+
+  如果它们允许我们直接列出代表四个边的四个数值，那么外边距和内边距可能更容易学习。（它们就不能让事情简单点吗？）相反，我们使用一个名为 `EdgeInsets`
+  的辅助组件。
+
+
+  *   `EdgeInsets.all(8.0)` – 相同的值均匀应用于所有四个边。
+
+
+  *   `EdgeInsets.symmetric(horizontal: 7.0, vertical: 5.0)` – 顶部和底部相同。左侧和右侧相同。
+
+
+  *   `EdgeInsets.only(top: 20.0, bottom: 40.0, left: 10.0, right: 30.0)` – 左、上、右、下可以全部不同。
+
+
+  *   `EdgeInsets.fromLTRB(10.0, 20.0, 30.0, 40.0)` – 与上面相同，但输入更少。
+
+
+  另外请注意，如果你只需要内边距（不需要其他格式），`Padding` 组件是一个简写形式。
+
+
+  | `Container(``padding: EdgeInsets.all(5),``child: Text("foo"),``),` | `Padding(``padding:
+  EdgeInsets.all(5),``child: Text("foo"),``),` |
+
+
+  这两者是等价的。
+
+
+  ### 容器内的对齐与定位
+
+
+  当你将一个小的子组件放置在一个大的 `Container` 中时，`Container` 中的空间会多于其子组件所需的空间。默认情况下，该子组件会位于左上角。你可以选择使用
+  *alignment* 属性来定位它：
+
+
+  ```
+
+  Container(
+
+  width: 150, height: 150,
+
+  alignment: Alignment(1.0, -1.0),
+
+  child:  Image.network(
+
+  _peopleList[i][''picture''][''thumbnail''],
+
+  ),
+
+  ),
+
+  ```
+
+
+  这些对齐数字代表水平对齐（-1.0 是最左边，0.0 是居中，1.0 是最右边）和垂直对齐（-1.0 是最顶部，0.0 是居中，1.0 是最底部）。参见图 15-2。
+
+
+  ![](img/638603_1_En_15_Fig2_HTML.png)
+
+
+  **图 15-2**
+
+
+  以 (0,0) 为中心的对齐坐标系
+
+
+  但你可能更倾向于在可能的情况下使用英文单词而不是数字：
+
+
+  ```
+
+  Container(
+
+  width: 150, height: 150,
+
+  alignment: Alignment.centerLeft,
+
+  child:  Image.network(
+
+  _peopleList[i][''picture''][''thumbnail''],
+
+  ),
+
+  ),
+
+  ```
+
+
+  `Alignment` 可以接受以下任何值：`topLeft`、`topCenter`、`topRight`、`centerLeft`、`center`、`centerRight`、`bottomLeft`、`bottomCenter`、`bottomRight`。这样写起来是不是更容易，你的开发者同事读起来也更轻松呢？
+
+
+  提示
+
+
+  `Align` 组件是用于指定对齐方式而不指定其他属性的简写形式。`Center` 组件则仅仅是居中的简写形式。
+
+
+  以下三种写法是等价的，第一种是最底层的，最后一种最简洁清晰：
+
+
+  ```
+
+  Container(
+
+  alignment: Alignment.center,
+
+  child: Text("foo"),
+
+  ),
+
+  Align(
+
+  alignment: Alignment.center,
+
+  child: Text("foo"),
+
+  ),
+
+  Center(
+
+  child: Text("foo"),
+
+  ),
+
+  ```
+
+
+  ### 容器的大小并非显而易见
+
+
+  你可能已经注意到，在上一节中，我试图悄悄地向你引入了 `width` 和 `height`。是的，你可以告诉 `Container` 你想要一个特定的 `width`
+  和 `height`，它会 *在能力范围内* 遵守。`width` 和 `height` 都接受一个简单的数字，范围可以从 0 到 `double.infinity`。`double.infinity`
+  这个值 *暗示* 要尽可能大到其父级允许的程度。
+
+
+  现在，我知道你在想什么。“Rap，你说的‘在能力范围内’和‘暗示’是什么意思？难道就没有硬性规则吗？我希望 `Container` 的大小是可预测的！”我完全同意。在你了解其规则之前，`Container`
+  的大小确实难以预测。那么，它到底是如何决定的呢？
+
+
+  记住两件事。首先，`Container` 的构建是为了 *包含* 一个子元素，但拥有子元素是可选的。几乎每次它都会有一个子元素。在极少数情况下，`Container`
+  没有子元素，我们会用它来提供背景颜色或为其相邻/同级元素创建间距。其次，请记住 Flutter 分两个阶段确定布局：沿渲染树向下传递以确定盒约束（Box Constraints），然后沿着渲染树向上以确定
+  RenderBox（还记得吗？也就是“尺寸”）。
+
+
+  我们先从上往下看：
+
+
+  *   Flutter 通过从其父级向 `Container` 传递盒约束来限制最大尺寸。
+
+
+  *   `Container` 在向上布局时会告诉其父级：“如果我的邻居需要空间，请尽管拿去。我可以变得和你需要的一样小。”
+
+
+  *   如果设置了 `height` 和/或 `width`，它会遵循这些值，但不超过由盒约束决定的最大尺寸。请注意，你列出的尺寸大于其盒约束并不是错误，只是它不会变得更大。这就是为什么你可以使用
+  `double.infinity` 而不会出错的原因。
+
+
+  提示
+
+
+  设置 `height` 和 `width` 会使 `Container` 变得非常僵硬；它会锁定一个尺寸。虽然这在你想微调布局时很方便，但最佳实践是避免使用它们，除非你有非常充分的理由。通常，你应该允许组件自行决定它们的大小。
+
+
+  然后我们自下而上：
+
+
+  *   在 1% 的情况下（没有子元素时），它会消耗剩余的所有空间，直到其最大盒约束。
+
+
+  *   但大多数时候，它有一个子元素，因此布局引擎会查看子元素的 RenderBox。
+
+
+  *   如果子元素的 RenderBox 大于我的盒约束，它会裁剪子元素，这是一个大问题。从技术上讲，这不是错误，但看起来很难看。所以请避免这种情况。
+
+
+  *   如果子元素的 RenderBox 在我的盒约束范围内，就会有多余的空间。Flutter 会查看 `alignment` 属性。如果 `alignment`
+  *没有* 设置，我们会将其放置在左上角，并使容器紧密贴合——它会收缩以适应子元素。
+
+
+  *   如果 `alignment` *被* 设置了，它会使容器变得“贪婪”。仔细想想，这有点道理，因为如果它不通过增长来增加空间，它又怎么能进行顶部/底部/左侧/右侧的对齐呢？
+
+
+  *   完成所有这些之后，根据需要缩小以遵守外边距。
+
+
+  是的，这很复杂。这就是为什么 Flutter 开发者经常误解 Container 大小的原因。在沙盒中玩玩，你会慢慢习惯的。这需要一些时间。
+
+
+
+
+  ## 容器装饰
+
+
+  我们在本章开头承诺过要讨论边框。之所以这样安排，是因为边框并非显而易见的议题。如何给`Text`添加边框？你做不到。如何给`Icon`设置背景？也不行。这些组件本身不具备承载装饰的能力。但你知道什么可以吗？`Container`。当你遇到这类样式问题时，答案几乎总是：将部件包裹在`Container`中，然后为其添加装饰。
+
+
+  因此，理解容器装饰能够解决许多部件面临的样式难题。
+
+
+  `Container`具备一个大多数其他部件所没有的全能样式属性，名为`decoration`。以下示例展示了如何为容器添加阴影：
+
+
+  ```
+
+  child: Container(
+
+  width: 300.0,
+
+  height: 300.0,
+
+  decoration: BoxDecoration(
+
+  color: Colors.purple,
+
+  boxShadow: [
+
+  BoxShadow(
+
+  offset: Offset.fromDirection(0.25*pi, 10.0),
+
+  blurRadius: 10.0,
+
+  )
+
+  ],
+
+  ),
+
+  ),
+
+  ```
+
+
+  图 15-3 和 15-4 分别展示了无阴影和有阴影的盒子。
+
+
+  ![](img/638603_1_En_15_Fig4_HTML.jpg)
+
+
+  **图 15-4** 带盒阴影的效果
+
+
+  ![](img/638603_1_En_15_Fig3_HTML.jpg)
+
+
+  **图 15-3** 无盒阴影的效果
+
+
+  这是 Flutter 冗长特性的典型案例。在 Web 中，实现同样效果只需 17 个字符。但在 Flutter 中，我们必须记住`boxShadow`是一个`BoxShadow`的*数组*，每个阴影对象包含偏移量（方向以弧度表示）、尺寸（以像素为单位）以及模糊半径（同样以像素计）。唉！
+
+
+  模糊半径可能需要额外解释。模糊半径是指阴影消散的距离。这就像给灯加了个灯罩——不加罩子时，光线刺眼，阴影边缘清晰；加上灯罩后，光线柔和，阴影也随之变得柔和。模糊半径值越大，阴影越柔和。
+
+
+  > **注意：** 如果同时使用了`BoxDecoration`，则无法直接在`Container`上指定颜色属性。但别慌；`BoxDecoration`本身也包含`color`属性。只需将`Container`的`color`属性移到`BoxDecoration`中，即可达到相同效果。
+
+
+  还有其他几种装饰可用。让我们看看最实用的几个：`border`、`borderRadius`和`BoxShape`。
+
+
+  ### 边框
+
+
+  正如你用`BoxDecoration`实现阴影，你也可以用它为容器添加边框。以下是一个具有四种不同宽度的红色边框（图 15-5）：
+
+
+  ![](img/638603_1_En_15_Fig5_HTML.jpg)
+
+
+  **图 15-5** 不同宽度的边框
+
+
+  ```
+
+  Container(
+
+  decoration: BoxDecoration(
+
+  color: Colors.purple,
+
+  border: Border(
+
+  top: BorderSide(width: 10,color: Colors.red,),
+
+  right: BorderSide(width: 20,color: Colors.red,),
+
+  bottom: BorderSide(width: 30,color: Colors.red,),
+
+  left: BorderSide(width: 40,color: Colors.red,),
+
+  ),
+
+  ),
+
+  )
+
+  ```
+
+
+  虽然 Flutter 允许我们设置不同宽度甚至不同颜色的边框确实不错，但你多久会用到这个功能呢？通常四边都是统一的。所以我们常用简写形式`Border.all()`：
+
+
+  ```
+
+  Container(
+
+  decoration: BoxDecoration(
+
+  color: Colors.purple,
+
+  border: Border.all(width: 10, color: Colors.red,),
+
+  ),
+
+  )
+
+  ```
+
+
+  这样简单多了。没错，依然冗长，但更简洁。
+
+
+  ### 圆角半径
+
+
+  圆角是备受青睐的外观。即使没有边框，你也可以让`Container`变得圆润（图 15-6）。通过`BorderRadius`实现：
+
+
+  ![](img/638603_1_En_15_Fig6_HTML.jpg)
+
+
+  **图 15-6** 两个角应用`BorderRadius`
+
+
+  ```
+
+  Container(
+
+  decoration: BoxDecoration(
+
+  color: Colors.purple,
+
+  borderRadius: BorderRadius.only(
+
+  topLeft: Radius.circular(20.0),
+
+  topRight: Radius.circular(60.0),
+
+  ),
+
+  ),
+
+  )
+
+  ```
+
+
+  我们只设置了`topLeft`和`topRight`的圆角半径，但同时也存在`bottomLeft`和`bottomRight`属性。尽管我们欣赏这种灵活性，但实际应用中并不常用。我们通常会让四个角保持一致（图
+  15-7）：
+
+
+  ![](img/638603_1_En_15_Fig7_HTML.jpg)
+
+
+  **图 15-7** 四个角都应用`BorderRadius`
+
+
+  ```
+
+  Container(
+
+  decoration: BoxDecoration(
+
+  color: Colors.purple,
+
+  borderRadius: BorderRadius.all(Radius.circular(20.0),),
+
+  ),
+
+  )
+
+  ```
+
+
+  ### 盒子形状
+
+
+  你的容器不必总是矩形。当需要其他形状时，可以通过`BoxShape`或`CustomPainter`实现。`BoxShape`使用更为简便，但它只支持圆形（除了默认的矩形外），如图
+  15-8 所示：
+
+
+  ![](img/638603_1_En_15_Fig8_HTML.jpg)
+
+
+  **图 15-8** `BoxShape.circle`让你的`Container`变圆形
+
+
+  ```
+
+  Container(
+
+  decoration: BoxDecoration(
+
+  shape: BoxShape.circle,
+
+  color: Colors.deepOrange,
+
+  ),
+
+  ),
+
+  ```
+
+
+  `CustomPainter`则复杂得多，但支持无限种形状。深入`CustomPainter`的细节可能会分散注意力（图 15-9），但这里提供一个快速示例——超人盾牌：
+
+
+  ![](img/638603_1_En_15_Fig9_HTML.jpg)
+
+
+  **图 15-9** 使用`CustomPainter`
+
+
+  ```
+
+  Container(
+
+  child: CustomPaint(
+
+  size: Size(200, 200),
+
+  painter: SupermanShieldPainter(),
+
+  ),
+
+  )
+
+  class SupermanShieldPainter extends CustomPainter {
+
+  @override
+
+  void paint(Canvas canvas, Size size) {
+
+  canvas.drawPath(Path()
+
+  ..moveTo(25, 0)
+
+  ..lineTo(125, 0)
+
+  ..lineTo(150,25)
+
+  ..lineTo(75, 125)
+
+  ..lineTo(0,25)
+
+  ..lineTo(25,0),
+
+  Paint()
+
+  ..style=PaintingStyle.fill
+
+  ..color = Colors.red
+
+  );
+
+  }
+
+  @override
+
+  bool shouldRepaint(oldDelegate) => false;
+
+  }
+
+  ```
+
+
+  看到了吗？相当复杂。请注意，你的容器仍然是矩形，只是背景发生了改变。若要深入了解`CustomPainter`，请查阅[`https://api.flutter.dev/flutter/widgets/CustomPaint-class.html`](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)。
+
+
+  > **提示：** 所有这些装饰都应用于`decoration`属性，但它们同样可以应用于名为`foregroundDecoration`的属性——顾名思义，该属性应用于容器*之上*的图层。由于它们绘制在其他元素上方，你需要记住另一个修改项：不透明度。颜色可以设置为半透明。以下代码将在容器顶部创建一个
+  50%透明的红色图层：
+
+  >
+
+  > ```
+
+  > foregroundDecoration: BoxDecoration(
+
+  > color:Colors.red.withOpacity(0.5),
+
+  > ),
+
+  > ```
+
+
+  ## 结论
+
+
+  从很多方面来看，`Container`是 Flutter 中最为典型的部件，提供了大量选项来微调布局。天哪，你甚至可以用`Container`完成整个布局，因为它们实在太万能了！（小朋友们，可千万别真这么干。我们只是理论探讨。）但`Container`对于微调布局和为众多其他部件添加视觉装饰来说，确实非常有用。
+
+
+  嘿，恭喜你！你已经掌握了一些非常难的概念，我们希望在前几章中这些内容学起来更容易。我们将用一个相关主题来结束本书：特殊展示部件。它们会将你的布局提升到新高度！
+
+
+  '
+- "# 16. 布局——特殊展示部件\n\n在之前的五章布局内容之后，我们已经涵盖了 90%布局需求所需的工具，但仍有更多内容。有几个部件值得一看，这样当遇到相关情况时，你就知道该用什么工具。这些部件专为非常特定的布局场景设计，虽然常见，但并非日常使用，需要专门的工具来实现。\n\
+  \n我们将快速浏览`Sliver`，然后深入探讨`Stack`和`Table`部件。\n\n\n\n## Slivers（滑片组件）\n\nSlivers 是一个重要主题，足以用几个章节来深入探讨，因此我们仅作浅层介绍。我们的目标是让您了解它们。只要知道它们的用途，目前就足够了。Slivers\
+  \ 用于实现自定义滚动设计。\n\n您可能有一天需要创建视差效果，或实现当区块位于顶部时折叠、在视口中滚动时展开的效果，或实现多个可滚动的 `ListView`\
+  \ 并且彼此之间也能滚动切换，或带有子标题的可滚动列表，或可在可滚动容器内部再滚动的小部件。Slivers 实现了这些高级滚动行为。是不是有点令人惊叹？\n\n\
+  简而言之：当常规的 Flutter 小部件无法满足您的开箱即用滚动需求时，Slivers 就能派上用场。Slivers 是屏幕上的*可滚动部分*。以下是一些主要的\
+  \ Sliver 小部件：\n\n* `SliverList` – 类似 `ListView`，但对自定义滚动效果具有更高的灵活性\n* `SliverFixedExtentList`\
+  \ – 与 `SliverList` 类似，但将所有子项保持固定大小，适用于网格或统一尺寸的列表\n* `SliverAppBar` – 一个可随用户滚动而折叠或展开的应用栏\n\
+  * `SliverPadding` – 为 sliver 元素添加能感知滚动的内边距\n* `SliverGrid` – 在可滚动区域内呈现网格布局\n\n如果以上都不完全符合您的需求，您可以尝试构建自己的自定义可滚动小部件，通过扩展\
+  \ `Sliver` 类并重写 `layoutChild` 等类似方法来实现。\n\n## Stack（堆叠）小部件\n\n当您希望将小部件分层放置，使它们在屏幕上占据相同的\
+  \ X 和 Y 位置并相互重叠时，就可以使用它。您想要……嗯……将它们沿着 Z 方向进行*堆叠*。使用 `Stack`，您可以列出若干子小部件，它们将按此顺序一层层叠加显示。最后添加的子小部件会遮挡（隐藏）前一个，前一个又会遮挡更前一个，以此类推。\n\
+  \n使用 `Stack`，您可以创建一些非常酷的布局。实际上，Material 卡片大量使用了 `Stack`，因为它支持在背景图片上叠加文字。也许我们想要一张卡片，包含人物头像，并在其上叠加显示姓名和详细信息（图\
+  \ 16-1）。^(²⁴)\n\n![](img/638603_1_En_16_Fig1_HTML.jpg)\n\n图 16-1  \n使用 `Stack` 小部件在图片上叠加文字效果的卡片\n\
+  \n以下是实现方式：\n\n```\nCard(\n  child: Stack(\n    children: [\n      Image.asset(\"\
+  sandeep.jpg\"),\n      Column(\n        children: [\n          Text(\"Sandeep Patel\"\
+  , style: _bigText),\n          Expanded(child: Container()), // 用于产生间距\n       \
+  \   Text(\"Email: s.patel@us.com\"),\n          Text(\"Phone: +1 (555) 786-3512\"\
+  ),\n        ],\n      ),\n    ],\n  ),\n),\n```\n\n在 `Stack` 中，我们首先放置了图片。然后在图片上方，添加了一个包含文本元素的\
+  \ `Column`。由于 `Column` 是在图片*之后*添加的，因此它显示在图片的前面。\n\n### Positioned（定位）小部件\n\n在前面的例子中，文本布局效果尚可，因为\
+  \ `Column` 会将其子元素居中，而 `Expanded` 将 `Text` 分别推到了顶部和底部。但如果我们将所有元素直接放在 `Stack` 中，结果会如图\
+  \ 16-2 所示。\n\n![](img/638603_1_En_16_Fig2_HTML.jpg)\n\n图 16-2  \n没有使用 `Positioned`\
+  \ 小部件时，所有元素都挤在左上角\n\n当您使用 `Stack` 时，其中的每个小部件都会默认尝试停留在左上角。我们可以通过将这些内部小部件包裹在 `Positioned`\
+  \ 小部件中，将它们精确地放置在 `Stack` 中的任意位置。^(²⁵)\n\n```\nCard(\n  child: Stack(\n    children:\
+  \ [\n      Image.asset(\"sandeep.jpg\"),\n      Positioned(\n        top: 10, left:\
+  \ 10,\n        child: Text(\"Sandeep Patel\", style: _bigText),\n      ),\n    \
+  \  Positioned(\n        bottom: 30, right: 10,\n        child: Text(\"Email: s.patel@us.com\"\
+  ),\n      ),\n      Positioned(\n        bottom: 10, right: 10,\n        child:\
+  \ Text(\"Phone: +1 (555) 786-3512\"),\n      ),\n      Positioned(\n        bottom:\
+  \ 0, left: 0, height: 100, width: 100,\n        child: FlutterLogo(),\n      ),\n\
+  \    ],\n  ),\n),\n```\n\n为了效果更好，我们还添加了一个 `FlutterLogo`。现在结果如图 16-3 所示。看起来好多了！\n\
+  \n![](img/638603_1_En_16_Fig3_HTML.jpg)\n\n图 16-3  \n使用 `Positioned` 小部件后，效果明显改善\n\
+  \n`Positioned` 小部件通过指定 `top`、`bottom`、`left` 和/或 `right` 位置，使其子元素与四个角中的某一个保持固定距离。\n\
+  \n### Card（卡片）小部件\n\n您可能已经注意到，在前面的例子中我们使用了 `Card` 小部件。在这种场景下，使用 `Card` 感觉恰到好处，但它并非必需的。\n\
+  \nFlutter 的 `Card` 小部件旨在实现 Material Design 的外观和感觉，具有诸如 `color`（背景色）、`elevation`（阴影大小）、`borderOnForeground`（边框）和\
+  \ `margin`（外边距）等属性。诚然，所有这些属性也可以通过 `Container` 实现。但如果您想使用标准的外观和感觉，`Card` 能让事情变得更简单：\n\
+  \n```\nCard(\n  elevation: 20.0,\n  child: Text(\"This is text in a card\"),\n),\n\
+  ```\n\n## Table（表格）小部件\n\n当需要以自动换行的行和列来显示小部件时，`GridView` 非常出色。自动换行意味着您并不真正关心哪个子小部件最终位于哪一行哪一列。位置无关紧要。您只是希望它们整齐地显示出来。\n\
+  \n当您*确实*关心每个子元素位于哪一行哪一列时，`Row` 和 `Column` 是最佳选择。在需要时，它们可以很严格。不幸的是，列与列之间无法相互通信，因此它们经常会对不齐（图\
+  \ 16-4 和 16-5）。\n\n![](img/638603_1_En_16_Fig5_HTML.png)\n\n图 16-5  \n使用嵌套小部件的 `Column`\
+  \ 可以工作，但行没有对齐\n\n![](img/638603_1_En_16_Fig4_HTML.png)\n\n图 16-4  \n使用嵌套小部件的 `Row`\
+  \ 可以工作，但列没有对齐\n\n`Table` 小部件解决了这个问题。它像嵌套的 `Row` 和 `Column` 一样严格，但每一行和每一列都能感知到其他行和列的存在，从而整齐地对齐（图\
+  \ 16-6）。\n\n![](img/638603_1_En_16_Fig6_HTML.png)\n\n图 16-6  \n`Table` 使行和列对齐\n\n\
+  `Table` 小部件包含子元素，即一组 `TableRow` 小部件。每个 `TableRow` 小部件又包含子元素，即一组子小部件：\n\n```\nreturn\
+  \ Table(\n  children: [\n    // 第 1 行，标题行\n    TableRow(children: [\n      Text('Salesperson',\
+  \ style: _bold),\n      Text('January', style: _bold),\n      Text('February', style:\
+  \ _bold),\n      Text('March', style: _bold),\n    ]),\n    // 第 2 行\n    TableRow(children:\
+  \ [\n      Text('Dwight'),\n      Text('3742'),\n      Text('5573'),\n      Text('4323'),\n\
+  \    ]),\n    // 第 3 行\n    TableRow(children: [\n      Text('Phyllis'),\n     \
+  \ Text('3823'),\n      Text('4500'),\n      Text('3277'),\n    ]),\n  ],\n);\n```\n\
+  \n上述代码将生成图 16-7。\n\n![](img/638603_1_En_16_Fig7_HTML.jpg)\n\n图 16-7  \n`Table` 小部件同时使行和列对齐\n\
+  \n**注意**\n\n任何有 HTML 背景的人都知道，使用 HTML `<table>` 来布局页面是可行的，但并非好主意。`<table>` 应用于显示数据，而不是用于布局。在\
+  \ Flutter 中也是如此。虽然可行，但一般来说，应避免使用表格来布局页面。但如果要显示数据，`Table` 是正确的选择。\n\n如果您想对列宽进行更多控制，请将\
+  \ `columnWidths` 属性设置为一个从列号到宽度的 `Map`。以下代码将使第一列占据 30% 的宽度，并将剩余的 70% 平均分配给其余列：\n\n\
+  ```\nreturn Table(\n  columnWidths: {0: FractionColumnWidth(0.3)},\n  children:\
+  \ [ ...\n```\n\n如何实现跨列？例如用于表格标题。遗憾的是，在 Flutter 的 `Table` 中还不能直接实现——目前不行。也许将来可以。已经有关于跨列的\
+  \ feature request 了。\n\n\n\n## 结语\n\nFlutter 丰富多样的组件既是其优势，也造成了诸多困惑——这无疑是一把双刃剑。在经历了这第六篇（没错！）关于布局组件的章节后，相信你已掌握足够的知识来应对大部分布局难题。本章我们重点介绍了一些特殊的布局组件，这将赋予你构建极具创意的\
+  \ Flutter 界面的能力。\n\n感谢你与我同行！衷心祝愿你在 Flutter 的探索之旅中一切顺利！\n\n\n\n"
+- '# 脚注
+
+
+  1 2
+
+
+  '
+- "# 索引\n\n## A\n\n- `AlertDialog`\n- `Alignment`\n  - 坐标系\n  - `Alignment` 数值\n-\
+  \ `Align` 组件\n- `analysis_options.yaml`\n- Android 模拟器\n- Android Studio\n- Android\
+  \ 虚拟设备 (AVD) 管理器\n- API 调用\n- API 请求\n- `AppBar` 组件\n- 应用数据\n- `Async`\n- `Autovalidate`\n\
+  - `Await`\n\n## B\n\n- `BlacklistingTextInputFormatter`\n- `BLoC` 模式\n- `Blur` 半径\n\
+  - `BorderOnForeground`\n- `BorderRadius`\n- `BoxConstraints`\n- `BoxDecoration`\n\
+  - `BoxFit` 选项\n  - `BoxFit.scaleDown`\n- 盒模型（Box model）\n- `BoxShadows`\n- `BoxShape`\n\
+  - 暴力求解（Brute force）\n- `Build()` 方法\n- 内置组件\n  - 布局组件\n  - 杂项类别\n  - 导航组件\n  - 数值组件\n\
+  - 按钮组件\n  - `CupertinoButton`\n  - `Elevatedbutton`\n  - `FloatingActionButton`\
+  \ (FAB)\n  - `onPressed`\n  - `SegmentedButton`\n  - `TextButton` 和 `IconButton`\n\
+  \n## C\n\n- 级联操作符（Cascade Operator）\n- `CHANGELOG.md`\n- 复选框组件\n- `ColorCircle`\n\
+  - `ColorMixer`\n- `ColorScheme`\n  - `ColorScheme.fromSeed()`\n- `ColorValueChanger`\
+  \ 组件\n- 通讯（Communication）\n- 具有社区意识的开发者\n- 编译到原生（Compile-to-native）跨平台框架\n- 组件化\n\
+  - 构造函数参数\n- `ConsumerStateWidget`\n- `Container`\n- `Content-Type`\n- `count()`\
+  \ 构造函数\n- `crossAxisAlignment`\n- 跨平台开发类别\n- CRUD 应用，API 服务\n  - `DELETE` 请求\n \
+  \ - 创建 Flutter 应用\n  - `GET` 请求\n  - `PeopleList` 组件\n  - `PeopleUpsert.dart`\n\
+  \  - `POST` 调用\n  - `PUT` 调用\n  - 强类型业务类\n- `CupertinoApp`\n- `CupertinoButton`\n\
+  - `currentState` 属性\n- 创建自定义手势\n  - 添加 `GestureDetector` 组件\n  - 关联手势和行为\n  - 决定手势和行为\n\
+  \  - `onPressed` 手势响应\n  - 编写 Dart 代码\n- `CustomPainter`\n- 自定义 `PersonCard` 组件\n\
+  \n## D\n\n- Dart 构造函数\n- `dart:convert`\n- Dart 语言\n  - 类成员\n  - 私有构造函数\n  - 定义预期特性\n\
+  \  - Flutter\n  - JavaScript\n  - 命名构造函数\n  - 方法重载\n  - 前置代码中的意外特性\n- 调试\n- 分解\n\
+  - 装饰\n- `DefaultTabController`\n- `deletePerson()` 方法\n- 反序列化\n- 开发流程\n  - 创建 Flutter\
+  \ 项目\n  - 运行，调试应用\n  - 热重载\n  - 播放/调试按钮\n  - 连接设备\n  - Web 应用脚手架及文件\n- `DevTools`\n\
+  - 对话框组件\n  - 对话框响应\n  - `showDialog()` 和 `AlertDialog`\n- 目录和文件类型\n- `Dismissible`\n\
+  - `double.infinity`\n- `Drawers` 导航\n- `DropdownButton` 组件\n- 下拉框组件\n- DRY 原则\n\n\
+  ## E\n\n- `EdgeInsets`\n- `Elevatedbutton`\n- 嵌入图像\n- 模拟器\n  - Android 模拟器\n  -\
+  \ iOS 模拟器\n- `Expanded` 组件\n- 预期特性\n  - 类\n  - 类构造函数\n  - 数据类型\n  - `if/else` 语句\n\
+  \  - 循环\n  - 面向对象开发者\n\n## F\n\n- `favColorProvier`\n- `File.readAsString()`\n-\
+  \ 填充额外空间\n  - 布局 `mainAxisAlignment` 和 `crossAxisAlignment`\n  - 定位组件\n- 精细调整间距\n\
+  - 精细调整定位——高手进阶\n  - Flutter 场景\n- `Fit` 属性\n- `FittedBox`\n- 修复溢出\n  - 条形容器\n  -\
+  \ Flutter\n  - Flutter 屏幕\n  - 空间不足\n  - 溢出条\n  - `SingleChildScrollView`\n- `Flexible()`\n\
+  - `Flexibles`\n- Flexible 组件\n- `Flex` 组件\n- `FloatingActionButton` (FAB)\n- Flutter\n\
+  \  - 优势\n  - 编译到原生解决方案\n  - 跨平台开发\n  - 定义特性及其重要性\n- Flutter 应用\n- `Flutter DevTools`\n\
+  - `Flutter doctor`\n- `FlutterLogo`\n- `flutter pub add` 命令\n- Flutter SDK\n- Flutter\
+  \ 的布局算法\n- Flutter 样式\n  - 颜色\n  - `ColorScheme`\n  - 表单\n  - 自定义组件\n  - 标准颜色\n\
+  \  - 样式相关属性\n  - `TextStyle`\n  - `textTheme`\n  - 主题\n- Flutter 工具链\n  - 模拟器 参见\
+  \ 模拟器\n  - `flutter doctor`\n  - `flutter upgrade`\n  - `IDE` DevTools 参见 IDEs\n\
+  \  - 安装 SDK\n- `Flutter upgrade`\n- Flutter 组件\n- `fontFamily`\n- 表单\n  - `Form`\
+  \ 组件\n- `FutureBuilder`\n\n## G\n\n- `GestureDetector` 组件\n- 手势\n  - 按钮 参见 按钮组件\n\
+  \  - 自定义组件 参见 创建自定义手势\n- `Dismissible`\n- `getApplicationDocumentsDirectory()`\n\
+  - `getScaffoldBody()` 方法\n- `.gitignore` 和 `README.md`\n- `GlobalKey`\n- `GridView.count()`\n\
+  - `GridView.extent()`\n\n## H\n\n- Hooks\n- `HorizontalDrags` 手势\n- HTTP `GET` 或\
+  \ `DELETE` 请求\n- HTTP 方法\n- HTTP 响应\n  - 暴力求解\n  - `FutureBuilder`\n  - `StreamBuilder`\n\
+  \n## I\n\n- `IconButton`\n- 图标组件\n- IDEs\n  - Android Studio 和 IntelliJ\n  - DevTools\n\
+  \  - VS code\n- 图片组件\n  - 嵌入图像\n  - 获取图片来源\n  - 网络图片\n  - 缩放/尺寸设置\n- `InheritedWidget`\n\
+  - 内部可见（Inner visible）\n- `InputDecoration` 选项\n- 输入组件\n  - 复选框\n  - 复杂情况\n  - 下拉框\n\
+  \  - 输入数据\n  - `FormField` 组件\n    - builder 方法\n    - builder 属性\n    - `DropdownButton`\n\
+  \    - 表单提交\n    - `onSaved` 方法\n    - `TextFormField` 组件\n    - `validator` 方法\n\
+  \  - `Form` 组件\n  - 单选按钮\n  - 滑块\n  - `StatefulWidget`\n  - `TextField` 组件\n   \
+  \ - 花哨文本\n    - `keyboardType` 属性\n    - `onChanged` 属性\n    - 密码框\n    - `Text`\
+  \ 标签\n    - 限制输入数据类型\n  - `IntelliJ`\n- `InteractiveViewer`\n- `IntrinsicWidth`\
+  \ 组件\n- iOS 模拟器\n- `itemCount` 属性\n- `Iterable.map()`\n\n## J\n\n- JavaScript 开发者\n\
+  - `json.decode()`\n- `json.encode()`\n- JSON 格式\n\n## K\n\n- `_key.currentState.save()`\n\
+  \n## L\n\n- 布局组件\n  - 方法\n  - 额外空间\n  - Flutter 布局组件\n- `LengthLimitingTextInputFormatter`\n\
+  - 库包\n- 状态提升\n- `list_people.dart`\n- `ListView`\n- `ListView.builder`\n- `ListView`/`Column`\n\
+  - `ListView` 的替代构造函数\n\n## M\n\n- `mainAxisAlignment`\n- `main.dart` 文件\n- `Maps`\n\
+  - `MaterialApp`\n- `MaterialWidget`\n- `MediaQuery`\n- Microsoft Visual Studio\n\
+  - Mixins\n- 多行字符串\n\n## N\n\n- 命名参数\n- `NavigationDrawer` 组件\n- 导航组件\n  - `Navigator.pop()`\n\
+  \  - `Navigator.pop(context)`\n  - `Navigator.push()`\n  - `Navigator.pushNamed()`\n\
+  \  - `Navigator.pushNamed(context, route)`\n- 网络图片\n\n## O\n\n- `onHorizontalDragEnd`\
+  \ 事件\n- `onLongPress` 事件处理器\n- `onSaved` 方法\n- 外部不可见（Outer invisible）\n\n## P, Q\n\
+  \n- 包（Packages）\n- 密码框\n- `PATCH` 请求\n- `PersonCard` 组件\n- `PersonWidget`\n- 实体设备\n\
+  - 捏合操作\n- 弹出操作\n- 定位组件\n  - 位于 `MaterialApp` 之上和之下\n  - 行与列的视觉效果\n- `POST` 请求\n\
+  - 渐进式 Web 应用（PWA）\n- 提供者（Providers）\n- `pub.dev` 团队\n- `pubspec.yaml`\n- 推入操作\n\
+  - `PUT` 请求\n\n## R\n\n- 单选按钮组件\n- `randomTexts`\n- `rawState`\n- React Native\n\
+  - `readAsStringSync()` 方法\n- `README.md`\n- Redux\n- `ref.watch(theProvider)`\n\
+  - `RenderBox`\n- `RenderViewport`\n- 响应式设计\n- RESTful HTTP API 调用\n  - API 服务器\n\
+  \  - `DELETE`\n  - Flutter 应用\n  - `FutureBuilder` 组件\n  - HTTP 请求\n  - `PUT`、`POST`\
+  \ 和 `PATCH`\n  - 强类型类\n- Riverpod\n  - `ConsumerStateWidget`\n  - 描述\n  - 安装 `flutter_riverpod`\n\
+  \  - 提供者\n  - `ProviderScope`\n  - 使用 `ref.watch()` 读取数据\n  - 前期准备\n  - 使用 `ref.read()`\
+  \ 写入\n- 根组件（Root App widget）\n- `rootBundle`\n- `rootBundle.loadString()`\n- `runApp()`\
+  \ 函数\n- `rxDart`\n\n## S\n\n- `ScopedModel`\n- `search_form.dart`\n- `SearchLocation.anywhere`\n\
+  - `SearchLocation.text`\n- `SearchLocation.title`\n- `SegmentedButton`\n- `services.dart`\n\
+  - `Set` 方法\n- `_setColor` 方法\n- `setState()` 方法\n- 共享偏好设置（Shared preferences）\n\
+  - `showDialog()`\n- `SingleChildScrollView`\n- 单一职责原则（SRP）\n- `SizedBox()`\n- `Slider`\
+  \ 组件\n- Sliver 组件\n- `SnackBar` 组件\n  - 描述\n  - `Future.delayed()`\n  - `Scaffold`\n\
+  \  - `showSnackBar()`\n- 健全的空安全\n- `Spacer()`\n- 栈导航\n  - 匿名路由\n  - 前进与后退\n  - `initialRoute`\
+  \ 属性\n  - `MaterialApp` 层级\n  - `MyPersonWidget`\n  - 弹出\n  - 推入\n  - `Stack` 组件\n\
+  - 状态\n  - 定义\n  - 规则\n  - `State` 类\n  - `StatefulWidgets`\n  - 垃圾回收\n  - 将状态提升回去\n\
+  \  - 性能形态\n  - SRP 组件类\n  - `widget.x`\n- `Stateless` 组件\n  - 创建 `Stateless` 组件\n\
+  - 状态管理\n  - `StreamBuilder`\n- 字符串拼接\n- 强类型类\n  - 业务类\n  - `.fromJSON()` 方法\n  -\
+  \ 类型化反序列化\n- 样式设置\n- 滑动\n- `Switch` 组件\n\n## T\n\n- `TabBarView` 组件\n- `Table` 组件\n\
+  \  - `columnWidths`\n  - 行与列\n  - `TableRow`\n- 标签导航\n  - `DefaultTabController`\n\
+  \  - N 个标签对应 N 个组件\n  - `TabBar` 和 `Tabs`\n  - `TabBar` 位于底部\n  - `TabBarView` 组件\n\
+  - `TextButton`\n- `TextField` 组件\n- `TextFormField` 组件\n- `TextInput` 的 `inputFormatters`\
+  \ 属性\n- `TextStyle`\n- `TextTheme`\n- 文本组件\n- `theme.dart`\n- `then()` 方法\n\n##\
+  \ U\n\n- UI 即代码\n- 意外情况\n  - Dart\n  - 数据类型\n  - `dynamic`\n  - `final` 和 `const`\n\
+  - 放开捏合操作\n- 上传库\n- `upsertPerson()`\n- 使用状态\n\n## V\n\n- `Validator` 方法\n- 数值组件\n\
+  \  - `Icon` 组件\n  - `Image` 组件\n  - 输入组件 参见 输入组件\n  - `SnackBar`\n  - `Text` 组件\n\
+  - `VerticalDrags` 手势\n- VS Code\n\n## W\n\n- `WhitelistingTextInputFormatter`\n\
+  - 组件\n  - `BLoC`\n  - 内置 参见 内置组件\n  - 按钮 参见 按钮组件\n  - 定义\n  - `InheritedWidget`\n\
+  \  - 键\n  - 传递值\n  - 提供者\n  - Redux\n  - `ScopedModel`\n- 组件样式\n  - `Card` 组件\n\
+  \  - 颜色\n  - 自定义字体\n  - 字体\n  - 定位的组件\n- 组件主题\n- 单词组件\n- `Wrap` 组件\n\n## X\n\n-\
+  \ `Xamarin`\n\n## Y, Z\n\n- YAML 格式\n"

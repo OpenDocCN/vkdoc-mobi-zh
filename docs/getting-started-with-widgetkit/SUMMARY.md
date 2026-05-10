@@ -1,0 +1,7 @@
++   [WidgetKit 入门指南](README.md)
++   [阅读前准备……](getting-started-with-widgetkit_1.md)
++   [第 1 章：瞬间熟悉 WidgetKit](getting-started-with-widgetkit_2.md)
++   [2. SwiftUI、人机界面指南和小组件系列](getting-started-with-widgetkit_3.md)
++   [3. 编写你的第一个小组件](getting-started-with-widgetkit_4.md)
++   [4. 让小组件可配置和可交互](getting-started-with-widgetkit_5.md)
++   [5. 抓取配置选项](getting-started-with-widgetkit_6.md)

@@ -1,0 +1,8 @@
++   [iOS 游戏开发 SpriteBuilder 入门指南](README.md)
++   [使用 SpriteBuilder 进行 iOS 游戏开发](learn-spritebuilder-for-ios-game-development_1.md)
++   [按钮点击切换场景](learn-spritebuilder-for-ios-game-development_2.md)
++   [移动与绘制软体角色](learn-spritebuilder-for-ios-game-development_3.md)
++   [关于作者](learn-spritebuilder-for-ios-game-development_4.md)
++   [关于技术审校](learn-spritebuilder-for-ios-game-development_5.md)
++   [致谢](learn-spritebuilder-for-ios-game-development_6.md)
++   [引言](learn-spritebuilder-for-ios-game-development_7.md)

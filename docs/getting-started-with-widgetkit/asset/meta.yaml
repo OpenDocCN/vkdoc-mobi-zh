@@ -1,0 +1,102 @@
+name: Getting Started with WidgetKit
+name_cn: WidgetKit 入门指南
+slug: getting-started-with-widgetkit
+toc:
+- - '#'
+  - 阅读前准备……
+- - '#'
+  - 第 1 章：瞬间熟悉 WidgetKit
+- - '##'
+  - 背景
+- - '##'
+  - 你好，WidgetKit！
+- - '##'
+  - 总结
+- - '#'
+  - 第 2 章：SwiftUI、人机界面指南和小组件系列
+- - '##'
+  - SwiftUI
+- - '###'
+  - 用于小组件的基本 SwiftUI 视图
+- - '####'
+  - Text
+- - '####'
+  - Button
+- - '###'
+  - 图像
+- - '###'
+  - HStack
+- - '###'
+  - VStack
+- - '###'
+  - ZStack
+- - '##'
+  - 人机界面指南
+- - '##'
+  - 小组件家族
+- - '##'
+  - 总结
+- - '#'
+  - 第 3 章：编写你的第一个小组件
+- - '##'
+  - Widget 扩展
+- - '##'
+  - TimelineEntry
+- - '##'
+  - TimelineProvider
+- - '###'
+  - placeholder(in:)
+- - '###'
+  - '`getSnapshot(in:completion:)`'
+- - '###'
+  - '`getTimeline(in:completion:)`'
+- - '##'
+  - 开发小组件的用户界面
+- - '##'
+  - WidgetConfiguration（小组件配置）
+- - '##'
+  - 总结
+- - '#'
+  - 第 4 章：让小组件可配置和可交互
+- - '##'
+  - 让我们开始吧
+- - '##'
+  - 赋予 Widget 与 API 通信的能力
+- - '##'
+  - 允许用户配置小组件
+- - '###'
+  - 创建并配置 SiriKit Intent 定义文件
+- - '###'
+  - 切换到 `IntentConfiguration`
+- - '###'
+  - 与 API 通信并在小组件中展示最新信息
+- - '###'
+  - 是时候测试你的小组件了！
+- - '##'
+  - 通过点击跳转目标导航到应用的相关界面
+- - '###'
+  - 在小部件中添加点击目标
+- - '###'
+  - 在中号组件中添加点击目标
+- - '###'
+  - 在大尺寸小组件中添加点击目标
+- - '##'
+  - 总结
+- - '#'
+  - 第 5 章：抓取配置选项
+- - '##'
+  - 开始上手
+- - '##'
+  - 创建 SiriKit 意图定义文件
+- - '##'
+  - 设置 IntentHandler 以获取热门趋势并发送至 Widget
+- - '##'
+  - 切换到 IntentConfiguration
+- - '###'
+  - 创建 `IntentTimelineProvider`
+- - '###'
+  - 切换到 `IntentConfiguration`
+- - '##'
+  - 测试——测试——再测试！
+- - '##'
+  - 总结

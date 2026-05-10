@@ -1,0 +1,9902 @@
+![](A978-1-4302-4543-8_CoverFigure_HTML.jpg)
+
+![A978-1-4302-4543-8_CoverFigure_HTML.jpg](A978-1-4302-4543-8_CoverFigure_HTML.jpg)Jack Nutting and Peter ClarkLearn Cocoa on the Mac10.1007/978-1-4302-4543-8© Apress 2013 Jack Nutting and Peter Clark Learn Cocoa on the Mac
+
+![A978-1-4302-4543-8_BookFrontmatter_Figa_HTML.png](A978-1-4302-4543-8_BookFrontmatter_Figa_HTML.png)
+
+ISBN 978-1-4302-4542-1e-ISBN 978-1-4302-4543-8 © Apress 2013 Learn Cocoa on the Mac President and Publisher: Paul Manning Lead Editor: Steve Anglin Developmental Editor: Douglas Pundick Technical Reviewer: Nick Waynik Editorial Board: Steve Anglin, Mark Beckner, Ewan Buckingham, Gary Cornell, Louise Corrigan, Morgan Ertel, Jonathan Gennick, Jonathan Hassell, Robert Hutchinson, Michelle Lowman, James Markham, Matthew Moodie, Jeff Olson, Jeffrey Pepper, Douglas Pundick, Ben Renow-Clarke, Dominic Shakeshaft, Gwenan Spearing, Matt Wade, Tom Welsh Coordinating Editor: Jill Balzano Copy Editor: Mary Behr Compositor: SPi Global Indexer: SPi Global Artist: SPi Global Cover Designer: Anna Ishchenko Distributed to the book trade worldwide by Springer Science+Business Media New York, 233 Spring Street, 6th Floor, New York, NY 10013\. Phone 1-800-SPRINGER, fax (201) 348-4505, e-mail `orders-ny@springer-sbm.com`, or visit [`www.springeronline.com`](http://www.springeronline.com) . Apress Media, LLC is a California LLC and the sole member (owner) is Springer Science + Business Media Finance Inc (SSBM Finance Inc). SSBM Finance Inc is a Delaware corporation. For information on translations, please e-mail `rights@apress.com`, or visit [`www.apress.com`](http://www.apress.com) . Apress and friends of ED books may be purchased in bulk for academic, corporate, or promotional use. eBook versions and licenses are also available for most titles. For more information, reference our Special Bulk Sales–eBook Licensing web page at [`www.apress.com/bulk-sales`](http://www.apress.com/bulk-sales) . Any source code or other supplementary materials referenced by the author in this text is available to readers at [`www.apress.com`](http://www.apress.com) . For detailed information about how to locate your book’s source code, go to [`www.apress.com/source-code/`](http://www.apress.com/source-code/) . This work is subject to copyright. All rights are reserved by the Publisher, whether the whole or part of the material is concerned, specifically the rights of translation, reprinting, reuse of illustrations, recitation, broadcasting, reproduction on microfilms or in any other physical way, and transmission or information storage and retrieval, electronic adaptation, computer software, or by similar or dissimilar methodology now known or hereafter developed. Exempted from this legal reservation are brief excerpts in connection with reviews or scholarly analysis or material supplied specifically for the purpose of being entered and executed on a computer system, for exclusive use by the purchaser of the work. Duplication of this publication or parts thereof is permitted only under the provisions of the Copyright Law of the Publisher's location, in its current version, and permission for use must always be obtained from Springer. Permissions for use may be obtained through RightsLink at the Copyright Clearance Center. Violations are liable to prosecution under the respective Copyright Law. Trademarked names, logos, and images may appear in this book. Rather than use a trademark symbol with every occurrence of a trademarked name, logo, or image we use the names, logos, and images only in an editorial fashion and to the benefit of the trademark owner, with no intention of infringement of the trademark. The use in this publication of trade names, trademarks, service marks, and similar terms, even if they are not identified as such, is not to be taken as an expression of opinion as to whether or not they are subject to proprietary rights. While the advice and information in this book are believed to be true and accurate at the date of publication, neither the authors nor the editors nor the publisher can accept any legal responsibility for any errors or omissions that may be made. The publisher makes no warranty, express or implied, with respect to the material contained herein. We’ve spent many nights and weekends staring at computer screens instead of spending time with our wives and children. This book is dedicated to them. Our wives and children that is, not the computer screens. Preface
+
+I first encountered Cocoa as a college student in about 1989\. Of course, that was before the iPhone, before Mac OS X, and before it was even called Cocoa. Back then, the seed of today’s Cocoa was a part of NeXTStep, the OS that was the core of the NeXT computers. NeXTStep was years ahead of its time, and while the lab full of NeXT workstations was woefully underused in the computer science courses, my student sysadmin job had me using them daily. As a user, I was hooked. I won’t dwell on the NeXT user experience here, but I'll just state that many of the best features of Mac OS X come not so much from the Mac of old as from NeXTStep.
+
+At that time, there was no www, not much of a NeXTStep developer community, and very little written about the development environment apart from the impenetrable tomes that NeXT shipped with its earliest machines. I tried to wrap my head around Objective-C and the AppKit from time to time, but without any nearby experts or much example code to look at (not to mention my actual studies, which sometimes distracted me from playing with fun projects), I was basically stumped.
+
+After college, something completely unexpected happened. A friend pointed me in the direction of a consulting firm in my city that was building custom NeXTStep apps for some pretty big customers, and I had the good fortune to come onboard. Suddenly, I had a group of colleagues who had not only been programming in NeXTStep for a while, some of them had even worked at NeXT! And one of them was Peter Clark. All it took was a bit of their expert help to get me started, and the things that had seemed so mysterious for years suddenly made sense. Within a few weeks I learned so much that I was able to start leading some training and mentoring efforts in NeXTStep development.
+
+The point here isn't that I'm a genius or a quick study. It's that the set of technologies we now call Cocoa is really powerful—and quite easy to learn and put to good use—but you're likely to need some help along the way. I'm hoping that this book will help nudge you in the right direction and help you learn the essence of Cocoa programming, so that by the time you're finished reading it, you'll have enough knowledge of Cocoa to be able to propel yourself forward and write the Mac applications of your dreams. In short, the kind of book I wish I'd been able to find 20 years ago.
+
+Jack Nutting
+
+About the Authors
+
+![A978-1-4302-4543-8_BookFrontmatter_Fig1_HTML.jpg](A978-1-4302-4543-8_BookFrontmatter_Fig1_HTML.jpg)
+
+Jack Nutting has been using Cocoa since the olden days, long before it was even called Cocoa. He's used Cocoa and its predecessors to develop software for a wide range of industries and applications including gaming, graphic design, online digital distribution, telecommunications, finance, publishing, and travel. When he's not working on Mac or iOS projects, making killer games with Unity3D, or rocking out in his punk rock band, he’s usually spending time with his family. Jack is `@jacknutting` on Twitter and blogs from time to time at [`www.nuthole.com`](http://www.nuthole.com) . (Photograph courtesy of Alison De Mars von Blixen.)
+
+![A978-1-4302-4543-8_BookFrontmatter_Fig2_HTML.jpg](A978-1-4302-4543-8_BookFrontmatter_Fig2_HTML.jpg)
+
+Peter Clark started with NeXTStep in college, circa 1990\. That experience set the tone for the first half of his career when he worked with Jack at a consulting company in the Twin Cities. He worked with companies in the Bay Area, Chicago, and Twin Cities on NeXTStep and WebObjects projects, wrote a book on OpenStep development, and then moved on to Java, .NET, Ruby, and Scala development and managing engineering teams. He's pleased that so many of the design patterns from NeXTStep are still useful today and finds that Cocoa development is a mix of comfort and pleasant surprises. Peter is currently the Director of Software Development for a research project at the University of Minnesota. He blogs occasionally at [`http://blog.pclark.net`](http://blog.pclark.net) and can be found on Twitter as `@pclark`. Peter wants you to know that he started using NeXTStep at least a month or two before Jack did. (Photograph courtesy of Wade Stebbings.)
+
+About the Technical Reviewer
+
+![A978-1-4302-4543-8_BookFrontmatter_Fig3_HTML.jpg](A978-1-4302-4543-8_BookFrontmatter_Fig3_HTML.jpg)
+
+Nick Waynik has been working in the IT field for over thirteen years and has done everything from network administration to web development. He started writing iOS apps when the SDK was first released. Since then he has gone on to start his own business, focusing on iOS development. He loves spending his free time with his wife, Allison, and son, Preston, and sometimes playing golf. He blogs at [`nickwaynik.com`](http://nickwaynik.com) and can be found on Twitter as `@n_dubbs`.
+
+Acknowledgments
+
+There are many people to thank when getting a book from concept to the paper (or e-book) that you're reading. There's a lot to be done besides just getting words and code snippets into a text editor. Douglas Pundick and Jill Balzano at Apress have helped keep many of those things on track, out of sight from the authors. Of course, keeping the authors on track is also important, and we kept them busy at that too. Nick Waynik, our technical reviewer, caught many small (and some not-so-small) details with both the code and the prose, and always had a good reason for suggesting a change. Mary Behr, our copyeditor, did a wonderful job of tightening our prose, polishing our grammar, and making sure that what you’re reading hangs together cleanly. In her hands, many an awkward sentence got refactored into something better.
+
+We'd like to thank the developers at Apple for producing tools worth writing about. The writer at [`www.swampfoetus.net`](http://www.swampfoetus.net) did a great writeup for readers of the first edition about the changes in Xcode 4 dealing with Core Data using the MythicalPerson sample app from the first edition, and I want to thank him for caring enough to write that and make it public. The other authors of the first edition, David Mark and Jeff LaMarche, left us with a solid foundation upon which to build. Thanks, gentlemen! We're sure we're missing plenty of people who richly deserve to be thanked for making this book good. The blame for the remaining bad parts rests solely with the authors.
+
+Much of the writing was done at Shish Café and at Kopplin’s Coffee in Saint Paul, Minnesota. If you want good tasting coffee, you won't find better than at Kopplin’s. Lastly, and most importantly, Peter wants to thank his wife, Molly McBeath, and kids Laurel and Béa, and Jack wants to thank his wife, Weronica Meijer, and kids Henrietta and Dorotea. They've been very supportive of the time commitment it takes to write a book and it wouldn't have happened without their help. Peter and Jack dedicate this book to our families.
+
+Contents [Chapter 1:​ Must Love Cocoa](#A978-1-4302-4543-8_1_Chapter.html) 1 [Get a Mac and Download the Tools](#A978-1-4302-4543-8_1_Chapter.html#Sec1) 2 [Download the Source Code](#A978-1-4302-4543-8_1_Chapter.html#Sec2) 2 [Getting Help](#A978-1-4302-4543-8_1_Chapter.html#Sec3) 3 [What You Need to Know Before You Begin](#A978-1-4302-4543-8_1_Chapter.html#Sec4) 3 [Are You Ready?​](#A978-1-4302-4543-8_1_Chapter.html#Sec5) 3 [Chapter 2:​ Hello, World](#A978-1-4302-4543-8_2_Chapter.html) 5 [Building “Hello, World”](#A978-1-4302-4543-8_2_Chapter.html#Sec1) 5 [Exploring the Nib File](#A978-1-4302-4543-8_2_Chapter.html#Sec2) 11 [The Library](#A978-1-4302-4543-8_2_Chapter.html#Sec3) 11 [Dragging Out a Label](#A978-1-4302-4543-8_2_Chapter.html#Sec4) 12 [Using the Blue Guidelines](#A978-1-4302-4543-8_2_Chapter.html#Sec5) 13 [The Inspector](#A978-1-4302-4543-8_2_Chapter.html#Sec6) 14 [The Attributes Inspector](#A978-1-4302-4543-8_2_Chapter.html#Sec7) 16 [Change the Label’s Color and Font](#A978-1-4302-4543-8_2_Chapter.html#Sec8) 18 [Creating the Application Icon](#A978-1-4302-4543-8_2_Chapter.html#Sec9) 20 [Adding an Icon to our Project](#A978-1-4302-4543-8_2_Chapter.html#Sec10) 21 [Property Lists](#A978-1-4302-4543-8_2_Chapter.html#Sec11) 22 [Running the Application](#A978-1-4302-4543-8_2_Chapter.html#Sec12) 23 [Sharing Our Creation With the World](#A978-1-4302-4543-8_2_Chapter.html#Sec13) 24 [Goodbye, Hello World](#A978-1-4302-4543-8_2_Chapter.html#Sec14) 25 [Chapter 3:​ Lights, Camera … Actions! (and Outlets, too)](#A978-1-4302-4543-8_3_Chapter.html) 27 [Frameworks, Frameworks Everywhere](#A978-1-4302-4543-8_3_Chapter.html#Sec1) 27 [The Foundation Framework](#A978-1-4302-4543-8_3_Chapter.html#Sec2) 28 [The AppKit Framework](#A978-1-4302-4543-8_3_Chapter.html#Sec3) 28 [The Cocoa Way:​ Model–View–Controller](#A978-1-4302-4543-8_3_Chapter.html#Sec4) 29 [Outlets, Actions, and Controllers](#A978-1-4302-4543-8_3_Chapter.html#Sec5) 30 [Outlets](#A978-1-4302-4543-8_3_Chapter.html#Sec6) 30 [Actions](#A978-1-4302-4543-8_3_Chapter.html#Sec7) 30 [Outlets and Actions in Action](#A978-1-4302-4543-8_3_Chapter.html#Sec8) 31 [Wrap Up](#A978-1-4302-4543-8_3_Chapter.html#Sec9) 45 [Chapter 4:​ The First Call to Action](#A978-1-4302-4543-8_4_Chapter.html) 47 [Declaring Outlets and Actions](#A978-1-4302-4543-8_4_Chapter.html#Sec1) 47 [Declaring Outlets](#A978-1-4302-4543-8_4_Chapter.html#Sec2) 47 [Declaring Actions](#A978-1-4302-4543-8_4_Chapter.html#Sec3) 48 [Outlets and Actions in Action, Act 2](#A978-1-4302-4543-8_4_Chapter.html#Sec4) 49 [Placeholder Objects](#A978-1-4302-4543-8_4_Chapter.html#Sec5) 51 [Setting Up The Window](#A978-1-4302-4543-8_4_Chapter.html#Sec6) 52 [Designing the Window’s Interface](#A978-1-4302-4543-8_4_Chapter.html#Sec7) 55 [Creating the Controller Class](#A978-1-4302-4543-8_4_Chapter.html#Sec8) 59 [Implementing the Action Method](#A978-1-4302-4543-8_4_Chapter.html#Sec9) 61 [The Application Delegate](#A978-1-4302-4543-8_4_Chapter.html#Sec10) 62 [Configuring the Application to Quit on Window Close](#A978-1-4302-4543-8_4_Chapter.html#Sec11) 63 [Using the Documentation Browser](#A978-1-4302-4543-8_4_Chapter.html#Sec12) 64 [Wrap Up](#A978-1-4302-4543-8_4_Chapter.html#Sec13) 65 [Chapter 5:​ GUI Components](#A978-1-4302-4543-8_5_Chapter.html) 67 [Creating the VillainTracker Application](#A978-1-4302-4543-8_5_Chapter.html#Sec1) 69 [Building the Interface](#A978-1-4302-4543-8_5_Chapter.html#Sec2) 70 [Wiring Up the VillainTrackerAp​pDelegate Class](#A978-1-4302-4543-8_5_Chapter.html#Sec14) 84 [Getting Started with Coding](#A978-1-4302-4543-8_5_Chapter.html#Sec15) 92 [Standardizing Key Names](#A978-1-4302-4543-8_5_Chapter.html#Sec16) 92 [Creating the Default Villain](#A978-1-4302-4543-8_5_Chapter.html#Sec17) 93 [Paying Attention to Detail](#A978-1-4302-4543-8_5_Chapter.html#Sec18) 94 [Responding to Input](#A978-1-4302-4543-8_5_Chapter.html#Sec21) 99 [Wrap Up](#A978-1-4302-4543-8_5_Chapter.html#Sec22) 101 [Chapter 6:​ Using Table Views](#A978-1-4302-4543-8_6_Chapter.html) 103 [Preparing VillainTrackerAp​pDelegate for Multiple Villains](#A978-1-4302-4543-8_6_Chapter.html#Sec1) 104 [Making Way for the Table View](#A978-1-4302-4543-8_6_Chapter.html#Sec2) 105 [A Nasty Resize Surprise, or, Constraints To The Rescue!](#A978-1-4302-4543-8_6_Chapter.html#Sec3) 110 [Creating and Editing Constraints](#A978-1-4302-4543-8_6_Chapter.html#Sec4) 111 [Making Way for the Table View:​ Code Edition](#A978-1-4302-4543-8_6_Chapter.html#Sec5) 116 [The Table View Needs Help](#A978-1-4302-4543-8_6_Chapter.html#Sec6) 117 [Adding More Villains](#A978-1-4302-4543-8_6_Chapter.html#Sec7) 118 [Selecting A Villain](#A978-1-4302-4543-8_6_Chapter.html#Sec8) 119 [Stop Your Evil Ways!](#A978-1-4302-4543-8_6_Chapter.html#Sec9) 120 [Editing in the Table View](#A978-1-4302-4543-8_6_Chapter.html#Sec10) 122 [Wrap Up](#A978-1-4302-4543-8_6_Chapter.html#Sec11) 123 [Chapter 7:​ Cocoa Bindings](#A978-1-4302-4543-8_7_Chapter.html) 125 [Binding to Simple Controls](#A978-1-4302-4543-8_7_Chapter.html#Sec1) 126 [Creating the DungeonThing Project and Preferences Window](#A978-1-4302-4543-8_7_Chapter.html#Sec2) 126 [Binding to NSUserDefaultsCo​ntroller](#A978-1-4302-4543-8_7_Chapter.html#Sec7) 130 [Creating the Main Window](#A978-1-4302-4543-8_7_Chapter.html#Sec11) 133 [Setting Up the DungeonThingAppD​elegate](#A978-1-4302-4543-8_7_Chapter.html#Sec12) 135 [Binding to a Table View](#A978-1-4302-4543-8_7_Chapter.html#Sec16) 141 [Making the Code Bindings-Ready](#A978-1-4302-4543-8_7_Chapter.html#Sec17) 141 [Configuring the Table Views and Text Views](#A978-1-4302-4543-8_7_Chapter.html#Sec18) 143 [Creating and Configuring an Array Controller](#A978-1-4302-4543-8_7_Chapter.html#Sec19) 145 [Binding the Table Display via the Array Controller](#A978-1-4302-4543-8_7_Chapter.html#Sec20) 147 [Binding a Text Field via the Array Controller’s Selection](#A978-1-4302-4543-8_7_Chapter.html#Sec21) 147 [Populating the Array](#A978-1-4302-4543-8_7_Chapter.html#Sec22) 148 [Making Sure it Works](#A978-1-4302-4543-8_7_Chapter.html#Sec23) 148 [Rinse, Repeat, Rinse, Repeat](#A978-1-4302-4543-8_7_Chapter.html#Sec24) 148 [Okay, But How Did That Work?​](#A978-1-4302-4543-8_7_Chapter.html#Sec25) 149 [Key-Value Coding](#A978-1-4302-4543-8_7_Chapter.html#Sec26) 149 [Key-Value Observing](#A978-1-4302-4543-8_7_Chapter.html#Sec27) 150 [Cocoa Bindings:​ How It Works](#A978-1-4302-4543-8_7_Chapter.html#Sec28) 151 [Wrap Up](#A978-1-4302-4543-8_7_Chapter.html#Sec29) 151 [Chapter 8:​ Core Data Basics](#A978-1-4302-4543-8_8_Chapter.html) 153 [What We’ve Been Missing](#A978-1-4302-4543-8_8_Chapter.html#Sec1) 153 [Creating MythBase](#A978-1-4302-4543-8_8_Chapter.html#Sec2) 155 [Defining the Model](#A978-1-4302-4543-8_8_Chapter.html#Sec3) 156 [Using Xcode’s Model Editor](#A978-1-4302-4543-8_8_Chapter.html#Sec4) 157 [Creating an Entity](#A978-1-4302-4543-8_8_Chapter.html#Sec5) 157 [Creating Attributes](#A978-1-4302-4543-8_8_Chapter.html#Sec6) 158 [Attributes for Unsupported Types](#A978-1-4302-4543-8_8_Chapter.html#Sec7) 160 [Designing the GUI](#A978-1-4302-4543-8_8_Chapter.html#Sec8) 161 [Creating the MythBase display](#A978-1-4302-4543-8_8_Chapter.html#Sec9) 161 [Displaying Details](#A978-1-4302-4543-8_8_Chapter.html#Sec10) 163 [Setting up Cocoa Bindings](#A978-1-4302-4543-8_8_Chapter.html#Sec11) 166 [Binding with an Array Controller](#A978-1-4302-4543-8_8_Chapter.html#Sec12) 166 [Configuring Bindings for the Table View](#A978-1-4302-4543-8_8_Chapter.html#Sec13) 168 [Finishing the Bindings:​ Save and Search](#A978-1-4302-4543-8_8_Chapter.html#Sec14) 171 [Exploring the Template Code](#A978-1-4302-4543-8_8_Chapter.html#Sec15) 172 [The App Delegate Interface](#A978-1-4302-4543-8_8_Chapter.html#Sec16) 173 [The App Delegate Implementation](#A978-1-4302-4543-8_8_Chapter.html#Sec17) 174 [Adding Business Logic](#A978-1-4302-4543-8_8_Chapter.html#Sec25) 181 [Making The MythicalPerson Class](#A978-1-4302-4543-8_8_Chapter.html#Sec26) 182 [Validating Single Attributes](#A978-1-4302-4543-8_8_Chapter.html#Sec27) 183 [Validating Multiple Attributes](#A978-1-4302-4543-8_8_Chapter.html#Sec28) 184 [Creating a Custom Attribute](#A978-1-4302-4543-8_8_Chapter.html#Sec29) 186 [Wrap Up](#A978-1-4302-4543-8_8_Chapter.html#Sec30) 188 [Chapter 9:​ Core Data Relationships](#A978-1-4302-4543-8_9_Chapter.html) 189 [Modeling New Entities and Relationships](#A978-1-4302-4543-8_9_Chapter.html#Sec1) 190 [Model Versioning and Migrations](#A978-1-4302-4543-8_9_Chapter.html#Sec2) 191 [Preparing for Multiple Model Versions](#A978-1-4302-4543-8_9_Chapter.html#Sec3) 191 [Adding New Entities](#A978-1-4302-4543-8_9_Chapter.html#Sec4) 192 [Adding Relationships](#A978-1-4302-4543-8_9_Chapter.html#Sec5) 193 [Creating a Simple Migration](#A978-1-4302-4543-8_9_Chapter.html#Sec6) 195 [Time to Run](#A978-1-4302-4543-8_9_Chapter.html#Sec7) 195 [Updating the GUI](#A978-1-4302-4543-8_9_Chapter.html#Sec8) 197 [Creating the Band Window](#A978-1-4302-4543-8_9_Chapter.html#Sec9) 197 [Setting Up Cocoa Bindings](#A978-1-4302-4543-8_9_Chapter.html#Sec10) 198 [Putting People in Bands](#A978-1-4302-4543-8_9_Chapter.html#Sec11) 200 [Showing the Bands’ Members](#A978-1-4302-4543-8_9_Chapter.html#Sec12) 203 [Creating a Venue Window](#A978-1-4302-4543-8_9_Chapter.html#Sec13) 204 [Adding a Gig List to the Band Window](#A978-1-4302-4543-8_9_Chapter.html#Sec14) 205 [Wrap Up](#A978-1-4302-4543-8_9_Chapter.html#Sec15) 207 [Chapter 10:​ Search and Retrieve Core Data with Criteria](#A978-1-4302-4543-8_10_Chapter.html) 209 [Creating QuoteMonger](#A978-1-4302-4543-8_10_Chapter.html#Sec1) 209 [Creating the Project and Its Data Model](#A978-1-4302-4543-8_10_Chapter.html#Sec2) 210 [The Data Entry Window](#A978-1-4302-4543-8_10_Chapter.html#Sec3) 211 [Entering Some Initial Quotes](#A978-1-4302-4543-8_10_Chapter.html#Sec7) 214 [Creating the Quote Finder Window](#A978-1-4302-4543-8_10_Chapter.html#Sec8) 215 [Limiting Results with NSPredicate](#A978-1-4302-4543-8_10_Chapter.html#Sec9) 216 [Creating Predicates](#A978-1-4302-4543-8_10_Chapter.html#Sec10) 216 [Specifying an NSAppController’s Predicate in Xcode](#A978-1-4302-4543-8_10_Chapter.html#Sec11) 218 [User-Defined Predicates](#A978-1-4302-4543-8_10_Chapter.html#Sec12) 218 [Saving a Predicate](#A978-1-4302-4543-8_10_Chapter.html#Sec16) 222 [Wrap Up](#A978-1-4302-4543-8_10_Chapter.html#Sec17) 223 [Chapter 11:​ Windows and Menus and Sheets](#A978-1-4302-4543-8_11_Chapter.html) 225 [NSWindow and NSPanel](#A978-1-4302-4543-8_11_Chapter.html#Sec1) 225 [Handling Input](#A978-1-4302-4543-8_11_Chapter.html#Sec2) 227 [To Use a Panel, or Not to Use a Panel](#A978-1-4302-4543-8_11_Chapter.html#Sec3) 228 [Window Attributes](#A978-1-4302-4543-8_11_Chapter.html#Sec4) 228 [Standard System Panels](#A978-1-4302-4543-8_11_Chapter.html#Sec5) 231 [A Controller With a Nib of Its Own](#A978-1-4302-4543-8_11_Chapter.html#Sec8) 236 [Loading a Nib With NSWindowControll​er](#A978-1-4302-4543-8_11_Chapter.html#Sec9) 237 [Subclassing NSWindowControll​er](#A978-1-4302-4543-8_11_Chapter.html#Sec10) 239 [Modal Windows](#A978-1-4302-4543-8_11_Chapter.html#Sec11) 242 [Open Panels and Save Panels](#A978-1-4302-4543-8_11_Chapter.html#Sec13) 243 [System Menus](#A978-1-4302-4543-8_11_Chapter.html#Sec14) 244 [Standard Application Menu Items](#A978-1-4302-4543-8_11_Chapter.html#Sec15) 245 [Our Own Menus](#A978-1-4302-4543-8_11_Chapter.html#Sec16) 245 [Enabling/​Disabling With Bindings](#A978-1-4302-4543-8_11_Chapter.html#Sec17) 245 [Enabling/​Disabling With First Responder](#A978-1-4302-4543-8_11_Chapter.html#Sec18) 248 [Sheets](#A978-1-4302-4543-8_11_Chapter.html#Sec19) 251 [Wrap Up](#A978-1-4302-4543-8_11_Chapter.html#Sec20) 252 [Chapter 12:​ Document-Based Applications](#A978-1-4302-4543-8_12_Chapter.html) 253 [Creating the ColorMix Application](#A978-1-4302-4543-8_12_Chapter.html#Sec1) 254 [Examining the Default Nib Files](#A978-1-4302-4543-8_12_Chapter.html#Sec2) 255 [Defining the Model](#A978-1-4302-4543-8_12_Chapter.html#Sec3) 255 [Setting Two Colors](#A978-1-4302-4543-8_12_Chapter.html#Sec4) 255 [The Simplest of GUIs](#A978-1-4302-4543-8_12_Chapter.html#Sec5) 256 [Creating a Default ColorSet](#A978-1-4302-4543-8_12_Chapter.html#Sec6) 257 [Settling on a File Format](#A978-1-4302-4543-8_12_Chapter.html#Sec7) 258 [Adding Color](#A978-1-4302-4543-8_12_Chapter.html#Sec8) 259 [The CMColorBlendView​ Class](#A978-1-4302-4543-8_12_Chapter.html#Sec9) 259 [Adding Blended Colors to the GUI](#A978-1-4302-4543-8_12_Chapter.html#Sec10) 262 [About Undo and Redo](#A978-1-4302-4543-8_12_Chapter.html#Sec11) 268 [The Undo Stack](#A978-1-4302-4543-8_12_Chapter.html#Sec12) 268 [Wrap Up](#A978-1-4302-4543-8_12_Chapter.html#Sec13) 269 [Chapter 13:​ Exceptions, Signals, Errors, and Debugging](#A978-1-4302-4543-8_13_Chapter.html) 271 [Exception Handling](#A978-1-4302-4543-8_13_Chapter.html#Sec1) 271 [Catching Exceptions](#A978-1-4302-4543-8_13_Chapter.html#Sec2) 272 [The Limited Role of Exceptions in Cocoa](#A978-1-4302-4543-8_13_Chapter.html#Sec3) 273 [Create a Testbed](#A978-1-4302-4543-8_13_Chapter.html#Sec4) 273 [NSInvalidArgumen​tException](#A978-1-4302-4543-8_13_Chapter.html#Sec5) 279 [NSRangeException​](#A978-1-4302-4543-8_13_Chapter.html#Sec6) 282 [And the Rest](#A978-1-4302-4543-8_13_Chapter.html#Sec7) 283 [Worse than Exceptions:​ Death by Signal](#A978-1-4302-4543-8_13_Chapter.html#Sec8) 284 [NSError](#A978-1-4302-4543-8_13_Chapter.html#Sec9) 288 [Domains and Codes](#A978-1-4302-4543-8_13_Chapter.html#Sec10) 288 [Recognizing an Error](#A978-1-4302-4543-8_13_Chapter.html#Sec11) 289 [Presenting an Error](#A978-1-4302-4543-8_13_Chapter.html#Sec12) 293 [Wrap Up](#A978-1-4302-4543-8_13_Chapter.html#Sec13) 293 [Chapter 14:​ Drawing in Cocoa](#A978-1-4302-4543-8_14_Chapter.html) 295 [Fundamentals](#A978-1-4302-4543-8_14_Chapter.html#Sec1) 295 [The View Coordinate System](#A978-1-4302-4543-8_14_Chapter.html#Sec2) 296 [Frame Rectangle vs.​ Bounds Rectangle](#A978-1-4302-4543-8_14_Chapter.html#Sec3) 296 [Rects, Points, and Sizes](#A978-1-4302-4543-8_14_Chapter.html#Sec4) 297 [Path Basics](#A978-1-4302-4543-8_14_Chapter.html#Sec5) 297 [Creating an NSView Subclass](#A978-1-4302-4543-8_14_Chapter.html#Sec6) 298 [The Basic Drawing Method, drawRect:​](#A978-1-4302-4543-8_14_Chapter.html#Sec7) 298 [Graphics States](#A978-1-4302-4543-8_14_Chapter.html#Sec8) 299 [Path Helpers](#A978-1-4302-4543-8_14_Chapter.html#Sec9) 299 [Colors and the Graphics Context](#A978-1-4302-4543-8_14_Chapter.html#Sec10) 300 [Beyond Color](#A978-1-4302-4543-8_14_Chapter.html#Sec11) 301 [Manual Path Construction](#A978-1-4302-4543-8_14_Chapter.html#Sec12) 302 [Pushing Boundaries](#A978-1-4302-4543-8_14_Chapter.html#Sec13) 303 [LOLmaker](#A978-1-4302-4543-8_14_Chapter.html#Sec14) 305 [First Steps to LOL](#A978-1-4302-4543-8_14_Chapter.html#Sec15) 306 [LOLView](#A978-1-4302-4543-8_14_Chapter.html#Sec16) 308 [Drawing a Bitmap](#A978-1-4302-4543-8_14_Chapter.html#Sec17) 309 [Let It Scroll](#A978-1-4302-4543-8_14_Chapter.html#Sec18) 310 [Drawing Text](#A978-1-4302-4543-8_14_Chapter.html#Sec19) 312 [Wrap Up](#A978-1-4302-4543-8_14_Chapter.html#Sec20) 314 [Chapter 15:​ Advanced Drawing Topics](#A978-1-4302-4543-8_15_Chapter.html) 315 [Editing a Curve](#A978-1-4302-4543-8_15_Chapter.html#Sec1) 315 [Preparations](#A978-1-4302-4543-8_15_Chapter.html#Sec2) 316 [Bezier Plumbing](#A978-1-4302-4543-8_15_Chapter.html#Sec3) 318 [Drawing a Curve](#A978-1-4302-4543-8_15_Chapter.html#Sec4) 320 [Watching the Mouse](#A978-1-4302-4543-8_15_Chapter.html#Sec5) 321 [A Little Polish](#A978-1-4302-4543-8_15_Chapter.html#Sec6) 323 [Core Animation:​ A Primer](#A978-1-4302-4543-8_15_Chapter.html#Sec7) 325 [Core Animation Basics](#A978-1-4302-4543-8_15_Chapter.html#Sec8) 325 [Implicit Animations](#A978-1-4302-4543-8_15_Chapter.html#Sec9) 325 [Explicit Animations](#A978-1-4302-4543-8_15_Chapter.html#Sec10) 326 [Grouping Animations](#A978-1-4302-4543-8_15_Chapter.html#Sec11) 332 [Wrap Up](#A978-1-4302-4543-8_15_Chapter.html#Sec12) 340 [Chapter 16:​ Working with Files](#A978-1-4302-4543-8_16_Chapter.html) 341 [Implicit File Access](#A978-1-4302-4543-8_16_Chapter.html#Sec1) 341 [High-Level File Operations](#A978-1-4302-4543-8_16_Chapter.html#Sec2) 342 [What About That File:​ The Code](#A978-1-4302-4543-8_16_Chapter.html#Sec3) 343 [What About That File:​ The GUI](#A978-1-4302-4543-8_16_Chapter.html#Sec4) 349 [Wrap Up](#A978-1-4302-4543-8_16_Chapter.html#Sec5) 356 [Chapter 17:​ Concurrency](#A978-1-4302-4543-8_17_Chapter.html) 357 [SlowWorker](#A978-1-4302-4543-8_17_Chapter.html#Sec1) 358 [Threading Basics](#A978-1-4302-4543-8_17_Chapter.html#Sec2) 361 [Units of Work](#A978-1-4302-4543-8_17_Chapter.html#Sec3) 362 [Operation Queues](#A978-1-4302-4543-8_17_Chapter.html#Sec4) 362 [Becoming a Blockhead](#A978-1-4302-4543-8_17_Chapter.html#Sec5) 362 [Vitalizing SlowWorker](#A978-1-4302-4543-8_17_Chapter.html#Sec6) 364 [Demanding the Main Thread](#A978-1-4302-4543-8_17_Chapter.html#Sec7) 365 [GCD:​ Low-Level Queuing](#A978-1-4302-4543-8_17_Chapter.html#Sec8) 370 [Improving SlowWorker a Second Time](#A978-1-4302-4543-8_17_Chapter.html#Sec9) 370 [A Little Concurrency Goes a Long Way](#A978-1-4302-4543-8_17_Chapter.html#Sec12) 374 [Chapter 18:​ Future Paths](#A978-1-4302-4543-8_18_Chapter.html) 375 [More Cocoa-isms](#A978-1-4302-4543-8_18_Chapter.html#Sec1) 375 [Notifications](#A978-1-4302-4543-8_18_Chapter.html#Sec2) 376 [Blocks](#A978-1-4302-4543-8_18_Chapter.html#Sec3) 377 [Cocoa in a Foreign Language](#A978-1-4302-4543-8_18_Chapter.html#Sec8) 382 [PyObjC](#A978-1-4302-4543-8_18_Chapter.html#Sec9) 382 [MacRuby](#A978-1-4302-4543-8_18_Chapter.html#Sec10) 383 [Nu](#A978-1-4302-4543-8_18_Chapter.html#Sec11) 384 [JavaScript](#A978-1-4302-4543-8_18_Chapter.html#Sec12) 384 [F-Script](#A978-1-4302-4543-8_18_Chapter.html#Sec13) 385 [Ported Cocoa](#A978-1-4302-4543-8_18_Chapter.html#Sec14) 385 [Cocoa Touch](#A978-1-4302-4543-8_18_Chapter.html#Sec15) 385 [GNUstep and Cocotron](#A978-1-4302-4543-8_18_Chapter.html#Sec16) 386 [Cappuccino/​Objective-J](#A978-1-4302-4543-8_18_Chapter.html#Sec17) 387 [Here at the End of All Things](#A978-1-4302-4543-8_18_Chapter.html#Sec18) 387 Index389 Contents at a Glance [Chapter 1:​ Must Love Cocoa](#A978-1-4302-4543-8_1_Chapter.html) 1   [Chapter 2:​ Hello, World](#A978-1-4302-4543-8_2_Chapter.html) 5   [Chapter 3:​ Lights, Camera … Actions! (and Outlets, too)](#A978-1-4302-4543-8_3_Chapter.html) 27   [Chapter 4:​ The First Call to Action](#A978-1-4302-4543-8_4_Chapter.html) 47   [Chapter 5:​ GUI Components](#A978-1-4302-4543-8_5_Chapter.html) 67   [Chapter 6:​ Using Table Views](#A978-1-4302-4543-8_6_Chapter.html) 103   [Chapter 7:​ Cocoa Bindings](#A978-1-4302-4543-8_7_Chapter.html) 125   [Chapter 8:​ Core Data Basics](#A978-1-4302-4543-8_8_Chapter.html) 153   [Chapter 9:​ Core Data Relationships](#A978-1-4302-4543-8_9_Chapter.html) 189   [Chapter 10:​ Search and Retrieve Core Data with Criteria](#A978-1-4302-4543-8_10_Chapter.html) 209   [Chapter 11:​ Windows and Menus and Sheets](#A978-1-4302-4543-8_11_Chapter.html) 225   [Chapter 12:​ Document-Based Applications](#A978-1-4302-4543-8_12_Chapter.html) 253   [Chapter 13:​ Exceptions, Signals, Errors, and Debugging](#A978-1-4302-4543-8_13_Chapter.html) 271   [Chapter 14:​ Drawing in Cocoa](#A978-1-4302-4543-8_14_Chapter.html) 295   [Chapter 15:​ Advanced Drawing Topics](#A978-1-4302-4543-8_15_Chapter.html) 315   [Chapter 16:​ Working with Files](#A978-1-4302-4543-8_16_Chapter.html) 341   [Chapter 17:​ Concurrency](#A978-1-4302-4543-8_17_Chapter.html) 357   [Chapter 18:​ Future Paths](#A978-1-4302-4543-8_18_Chapter.html) 375   Index389  
+
+# 1. Must Love Cocoa
+
+Abstract
+
+Welcome! You must be here because you want to write programs for your Mac. Well, you’ve definitely come to the right place. (Here for Pilates? Third door down, on the right.) By the time you finish this book, you’ll know everything you need to know to create fast, efficient, good-looking Mac OS X applications.
+
+Welcome! You must be here because you want to write programs for your Mac. Well, you’ve definitely come to the right place. (Here for Pilates? Third door down, on the right.) By the time you finish this book, you’ll know everything you need to know to create fast, efficient, good-looking Mac OS X applications.
+
+The key to creating a modern Mac application is Cocoa. According to Apple, Cocoa is a set of object-oriented frameworks that provide a runtime environment for Mac OS X applications. As you make your way through this book, you’ll learn all about the Cocoa frameworks and runtime environment. For the moment, think of Cocoa as a programmer’s assistant that takes care of much of the housekeeping that goes along with Mac development. Almost every common task performed by a Mac application, from drawing a window to blinking the cursor in a text field, is handled for you when you write programs using Cocoa, freeing you up to concentrate on the code that makes your application unique.
+
+Cocoa provides a class for just about every one of your development needs. There are Cocoa classes for each piece of the Mac OS X user interface, from windows to menus, scrollbars to buttons, images to icons. If you can think of a user interface element you’d like to add to your own application, chances are very good that element is already implemented as a Cocoa class.
+
+Another benefit of using Cocoa is that it is tightly integrated with Mac OS X. Build your application using Cocoa, and your application will play well with others and will interface seamlessly with Mac OS X elements like the Finder and the Dock.
+
+WHEN IS 25 YEARS NOT 25 YEARS?
+
+Cocoa has been around in one form or another since 1986\. The technologies that we call Cocoa evolved from the NeXTStep AppKit, the application building tools developed for the NeXT platform. When Apple bought NeXT in 1996, they began building a new version of the Mac OS, what we now know as OS X, basing much of the new operating system on technologies acquired from NeXT.
+
+As OS X evolved, so did Cocoa. Apple added technologies from the classic Mac OS, like QuickTime, as well as completely new technologies, like the Quartz rendering system that enables all the fancy visual effects and animation that OS X uses. They also made sure that they kept the Mac’s famed ease-of-use in the process.
+
+Bottom line: Cocoa is constantly evolving and expanding. The development tools, libraries, and frameworks you’ll be learning in this book are the result of more than 25 years of experimentation and refinement.
+
+## Get a Mac and Download the Tools
+
+Before you can begin creating applications with Cocoa, you’ll need a Mac. It doesn’t have to be the newest or the most powerful Mac; in fact, pretty much any Mac that’s been made in the last four or five years or so will work just fine for building the exercises in this book. As you become more serious about writing software, you may find it’s worth investing in a newer or faster machine, but for now just about any Intel-based Mac will work fine for learning what you need to learn. The latest Macs are currently up to OS X 10.8, while the oldest Intel-based Macs can’t run any version of OS X later than 10.7\. But Xcode 4.6, the version we’ll be using for this book, works fine on both 10.7 and 10.8.
+
+You’ll also need to have an Apple ID (the same as you might already be using for the Mac or iOS App Stores, or other iTunes purchases), and you should strongly consider joining the Apple Developer Connection (ADC), which is Apple’s developer relations organization. There are paid memberships, but the basic membership is free. To join ADC, open up your web browser and navigate to [`http://developer.apple.com/mac/`](http://developer.apple.com/mac/) . If you already have an Apple ID, press the Log in button and enter your info. If you are new to Apple’s online services, click the register link and create your account.
+
+Whether you sign up as a developer or just use your Apple ID, the easiest and best way to get Xcode, Apple’s set of free developer tools, is to download it from the App Store on your Mac. Just launch the App Store, search for Xcode, and tell it to install. As with most of what’s on the App Store, installation is pretty much self-explanatory. Xcode’s installation may take quite a bit longer than most other apps since it’s a pretty big download.
+
+Note
+
+If you’ve already installed Xcode for doing iOS development, then you’re all set. Xcode contains all the tools and frameworks needed for creating both OS X apps and iOS apps. Though the frameworks do have major differences, the tools are pretty much the same, so if you’ve done any iOS development, you should feel right at home creating Cocoa programs.
+
+## Download the Source Code
+
+In addition to downloading and installing Xcode, you’ll also need to download the sample projects that go with this book. You can find the code archive on the Apress Learn Cocoa on the Mac web page at [`www.apress.com/9781430245421`](http://www.apress.com/9781430245421) . This page contains all the metadata about this book, including the code archive, errata, and more.
+
+## Getting Help
+
+As you make your way through the book, you’ll no doubt have some questions you’d like to get answered. Fortunately, there is a great community you can join, designed specifically for this series of books. Check out [`http://learncocoa.org`](http://learncocoa.org) . Register with the site, find the appropriate book forum and post your questions. You are sure to find other folks who can answer your questions and, who knows, after a while you might find yourself answering questions for other folks as well. The [`learncocoa.org`](http://learncocoa.org) site is also where you’ll find some info about other resources to help you on your way, including other books, workshops, and more. Come join us!
+
+## What You Need to Know Before You Begin
+
+This book assumes that you already have some basic programming knowledge. You should be comfortable with the concepts of loops, variables, pointers, and linked lists. This book also assumes that you understand the fundamentals of object-oriented programming and are familiar with the Objective-C programming language. Starting with Mac OS X Leopard 10.5, a new version of the language was introduced, called Objective-C 2.0\. Don’t worry if you’re not familiar with the more recent additions to the Objective-C language. We’ll be sure to highlight any of the 2.0 language features we take advantage of and explain how they work and why we are using them.
+
+NEW TO OBJECTIVE-C?
+
+Here are a few resources that will help you get started.
+
+New to programming? Check out Learn C on the Mac, 4th Edition, written by our good friend Dave Mark ( [`www.apress.com/9781430218098`](http://www.apress.com/9781430218098) ).
+
+New to Objective-C? Check out Learn Objective-C on the Mac, 2nd Edition, an excellent and approachable introduction to Objective-C by Mac programming experts Scott Knaster, Waqar Malik, and Mark Dalrymple ( [`www.apress.com/9781430241881`](http://www.apress.com/9781430241881) ).
+
+Next, navigate over to Apple’s Mac Developer Library and download a copy of Programming with Objective-C, a very detailed and extensive description of the language and a great reference guide ( [`http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC`](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC) ).
+
+## Are You Ready?
+
+The Mac is a great computing platform, and Cocoa is the best tool to use to build your Mac applications. If you are coming to the Mac from another platform, you may find working with Cocoa and Objective-C a bit disorienting. Even though you might find it hard to get your bearings at first, as you make your way through this book, we’re confident that you’ll soon start to wrap your head around the “Cocoa way” of doing things. With a little perseverance, it will all start to make sense.
+
+One thing you should keep in mind is that the exercises in this book are not simply a checklist that, when completed, grant you Cocoa developer guru status. Every step of the way, make sure you understand what you just did before moving on to the next project. Don’t be afraid to make changes to the code. Experiment and observe the results. That’s one of the best ways to understand the complexities of coding in an environment like Cocoa.
+
+Also, remember that we’ve set up a message forum for readers to discuss the exercises and content of this book. So if you get stuck, or want to chat with us and other Cocoa developers about any Cocoa programming topics, head over to [`http://learncocoa.org`](http://learncocoa.org) and register for the discussion forum.
+
+That said, if you’ve got Xcode installed, turn the page. If not, get to it! Then let’s go!
+
+# 2. Hello, World
+
+Abstract
+
+As you’re probably well aware, it has become something of a tradition to call the first project in any book on programming “Hello, World.” Following the “if it ain’t broke, don’t fix it” guideline, we’ll stick with tradition.
+
+As you’re probably well aware, it has become something of a tradition to call the first project in any book on programming “Hello, World.” Following the “if it ain’t broke, don’t fix it” guideline, we’ll stick with tradition.
+
+## Building “Hello, World”
+
+By now, you should have Xcode installed on your machine. You should also have the `Learn Cocoa Projects` folder ensconced safely somewhere on your hard drive. If by some set of circumstances you don’t, go directly to [Chapter 1](#A978-1-4302-4543-8_1_Chapter.html) (do not pass Go, do not collect $200) and reread the appropriate sections.
+
+The first project we’ll be working with is located in the `Chapter02/Chapter2` folder. Launch Xcode, which is located in the `Applications` folder. Just in case you’ve never used Xcode before, we’re going to walk you through the process of creating a new project.
+
+Start by selecting New Project from the File menu, or by typing ⇧⌘N. When the New Project Assistant comes up (Figure [2-1](#A978-1-4302-4543-8_2_Chapter.html#Fig1)), select Application from under the Mac OS X heading in the left column, then select the Cocoa Application icon from the upper-right pane and click Next.
+
+![A978-1-4302-4543-8_2_Fig1_HTML.jpg](A978-1-4302-4543-8_2_Fig1_HTML.jpg)
+
+Figure 2-1.
+
+Selecting the Cocoa Application project template from Xcode’s New Project Assistant
+
+A Project Options window offers a number of choices (Figure [2-2](#A978-1-4302-4543-8_2_Chapter.html#Fig2)). We need to specify a name for our application. “Chapter2” is a good choice. We also need to give a company identifier, which is formatted like a reversed domain name (much like a Java package name or C# namespace). If we live at the [`megacorp.com`](http://megacorp.com) domain name, then com.megacorp would be our choice here. Mac OS X uses the combination of the product name and the company identifier as a unique name for our program across the system, as well as in the Mac App Store. However, since we won’t be distributing this app beyond our computer, we can pick anything we like. The last important field here is the class prefix. As we’ll see, many of the Cocoa classes start with the prefix NS or CF. In those classes, Xcode will generate some files for us as part of creating a new project, and it will use the prefix we give here. For now, enter “Book.” We won’t be using the other fields in this chapter, so they can be left at the default values. Click Next.
+
+![A978-1-4302-4543-8_2_Fig2_HTML.jpg](A978-1-4302-4543-8_2_Fig2_HTML.jpg)
+
+Figure 2-2.
+
+Specifying options for a new Cocoa application from Xcode’s New Project Assistant
+
+We’ll be presented with the standard Save window to set the location for our project (Figure [2-3](#A978-1-4302-4543-8_2_Chapter.html#Fig3)). Xcode will create a new folder with the name of our project in the location we pick: our Documents folder or a newly-created separate folder to hold the Xcode projects that we build ourselves. It really doesn’t matter where we save an Xcode project, but it’ll be easier to find them later if we always save our projects in one place. We also have the choice to have Xcode configure our project for version control using Git, a powerful open-source distributed version control system. For right now, we can also leave this at the default setting.
+
+![A978-1-4302-4543-8_2_Fig3_HTML.jpg](A978-1-4302-4543-8_2_Fig3_HTML.jpg)
+
+Figure 2-3.
+
+Naming our project and selecting the save location
+
+Once we select a location, a new project window will appear (as shown in Figure [2-4](#A978-1-4302-4543-8_2_Chapter.html#Fig4)). Although you might already be familiar with Xcode, take a second to look at the project window. This is where we will be spending an awful lot of our time, so let’s make sure we’re all on the same page. Like many applications built for Mac OS X 10.7 Lion and newer, Xcode includes a full-screen option. Since Xcode is a complex application, it works best with a lot of screen real estate, and we should make it full-screen now by clicking the arrows in the upper right-hand corner of the window.
+
+![A978-1-4302-4543-8_2_Fig4_HTML.jpg](A978-1-4302-4543-8_2_Fig4_HTML.jpg)
+
+Figure 2-4.
+
+Our project’s main window in Xcode
+
+Our project window features a toolbar across the top, which gives us ready access to a bunch of commonly used commands. Below the toolbar, the window is divided into three main sections, or panes.
+
+The pane that runs down the left side of the window is called the Navigator area. All of the resources that make up our project are grouped here, as are a number of relevant project settings. Clicking the little triangle to the left of an item expands that item to show any available subitems. Clicking the triangle to the left of an expanded item will hide its subitems.
+
+The right pane is called the Utility area, and it shows detailed information about items selected in the Navigator area. For a source code file, for example, this area shows identity and type information, the full path to the file in the file system, localization information, plus the build targets that use the selected file, encoding information, and version control info. Other files show information appropriate to the file type. Depending on the type of file selected in the Navigator pane, there may be a row of small icons atop this area that allow us to select several different views of information to be shown here. Below the information pane is the Library. We’ll be exploring more here in a moment.
+
+The center pane is called the Editor pane. If we select a file in the Navigator pane, and Xcode knows how to display or edit that kind of file, the contents of the file will be displayed in the Editor pane. This is where we will be writing and editing all of the application’s source code.
+
+Note
+
+Many developers like to get rid of the Utility area when they are working in the Editor in order to have more screen space devoted to editing code; we can toggle the Utility area by pressing ⌥⌘0.
+
+Let’s now look at the Project Navigator area on the left side of the Xcode window. There are a number of folders and three files that were created automatically for us. We’ll ignore the folders and the first two files for the moment (we’ll revisit them later). The third file is named `MainMenu.xib`.
+
+Click `MainMenu.xib`. The Editor pane will change to Interface Builder mode, the editor specifically designed to edit `.xib` files (Figure [2-5](#A978-1-4302-4543-8_2_Chapter.html#Fig5)). Prior to Xcode 4, Interface Builder was a separate application, but it’s been merged into Xcode, and this brings a lot of benefits in wiring up the user interface to the underlying code. The file `MainMenu.xib` is known as a “nib file.” Huh? A nib file? Why not a xib file? Well, for starters, “xib” is awfully hard to pronounce. But more importantly, the term “nib” is a holdover from an earlier, simpler time. The precursors to Cocoa and the modern Xcode development tools were developed by NeXT, Inc., a company started by Steve Jobs in 1985\. The name “nib” originally stood for NeXT Interface Builder. Over time, NeXT was acquired by Apple, and the nib format evolved into a newer, XML-based format. This combination of XML and Interface Builder yielded the new `.xib` extension. Nonetheless, the name “nib file” stuck, and most developers still call their xib files “nib files.”
+
+Warning
+
+You’ll find the file `MainMenu.xib` in every Cocoa project you create in Xcode. This is a special file. Treat it as such. Do not move, rename, or otherwise annoy the file. Unless we tell you to. When your application gets launched, it will automatically load the contents of `MainMenu.xib` into memory. `MainMenu.xib` contains critical information, including your application’s menu bar and main window (if it has one). Over time, you’ll learn all there is to know about nib files and will be rolling your very own. For the moment, patience—and hands off.
+
+## Exploring the Nib File
+
+Interface Builder mode offers a lot of power, so let’s take a moment to see how things are laid out. The Interface Builder Editor area looks like a piece of graph paper, with the menu bar of our application across the top (Figure [2-5](#A978-1-4302-4543-8_2_Chapter.html#Fig5)). Along the left, off the edge of the graph paper are a series of icons in a dock. These are the objects that make up our Cocoa application’s user interface. Near the bottom is a Play button that expands the dock into an outline mode where we can get more info about these objects.
+
+![A978-1-4302-4543-8_2_Fig5_HTML.jpg](A978-1-4302-4543-8_2_Fig5_HTML.jpg)
+
+Figure 2-5.
+
+MainMenu.xib ready for editing
+
+Note that the row of icons across the top of the Utility area, along the right side of the Xcode window, has expanded from two to eight; these objects are more configurable than files are. Each of these icons represents a different mode for the Inspector. We’ll have more to say about the different types of information on display here shortly. Underneath this is the Library, with a row of four small icons that shift the view to different types of items. Hovering our mouse over each icon will display a tooltip describing the kind of items that each view shows. The Inspector is used to set parameters on the objects that make up our user interface, and the Library is where we’ll go to add new objects to lay out the interface.
+
+The menu bar across the top of the Editor is for our application, and changes here will be reflected in the menu bar that appears when our application is launched. We can click the menu headings, and they’ll open up to show the menu items underneath; we get the Mac-standard File, Edit, Format, View, Window, and Help menus for free with the new nib file, but we can add more and modify the defaults if necessary. The icon in the dock area that looks like a pull-down menu (the fourth one down) is the object that represents the main menu. In Figure [2-5](#A978-1-4302-4543-8_2_Chapter.html#Fig5), it has a highlighted border to indicate that it’s selected.
+
+Below the main menu icon in the dock is an icon that looks like a window, which is in fact what it is. The Cocoa Application project template we used to create this project assumed that we would have at least one window in our application, and it created that window for us. We’ll use this window to lay out the contents of the window that will be displayed when our program is launched. Select the window icon and our application’s new, empty, main window will appear on the graph paper.
+
+### The Library
+
+The Library pane in the lower right-hand corner acts as a palette, a collection of objects we can use to build our application’s interface. In Mountain Lion, there are 134 different object types to play with here. The Library starts off showing a File Template Library, but there are four kinds of resources that can be shown here: File Templates, Code Snippets, Objects, and Media. All the user-interface elements that we’ll want to use are under the Objects view. We scroll through the library looking for the item we want to use, then drag that item into the appropriate Xcode pane. Select the icon that represents the Object Library view, or press ^⌥⌘3. The screen should look like Figure [2-6](#A978-1-4302-4543-8_2_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_2_Fig6_HTML.jpg](A978-1-4302-4543-8_2_Fig6_HTML.jpg)
+
+Figure 2-6.
+
+MainMenu.xib showing our new, empty window and the Object Library
+
+Take a minute to scroll through the different UI objects in the library: buttons, sliders, text fields, labels, browsers, even an OpenGL view!
+
+### Dragging Out a Label
+
+The Object Library pane will show a list of items that can be dragged to our application window to build our application’s interface. Let’s drag one over now. We’re going to use an object called Label, which is used to display static text—text that the user can’t edit. Drag a label over to the window.
+
+In the Object Library view, scroll down about a dozen items to one called Label. Click directly on the Label in the library and drag it over to the application’s main window (the window labeled Chapter2). Doing this will add a new label to our application’s window (Figure [2-7](#A978-1-4302-4543-8_2_Chapter.html#Fig7)).
+
+![A978-1-4302-4543-8_2_Fig7_HTML.jpg](A978-1-4302-4543-8_2_Fig7_HTML.jpg)
+
+Figure 2-7.
+
+Dragging a label out to the window Tip
+
+Instead of scrolling down through the list as we did, we could have just typed the word “label” into the search field at the bottom of the Library pane. This would have filtered down the list to show only those objects in the library with the word “label” in their name or description.
+
+Now that we’ve got a label, let’s change it. Double-click the label. It should become editable and selected. Because the existing text is selected, we can just type our new text and it will replace what was there before. Go ahead and type “Hello, World!”, which is infinitely less boring than “Label.” (If you’re feeling rebellious, you could type something else, but don’t blame us if the Tiki Gods come after you!)
+
+### Using the Blue Guidelines
+
+When you’re done editing the label, press return to commit the changes, which will take that label out of editing mode. Next, click and drag the label toward the left side of the window. As it gets near the left edge of the window, there will be a dashed blue line to the left of the text (Figure [2-8](#A978-1-4302-4543-8_2_Chapter.html#Fig8)). Interface Builder uses these blue guidelines to indicate that the dragged item is aligned properly with the items around it. In this case, the guideline is indicating that the label is the proper distance from the left edge of the window.
+
+![A978-1-4302-4543-8_2_Fig8_HTML.jpg](A978-1-4302-4543-8_2_Fig8_HTML.jpg)
+
+Figure 2-8.
+
+When we move the object near the edges, blue lines appear Note
+
+One of the things that has made using the Mac such a pleasant experience over the years has been the consistency of the user interface. In the vast majority of Mac applications, you can count on the ability to press ⌘W to close a window, ⌘S to save, and ⌘P to print, regardless of what program you are in. If you’re going to write software for the Mac, you should know these “rules of consistency.” Apple lays out these rules in their Human Interface Guidelines (also know as the HIG). Interface Builder’s little blue guidelines are there expressly to make it easier for you to conform to the Human Interface Guidelines. You can find a copy of the HIG at [`http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines`](http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines) .
+
+### The Inspector
+
+The Library area takes up the bottom third or so of the Utility area on the right-hand side of the Xcode window. Another important Interface Builder tool is situated right above the Library, taking up the upper two-thirds of the Utility area on the right. This is called the Inspector. The Inspector is a context-sensitive pane that displays information about the currently selected object. Click a window and the Inspector displays information about that window (Figure [2-9](#A978-1-4302-4543-8_2_Chapter.html#Fig9)). Click the label and the Inspector displays information about that label. You get the idea.
+
+![A978-1-4302-4543-8_2_Fig9_HTML.jpg](A978-1-4302-4543-8_2_Fig9_HTML.jpg)
+
+Figure 2-9.
+
+The Inspector showing attributes for the window
+
+Take a look at the Inspector panel shown in Figure [2-9](#A978-1-4302-4543-8_2_Chapter.html#Fig9). Notice the eight small icons that span the top of the panel. When pressed, each icon will turn the panel into one of eight different inspector types.
+
+There is also a keyboard shortcut for each of the Inspectors, starting with ⌥⌘1 to go to the left-most inspector (the File Inspector) through ⌥⌘8 for the right-most Inspector. When working in Interface Builder mode, the Attributes and Connections Inspectors will be the ones we use the most. Table [2-1](#A978-1-4302-4543-8_2_Chapter.html#Tab1) lists the command-key equivalents for each of the eight Inspectors.
+
+Table 2-1.
+
+Key Combination Shortcuts for Interface Builder’s Inspectors
+
+| Key Combination | Inspector |
+| --- | --- |
+| ⌥⌘1 | File Inspector |
+| ⌥⌘2 | Quick Help Inspector |
+| ⌥⌘3 | Identity Inspector |
+| ⌥⌘4 | Attributes Inspector |
+| ⌥⌘5 | Size Inspector |
+| ⌥⌘6 | Connections Inspector |
+| ⌥⌘7 | Bindings Inspector |
+| ⌥⌘8 | View Effects Inspector |
+
+### The Attributes Inspector
+
+Let’s start off with a look at the Attributes Inspector. (If you don’t see it, press ⌥⌘4 to show that pane in the Utility area, then single-click your label.) The Inspector should look like Figure [2-10](#A978-1-4302-4543-8_2_Chapter.html#Fig10).
+
+We can use the Attributes Inspector to change the appearance of our label. We can change attributes like text alignment, border, and scrolling behavior. Interestingly, several of these fields will actually do nothing. Go ahead and type something into the Placeholder field. Doesn’t change the appearance of the label at all, does it?
+
+What’s going on here? When we pull a label out of the library, we are grabbing an instance of the `NSTextField` class. The `NSTextField` class is used for both static and editable text fields. In an editable text field, the placeholder is that gray text we see in some text fields when they are empty, which tells us what the field is for.
+
+![A978-1-4302-4543-8_2_Fig10_HTML.jpg](A978-1-4302-4543-8_2_Fig10_HTML.jpg)
+
+Figure 2-10.
+
+The Attribute Inspector showing all the attributes of the label that can be edited in Interface Builder
+
+When a text field is configured as a label, there’s no need for a placeholder. It doesn’t hurt to provide one, but it doesn’t help, either.
+
+There are too many context-specific attributes to be able to enumerate them all in this book, but we will walk through the non-obvious ones. As you make your way through the book, you’ll become comfortable with most of the attributes that you find yourself using.
+
+Let’s change the size of the label. If the label is not selected, single-click it to select it. A dot should appear on either side of the label. These dots are resize handles, which allow us to change the size of the selected item. Most objects in Interface Builder have four resize handles, one in each corner, which allow us to adjust the size in all four directions. Certain items, like labels, have only two resize handles. The label’s attributes (the size of its font in particular) determine the vertical size of the label. We don’t change the height of the label by resizing it. We only use the resize handles to change the width of the label.
+
+Let’s center the label. Make sure the left side of the label is lined up with the blue guideline near the left edge of the window. Then, grab the right resize handle and drag out the label until we get to the blue guideline near the right edge of the window. When done, the label should look like Figure [2-11](#A978-1-4302-4543-8_2_Chapter.html#Fig11).
+
+![A978-1-4302-4543-8_2_Fig11_HTML.jpg](A978-1-4302-4543-8_2_Fig11_HTML.jpg)
+
+Figure 2-11.
+
+Our application’s window in Interface Builder, after resizing the label
+
+Now, with the label still selected, look for a row of buttons labeled Alignment in the Attributes Inspector, and select the Center Text button (Figure [2-12](#A978-1-4302-4543-8_2_Chapter.html#Fig12)). Also, look for a pop-up menu labeled Behavior, and set it to be Selectable, which tells Cocoa that we want to allow the user to copy this label to the pasteboard if they want. By default, labels are not selectable, but we just changed that.
+
+![A978-1-4302-4543-8_2_Fig12_HTML.jpg](A978-1-4302-4543-8_2_Fig12_HTML.jpg)
+
+Figure 2-12.
+
+The alignment buttons in the Attributes Inspector for the label, set to centered text
+
+### Change the Label’s Color and Font
+
+Let’s make one final change to our window’s content: let’s change the font, size, and color of the text. If we look at the Attributes Inspector, we can probably figure out how to change the color of the text, but there are some wrinkles to setting the font and size.
+
+First, let’s set the color. Look in the Attributes Inspector for a color well labeled Text Color. If we click it, the standard Mac OS X color picker will appear (Figure [2-13](#A978-1-4302-4543-8_2_Chapter.html#Fig13)) and we can select the color we want for the text. Go ahead and do that now, picking whatever color strikes your fancy.
+
+![A978-1-4302-4543-8_2_Fig13_HTML.jpg](A978-1-4302-4543-8_2_Fig13_HTML.jpg)
+
+Figure 2-13.
+
+The standard Mac OS X color picker is used to select colors in Cocoa applications. Here, we’re using it in Interface Builder to set the color of our text
+
+Xcode itself is built using Cocoa and leverages a lot of built-in Cocoa functionality, such as the standard color picker. The Apple engineers do not want to reinvent the wheel any more than you do. When you write your own applications, you’ll be able to use this exact same color picker with just a few lines of code or, in some situations, without writing any code at all.
+
+Another piece of built-in Mac OS X functionality that you’ll be able to use in your applications is the standard font window, which allows you to change the font, size, and attributes of selected text. When creating applications that will be distributed to others, it is important to realize that you could select fonts that your user won’t have installed. In general, for standard GUI components, you’re probably better not changing the fonts at all. Consistent font usage is an important part of the GUI consistency that the Mac is known for. Most labels, buttons, and other controls use the Lucida Grande font by default. You can change the size of some labels, and switch them between bold and regular to highlight different things, but leave the font itself as it is. Xcode provides guidance in the Font field of the Attributes Inspector, as shown in Figure [2-14](#A978-1-4302-4543-8_2_Chapter.html#Fig14). Although the Font panel is available, Xcode also offers a callout window with quick access to the system-default fonts. If you know that you want the bold version of whatever is currently the system font, you can get it easily from the Font pull-down menu in this callout. Generally, this is what you’ll want to use for common user-interface elements, rather than explicitly setting the font.
+
+![A978-1-4302-4543-8_2_Fig14_HTML.jpg](A978-1-4302-4543-8_2_Fig14_HTML.jpg)
+
+Figure 2-14.
+
+Xcode has a special font-selector callout to give easy access to the default fonts
+
+Press ^⇧⌘T to bring up the font window in Xcode. Make sure that our label is still selected (look for the resize handles), and also make sure that our application’s main window is still the front-most window.
+
+Once we have our label looking just the way we like, we’ll put some finishing touches to our application, then run it. We’re almost there!
+
+## Creating the Application Icon
+
+One thing that all applications need is an icon. Mac OS X uses a special format for icons that bundles multiple images together in order to provide images in multiple sizes and resolutions for use when zooming and for devices with Retina displays. However, Xcode will prepare this format for us. We just need to name our images appropriately and put them into a folder with a `.iconset` extension.
+
+The naming convention is pretty straightforward. An example image name is `icon_128x128@2x.png`. Each image’s name starts with `icon_`, followed by the resolution, followed by an optional marker to indicate high-resolution artwork, followed by the file extension, such as `.png`. The full set of sizes utilized by Cocoa is 16 × 16, 32 × 32, 128 × 128, 256 × 256, and 512 × 512\. Each of these can optionally have a high-resolution marker of @2x. Note that the sizes are in screen points, not pixels; a 512 × 512@2x file has a size of 1024 ×1024 pixels. Cocoa knows whether our app is running on a machine with a Retina or other high-resolution display and will choose the best bitmap to use given the screen’s pixel density and the needed size. If we don’t provide the image that Cocoa wants, it will scale one of the images that we did provide. We can provide a big image with incredible detail for when running on a Mac with a Retina display, but that might not look exactly the way we want. Support for multiple images means that we can tailor how the icon appears at smaller sizes.
+
+We need to start our icon in an image-editing program such as Photoshop, Pixelmator, or GIMP. The original file should be a size of 1024 × 1024 pixels and saved in a standard image format that supports alpha channels (transparency), such as TIFF, PSD, or PNG. For this example, we’re working with `.png` files. We’ll save it as `icon_512x512@2x.png`. We can then scale down the image in whatever method works best. This would typically be done by using our image editor’s resize functions and then cleaning it up by hand as necessary.
+
+To save you the trouble of creating your own icon, we’ve provided a `hello world.iconset` folder with images that you can add to your project. You’ll find this folder in the downloaded project files for [Chapter 2](#A978-1-4302-4543-8_2_Chapter.html). If you’d rather roll your own, go right ahead, using the same naming conventions in the `hello world.iconset` folder for your images.
+
+## Adding an Icon to our Project
+
+Whether you created an icon yourself or you are using ours, it’s time to add the icon to the project in Xcode. To do this, select the Project in the Navigator area on the left side of the screen. It’ll be the top item in the Project Navigator view; in our case, it’s labeled “Chapter2.” The project summary info will show up in the Editor area in the middle of the window, and the Chapter2 Target should be selected. Drag the `hello world.iconset` folder from the Finder to Xcode’s App Icon well in the middle of the window, as shown in Figure [2-15](#A978-1-4302-4543-8_2_Chapter.html#Fig15). This tells Xcode that we want to import this file into our project.
+
+![A978-1-4302-4543-8_2_Fig15_HTML.jpg](A978-1-4302-4543-8_2_Fig15_HTML.jpg)
+
+Figure 2-15.
+
+Dragging a file to the App Icon well to add the icon to the Xcode project
+
+When we let go of the mouse button, the `.iconset` file will be copied into the project directory and added to the list of files. We can also have Xcode utilize a file that lives outside the project directory, but for now we want to have everything in one place.
+
+## Property Lists
+
+`Info.plist` is a special kind of file known as a property list. Property lists are used extensively throughout OS X. Although end users rarely see them, they are used in many parts of Cocoa development, so you will see them a lot.
+
+Property list files are made up of a list of entries. Each entry is made up of a key and a value. Figure [2-16](#A978-1-4302-4543-8_2_Chapter.html#Fig16) shows Xcode’s built-in Property List Editor, editing the file `Chapter2-Info.plist`. Each row represents a single entry. As you can see, the Property List consists of three columns. The left column is labeled Key and the right column is labeled Value. The middle column, labeled Type, indicates the data type; most property list values are Strings, but other types may be seen from time to time.
+
+Note
+
+Property lists also have the ability to store multiple values under a single key. It is possible to store either an array (or list) of items under a single key, or even to store another whole set of keys and values under one key. It’ll be a while before you need that functionality, but we figured you should know it was possible.
+
+In Figure [2-16](#A978-1-4302-4543-8_2_Chapter.html#Fig16), the entry with the key Icon file is highlighted. Note that the Icon file entry in the Property List has been automatically set to the `iconset` directory that we imported.
+
+![A978-1-4302-4543-8_2_Fig16_HTML.jpg](A978-1-4302-4543-8_2_Fig16_HTML.jpg)
+
+Figure 2-16.
+
+Chapter2-Info.plist opened in the editing pane so we can see the name of this application’s icon file
+
+Are you ready to write some code? Well, guess what? There’s none to write. We’re done with our application.
+
+## Running the Application
+
+Build and run your application by clicking Run in the upper left-hand corner of the Xcode window. Xcode will build our application, which may take a bit, then run our application. A window should appear containing our centered, colored label. If we look in the dock at the bottom of our Mac’s main screen, we’ll see our application represented by the icon we imported into our project. But wait: there’s more!
+
+Select About Chapter2 from the Chapter2 menu, and the About box will appear (Figure [2-17](#A978-1-4302-4543-8_2_Chapter.html#Fig17)). Not only do we get an About box for free, but it includes our icon.
+
+![A978-1-4302-4543-8_2_Fig17_HTML.jpg](A978-1-4302-4543-8_2_Fig17_HTML.jpg)
+
+Figure 2-17.
+
+Our application uses our icon in a variety of places, including the About box
+
+We’re still not done. Move the mouse over the words “Hello, World!” in the application’s main window. The cursor should change from an arrow to a text cursor. Because we made the label selectable, Cocoa automatically changes the cursor as a hint to the user that they can select this text. Go ahead and double-click the word “Hello” and it will highlight. Now if we select the Edit menu, we’ll see that the Copy menu item is not grayed out. If we choose it, our program will copy the word “Hello” to the pasteboard and we can then paste it into any other application that accepts text. With “Hello” still selected, select the Edit menu, then select the Speech submenu, and select Start Speaking. The application will say “Hello” using your Mac’s text-to-speech capabilities.
+
+Without writing a single line of code, our application supports copying text to the pasteboard and text-to-speech. With almost no work, our application behaves like a real Mac application, with windows and a menu bar, and it responds to the common key commands, like ⌘Q to quit. Our application’s main window can be moved around, minimized to the dock, and even closed. We can hide our application, or hide all the other applications. All of this functionality is ours for three easy payments of nothing, including shipping and handling. That is the power of Cocoa. If your computer already knows how to do something, you probably won’t have to write very much code to do that thing, and sometimes you won’t have to write any code at all.
+
+## Sharing Our Creation With the World
+
+Quit Hello, World. There’s one last thing we want to cover. We’ve now created the application, but where is it? What if we want to give (or sell) our application to others so they can run it on their machine?
+
+First of all, we need to compile our application a little differently if we want to let others use it. In Xcode, if we click the Product menu, we’ll see the five different ways that Xcode will build our app: Run, Test, Profile, Analyze, and Archive. To distribute the app, we’ll need to do an Archive build. Select Archive now, and we’ll let Xcode compile the app again. This time, however, instead of running the app, we’ll see the Archives tab of the Organizer window after the build is complete (Figure [2-18](#A978-1-4302-4543-8_2_Chapter.html#Fig18)).
+
+![A978-1-4302-4543-8_2_Fig18_HTML.jpg](A978-1-4302-4543-8_2_Fig18_HTML.jpg)
+
+Figure 2-18.
+
+Xcode’s Archives window
+
+To prepare the application for distribution, click the Distribute button and indicate that we want to export as an Application. The other options, submitting to the App Store and exporting as a Developer ID-signed application, can be ignored for now. Click Next and Xcode will prompt us for a Code Signing Identity. Indicate Don’t Re-sign and hit Next again. Xcode will ask where we want to save the application. Open up that folder in Finder, and we’ll see our program.
+
+But that’s not all. Every time we do an archive build, Xcode will keep a copy of that build around for our future reference. It doesn’t keep the source in the archive (our source code control system does that), but if we have multiple releases of a program to support, it’s useful to have a copy of the exact bits that were distributed. We can, of course, clean this up when old builds are no longer useful.
+
+Before we leave this topic, you should understand a little bit about build configurations. Each of the different options under the Product menu is tied to a build configuration. Xcode starts with two configurations for new projects: Debug and Release. By default, when we’re working in Xcode, we’re working in the Debug configuration. When we build an application this way, Xcode builds it with extra stuff to make it easier to troubleshoot our application. These debug symbols allow us, for example, to examine and change the values of different variables while the program is running, or to step through the source code line by line using the debugger. When we click the Run button, we’re getting the Debug configuration.
+
+The Archive build process, on the other hand, uses the Release configuration. The Release configuration doesn’t include debugging information, and it does more optimization of the resulting program. It can also be configured to do multi-architecture builds for generating both 32-bit and 64-bit x86 binaries, which also slows down the build process. We’ll generally want to do this when preparing the app for someone else to run, but not when actively developing it. We can define additional configurations when necessary, but we don’t need to do that for this application.
+
+Congratulations! You’re a developer. That’s a full-fledged application you’re looking at, just like all the ones in your Applications folder. You can e-mail it to your Aunt Bessie or your best friend to show off the fact that you are now a bona fide Mac OS X application developer.
+
+## Goodbye, Hello World
+
+In this chapter, we introduced to Xcode, the powerhouse of Cocoa software creation tools. We designed a full-fledged application without writing a single line of code. We learned how to add a text label to our application’s main window, changed the label attributes, gave our application an icon, and even saw how to build a distributable version of our application.
+
+In this chapter, we got our first taste of the power of Cocoa by seeing what we can do without writing any code. In the next chapters, we’ll see how powerful things start to get when we actually do write some code.
+
+# 3. Lights, Camera … Actions! (and Outlets, too)
+
+Abstract
+
+After we get through a bit of theory, we’re going to build an application. Our application will have a single window with a label, a text field, and a slider. When the user moves the slider, the text field will automatically update itself to reflect the value of the slider. In this chapter, we still won’t be writing any code; everything will be done using Interface Builder—but sit tight because we’ll be breaking out the Objective-C compiler in the next chapter. The way that Cocoa user interfaces interact with application code is the way that Cocoa controls interact with each other. We’ll start by wiring Cocoa controls to each other in order to see how it’s done, and in the next chapter we’ll start wiring them to our own code.
+
+After we get through a bit of theory, we’re going to build an application. Our application will have a single window with a label, a text field, and a slider. When the user moves the slider, the text field will automatically update itself to reflect the value of the slider. In this chapter, we still won’t be writing any code; everything will be done using Interface Builder—but sit tight because we’ll be breaking out the Objective-C compiler in the next chapter. The way that Cocoa user interfaces interact with application code is the way that Cocoa controls interact with each other. We’ll start by wiring Cocoa controls to each other in order to see how it’s done, and in the next chapter we’ll start wiring them to our own code.
+
+The application is simple, but the mechanisms used to create it are the same ones that you will use in nearly all user interaction in Cocoa, so it’s important that you understand what we’re doing in this chapter.
+
+## Frameworks, Frameworks Everywhere
+
+In Mac OS X, Apple has grouped code and supporting files together in special folders (or bundles) called frameworks. Frameworks are like the libraries used on most platforms, but they are more flexible because they are folders rather than flat files. Frameworks can contain images, sounds, and movies. They can even contain other frameworks.
+
+Although OS X supports traditional Unix libraries, much of the functionality of the operating system, and nearly all of the functionality that makes OS X unique, is contained in these frameworks. There are literally dozens of frameworks that make up the core operating system, and these are generally grouped by function.
+
+Tip
+
+You can see the frameworks that make up Mac OS X by looking in the folder `/System/Library/Frameworks`. These frameworks should never, ever be touched, so look only, and then quietly back out of the folder so they don’t hear you. Frameworks can be nasty little buggers if you touch them. You can also see what third-party and optional frameworks have been installed in your system by looking in `/Library/Frameworks`. This is where the frameworks that are needed by programs you have installed on your Mac typically reside. Again, look, but don’t touch, or you could mess up something important. In fact, if you’re running Mountain Lion, the `/Library` directory is hidden by default in Finder.
+
+Although there are many frameworks, you’ll spend the vast majority of your programming time in Cocoa using objects from just a handful. In fact, most of the objects you’ll use come from a single framework called (surprise!) the Cocoa framework.
+
+Remember how we told you that frameworks can contain other frameworks? Well, the Cocoa framework is, in fact, just a wrapper around three other frameworks that hold the bulk of the functionality you will use when writing Cocoa applications: the Foundation framework, the AppKit framework, and the Core Data framework.
+
+You will periodically use functionality from other frameworks. For example, you might use the Core Animation framework to do some spiffy animation with your user interface, or you might use the Core Image framework to do some heavy-duty image manipulation. But the vast majority of the objects you will be using will be from the three frameworks that make up Cocoa. We’ll talk about the Core Data framework starting in [Chapter 7](#A978-1-4302-4543-8_7_Chapter.html), but let’s take a second to briefly look at the other two, which we’ll be working with in this chapter.
+
+### The Foundation Framework
+
+The Foundation framework is aptly named. It holds the objects that pretty much everything else is built upon. The Foundation framework is shared between Cocoa and Cocoa Touch. Although the Foundation framework has evolved, many of the objects it contains have been around since the early days of NeXTStep, and their basic usage hasn’t changed all that much. Foundation contains objects such as `NSString`, which is the class used to represent text in Cocoa, as well as collection classes like `NSArray` and `NSDictionary`. You should already have some familiarity with the Foundation framework from having learned Objective-C.
+
+### The AppKit Framework
+
+Look at your Mac’s screen. Pretty much everything you see there is the domain of AppKit, which is an abbreviation of “application kit.” This framework contains all the objects used to create or manage a user interface. There are objects that create buttons, windows, text fields, tab bars, and more. Any user-interface element that you’ve seen in more than one application is probably part of the AppKit framework. All that cool stuff you got for free in the last chapter? Yep, all AppKit. The app we’ll be building in this chapter is all AppKit, too.
+
+### The Cocoa Way: Model–View–Controller
+
+Before diving in and seeing how to use these frameworks, we need to discuss a very important bit of theory. The designers of Cocoa were guided by a concept called model–view–controller (MVC), which is a very logical way of dividing the code that makes up a GUI application. These days, almost all object-oriented application frameworks pay a certain amount of homage to MVC, but there are few that are as true to the MVC model as Cocoa, or that have been using it as long.
+
+The MVC model divides up all functionality into the following three distinct categories:
+
+*   Model: The classes that hold your application’s data.
+*   View: The windows, controls, and other elements that the user can see and interact with.
+*   Controller: The part that binds the model and view together and contains the application logic that determines how to handle the user’s inputs.
+
+The goal of MVC is to make the objects that implement these three types of code as distinct from one another as possible. Any object you write should be readily identifiable as belonging to one of the three categories, with little or no functionality within it that could be classified within either of the other two. An object that implements a button, for example, shouldn’t contain code to process data when that button is clicked, and code that implements a bank account shouldn’t contain code to draw a table to display its transactions.
+
+MVC helps ensure maximum reusability. A class that implements a generic button can be used in any application. A class that implements a button that does some particular calculation when it is clicked can only be used in the application for which it was originally written.
+
+When you write Cocoa applications, you will primarily create your view components using Interface Builder, although you will sometimes also modify your interface from code, or you might subclass existing view and control classes to create new ones.
+
+The model will be created using something called Core Data or crafting Objective-C classes to hold your application’s data. We won’t be creating any model objects in this chapter’s application because we’re not going to store any data yet, but we will introduce very simple model objects starting in the next chapter and will move on to full-fledged model objects when we start using Core Data in [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html).
+
+The controller component will typically comprise classes that we create and that are specific to our application. Controllers can be completely custom classes (`NSObject` subclasses), which was the traditional way of doing things in Cocoa. A few years ago, Apple began to introduce generic controller classes into the AppKit framework that handle certain basic tasks for us, such as handling an array of objects to be displayed in a list. These can be useful for minimizing boilerplate code.
+
+As we get deeper into Cocoa, you will quickly start to see how the classes of the AppKit framework follow the principles of MVC. If you keep this concept in the back of your head as you develop, you will create cleaner, more easily maintained code.
+
+## Outlets, Actions, and Controllers
+
+Obviously, a user interface isn’t much use if you can’t get data in and out of it or change its appearance from code. In Cocoa, we use things called outlets and actions to interact with the user interfaces we design in Interface Builder.
+
+*   Outlets are pointers to objects in our nib file. Outlets allow us to access objects in the nib from our code.
+*   Actions are methods that can be executed directly as a result of user interaction, such as at the click of a button. They are the way the application objects respond to user input, regardless of whether the objects are framework classes or our own code.
+
+Outlets and actions are typically contained in the controller classes (although they are sometimes used elsewhere). In this chapter, we’ll be using outlets and actions that are exposed by two AppKit classes – `NSSlider` and `NSTextField` – to show how it’s done. In the next chapter, we’ll be writing our own.
+
+### Outlets
+
+Outlets are Objective-C instance variables that are declared using a special keyword: `IBOutlet`. An outlet is really nothing more than an object pointer that can be linked to an object in the user interface. Since Cocoa objects are Objective-C objects, they have instance variables and methods. The `IBOutlet` keyword indicates to Xcode’s Interface Builder which instance variables are meant for use in constructing the user interface.
+
+### Actions
+
+Actions are Objective-C methods that can be invoked directly from the application’s user interface. They are methods, just like any other Objective-C methods we’ve written, but they get executed when a user-interface item is utilized. If we link a button to an action method, for example, the code in our action method will fire any time that button is clicked. If we link a text field to an action, its action method will fire any time the user tabs out of that text field or otherwise moves to another control. Exactly what will cause the method to fire depends on the type of object that is linked to it and, sometimes, how the attributes of that object are set. A slider, for example, may cause our action method to fire once after the user releases the mouse button, or it may repeatedly cause our method to fire as the slider is used, depending on how we set up the slider instance in Interface Builder. We’ll be trying out both of these modes of operation in this chapter.
+
+Actions are created in exactly the same way as other Objective-C methods, except that they must be declared using a special return type: `IBAction`. Actions must take a single argument (typically declared as type `id`). This argument is used to tell the method which interface item is calling it.
+
+## Outlets and Actions in Action
+
+That’s enough theory; let’s get our hands dirty by writing another Cocoa application. Setting up the new project will follow the same sequence of events as in the previous chapter, so this should feel familiar. If you’re not still in Xcode, open it back up. Now, press ⇧⌘N or select New Project from the File menu. Select the Cocoa Application template again. Make sure the checkboxes for Core Data and Document-Based Application are turned off, the checkbox for Use Automatic Reference Counting is turned on, and when prompted for a project name, enter “Chapter3” (see Figure [3-1](#A978-1-4302-4543-8_3_Chapter.html#Fig1)). For this example, we’re using “Book” as the class prefix setting.
+
+![A978-1-4302-4543-8_3_Fig1_HTML.jpg](A978-1-4302-4543-8_3_Fig1_HTML.jpg)
+
+Figure 3-1.
+
+Setting initial properties for a new Cocoa application in Xcode
+
+Xcode will generate an application delegate class for you, called `BookAppDelegate`, as well as a `MainMenu.xib` file, and will land you in the Project Settings view (Figure [3-2](#A978-1-4302-4543-8_3_Chapter.html#Fig2)).
+
+![A978-1-4302-4543-8_3_Fig2_HTML.jpg](A978-1-4302-4543-8_3_Fig2_HTML.jpg)
+
+Figure 3-2.
+
+Configuring project settings
+
+All of our work will take place in the `MainMenu.xib` file, so single-click it in the Navigator area in the left side of the window, and it should open up in Interface Builder mode (Figure [3-3](#A978-1-4302-4543-8_3_Chapter.html#Fig3)). If we double-click, it will open up in a new window, which isn’t what we want now. If that happens, close it and single-click `MainMenu.xib` again.
+
+![A978-1-4302-4543-8_3_Fig3_HTML.jpg](A978-1-4302-4543-8_3_Fig3_HTML.jpg)
+
+Figure 3-3.
+
+Interface Builder mode in Xcode
+
+Single-click the Main Window icon on the left side of the Interface Builder Editor pane. This opens up an empty window already named Chapter3\. Since the Navigator area is unnecessary for this chapter, hide it by clicking the leftmost icon in the group labeled View. This provides some more screen real estate in which to work—and a bit less clutter. We can always unhide it by clicking the leftmost icon in the View section of the toolbar.
+
+We’re going to be focusing on the Utility area on the right. To start with, look at the Object Library pane at the bottom of the right side of the Xcode window. Scroll through the list of objects to find Label; it should be about a dozen objects down from the top of the list. Click Label in the Object Library and then drag it out to the upper left-hand corner of the window. When we get close to the upper left-hand corner, the blue guidelines will appear and the label should snap into place when we let go of the mouse button (Figure [3-4](#A978-1-4302-4543-8_3_Chapter.html#Fig4)).
+
+![A978-1-4302-4543-8_3_Fig4_HTML.jpg](A978-1-4302-4543-8_3_Fig4_HTML.jpg)
+
+Figure 3-4.
+
+Adding a label to the [Chapter 3](#A978-1-4302-4543-8_3_Chapter.html) window
+
+Change the Inspector pane to show the Attributes Inspector by pressing ⌥⌘4 or by clicking the appropriate button at the top of the Utility area. Then, double-click the label that we just dragged, and it should become editable. Change the label’s text to read “The Magic Number is:” (Figure [3-5](#A978-1-4302-4543-8_3_Chapter.html#Fig5)).
+
+![A978-1-4302-4543-8_3_Fig5_HTML.jpg](A978-1-4302-4543-8_3_Fig5_HTML.jpg)
+
+Figure 3-5.
+
+Editing the label’s text
+
+This label is somewhat misleading since there’s no magic number on display yet, so we’ll need to add a user-interface component to show it. In the Object Library pane, scroll down a bit further to find Text Field; it should be directly below the Label object. If we single-click an object in the Library and hover over it, we’ll get a useful little pop-up window with more information about the control, including the AppKit class that underlies the control (see Figure [3-6](#A978-1-4302-4543-8_3_Chapter.html#Fig6)). For a Text Field, that class is `NSTextField`. With that little pop-up active, we can single-click other components in the Object Library to see information on each of them. If we click Label, we’ll see that a Label is also an `NSTextField` instance, but with different initial display and editability settings. As you’re learning the AppKit classes, it can be useful to see which class corresponds to a given component in the Object Library; many classes serve double duty.
+
+![A978-1-4302-4543-8_3_Fig6_HTML.jpg](A978-1-4302-4543-8_3_Fig6_HTML.jpg)
+
+Figure 3-6.
+
+Xcode can show pop-up info about objects in the Object Library
+
+Click back on the Text Field, and drag out a Text Field instance onto our window. Position it on the right side across from the label, letting the blue lines guide you, and let it snap in place where the guides want it to go (Figure [3-7](#A978-1-4302-4543-8_3_Chapter.html#Fig7)).
+
+![A978-1-4302-4543-8_3_Fig7_HTML.jpg](A978-1-4302-4543-8_3_Fig7_HTML.jpg)
+
+Figure 3-7.
+
+Xcode guidelines assist in laying out User Interface controls
+
+Take a look at the Attributes Inspector for this text field, in the Utility area (Figure [3-8](#A978-1-4302-4543-8_3_Chapter.html#Fig8)). It shows the same controls as the Inspector for the label that we dragged out previously—which makes sense, because it’s actually the same Cocoa object. Uneditable labels and editable text fields are both instances of the `NSTextField` object, just with different parameters for how the object is drawn. We can tune how the object behaves based on what our application needs. For this app, we’ll want to prevent the user from changing the magic number by typing in the field, because then it wouldn’t be magic anymore. To make this change, click the Behavior pull-down menu, and change it from Editable to Selectable. Now the user won’t be able to change it, but they’ll be able to select it with the mouse and copy it.
+
+![A978-1-4302-4543-8_3_Fig8_HTML.jpg](A978-1-4302-4543-8_3_Fig8_HTML.jpg)
+
+Figure 3-8.
+
+Attribute Inspector for Text Fields
+
+Let’s make the window containing the magic number a bit smaller; we don’t want to take up too much screen real estate when it’s not necessary. The window is resizable via the resize handles in the transparent border just beyond the perimeter of the window itself, as seen in Figure [3-9](#A978-1-4302-4543-8_3_Chapter.html#Fig9). Click one of the resize handles and make the window smaller; we’ll see an indicator of the width and height of the window, and we’ll also see the window redraw as we resize it so we can see how the resizing affects the contents.
+
+![A978-1-4302-4543-8_3_Fig9_HTML.jpg](A978-1-4302-4543-8_3_Fig9_HTML.jpg)
+
+Figure 3-9.
+
+Resizing the application’s main window in Xcode
+
+Once the window is somewhat smaller, we can continue laying it out. The next item to add is a horizontal slider. Look in the Object Library for this; we can scroll down in the list of objects until we find it, or we can type a few characters into the search field below the Object Library. Typing “hor” or “sli” will narrow it down nicely to make it easy to find the control. Once we’ve got Horizontal Slider in the list, drag the slider out onto the left middle of the window (Figure [3-10](#A978-1-4302-4543-8_3_Chapter.html#Fig10)). The blue guidelines will show us where to put it.
+
+![A978-1-4302-4543-8_3_Fig10_HTML.jpg](A978-1-4302-4543-8_3_Fig10_HTML.jpg)
+
+Figure 3-10.
+
+Adding a slider to the application’s window
+
+Since the slider doesn’t fill out the window, click once on the slider to reveal resize handles on each side of the slider. Drag out the slider from its right side, stretching it out to the blue guideline on the right margin of the window (Figure [3-11](#A978-1-4302-4543-8_3_Chapter.html#Fig11)).
+
+![A978-1-4302-4543-8_3_Fig11_HTML.jpg](A978-1-4302-4543-8_3_Fig11_HTML.jpg)
+
+Figure 3-11.
+
+Resizing the slider to fill up the window
+
+Take a look at the Attributes Inspector for the Slider in the Utility area (see Figure [3-12](#A978-1-4302-4543-8_3_Chapter.html#Fig12)). By default, the slider values range from 0 to 100, but we can change these, if we wish, to any integer values. Under the Control section, check the checkbox labeled Continuous.
+
+![A978-1-4302-4543-8_3_Fig12_HTML.jpg](A978-1-4302-4543-8_3_Fig12_HTML.jpg)
+
+Figure 3-12.
+
+Attribute Inspector for a slider
+
+Now we’re about to work some magic. We’re going to connect the slider to the text field. While holding down the Control key, click the slider. Hold down both the Control key and the mouse button, and move the cursor up towards the text field. A blue line will extend out from the slider to our mouse. Drag this line out to the text field. When we drag the mouse over the text field, the text field will highlight in blue (Figure [3-13](#A978-1-4302-4543-8_3_Chapter.html#Fig13)).
+
+![A978-1-4302-4543-8_3_Fig13_HTML.jpg](A978-1-4302-4543-8_3_Fig13_HTML.jpg)
+
+Figure 3-13.
+
+Control-dragging from the slider to the text field to establish a connection
+
+With the text field highlighted, let go. A small gray window will appear, listing Outlets, Accessibility, and Received Actions (Figure [3-14](#A978-1-4302-4543-8_3_Chapter.html#Fig14)). Select takeDoubleValueFrom: and the text field will blink a couple times to confirm the connection. Then the blue line will disappear. Not surprisingly, this maneuver is called control-dragging, and it is the primary mechanism we use to connect outlets and actions in Interface Builder.
+
+![A978-1-4302-4543-8_3_Fig14_HTML.jpg](A978-1-4302-4543-8_3_Fig14_HTML.jpg)
+
+Figure 3-14.
+
+Setting the action for the connection between the slider and the text field
+
+To see the connection that we just made, select the Connections Inspector in the Utility area. There will be an entry under Sent Actions showing that takeDoubleValueFrom: is connected to Text Field (Figure [3-15](#A978-1-4302-4543-8_3_Chapter.html#Fig15)).
+
+![A978-1-4302-4543-8_3_Fig15_HTML.jpg](A978-1-4302-4543-8_3_Fig15_HTML.jpg)
+
+Figure 3-15.
+
+Connections Inspector for the slider, showing the action being called on the text field
+
+What did we just do? What we just did was to establish a connection between the slider and the text field. The text field is now the “target” of the slider. When the slider value changes, it calls the method on its target that we set. In this case, we had picked takeDoubleValueFrom:. This method tells the text field to ask the slider for its value (typed to a double), and then the text field sets its own value to the value it got from the slider and redraws itself. Selecting the Continuous checkbox for the slider means that the slider will repeatedly call the action method on its target as the slider gets dragged back and forth.
+
+It’s been a lot of setup to get here. Now, let’s see our action in action!
+
+Under the Editor menu in Xcode (not Edit, but Editor), select Simulate Document from the bottom. Xcode will run a program called Cocoa Simulator that loads the `.xib` file for our program and lets us play with it. Click the slider, and drag it back and forth. As we drag, the value in the text field should change to reflect the position of the slider, as shown in Figure [3-16](#A978-1-4302-4543-8_3_Chapter.html#Fig16). Since we told the text field to use the double value from the slider, the value displayed will have a decimal point. Note that we still haven’t written any code; all we’ve done is to wire two Cocoa controls together.
+
+![A978-1-4302-4543-8_3_Fig16_HTML.jpg](A978-1-4302-4543-8_3_Fig16_HTML.jpg)
+
+Figure 3-16.
+
+When the slider moves, the text field updates automatically
+
+After playing with the slider, quit the Cocoa Simulator and go back to Xcode. Control-drag again from the slider up to the text field, and this time pick the takeIntValueFrom: action from the gray window (Figure [3-17](#A978-1-4302-4543-8_3_Chapter.html#Fig17)). Note that there are actually two actions with similar names,takeIntValueFrom: and takeIntegerValueFrom:. They differ in whether the text field asks the slider for its value as an `int`, or as an `NSInteger`. Either one will do for our purposes. This will replace the connection we made previously, as the slider can have only one target at a time.
+
+![A978-1-4302-4543-8_3_Fig17_HTML.jpg](A978-1-4302-4543-8_3_Fig17_HTML.jpg)
+
+Figure 3-17.
+
+Changing the action from takeDoubleValueFrom: to takeIntValueFrom:
+
+Run Simulate Document again, and drag the slider around again. This time, the number displayed in the text field should just be an integer, with no decimal point, as shown in Figure [3-18](#A978-1-4302-4543-8_3_Chapter.html#Fig18). Quit the Cocoa Simulator, for we’re done!
+
+![A978-1-4302-4543-8_3_Fig18_HTML.jpg](A978-1-4302-4543-8_3_Fig18_HTML.jpg)
+
+Figure 3-18.
+
+The slider updates the text field but now with only integral values
+
+## Wrap Up
+
+In this chapter, we learned how to connect objects to each other using outlets and actions, some background about frameworks in OS X, and acquired more practice in laying out a user interface in Xcode. Outlets and actions are fundamental concepts for building Cocoa applications, and we’ll be doing a lot of control-dragging in the coming chapters. However, this probably doesn’t yet feel much like programming. Your patience is about to be rewarded because in the next chapter we’ll actually write some code, implementing our own action methods, and see how to connect Cocoa interface objects to our own code instead of just to each other.
+
+# 4. The First Call to Action
+
+Abstract
+
+It really is amazing all the stuff we get free with Cocoa, as we saw in the last two chapters. But there was something very important missing in the first two applications that most applications will need: the ability to interact with the user. When we were in Interface Builder in the last chapter, we saw that there was a whole library filled with objects like text fields and buttons that we can use to assemble our interface, but those user-interface objects are no good if we can’t tell when they’re used or change the data they contain. In this chapter, we’ll see how those objects can be used to let users interact with our application—via the object’s outlets and actions.
+
+It really is amazing all the stuff we get free with Cocoa, as we saw in the last two chapters. But there was something very important missing in the first two applications that most applications will need: the ability to interact with the user. When we were in Interface Builder in the last chapter, we saw that there was a whole library filled with objects like text fields and buttons that we can use to assemble our interface, but those user-interface objects are no good if we can’t tell when they’re used or change the data they contain. In this chapter, we’ll see how those objects can be used to let users interact with our application—via the object’s outlets and actions.
+
+## Declaring Outlets and Actions
+
+To review from the last chapter, Cocoa uses things called outlets and actions to connect the objects in the user interface with the objects in our code. Outlets are pointers to objects in our nib file, which allow our code to access and manipulate objects in the nib. Actions are methods we write that can be executed directly as a result of user interaction, such as at the click of a button or a user selecting a menu item. Outlets and actions are typically contained in our controller classes (although they are sometimes used elsewhere).
+
+### Declaring Outlets
+
+Outlets are Objective-C instance variables that are declared using a special keyword: `IBOutlet`. An outlet is a pointer that can be linked to an object in our user interface. So, for example, our controller class might declare an outlet to an editable text field like this:
+
+`@property (weak) IBOutlet NSTextField *nameField;`
+
+In this example, as far as our code is concerned, `nameField` is a pointer to whatever text field we link it to in Interface Builder. It will behave exactly the same way as a pointer to an object that we allocated and initialized ourselves. Once an outlet is linked to an object, we can retrieve or set its value, hide it, disable it, or do anything else that the object supports. We’ll see how to make the link between an outlet and an object in a nib file in a moment.
+
+The attribute `(weak)` is included in the code that Xcode generates outlets in our `.h` file. It means that the controller doesn’t “own” the `nameField`; the `nameField` could be deallocated and, if so, the property will be set to nil. There are other attributes that can be set on properties, dealing with memory semantics and with naming. When we add properties by hand, we need to be familiar with the various attributes that can be used to annotate them. For now, just leave this the way that Xcode generated it.
+
+You can read more about the new Objective-C properties in the second edition of Learn Objective-C on the Mac, by Mark Dalrymple and Scott Knaster (Apress, 2012), and in The Objective-C Programming Language book, available both in Xcode and from Apple’s developer site at [`https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjectiveC/ObjC.pdf`](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjectiveC/ObjC.pdf) .
+
+### Declaring Actions
+
+As noted in the previous chapter, actions are Objective-C methods that can be invoked directly from the application’s user interface. Actions in our objects get connected to the user interface by control-dragging in Interface Builder from a user-interface control to a method in our code.
+
+Actions are created in exactly the same way as other Objective-C methods, but they have to conform to a specific structure. In particular, action method declarations have to look like this:
+
+`-(IBAction)doSomething:(id)sender;`
+
+The name of the method can be anything we want, but the return type has to be `IBAction`, and the method has to take one argument of type `id`, which will be a pointer to the object that triggered the action. If this method gets called as the result of the user clicking a button, then sender will be a pointer to the button pressed. An action can be the target of more than one user-interface object, and the sender argument lets us know which control was in use.
+
+Caution
+
+Action methods are one area where Cocoa and Cocoa Touch are different. In Cocoa Touch, action methods can have one of three different method signatures, taking either zero, one, or two arguments. This is not the case for actions in Cocoa, which must take one and only one argument.
+
+BUT WHAT ARE THEY?
+
+Just what are `IBAction` and `IBOutlet`? Are they part of the Objective-C language?
+
+Nope. They’re good old-fashioned C pre-processor macros. If we go into the `AppKit.framework` and look at the `NSNibDeclarations.h` header file, we’ll see that they’re defined like this:
+
+`#ifndef IBOutlet`
+
+`#define IBOutlet`
+
+`#endif`
+
+`#ifndef IBAction`
+
+`#define IBAction void`
+
+`#endif`
+
+Confused? These two keywords do absolutely nothing as far as the compiler is concerned. `IBOutlet` gets entirely removed from the code before the compiler ever sees it. `IBAction` resolves to a void return type, which just means that action methods do not return a value. So, what’s going on here?
+
+The answer is simple, really: `IBOutlet` and `IBAction` are not used by the compiler. They are used by Interface Builder. Interface Builder uses these keywords to parse out the outlets and actions available to it. Interface Builder can only see methods that are prefaced with `IBAction` and can only see variables or properties that are prefaced with `IBOutlet`. Also, the presence of these keywords tells other programmers looking at our code in the future that the variables and methods in question aren’t dealt with entirely in code. They’ll need to delve into the relevant nib file to see how things are hooked up and used.
+
+## Outlets and Actions in Action, Act 2
+
+There’s no substitute for actually playing with these concepts, so we’re going to write another Cocoa application. In this one, we’ll be writing some code of our own. Setting up the new project will follow the same sequence of events that we used in the previous chapter, so this should feel familiar. In fact, we’ll repeat these steps every time we create a new project.
+
+If you’re not still in Xcode, open it back up. Now, press ⇧⌘N or select `New Project` from the `File` menu. Select the Cocoa Application template again. Make sure the checkboxes for Core Data and Document-Based Application are turned off, the checkbox for Use Automatic Reference Counting is turned on, and when prompted for a project name, enter “Chapter4” (Figure [4-1](#A978-1-4302-4543-8_4_Chapter.html#Fig1)). For this example, we’ll use `Buttons` as the class prefix setting. Click Next again and select a folder for our project. Press Create, and Xcode will drop us into the Project Settings panel. Xcode also generated a class for us called `ButtonAppDelegate` and a nib file named `MainMenu.xib`.
+
+![A978-1-4302-4543-8_4_Fig1_HTML.jpg](A978-1-4302-4543-8_4_Fig1_HTML.jpg)
+
+Figure 4-1.
+
+Setting initial properties for a new Cocoa application in Xcode
+
+We’re going to start by laying out the interface, so single-click `MainMenu.xib` in the Navigator pane. This will open up the nib file in the Interface Builder Editor pane (Figure [4-2](#A978-1-4302-4543-8_4_Chapter.html#Fig2)).
+
+![A978-1-4302-4543-8_4_Fig2_HTML.jpg](A978-1-4302-4543-8_4_Fig2_HTML.jpg)
+
+Figure 4-2.
+
+Initial view of the window in MainMenu.xib in Xcode’s Interface Builder Editor
+
+In the lower left part of the Interface Builder pane is a small grey triangle, like a Play button. Click it, and the set of icons on the left border of the Interface Builder pane will expand into a set of Placeholders and a set of Objects (Figure [4-3](#A978-1-4302-4543-8_4_Chapter.html#Fig3)). We’re going to be working with the object named `Window - Chapter4` in the Objects section.
+
+![A978-1-4302-4543-8_4_Fig3_HTML.jpg](A978-1-4302-4543-8_4_Fig3_HTML.jpg)
+
+Figure 4-3.
+
+Expanding the nib’s contents into Placeholders and Objects
+
+### Placeholder Objects
+
+Before we do that, though, take a moment to look at the first three objects in the nib. These icons will always exist in Cocoa nib files. We can’t delete them and, unlike the other icons, they don’t cause object instances to get created when the nib is loaded. These three are called placeholder objects, and they allow connections from objects in this nib to certain objects that already exist.
+
+The first icon in any nib file is called File’s Owner. This icon is a placeholder that points to the object instance that loaded the nib from disk or, in other words, the object instance that “owns” the nib. In an application’s `MainMenu.xib` file, such as we have here, the File’s Owner icon will always point to an instance of `NSApplication`, which is the class that represents the entire application, and receives input and makes sure the appropriate code gets called as a result of that input. For other nib files, File’s Owner could be a different class, such as an instance of a document class, or the class that represents a plug-in.
+
+The second icon in this and any other nib file is called First Responder. We’ll talk more about responders in [Chapter 10](#A978-1-4302-4543-8_10_Chapter.html), but the first responder is the object with which the user is currently interacting. If, for example, the cursor is typing in a text field, that text field is the current first responder. The first responder changes as the user interacts with the interface, and the First Responder icon gives us a convenient way to interact with whatever control or view currently has the focus without having to write code to determine which control or view that is.
+
+The third icon, called Application (or the application placeholder), is a relatively new addition to Cocoa nib files. This object points to this application’s one and only instance of `NSApplication`. In a `MainMenu.xib` file, the application proxy and the File’s Owner placeholder will always point to exactly the same thing. The application placeholder gives us access to our application’s `NSApplication` instance from any nib file, even ones whose File’s Owner is not `NSApplication`. For this chapter, we can forget about the application placeholder, because this nib’s File’s Owner already gives us access to that object.
+
+### Setting Up The Window
+
+Now we can start working on laying out the window. In the Objects section, select the icon labeled Window - Chapter4, and the window will display on the Interface Builder pane with a blue box around it to show that it’s selected. The Inspector pane in the Utility area will show the settings that are tunable for the window (Figure [4-4](#A978-1-4302-4543-8_4_Chapter.html#Fig4)). We’re going to make some changes to the defaults.
+
+![A978-1-4302-4543-8_4_Fig4_HTML.jpg](A978-1-4302-4543-8_4_Fig4_HTML.jpg)
+
+Figure 4-4.
+
+The Attributes Inspector showing options available for a window
+
+Change the window’s title from “Chapter4” to “Press a Button.” The field below Title is labeled Autosave. If we provide a value in this field, our application will automatically save the location, size, and other information about the window in our user preferences so that when the user launches the application again, he or she will find the window exactly where it was left. It doesn’t matter what value we put here, as long as it is unique for each window in our application. If we use the same autosave name for any two objects, one of them will fail to save. Type “mainWindow” here.
+
+Right under the Autosave field are three checkboxes that control some of the fundamental behavior of the window. The Close checkbox enables or disables the ability to close the window. In a utility application with only one window, we could uncheck this box so that the window can’t be closed. If this box is unchecked, both the red Close button in the window’s title bar and the `Close` menu item will be disabled. If we allow the window to be closed, we should provide a way to make the window visible again. Alternatively, if our application is a utility that consists of only one window, it is acceptable to have the application quit when the window is closed. Later on in this chapter, we’ll configure our application to quit when this window is closed, so leave the Close checkbox as it is. In later chapters, we’ll learn how to make closed windows visible again.
+
+The Minimize checkbox controls whether the window can be minimized to the dock using the yellow button in the window’s title bar or from selecting Minimize from the `Window` menu. As a general rule, windows should be able to be minimized. There are exceptions to this, such as utility windows that are visible only when our application is front-most, but the vast majority of the time we should leave this checked.
+
+The third box is called Resize, and it controls whether the user can change the size of the window by dragging the lower right corner. For this application, we’re going to disable resizing of this window, so uncheck Resize. We’ll learn how to handle controls in windows that resize later in the book.
+
+Leave the rest of the attributes unchanged for now. The class that represents windows is a very flexible class, and the other attributes give us a tremendous amount of control over the appearance of our application and how it reacts to some of the more advanced user features in OS X such as Expose, Spaces, and Full Screen mode, but for most windows, the default settings are what we want.
+
+Now, press ⌥⌘5 to bring up the Size Inspector (Figure [4-5](#A978-1-4302-4543-8_4_Chapter.html#Fig5)). This is where we can set the size and size-related attributes of the selected object. As we saw in the last chapter, objects can be moved and resized using the mouse, but this Inspector gives us more precise control over the size and position of an object.
+
+![A978-1-4302-4543-8_4_Fig5_HTML.jpg](A978-1-4302-4543-8_4_Fig5_HTML.jpg)
+
+Figure 4-5.
+
+Size Inspector for the application’s window
+
+Set the width of our window to 480 pixels and the height to 130 pixels. Set the x value of the window to 100, which indicates that we want the window’s initial position to be on the left side of the screen. The y value can be a little more problematic because of the geometry of the Mac’s display. The coordinate system on the Mac’s screen has 0 at the lower-left corner of the screen, with the y value getting higher as we move up toward the top of the screen. The problem here is that not everybody has the same size monitor, so any given y value will be different relative to the top of the screen on different size monitors.
+
+Fortunately, Cocoa will automatically adjust the window’s position so that the window always starts on the screen, even if the location we specify would otherwise place it off-screen somewhere, and because we gave the window an autosave name, every time the user launches the application after the first, the window will be where it was the last time we quit the application. But sometimes it’s important that a window start in a particular position relative to the top of the screen.
+
+Note the little diagram at the bottom of the Size Inspector; it gives us a visual representation of the window’s initial position based on our own screen’s size. The little white box represents the window, and the big box represents the screen minus the menu bar. The little red I-beams on all four sides of the white box let us control the relative positioning of the window relative to the sides of the screen. We can place the window where we want it on our screen, then use the I-beams to lock the position relative to the left and top of the screen. Clicking an I-beam will allow the window to move proportionally relative to that side of the screen. Clicking the bottom I-beam will let the window float from the bottom but maintain a fixed distance from the top of the screen. Clicking both the top and bottom I-beams will cause the window to be centered vertically on our screen.
+
+We need to set a y value that places the window near the menu bar, without abutting it. The easiest way to do this is to simply move the application’s main window to where we want it, using the representation of the display in the Size Inspector. We can then tweak the size and position numerically if necessary. Once we have the initial position of the window where we want it, click the I-beam on the bottom so that it turns striped. We can also make this change by selecting the bottom pop-up menu in the Initial Position section and changing it from Proportional Vertical to Fixed from Top.
+
+### Designing the Window’s Interface
+
+In the Object Library, select the Object Library pull-down menu and select Controls. This will present us with a bunch of different buttons and text fields that we can use (Figure [4-6](#A978-1-4302-4543-8_4_Chapter.html#Fig6)). The first item in the bottom list should now be Push Button, which is a standard OS X button.
+
+![A978-1-4302-4543-8_4_Fig6_HTML.jpg](A978-1-4302-4543-8_4_Fig6_HTML.jpg)
+
+Figure 4-6.
+
+Object Library view in the Utility area of Xcode
+
+Grab one of those and drag it over to the window’s interface. Blue guidelines will appear to show when the button is positioned in a good spot on the left edge, the right edge, or in the center. Use the blue guidelines to place the button in the lower right part of the window (Figure [4-7](#A978-1-4302-4543-8_4_Chapter.html#Fig7)). Once the button is in the right location, release the mouse, and we’ll have a button on our window. Double-click the button now, which will allow us to edit the button’s title. Change its title from “Button” to “Right.”
+
+![A978-1-4302-4543-8_4_Fig7_HTML.jpg](A978-1-4302-4543-8_4_Fig7_HTML.jpg)
+
+Figure 4-7.
+
+Adding a button to the main window
+
+Drag a second button over from the library and place it on the lower left of the window, again using the blue guidelines. After placing this button, double-click it and change this button’s title to “Left.”
+
+Bring one more button over, and use the bottom blue guideline to place the button the correct distance from the bottom of the window. Place it in the horizontal center of the window, and again, there will be a blue guideline that appears to help us position it properly. Once it’s placed, double-click the third button and change its label to “Center.” The window should now look like Figure [4-8](#A978-1-4302-4543-8_4_Chapter.html#Fig8).
+
+![A978-1-4302-4543-8_4_Fig8_HTML.jpg](A978-1-4302-4543-8_4_Fig8_HTML.jpg)
+
+Figure 4-8.
+
+The window should look like this, with all three buttons laid out
+
+Note that as we added controls to the window, the Objects display on the left of the Interface Builder pane expanded to show the addition of the controls and the set of constraints for the view, also visible in Figure [4-8](#A978-1-4302-4543-8_4_Chapter.html#Fig8). The constraints section governs how the layout of the controls responds to the window being resized.
+
+Next, we need a label so that we can tell the user which button was clicked. A label is a GUI object that can display a piece of text in the font and size of our choosing. From within our application code, we can programmatically change the label’s text any time we want. Grab a label from the library. You may need to scroll down a bit in the list of controls, or you can just use the search box. Drag the label to the upper left of the window, and use the guides to place it properly against the top and left margins.
+
+Click the resize handle on the right of the label, drag it to the right until you get to the blue guidelines on the right side of the window, and let go. With the label still selected, press ⌥⌘4 to bring up the Attribute Inspector in the Utility pane, and center the text using the Text Alignment button. Then click the small T icon on the right side of the Font setting. This will bring up a special font panel, as shown in Figure [4-9](#A978-1-4302-4543-8_4_Chapter.html#Fig9). Change the font size to 36, either by typing in the number directly or using the small arrow buttons to the right of the Size field. With that complete, all that’s left is to double-click the label, which will put it in editing mode, then hit the Delete key to delete the text. We don’t want this label to say anything until a button has been pressed.
+
+![A978-1-4302-4543-8_4_Fig9_HTML.jpg](A978-1-4302-4543-8_4_Fig9_HTML.jpg)
+
+Figure 4-9.
+
+Changing the font for the label
+
+That winds up the user interface, so now we’re going to need to write some code to update the text in the label when one of the three buttons is pressed.
+
+## Creating the Controller Class
+
+We’re going to add some code to the `ButtonAppDelegate` class. This class will be the controller that handles the click action for all three of our buttons. In the window we just laid out, we set up three buttons and one text field. When the user presses one of the buttons, the value of the text field should be updated. Because we need to change the text displayed by the text field, we’ll need an outlet to it. We’ll also need an action method for the buttons to trigger. Because action methods receive a pointer to the object that triggered them, we can use a single action method for all three buttons. Let’s set up the outlet and action now.
+
+To do this, we need to make some connections from the user interface elements to our code. In the last chapter, we discussed how to control-drag from one UI element to another. We’re going to do something similar here.
+
+With the nib file editor still open, we also need to get a pane up that has your code. Click the Assistant button (which looks like a butler’s torso) in the Editor group in the right side of the toolbar in the main Xcode window. We can also get an Assistant Editor by typing ⌥⌘⏎. The pane can be positioned side-by-side or below the nib Editor pane by selecting a different option under `View` ➤ `Assistant Editor`.
+
+The Assistant Editor pane will show the name of the current file in a jump bar above the Editor area. Select the file name and a pop-up menu will show the names `ButtonsAppDelegate.h` and `ButtonsAppDelegate.m`. Select `ButtonAppDelegate.h` if it isn’t already selected. We’ll see the class interface that Xcode generated for us. The generated code will look like this (ignoring the comment block at the top of the file):
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface ButtonsAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@end`
+
+In the last chapter, we control-dragged from one user interface object to another. This time, we’re going to control-drag from the nib to our code. In the nib Editor pane, click the label that we added to our window. Now, control-drag from the label to the `.h` file, dragging down to the blank line below the `@property` line, where a blue line will extend out in the text editor indicating Insert Outlet or Action, as shown in Figure [4-10](#A978-1-4302-4543-8_4_Chapter.html#Fig10) . Let go of the mouse button, and a small pop-up window will appear where we can configure this new connection.
+
+![A978-1-4302-4543-8_4_Fig10_HTML.jpg](A978-1-4302-4543-8_4_Fig10_HTML.jpg)
+
+Figure 4-10.
+
+Control-dragging from a nib object into a code editor to connect an outlet or action
+
+In this pop-up window, mark the connection as an Outlet, and set the name to be “label.” Leave the other fields at the default settings, and click Connect. Xcode will add a new line to the `.h` file that reads
+
+`@property (weak) IBOutlet NSTextField *label;`
+
+The property declaration creates a new property named `label` as part of our class. The declaration also includes the `IBOutlet` keyword, which will allow Xcode to find our outlet and make it available to us in Interface Builder. Xcode also added a line to the class implementation, which we can see by clicking the file name in the jump bar and selecting `ButtonsAppDelegate.m`. This file now looks like this:
+
+`#import "ButtonsAppDelegate.h"`
+
+`@implementation ButtonsAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`@end`
+
+Depending on your version of Xcode, you might also see a line here that reads `@synthesize label`. If you do see it, it instructs the compiler to create getter and setter methods for the `label` property. The newest versions of Xcode don’t generate this line at all because the compiler can now automatically infer when a property needs to have getter and setter methods generated, but you’ll see it in older code, including in many of Apple’s sample code projects. Whether you see it or not, since we connected this outlet to the label in the window, the `label` property will automatically be connected to the label `NSTextField` object when the nib file is loaded.
+
+### Implementing the Action Method
+
+We’re going to do the same thing to create an action in our class. The only task remaining before we can try out our program is to actually write the code that will get called when a button is clicked, and we’ll do that now. This code will look at the sender argument to determine the title of the button that was called, use that title to create a string, and then use our label outlet to display that string.
+
+In the jump bar, select `ButtonsAppDelegate.h` to be displayed. Next, select the button that we titled “Left.” Control-drag from the Left button to the code, to the line below the `@property` that we created before. This time, choose a connection type of Action. Name the action “buttonPressed:” and leave the other fields as the default. When we click Connect, Xcode will create a new instance method for us, which follows the conventions for actions. Like the property we added, this will also be automatically connected when the nib file is loaded.
+
+If we switch back to the `.m` file, we’ll see a new empty method that looks like this:
+
+`- (IBAction)buttonPressed:(id)sender {`
+
+`}`
+
+We’re going to fill this in with code to show which button was pressed in the label. Type the following code into the body of the method:
+
+`- (IBAction)buttonPressed:(id)sender {`
+
+    `NSString *title = [sender title];`
+
+    `NSString *labelText = [NSString stringWithFormat:@"%@ button pressed.", title];`
+
+    `[self.label setStringValue:labelText];`
+
+`}`
+
+This method first grabs the title of the button that called it. It then uses that button to create a new string, and then uses that string to update the label. The method refers to the property using dot notation for property access, which is just shorthand for saying `[self label]`.
+
+NESTING MESSAGES
+
+Some Objective-C developers nest their message calls pretty deeply. You may come across code like this in your travels:
+
+`[self.label setStringValue:[NSString stringWithFormat:@"%@ button pressed."`,
+
+  `[sender title]]];`
+
+This one line of code will function exactly the same as the three lines of code that make up our `buttonPressed:` method. For the sake of clarity, we won’t generally nest Objective-C messages so deeply in the code examples in this book, with the exception of calls to `alloc` and `init`, which, by longstanding convention, are almost always nested.
+
+In the previous chapter, we used the Simulate Document command to work with the controls and connections that we’d set up. It worked in that chapter because we had no code. This time, we’ve got some code, so we need to actually compile and link the app. Click the Run button in the upper left-hand corner of the Xcode window, or press ⌘R. If this is the first time you’ve tried to run custom code, you may get a window asking if you want to enable developer mode on this Mac. Go ahead and click that you want to enable it; you’ll be prompted for your password as a security measure. Your code should compile cleanly, and then you’ll see the Press a Button window. If you click the Left button, the label should update to read “Left button pressed.” If you click the center or right buttons, nothing will happen, because you haven’t wired those buttons up yet. We’ll do that in a moment, but for now, note that you’ve got a live Cocoa app running with your own code in it!
+
+Quit the app and you should be returned to Xcode, right where you left it. You should still have the nib Editor pane open on one side of the window, and the Assistant Editor open to your `.m` file. We’re going to set up the connections between the Center and Right buttons and the `buttonPressed:` action. As it happens, we can make the connection to an existing action either the `.h` or the `.m` file.
+
+Select the Center button in the nib, and control-drag to the `buttonPressed:` method in either the `.h` or the `.m` file. When the pointer reaches a valid action, the action will highlight in a blue outline and a small window will appear saying “Connect Action.” Let go, and the connection is in place. Do the same with the Right button.
+
+As before, click the Run button in the upper left-hand corner of the Xcode window, and the app will compile and launch. This time, clicking any of the three buttons will update the label. The one action method handles all three buttons appropriately. Move the window to a new location and quit the application. Press ⌘R to launch the program again, and the window should come up in exactly the same position it was in when we quit the program. If we click the yellow Minimize button in the title, the window will shrink down into our dock (click it in the dock to maximize it), and if we click ⌘W or click the red close button in the window, the window will close. Unfortunately, the application is still running, but there’s no way to get the window back open. Let’s address that now by configuring our application to quit when the window is closed. To do this, we’ll have to use something called the application delegate.
+
+## The Application Delegate
+
+Every Cocoa application has one and only one instance of a class called `NSApplication`. We don’t need to interact with `NSApplication` directly very much. It’s created for us and handles the event loop (the part of our application that notices user input from the mouse and keyboard, and handles the input by sending messages to the appropriate objects) and most of the lower-level stuff without us having to give it much thought.
+
+Expand the Supporting Files folder in the Project Navigator pane, and single-click `main.m`. In that file is our application’s `main()` function, which is the function that gets called when our application is launched. This function contains only one line of code, which calls a function named `NSApplicationMain()`. That function, which is part of Cocoa, automatically creates an instance of `NSApplication` for us. That instance of `NSApplication` goes into a loop and continuously polls for events from the keyboard, mouse, operating system, and other applications, and then responds to those events (don’t worry about the specifics for now; we’ll learn more about events later in the book). When it detects an event that signifies that the application should quit, the event loop stops and the application’s execution ends.
+
+`NSApplication` allows us to specify an optional object to act as its delegate. Simply put, a delegate is a class that handles certain tasks on behalf of another class. The application delegate allows our application to take actions at certain points in the lifecycle of the application so that we can avoid the messiness of having to subclass `NSApplication`.
+
+The application delegate can be of any instance of any class, but only one object can be the application delegate. Nearly every application will need an application delegate object. Because this is a common pattern, the `ButtonsAppDelegate` class that was created for us is already configured in the nib file to be the application delegate. The `ButtonsAppDelegate` class declaration in the `ButtonsAppDelegate`.`h` file declares that the class implements the `NSApplicationDelegate` protocol.
+
+### Configuring the Application to Quit on Window Close
+
+Single-click `ButtonsAppDelegate.m` and add a method named `applicationShouldTerminateAfterLastWindowClosed:`, as shown in bold below:
+
+`#import "ButtonsAppDelegate.h"`
+
+`@implementation ButtonsAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {`
+
+    `return YES;`
+
+`}`
+
+`- (IBAction)buttonPressed:(id)sender {`
+
+    `NSString *title = [sender title];`
+
+    `NSString *labelText = [NSString stringWithFormat:@"%@ button pressed.", title];`
+
+    `[self.label setStringValue:labelText];`
+
+`}`
+
+`@end`
+
+This new method is one of those special application delegate methods. At certain predefined times during the application’s run, `NSApplication` will look to see if its delegate has implemented a particular method. If the delegate has, `NSApplication` will call that method. This method we just implemented exists to let us change the behavior of `NSApplication` without subclassing it. The default behavior is for `NSApplication` to keep running until it is specifically told to quit, even if there are no windows open. It is acceptable for applications to quit when their last (or only) window is closed, however, and this method is provided specifically to let the delegate alter this behavior.
+
+Run the application again, and close the application’s main window when it comes up. The application should now quit because the application’s only window has been closed.
+
+## Using the Documentation Browser
+
+So how do we know what these application delegate methods are? It’s hard to implement methods if we don’t know what they are. Fortunately, they’re generally easy to find. If you look at the method we just added, it takes one argument, which is a pointer, to the `NSApplication` instance that called the method. Hold down the Option key and double-click the word “NSApplication” in the Editing pane. This will open up the Documentation Browser to the definition of the word we just clicked, which is NSApplication (Figure [4-11](#A978-1-4302-4543-8_4_Chapter.html#Fig11)).
+
+![A978-1-4302-4543-8_4_Fig11_HTML.jpg](A978-1-4302-4543-8_4_Fig11_HTML.jpg)
+
+Figure 4-11.
+
+The Documentation Browser in Xcode, showing the NSApplication Class Reference
+
+However, in this case, we won’t find the delegate methods for `NSApplication` documented in this file. Beginning in OS X 10.6, Apple began refactoring delegate methods into separate protocols and moved the documentation about these methods into the documentation about the protocol. Many Cocoa classes have associated delegate protocols—`NSApplication`, `NSBrowser`, `NSToolbar`, `NSWindow`, to name a few. When reading the documentation on a class, it’s important to also look for an associated delegate protocol with the same name: the delegate protocol for `NSApplication` is named `NSApplicationDelegate`.
+
+To browse the documentation tree, right-click in the NSApplication Class Reference document, and select Reveal in Library. This will show the documentation tree, with NSApplication selected. Below the NSApplication Class Reference is the NSApplicationDelegate Protocol Reference, which has the documentation we’re looking for.
+
+It’s worth your time to spend a few minutes looking over the application delegate methods so you’ll know what’s there. The Documentation Browser is your friend. You’re going to spend a lot of time in here as you learn Cocoa, so get comfortable with it. There’s also a more compact way to view documentation. Option-clicking a class or method name will bring up a small documentation pop-up that gives you a brief summary of what you clicked on plus links to related documentation. Altogether, the documentation contained within Xcode is the ultimate encyclopedic reference to Cocoa, Xcode, and all other Apple development technologies. RTFM! You’ll be glad you did.
+
+## Wrap Up
+
+This chapter built on what we covered in the previous two chapters. We saw how to make outlet and target/action connections between user interface elements in Interface Builder by control-dragging and how to implement actions in your own code. We built a full GUI application with less than a dozen lines of code. Admittedly, this app doesn’t do all that much, but these basic ideas underlie a lot of what Cocoa has to offer and what makes Cocoa such a productive development environment. In the next chapter, we’ll work with several additional user-interface elements beyond buttons and text fields, and we’ll see that we can configure and use them in exactly the same ways we used the buttons and text fields here.
+
+# 5. GUI Components
+
+Abstract
+
+In Chapters 3 and 4, we covered some of the basics involved in creating a user interface in Interface Builder and using a target/action to connect it to application code written in Xcode. We’ve really only scratched the surface so far, but you should be happy to know that the target/action system you learned to use in the last two chapters is used by almost all of the user interface objects in Cocoa. If you’re not quite sure what’s so great about that, you might want to review [Chapter 3](#A978-1-4302-4543-8_3_Chapter.html) just one more time to be sure you’ve grasped the target/action concept.
+
+In Chapters 3 and 4, we covered some of the basics involved in creating a user interface in Interface Builder and using a target/action to connect it to application code written in Xcode. We’ve really only scratched the surface so far, but you should be happy to know that the target/action system you learned to use in the last two chapters is used by almost all of the user interface objects in Cocoa. If you’re not quite sure what’s so great about that, you might want to review [Chapter 3](#A978-1-4302-4543-8_3_Chapter.html) just one more time to be sure you’ve grasped the target/action concept.
+
+By now, you’ve surely noticed the wide variety of user interface objects listed in Interface Builder’s Object Library pane. Now it’s time to dig deeper into Cocoa’s bag of tricks and explore some of these classes. The user interface classes available in Cocoa cover a wide range of uses and wherever possible provide consistent APIs for their functionality, so once you’ve learned how to do something with one class, you’ll often be able to quickly guess how to achieve similar results with another class. In particular, many of the classes that you’ll be using most often are subclasses of `NSControl`, and you’ll mostly work with methods that are declared there. The different subclasses interact with the user in different ways, but mostly interact with your own code the same way.
+
+This chapter will cover some of the most common user interface classes that Cocoa provides, showing their basic usage and how to tailor them to our needs where appropriate. Along the way, we’ll also learn about some of the auxiliary Cocoa classes that may not always have a tangible screen presence, but that still provide important services for our applications. We’ll be focusing on the following classes (see Figure [5-1](#A978-1-4302-4543-8_5_Chapter.html#Fig1) for a sampling of what these objects can look like onscreen):
+
+*   `NSTextField`: The basic text input method for many applications. Responds to key-presses and renders text. Allows a great deal of editing flexibility for the user.
+*   `NSButton`: The basic mouse-triggered GUI component. Despite their differences in operation and appearance, radio-buttons, checkboxes, and plain old buttons are all instances of `NSButton`.
+*   `NSPopUpButton`: When we have a set of strings we want the user to choose from, an `NSPopUpButton` is often the way to go.
+*   `NSComboBox`: Similar to an `NSPopUpButton`, but with the added advantage of allowing the user to enter a value that wasn’t already in the list.
+*   `NSMatrix`: An object that groups a series of similar controls into a single unit.
+*   `NSLevelIndicator`: Normally used for displaying a numeric value from a predefined range, but they are just as useful for entering data.
+*   `NSImageView`: Users can easily bring an image into the application by dragging any image from the Finder or another application and dropping it onto one of these.
+*   `NSTextView`: This is nearly a complete text editor rolled into a single object, letting the user edit text with multiple fonts, formatting, rulers, and more.
+
+Note
+
+Throughout this book, we will sometimes use Cocoa class names (e.g. `NSButton`) and other times their casual, common names (e.g. button). Normally we’ll use the class names when discussing the code and their casual names for most other situations, but in both cases we’re really talking about the same things.
+
+![A978-1-4302-4543-8_5_Fig1_HTML.jpg](A978-1-4302-4543-8_5_Fig1_HTML.jpg)
+
+Figure 5-1.
+
+A sampling of Cocoa UI elements
+
+We’ll use these classes to create a simple application that pretends to be a sort of database application. The user will be able to edit and create some objects by using some simple GUI controls, but the results of the editing won’t be saved in any way (that’s where the pretending comes in). In later chapters, we’ll learn how to use Core Data to save our objects to disk, but for now we’re going to focus on the GUI.
+
+## Creating the VillainTracker Application
+
+The application we’ll be creating in this chapter is called VillainTracker. It’s a simple application for keeping track of super-villains, their last known whereabouts, special abilities, and so on. This is the sort of application that any superhero team worth its salt will have installed on their computer systems and is therefore an obvious first app for a heroes such as ourselves. We’ll split the development of VillainTracker into two iterations: in the first iteration, we’ll create a simple app that enables us to edit information for a single villain, and in the second (in [Chapter 6](#A978-1-4302-4543-8_6_Chapter.html)), we’ll add the ability to manage a whole list of villains. This will demonstrate the basics of developing an application based on the model–view–controller (MVC) design pattern, one that developers have been using for years. Whether you have experience with this pattern or it’s new to you, it’s important that you get a sense of how MVC is typically implemented in Cocoa applications because it’s a really a cornerstone of good application design in Cocoa.
+
+As with the previous applications, we’ll start by creating a new application project in Xcode. We’ll create the GUI in Interface Builder mode, and then connect it to the generated code by creating outlets and actions in the generated class using the power of control-drag. Then we’ll go back to Xcode where we’ll learn how to write the code to set and retrieve values—the values shown in our GUI controls—one class at a time, so we can get a feel for how each of them works. Usually, when building Cocoa apps, we’ll move back and forth between constructing and modifying the GUI and implementing the code: lay out some UI, implement code behind it, see if it does what we expect, and iterate. Since this app is relatively simple, we’ll lay out the GUI first and then implement the functionality behind it.
+
+Note
+
+Often, when discussing GUI issues, the terms “views” and “controls” will be used almost interchangeably. Most of the Cocoa user interface classes are, technically, both views and controls, at least in the Cocoa sense. `NSView` is a class that allows drawing on the screen; `NSControl` is a subclass of `NSView` that extends it by responding to user events, triggering an action in a target, and so on. So, a large part of the view layer in our application will consist of objects that are “controls,” which of course we don’t want to confuse with the controller layer. If this seems puzzling, just try to remember that a “control” is a particular kind of view, whereas a “controller” is an object in the controller layer that coordinates between view and model objects. After a while, it will all make perfect sense, we promise.
+
+So, let’s create a new application project. As in previous chapters, launch Xcode, or switch to it if it’s already running, and press ⇧⌘N, or select New Project from the File menu. In the New Project assistant, under OS X on the left, click Application; then in the large pane on the right, click Cocoa Application, then click Next.
+
+The standard Xcode new project Options panel will prompt us for identifying information for our application. Enter “VillainTracker” in the Product Name, and an organization name and company identifier of your choice in those two boxes. For the class prefix this time, our example will also use the string “VillainTracker.” Ensure that Use Automatic Reference Counting is checked, and that the other checkboxes are left unchecked. Click Next.
+
+The standard Save panel that we see next lets us navigate to a directory of our choice and create a new project there. Use the controls to navigate to a suitable spot in your home directory or your desktop, then click Create. Now Xcode creates a new folder called `VillainTracker` in the location specified, with some default content including the `VillainTracker.xcodeproj` project file, and opens a new window showing the settings for our project.
+
+### Building the Interface
+
+We’ll start by creating the GUI for VillainTracker, using Interface Builder to edit the project’s main nib file. We’ll add GUI controls to capture what we need to know about each nemesis and see how to organize the controls into logical groupings and make them reposition themselves correctly when their window is resized. We’ll also connect them to the controller class, creating outlets in the controller and connecting everything together.
+
+Start by locating the `MainMenu.xib` in Xcode’s Navigator pane (it’ll be on the left side of the screen in the Project Navigator pane). Single-click `MainMenu.xib`, and it will open up in the central pane of Xcode in Interface Builder mode. We’ll see the default set of menus for our new application and several icons in a dock to the left of the Interface Builder Editor area—three placeholder objects (File’s Owner, First Responder, and Application) and four other objects (Main Menu, Window - VillainTracker, VillainTrackerAppDelegate, and Font Manager). Single-click the Window - VillainTracker object, and an empty window will open up in the Editor area.
+
+#### Bringing Out the Text Fields
+
+Now it’s time to start building the GUI. We’ll do this one little piece at a time, but refer to Figure [5-2](#A978-1-4302-4543-8_5_Chapter.html#Fig2) for the completed version of the window to get an idea of the layout.
+
+![A978-1-4302-4543-8_5_Fig2_HTML.jpg](A978-1-4302-4543-8_5_Fig2_HTML.jpg)
+
+Figure 5-2.
+
+This is how the complete VillainTracker window will look
+
+The first controls we’re going to set up are a couple of `NSTextField`s. `NSTextField` is a marvelously useful class that provides text-editing capabilities worthy of a full-fledged text editor, even in spots where we are entering just a few characters. In the Object Library area in the Utility pane on the right side of the Xcode window, make sure the Objects tab is selected at the top, and inside that select either Object Library or its child, Cocoa. Then click in the Search field at the bottom of the window and type in “text field.” The list of available objects in the Library is whittled down to just a few, including one called Text Field. It’ll be near the top of the list. Drag one of those (Text Field, not Text Field Cell, which is a slightly different beast that we’ll encounter in Chapters 6 and 7) over to our empty Window, and drop it somewhere in the upper-left portion of the window. We’re going to add an item to the left of the field, so leave some room between the field and the edge of the window. Now, while the new text field is selected, make a duplicate of it by pressing ⌘D. A new text field appears, overlapping the previous one. Drag the new one down a bit, and some blue guidelines will appear in the window, helping guide it into alignment below the previous one. Let go of it when it looks roughly like Figure [5-3](#A978-1-4302-4543-8_5_Chapter.html#Fig3).
+
+![A978-1-4302-4543-8_5_Fig3_HTML.jpg](A978-1-4302-4543-8_5_Fig3_HTML.jpg)
+
+Figure 5-3.
+
+VillainTracker’s first two text fields
+
+Now we need to label these objects so the user can see what they represent. Back in the Object Library pane, click on the Search field (deleting the text that was already there, if need be) and type in the word “label.” It should show an object called Label. Drag one of those out to the window, dropping it to the left of the first text field we created. Again, there will be blue lines that pop up when we drag near another object, helping us guide it into place; the guidelines help us align to the top, center, text baseline, or bottom of the text field next to the label. This label will resize horizontally to match its content when we edit it within Interface Builder. That’s fine—except that by default the text is centered horizontally, which means that while we are editing it will expand in both directions and start overlapping the `NSTextField` to its right. To counteract that, open the Attributes Inspector pane (⌥⌘4), and find and click the Align Right button under the Text Field settings (Hint: it looks just like the corresponding button found in most word processors). Doing so will make the label retain its right-side margin even when we change its content.
+
+Edit the text in the label to say “Name:” and then make a copy of this label by pressing ⌘D. Drag the new label down a bit so that it lines up with the lower text field, edit it to say “Last Known Location:”, and we’re done! If you didn’t leave enough room for that much text in the label, it will overlap the text field. Feel free to move things around to make the layout neat.
+
+#### Letting Them Pick Dates
+
+The next GUI object we want to prepare is a date picker, which will let the user specify the date of the villain’s last sighting. A date picker overcomes the ambiguities and competing standards for date formatting that can be a chore to deal with when parsing and presenting dates, and we’ve got access to a great built-in one in Cocoa, so let’s roll with it.
+
+In the Object Library pane’s Search field, type “date” and see what comes up. There should be an entry called Date Picker. Grab that, drag it into our window, and drop it below the `NSTextFields` we created earlier, once again using the blue guidelines that pop up as we drag near the spot we’re looking for. The default width for this control is smaller than the default width for the `NSTextFields` above it, so it won’t take up the same amount of horizontal space, but that’s okay. Just make it line up with the left edge of the other controls. Now click one of the labels created earlier and make another copy of it by pressing ⌘D. Drag it down to line up with the date picker, and change the text to “Last Seen:”. Figure [5-4](#A978-1-4302-4543-8_5_Chapter.html#Fig4) shows what the window should look like now.
+
+![A978-1-4302-4543-8_5_Fig4_HTML.jpg](A978-1-4302-4543-8_5_Fig4_HTML.jpg)
+
+Figure 5-4.
+
+We’re off to a good start, adding controls and labels to our window
+
+#### Creating the Combo Box
+
+Now it’s time for a combo box. This control is great if we have a predefined set of valid string values to choose from but also want to allow the user to enter a value of their own. This is perfect for the villain’s `Sworn Enemy` property. We can provide some default superhero names to choose from while still allowing the user to enter one that we don’t anticipate.
+
+Go to the Object Library pane and type “combo” into the Search field, and see a Combo Box appear in the list. Drag it out into our window, below the `NSTextFields` and the `NSDatePicker`. Use the blue guidelines once again, lining it up with the left edge of the controls above it. Once more, make a copy of one of the existing labels, position it to the left of the combo box, and rename this one “Sworn Enemy:”.
+
+Now, let’s populate the combo box with some default values. We want the user to be able to specify any superhero at all, even ones we don’t know about (that’s why we chose the combo box), but for the sake of convenience we should preload this control with names of some popular superheroes, since the popular ones also seem to be the ones who attract the most enemies.
+
+Click the combo box we just added, and open the Attributes Inspector pane (⌥⌘4). In the upper section is a spot labeled Items where we can add items that will appear in the combo box. Figure [5-5](#A978-1-4302-4543-8_5_Chapter.html#Fig5) shows this part of the Inspector in action. Use the + button to add a new item, then double-click the “Item” text that appears, and change it to “Superman.” Now repeat this process, using the + button to add several items, each time editing the “Item” text and changing it to the name of one of your favorite superheroes.
+
+![A978-1-4302-4543-8_5_Fig5_HTML.jpg](A978-1-4302-4543-8_5_Fig5_HTML.jpg)
+
+Figure 5-5.
+
+Configuring an NSComboBox in Interface Builder
+
+After adding a list of superheroes, test the interface by selecting Simulate Document from the Editor menu. Our window should appear, and we can verify that the items we created for the combo box appear when we click on it. We can also type text into any of the fields (including the combo box) and play with the date picker. When done, press ⌘Q to return to Xcode.
+
+#### Indicating a Rating with a Level Indicator
+
+The next control we’re going to create is an `NSLevelIndicator`, which we’ll use to display and specify the evilness of any villain. We’ll let the user specify a star rating from 0 to 10 for this value, and the `NSLevelIndicator` will actually display it as a row of stars.
+
+Go back to the Object Library pane, and type in “level” in the Search field at the bottom. One of the classes that comes up is `NSLevelIndicator`, which we should drag out and put into our window, once again using the blue guidelines to line it up with the left edge of the previous controls, just below the combo box we added in the previous step.
+
+Now we need to configure this new object a bit. The `NSLevelIndicator` class has a number of built-in display styles suited for different purposes. The default style for a new instance created in Interface Builder is called Discrete, but we’re going to change it to match what we’re displaying, which is a sort of a rating. Bring up the Attributes Inspector (⌥⌘4), and we’ll see that one of the first options is a pop-up labeled Style (see Figure [5-6](#A978-1-4302-4543-8_5_Chapter.html#Fig6)). Click the pop-up and select Rating instead. The level indicator immediately changes to a view showing a few stars.
+
+![A978-1-4302-4543-8_5_Fig6_HTML.jpg](A978-1-4302-4543-8_5_Fig6_HTML.jpg)
+
+Figure 5-6.
+
+Configuring an NSLevelIndicator to show a star rating
+
+We also need to specify the maximum and minimum values that are valid for this control so that it knows how to display the value it’s given. Still in the Attributes Inspector, find the section labeled Value containing controls to set the minimum and maximum values. Set the minimum to 0 and the maximum to 10, either by typing numbers into these fields or using the small up/down buttons. A bit below those text fields is another labeled Current. Set that to 10 so that we can see the full range of stars in our control, and click the Editable checkbox so that the user can actually edit this value themselves, not just look at the pretty stars.
+
+Perhaps the control isn’t showing all 10 stars. As of this writing, the default size of a new `NSLevelIndicator` dragged from the Library is wide enough to show just over 7 stars, and no more. Fortunately, Xcode provides a handy shortcut that can help us rightsize a view to make it snugly fit around its content. Select Editor ➤ Size To Fit Content from the menu or press ⌘= to make the level indicator expand to just the right size to show all 10 stars. Depending on how we laid out the `NSLevelIndicator` relative to the other fields, we may have created constraints that set up relationships between the sizes of the `NSLevelIndicator` and the other fields. If the other fields also resize when we resize the `NSLevelIndicator`, that’s OK. We can hit Undo (⌘Z) and reposition the `NSLevelIndicator` away from the other fields to break the constraints, resize it as above, and then reposition it aligned with the left edges of the other fields.
+
+Note
+
+For this app, we can ignore the Warning and Critical values, as they don’t have any effect on the Rating style of `NSLevelIndicator`. These values do have an effect on how the `NSLevelIndicator` is drawn in the Discrete and Continuous styles; we can also change the `NSLevelIndicator` back to Discrete or Continuous and then use Simulate Document to see what happens, but we need to set it back to Rating before we continue.
+
+Finally, it’s time once again to duplicate one of the existing labels in your window. Drag it into place to the left of the level indicator, and change the text to “Evilness:”.
+
+This might be a good time to once again test the interface by selecting Simulate Document. We should be able to click anywhere along the line of stars and cause the control to highlight just that amount.
+
+#### Adding Radio Buttons in a Matrix
+
+Next, we’ll create the GUI for the `Primary Motivation` attribute. Years of careful study of comic books have taught us that every villain has a primary motivating factor that causes them to do their evil deeds, and this motivation can always be reduced to one of these five things: greed, revenge, bloodlust, nihilism, or insanity. Of course, some villains may have several of these evil-making forces at work, but we’ll settle for picking the main one for each villain we’re tracking.
+
+We’re going to use a set of radio buttons to let the user pick the primary motivation. Radio buttons are generally grouped in a set that works together, so that selecting one button simultaneously deselects all the other buttons. If “radio button” seems like a terribly obscure name for this, then perhaps you’re too young to remember the old car-radio tuner controls, prevalent up until the 1980s, that would let you select a radio station by pushing a mechanical button that would adjust the tuner to a particular station and at the same time cause the previously-pushed button to pop back to the “out” position. In any case, the term “radio buttons” is here to stay, and this control is a good choice when we have a small, predefined list of things to choose from and we’d like to keep the whole list onscreen at all times.
+
+In Cocoa, radio buttons are normally a group of `NSButtonCell` instances aligned inside an `NSMatrix`. We can find these preconfigured in the Object Library pane by typing “radio” into the Search field. It will bring up a Radio Group. Drag this out and drop it in the window, below the other controls. The default radio button matrix contains just two radio buttons but for this example we want five. Simply resizing the matrix by dragging one of the resize handles won’t help us here; that just stretches the existing buttons. Instead, try holding down the Option key while dragging the bottom-center resize handle downward. This will simultaneously resize the matrix and add new buttons inside to fill the empty space. Drag down until there are five buttons, then release the mouse button.
+
+Tip
+
+Note that many of Cocoa’s GUI classes seem to have a “shadow” in the form of a cell class  : `NSButton` has `NSButtonCell`, and so on. This division stems from performance issues in the past. In order to speed up drawing, some of the drawing duty was taken out of view classes and put into special cell classes instead. So in an `NSMatrix` full of buttons, instead of having a bunch of full-fledged `NSButton` instances, there are a bunch of simpler `NSButtonCell` instances.
+
+Now it’s time to fill in the values that will be displayed in each button’s title. Start with the top-most button; double-click to select the word “Radio,” then type in “Greed.” Do the same for the rest of the buttons, typing in “Revenge,” “Bloodlust,” “Nihilism,” and “Insanity,” as shown in Figure [5-7](#A978-1-4302-4543-8_5_Chapter.html#Fig7). Note that this view doesn’t expand horizontally to contain the text we typed, so we need to do it ourselves by dragging the center-right resize handle and dragging to the right until all the text we entered is visible. This is also a case where the Size to Fit Content command can come in handy.
+
+![A978-1-4302-4543-8_5_Fig7_HTML.jpg](A978-1-4302-4543-8_5_Fig7_HTML.jpg)
+
+Figure 5-7.
+
+What’s your primary motivation in life?
+
+Before we’re done, we need to assign a tag to each cell. We can use any integer as a tag for each cell, giving us a way to reference a cell through the matrix that contains it without needing to have an outlet for each individual cell. We want to give a unique tag to each cell in the matrix we just created, and for the sake of convenience let’s make them to start at zero for the uppermost cell and increment by one each step of the way down. Besides being a simple pattern to follow, this will also allow us to create an array of strings later on whose indexes in the array perfectly match their respective cell tags (since an `NSArray` uses zero-based indexing, where the first item is at index 0, the second at index 1, and so on).
+
+Start with the first button, Greed. Selecting a cell in a matrix generally requires multiple clicks. The first click selects the matrix, then a second click tells the matrix that we want to focus on its insides, and the third click actually selects the cell. Once the cell is finally selected (you can tell by the highlighting), open the Attributes Inspector in the Utility area (⌥⌘4) and look for the Tag field at the very bottom in the Cell attributes. Set this to 0\. Now select the Revenge button and set its tag to 1\. Continue down the length of the matrix, ending with setting the tag for Insanity to 4.
+
+Now the radio buttons for letting the user specify a villain’s primary motivation are done! As we’ve done before, duplicate one of the labels, drag it down, place it above and slightly to the left of the radio button group, and change its title to “Primary Motivation:”. We should now have something similar to Figure [5-8](#A978-1-4302-4543-8_5_Chapter.html#Fig8).
+
+![A978-1-4302-4543-8_5_Fig8_HTML.jpg](A978-1-4302-4543-8_5_Fig8_HTML.jpg)
+
+Figure 5-8.
+
+More villain attributes than we can shake a stick at!
+
+#### Adding an Image View
+
+No villain-tracking application would be complete without a way to display the villain’s cruel visage. In VillainTracker, we’ll use an instance of the `NSImageView` class both to display a picture of the villain and to receive a picture as input via the Mac’s drag-and-drop mechanism.
+
+Go back to the Object Library pane, and type “image” in the Search field. One of the results is listed as an Image Well, and this is in fact an instance of `NSImageView`. Drag one of these over to our window, and place it a bit to the right of the matrix of radio buttons from the last section.
+
+Now, that image well is pretty tiny, so let’s make it bigger. Bring up the Size Inspector (⌥⌘5); note that the image well’s width and height are both 48\. Edit each of those, changing them to 96, and the control’s size will change in the window change. We want to let the user drag an image into this view, so we also need to bring up the Attributes Inspector (⌥⌘4) and click to enable the Editable checkbox.
+
+Now adjust the position of the image well by dragging it a little within its window. The blue guidelines will pop up; note that this control is now the same vertical height as the matrix of radio buttons to its left. Put them side by side, then duplicate another label, put it a bit above and to the left of the image view, and change its title to “Appearance:”. See Figure [5-9](#A978-1-4302-4543-8_5_Chapter.html#Fig9) for a rough idea of the layout at this point.
+
+![A978-1-4302-4543-8_5_Fig9_HTML.jpg](A978-1-4302-4543-8_5_Fig9_HTML.jpg)
+
+Figure 5-9.
+
+An image well is now in place
+
+#### Adding Checkboxes in a Matrix
+
+Now we’ll add a series of checkboxes to let the user check off each villain’s powers and abilities. As in the case of the villain’s primary motivation, we’ll create a classification system in which all types of supervillain powers can be pigeonholed into a category. Once again we will use a matrix, but this time filled with checkboxes instead of radio buttons.
+
+Go the Object Library again, and type “check” into the Search field. One of the results will be labeled Check Box. Grab one of those and pull it into the window. This places an `NSButton` configured to work as a checkbox into the window. We’re going to want four of these, lined up in a matrix, but right now we’ve only got this single one. Time to learn about a handy shortcut in Interface Builder mode that lets us automatically take any object that can appear in an `NSMatrix`, such as an `NSButton`, and replace it with a new `NSMatrix` containing a cell configured the same as the original object. Simply select the object (the checkbox), then in the menu choose Editor ➤ Embed In ➤ Matrix. The checkbox is now wrapped up in a matrix, and we can use the same resizing trick we learned for the matrix containing the radio buttons: hold down Option, click on the bottom-center resize handle, and drag downwards until there are four checkboxes.
+
+Next, let’s configure this new matrix to work correctly with a group of checkboxes. Select the matrix itself (not one of the checkboxes inside of it), and bring up the Attributes Inspector (⌥⌘4) in the Utility area. Verify that we’ve got the matrix selected by noting the name displayed at the top of the inspector—it should say Matrix, not Button Cell. At the top of the Inspector window is a pop-up button labeled Mode. If it isn’t already set to Highlight, we’ll change it to that so we get the correct behavior.
+
+Now fill the checkbox titles with the following (admittedly incomplete) list of abilities: “Evil Genius,” “Mind Reader,” “Nigh-invulnerable,” “Weather Control.” While clicking around to set these values, we may inadvertently turn checkboxes on and off. We don’t need to worry about that; the states of all those checkboxes will be set from the code itself.
+
+Just like with the matrix of radio buttons, we’ll need to make the matrix a little wider so that the full text of the buttons can be seen. Drag the center-right resize handle out until all the text is visible.
+
+Now it’s time to set tags for all of these checkboxes, just like we set tags for all the radio buttons for choosing the primary motivation. Click to select the Evil Genius cell, then open the Attributes Inspector (⌥⌘4), and set the tag to 0\. Then click the Mind Reader cell, and set its tag to 1. Continue through the rest of the checkboxes, ending by giving the Weather Control checkbox a tag of 3\. At this point, we should now have something similar to Figure [5-10](#A978-1-4302-4543-8_5_Chapter.html#Fig10).
+
+![A978-1-4302-4543-8_5_Fig10_HTML.jpg](A978-1-4302-4543-8_5_Fig10_HTML.jpg)
+
+Figure 5-10.
+
+Preparing for the worst of the worst
+
+#### Configuring a Pop-up Button
+
+Now we’ll deal with the villain’s power source, using a pop-up button to let the user select from a predefined list in order to specify how the villain got his powers. Once again, we’ll supply a few choices: “Innate” (the villain was born with it), “Freak Accident” (some “act of God” such as a lab explosion, meteor strike, or similar caused a transformation), “Superhero Action” (a superhero in the course of their heroics accidentally empowers someone else), and “Other.”
+
+Go to the Object Library window again, and enter “popup” into the Search field. Grab a Pop Up Button from the Search results, and drag it into the window, placing it a bit below the checkbox matrix from the previous section. By clicking and then double-clicking the new pop-up button, we can see the default list of values that can be selected. Double-click the first one to edit its text, changing it to “Innate.” Continue for the rest of the titles, entering the names mentioned above. After entering the third one, we’re out of button values; the default pop-up button has only three values. Click one of the three values, duplicate it by pressing ⌘D, and then enter the final value. Now grab another label, put it in place to the left of this pop-up button, and change its title to “Source of Powers:”.
+
+#### Inserting a Text View
+
+Now it’s time for the final control, a text view for editing free-form notes about the villain in question. We’ll be using `NSTextView`, a powerful class for text display and editing that is used throughout the Mac OS X interface. Grab the resize handle on the outline of the window in the Interface Builder canvas, and drag down to make the window larger. Some of the fields might go with it; reposition them back where they should be after resizing. We can select multiple elements by shift-clicking or by dragging out a selection rectangle across the ones that we want to move.
+
+Once we’ve got some space, enter “text view” in the Object Library pane’s Search field, and drag the resulting text view into our window, below all the other elements. Resize it to fill most of the available space. The window layout should now look something like Figure [5-11](#A978-1-4302-4543-8_5_Chapter.html#Fig11).
+
+![A978-1-4302-4543-8_5_Fig11_HTML.jpg](A978-1-4302-4543-8_5_Fig11_HTML.jpg)
+
+Figure 5-11.
+
+All the controls are now in the window
+
+#### Making Logical Groupings
+
+Now that all the controls we need are laid out in the window, let’s take a step back and see where we stand. Figure [5-11](#A978-1-4302-4543-8_5_Chapter.html#Fig11) probably looks similar to the interface we have right now.
+
+It may be functional, and clearly labeled, but it’s not going to win any design awards, that’s for sure. Our interface exposes a lot of functionality, but the controls are all sort of jammed together, and it’s hard to see any logical groupings of all these editable attributes. We can improve things a bit by grouping related controls inside of box views; Cocoa provides us with a class called `NSBox` that can contain several other objects and draws a nice border around them.
+
+Xcode contains a helpful shortcut that lets us put existing views into a box perfectly sized to contain them all precisely within its borders, so it’s really easy to add this enhancement to our interface. To start, select the first five controls (in the upper left-hand of the window) and all of their labels. The easiest way to do this is to click in the upper left corner of the window, just below the window’s close/minimize/maximize controls, and drag a selection box around all the views we want to select. Then choose Editor ➤ Embed In ➤ Box from the menu—a nice box will surround them, with a darker gray background color and rounded corners. At the top of the box is a text label (“Box”) that can be edited to something descriptive of the box’s contents. Double-click that text, and change it to “Basic Information.”
+
+Go on and do the same thing for the Primary Motivation section. First, delete the label by selecting it and pressing Backspace or Delete. Because there’s only one set of controls in the box we’re going to create, we can just use the box’s title instead. Now select the matrix of radio buttons, and once again select Editor ➤ Embed In ➤ Box from the menu. Our radio buttons are now contained within a box. Change the box’s label to “Primary Motivation.”
+
+Repeat those steps for the mugshot, once again deleting the existing label first, then creating the box via the menu, and finishing up by setting the box’s label to “Appearance.”
+
+Now move on to the powers and abilities. Select the Source of Powers pop-up button and its label, along with the matrix of checkboxes for Abilities. Once again, the easiest way to do this is probably to “draw a box” by clicking in the background near the window’s top-right corner, and dragging down and to the left until all the relevant items are selected. Use the menu to put these views in a box, and title the box “Powers and Abilities.”
+
+Finally, select the text view created for the villain’s notes property, and put that into a box of its own, entitled “Notes.”
+
+Now we’ve got a bunch of boxes created, but they’re probably overlapping and generally not very well positioned relative to each other (as shown in Figure [5-12](#A978-1-4302-4543-8_5_Chapter.html#Fig12)).
+
+![A978-1-4302-4543-8_5_Fig12_HTML.jpg](A978-1-4302-4543-8_5_Fig12_HTML.jpg)
+
+Figure 5-12.
+
+Not the prettiest box layout we’ve ever seen
+
+Don’t worry; Xcode’s blue guidelines will help us get this straightened out in no time. Start with the first box in the upper left-hand corner. Click anywhere in the dark background of the box (but not on a control or label) to start dragging the entire box. As we move it around a bit, the blue will guidelines appear. The guidelines can help us position the boxes, or any views, relative to one another or relative to the window itself. We can always tell what a guideline is lining up with by following it to its end and seeing what it connects with. When it runs all the way to the edge of the window, we know it’s setting us up for the recommended distance from the window’s edge.
+
+Now move on to the Primary Motivation box, lining it up with the left edge of the box above it and a few pixels below it, again using the guidelines to help get it just right. Then take the Appearance box and line it up vertically with the Primary Motivation box and horizontally with the right edge of the Basic Information box.
+
+Continue with the other boxes, lining up the Powers and Abilities box to the right of the ones we’ve already done, then the Notes box below everything else. If you run out of space during all this movement, or if your window is much larger than the combined size of all your other views, resize your window a bit in order to fit everything.
+
+Finish this step by moving the Notes box into the gap left in the lower right, and resizing the `NSTextView` inside of it to fit its new boundaries and margins, and perhaps tweaking the sizes of some of the other boxes to make them all fit together in a uniform way. Figure [5-13](#A978-1-4302-4543-8_5_Chapter.html#Fig13) shows the ideal result. If you haven’t done so already, be sure to save the nib file!
+
+![A978-1-4302-4543-8_5_Fig13_HTML.jpg](A978-1-4302-4543-8_5_Fig13_HTML.jpg)
+
+Figure 5-13.
+
+Finally, a window layout to be proud of!
+
+#### Resizing
+
+We’ve got a nice-looking window now, but there’s a bit more work to be done here to make everything behave properly: we need to be able to handle when the user resizes a window. To understand why that’s even necessary, test the interface by selecting Simulate Document from the Editor menu. Now resize the window and see what happens. As we’ve laid out the window, all the controls will stay put as we resize the window vertically, but we can shrink the window vertically to the point where some controls aren’t visible, and we can’t resize the window horizontally at all. (Depending on how you laid out the controls as you’ve been following along, your resize behavior may vary from this.) We’ll explore resizing in more depth in the next chapter. For now, we’re going to make the window non-resizable by setting the minimum and maximum dimensions of the window to be the same size, and then we’re going to move on to coding.
+
+Xcode makes this easy. With the VillainTracker window highlighted in the Interface Builder Editor canvas, select the Size Inspector (⌥⌘5). The values given for the width and height for the current size, minimum size, and maximum size should all be the same. Check the checkboxes for both Minimum Size and Maximum Size constraints, as shown in Figure [5-14](#A978-1-4302-4543-8_5_Chapter.html#Fig14).
+
+![A978-1-4302-4543-8_5_Fig14_HTML.jpg](A978-1-4302-4543-8_5_Fig14_HTML.jpg)
+
+Figure 5-14.
+
+Setting the window’s size constraints
+
+## Wiring Up the VillainTrackerAppDelegate Class
+
+When we created the VillainTracker project, Xcode created a class called `VillainTrackerAppDelegate`. We’re going to add code into this class to connect it to the user interface controls, making it a “controller” in the model–view–controller sense. More intricate applications will likely have several controller classes, but for a simple app like this, which interacts with a single window and the application itself, one controller is all we need. Much of the code that we’ll be adding will take the form of outlets and actions, as discussed in the last chapter. This controller will have outlets to all the objects in our GUI (so that it can set and retrieve values in the view objects any time it needs to) and action methods for those objects to inform the controller every time a user edits a value.
+
+Remember, an outlet is nothing more than a specially-marked property or instance variable, and an action is simply any method that matches a specific signature, taking a single parameter of type `id` and returning void. Note that in the source code, the return type for an action is typically marked as `IBAction` instead of void. `IBAction` is actually defined to be the same as void, so as far as the compiler’s concerned it makes no difference. Now, let’s say we have some sort of design document that specifies several villain attributes and their types. Based on their types and usages, we could map each attribute to a suitable GUI class (see Table [5-1](#A978-1-4302-4543-8_5_Chapter.html#Tab1)).
+
+Table 5-1.
+
+Villain Attributes Mapped to GUI Classes
+
+| Attribute Name | Type | View Class |
+| --- | --- | --- |
+| Name | string (freeform) | `NSTextField` |
+| lastKnownLocation | string (freeform) | `NSTextField` |
+| lastSeenDate | date | `NSDatePicker` |
+| swornEnemy | string (freeform, but with list to choose from existing) | `NSComboBox` |
+| primaryMotivation | string (from predefined list) | `NSMatrix` (containing radio buttons) |
+| Powers | array of strings (from predefined list) | `NSMatrix` (containing checkboxes) |
+| powerSource | string (from predefined list) | `NSPopUpButton` |
+| Evilness | number (0–10) | `NSLevelIndicator` |
+| Mugshot | image | `NSImageView` |
+| Notes | string (perhaps lengthy) | `NSTextView` |
+
+Based on this specification, we’ll add one outlet and one action in `VillainTrackerAppDelegate` for each GUI control. The outlet will let us access the control to set and retrieve its value whenever necessary, and each control will call the appropriate action method to inform us when its contents have changed. So that the code is easy to follow, we’ll use a specific naming convention for our outlets: the name of the attribute, with the string “View” as a suffix. For example, for the attribute named `lastSeenDate` we’ll have an outlet named `lastSeenDateView`. Similarly, for the actions, we’ll use the verb “take” as a prefix. For the attribute `lastSeenDate`, our action will be named `takeLastSeenDate`.
+
+Adding the outlets to our code could be done by manually creating properties or instance variables, but it’s easier to do it by control-dragging from the nib to the code window. To do this, we’ll first need a pane with our code in it. Click the Assistant button (which looks like a butler’s torso) in the Editor icon group in the right side of the toolbar in the main Xcode window. For this work, have the nib open on the left side of Xcode and the Code Editor open on the right, as shown in Figure [5-15](#A978-1-4302-4543-8_5_Chapter.html#Fig15). We can position the Assistant window in either location by selecting our preferred location under View ➤ Assistant Editor. If it isn’t already open, open the `VillainTrackerAppDelegate.h` file in the Assistant Editor pane. To do this, click the little butler icon at the top of the pane, and it should be one of the choices under Automatic.
+
+![A978-1-4302-4543-8_5_Fig15_HTML.jpg](A978-1-4302-4543-8_5_Fig15_HTML.jpg)
+
+Figure 5-15.
+
+Ready to start creating outlets
+
+To start, click the text field next to the label that reads Name:. Control-drag over to the code in the Assistant Editor pane, dragging out a blue line to just underneath the existing property named window. As we drag, anything that could be a valid connection endpoint will highlight under our mouse. When we get to the right spot in the Assistant Editor pane, a small flag should appear indicating Insert Outlet or Action as shown in Figure [5-16](#A978-1-4302-4543-8_5_Chapter.html#Fig16). Release the mouse button and a small contextual window appears over that point in the code where we can name the outlet and modify some of the default parameters if necessary. We won’t need to change the defaults for the outlets for this app. Name the outlets using the naming convention above: for the field holding the name, name the outlet “nameView.”
+
+![A978-1-4302-4543-8_5_Fig16_HTML.jpg](A978-1-4302-4543-8_5_Fig16_HTML.jpg)
+
+Figure 5-16.
+
+Adding the first outlet to VillainTracker
+
+Some of the UI components are made up of several elements: the matrix of checkboxes, the radio buttons, and the text view. For the matrices, make sure the whole matrix is selected and not one of the cells within the matrix. For the text view, we have the opposite problem. The text view is contained within a scroll view. Click inside the text area until just the text part is highlighted, and not the scroll bar on the edge. The pop-up window for creating the outlet should indicate a type of `NSTextView`. If it says `NSScrollView`, hit Cancel and click one more time on the `NSTextView` in the Notes box
+
+When done, the code in the Assistant Editor should look like this:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface VillainTrackerAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *nameView;`
+
+`@property (weak) IBOutlet NSTextField *lastKnownLocationView;`
+
+`@property (weak) IBOutlet NSDatePicker *lastSeenDateView;`
+
+`@property (weak) IBOutlet NSComboBox *swornEnemyView;`
+
+`@property (weak) IBOutlet NSLevelIndicator *evilnessView;`
+
+`@property (weak) IBOutlet NSMatrix *powersView;`
+
+`@property (weak) IBOutlet NSPopUpButton *powerSourceView;`
+
+`@property (weak) IBOutlet NSMatrix *primaryMotivationView;`
+
+`@property (weak) IBOutlet NSImageView *mugshotView;`
+
+`@property (weak) IBOutlet NSTextView *notesView;`
+
+`@end`
+
+That covers the outlets, so now let’s do the actions. The process will be much the same; we’ll start with the Name text field again. Control-drag from the Name text field out to the code, but this time when we release the mouse, change the first field in the contextual window from “Outlet” to “Action.” Once that’s done, drag out a connection for each of the remaining UI elements. Enter the action name with the prefix “take”: “takeName,” “takeLastKnownLocation, and so on. For the two matrices of buttons, Primary Motivation and Powers, make sure to connect from the matrix itself and not one of the button cells inside the matrix. The window should look like Figure [5-17](#A978-1-4302-4543-8_5_Chapter.html#Fig17).
+
+![A978-1-4302-4543-8_5_Fig17_HTML.jpg](A978-1-4302-4543-8_5_Fig17_HTML.jpg)
+
+Figure 5-17.
+
+Adding the takeSwornEnemy action
+
+When done, the code in the Assistant Editor should now look like this:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface VillainTrackerAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *nameView;`
+
+`@property (weak) IBOutlet NSTextField *lastKnownLocationView;`
+
+`@property (weak) IBOutlet NSDatePicker *lastSeenDateView;`
+
+`@property (weak) IBOutlet NSComboBox *swornEnemyView;`
+
+`@property (weak) IBOutlet NSLevelIndicator *evilnessView;`
+
+`@property (weak) IBOutlet NSMatrix *powersView;`
+
+`@property (weak) IBOutlet NSPopUpButton *powerSourceView;`
+
+`@property (weak) IBOutlet NSMatrix *primaryMotivationView;`
+
+`@property (weak) IBOutlet NSImageView *mugshotView;`
+
+`@property (weak) IBOutlet NSTextView *notesView;`
+
+`- (IBAction)takeName:(id)sender;`
+
+`- (IBAction)takeLastKnownLocation:(id)sender;`
+
+`- (IBAction)takeLastSeenDate:(id)sender;`
+
+`- (IBAction)takeSwornEnemy:(id)sender;`
+
+`- (IBAction)takeEvilness:(id)sender;`
+
+`- (IBAction)takePowers:(id)sender;`
+
+`- (IBAction)takePowerSource:(id)sender;`
+
+`- (IBAction)takePrimaryMotivation:(id)sender;`
+
+`- (IBAction)takeMugshot:(id)sender;`
+
+`@end`
+
+It’s OK if the properties and methods are in a different order than you see here, as long as they’re there. You may also notice that one thing seems to be missing here: there is no action method defined for the `NSTextView` used for editing the notes attribute. The reason for this is that `NSTextView` doesn’t actually work with the target/action paradigm. Instead, it informs its delegate when changes are made to its content. We’ll implement that delegate call later when we also implement all these action methods.
+
+Switch the Assistant Editor pane to the `VillainTrackerAppDelegate.m` file so that the class’s implementation is visible. Xcode has stubbed out empty methods for each of the actions.
+
+`#import "VillainTrackerAppDelegate.h"`
+
+`@implementation VillainTrackerAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`- (IBAction)takeName:(id)sender {`
+
+`}`
+
+`- (IBAction)takeLastKnownLocation:(id)sender {`
+
+`}`
+
+`- (IBAction)takeLastSeenDate:(id)sender {`
+
+`}`
+
+`- (IBAction)takeSwornEnemy:(id)sender {`
+
+`}`
+
+`- (IBAction)takeEvilness:(id)sender {`
+
+`}`
+
+`- (IBAction)takePowers:(id)sender {`
+
+`}`
+
+`- (IBAction)takePowerSource:(id)sender {`
+
+`}`
+
+`- (IBAction)takePrimaryMotivation:(id)sender {`
+
+`}`
+
+`- (IBAction)takeMugshot:(id)sender {`
+
+`}`
+
+`@end`
+
+Note that if you had to do some editing in the `.h` file to get it right, such as deleting a misnamed property or an outlet that should have been an action, you might need to do the corresponding cleanup here, too.
+
+We’ve got two last connections to make, which don’t involve creating code. As noted above, the text view is somewhat of a different beast. Unlike the other editable objects in our window, `NSTextView` is not a subclass of `NSControl`, which means that it doesn’t know anything about the target/action pattern. However, it does expose a lot of functionality through calls to methods in its delegate. Later on, we’ll implement some delegate methods inside `VillainTrackerAppDelegate` in order to get updated when the value of the text view changes. For now, just connect the text view’s delegate outlet to our `VillainTrackerAppDelegate` object in the Object dock on the left side of the Interface Builder Editing canvas. As when we made the outlet, this is slightly complicated by the fact that the text view is automatically contained inside an `NSScrollView`, which in turn is contained in the `NSBox` we created earlier, so we may need to click and double-click once or twice in order to actually select the text view itself and be able to draw a connection from it.
+
+Finally, we’re going to make one additional connection for the sake of our controller class. We want to be notified when the nib is loaded and the application itself is initialized and ready to interact with the user, so that the initial display can be prepared. This is done through the use of `NSApplication`’s delegate methods, so drag a connection from the Application object in the Object dock window to the `VillainTrackerAppDelegate`, and select Delegate from the contextual menu.
+
+We’ve done a lot of control-dragging, and it’s good practice to ensure that the connections are set up as expected. The best way to check this is to look at the Connections Inspector in Xcode. In the Object dock on the left edge of the Interface Builder Editor, select the blue box that shows the name Villain Tracker App Delegate when we hover over it. Then select the Connections Inspector (⌥⌘6) to be displayed in the Utility area. The connections involving the app delegate should look something like what’s displayed in Figure [5-18](#A978-1-4302-4543-8_5_Chapter.html#Fig18). This shows all the outlets and actions that we wired up, as well as the objects that reference the app delegate. You may also see some leftover connections here that you’ll want to prune, if it took more than one try to make a connection or you created an outlet when you meant to create an action. You can mouse-over the connections listed here to highlight the connected object in the Interface Builder Editor pane, and you can click on the little “x” icon in the right column to break the connection.
+
+![A978-1-4302-4543-8_5_Fig18_HTML.jpg](A978-1-4302-4543-8_5_Fig18_HTML.jpg)
+
+Figure 5-18.
+
+Connections to and from VillainTrackerAppDelegate
+
+Before we start implementing the actions, we need one more piece of the puzzle. We’ll start paving the way for the model class we’ll be using for this application. In a real application, you’d have a proper model class for your villain objects, something that would incorporate saving and loading from a file or a database, and in later chapters you’ll see how to do just that using Core Data. But for this application, where we’re mostly interested in seeing how GUI components are hooked up and used, we’ll keep it simple and use an `NSMutableDictionary` to represent each of our villain objects. `NSMutableDictionary` is really quite suitable for this task because it enables us to easily store and retrieve values of any kind and doesn’t need any predefined methods for each value because the values are accessed using simple strings representing keys.
+
+To add this to our class, we’ll declare a new property called `villain`, right below the notesView property. Since we’re going to manage this property internal to the class, we have to mark it as strong rather than weak. The header file should look something like this (the code we’re adding right now is shown here in bold):
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface VillainTrackerAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *nameView;`
+
+`@property (weak) IBOutlet NSTextField *lastKnownLocationView;`
+
+`@property (weak) IBOutlet NSDatePicker *lastSeenDateView;`
+
+`@property (weak) IBOutlet NSComboBox *swornEnemyView;`
+
+`@property (weak) IBOutlet NSLevelIndicator *evilnessView;`
+
+`@property (weak) IBOutlet NSMatrix *powersView;`
+
+`@property (weak) IBOutlet NSPopUpButton *powerSourceView;`
+
+`@property (weak) IBOutlet NSMatrix *primaryMotivationView;`
+
+`@property (weak) IBOutlet NSImageView *mugshotView;`
+
+`@property (weak) IBOutlet NSTextView *notesView;`
+
+`@property (strong) NSMutableDictionary *villain;`
+
+`- (IBAction)takeName:(id)sender;`
+
+`- (IBAction)takeLastKnownLocation:(id)sender;`
+
+`- (IBAction)takeLastSeenDate:(id)sender;`
+
+`- (IBAction)takeSwornEnemy:(id)sender;`
+
+`- (IBAction)takeEvilness:(id)sender;`
+
+`- (IBAction)takePowers:(id)sender;`
+
+`- (IBAction)takePowerSource:(id)sender;`
+
+`- (IBAction)takePrimaryMotivation:(id)sender;`
+
+`- (IBAction)takeMugshot:(id)sender;`
+
+`@end`
+
+Other than the change from weak to strong, this looks the same as the code that Xcode generated for our outlets. This declaration tells the compiler that our class will contain getter and setter methods (called `villain` and `setVillain`: respectively) for the `villain` property, as well as hinting at the semantics of the setter (in particular, `strong` means that the value passed into `setVillain`: will be “owned” by this class, in contrast to the outlets, which are owned by the nib file). As long as there’s a `strong` reference to an object, the object stays alive. Once there are no more `strong` references (but potentially still `weak` references), then the object will be deallocated, and any remaining `weak` references are set to nil. Note that all of the outlets generated by Xcode are marked as `weak`. Our code doesn’t own those objects; they’re owned by their superview or by the window itself. It also creates an instance variable, which will save us some typing. This property can now be referred to as `self.villain` in the code.
+
+Now would be a good time to press the Run button in Xcode and make sure we haven’t made any errors so far. If we’ve entered everything correctly, our application should compile without any warnings or errors, and then launch and show the window we’ve worked so hard to build. If not, take a look at the error messages displayed by Xcode, and try to fix the problems they refer to. In general, compiling Objective-C is a lot faster than compiling C++ or Java code, so we don’t have much to lose by compiling frequently. During the rest of this chapter, we’ll be frequently compiling our app and then running it so we can make sure that each feature we code actually works as intended before going on to the next.
+
+Now we’ve made all the connections necessary for our application code to display values in the GUI and to receive updates in response to user actions. Time to start writing our application!
+
+## Getting Started with Coding
+
+Now that the GUI layout is done, we’re going to implement the “guts” of the application, which in the case of VillainTracker will all be contained in the `VillainTrackerAppDelegate` class. We’ll learn how an `NSApplication` delegate (such as our controller class) can be made to react when the application launches, we’ll see the basic APIs for displaying values in the GUI objects we’ve created, and we’ll see how to implement methods that will respond to user actions by grabbing values from the relevant controls.
+
+### Standardizing Key Names
+
+Before we start writing actual code, it’s a good idea to come up with a way of standardizing the names of the keys that will be used for accessing attributes from the model objects. Whether in a case like ours, where the villain is stored in a dictionary whose attributes are accessible only by keys, or in a more complex situation using real model objects, standardizing key names is critical to ensure that we’re correctly accessing the attributes in our model objects.
+
+The technique we’re using here is a simple one: we use standard C preprocessor macros to define names that are replaced with `NSString` instances at compile time. This eliminates the potential problem of mistyping a key name and also adds the nice touch of working with the code-completion features in Xcode.
+
+The following code includes key names for all the villain attributes that we are using in our application. With these in place, instead of using an `NSString` literal in our code to reference an attribute by its key name, we can (and should) use the defined name instead. Put the following code somewhere at the top of the `VillainTrackerAppDelegate.m` file:
+
+`#define kName @"name"`
+
+`#define kLastKnownLocation @"lastKnownLocation"`
+
+`#define kLastSeenDate @"lastSeenDate"`
+
+`#define kSwornEnemy @"swornEnemy"`
+
+`#define kPrimaryMotivation @"primaryMotivation"`
+
+`#define kPowers @"powers"`
+
+`#define kPowerSource @"powerSource"`
+
+`#define kEvilness @"evilness"`
+
+`#define kMugshot @"mugshot"`
+
+`#define kNotes @"notes"`
+
+### Creating the Default Villain
+
+Now it’s time to create a new villain object containing all the attributes that users can edit in the application. As mentioned earlier, we’re not creating a “real” model class to contain a villain, instead going with the simpler option of using an `NSMutableDictionary`. We’ll create it inside an `NSApplication` delegate method called `applicationDidFinishLaunching:`. Nearly every Cocoa app needs to do some setup work at launch time, so Xcode generated the stub of this method for us when it generated the class. Now we’ll fill in an implementation.
+
+Here’s the code:
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {`
+
+  `self.villain = [[NSMutableDictionary alloc] initWithObjectsAndKeys:`
+
+                  `@"Lex Luthor", kName`,
+
+                  `@"Smallville", kLastKnownLocation`,
+
+                  `[NSDate date], kLastSeenDate`,
+
+                  `@"Superman", kSwornEnemy`,
+
+                  `@"Revenge", kPrimaryMotivation`,
+
+                  `[NSArray arrayWithObjects:@"Evil Genius", nil], kPowers`,
+
+                  `@"Superhero action", kPowerSource`,
+
+                  `@9, kEvilness`,
+
+                  `[NSImage imageNamed:@"NSUser"], kMugshot`,
+
+                  `@"", kNotes`,
+
+                  `nil];`
+
+`}`
+
+This code sets up all the attributes for a default villain that most people are familiar with. The `initWithObjectsAndKeys`: method fills the dictionary with a nil-terminated list of paired values and keys. For the sake of legibility, we’ve put each value/key pair on a line of its own. We’re already familiar with the `@"string"` syntax to make a new `NSString` literal, but the `@9` is new. This is shorthand for `[NSNumber numberWithInt:9]`. Note that the `mugshot` attribute is being set to a pre-existing `NSImage` instance, one of several that are included in Cocoa and are available for anyone to use in their applications. Now is a good time to once again compile the app in Xcode just to make sure we’ve got everything right so far, but there’s still no point in actually running the app just yet. The GUI has been created, but nothing’s actually working so far.
+
+Note
+
+You may be wondering why you’re putting initialization code for an `NSApplication`’s delegate into the `applicationDidFinishLaunching:` method, instead of into the `init` method. Objects that are loaded from the application’s main nib file are always in a special predicament: they are being initialized as a substep in the application’s own initialization routine, which means that at the time `init` is called on any object in the main nib file, the `NSApplication` itself may not be fully initialized! This has lots of repercussions, especially where the user interface is concerned, so often it’s best to postpone your initialization until everything is truly ready. Because the `VillainTrackerAppDelegate` is set up to be the delegate of `NSApplication`, you have a handy way to notice when the application is really ready by implementing the `applicationDidFinishLaunching:` method.
+
+### Paying Attention to Detail
+
+The previous code created a villain object, but if we were to build and run our app right now, we wouldn’t see any sign of the villain. All the controls on the window would be blank because we haven’t populated any of them with values from our villain’s attributes. Now it’s time to change that. In the `VillainTrackerAppDelegate` class, we’re going to create a new private method called `updateDetailViews`, which sets up all the GUI objects to display the attributes of the current villain. We’re putting this functionality into a method of its own (as opposed to setting things up right inside of `applicationDidFinishLaunching:`) so that we can refresh our views whenever necessary, not just when the application launches. We’ll go through the process of displaying the villain’s attributes, and we’ll gain some familiarity with the basics of interacting with the various classes in our GUI.
+
+Let’s start off by creating a simple “stub” of the new method. We want this method to be accessible from anywhere in our class, but not from the outside. One way to do this is to simply not add it to the `@interface` declaration in the `.h` file. So, just above the `@end` declaration at the bottom of the `VillainTrackerAppDelegate.m` file, insert the following code:
+
+`- (void)updateDetailViews {`
+
+`}`
+
+Before we begin implementing the new method, we need to make sure we’re already set up to call it by inserting the following line at the end of `applicationDidFinishLaunching:`
+
+`// insert this at the end of applicationDidFinishLaunching:`
+
+  `[self updateDetailViews];`
+
+Do a quick compile to make sure that what we have so far compiles cleanly. Now it’s time to start implementing the `updateDetailViews` method and finally see some villain data in our window!
+
+#### Setting Simple Values
+
+The first two controls we’re going to set up for display are the two `NSTextFields` containing the villain’s name and last known location. `NSTextField` can directly accept numbers and other sorts of input as well, but we’re just passing along a simple string for each of these using `setStringValue:`. Place these lines at the start of `updateDetailViews`, which we defined with an empty set of brackets just a few paragraphs ago:
+
+`[self.nameView setStringValue:[self.villain objectForKey:kName]];`
+
+`[self.lastKnownLocationView setStringValue:`
+
+                  `[self.villain objectForKey:kLastKnownLocation]];`
+
+Note that we’re reusing the preprocessor macros we defined earlier, so we don’t have to worry about mistyping a string value. Now we should be able to compile the app, run it, and actually see some data in the window’s text fields!
+
+Next we’ll set the `NSDateView`’s value. Add this to the end of `updateDetailViews`:
+
+ `[self.lastSeenDateView setDateValue:`
+
+                  `[self.villain objectForKey:kLastSeenDate]];`
+
+This is obviously quite similar to what we did for the `NSTextFields`: similar use of preprocessor macros, calling the relevant method for the target object (`setDateValue:` in this case), and so on. Once again we should compile and run after entering this code to make sure that it works and that the correct date (today’s date) is shown in the date view.
+
+Now that we know the pattern here, let’s take a bigger step forward and see how to set values for all the remaining “simple” controls at once. We can either compile and run after each of these to check our work as we go, or if we’re feeling a little lucky, just enter all of them and then compile and run at the end. Add these lines to the end of the `updateDetailViews` method:
+
+  `[self.evilnessView setIntegerValue:`
+
+                  `[[self.villain objectForKey:kEvilness] integerValue]];`
+
+  `[self.powerSourceView setTitle:[self.villain objectForKey:kPowerSource]];`
+
+  `[self.mugshotView setImage:[self.villain objectForKey:kMugshot]];`
+
+  `[self.notesView setString:[self.villain objectForKey:kNotes]];`
+
+The only complication here is for the `evilnessView`. The view expects an `NSInteger` with which to set its value, but our villain has its evilness value stored as an `NSNumber` inside a dictionary, so we have the added step of converting the object into an `NSInteger`.
+
+#### Values in Complex Controls
+
+Of the remaining attributes we’re going to display, two of them are simple values (`swornEnemy` and `primaryMotivation`), while the third, `powers`, is a “compound value;” an array of strings. All of them are being displayed in more complex views than the previous attributes were, so we’ll take a little more time with each of them.
+
+First, let’s tackle the `swornEnemy` attribute, which is displayed in an `NSComboBox`. A combo box maintains a list of items that we must manually edit if we want to add new values to it. We’ll need to do that any time we’re displaying a villain whose `swornEnemy` is someone we didn’t anticipate back when we were setting up the combo box in Xcode. In the following code, we first check to see if the combo box contains an item matching the name we want to display. If it doesn’t, add one. After that, we tell the combo box to select the appropriate item. Add this to the end of the `updateDetailViews` method:
+
+`if ([self.swornEnemyView indexOfItemWithObjectValue:`
+
+      `[self.villain objectForKey:kSwornEnemy]] == NSNotFound) {`
+
+`[self.swornEnemyView addItemWithObjectValue:`
+
+      `[self.villain objectForKey:kSwornEnemy]];`
+
+  `}`
+
+`[self.swornEnemyView selectItemWithObjectValue:`
+
+      `[self.villain objectForKey:kSwornEnemy]];`
+
+Now compile and run, and the combo box should show the correct value, in this case “Superman.” We can verify that this will also work for items that aren’t included in the combo box in the nib file by changing the relevant line in the `applicationDidFinishLaunching:` method to refer to some other superhero name that isn’t present in the nib, then compiling and running again.
+
+Next, let’s deal with the `primaryMotivation` attribute displayed in a matrix of radio buttons. The `NSMatrix` class lets us select a single cell by specifying its tag, and because these are radio buttons, the others will be automatically deselected. The first thing we’ll do is define a method that returns an array of strings containing all the motivations we’re considering for our villains. These will be arranged in the same order as the cells in the matrix of checkboxes in the nib file, so that their index values match the tags specified for each cell. This should be added after the `updateDetailViews:` method.
+
+`+ (NSArray *)motivations {`
+
+  `static NSArray *motivations = nil;`
+
+  `if (!motivations) {`
+
+    `motivations = [[NSArray alloc] initWithObjects:@"Greed"`,
+
+      `@"Revenge", @"Bloodlust", @"Nihilism", @"Insanity", nil];`
+
+  `}`
+
+  `return motivations;`
+
+`}`
+
+There are a few noteworthy things about this new method, each of which may provide some insight into the design patterns and philosophies used throughout Cocoa.
+
+*   This is a class method instead of an instance method (indicated by an initial + instead of –), so everything that happens in here applies to the whole class, no matter how many instances we may create. This is appropriate in many situations where the method doesn’t deal with anything specific to an instance (for example, instance variables).
+*   We are using a locally defined static variable to point to an object we create. The initial assignment to nil occurs only the first time the method is called. This is identical to the use of static local variables in standard C functions and lets us define a chunk of code (everything inside the `if` clause) that will be executed only the first time this method is called.
+*   We are following a principle called lazy loading. Instead of creating the array when the class is initialized, we create it only the first time it’s needed. That way, if no one ever calls this method, the array is never created.
+
+At first glance, it may seem like overkill to be following these principles. After all, we’re going to have only one instance of this controller class, so why make it a class method? And we know we’re going to need to initialize that array, so why be lazy about it?
+
+Of course, in our contrived example, we could choose to follow the “simpler” route. We could just take the `NSArray` creation code and plop that into our code wherever we need to see the list of motivations! However, in the long run, doing things the “simple” way often backfires, and ends up not being simple at all. In fact, seeing identical pieces of code repeated throughout a program is almost always a red flag. Unless it’s unavoidable, Don’t Repeat Yourself—keep your code DRY! Remember that the systems you build may grow and be extended in the future—in ways you can’t always anticipate today. Doing things the “right” way is a good way to future-proof your code so that someone looking through the code later on (for example, trying to find where to add to the list of motivations) can figure out what’s happening and find the one spot they need to change, instead of doing a manual search and replace to find every spot where an identical array is being created.
+
+With our motivations method in place, we’ll now be able to harvest from it an index number to identify the tag of the cell we want to select in the GUI. Here’s one way to do this, ready to be added to the end of `updateDetailViews:`
+
+`[self.primaryMotivationView selectCellWithTag:`
+
+  `[[[self class] motivations] indexOfObject:`
+
+    `[self.villain objectForKey:kPrimaryMotivation]]];`
+
+Okay, we realize that looks like a bit of a mess if you’re not used to it; it may even give some of you flashbacks to the Lisp or Scheme you had to learn in your computer science education and have spent years trying to forget (these feelings are normal and will subside over time). For the sake of clarity, we’re going to unpack this a bit and show an alternate version of the above, where some intermediate values are assigned to variables.
+
+`NSArray *motivations = [[self class] motivations];`
+
+`id primaryMotivation = [self.villain objectForKey:kPrimaryMotivation];`
+
+`int motivationIndex = [motivations indexOfObject:primaryMotivation];`
+
+`[self.primaryMotivationView selectCellWithTag:motivationIndex];`
+
+Pretty straightforward, so you may wonder why we showed you the first version where everything is all packed together. Basically, the first version is a kind of Objective-C style that you’re likely to encounter in the wild at some point, so it’s good to be able to try to eyeball it a little. Not because it’s technically superior in some way (it’s not), but simply because some people consider the highly nested version to be more readable in some ways and just prefer to write their code that way. The position of the brackets, combined with features of Xcode’s text editor, lets you easily do some things with the former version that take a bit more time with the latter. For example, double-clicking on a bracket in Xcode selects the entire bracketed expression, including the brackets themselves, which means you can easily select an entire method invocation, including the receiver, the method name, and all arguments, in a single double-click. This can be a huge help both when editing code and also browsing or reading code.
+
+On the other hand, the second form we showed you can be helpful when debugging your application. Just set a breakpoint and you’ve got a full complement of intermediate variables ready to divulge their contents to you. Ultimately, which style you lean toward is a matter of personal taste and practicality. Use whatever works best for you in the situation at hand. Until you’ve gotten a bit more Cocoa experience under your belt, you’re probably better off sticking with the latter style, which shows more clearly the sequence of execution. For now, either of the alternatives shown above should work at the end of the `updateDetailViews` method. Compile and run, and verify that the correct primary motivation, Revenge, is shown in the GUI.
+
+Finally, it’s time to display the powers attribute. Like the `primaryMotivation`, the villain’s powers are shown in a matrix of button cells. This time, however, the button cells are checkboxes, and any number of them can be selected (or “checked”). Instead of a single string, the powers attribute is an `NSArray` containing all the relevant strings for the villain you’re looking at.
+
+We’ll start off with something very similar to what we added for the `primaryMotivation` attribute: a new class method called `powers`:
+
+`+ (NSArray *)powers {`
+
+  `static NSArray *powers = nil;`
+
+  `if (!powers) {`
+
+    `powers = [[NSArray alloc] initWithObjects:@"Evil Genius"`,
+
+      `@"Mind Reader", @"Nigh-invulnerable", @"Weather Control", nil];`
+
+  `}`
+
+  `return powers;`
+
+`}`
+
+Like the motivations method, this method creates an array of strings whose indexes in the array correspond to the tags defined in a matrix in the nib file. Now we just have to add a bit of code to selectively “check” all the appropriate checkboxes. Add this code to the end of the `updateDetailViews` method:
+
+`[self.powersView deselectAllCells];`
+
+`for (NSString *power in [[self class] powers]) {`
+
+  `if ([[self.villain objectForKey:kPowers] containsObject:power]) {`
+
+    `[[self.powersView cellWithTag:`
+
+      `[[[self class] powers] indexOfObject:power]]`
+
+      `setState:NSOnState];`
+
+  `}`
+
+`}`
+
+This bit of code should be pretty easy to grasp by now. First it deselects all the cells, so we start off with a clean slate of unchecked checkboxes. Then it goes through each named power from our master list of powers, checks to see if our villain’s powers attribute contains a matching string, and if so, sets that cell’s state to `NSOnState`, which means the checkbox is checked. The one new thing to notice here is the special `for` construct. This is something called fast enumeration, an addition to the latest version of Objective-C that works unlike any form of `for` in C, but you may be familiar with it as a `foreach` loop in Java or C#. It basically takes a collection (typically an `NSArray`) on the right side of the `in`, and iterates through it, assigning each object in the collection to the variable specified on the left side of the `in`, one at a time, then executing the subsequent curly-brace-wrapped code.
+
+Now compile and run the application, and the relevant checkbox should be selected in the display (Evil Genius in the case of Lex Luthor).
+
+### Responding to Input
+
+Now that we’re able to display all these villain attributes, it’s time to turn things around and write the code that will let us notice changes the user makes to these fields. We previously created empty action methods that are triggered by the various GUI controls; now it’s time for us to fill up those methods and make them do something useful! Also, we’ll implement a delegate method to let us get the edited value for the one view in our window that doesn’t work with target/action, the `NSTextView`.
+
+Let’s start off with the `NSTextField` for displaying and editing the villain’s name, which triggers the `takeName`: method. Change the method to look like this:
+
+`- (IBAction)takeName:(id)sender {`
+
+  `[self.villain setObject:[sender stringValue] forKey:kName];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+This method starts off by grabbing the string value from the sender, which is the text field itself, and passing it along to the villain object to set its name. Because we included the `@synthesize villain` directive, we can refer to villain directly, rather than needing to type `self.villain`. We end up by doing a bit of logging to show all the villain’s current attributes. This can help in debugging and also serves as a bit of a test for our code at runtime so we can see that it’s actually doing what it’s supposed to do. The `NSLog` function takes as its first parameter an `NSString` used to define an output format, and one additional parameter for each formatting tag (a special sequence starting with a % sign) in the string. This is very similar to the standard `printf` function in C, with the addition of the %@ tag that prints a description of any Objective-C object. The output from `NSLog` shows up in Xcode’s Console window, which normally appears automatically when we launch an application from within Xcode.
+
+Tip
+
+Action methods always pass along a sender object, which is normally the object that the user clicked or edited, triggering the method call. If our action method may be triggered by more than one GUI object, we can determine which object it came from by examining sender, comparing it to our instance variables, and so on.
+
+Compile and run the app, and then select the text field containing Lex Luthor’s name. Change the name in some way, press tab (or click on another control in the window), and the output specified in the code should be printed to the output pane in Xcode. If you don’t see any output window in Xcode when you run your app, switch to Xcode and open the Console window by pressing ⇧⌘C (or selecting View ➤ Debug Area ➤ Activate Console). The villain dictionary output is formatted so that you can see each key alongside its associated value. You should be able to find the Name key and see that its value has changed to the new value you entered.
+
+Most of the rest of our action methods are similar to the `takeName`: method and should be self-explanatory. Each of them simply does the inverse of the work we did in the `updateDetailViews` method, taking values from the GUI and applying them to our model object. Here’s the code for all the “simple” action methods:
+
+`- (IBAction)takeLastKnownLocation:(id)sender {`
+
+  `[self.villain setObject:[sender stringValue] forKey:kLastKnownLocation];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takeLastSeenDate:(id)sender {`
+
+  `[self.villain setObject:[sender dateValue] forKey:kLastSeenDate];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takeSwornEnemy:(id)sender {`
+
+  `[self.villain setObject:[sender stringValue] forKey:kSwornEnemy];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takePrimaryMotivation:(id)sender {`
+
+  `[self.villain setObject:[[sender selectedCell] title]`
+
+    `forKey:kPrimaryMotivation];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takePowerSource:(id)sender {`
+
+  `[self.villain setObject:[sender title] forKey:kPowerSource];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takeEvilness:(id)sender {`
+
+  `[self.villain setObject:[NSNumber numberWithInteger:[sender`
+
+    `integerValue]] forKey:kEvilness];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+`- (IBAction)takeMugshot:(id)sender {`
+
+  `[self.villain setObject:[sender image] forKey:kMugshot];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+Enter all this into `VillainTrackerAppDelegate`’s `@implementation` section, and compile and run the app. We should now be able to edit all the fields we’ve dealt with so far, and see their values change in the output log. To set an image for the mugshot, just drag any image from anywhere else on your Mac (an image file from the Finder, a photo from iPhoto, a picture from Safari, and so on) and drop it into the Mugshot view.
+
+Note that for the `swornEnemy` combo box and the primaryMotivation radio button matrix, which had somewhat complicated procedures for setting its values, retrieving the values from them is simple enough to easily fit on a single line.
+
+The remaining complex view, the Powers checkbox matrix, is also a bit more complicated to retrieve values from since we have to find all the checked boxes and get their associated strings. This should do the trick:
+
+`- (IBAction)takePowers:(id)sender {`
+
+  `NSMutableArray *powers = [NSMutableArray array];`
+
+  `for (NSCell *cell in [sender cells]) {`
+
+    `if ([cell state]==NSOnState) {`
+
+      `[powers addObject:[cell title]];`
+
+    `}`
+
+  `}`
+
+  `[self.villain setObject:powers forKey:kPowers];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+Compile and run the app, click around in the Powers matrix, and the output log should update accordingly.
+
+Finally, we need to implement a method to retrieve the value from the Notes view; an instance of `NSTextView`. `NSTextView` provides a lot of delegate methods that allow us to do many different things in response to the user’s actions while editing the text. We will take a very simple approach, grabbing a copy of the value each time the user edits the text, which means after every single keypress! This would be an extreme (and extremely inefficient) thing to do for a large document view where we might have performance consequences to consider, but for a smaller text view intended to hold a few notes, we shouldn’t encounter any trouble with this simple approach:
+
+`- (void)textDidChange:(NSNotification *)aNotification {`
+
+  `[self.villain setObject:[[self.notesView string] copy] forKey:kNotes];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+`}`
+
+There’s one unusual thing happening here: we’re creating a copy of the result we get from `notesView`’s string method. The reason for this is that internally an `NSTextView` hangs onto a string of its own for editing and display, and its string method actually returns a pointer to that internal string object. If we don’t make a copy, we’re going to end up with that string being referenced directly by our villain, which can lead to confusion later on when we are switching between different villains being displayed by these GUI objects. We’d end up assigning the same string to several villains, and editing any villain’s notes would simultaneously edit all of them! `NSTextField` doesn’t cause these sorts of problems since its `stringValue` method already gives us a copy instead of passing along its internal string object.
+
+One other thing to point out is that the `NSTextView` delegate method that we implemented has a curious method signature, and we are passed an `NSNotification` as a parameter. Here we’re seeing a bit of the generic notification system that is part of Cocoa. Using a class called `NSNotificationCenter`, it’s possible to configure any object to receive notifications from any other object when certain events occur. When we set up a delegate for an `NSTextView` (just to name an example; this pattern occurs for some other classes as well), some of the delegate methods we can choose to implement are specific to the delegate and can only be implemented there, but some of them are these kind of notification methods that can, in principle, also be implemented in any other class that has access to the `NSTextView` and is set up to receive notifications from it. We’ll cover more about this topic later in the book.
+
+## Wrap Up
+
+We covered a lot of material in this chapter. We learned some of the basics that are vital to any Cocoa application: how to execute our own initialization code when our app launches; how to use Xcode’s Interface Builder Editor to lay out views in a window, including specifying resizing behavior; the basics of using a variety of Cocoa’s GUI classes; and more. In the next chapter we’re going to build on what we’ve done so far, extending the VillainTracker application to be able to handle an array of villains listed in a table.
+
+# 6. Using Table Views
+
+Abstract
+
+Chapters 4 and 5 covered some of Cocoa’s most common GUI components, from buttons and simple input fields to full-fledged text editors. We haven’t yet talked about one of Cocoa’s biggest, most complex view classes, `NSTableView`. This chapter will cover how to use an `NSTableView` to display data for whole collection of components, how to respond when the user changes the table’s selection by clicking a row, and how to edit values right in the table.
+
+Chapters 4 and 5 covered some of Cocoa’s most common GUI components, from buttons and simple input fields to full-fledged text editors. We haven’t yet talked about one of Cocoa’s biggest, most complex view classes, `NSTableView`. This chapter will cover how to use an `NSTableView` to display data for whole collection of components, how to respond when the user changes the table’s selection by clicking a row, and how to edit values right in the table.
+
+We’ll learn how to use a table view by extending the VillainTracker application from [Chapter 5](#A978-1-4302-4543-8_5_Chapter.html). The new version of VillainTracker we create in this chapter will maintain an array of villains, display them all in a table, and let the user edit all the attributes of the selected villain when they click on its entry in the table. We’ll start by using Xcode to extend the `VillainTrackerAppDelegate` class’s interface to include an array of villains. Since we’re in that code anyway, we’ll look at another way to add some new outlets by hand for connecting to the new table view and the window itself, and action methods for adding and deleting villains. Then we’ll extend the nib file in Interface Builder mode, adding a table view and wiring it up. Then we’ll go back to Xcode to change our controller’s implementation for handling the table. Figure [6-1](#A978-1-4302-4543-8_6_Chapter.html#Fig1) shows the end result.
+
+![A978-1-4302-4543-8_6_Fig1_HTML.jpg](A978-1-4302-4543-8_6_Fig1_HTML.jpg)
+
+Figure 6-1.
+
+The completed app window
+
+In the previous chapters, we created new outlets and actions by control-dragging from the GUI to our code and letting Xcode generate the appropriate stubs. In this chapter, as we’re extending existing code, we’ll create the stubs by hand. Both methods are perfectly valid, and it’s good to know about both ways so you can use whichever is most convenient.
+
+## Preparing VillainTrackerAppDelegate for Multiple Villains
+
+In Xcode, open the project we created in [Chapter 4](#A978-1-4302-4543-8_4_Chapter.html), and navigate to `VillainTrackerAppDelegate.h` so we can update the class’s interface to accommodate our upcoming changes. First, we’ll add the new instance variables we need. Because we’re going to maintain a list of villains, we’ll create an `NSMutableArray` called `villains` to contain them all. We’ll also add an outlet called `villainsTableView` in order to access the `NSTableView` where we’re going to present the list of villains.
+
+We’ll also add declarations for `newVillain:` and `deleteVillain:`, our two new action methods. The following code shows the state of `VillainTrackerAppDelegate.h` after making these changes (new lines are in bold):
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface VillainTrackerAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *nameView;`
+
+`@property (weak) IBOutlet NSTextField *lastKnownLocationView;`
+
+`@property (weak) IBOutlet NSDatePicker *lastSeenDateView;`
+
+`@property (weak) IBOutlet NSComboBox *swornEnemyView;`
+
+`@property (weak) IBOutlet NSLevelIndicator *evilnessView;`
+
+`@property (weak) IBOutlet NSMatrix *powersView;`
+
+`@property (weak) IBOutlet NSPopUpButton *powerSourceView;`
+
+`@property (weak) IBOutlet NSMatrix *primaryMotivationView;`
+
+`@property (weak) IBOutlet NSImageView *mugshotView;`
+
+`@property (unsafe_unretained) IBOutlet NSTextView *notesView;`
+
+`@property (weak) IBOutlet NSTableView *villainsTableView;`
+
+`@property (strong) NSMutableDictionary *villain;`
+
+`@property (strong) NSMutableArray *villains;`
+
+`- (IBAction)takeName:(id)sender;`
+
+`- (IBAction)takeLastKnownLocation:(id)sender;`
+
+`- (IBAction)takeLastSeenDate:(id)sender;`
+
+`- (IBAction)takeSwornEnemy:(id)sender;`
+
+`- (IBAction)takeEvilness:(id)sender;`
+
+`- (IBAction)takePowers:(id)sender;`
+
+`- (IBAction)takePowerSource:(id)sender;`
+
+`- (IBAction)takePrimaryMotivation:(id)sender;`
+
+`- (IBAction)takeMugshot:(id)sender;`
+
+`- (IBAction)newVillain:(id)sender;`
+
+`- (IBAction)deleteVillain:(id)sender;`
+
+`@end`
+
+The new declarations follow the same structure as the properties and methods generated by Xcode when we control-dragged to the `VillainTrackerAppDelegate` class in the last chapter. Xcode will note that this code has been added, and these outlets and actions are just as valid as the ones that Xcode generated. In fact, note the small circles that appear in the left margin of the Code Editor pane. These circles are endpoints that we can control-drag to, showing that Xcode recognized what we did as creating an outlet or an action. When working on laying out a user interface, creating these via control-dragging is convenient because we can make the connections and create the stubs at the same time. However, when tweaking existing code, doing it by hand can be faster.
+
+Now we’ll add two new method implementations (just empty shells for now) for the new action methods in `VillainTrackerAppDelegate.m`. Add these lines to the `@implementation VillainTrackerAppDelegate` section:
+
+`- (IBAction)newVillain:(id)sender {}`
+
+`- (IBAction)deleteVillain:(id)sender {}`
+
+Now we’ve added all that we need to `VillainTrackerAppDelegate`’s interface and some empty stub methods to the implementation. Hit the Run button just to make sure it compiles cleanly, and then we’ll move on to adjusting the GUI to make room for the table.
+
+## Making Way for the Table View
+
+In Xcode’s Project Navigator panel, click `MainMenu.xib` to open it in Interface Builder mode (we can also double-click the `MainMenu.xib` file to open it in a new window). We’re going to make the window bigger, add a table view and a few buttons, reorganize the layout, and adjust the resizing characteristics of all the `NSBoxes` so that the table view will resize fully in both dimensions, and the other boxes will move accordingly.
+
+Start by resizing the window, making it about 300 pixels wider (about half as wide again as it was to begin with), but the same height as before. We’re going to follow the conventions of the western, left-to-right world and arrange things so that the selection on the left (in the table view) determines what is presented on the right (all the other views), so you should also drag all the existing views to the right side of the window. See Figure [6-2](#A978-1-4302-4543-8_6_Chapter.html#Fig2) to get an idea of what to aim for. Open up the Attributes Inspector (⌥⌘4) with the Window selected, and check the box labeled Resize.
+
+![A978-1-4302-4543-8_6_Fig2_HTML.jpg](A978-1-4302-4543-8_6_Fig2_HTML.jpg)
+
+Figure 6-2.
+
+Make your window look like this in preparation for the table view
+
+Now open up the Object Library pane (⇧⌥⌘4) in the Utility area (it might be collapsed below the Inspector pane), and type “table” into the Search field. One of the results should be a Table View, which is an instance of the `NSTableView` class contained in an `NSScrollView`. Drag the Table View into to the upper left part of the space in the window, letting the blue guidelines appear to position it the recommended distance from the edge of the window frame. The default size for the table view is quite a bit smaller than the space we’re putting it in, but don’t bother with resizing it to fill the available space just yet, we’ll get to that in a bit.
+
+The first thing we’re going to do with this table view is configure its columns. By default, a new table view has two columns, but we’d like it to have three, so that we can show the name, date of last sighting, and mugshot for each villain in our list. To add a column, we must sort of “drill down” through a few layers of views. Open the Attributes Inspector (⌥⌘4) to help guide the way; it will always show a bit of info about the selected object, most critically the class name. The first time we click on the table view in our window, we’ll see that the Attributes Inspector shows the Scroll View at the top. That’s because the table view we dragged out from the library is actually contained inside an `NSScrollView`. Click again, and the inspector will show Table View.
+
+One of the attributes visible in the Inspector is the number of columns. Change it from 2 to 3\. When the number of columns is changes, there’s a brief flash of a horizontal scrollbar in the table view, but it’s easy to miss. Other than that flash and the hint of a resize bar at the edge of the table header, the table view won’t really visually reflect that there are actually three columns there; we’ll deal with that in a moment. In the meantime, there are two other changes to make to the table view. The first is to change the Column Sizing behavior from resizing Last Column Only to First Column Only. Our first column will hold the villain’s name, and the name of the villain will vary in width more than the date or mugshot, so we’ll want resizing to expand that column. By default, the user will be able to resize columns at will.
+
+The second is to change the table view’s Content Mode from being cell-based to view-based, using the pop-up menu just above the number of columns. Note that the name of the placeholders in the table has changed from text cell to table view cell. The naming of the objects that are initially displayed in the `NSTableView` is a little confusing, unfortunately. A text cell is an `NSTextFieldCell`, which is a subclass of `NSCell`. However, a table view cell is an instance of `NSTableCellView`, which is a subclass of `NSView`, not `NSCell`, despite the use of the word “cell” in the default title. For this book, everything we’ll do with table views will be using view-based table views.
+
+Note
+
+We touched on cells in the previous chapter. Here’s a bit more background. Back when a 33Mhz processor was considered speedy, the designers of the AppKit found that having individual view objects for every cell in a matrix or table was too expensive. To deal with this, they invented the idea of a “cell” object for these parts of the user interface. Cells are just data-bearing objects that represent the state of a control, with their own target and action outlets, but without any of the overhead for drawing or text and event management. Cells are not subclasses of `NSView`, which makes them lighter-weight objects. This means that a user-interface control based on cells has to deal with coordinating state between views, which can actually draw on the screen and respond to user actions, and cells, which can’t. In iOS, this split is gone, and Apple appears to be moving Cocoa in this direction as well; `NSTableView` now supports using cells (like traditional Cocoa) or using views (like iOS) for its subviews.  `NSMatrix` doesn’t do this yet, but perhaps it will in a future release.
+
+Let’s see if we can find that third column. Click in the window away from the table view to deselect it, and then click once on the table view to select the containing scroll view. Your Interface Builder pane in Xcode should look something like Figure [6-3](#A978-1-4302-4543-8_6_Chapter.html#Fig3). Click on the right edge of the table view and expand it a bit so that all three columns are visible. Expand it further until it snaps into place next to the adjoining box holding the basic information on our villains. The blue guideline will appear, extending down only as far as the size of the Basic Information box.
+
+![A978-1-4302-4543-8_6_Fig3_HTML.jpg](A978-1-4302-4543-8_6_Fig3_HTML.jpg)
+
+Figure 6-3.
+
+We’ve got the scrollview selected
+
+That final column needs a little extra configuration because it’s going to display an image instead of text. Fortunately, Cocoa provides a class that makes this easy. Open the Identity Inspector (⌥⌘3) in the Utility area, so we can see where we are. Click the last column until the table view cell is selected. It might take four clicks to get there—through the Scroll view, the table view, the Table column, and then the table cell view. Once there, we’ll see `NSTableCellView` as the class name in the Identity Inspector. However, after all that work to click through to it, it’s time for it to go. Press the Delete key to delete it. We’re going to replace it with an image well. In the Object Library Search box, type Image and the top item should be an Image Well. Drag it out from the Object Library into the third column of the table view. The cursor should turn into a green plus sign and the column should highlight with a blue border when we’re over a drop-ready spot. Release the button, and voila! That table column is now ready to display an image.
+
+Since the image well is taller than the two table view cell views in the other two columns, resize each of the table view cells to be the same height as the image well. They should all have a height of 48 points. To resize them, click on the text that reads “Table View Cell” in each column until the table view cell itself is blue, with a resize handle at the bottom. Drag down on the resize handle and a Utility window will appear indicating the current size.
+
+Before we’re done with the table view, we need to configure these table columns to correspond to the name, lastSeenDate, and mugshot values in our villain objects, and we’ll do that by supplying each of them with an identifier that is the same as the key-name for the attribute we want to show. Later on, we’ll see how to use this identifier in our code to easily prepare values for display. Select the first column by clicking in the table view below the “Table View Cell” text. In the Identity Inspector (⌥⌘3), `NSTableColumn` should be the class name. Type “name” into the Identifier field. Switch to the Attributes Inspector (⌥⌘4), and type “Name” into the Title field; this determines what will appear in the text of the column’s header. Repeat this process for the second column, entering “lastSeenDate” as the identifier and “Last Seen” as the title, and again for the third title, entering “mugshot” for the identifier and “Mugshot” for the title.
+
+Now we’re going to add a pair of buttons, one for adding a new villain to the list and one for deleting the selected villain. Back in the Object Library pane, type “button” into the Search field; a surprisingly large list of buttons will show up in the results. Someone at Apple really likes to design buttons! Despite their differences in appearance, just about everything in this list is just an `NSButton`, which at its core always does the same basic thing. Some of them are preconfigured in different modes to work as a checkbox or disclosure triangle, but otherwise they all do the same basic thing: call an action method in a target object when clicked.
+
+Pick one of the first few buttons in the list (maybe Push Button or Rounded Rect Button) and drag it to our window, dropping it just below the Table View. This will be our “Add Villain” button. Instead of just titling the button with the text “Add Villain”, we’ll use one of Cocoa’s built-in graphic images to make it resemble Add buttons in other applications. While the button is still selected, bring up the Attributes Inspector, and locate the Image combo box. Click the small triangle at the right end of the combo box, and start typing “nsaddtemplate”. When you see that it’s filled in the full text as “NSAddTemplate”, press Enter and you’ll see that your new button now has a + image, overlaid on the “Add Villain” label. Underneath the Image combo box is another combo box labeled Alternate. Set that to NSAddTemplate also. Below that is a set of buttons labeled Position, indicating the position of the image (shown as a square) relative to the button title (shown as a line). Select the item that just shows a square with no text, and the Button title will disappear. Resize the button horizontally so that it is just wide enough to contain the image, then duplicate the button (with ⌘D) to make another one. Select this second button, go back to the Image combo box in the Attributes Inspector again, and begin typing “nsremovetemplate”, which will provide you with a – image in your button. As before, also set the Alternate image to be NSRemoveTemplate.
+
+Now, take the Add button, and drag it to a point just above the bottom edge of the window, using the blue guidelines to make its left edge line up with the left edge of the Table View and its bottom edge the recommended distance from the bottom of the window. Drag the Remove button into location just to the right of the Add button—it will snap to a comfortable distance from the Add button. Resize the Table View to fill the remaining space in the window. The window should resemble Figure [6-4](#A978-1-4302-4543-8_6_Chapter.html#Fig4) at this point.
+
+![A978-1-4302-4543-8_6_Fig4_HTML.jpg](A978-1-4302-4543-8_6_Fig4_HTML.jpg)
+
+Figure 6-4.
+
+The Table View is just where we want it
+
+We need to set up some connections between the buttons that we just added and the `VillainTrackerAppDelegate` object so that the `VillainTrackerAppDelegate` object gets notified when the user clicks on a button. After the last few chapters, you can probably guess how we’ll do it. Select the button with the plus sign, and control-drag a connection from the button to the `VillainTrackerAppDelegate` object in the dock on the left side of the Interface Builder area. A utility window will appear with the list of available actions exposed by `VillainTrackerAppDelegate`. Select the `newVillain:` action that we added earlier. Next, select the button with the minus sign, and control-drag a connection out to `VillainTrackerAppDelegate`. This time, select the `deleteVillain:` action.
+
+We also need to set up connections between the `VillainTrackerAppDelegate` and the table view. Select the `VillainTrackerAppDelegat` `e` in the dock on the left, and control-drag a connection out to the Table View. The Table View will highlight when the mouse is over it. Release the mouse, and a list of available outlets will appear. Choose `villainsTableView`. Now we need to make two connections in the other direction, from the Table View to the `VillainTrackerAppDelegate`. Select the Table View in the window (which will take two clicks to drill down through the Scroll view). Control-drag from the Table View to the `VillainTrackerAppDelegate`, and select `dataSource` from the list of options. Then, do it again, and this time select `Delegate`. With that, the connections are in place!
+
+Let’s see how this all behaves at run time. Click on the Run button in the upper left-hand corner of the Xcode window. Try dragging the lower right corner of the window around to resize things and let’s see what we get. Be wary, because it’s time for…
+
+## A Nasty Resize Surprise, or, Constraints To The Rescue!
+
+The first time running the program with the window reorganized, you’ll probably see something pretty ugly like Figure [6-5](#A978-1-4302-4543-8_6_Chapter.html#Fig5). This is the result of stretching the window vertically and shrinking it horizontally by using the resize handle. Looking at the window in the picture, the table view is in good shape, as are the Powers and Abilities box and the Primary Motivation box. The appearance box has expanded downward. The Notes box has shrunk horizontally, as has the Basic Information box. In fact, the Basic Information box is kind of a mess. Your layout may break in different ways than the illustration shows, but it probably doesn’t work exactly the way you expected it to. You may wish to work with the source code provided with the chapter in order to play along.
+
+![A978-1-4302-4543-8_6_Fig5_HTML.jpg](A978-1-4302-4543-8_6_Fig5_HTML.jpg)
+
+Figure 6-5.
+
+Ugh! That’s not pretty
+
+Before we can fix any of this, let’s think about what we want to have happen. For this program, we want all of the original UI elements from the last chapter (all the items in `NSBoxes`) to stay the same size and stay pegged to the right side of the window. The two new buttons should stay the same size, stay the same distance from each other, and stay pegged to the left side of the window below the table view. The new table view should expand both vertically and horizontally as the window is expanded, it should stick to the left side of the window, and it should not shrink below the current size in either direction. The boxes just to the right of the table view should maintain their distance from it.
+
+In order to make this all work, we have to understand about how Cocoa deals with resizing. Starting in Mac OS X Lion, resizing happens through a system called Cocoa Auto Layout. Resizing behavior in Auto Layout is specified using prioritized constraints, which means that you declare the minimum or maximum size of a view, the relationships between subviews that need to be preserved, the relationships between a view and its parent, and so on. When the user resizes the window, a constraint satisfaction engine dynamically tries to determine the best layout that preserves the constraints as best as possible, based on the priority order. The constraints also handle how the user interface behaves in right-to-left writing systems like Arabic and Hebrew.
+
+Each constraint expresses a relationship, such as “equals,” “less than,” or “greater than,” and either a pair of views or a view and a constant. A very simple constraint would be “myButton’s width = 87.” This, obviously, should hold the button to be 87 points wide. Constraints do not need to be equalities; a valid constraint would be “myButton’s height >= 32,” which indicates that the button’s height can’t be any smaller than 32\. The system will prefer smaller sizes over larger ones; a button that must have a width greater than or equal to 32 will generally be 32 (the smallest value that satisfies the inequality).
+
+A more complex one would be the following pair: “the horizontal space between myButton’s leading edge and the window’s leading edge = 10” and “the horizontal space between myButton’s trailing edge and the window’s trailing edge = 15.” For these two constraints to be held true during resizing, the button will need to grow and shrink with the window. Note that we used “leading” and “trailing” rather than “left” and “right.” In left-to-right writing systems, the leading edge is the left side. However, on right-to-left writing systems, the leading edge is the right side.
+
+Each constraint also has a priority, which ranges from 1 to 1000. Constraints with higher priorities are satisfied before constraints with lower priorities, and if two conflicting constraints can’t both be satisfied, the one with the higher priority will win and the one with the lower priority will be violated. An example of this would be “myButton’s width >= 32 at priority 1000” and “myButton’s width = someField’s width – 40 at priority 750.” As long as someField’s width is greater than 72, then both constraints can be satisfied and myButton will be 40 points smaller than someField. However, if someField shrinks to be smaller than 72 points, the higher-priority constraint will win and myButton won’t shrink any further.
+
+Each view has a Content Hugging Priority and a Content Compression Resistance Priority as well. These describe how the view resizes relative to the most appropriate size—its intrinsic size. For a button, the intrinsic size is the size required to display its label (and icon if appropriate) without clipping. Content Hugging controls how the view will resize if it’s asked to be larger than its intrinsic size. Compression Resistance controls how the view will resize if it’s asked to be smaller than its intrinsic size. Generally, the defaults for these priorities are good choices, and in this chapter, we’ll leave them alone.
+
+### Creating and Editing Constraints
+
+Interface Builder lets us specify the constraints that govern each view’s resizing behavior. In fact, we’ve actually been doing this all along via the dashed blue line guidelines that Interface Builder shows us as we drag new controls onto the window. The constraints are initially created in Interface Builder based on the blue guidelines that are highlighted when a control is positioned and can change if the control is repositioned. For example, when we drag the table view into the upper right-hand corner of the window, a vertical and horizontal dashed blue line appear when we get close to the edge. This indicates that the table view should stick to that corner and creates a pair of constraints indicating that the table view should maintain a position at a constant distance from the top and left edges of the window. A complex window, like ours, might have a dozens of constraints.
+
+In order to determine what constraints are appropriate, we first need to decide the appropriate resize behavior for the window. For our window, let’s say that we want the new table view to resize both horizontally and vertically as the window is enlarged. We want all the boxes to hold their sizes constant and flex to the right as the user resizes the window. Lastly, we want the buttons to be the same size as each other and to stick to the bottom of the window. We’ll need to set up new constraints that make this happen and maybe remove some unintentional ones. As a side note, dealing with resizing is an iterative process. Trial and error, in combination with playing with resizing windows in Interface Builder mode and using the Simulate Document feature in Xcode, are generally how it gets polished. Investing some time in playing with resizing and seeing how the constraints interact will advance your grasp of this more than anything you read in a book.
+
+These constraints are editable from within Xcode; we can see them both onscreen, in the Size Inspector in the Utility area, and in the icon dock on the left edge of the Interface Builder pane. Select the small expansion triangle hiding in the lower left-hand corner of the Interface Builder pane, and the icon dock will expand, showing the entire hierarchy of views in the window. Each view can have a set of associated constraints, and our window has a lot of views. In the Utility area, select the Size Inspector (⌥⌘5), and then select the box that’s labeled Appearance, and expand the Constraints item on the left. When the box is selected, the Interface Builder pane should look like Figure [6-6](#A978-1-4302-4543-8_6_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_6_Fig6_HTML.jpg](A978-1-4302-4543-8_6_Fig6_HTML.jpg)
+
+Figure 6-6.
+
+Resizing constraints for the Appearance box
+
+In the Size Inspector, we can see nine constraints that affect the Appearance box, at least as we’ve laid it out so far. (Depending on how you laid out the window, your constraints may be in a different order or with slightly different constants.) Each of the blue lines extending off the box also represents a resizing constraint that is in relationship with another view. Not all the constraints are in relation to another view, so there are more constraints active than are visualized in the blue lines.
+
+The problem with the Appearance box is that it expanded downward as the window was lengthened during resizing, expanding the Image view along with it. Looking at the list of constraints in the Size Inspector, one of them says “Bottom Space to: Superview equals: 29.” This constraint means that the bottom of the Appearance box should stay 29 points above the bottom of the window. Another constraint that deals with vertical size says “Top Space to: Box – Basic Information Equals: Default.” This means that the top edge of the box should maintain the system-default distance from the bottom of the Basic Information box. The purple icon on the left of the constraints indicates that these are system-created constraints—ones that were set up when we positioned the box in Interface Builder. When we previously positioned the Appearance box to snap to the blue guidelines that appear near the bottom of the window, we implicitly created that Bottom Space constraint. However, if we click the gear icon by the Bottom Space constraint, we can see that the Delete menu item is disabled. In order to remove it, we’ll need to think differently.
+
+Let’s play with this a bit. In Interface Builder, grab the bottom of the window and enlarge it by dragging downward. The Appearance box does indeed flex to be larger in the vertical direction. The Bottom Space constraint is causing the box to grow to maintain a distance of 29 points from the bottom of the window. Resize the window back to 364 points high to put everything back (or release the mouse and then hit Undo (⌘Z) to undo the resize operation).
+
+Since we can’t delete the constraint on the Appearance box outright, we’ll change the circumstances that caused the system to create it in the first place, and we’ll do that by making use of the blue guidelines (or lack thereof). The easiest way to do this is move the Appearance box away from the bottom edge of the window. Follow these steps.
+
+![A978-1-4302-4543-8_6_Fig7_HTML.jpg](A978-1-4302-4543-8_6_Fig7_HTML.jpg)
+
+Figure 6-7.
+
+The Appearance box constraints rearranged Create a new constraint to hold the Appearance box to its current size. To do this, select the box, and then select `Editor` ➤ `Pin` ➤ `Height` from the menu bar.   Move the Appearance box near the top of the window, away from the bottom. This will remove the constraint holding the bottom of the box to the bottom of the window.   Resize the window downward to make more room.   Put the Appearance box back, with the box title aligned with two other boxes in the bottom area of the window and spaced evenly between them. Since the bottom of the window is further away, we should avoid creating the constraint. The window should look something like Figure [6-7](#A978-1-4302-4543-8_6_Chapter.html#Fig7).   Resize the window back.  
+
+When resizing vertically, the window behaves the way that we want. We now have two things to address in terms of horizontal resizing: the table view isn’t flexing but the two rightmost boxes (Notes, and Powers and Abilities) are. We can check that this is occurring by selecting `Editor` ➤ `Simulate Document` and seeing what happens.
+
+Let’s check the table view first. Select the table view in Interface Builder, and look at the constraints. There are no leading- or trailing-space constraints that will hold the size fixed, so the problem must lie with the two boxes on the right. Since we want them to hold their size, rather than enlarging as the window is resized, select the Powers and Abilities box and then select `Editor` ➤ `Pin` ➤ `Width`. Do the same for all the other boxes.
+
+Select `Editor` ➤ `Simulate Document` and try to resize horizontally. The window won’t budge at all. We’ve got some constraints holding things in place that we need to identify and remove. For each box, look at the constraints listed in the Size Inspector and find ones that say “Leading Space to: Superview” with anything as the value. You can tell if these constraints exist by selecting the box and looking for a blue bar extending from the left edge of the box out to the edge of the window. Delete the ones that are deleteable, either by selecting Delete from the menu hiding under the gear icon in the Constraint’s entry in the Size Inspector for the box, or by selecting the blue bar and pressing the Delete key.
+
+After removing them all, again select `Editor` ➤ `Simulate Document` and try to resize horizontally. This time the window should resize the way we want it to, as shown in Figure [6-8](#A978-1-4302-4543-8_6_Chapter.html#Fig8).
+
+![A978-1-4302-4543-8_6_Fig8_HTML.jpg](A978-1-4302-4543-8_6_Fig8_HTML.jpg)
+
+Figure 6-8.
+
+Finally, resizing works!
+
+Before we move on to implementing code, here are a few more words about resizing. Debugging resizing problems is almost always an iterative, trial-and-error process. We’ve touched on a few ways to make it work here:
+
+*   Resize the window in Interface Builder, and see how things resize in relation to the window.
+*   If the window design has evolved, try moving user-interface elements around to reset the constraints.
+*   Play with the Simulate Document feature and experiment.
+*   Look at how constraints are visualized in Interface Builder, via the blue bars and the Size Inspector.
+
+There’s more to learn about constraints and Cocoa Auto Layout; these are just the basics. Check out the Cocoa Auto Layout Guide on the Apple Developer Connection web site and in the Xcode documentation for more details and debugging tips.
+
+Note
+
+Cocoa Auto Layout was introduced in Mac OS X 10.7\. Prior to that, resizing was controlled using a mechanism called “springs and struts,” which controlled how views resized relative to the window that contained them. In 10.7 and beyond, the old springs and struts resizing behavior is translated into constraints behind the scenes; applications can have nib files using constraints and nib files using springs and struts that co-exist. However, if you come across pre-2011 Cocoa code, you’ll almost surely encounter nib files that don’t use constraints.
+
+## Making Way for the Table View: Code Edition
+
+With the connections in place and resizing now under control, we can turn our attention to the code necessary to drive the table view and respond to clicks on the Add and Remove buttons. To do this, we need to leave Interface Builder mode and get back to our code. Open the Project Navigator (⌘1), if it isn’t already open. Single-click the entry for the `VillainTrackerAppDelegate.m` file and the Editor area should change from Interface Builder to a code window showing the code for our object.
+
+With the groundwork already laid in the last chapter, adding support for an array of villains is surprisingly simple. Basically, we have to create an array, tell the table view when we want it to display its content (whenever its content has changed), implement a few `dataSource` methods to give the table view its content, and implement a `delegate` method that will be called when the table view’s selection changes (so that we can update all the other views to match the selected villain). Then we’ll add a pair of methods to add and delete villains from the array, and we’ll be done!
+
+Let’s start off by initializing an array to hold our villains and telling the table view that it should load its content. We do this by adding just a few lines to `applicationDidFinishLaunching`:, as seen in bold in the following code. First we create an array to hold all villains (which initially contains just the first villain we created in code earlier) and assign it to our villains instance variable. Then we tell the table view to load its content, and then to select its first row.
+
+Telling the table view which row to select is more complicated than it might seem at first. The `NSTableView` method that we use is called `selectRowIndices` `:byExtendingSelection:`. Since a table view can have more than one selected row, and the selected rows need not be contiguous, the table view expects a set of indices to select in the `selectRowIndices:byExtendingSelection:` method. In our case, we want only one row selected, so we construct a set with just one element on the fly.
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {`
+
+  `self.villain = [[NSMutableDictionary alloc] initWithObjectsAndKeys:`
+
+                  `@"Lex Luthor", kName`,
+
+                  `@"Smallville", kLastKnownLocation`,
+
+                  `[NSDate date], kLastSeenDate`,
+
+                  `@"Superman", kSwornEnemy`,
+
+                  `@"Revenge", kPrimaryMotivation`,
+
+                  `[NSArray arrayWithObjects:@"Evil Genius", nil], kPowers`,
+
+                  `@"Superhero action", kPowerSource`,
+
+                  `@9, kEvilness`,
+
+                  `[NSImage imageNamed:@"NSUser"], kMugshot`,
+
+                  `@"", kNotes`,
+
+                  `nil];`
+
+  `/* new code is here */`
+
+  `self.villains = [NSMutableArray arrayWithObject:self.villain];`
+
+  `[self.villainsTableView reloadData];`
+
+  `[self.villainsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];`
+
+  `/* end of new code */`
+
+  `[self updateDetailViews];`
+
+`}`
+
+We’ll also need to add the `[villainsTableView reloadData]` call to the end of each of the `takeName:`, `takeLastSeenDate:`, and `takeMugshot:` methods, so that when the user edits the controls for those attributes, the table view will be updated accordingly. Just copy that line and paste it into the end of each of those methods. It may seem like overkill to call a method that looks like it’s going to reload the entire table of data just because a single value has been changed, but don’t worry: `NSTableView` uses lazy loading, and normally only requests content for a given row when that row is about to be displayed. You might have a million rows of content, but if you never scroll past the first 30, no more than the first 30 are likely to be loaded by the table view. Likewise, telling a table view to reload its data will only make it load the visible rows immediately; the rest will only be reloaded when they scroll into display.
+
+At this point, we should be able to compile and run our app, and we should see roughly the same thing we saw at the end of the last chapter, plus a big empty table view and a couple of buttons that have no effect. Time to fill that table view with villains!
+
+### The Table View Needs Help
+
+We’ve told the table view to load its content, but it can’t do anything until we implement some methods from the `NSTableDataSource` and `NSTableViewDelegate` protocols in the object we connected to the table view’s `dataSource` and `delegate` outlets: our `VillainTrackerAppDelegate`. `NSTableDataSource` and `NSTableViewDelegate` are informal protocols, similar to most delegate protocols, which means that we don’t have to declare that our class conforms to the protocol. As a result, implementing the `NSTableDataSource` and `NSTableViewDelegate` methods are, as far as Objective-C is concerned, optional. In spite of that, there are a few methods that are in fact required for the table view to display anything: `numberOfRowsInTableView:` from `NSTableViewDataSource` and `tableView:viewForTableColumn:row:` from `NSTableViewDelegate`, both of which are used by the table view to prepare content for display. Here’s how these should be implemented in `VillainTrackerAppDelegate.m`:
+
+`- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {`
+
+  `return [self.villains count];`
+
+`}`
+
+`- (NSView *)tableView:(NSTableView *)aTableView`
+
+   `viewForTableColumn:(NSTableColumn *)tableColumn`
+
+                  `row:(NSInteger)row {`
+
+    `NSMutableDictionary *thisVillain = [self.villains objectAtIndex:row];`
+
+    `NSString *thisColName = [tableColumn identifier];`
+
+    `NSView *result = nil;`
+
+    `// Depending on which column we’re using, we need to do different things.`
+
+    `// Passing [tableColumn identifier] to makeViewWithIdentifier ensures that we get`
+
+    `// the view that’s already been configured for the column in IB, and AppKit manages this for us.`
+
+    `if ([thisColName isEqualToString:kName]) {`
+
+        `NSTableCellView *thisCell = [aTableView makeViewWithIdentifier:thisColName owner:self];`
+
+        `thisCell.textField.stringValue = [thisVillain objectForKey:kName];`
+
+        `result = thisCell;`
+
+    `} else if ([thisColName isEqualToString:kLastSeenDate]) {`
+
+        `NSTableCellView *thisCell = [aTableView makeViewWithIdentifier:thisColName owner:self];`
+
+        `thisCell.textField.stringValue = [thisVillain objectForKey:kLastSeenDate];`
+
+        `result = thisCell;`
+
+    `} else if ([thisColName isEqualToString:kMugshot]) {`
+
+        `NSImageView *thisCell = [aTableView makeViewWithIdentifier:thisColName owner:self];`
+
+        `[thisCell setImage:[thisVillain objectForKey:kMugshot]];`
+
+        `result = thisCell;`
+
+    `}`
+
+    `// return the result.`
+
+    `return result;`
+
+`}`
+
+The first method should be self-explanatory: we just return the size of the array so that the table view knows how many rows it needs to display. The second method is called by the table view each time a cell is going to be displayed in the table. The table view tells us the column and row index number that it wants to display. The row index number is the same as the index number for the relevant object in our content array, so calling `[villains objectAtIndex:rowIndex]` returns the relevant model object from villains. As you may recall, the model objects we’re using are in fact just `NSMutableDictionary` instances, with all their values accessible by keys. When we configured the identifier attribute of each column in our table view, we used the same key names that our model objects use. Based on the identifier of the column, we ask the table view to make an instance of the appropriate `NSView` subclass for the column using `makeViewWithIdentifier:owner:`. We then configure the view based on the relevant value from the model object and return the view to the table view.
+
+For example, when the cell in the top row under the `Name` column is about to be displayed, this method will be called with a `rowIndex` of 0 and a `TableColumn` pointing to the `Name NSTableColumn`. We use the 0 to specify which villain to grab from our villains array, then we use the value returned by the table column’s identifier method, `@"name"`, to retrieve a value from the chosen villain. We ask the table view to get an instance of the appropriate `NSView` for that column (which we configured in Interface Builder), and then populate it in whatever manner works for that `NSView`. Lastly, we return that view, and the table view draws it.
+
+Now we should be able to compile and run VillainTracker, and see that the default villain is displayed both in the controls and as the only row in the table view. Furthermore, if we edit the villain’s name, last seen date, or mugshot in the controls, we should see those new values reflected in the table view. However, we still only have one villain, and no way to track more. Let’s change that right now.
+
+### Adding More Villains
+
+We stubbed out the `newVillain:` method earlier. Let’s fill in the implementation now. The `newVillain:` method adds a new “empty” villain object to our array of villains, tells the table to reload, and tells the table view which row to select (the last one, since that’s the one we just added).
+
+`- (IBAction)newVillain:(id)sender {`
+
+ `[_window endEditingFor:nil];`
+
+ `[self.villains addObject:[NSMutableDictionary`
+
+  `dictionaryWithObjectsAndKeys:`
+
+            `@"", kName`,
+
+            `@"", kLastKnownLocation`,
+
+            `[NSDate date], kLastSeenDate`,
+
+            `@"", kSwornEnemy`,
+
+            `@"Greed", kPrimaryMotivation`,
+
+            `[NSArray array], kPowers`,
+
+            `@"", kPowerSource`,
+
+            `[NSNumber numberWithInt:0], kEvilness`,
+
+            `[NSImage imageNamed:@"NSUser"], kMugshot`,
+
+            `@"", kNotes`,
+
+            `nil]];`
+
+ `[self.villainsTableView reloadData];`
+
+ `[self.villainsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:[villains count]-1]`
+
+  `byExtendingSelection:NO];`
+
+`}`
+
+The only new thing we might see in here is the very first method call, `[_window endEditingFor:nil]`. Let’s look at both parts of that. First, where did the `_window` instance variable come from? Xcode constructed this for us from a declared property that it generated in the `VillainTrackerAppDelegate.h` file, and automatically connected to the window:
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+Since we didn’t give an explicit name via a `@synthesize` declaration, Xcode defaulted to creating a new instance variable with a leading underscore. Second is the method that we’re calling on the window, `endEditingFor:`. This simply tells the window that it’s time to end whatever other editing behavior the user is currently engaged in, such as typing in a text field. We need to call this method so that the edited value can be “saved” to its underlying villain object because later in `newVillain:` we’re going to change the table view’s selection, which would in turn wipe out the values shown in the various controls!
+
+### Selecting A Villain
+
+The details part of our application still shows only the first villain in our list. In order to update the detail views, we need to implement a delegate method that is called whenever the table view’s selection changes. This lets us notice which row the user has selected, change our villain instance variable to point at the relevant row in the villains array, and redisplay all the other controls to match the new selection. Add this method to the `@implementation` section in `VillianTrackerAppDelegate.m`:
+
+`- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {`
+
+ `if ([self.villainsTableView selectedRow] > -1) {`
+
+  `self.villain = [self.villains`
+
+           `objectAtIndex:[self.villainsTableView selectedRow]];`
+
+  `[self updateDetailViews];`
+
+  `NSLog(@"current villain properties: %@", self.villain);`
+
+ `}`
+
+`}`
+
+Note that the meat of this method is wrapped inside an `if` clause. That’s necessary because it’s possible for a table view to tell us that it currently has no selected row at all, which it does by returning –1 from its `selectedRow` method. Beyond that, you should be able to understand what’s happening in there by now.
+
+Now compile and run the app, and see that the + button now actually makes something happen, as shown in Figure [6-9](#A978-1-4302-4543-8_6_Chapter.html#Fig9). Furthermore, we should be able to click back and forth between all of the villains in the table view and see the values in the other controls change accordingly.
+
+![A978-1-4302-4543-8_6_Fig9_HTML.jpg](A978-1-4302-4543-8_6_Fig9_HTML.jpg)
+
+Figure 6-9.
+
+The + button now works to add villains
+
+### Stop Your Evil Ways!
+
+It’d be nice to be able to delete a villain. Once our hero has convinced a villain to stop their evil ways, we might want to drop them from the database. Or maybe we just made a typo. Either way, let’s add the ability to delete a bad guy. We’ve got the `deleteVillain` `:` method stubbed out, and here’s what that method should do. (We’ve added comments to show the different sections, which will be described after the code.)
+
+`- (IBAction)deleteVillain:(id)sender {`
+
+          `//`
+
+          `// Section 1:`
+
+          `//`
+
+          `[_window endEditingFor:nil];`
+
+          `NSInteger selectedRow = [self.villainsTableView selectedRow];`
+
+          `//`
+
+          `// Section 2:`
+
+          `//`
+
+          `[self.villains removeObjectIdenticalTo:self.villain];`
+
+          `[self.villainsTableView reloadData];`
+
+          `//`
+
+          `// Section 3:`
+
+          `//`
+
+          `if (selectedRow >= [self.villains count]) {`
+
+                    `selectedRow = [self.villains count]-1;`
+
+          `}`
+
+          `//`
+
+          `// Section 4:`
+
+          `//`
+
+          `if (selectedRow > -1) {`
+
+                    `// deselect all rows to ensure that the tableview sees the`
+
+                    `// selection as "changed", even though it might still have`
+
+                    `// the same row index.`
+
+                    `//`
+
+                    `// Section 5:`
+
+                    `//`
+
+                    `[self.villainsTableView deselectAll:nil];`
+
+`[self.villainsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];`
+
+                    `[self updateDetailViews];`
+
+           `}`
+
+`}`
+
+This method is a bit more complicated than most of the code we’ve shown you in this book so far, so a little additional explanation is in order.
+
+In Section 1, we tell the window to finish up any editing that’s going on, then we grab the index of the table’s currently selected row—that is, the row that’s going to be deleted. Note that we already know which villain is selected because it’s stored in an instance variable, but having the row index is important for making sure the post-delete selection makes sense (which we’ll tackle in Section 4).
+
+In Section 2, we delete the selected object (pointed at by the villain property) from the villains array, then we tell the table view to reload. Note the method for removing the villain from the array, `removeObjectIdenticalTo:`. This method makes the `NSMutableArray` scan itself for the object by comparing its actual memory address with the memory addresses of the objects it contains, so that it finds and removes only the exact object we pass in. Otherwise, if we had gone with the more commonly used `removeObject:` method, it would be comparing objects by sending the `isEqual:` method, which in turn compares values. In that case, any other villain objects we had entered with attributes identical to those of the selected villain would run the risk of being deleted as well.
+
+In Section 3, we make a small adjustment. If the previous selected row index was the last in the array, now that we’ve removed an object from the array, that index is now out of bounds. In that case, we reset it to point at what is now the last object.
+
+Next, Section 4 checks to see if `selectedRow` is 0 or higher. This check is important because there’s a real chance that Section 3 set it to –1! Consider the case where we only have one object in the array, and click the Remove button: at the outset, `selectedRow` would be 0 (the index of the only row in the array), but after Section 3 it would be –1, which Section 4 handles by just skipping the rest of the method.
+
+Finally, Section 5 deselects everything in the table view, then selects what we now want for the selected row, and finally updates all the views based on the current selection. It may not seem obvious, but it’s important to first deselect all rows in the table view, otherwise the `tableViewSelectionDidChange:` delegate method may not always be called (because often, after deleting a row, the selected row index itself will be the same number, and the table view has no way of knowing that we’ve deleted an object from our content array, making the row index number now refer to a different object).
+
+Now compile and run the app; we can now delete the selected villain and the values in the controls will change to match the new selection.
+
+There’s just one last feature we want to implement. Our users can’t yet edit values directly in the table view. Let’s fix that now.
+
+### Editing in the Table View
+
+A user should be able to edit the name of a villain or drag in a new mugshot to any row in the table view and update the appropriate villain. Since the columns of the table view are `NSViews`, each cell in the table view can have a target and action specified in Interface Builder; user-interface elements inside of a table view work just like any other view. When the user edits a value inside the table view, the action can connect back to our code to inform us of the change. We’re limited in that the target must be the delegate of the table view, but that’s not a problem for this application. In addition, our existing `takeName:` and `takeMugshot:` methods are available, but they’ll need some minor changes. These methods work on the selected villain, but the user can’t edit a value inside the table view without selecting the row, which selects the villain. However, these methods currently expect to only be called from the control in the Details view, but now we’re adding the ability to set it from more than one place. For this app, we’ll only allow in-row editing of the name and the mugshot, and we’ll prohibit editing of the date last seen.
+
+There’s another small barrier that we’ll need to resolve. The table view cells are, by default, not editable. This is easy to change from within Xcode.
+
+To wire this up, we need to control-drag a connection from the view in each column into the `VillianTrackerAppDelegate` instance. However, the table view cells are buried pretty deep in the window’s view hierarchy, so we’ll look at a different way to set up the connection that makes it easier to get to the right user-interface component.
+
+Back in Xcode, open up the `MainMenu.xib` file, which will open up in an Interface Builder canvas. Click the small expansion triangle in the lower left-hand corner of the screen, which will expand the object dock along the left edge of the screen into an outline of the window’s view hierarchy. Also, open up the Attributes Inspector in the Utility area.
+
+Drill down into the outline to the `Name` column’s text field; from the outside in, the path is Window – Villain Tracker ➤ View ➤ Scroll View – Table View ➤ Table View ➤ Table Column – Name ➤ Table Cell View ➤ Static Text – Table View Cell ➤ Text Field Cell – Table View Cell. As you drill in, you’ll also see this path laid out in the jump bar above the Editor canvas. Click the Text Field Cell – Table View Cell and control-drag to the Villain Tracker App Delegate instance further down in the dock, as shown in Figure [6-10](#A978-1-4302-4543-8_6_Chapter.html#Fig10). When the Utility window appears, select `takeName:` from the list of actions. Before moving on, look in the Attributes Inspector, also shown in Figure [6-10](#A978-1-4302-4543-8_6_Chapter.html#Fig10). There’s a pop-up menu labeled Behavior, with a current value of None. Select that and change it to Editable.
+
+![A978-1-4302-4543-8_6_Fig10_HTML.jpg](A978-1-4302-4543-8_6_Fig10_HTML.jpg)
+
+Figure 6-10.
+
+Control-dragging using the dock
+
+Lastly, do the same thing from the Image Well. The path to the Image Well is Window – Villain Tracker ➤ View ➤ Scroll View – Table View ➤ Table View ➤ Table Column – Mugshot ➤ Image Well ➤ Image Cell. Control-drag from the `Image Well` row (not the `Image Cell` row, but the one above it) down to the Villain Tracker App Delegate, and select `takeMugshot:`. To make the Image Well editable, there’s a checkbox near the top of the Attributes Inspector. If you like, you can also enable Animates. If your villain’s mugshot includes animation information or multiple frames, for instance, an animated GIF from the villain’s MySpace page, then this will play the animation on display.
+
+As mentioned, the `takeName:` and `takeMugshot:` methods all expect to be called from the control doing the update in the Details view. Earlier, we added a call to `[villainsTableView reloadData]` to the end of each of these methods. We now need to add another call after that one. In both `takeName:` and `takeMugshot:`, add a call to `[self updateDetailViews]` at the end. This ensures that regardless of where a user makes an edit (in the table view or in the Details view) it’ll be reflected in both places.
+
+It’s time to compile and run the app again to see if we can edit within the table view. At this point, we should be able to add a new villain, edit their attributes, and then delete them. We still can’t save any information about the villain; that’ll be the topic of an upcoming chapter.
+
+## Wrap Up
+
+This chapter contained a simple demonstration of how to maintain a list of items, display them in a table view, and edit the details for the selected item in a separate set of controls. We learned a bit about how `NSTableView` uses its `dataSource` to access items for display and editing, and saw how it informs its delegate when the selection changes, allowing us to manually update the content in views that are dependent on the table view’s selection.
+
+If you’re familiar with other desktop GUI development environments, some of this may have seemed a bit foreign to you, but we hope you can see some of the advantages included in the approach that Cocoa supports, such as providing a clean division between code and GUI layout. However, at this point it’s time for a confession: the way we’ve been doing things thus far isn’t necessarily the best way to do these sorts of things in Cocoa. As simple as it’s all been so far, we’ve actually been showing you the hard way to solve some of these problems! During the past few years, a new approach to GUI programming has taken root in the Cocoa community, and it’s becoming more prevalent all the time. It’s a technology called Cocoa bindings, and it’s the topic of [Chapter 7](#A978-1-4302-4543-8_7_Chapter.html).
+
+# 7. Cocoa Bindings
+
+Abstract
+
+Chapters 5 and 6 covered how to connect a controller object to various kinds of view objects, both to display values and to retrieve new values in response to user actions. In our examples, we typically had one small action method for each view (triggered when the user edited the value displayed in the view), plus one large `updateDetailViews` method that updated the contents of all the views at once (called whenever the selection changed). That’s fine for a simple project, but there are some problems with that approach. First of all, there’s a scalability issue. Imagine having not ten but a hundred views. Following this approach, we’d end up with a controller having a hundred small action methods and one huge method to push values into all of the views!
+
+Chapters 5 and 6 covered how to connect a controller object to various kinds of view objects, both to display values and to retrieve new values in response to user actions. In our examples, we typically had one small action method for each view (triggered when the user edited the value displayed in the view), plus one large `updateDetailViews` method that updated the contents of all the views at once (called whenever the selection changed). That’s fine for a simple project, but there are some problems with that approach. First of all, there’s a scalability issue. Imagine having not ten but a hundred views. Following this approach, we’d end up with a controller having a hundred small action methods and one huge method to push values into all of the views!
+
+Plus, we really have some tight coupling between our controller and its associated views. For example, what if we start off with an `NSDatePicker` for displaying and editing a date, but later decide we want to use an `NSTextField`? Besides modifying the GUI, we’d also have to change the outlet, the corresponding action method, and the `updateDetailViews` method.
+
+Fortunately for us, Apple recognized this problem some time ago, and since Mac OS X 10.3 it has included a technology called Cocoa bindings that solves many of these problems. Cocoa bindings lets us use Interface Builder to configure a view so that it retrieves its value and passes changes back to a model object more or less automatically. All we do is tell it which controller object to deal with and which string it should use as a key for getting and setting a value. We can access model objects through our own controller classes or by using generic controller classes provided in Cocoa.
+
+This results in an architecture where our own controller class often doesn’t need to know anything specific about any of the view objects in use. We don’t need to have instance variables pointing at them, and we don’t need to implement action methods to get their input! Our controller ends up as little more than a simple channel between a model object and a bunch of view objects, and from the controller’s point of view it doesn’t make a difference if there are ten views or a hundred.
+
+In this chapter, we’ll learn how to use Cocoa bindings with simple controls such as checkboxes, sliders, and text fields, as well as with complex controls such as table views. We’ll create bindings that connect to model objects through a couple of Apple’s included controller classes. We’ll also get an introduction to using `NSUserDefaults` and its bindings-ready friend `NSUserDefaultsController` to deal with preferences in our application.
+
+## Binding to Simple Controls
+
+The example application for this chapter is something that could be used by a Game Master in a role-playing game to randomly create characters, monsters, and dungeons. The main window will contain buttons that create random game objects when the user clicks them and text fields to display the result. We’ll also make a Preferences window where the user can specify some parameters for the creation of the game objects. We won’t do the actual “rolling” of these random objects. We’ll just display a summary of the parameters used each time the user clicks one of the buttons. The random game object creation is a bit too far afield for this book, but it could be a fun exercise for the reader if you are so inclined!
+
+### Creating the DungeonThing Project and Preferences Window
+
+Launch Xcode, and select File ➤ New Project from the menu. Choose Cocoa Application, and name it “DungeonThing” on the New Project pane. For this example application, we’re also using DungeonThing as the class prefix. (If that’s too much to type, you can use DT, in which case all the references to `DungeonThingAppDelegate` that you’ll encounter later in the chapter will show up as `DTAppDelegate` in Xcode.) As before, leave the checkboxes in their default settings: Use Automatic Reference Counting should be checked, and the other checkboxes (Create Document-based Application, Use Core Data, and Include Unit Tests) should be unchecked.
+
+Now find `MainMenu.xib` in Xcode (it’s in the Project Navigator in the navigation area, on the far left) and single-click to open it in an Interface Builder canvas. This starts off as a standard empty application GUI, which should look pretty familiar by now. This nib file already contains a main window, which we’ll get to a little later on, but first we’ll get to the heart of the matter by creating a Preferences window whose GUI controls will be configured exclusively with Cocoa bindings.
+
+In the Object Library pane (^⌥⌘4), type “window” into the Search box at the bottom, and drag out the Window object from the result list onto the Interface Builder canvas (we can’t drag it out on top of another window in Interface Builder, so if the pre-existing window in the nib file is open on the canvas, close it first). This window will be our Preferences window. Use the Attributes Inspector (⌥⌘4) to set the window’s title to “DungeonThing Preferences,” and note that the label under the corresponding icon in the nib window also changes. In the same Inspector pane, click to turn off the Resize checkbox because there’s no reason to allow the user to resize this window. Also, click to turn off the Visible at Launch checkbox so that the window doesn’t appear on-screen as soon as the nib loads, and click to turn on the Hide on Deactivate checkbox so that the window disappears when a user clicks away from the application. We only want the Preferences window to appear when the user selects the appropriate menu item, and it should only be visible when DungeonThing is the foreground application.
+
+Make the window a bit wider than its default size in order to accommodate the controls we’re about to add. Press ⌥⌘3 to bring up the Size Inspector, and make sure that the new window is selected by clicking its title bar, then type 530 into the Width field.
+
+The final step for the window itself is to hook things up so that a user can open this window by accessing the Preferences item in the menu. Click the DungeonThing menu item at the top of the Interface Builder canvas, and then single-click the Preferences item. This object will connect to the Preferences window with target/action, so Control-drag from the menu item to the Preferences window (either drag to the icon representing the window in the object dock on the left of the Interface Builder canvas, or to the title bar of the real window), and select the `makeKeyAndOrderFront:` action. That’s a method that will make any window become the front-most window in its application and also become the “key” window, ready to receive events in response to the user pressing keys on the keyboard (hence the “makeKey” in the method name).
+
+#### Adding a Tab View
+
+We’re going to split up the application preferences into three different groups, one for each of the three game objects the user can create. We’ll separate the groups by placing the controls in an `NSTabView`, which lets the user switch between different views by selecting from a list of tabs along the top. In the Object Library pane, type in “tab,” then drag the resulting Tab view into our empty window. Resize it so that it nearly fills the window (as shown in Figure [7-1](#A978-1-4302-4543-8_7_Chapter.html#Fig1)), leaving the standard margin that the blue lines will happily show us.
+
+![A978-1-4302-4543-8_7_Fig1_HTML.jpg](A978-1-4302-4543-8_7_Fig1_HTML.jpg)
+
+Figure 7-1.
+
+The preferences window for DungeonThing looks like this after adding and naming the tabs
+
+When we drag out a new tab view from the Object Library, by default it has two tabs, but we want ours to have three. Click the Tab view, and open the Attributes Inspector (⌥⌘4). Note the Tabs field. Click the tiny up-arrow to change its value from 2 to 3, and see three tabs. Double-click the title of each tab, and change their titles to “Character Generation,” “Monster Generation,” and “Dungeon Generation,” respectively. Figure [7-1](#A978-1-4302-4543-8_7_Chapter.html#Fig1) shows what the window should look like at this point.
+
+#### Character Generation Preferences
+
+Now let’s start populating these tabs with some controls. First up is the Character Generation tab, so click that tab to select it. By now you should be comfortable enough finding views and controls in the Object Library that we won’t hold your hand and tell you every single step of grabbing these objects and dragging them into your window. It should be just about enough for you to look at Figure [7-2](#A978-1-4302-4543-8_7_Chapter.html#Fig2) and know that you’re using a slider, a matrix of radio buttons, a matrix of checkboxes, and a handful of labels, including the small one out to the right of the slider. (As a reminder, to get a matrix of checkboxes, drag one out and then select Editor ➤ Embed In ➤ Matrix. To get more rows and columns in the matrix, Option-drag the resize handle.)
+
+![A978-1-4302-4543-8_7_Fig2_HTML.jpg](A978-1-4302-4543-8_7_Fig2_HTML.jpg)
+
+Figure 7-2.
+
+The preferences for character generation in DungeonThing
+
+Drag out each of these objects from the Object Library and align them roughly as seen in Figure [7-2](#A978-1-4302-4543-8_7_Chapter.html#Fig2). To make the `NSSlider` look and act like the one seen in the image, select it and open the Attributes Inspector (⌥⌘4). Give it 19 tick marks, check the box to make it stop only on tick marks, and then set its minimum and maximum values to 2 and 20, and its current value to 10\. A bit further down, click to turn on the Continuous checkbox (so the slider will report its value continuously while the user is dragging it), and we’re all set. Figure [7-3](#A978-1-4302-4543-8_7_Chapter.html#Fig3) shows how it’s done.
+
+![A978-1-4302-4543-8_7_Fig3_HTML.jpg](A978-1-4302-4543-8_7_Fig3_HTML.jpg)
+
+Figure 7-3.
+
+Configuration of an NSSlider for selecting an integer between 2 and 20
+
+One other adjustment that needs to be made (but can’t be seen from the screenshot) is to make the matrix containing the checkboxes behave appropriately in response to mouse clicks. Because `NSMatrix` is designed to contain a variety of controls, it has multiple ways of interacting with its cells when the user clicks one of them. Select the matrix of checkboxes, and in the Attributes Inspector, set the Mode pop-up to Highlight if it isn’t already set to that. This mode makes the matrix respond to a click in a cell by toggling the clicked cell’s selected state between zero and one, which switches the checkbox on and off.
+
+The last configuration required for this tab is to set the tags for the two radio buttons so we can tell them apart later (the checkboxes don’t need to have their tags set because they will be dealt with a little differently when we get to the bindings). Do this by keeping the Attributes Inspector up, then click one radio button and then the other, typing in new tag values for each of them in the Inspector. Set the tag for the first radio button cell to 1, and set the second to 2.
+
+#### Monster Generation Preferences
+
+The next tab contains controls that let the user specify preferences for random monster generation, which is depicted in Figure [7-4](#A978-1-4302-4543-8_7_Chapter.html#Fig4).
+
+![A978-1-4302-4543-8_7_Fig4_HTML.jpg](A978-1-4302-4543-8_7_Fig4_HTML.jpg)
+
+Figure 7-4.
+
+Monster Generation preferences
+
+Here we have a slider, a matrix of checkboxes, and a couple of text fields as labels. The slider should be configured similarly to the one used in the Character Generation tab, but with a few different attributes: minimum value of 1, maximum value of 10, and showing 10 tick marks.
+
+#### Dungeon Generation Preferences
+
+Finally, we’ll create the GUI for the Dungeon Generation preferences. This is a simple one—just sliders and text fields, as seen in Figure [7-5](#A978-1-4302-4543-8_7_Chapter.html#Fig5). These sliders should be configured just like the one in the Monster Generation tab, with a range from 1 to 10 and showing 10 ticks.
+
+![A978-1-4302-4543-8_7_Fig5_HTML.jpg](A978-1-4302-4543-8_7_Fig5_HTML.jpg)
+
+Figure 7-5.
+
+Dungeon Generation preferences tab
+
+### Binding to NSUserDefaultsController
+
+At this point, we have all these GUI controls in a window, but we have no outlets to connect to them and no action methods for them to call when the user clicks on them. So, now what? Now it’s time to create our first bindings! We’re going to use a class called `NSUserDefaultsController`, which is a bindings-ready generic controller class that is included in Cocoa. A bindings-ready controller like this lets us bind view objects to an underlying model object right within Interface Builder. One nice thing about this class is that it maintains its own storage in the form of `NSUserDefaults`, which is the standard class used in Cocoa applications for saving and retrieving a user’s application preferences. This will let us bind each view object’s value to a uniquely keyed value in the application’s preferences. These preferences are automatically saved before a user exits the application and reloaded the next time the user launches the application.
+
+#### Bindings for Character Generation
+
+Go to the Preferences window we’re building, and switch back to the Character Generation pane. Click on the slider, and then bring up the Bindings Inspector (⌥⌘7). In this Inspector, we can see all the attributes of a view object that can be bound to a value in a model object. Most often, we’ll be binding the `Value` to something, but each view class offers its own set of attributes available for binding. The slider, for instance, can have its `Max Value` and `Min Value` attributes bound to something, which would allow us to vary those extremities based on values in a model object. Some other view objects can bind text colors and fonts to model values, and most of them can have their Hidden and Enabled states bound to model values. For now, we’re going to bind this slider’s `Value` attribute, so click the Value disclosure triangle to see its configuration options. Figure [7-6](#A978-1-4302-4543-8_7_Chapter.html#Fig6) shows the default settings.
+
+![A978-1-4302-4543-8_7_Fig6_HTML.jpg](A978-1-4302-4543-8_7_Fig6_HTML.jpg)
+
+Figure 7-6.
+
+The default “unbound” state for an NSSlider’s Value binding options
+
+To establish a binding, we need to configure at least three things: the controller object to bind to, the controller key, and model key path (all the rest are optional settings that allow us to refine the binding’s behavior in special situations, some of which we’ll cover later). Pick the controller object from the Bind to pop-up list, which contains all controller objects that are present in our nib file, including any controllers of our own, any generic controllers we’ve dragged over from the Library, and special controllers like `NSUserDefaultsController`, which is available automatically in every nib file (and shows up as Shared User Defaults Controller in the pop-up list). The controller key lets us choose different “aspects” of the model object or objects that a controller provides. For example, `NSArrayController`, which provides binding access to an array of objects, has different controller keys to provide access to the entire sorted array or just the current selection. The model key path is a string that is used as a key to get and set a value in the model object.
+
+So, for our first binding, start off by picking the Shared User Defaults Controller from the pop-up list. This controller is automatically available in any nib file, though we can’t see it anywhere until we use it in a binding, at which point it appears in the main nib window. Now check the Controller Key combo box, and make sure it’s set to values. Then click on the Model Key Path combo box, and type “characterMaxNameLength” into the combo box. This string defines the key that will be used to store the slider’s value in `NSUserDefaults` —the user’s application preferences. Press Enter or tab out of the field, and note that the Bind to checkbox at the top of the Inspector gets checked. That’s it! We don’t need to worry about any of the remaining controls for now; their default values are fine for our purposes. Figure [7-7](#A978-1-4302-4543-8_7_Chapter.html#Fig7) shows what the relevant configured bits in the Inspector should look like when this binding is configured.
+
+![A978-1-4302-4543-8_7_Fig7_HTML.jpg](A978-1-4302-4543-8_7_Fig7_HTML.jpg)
+
+Figure 7-7.
+
+The completed binding for the first slider
+
+Now select the small text field to the right of the slider, and configure the exact same binding we did for the slider: Shared User Defaults Controller, “values,” and “characterMaxNameLength.” That will make it pull its display value from the same place (the value for `characterMaxNameLength` ) in the same model object (the user’s application preferences). To see a little Cocoa bindings magic in action now, select Editor ➤ Simulate Interface from the menu, click and drag the slider, and watch the value in the small text field update simultaneously. Note that this is the same feature we built in [Chapter 2](#A978-1-4302-4543-8_2_Chapter.html) but with a different mechanism: while we’re dragging the slider, its value is being pushed into our application preferences by the `NSUserDefaultsController`, which also passes the value along to the other object that’s bound to the same key, the little text field. Pretty neat trick! But it’s not a trick at all. It’s a simple example of the dynamic nature of Cocoa bindings. Using this technology, we can eliminate a lot of boring code from our controller classes and sometimes get rid of our controller classes entirely—using only Cocoa’s included controller classes instead.
+
+Let’s move on to the next GUI control, the matrix of radio buttons in the middle. Click the matrix, and then look at the Bindings Inspector where we’ll see that there is no Value option. For this control, instead of binding a Value, we’ll be binding the `Selected Tag` attribute, which means that when a user selects a cell, that cell’s tag will be pushed down to the model, and when the Preferences window is brought up next time, that saved tag will determine which radio button is selected. Open up the Selected Tag section of the Bindings Inspector, and again make sure that Shared User Defaults Controller is selected and that the Controller Key is “values,” but this time type “characterStatsGenerationPolicy” into the Model Key Path and press Enter.
+
+Next, let’s tackle the Allowed Character Classes checkboxes. For each of these, we’ll make up a new key name and use it to bind the Selected status to a value in the user’s application preferences. Click the first cell, Paladin. The Inspector title should change to Button Cell Bindings. If not, click the button again until it does. Now bind this button cell’s `Value` attribute to the `characterClassAllowedPaladin` key. Repeat these steps for each of the remaining button cells, binding each of them via Shared User Defaults Controller with the appropriate key name. `Bard` should be bound with `characterClassAllowedBard`, `Fighter` with `characterClassAllowedFighter`, and so on. When we get to `Magic-User`, for the sake of consistency, use the key name `characterClassAllowedMagicUser`, leaving out the - symbol.
+
+#### Bindings for Monster Generation
+
+Now switch over to the Monster Generation tab. Bind the Value of the slider to `monsterBootyFrequency`, and do the same for the small text field to the right. Then configure the checkboxes the same way we did on the Character Generation tab. Click the Orc checkbox until the checkbox itself is selected, and bind its Value to `monsterTypeAllowedOrc`. Continue through the rest of the checkboxes, binding the Value for each of them to the appropriate key name: `monsterTypeAllowedGoblin`, `monsterTypeAllowedOgre`, and so on.
+
+#### Bindings for Dungeon Generation
+
+Finally, switch to the Dungeon Generation tab, which contains just three slider and text field pairs. To the right of the Tunnel Twistiness label, configure the Value bindings for both the slider and the text field to “dungeonTunnelTwistiness.” Bind both of the Monster Frequency controls’ Values to `dungeonMonsterFrequency` and both of the Treasure Frequency controls’ Values to `dungeonTreasureFrequency`.
+
+### Creating the Main Window
+
+Now it’s time to pay some attention to our main window, which will contain buttons the user can click to generate the characters, monsters, and dungeons, plus text fields to display the results. Click the main window’s title bar (or double-click its icon in the main window if it’s not already visible) and bring up the Size Inspector (⌥⌘5). Change the window size to 731 by 321, then switch to the Attributes Inspector (⌥⌘4) and click to turn off the Resize checkbox, which will give us one less thing to worry about. This application displays a limited data set, so there’s no reason for the user to make the window any bigger. We’re now going to create three sets of GUI components, one set for each of the three types of data we’re dealing with. We’ll manually lay out the first set, and then duplicate it for the other two.
+
+First, we’ll create a text field inside a box for displaying results. Go to the Object Library pane and enter “nsbox” into the Search field. Look for the box in the results, and drag one of these out to our window. While the new box is selected, switch back to the Size Inspector, and set the box’s size to width 227 by height 247. While we’re at it, go ahead and set each of its X and Y values to 20. This puts the box in the lower-left corner of the window, about in the position it would be in if we dragged it to the lower left and let it sit where the blue guidelines recommend. Then switch back to the Attributes Inspector, and set the Title Position to None so that the title won’t be shown.
+
+Now, go back to the Object Library pane and enter “label” in the Search box. One of the results is Wrapping Label; grab that, drag it so that it is directly overlapping the box we created, and let go. Doing this puts it inside the box. Once it’s there, expand the label to fill the box, by first dragging its bottom left corner down to the lower left, then dragging its top right corner to the upper right. In both cases, the blue guidelines will show up when we’re just the right distance from the edge of the box. Finally, triple-click to select the text (“Multiline Label”) in the text field, and press Backspace or Delete to clear out the text.
+
+Let’s top this box off by adding the button that will eventually put some text into the text field we just created. Find a button in the Object Library (a push button will do nicely), and drag it out to a spot just above the box. During the drag, the blue lines will appear, showing us the correct distance from the top of the window, and also showing us when the button is lined up directly above the center of the box. That’s where we want to drop it! Double-click the button to edit its title, and change it to “Generate Character.” Depending on how the resizing constraints have been set up, we may need to reset the size of the box afterwards. Figure [7-8](#A978-1-4302-4543-8_7_Chapter.html#Fig8) shows what we should be seeing at this point.
+
+![A978-1-4302-4543-8_7_Fig8_HTML.jpg](A978-1-4302-4543-8_7_Fig8_HTML.jpg)
+
+Figure 7-8.
+
+We’ve created the first of three sets of views for the main window. The text field inside the box is highlighted just so we can see where it is
+
+Now select all the views we just created by clicking anywhere in the window and then pressing ⌘A to select all objects in the window. Duplicate them by pressing ⌘D, which will show us a new set of identical objects, overlapping and slightly position-shifted from the originals. Drag this cluster to the center of the window, using the blue guidelines to make sure that they are at the same vertical position at the originals, and with just the right horizontal spacing between the boxes. Then press ⌘D again, and drag the third cluster of objects to the right side of the window, again using the blue guidelines to help position them properly. Finally, double-click on the two new buttons, changing their titles to “Generate Monster” and “Generate Dungeon,” respectively. Again, depending on how the resizing constraints have been set up, we may need to reset the size of the boxes back to 227 x 247\. Figure [7-9](#A978-1-4302-4543-8_7_Chapter.html#Fig9) shows what the window should look like now.
+
+![A978-1-4302-4543-8_7_Fig9_HTML.jpg](A978-1-4302-4543-8_7_Fig9_HTML.jpg)
+
+Figure 7-9.
+
+The completed main window for DungeonThing
+
+### Setting Up the DungeonThingAppDelegate
+
+Now that the initial set of bindings are out of the way and the main window is all set up, we can connect things to the `DungeonThingAppDelegate`. Open an Assistant Editor (⌥⌘↵) pane by clicking the small butler-like icon in the group of icons labeled Editor in the toolbar (or using the keyboard shortcut), and select `DungeonThingAppDelegate.h` from the Jump Bar. One at a time, Control-drag from the label in the box under the Generate Character button, and drag out to the `DungeonThingAppDelegate.h` file in the Assistant Editor, to just below the predefined `@property` for the window. When we get there, a small window should appear indicating the possibility to create a new outlet or action. Release the mouse and create a new outlet titled `characterLabel`. Do the same from the other two labels in boxes in the window, creating new outlets titled `monsterLabel` and `dungeonLabel`.
+
+Then Control-drag from each of the three buttons back to `DungeonThingAppDelegate.h` file in the Assistant Editor, and create new actions titled `createCharacter:`, `createMonster:`, and `createDungeon:`. At this point, it should be clear which action goes with which button. In addition to adding the outlets and actions to the `DungeonThingAppDelegate.h` file, this will also add method stubs for the actions in the `DungeonThingAppDelegate.m` file.
+
+#### Defining Your Constants
+
+At this point, the GUI is completed, and the relevant bindings are all configured so that the controls in the Preferences window will all have their values saved in the user’s application preferences. All that’s left is for us to write the action methods that will use `NSUserPreferences` to retrieve the preferences values and display them. As mentioned, we’re stopping short of actually using the values to generate game item descriptions, but feel free to make that enhancement later on if you’d like.
+
+Let’s start off by defining some constants, just like we’ve done in previous examples (if it’s slipped your mind, see [Chapter 4](#A978-1-4302-4543-8_4_Chapter.html) for a discussion of the benefits of doing this). Here are the constants to match all the values we’ve already set in for the preferences’ key names in the nib file. Insert these somewhere at the top of `DungeonThingAppDelegate.m`:
+
+`#define kCharacterMaxNameLength @"characterMaxNameLength"`
+
+`#define kCharacterStatsGenerationPolicy \`
+
+  `@"characterStatsGenerationPolicy"`
+
+`#define kCharacterClassAllowedPaladin @"characterClassAllowedPaladin"`
+
+`#define kCharacterClassAllowedBard @"characterClassAllowedBard"`
+
+`#define kCharacterClassAllowedFighter @"characterClassAllowedFighter"`
+
+`#define kCharacterClassAllowedCleric @"characterClassAllowedCleric"`
+
+`#define kCharacterClassAllowedRogue @"characterClassAllowedRogue"`
+
+`#define kCharacterClassAllowedMonk @"characterClassAllowedMonk"`
+
+`#define kCharacterClassAllowedMagicUser \`
+
+  `@"characterClassAllowedMagicUser"`
+
+`#define kCharacterClassAllowedThief @"characterClassAllowedThief"`
+
+`#define kMonsterBootyFrequency @"monsterBootyFrequency"`
+
+`#define kMonsterTypeAllowedOrc @"monsterTypeAllowedOrc"`
+
+`#define kMonsterTypeAllowedGoblin @"monsterTypeAllowedGoblin"`
+
+`#define kMonsterTypeAllowedOgre @"monsterTypeAllowedOgre"`
+
+`#define kMonsterTypeAllowedSkeleton @"monsterTypeAllowedSkeleton"`
+
+`#define kMonsterTypeAllowedTroll @"monsterTypeAllowedTroll"`
+
+`#define kMonsterTypeAllowedVampire @"monsterTypeAllowedVampire"`
+
+`#define kMonsterTypeAllowedSuccubus @"monsterTypeAllowedSuccubus"`
+
+`#define kMonsterTypeAllowedShoggoth @"monsterTypeAllowedShoggoth"`
+
+`#define kDungeonTunnelTwistiness @"dungeonTunnelTwistiness"`
+
+`#define kDungeonMonsterFrequency @"dungeonMonsterFrequency"`
+
+`#define kDungeonTreasureFrequency @"dungeonTreasureFrequency"`
+
+Note
+
+In order to fit the confines of the book format while still showing valid code, we’ve wrapped some of these lines by putting a backslash as the very last character of a line, which makes the C preprocessor just tack on the content of the next line as if it were all on the same line to begin with. Feel free to omit this manual wrapping in your own code, making each of those `#defines` into a one-line declaration.
+
+#### Specifying Default Preferences Values
+
+With the constant definitions in place, we’re ready start coding. Before we implement our action methods, we need to learn a bit about `NSUserDefaults`. As mentioned, this class lets us store and retrieve a user’s application preferences as a sort of hash or dictionary, keyed off strings of our choosing. One thing that every application should do is create a set of default values for `NSUserDefaults`, which it will use as a fallback position in case the user hasn’t set a value for a given key. For example, say we want to store an integer whose relevant range is a number between 1 and 10, using the key `@"greatness"`. Setting a default value of 1 for the `@"greatness"` key ensures that the first time a user runs the application, and `NSUserDefaults` tries to retrieve the `@"greatness"` value, it finds the default value (1) that we specified in code. Without taking this step, retrieving any numeric value that hasn’t already been set by the user will get us a zero, and retrieving any unset object value will get us a nil.
+
+It’s common practice to set up these values in a method that is called early in the application’s startup phase, typically in a class that is included in the main nib. The initialize class method is a good place for this since it’s called exactly once for each class, the first time a class is accessed. It’s bad form to try to access other application objects at initialize time since we don’t know how far the startup process has progressed, but we don’t need to do that here. Create such a method in our `DungeonThingAppDelegate.`
+
+`+ (void)initialize`
+
+`{`
+
+  `[[NSUserDefaults standardUserDefaults] registerDefaults:`
+
+   `[NSDictionary dictionaryWithObjectsAndKeys:`
+
+    `[NSNumber numberWithInt:1], kMonsterBootyFrequency`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedOrc`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedGoblin`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedOgre`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedSkeleton`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedTroll`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedVampire`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedSuccubus`,
+
+    `[NSNumber numberWithBool:YES], kMonsterTypeAllowedShoggoth`,
+
+    `[NSNumber numberWithInt:7], kCharacterMaxNameLength`,
+
+    `[NSNumber numberWithInt:1], kCharacterStatsGenerationPolicy`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedPaladin`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedBard`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedFighter`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedCleric`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedRogue`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedMonk`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedMagicUser`,
+
+    `[NSNumber numberWithBool:YES], kCharacterClassAllowedThief`,
+
+    `[NSNumber numberWithInt:3], kDungeonTunnelTwistiness`,
+
+    `[NSNumber numberWithInt:7], kDungeonMonsterFrequency`,
+
+    `[NSNumber numberWithInt:1], kDungeonTreasureFrequency`,
+
+    `nil]];`
+
+`}`
+
+This method calls `NSUserDefaults' registerDefaults:` method, passing in a dictionary of default values for our application. We’re setting a default value for every key-name that we’re using in our application, so that we know that when we ask for a value, we’ll always get something relevant.
+
+#### Creating the Action Methods
+
+Now we can start implementing our action methods. Let’s start with `createCharacter:`, which will display a summary of all the preferences values related to character creation. We start off by grabbing the shared instance of `NSUserDefaults`, then we create an empty string to hold the summary text, and then we actually create the summary, one preferences entry at a time. At the end, we put the summary text into the relevant `NSTextField`. Note that at the beginning of this method, we create an `NSMutableString` with a particular capacity, but this is not an upper size limit; `NSMutableString` is smart enough to “grow” if necessary. The method looks like this:
+
+`- (IBAction)createCharacter:(id)sender {`
+
+  `NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];`
+
+  `NSMutableString *result = [NSMutableString stringWithCapacity:1024];`
+
+  `[result appendString:`
+
+    `@"Generating a character within these parameters:\n"`
+
+     `"-----------------\n"];   // protip: split strings across lines like this!`
+
+  `[result appendFormat:`
+
+    `@"Maximum name length: %ld\n"`,
+
+    `[ud integerForKey:kCharacterMaxNameLength]];`
+
+  `[result appendFormat:`
+
+   `@"Stats generation policy: %ld\n"`,
+
+   `[ud integerForKey:kCharacterStatsGenerationPolicy]];`
+
+  `[result appendFormat:`
+
+   `@"Allows Paladin: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedPaladin] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Bard: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedBard] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Fighter: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedFighter] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Cleric: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedCleric] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Rogue: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedRogue] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Monk: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedMonk] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Magic-User: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedMagicUser] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Thief: %@\n"`,
+
+   `[ud boolForKey:kCharacterClassAllowedThief] ? @"YES" : @"NO"];`
+
+  `[self.characterLabel setStringValue:result];`
+
+`}`
+
+After entering that code, try compiling and running the application. If all goes well, we should be able to see the main window, press the Generate Character button, and see a result something like Figure [7-10](#A978-1-4302-4543-8_7_Chapter.html#Fig10).
+
+![A978-1-4302-4543-8_7_Fig10_HTML.jpg](A978-1-4302-4543-8_7_Fig10_HTML.jpg)
+
+Figure 7-10.
+
+The first run of DungeonThing
+
+The next step is to open the Preferences window, and start making some changes in the Character Generation tab. Disable some checkboxes, drag the slider, etc. After each change, click the Generate Character button in the main window again, and the displayed parameters should change to reflect the contents of the Preferences window.
+
+Now that that’s working, let’s fill in the method bodies for `createMonster:` and `createDungeon:` as shown below. These methods both work just like the `createCharacter:` method already shown.
+
+`- (IBAction)createMonster:(id)sender {`
+
+  `NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];`
+
+  `NSMutableString *result = [NSMutableString stringWithCapacity:1024];`
+
+  `[result appendString:@"Generating a monster within these parameters:\n-----------------\n"];`
+
+  `[result appendFormat:`
+
+   `@"Booty frequency: %ld\n"`,
+
+   `[ud integerForKey:kMonsterBootyFrequency]];`
+
+  `[result appendFormat:`
+
+   `@"Allows Orc: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedOrc] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Goblin: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedGoblin] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Ogre: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedOgre] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Skeleton: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedSkeleton] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Troll: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedTroll] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Vampire: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedVampire] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Succubus: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedSuccubus] ? @"YES" : @"NO"];`
+
+  `[result appendFormat:`
+
+   `@"Allows Shoggoth: %@\n"`,
+
+   `[ud boolForKey:kMonsterTypeAllowedShoggoth] ? @"YES" : @"NO"];`
+
+  `[self.monsterLabel setStringValue:result];`
+
+`}`
+
+`- (IBAction)createDungeon:(id)sender {`
+
+  `NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];`
+
+  `NSMutableString *result = [NSMutableString stringWithCapacity:1024];`
+
+  `[result appendString:@"Generating a dungeon within these parameters:\n-----------------\n"];`
+
+  `[result appendFormat:`
+
+   `@"Tunnel twistiness: %ld\n"`,
+
+   `[ud integerForKey:kDungeonTunnelTwistiness]];`
+
+  `[result appendFormat:`
+
+   `@"Monster frequency: %ld\n"`,
+
+   `[ud integerForKey:kDungeonMonsterFrequency]];`
+
+  `[result appendFormat:`
+
+   `@"Treasure frequency: %ld\n"`,
+
+   `[ud integerForKey:kDungeonTreasureFrequency]];`
+
+  `[self.dungeonLabel setStringValue:result];`
+
+`}`
+
+With those methods in place, we should be able to compile and run DungeonThing, modify all the values under every tab in the Preferences window, and see the modified values reflected in the output text fields. The first version of DungeonThing is now complete!
+
+Note
+
+We used the `NSUserDefaults` object to hold the settings in the Preferences window. `NSUserDefaults` is used by nearly all Cocoa apps for holding user settings. We haven’t discussed using the Terminal program to access the Unix command line yet, but one of the features of the `NSUserDefaults` system is that there’s command-line access to it. If you’re interested in seeing this, open up `Terminal.app` (in Finder, you can find it in the `Utilities` folder under Applications) and type
+
+`defaults read com.learncocoa.DungeonThing`
+
+If you type
+
+`defaults domains`
+
+you’ll get a list of all the applications that store their defaults in the `NSUserDefaults` system, and you can see all the settings that are stored for any of them. Happy hunting!
+
+## Binding to a Table View
+
+DungeonThing is fine for what it does (aside from the fact that it doesn’t really generate the game objects, of course), but if you started using such a system “in production” (say, while playing Dungeons and Dragons or a similar game), you’d quickly encounter one major problem: the random game objects aren’t retained in any way! As soon as you click to create a new random character, for example, the previous character is just wiped out, and you have no way of ever seeing it again.
+
+For the next iteration of DungeonThing, we’re going to add some table views to show lists of all created game objects. Clicking a game object in a table view will show its values in the relevant text field. Unlike [Chapter 6](#A978-1-4302-4543-8_6_Chapter.html), where we showed how to handle the table view in our own code, here we’re going to demonstrate how to use the `NSArrayController` class, a generic controller class included with Cocoa to manage the display of these table views with no custom code of our own, thanks to Cocoa bindings. We’ll need to add a few outlets and other instance variables to our `DungeonThingAppDelegate` class for three instances of `NSArrayController` and three arrays (one for each type of game object). We’ll also remove the `NSTextField` outlets that we just put in because those will also be configured with bindings to display their contents. Finally, we’ll change the action methods just slightly to insert each created object into the relevant array. When we’re done, the source code will be almost identical in size because all configuration of the table views is done right in the nib file.
+
+We’re going to start by adding some properties to `DungeonThingAppDelegate` and modifying our `create:` methods to make use of these new properties. Before we can use bindings in Interface Builder, we need to set them up in the code first. We’ll then move over to Interface Builder to connect the bindings and then back to the code for some cleanup.
+
+### Making the Code Bindings-Ready
+
+Let’s start by making the necessary changes in the header file. In order to maintain lists of generated objects, our `DungeonThingAppDelegate` needs three new `NSMutableArray` instance variables, one for each kind of game object. These can’t be created from within Interface Builder; we need to declare them explicitly. Each array will be managed by an `NSArrayController` in the nib file, which we’ll create and configure within Interface Builder in a bit. We declare the three `NSMutableArrays` as properties so that they are readily available for the `NSArrayControllers` to access them. The changes we need to make in `DungeonThingAppDelegate.h` are as follows:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface DungeonThingAppDelegate : NSObject <NSApplicationDelegate>`
+
+`// add these three:`
+
+`@property (strong) NSMutableDictionary *characters;`
+
+`@property (strong) NSMutableDictionary *monsters;`
+
+`@property (strong) NSMutableDictionary *dungeons;`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *characterLabel;`
+
+`@property (weak) IBOutlet NSTextField *monsterLabel;`
+
+`@property (weak) IBOutlet NSTextField *dungeonLabel;`
+
+`- (IBAction)createCharacter:(id)sender;`
+
+`- (IBAction)createMonster:(id)sender;`
+
+`- (IBAction)createDungeon:(id)sender;`
+
+`@end`
+
+After adding those three property declarations, we need to complete the setup for our `NSMutableArray` instances in the `DungeonThingAppDelegate.m` file. We’ll initialize the `NSMutableArray` instances themselves, and modify the action methods to push the created values into our arrays, instead of just displaying the values directly in the text fields.
+
+First, let’s implement a new `init` method to contain the initialization for the arrays. Place the following code near the top of the `@implementation DungeonThingAppDelegate` section of the `.m` file:
+
+`- (id)init {`
+
+  `if ((self = [super init])) {`
+
+    `self.characters = [NSMutableArray array];`
+
+    `self.monsters = [NSMutableArray array];`
+
+    `self.dungeons = [NSMutableArray array];`
+
+  `}`
+
+  `return self;`
+
+`}`
+
+THE CANONICAL INIT METHOD
+
+The preceding code snippet shows an example of an `init` method that creates values for our class’s instance variables. The form of this `init` method is fairly standard, and you’re likely to see something similar in most Objective-C classes you see, but it does some things that seem strange at first glance and so is worth explaining a bit. The method starts off with this peculiar `if` statement:
+
+`if ((self = [super init])) {`
+
+That `if` statement is really killing two (or more) birds with one stone. First, it’s calling the superclass’s implementation of `init` and assigning its return value to the special variable `self`. Then it checks the value of the assignment itself (that is, the value of `self` after it’s been assigned) and only executes the following block of code if it’s not something that evaluates as `false`, such as a nil pointer value.
+
+This usage of `self`, assigning a value to it, is really unusual. In fact, the only time we’re ever likely to see code assigning a value to `self` is within an `init` method such as this. The reason for doing it this way is to allow for the possibility, however slight, that the superclass’s `init` method will return a different value than what was pointed at by `self` from the outset. On the one hand, the superclass may find that it fails to initialize itself properly for some reason and signals this by returning nil from the `init` method, which is the “standard” way of dealing with an object initialization failure (rather than, say, raising an exception). In this case, the class will notice the nil value and skip the block following the `if` statement, dropping down to the end where it returns the value pointed at by `self`, which is now nil.
+
+The other possible alternate return value for the superclass’s `init` method is a different instance altogether. The idea is that the superclass might have a smart scheme for recycling objects in a private pool instead of constantly deallocating and creating new ones, and a part of that scheme would be that the `init` method would sometimes return an old, second-hand object instead of the shiny new one we just tried to create. The question of whether or not this situation is a realistic one is a subject of occasional debate among Cocoa programmers. Here, we’re erring on the side of caution by writing our `init` method to allow for this possibility.
+
+There it is—all the code changes we need to make to start connecting things in Interface Builder! Note that unlike the example in [Chapter 6](#A978-1-4302-4543-8_6_Chapter.html), the code here doesn’t have to do anything at all regarding the table views. No `delegate` or `dataSource` methods to implement, no outlets pointing to the table views, nothing. Thanks to bindings and `NSArrayController`, the table views will really take care of themselves.
+
+### Configuring the Table Views and Text Views
+
+We’ll now ready to move to the nib file. We’ll create some table views, add some array controller objects, and set up their bindings to the new arrays we added to `DungeonThingAppDelegate`. We’ll also configure the existing text fields to get their data through bindings. Single-click the `MainMenu.xib` file in Xcode to get back to the Interface Builder canvas.
+
+We’re going to start by making changes to the main application window. The first step is to make some room in the window for our new table views. We’re going to create three “history” table views, one below each of the existing sets of views, so we need to make the window taller (but we can keep the current width). Use the window’s resize control in the lower right to make the window about twice its current height. The blue guidelines will help us maintain the current width.
+
+In the Object Library pane, search for “table” and drag the resulting table view out into the window. Position it so that its upper left corner is just below the lower left corner of the left-most box, then grab the table view’s lower right resize handle, and drag it down until the table fills most of the available space down to the bottom of the window, with its left and right edges lined up with the edges of the box above it, as shown in Figure [7-11](#A978-1-4302-4543-8_7_Chapter.html#Fig11).
+
+![A978-1-4302-4543-8_7_Fig11_HTML.jpg](A978-1-4302-4543-8_7_Fig11_HTML.jpg)
+
+Figure 7-11.
+
+Adding tables to the window
+
+In our history tables, we’re only going to display the time that the object was created. The user can then click on a row to see the relevant object displayed in the text field above the table. This means that we only want to have one column in the table, so open the Attributes Inspector (⌥⌘4). Select the table view (which is inside a scroll view, so click twice to get to the table view itself). In the Inspector, change the number of columns to 1 and set the Content Mode to be view-based rather than cell-based.
+
+Next, resize the remaining column so that it fills the width of the table. Do this by clicking in the table header until the entire table header is selected. Then mouse over the vertical line marking the edge of the table column header, and drag it to the right until the column fills the whole table.
+
+Finally, disable editing in the remaining column since we don’t want to let the user change the timestamp of a created object. Click the table column until it’s selected, then bring up the Attributes Inspector (⌥⌘4) and click to turn off the Editable checkbox. Next, change resizing from Both to Autoresizes with Table, as there’s no reason to let the user resize the table view’s only column.
+
+At this point, the table view and its column are graphically laid out and everything is configured except its bindings. This is a perfect time to duplicate the table we’ve just made for displaying characters so that we can use the exact same configuration for monsters and dungeons. Click the window background, then click once on the table view to select it (along with its enclosing `NSScrollView`). Now press ⌘D to duplicate the table view, and drag it the new one into place at the bottom of the center view group. Then press ⌘D once again, and drag the final table view into place in the window’s bottom right corner. For both of those, we’ll of course use the blue guidelines to help us line them up properly. Figure [7-12](#A978-1-4302-4543-8_7_Chapter.html#Fig12) shows the final layout.
+
+![A978-1-4302-4543-8_7_Fig12_HTML.jpg](A978-1-4302-4543-8_7_Fig12_HTML.jpg)
+
+Figure 7-12.
+
+The final DungeonThing window layout
+
+### Creating and Configuring an Array Controller
+
+Now it’s time to add an `NSArrayController` so that we can configure some bindings for the first set of objects, the characters. In the Object Library pane, search for “array.” Note the Array Controller that appears in the results; this is an instance of the `NSArrayController` object. Drag one of these out to the object dock on the far left of the Interface Builder canvas. If the dock area isn’t already expanded, click the disclosure triangle in the lower-left corner of the Interface Builder canvas to expand it. The `NSArrayController` will need a more meaningful name, so click the “Array Controller” text twice slowly (just like renaming a file in Finder) to edit the name. We’ll be using this controller to provide access to the characters array, so name it “characters.” Giving this top-level nib object a unique name of its own will help a bit later on when we’ll be adding two more array controllers to this nib. (Note that in the initial release of Xcode 4.5, the name may not refresh in the Object Dock after we change it. If so, we can get the new name to appear by clicking on the Object Dock’s disclosure triangle twice.)
+
+In order for our `DungeonThingAppDelegate` to make use of the `NSArrayController` instances, we’ll need to add outlets to the app delegate. Open an Assistant Editor pane, as we did above, with the `DungeonThingAppDelegate.h` file displayed. Control-drag from the new characters array controller into the `DungeonthingAppDelegate.h` file, and create a new outlet named `characterArrayController`.
+
+Next, click the array controller again and bring up the Attributes Inspector (⌥⌘4). We’ll see some options at the top that let us fine-tune the behavior of the array controller, but for now we’ll leave them all as they are. What we need to configure is the lower portion of the Inspector, in the Object Controller section. Make sure that Mode is set to Class, and that Class Name is “NSMutableDictionary.” This configuration tells the controller that the model objects it’s dealing with are instances of `NSMutableDictionary`, a “normal” class (rather than an Entity, which we’ll cover as a part of Core Data in [Chapter 7](#A978-1-4302-4543-8_7_Chapter.html)). Below that we’ll see a table view that lists the attributes that the array controller should be able to access in the model objects. Click the + button below the table view, and type in “createdObject,” then click + again, and type in “timestamp.” Figure [7-13](#A978-1-4302-4543-8_7_Chapter.html#Fig13) shows the completed attributes configuration for the array controller.
+
+![A978-1-4302-4543-8_7_Fig13_HTML.jpg](A978-1-4302-4543-8_7_Fig13_HTML.jpg)
+
+Figure 7-13.
+
+The configured attributes for your first NSArrayController
+
+Yes, these are the keys that we used in the code for creating an `NSMutableDictionary` each time the user clicks a button. These keys are what we’ll now use to creating bindings for our GUI objects.
+
+The next thing we have to do is configure a binding, not for a GUI object, but for the array controller itself! It just so happens that `NSArrayController` is not only a provider of bindings-ready access to model objects. It’s a consumer as well, retrieving its content array from another object via Cocoa Bindings. In our case, it will get its content from `DungeonThingAppDelegate`’s characters array. With the array controller still selected, bring up the Bindings Inspector (⌥⌘7). Click the disclosure triangle next to Content Array to open it up, and set up the desired binding by choosing Dungeon Thing App Delegate from the pop-up list, typing “characters” into the Model Key Path field, and pressing Enter. Note that our `DungeonThingAppDelegate` requires no special preparation in order to be bindings-friendly. All we have to do is expose an instance variable as a property (as we’ve done for our three content arrays), and we can immediately use it to bind other objects to!
+
+Now we’ve added an `NSArrayController` and configured it to access the right data from our `DungeonThingAppDelegate`. It’s time to bind some GUI objects to this new controller.
+
+### Binding the Table Display via the Array Controller
+
+First, we’ll set up a single binding for the table view. We’re going to bind the table view’s Content binding to the characters array (through the array controller), and then have the table view cell grab the timestamp attribute from each model object.
+
+Here’s how: click the table view by drilling down through the Object Dock on the left side of the Interface Builder canvas, then open the Value binding configuration section in the Bindings Inspector (⌥⌘7). Choose characters from the pop-up list, then arrangedObjects in the Controller Key combo box. This connects the table view to the array controller, and for each object managed by the array controller, it creates a row in the table view and sets the `objectValue` property of that row. We mentioned earlier that the Controller Key combo box lets us choose different aspects of the controller object we’re binding through. In this case, binding through arrangedObjects means that we’re binding to the entire sorted array of objects. This sort of binding is usually only appropriate for view objects that can display an entire array of content, such as a table.
+
+Next, expand the Selection Indices binding configuration section (just below the Value section). Again, choose characters from the pop-up list, and this time enter selection Indices in the Controller Key combo box. This tells the array controller which row (or rows) are selected in the table view and passes the selection status along to any other objects that are bound to the array controller. In particular, this is how the text field will get updated when the selection changes.
+
+Now we need to establish a binding for each subview contained in the table view so we can pull out the appropriate information from the `objectValue`. Since we only have one column with one view—an `NSTableCellView`—this is straightforward. The `NSTableCellView` has an embedded `NSTextField`, and that’s what we need to bind. Select the “Static Text - Table View Cell” entry within the Table Cell View within the table view (this is easiest from the expanded Object Dock on the left). In the Bindings Inspector, select Bind to the Table Cell View, and then enter `objectValue.timestamp` in the Model Key Path. This tells the `NSTextField` to use the `timestamp` property of the object bound to the `NSTableCellView` in which the text field is embedded.
+
+### Binding a Text Field via the Array Controller’s Selection
+
+The final binding that needs to be done for the characters section is for the text field that displays the value. This binding will also be done through the array controller, grabbing the `createdObject` attribute from the controller’s selected object.
+
+Click to select the text field in the box on the left. The first click probably selects the box itself, and clicking again will then select the text field. Now look again at the Bindings Inspector, and find the Value binding configuration. Select characters from the pop-up list, selection from the Controller Key combo box, and createdObject from the Model Key Path combo box, and then click to turn on the Bind checkbox. Note that by choosing selection for the Controller Key, we specify that the array controller will only make the selected object available to this control, rather than a whole array of them as it does with the table column.
+
+### Populating the Array
+
+We now need to go back to the code. Open up `DungeonThingAppDelegate.m` in an editor pane. In order for the table view to display anything, we need to put some data into the `NSArrayController`. To do this, we’re going to change a single line at the end of the `createCharacter:` action method. Instead of putting the summary text created by the method directly into a text field, we’ll add each summary to an array, using `NSArrayController` to do this so that all dependent views (any views that have bindings through the same `NSArrayController`) will be automatically updated as well. Rather than inserting the bare string into the array, we’re creating an `NSMutableDictionary` containing the created object and the current time, using the dictionary as the simplest sort of model object, containing two keyed values. Implement this change at the end of `createCharacter:` by changing
+
+`[self.characterLabel setStringValue:result];`
+
+to
+
+`[self.characterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:`
+
+  `result, @"createdObject"`,
+
+  `[NSDate date], @"timestamp"`,
+
+  `nil]];`
+
+Recall that we used `createdObject` and `timestamp` as keys in the `NSArrayController` that we set up in Interface Builder, and for the binding for the text field within the table view. By putting objects into the array using these key names, we’re enabling the bindings to pull them back out.
+
+In fact, while we’re in the code, we can also remove the `@property` declaration for `characterLabel` in the `DungeonThingAppDelegate.h` file. We don’t have any references to this property anywhere in the code anymore, and keeping the code clean is a good habit.
+
+### Making Sure it Works
+
+OK, that’s been a lot of prep work. Fire it up and see what happens; go ahead and build and run the application. We should be able to create a new character and see it appear in the text field along with a timestamp entry in the table below. Modify some preferences, then make another character, and see the new parameter summary in the text field and a new timestamp in the table view. Switch between the rows by clicking on them and watch the value in the text field change accordingly.
+
+If any of those things don’t work, go back to the nib and double-check the configuration of our bindings, as well as `DungeonThingAppDelegate's` connection to the array controller.
+
+### Rinse, Repeat, Rinse, Repeat
+
+Now that we’re dealing with characters entirely via bindings, we can go back and do the same things for monsters and dungeons. Create a new `NSArrayController` by duplicating the characters array controller (thereby keeping its existing configuration, including the key names we already entered) and name it “monsters” to keep it consistent. As we did with the characters array controller before, connect monsters to the `DungeonThingAppDelegate` by creating a new outlet called `monsterArrayController`, configure its Content Array and Selected Indices bindings to connect to the `monsters` attribute in `DungeonThingAppDelegate`, and configure the two relevant GUI objects (the table column and the text field) through the monsters array controller, all as described previously. Lastly, update the `createMonster:` action method by changing the last line from
+
+`[self.monsterLabel setStringValue:result];`
+
+to
+
+`[self.monsterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:`
+
+  `result, @"createdObject"`,
+
+  `[NSDate date], @"timestamp"`,
+
+  `nil]];`
+
+Build and run the app and make sure it’s all working, then repeat all this once more for dungeons.
+
+Once all three `NSArrayControllers` are created and the bindings are set up, we can remove the `monsterLabel` and `dungeonLabel @property` declarations in `DungeonThingAppDelegate.h` that referred to the text fields since these are now being populated through the bindings.
+
+## Okay, But How Did That Work?
+
+Now that you’ve gotten your feet wet with Cocoa bindings, you may have the distinct feeling that you’ve just witnessed some sort of magic show—and you’re wondering how the tricks actually work! That’s a completely understandable feeling. We programmers are accustomed to being required to spell out every movement of a chunk of data and every update to the screen in excruciating detail, and suddenly we find that simply setting a value somewhere causes some unseen forces to propagate the value to other views on the screen. This section will attempt to clarify the process for you by explaining the Cocoa concepts of key-value coding and key-value observing, and how Cocoa bindings uses them to do its magic.
+
+### Key-Value Coding
+
+First let’s talk about key-value coding (KVC). The idea behind KVC is to allow us to refer to an object’s attributes by using strings that match attribute names or that match the names of some getter and setter methods. Say, for instance, that we have a class called `Person`, which has the concept of a `firstName`, either in the form of an instance variable called `firstName`, or a pair of methods called `firstName` and `setFirstName:`. Using KVC, we can access a person’s `firstName` attribute using the following incantation:
+
+`[myPerson setValue:@"Frodo" forKey:@"firstName"];`
+
+Given the key name `firstName`, this method call first checks to see whether the object has a method called `setFirstName:`, and if so, invokes it to set the value. If that doesn’t work, it checks to see if there’s an instance variable called `firstName` and tries to set it directly.
+
+We can also retrieve a value in a similar manner:
+
+`myNameString = [myPerson valueForKey:@"firstName"];`
+
+A similar sequence occurs in this case. It first looks for a method called `firstName`, and if there isn’t one, it tries to find an instance variable with the same name.
+
+The result of all this is that KVC gives us a way to talk about an object’s attributes in an extremely generic fashion. Not only is the object’s storage of its attributes transparent to us, even the way to access an attribute from the outside is something that we don’t need to worry about. It could change, perhaps even inside a running a program, and we wouldn’t notice the difference.
+
+The `setValue:forKey:` and `valueForKey:` methods are defined in `NSObject` (with some additional extensions for collection classes like `NSArray` and `NSSet`) to try to determine, on the fly, the best way to access the value based on the name of the key. This means that they are ready to use on every class in Cocoa.
+
+One additional point to make about KVC is that the strings used as keys can actually be used as a sort of path to traverse relationships between objects. For example, let’s imagine that our `Person` class also contains a property called `mother`, which is a pointer to another `Person`. If we want to set the `firstName` of `myPerson's` mother, in normal code we would likely do it one of these ways:
+
+`myPerson.mother.firstName = @"Anne";`
+
+`[myPerson.mother setFirstName:@"Anne"];`
+
+`[[myPerson mother] setFirstName:@"Anne"];`
+
+Using KVC, we have an additional way to accomplish this:
+
+`[myPerson setValue:@"Anne" forKeyPath:@"mother.firstName"];`
+
+The KVC methods are smart enough to look at the key string, split it apart by paths, and traverse any object relationships mentioned in the path, so the previous line ends up calling something like this:
+
+`[[myPerson valueForKey:@"mother"] setValue:@"Anne" forKey:@"firstName"];`
+
+While neither of the KVC options are really appealing for regular use in our own code (because the “normal” versions all read a bit more nicely), they can be used to great advantage in situations requiring more flexibility, such as, say, an interface that lets us configure which values will be displayed in a view object just by typing in the name of the path to the attribute, without requiring compilation of any source code or anything. Sound familiar?
+
+### Key-Value Observing
+
+The next piece of the puzzle is key-value observing (KVO). With KVO, an object can register with another object to be informed of changes as they occur. For instance, continuing with the last example, we can tell `myPerson` to notify us whenever the value of its `firstName` attribute changes, like this:
+
+`[myPerson addObserver:self forKeyPath:@"firstName" options:nil context:NULL];`
+
+In return, `myPerson` will call a method called `observeValueForKeyPath:ofObject:change:context:` in the observer whenever the `firstName` attribute changes, whether that change occurs via the `setValue:forKey:` method or by someone calling the `setFirstName:` method. The way this is implemented is quite clever and involves some meta-programming deep inside Cocoa, creating a subclass of `Person` at runtime that overrides the `setFirstName:` method, and passing along a message to all observers after the value changes. This is done so smoothly that we would never suspect the existence of the hidden `Person` subclass unless we went looking for it—and really dug deep in just the right places. As a result, we don’t really need to know about these implementation details. Just be glad we’re entering into the world of Cocoa programming at a time when this particular technology has matured as much as it has, because it was a little rough around the edges when it first came out!
+
+At the end of the day, we probably won’t need to deal with KVO directly at all. Almost everything we’d ever want to do with KVO can be done more cleanly and easily with Cocoa bindings, which is built on top of it and provides a higher-level interface. That’s why we’ve focused on the functionality of Cocoa bindings and aren’t doing any direct programming with KVO.
+
+### Cocoa Bindings: How It Works
+
+While a complete and accurate description of the implementation of Cocoa bindings is outside the scope of this book, it may be useful to get a fuller picture of how it uses KVC and KVO to do its work. Now that we’ve gotten a brief intro into KVC and KVO, let’s take a look at how these bits fit together.
+
+When we establish a binding in Interface Builder, like we’ve done numerous times in this chapter already, we’re actually defining a sort of contract. We’re declaring that when this nib is loaded and these objects are set up, a sequence of events will occur to establish some KVO relationships between the objects, using a key path string (using KVC) to define which attribute is in focus for each binding, along with other information to identify which aspect (such as the displayed value, the enabled state, and the like) of the “receiving end” (typically a GUI control) should be affected by changes in the underlying value. At runtime, Cocoa will set things up so that the control (or any other object we’ve established a binding on) will be set up to observe changes in the controller based on the relevant key and the controller will be set up to observe changes in the control’s chosen aspect.
+
+## Wrap Up
+
+Bindings are a really powerful technology. In retrospect, you can probably see that’s it’s possible to implement nearly everything shown in the previous chapters using Cocoa bindings, creating an app with almost no custom code whatsoever! This doesn’t in any way diminish the usefulness of the techniques shown in previous chapters, however. The fact is that sometimes you will want to access values in the GUI manually in methods called by target-action. A general rule of thumb is that if you’re in a situation (a simple app or a subcomponent of a larger app) where you don’t have any apparent model objects to work with, you may be best served by doing things “the old way” with outlets and target/action connections, but, in general, Cocoa bindings are the preferred method for developing Mac apps from here on out.
+
+The next few chapters will demonstrate how to do even more with bindings using Core Data. Core Data’s functionality is orthogonal to Cocoa Binding’s; whereas Cocoa bindings lets you eliminate some boring controller code, Core Data takes care of a lot of the plumbing that you’d otherwise have to write for your model classes, giving you a storage back-end, built-in Undo/Redo support, and much more. Together, Cocoa bindings and Core Data can get you building so much software so effectively that you’ll be making other people’s heads spin!
+
+# 8. Core Data Basics
+
+Abstract
+
+In earlier chapters, we showed you various ways that Cocoa lets you display data in view objects, from manually getting and setting values based on the contents of model objects to having the data automatically synchronized between model and view objects using Cocoa Bindings, which eliminates the need for a lot of boring controller code. Now it’s time to learn about Core Data, a powerful framework that gives our model objects a complete set of built-in capabilities. We’ll start by talking about what Core Data is and how it fits in with the other parts of Cocoa.
+
+In earlier chapters, we showed you various ways that Cocoa lets you display data in view objects, from manually getting and setting values based on the contents of model objects to having the data automatically synchronized between model and view objects using Cocoa Bindings, which eliminates the need for a lot of boring controller code. Now it’s time to learn about Core Data, a powerful framework that gives our model objects a complete set of built-in capabilities. We’ll start by talking about what Core Data is and how it fits in with the other parts of Cocoa. Then we’ll use Core Data to create a full-featured database application called MythBase, including a GUI that allows us to create, search, edit, and delete entries, all without writing a single line of code (see Figure [8-1](#A978-1-4302-4543-8_8_Chapter.html#Fig1) for a shot of MythBase in action). Then we’ll explore some of the code resources that are created for us automatically when we create a Core Data project, and finally we’ll demonstrate how to add functionality (“business logic”) to our model objects.
+
+## What We’ve Been Missing
+
+All of our examples in previous chapters used instances of `NSMutableDictionary` in the place of real model objects. What do we mean by “real model objects?” Well, besides just being able to hold onto pieces of data, which are accessible using field names or keys (something that `NSMutableDictionary` does well enough), real model objects should include some of the following features:
+
+![A978-1-4302-4543-8_8_Fig1_HTML.jpg](A978-1-4302-4543-8_8_Fig1_HTML.jpg)
+
+Figure 8-1.
+
+The MythBase application, in all its glory
+
+*   Archiving: Model objects should have access to a built-in mechanism for being saved to disk and later reloaded.
+*   Business Logic: There should be a way to give a model object custom behavior that operates in response to input values.
+*   Validation: Each model object should be able to automatically validate input values.
+
+In the past, Mac application developers following MVC principles would typically have to roll their own solutions for these common needs, but Core Data provides all of this and more. Besides the features listed previously, Core Data also provides the following additional key features:
+
+*   Undo/Redo Support : Core Data’s mechanisms for handling values are tied into the standard undo facility in Mac OS X. Having this built in to our model classes saves us the additional effort of implementing this common functionality ourselves.
+*   Integration with Cocoa Bindings : Together with Cocoa bindings, Core Data provides us with a mechanism for connecting views to models using generic controller objects, thereby eliminating a lot of boring glue code.
+*   Persistence : Core Data offers a variety of ways to persist objects to disk, allowing us to save and load object state from one run to the next.
+
+Taken together, all of these features provide the core of our application with some sturdy infrastructure. We can use Core Data to build GUI apps (with or without Cocoa bindings), command-line tools, games, or any other sort of software system that can be specified using traditional object modeling techniques. In other words, almost any application at all.
+
+## Creating MythBase
+
+Now, let’s get started creating MythBase, a GUI application that lets us maintain a database of mythological figures. We’ll use Core Data for the model layer and Cocoa bindings to handle most of the controller functionality. There will be some new concepts and terminology to tackle, and we’ll cover each piece as we get to it.
+
+In the first iteration, we’ll define a model for our application using a special tool inside Xcode, and create a simple GUI using an assistant in Xcode. In the second iteration, we’ll refine the GUI to improve the user experience a bit. Then, after explaining some other aspects of the application, we’ll take a third pass at the functionality, adding some business logic to the application’s model layer.
+
+Start by creating a new application project. In Xcode, choose File ➤ New Project, select OS X/Application on the left side of the window, pick Cocoa Application from the list of project templates, and then click Next. Enter MythBase as the Product Name, MB for the Class Prefix, click to turn on the Use Core Data and Use Automatic Reference Countin g checkboxes (see Figure [8-2](#A978-1-4302-4543-8_8_Chapter.html#Fig2)), and then click Next. To save our project, navigate to an appropriate directory and click Create.
+
+![A978-1-4302-4543-8_8_Fig2_HTML.jpg](A978-1-4302-4543-8_8_Fig2_HTML.jpg)
+
+Figure 8-2.
+
+Creating a new application project, and turning on the Core Data option
+
+### Defining the Model
+
+At this point, we’ll have a brand-new project, similar to the ones we’ve created before. Choosing to use Core Data causes Xcode to use a slightly different project template, so this project will have a thing or two you haven’t seen in the old projects. Xcode’s navigator pane contains a new file named `MythBase.xcdatamodeld`, which is the empty Core Data model file. A model file contains metadata about our application’s model layer. We create the model file using a graphical tool built into Xcode, and our application reads the model file at runtime. We’ll also find, if we go digging for it in the project navigator area, that CoreData.framework was added under Frameworks/Other Frameworks.
+
+MODELING: WHAT?
+
+From this point, we’re going to assume that you have some understanding of object modeling or database modeling. But on the off chance that you’re totally perplexed by this, here’s a very brief summary. The idea is that the things your application is dealing with, the content that your application is “about,” can be split into independent chunks and organized into a reasonable structure through modeling techniques. Using Core Data, you’ll want to figure out how to organize your data along the following lines:
+
+*   Entities   : An entity is used to describe a uniquely identifiable “thing” in your application, something that can exist and be described and identified on its own terms. Entities are usually the big “nouns” of your system. People, companies, and monetary transactions are all entities. Eye color, market capitalization, and transaction amounts are not.
+*   Attributes  : Anything that seems like a descriptive feature of an entity, without referring to anything else, is probably an attribute of that entity. Eye color, market capitalization, and transaction amounts are all likely to be attributes of the aforementioned people, companies, and monetary transactions. A person’s current account balance, the phone number of a company’s CEO, and a transaction recipient’s email address are not attributes of the entities we mentioned. Each of these is better modeled by traversing a relationship to another entity and accessing an attribute found there.
+*   Relationships   : Use relationships to establish linkages between entities. Relationships can be one-to-many (one person may be the recipient of many transactions), many-to-one (many people can be employed by the same company), one-to-one (each person can have exactly one spouse), or many-to-many (a company can have many people as customers, and at the same time a person can be a customer of many companies).
+
+The model file contains information that should be familiar to anyone who’s ever done any sort of object modeling, database modeling, or really any sort of entity-relationship modeling at all. First, there’s the concept of an entity, which corresponds roughly to a class in object modeling or a table in database modeling. Each entity consists of several attributes, and entities can be joined together with relationships. Within Xcode and the documentation, attributes and relationships are referred to collectively as properties, and this reuse of the same term in Objective-C 2.0 is no coincidence. Within a model object, each attribute and each relationship can be accessed through an Objective-C property, named the same as the property defined in the model file. In the model we’re going to build for MythBase, we’ll create a single entity with several attributes. We’ll cover relationships in [Chapter 9](#A978-1-4302-4543-8_9_Chapter.html).
+
+### Using Xcode’s Model Editor
+
+Start by single-clicking the `MythBase.xcdatamodeld` file in Xcode’s navigation pane. This opens up the model file in Xcode’s built-in model editor, which lists three table views: Attributes, Relationships, and Fetched Properties, along with an outline view of Entities, Fetch Requests, and Configurations along the left. Press ⌥⌘3 to open the Data Model Inspector as well; since we haven’t yet defined any structure for our entity, it will initially show “No Selection,” as shown in Figure [8-3](#A978-1-4302-4543-8_8_Chapter.html#Fig3). The model editor has two different view styles: the initial view with three table views, and one that resembles a blank sheet of graph paper. We’ll be working with the default table-view style as seen in Figure [8-3](#A978-1-4302-4543-8_8_Chapter.html#Fig3) since we’ll only have one model class. When working with a complex model, the graph-paper view can be very useful for giving an overview of all the different entities and their interrelationships.
+
+![A978-1-4302-4543-8_8_Fig3_HTML.jpg](A978-1-4302-4543-8_8_Fig3_HTML.jpg)
+
+Figure 8-3.
+
+A new model file, before creating any entities
+
+### Creating an Entity
+
+For MythBase, we’re going to create a single entity called `MythicalPerson` with a handful of attributes. To start, create a new entity by clicking the Add Entity button that appears near the bottom of the window. As you would expect, this creates a new entity, called simply Entity, in the Entities list on the left. With the new entity selected, its details are visible in the table views to the right. Go change the new entity’s name to “MythicalPerson,” and leave the rest of the controls in their default states. Our entity is an instance of a class named `NSManagedObject`, a generic class included in Core Data that provides all the basic functionality for Core Data’s model objects. Later we’ll need to write some code for this entity, at which point we’ll create a custom subclass of `NSManagedObject`, but for now the generic class will do just fine.
+
+Now let’s create our entity. We’ve done some object modeling and have come up with a few characteristics that a mythical person may have.
+
+The `MythicalPerson` entity will have six attributes. These are shown in Table [8-1](#A978-1-4302-4543-8_8_Chapter.html#Tab1), which includes a general description of the type of each attribute and the corresponding Core Data storage type.
+
+Table 8-1.
+
+MythicalPerson Attributes
+
+| Attribute Name | General Type | Core Data Type |
+| --- | --- | --- |
+| Name | String | String |
+| Details | String | String |
+| Divinity | Integer (0-100) | Integer 16 |
+| Goodness | Integer (0-100) | Integer 16 |
+| Power | Integer (0-100) | Integer 16 |
+| Depiction | Image | Transformable |
+
+Core Data includes `String` and `Date` types, as well as a selection of numeric types: `Integer 16`, `Integer 32`, `Integer 64`, `Float`, `Double`, `Decimal`, and `Bool`. In addition, it includes a `Binary` type that allows generic storage of any sort of data we may want to attach to an entity (which we pack into a binary chunk on our own), and a special `Transformable` type that allows many otherwise unsupported Cocoa classes, such as `NSImage`, to be stored with Core Data (more on that later). Note that the Core Data storage types have different names from the value classes in Cocoa (`NSString`, `NSNumber`, and the like). When Core Data attributes are read into a running application, they are converted into the nearest Cocoa equivalent, which means, for example, that all the numeric types end up as `NSNumber` in an application and are converted back into the underlying storage format for saving.
+
+### Creating Attributes
+
+Let’s start creating `MythicalPerson`’s attributes. With the `MythBase.xcdatamodeld` file open in Xcode, click to select the `MythicalPerson` entity, then click the small + sign in the lower-left-hand-corner of the Attributes table view at the top of the window. A new attribute will appear in the table view. Set its name to “name” and its type to String, then press Enter.
+
+Now look at the checkboxes in the inspector on the right, labeled Optional, Transient, and Indexed. By default, Optional is checked and the others are not. The meaning of Optional is clear enough. Having it checked means that users can choose to not enter a value for that attribute when creating or editing an object. As for the others, checking Transient configures things so that this attribute isn’t saved along with the other data (although Core Data will still track changes to the attribute to provide undo/redo support), while checking Indexed turns on indexing for the attribute, enabling speedy search of a Core Data storage back-end based on this attribute. For the `name` attribute, make sure that Indexed is checked and that the others are not.
+
+Below the checkboxes, you can specify the attribute’s type using a pop-up list (this is the same setting as the pop-up in the table view). If we specify “name” as a String in the main table view, then we’ll see some additional options appear in the space just below it. Here we can specify simple validation rules such as the string’s length. We can also specify the default value, which will appear whenever a new `MythicalPerson` instance is created. Enter “Name” for the default value, leaving the other fields blank.
+
+Now let’s move on to the `details` attribute, which is meant to hold a textual description of the `MythicalPerson` in question. Click the + button below the Attributes table view to add a new attribute and change the new attribute’s name to “details.” We’re going to configure this one a little differently than the name attribute. It should be a String (chosen from the pop-up list), and the Indexed checkbox should be checked, but in this case the Optional checkbox should also be checked so that users can choose to leave this field empty if they want. Also, we’ll leave the default value blank.
+
+Now we’ll tackle `MythicalPerson`’s numeric attributes: `divinity`, `goodness`, and `power`. Make a new attribute and name it “divinity,” and set its type to `Integer 16`, the smallest integer type supported by Core Data. This time configure the checkboxes so that it’s optional, but neither transient nor indexed (because we don’t anticipate any real need to search for MythicalPersons using the divinity value as a search parameter). The display will change to show some additional configuration that applies to the chosen type. Here we can set up some automatic validation rules by specifying min and max values, and also specifying the default value for this attribute.
+
+In Table [8-1](#A978-1-4302-4543-8_8_Chapter.html#Tab1), we defined divinity as an integer value from 0 to 100, the idea being to place the character somewhere on a scale between human and godlike. For example, the Greek god Zeus would have a divinity value of 100, his son Heracles (whose mother Alcmene was a normal human) would have 50, and a normal human (like, again, Heracles’ mother) would have 0 divinity. By specifying min and max values for the attribute, we let Core Data help us out, ensuring that no invalid values for these attributes can be saved. Enter 0 for the min value, 100 for the max value, and 50 for the default value. See Figure [8-4](#A978-1-4302-4543-8_8_Chapter.html#Fig4) to see some entity/attribute editing in progress.
+
+![A978-1-4302-4543-8_8_Fig4_HTML.jpg](A978-1-4302-4543-8_8_Fig4_HTML.jpg)
+
+Figure 8-4.
+
+This is what editing an entity in a Core Data model file looks like
+
+Now we’re going to create the other two numeric values, `goodness` and `power`. These also express characteristics of each `MythicalPerson` on a scale from 0 to 100 and will have the exact same configuration as `divinity` (except, of course, for the name of the attribute itself). The easiest way to make these, giving them the exact same options, is to select the `divinity` attribute by clicking on it in the table view, then copy it (⌘C), then paste it (⌘V) twice, resulting in two new attributes named “divinity1” and “divinity2.” Rename those “goodness” and “power,” and that’s it; those two new attributes will have the same min and max values as the original.
+
+### Attributes for Unsupported Types
+
+The last attribute left to configure is the `depiction` attribute. As mentioned earlier, the `depiction` attribute is meant to store an image, and Core Data doesn’t know anything about the `NSImage` class normally used in Cocoa. Fortunately, Core Data’s Transformable type provides a simple way to store an image anyway. Create a new attribute, naming it “depiction,” and then select Transformable as the type. Note that the Inspector changes to show the configuration options for Transformable. In the Inspector, turn the Optional checkbox on (and the others off). The configuration options for Transformable are pretty simple: a single text field labeled Value Transformer Name. However, there’s more here than meets the eye. The idea is that a Transformable attribute holds a chunk of data that Core Data doesn’t really understand; when Core Data reads this chunk of data from storage, it puts it into an `NSData` object (an object that can hang onto any old chunk of data, acting as an Objective-C “wrapper” for it), which it then passes through a transformer, a special class that knows how to take an object of one kind and transform it into something else. In the other direction, when an object is going to be saved to storage, Core Data takes the new value and passes it through the same transformer, however this time doing the transformation in the reverse direction.
+
+In this case, we’re going to use a transformer called `NSKeyedUnarchiveFromData`, which knows how to produce an object of any kind, given an `NSData` object containing a key-archived version of the object. What is keyed archiving? We won’t go into it in detail here, but basically keyed archiving is a way of archiving or serializing all of an object’s instance variables in a dictionary-like format, making it possible to reconstruct the object later. This technology is used in a variety of ways in Cocoa, and all of Cocoa’s classes have this functionality built in. This means that we can take an `NSImage`, or an instance of any other Cocoa class, and stuff it into an `NSData` object using `NSKeyedUnarchiveFromData`’s reverse transformation. And if we implement the `NSCoding` protocol in our own classes, saving and loading their instance variables in a keyed fashion, we can archive our own objects in the same way.
+
+Getting back to the depiction field, the idea is to write the name of the transformer class into the Value Transformer Name text field. As it turns out, keyed archiving is so widespread that in this situation, specifying a transformer for an attribute in Xcode’s modeling tool, it’s used as a default. If we just leave the field blank, the entity will be configured to use `NSKeyedUnarchiveFromData` to transform model attribute values to and from `NSData` for storage.
+
+We’ve now defined the entire model for this chapter’s MythBase application, so let’s move on to creating the GUI.
+
+## Designing the GUI
+
+Since we’ve laid out several user interfaces using Interface Builder already, we’re going to go through the basics pretty quickly, and we won’t give the keyboard shortcuts for each inspector. This app will be similar to the VillainTracker app from [Chapter 6](#A978-1-4302-4543-8_6_Chapter.html). Our user interface will allow a user to search the database of mythical people, add and delete them, and change their characteristics. What’s more, we’ll be using Cocoa bindings to make the connections.
+
+AUTOMATIC GUI
+
+Xcode 3 included a feature called the Core Data Entity Interface Assistant for automatically laying out a GUI with basic CRUD features based on a Core Data model. This feature was removed in Xcode 4, so we have to do it by hand. As it turns out, this is really easy, and the process should feel familiar having worked through the previous chapters. Not only that, the UI generated by Xcode usually needed a bunch of cleanup anyway.
+
+### Creating the MythBase display
+
+To start, in Xcode, single-click on the `MainMenu.xib` file. In the Object Dock on the left, open up the main window called “Window - MythBase.” We’re going to drag out a table view and a bunch of fields to allow us to create and edit the attributes of the mythical people managed by our database, so we’ll start by making the window taller. Drag it out to be 500 pixels high. Next, in the Object Library, type “search” in the search field in the bottom of the Inspector. The Object Library should show a single object, a Search Field. Drag the Search Field out of the Object Library and onto the main MythBase window, positioning it in the upper right-hand corner of the window, letting the blue guidelines indicate where to position it. Next, type “table” in the Object Library search field. Drag a Table View out to MythBase window, positioning it to the left edge of the window. Stretch it out to fill the width of the window, until it connects with the vertical blue guideline in the right. Position the table view below the search field; it will snap into place a few pixels below the search field.
+
+Open the Attributes Inspector, and set the table view’s Content Mode to be view-based. Set the Column Sizing to be “First Column Only.” Below the Content Mode, set the table view to have five columns. While setting the table view to five columns, you may note a horizontal scroll bar flashing underneath the table view. The added columns will be off the right side of the table view, so click on the second column and resize it to be narrower until all five columns are visible, as shown on Figure [8-5](#A978-1-4302-4543-8_8_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_8_Fig5_HTML.jpg](A978-1-4302-4543-8_8_Fig5_HTML.jpg)
+
+Figure 8-5.
+
+Laying out the table view for MythBase
+
+The table view will show all of the attributes we’ve defined for the `MythicalPerson` entity except for `details`, so we’ll want to set labels in the column header. In the table view, click on the header of the first column until it turns into an editable text field. Type “Name” in the textfield to set the column title. Click in the next column, and set its name to “Divinity.” Set the titles of the next three columns to “Power,” “Goodness,” and “Depiction.”
+
+Next, we’ll set up an indicator to show how many results are found when doing a search. In the Object Library search field, type “Label” and drag out a Label field to the left of the window, just below the table view. As always, the blue guidelines will indicate where to put it. Set the title of the label to “# out of #” and resize it so that all the text is visible.
+
+Our next set of controls will be buttons to search, add, and delete records. In the Object Library search field, type “Button.” Cocoa has a variety of button styles, so we’ll get a healthy set of choices. For this app, let’s use Gradient buttons. Drag out one and position it underneath the table view, and parallel with the text field from the previous step. Title it “Fetch.” Drag out two more, positioning them to the right of the Fetch button. Title these new buttons “Delete” and “Add.” After titling them, position them underneath the table view and aligned with the right edge of the window. The layout should match that of Figure [8-6](#A978-1-4302-4543-8_8_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_8_Fig6_HTML.jpg](A978-1-4302-4543-8_8_Fig6_HTML.jpg)
+
+Figure 8-6.
+
+Adding a result counter and buttons
+
+### Displaying Details
+
+We now need to lay out controls to display the details of a selected Mythical Person. Our Core Data entity’s attributes are `name`, `divinity`, `power`, `goodness`, `depiction`, and `details`, and that’s what our user interface will show. Start by finding and dragging out a Label below the buttons and near the centerline of the window. Double-click in it to set its title to “Name:.” In the Object Library, find and drag out a Text Field (enter “field” in the search field) next to the Name: label. Stretch it out until it’s about a third of the width of the window, 200 pixels or so. Drag it to be below the buttons and aligned with the right edge of the screen. The blue guidelines show to snap it into place. Drag the Name: label to have it snap into place to the left of the text field.
+
+Click the Label once to select it, hit ⌘C to copy it, and then ⌘V to paste a new one below it. The pasted label will appear below and to the right of the first one. Drag it into position directly below the first label; it will snap into place at the right distance below the first label. Do this two more times so that there are three labels lined up below the first one. Select all four of them and select Editor ➤ Align ➤ Right Edges (⌘]). Lastly, set the titles of these labels to be “Divinity:,” “Power:,” and “Goodness:.” The labels should automatically resize to show the whole title, but keeping the right edges aligned.
+
+The `divinity`, `power`, and `goodness` attributes are all numeric, so we’ll use a slider to set them. In the Object Library, search for slider, and then drag out a Horizontal Slider next to the Divinity: label and below the text field for Name. Stretch it out to be the same width as the text field. As always, the blue guidelines will show the way. In the Attributes Inspector, make sure that the slider has a min value of 0, a max value of 100, and a default value of 50, just like the `divinity` attribute that we created on the Mythical Person Core Data entity. Check the Continuous checkbox in the Attributes Inspector as well. As we did with the labels, select this slider and hit ⌘C to copy it, and then ⌘V to paste a new one below it. Reposition the new slider to line up with the Divinity slider and be aligned with the Power: label. Press ⌘V again to paste another slider, and position that one below the first two and aligned with the Goodness: label. The window should look like Figure [8-7](#A978-1-4302-4543-8_8_Chapter.html#Fig7).
+
+![A978-1-4302-4543-8_8_Fig7_HTML.jpg](A978-1-4302-4543-8_8_Fig7_HTML.jpg)
+
+Figure 8-7.
+
+Adding controls to manage Mythical Details
+
+The two attributes that don’t yet have a display control are `depiction` and `details`. We’ll use an image well and a text box for these. In the search field in the Object Library, type in “image,” and then drag an Image Well out to the lower left corner of the screen and let it snap to the blue guidelines in the corner. Resize it to be 150 pixels high and 200 pixels wide. In the Attributes Inspector, set the image well to be editable. This will allow a user to drag an image into the image well.
+
+Next, type “text” in the search field in the Object Library, and drag a Text View out to the lower right corner. Resize it to be 150 pixels high and 250 pixels wide, which should be wide enough to fill in the space between the edge of the window and the image well, with a visually pleasing gap. You should see blue guidelines when you’re close to the right position, and the text view should snap into place. We have one important change to make to its attributes. `NSTextView` is able, by default, to display rich text, which is a great feature but it comes at a price: In Cocoa, rich text is represented by instances of `NSAttributedString`, a class that’s a lot more complicated than `NSString`, and not something we want to get into here and now. In order for the text view to be able to bind its display value to a plain old string, we have to turn off rich text handling. So, in the Attributes Inspector, click to turn off the Rich Text checkbox (if you don’t see it, you’ve probably selected the text view’s superview, an `NSScrollView`. Click the text view once more to select the `NSTextView` inside). You can also change the Find settings to Uses Bar and check Incremental Search to have text searching utilize the Find Bar feature introduced in OS X 10.7.
+
+These controls will need labels, so enter “label” in the Object Library search field, and drag a Label out above the image well, in line with the image well’s left edge. Change its text to “Depiction”. Drag out another label above the text view, and title it “Details.” Line the Details label up so that the right edge is aligned with the labels for the sliders.
+
+The last thing to do is to configure the table view’s columns. Four of the five columns will display text or numbers, so the default configuration is fine. For the Depiction column, however, we want to display an image, so the `NSTextField` currently in that column needs to be replaced with an image well. Select the “Static Text” object contained within the table view cell for the Depiction column by using the object dock on the left, as shown in Figure [8-8](#A978-1-4302-4543-8_8_Chapter.html#Fig8). Once you’ve got it, press the Delete key to remove it. Enter “image” into the search field in the Object Library, and drag an Image Well into the empty table cell view in the Depiction column of the table view. The image well will get clipped to the height of the table cell view, so expand the height of the table view cell to be 48 pixels high, tall enough to show the whole image.
+
+![A978-1-4302-4543-8_8_Fig8_HTML.jpg](A978-1-4302-4543-8_8_Fig8_HTML.jpg)
+
+Figure 8-8.
+
+Selecting the Depiction textfield in the Object Dock
+
+That completes the GUI layout. It’s a thing of beauty, isn’t it? Now we need to connect it to a data source to populate it. We’ll do that using Cocoa bindings, discussed in the previous chapter.
+
+## Setting up Cocoa Bindings
+
+When we told Xcode that we wanted to make a Core Data application, it generated an application delegate class (called `MBAppDelegate`) that includes special support for working with Core Data. Part of this support is that the generated `MBAppDelegate` class now has a `managedObjectContext` property. The Managed Object Context is an object that lets an array controller (or, for that matter, your own code) tap into a source of model objects (instances of `NSManagedObject` or a subclass) through Core Data. We’ll see how the app controller provides this a little later when we examine the controller code that was put in place automatically when we created this project. Just like in the previous chapter, we’ll use an `NSArrayController` to manage the data, but the `NSArrayController` created here will access its data through Core Data instead of through an `NSMutableDictionary`. And as we did in the last chapter, we’ll connect it to the user interface using Cocoa bindings.
+
+### Binding with an Array Controller
+
+To get started, we need to get an Array Controller into the app. In the Object Library search field, search for “array.” The results should show an Array Controller. Drag one of those out onto the Interface Builder canvas; it can get dropped anywhere in the editor pane. No matter where we drop it, it will show up in the Object Dock to the left side of the Interface Builder canvas. Select it in the Object Dock and rename it to be Mythical Person Array Controller. Open up the Attributes Inspector, and change its mode from Class to Entity Name. Enter an Entity Name of “MythicalPerson”, which is the same name we used in the Model Editor. Lastly, check the Prepares Content checkbox. This will trigger the array controller to load data when the app is launched.
+
+We’re going to link the array controller to the `managedObjectContext` now. With the array controller still selected in the Object Dock, select the Bindings Inspector. Expand the Parameters section, and select App Delegate from the pop-up list. After that, check the Bind to checkbox that’s just next to the pop-up list. Next, type “managedObjectContext” into the Model Key Path field. This connects the array controller to the Core Data plumbing present in the App Delegate.
+
+Now that we’ve got the array controller connected, we need to start setting up bindings with the UI controls. We’ll start with the basic controls (the text fields and sliders), and then deal with the more complex controls (the depiction and the table view), and then finish up by wiring up the buttons.
+
+The first binding will be for the Name textfield. Select the Name text box and then open the Bindings Inspector. Expand the Value section, check the Bind to checkbox, and then select Mythical Person Array Controller from the pulldown. Make sure that the Controller Key box shows “selection,” and enter “name” in the Model Key Path field, as shown in Figure [8-9](#A978-1-4302-4543-8_8_Chapter.html#Fig9). This connects the textfield to the name property of the array controller’s selected object.
+
+![A978-1-4302-4543-8_8_Fig9_HTML.jpg](A978-1-4302-4543-8_8_Fig9_HTML.jpg)
+
+Figure 8-9.
+
+The Bindings Inspector for connecting the Name textfield to the Mythical Person Array Controller
+
+Setting up bindings for the sliders will be similar; we’ll establish a binding to the Mythical Person Array Controller’s selection, with a different Model Key Path depending on the appropriate property for the control. For each of the three sliders, this will be the `divinity`, `power`, and `goodness` attributes that we created in the model file. To make these bindings, select the Divinity slider and look at the Bindings Inspector. Expand the Value section, check the Bind to checkbox, and then select Mythical Person Array Controller from the pulldown. Make sure that the Controller Key box shows “selection,” and enter “divinity” in the Model Key Path field. Repeat this for the Power and Goodness sliders, changing the Model Key Path as appropriate.
+
+Setting up bindings for the Depiction and Details areas will be just slightly more complex. We’ll do the Details first. Select the Text view (remember that the Text view is embedded in an `NSScrollView`; you’ll need to click through the scroll view to get to the Text view itself). In the Bindings Inspector, there are different choices than with the Name text field and the sliders. However, there’s still a Value section, which is what we’ll be using. Expand the Value section, check the Bind to checkbox, and use “details” as the Model Key Path.
+
+For the Depiction, we need to get an `NSImage` for the image well to display. Core Data doesn’t know about `NSImages`, but this isn’t a problem. Remember the earlier discussion about transformers and the Transformable type used by Core Data? Because depiction is a transformable attribute, its value needs to be converted between what we see in the GUI (an `NSImage`) and something that Core Data is capable of storing (`NSData`). We’ll do this by adding `NSKeyedUnarchiveFromData` to the Cocoa bindings configuration for this control. Select the image well and bring up the Bindings Inspector. As with the other fields, open the Value section. Check the Bind to checkbox, ensure that the Controller Key shows “selection,” and set the Model Key Path to be “depiction”. To make the conversion from `NSData` to `NSImage`, click on the Value Transformer pop-up list, and choose `NSKeyedUnarchiveFromData`.
+
+### Configuring Bindings for the Table View
+
+It’s time to do the bindings for the table view. Setting up Cocoa bindings for a view-based table view is a two-step process. First, we have to set up a binding for the table view itself. Next, we’ll set up bindings for each view in the row. The table view works some magic to expose a bindings source to its subviews, titled Table Cell View. Within that binding is a Model Key Path of “objectValue” that represents the object for that row.
+
+To start, select the table view itself. This is most easily done from the Object Dock on the left. In the Bindings Inspector, expand the Content section, and check the Bind to checkbox, ensure that the pulldown menu shows Mythical Person Array Controller and Controller Key shows “arrangedObjects.” For the table view itself, we don’t have a Model Key Path setting. We also want to have the selected row in the table view get passed back to the array controller. To set this, expand the Selection Indices section of the Bindings Inspector. Check the Bind to checkbox here, set the pulldown menu to Mythical Person Array Controller, and set the Controller Key to “selectionIndexes.” Your binding should look like Figure [8-10](#A978-1-4302-4543-8_8_Chapter.html#Fig10).
+
+![A978-1-4302-4543-8_8_Fig10_HTML.jpg](A978-1-4302-4543-8_8_Fig10_HTML.jpg)
+
+Figure 8-10.
+
+Setting bindings for the table view
+
+We’ve got five columns in the table: Name, Divinity, Power, Goodness, and Depiction. We don’t set bindings on the columns directly; instead, we’ll set up bindings to the views contained within each column. For the first four columns, the view is an `NSTextField` contained within an `NSTableCellView`. For the `Depiction` column, the view is an `NSImageWell` contained within an `NSTableCellView.` Unfortunately, Xcode sets the default value of the text field contained within an `NSTableCellView` to be “Table View Cell,” which seems almost designed to create confusion. The views in the table view are instances of `NSTableCellView`, despite their default text. The text field and image well will be bound to the objectValue property of the Table Cell View.
+
+We’ll start with the Name column. Select the Table View Cell in the `Name` column, which may take two clicks if you’re clicking in the UI itself, or by expanding the Table Column - Name entry in the Object Dock on the left and drilling down to the Static Text - Table View Cell entry within. In the Bindings Inspector, expand the Value section. Check the Bind to checkbox, ensure that the pulldown menu shows Table Cell View, and set the Model Key Path to be “objectValue.name.” The Controller Key should be blank.
+
+The Divinity, Power, and Goodness bindings will all be similar. Select each column in turn and drill down to the Static Text field within. Set the Value binding as we did for the `Name` column: open the Value section, check the Bind to checkbox, ensure that the pulldown menu shows Table Cell View, and set the Model Key Path to be “objectValue.divinity,” “objectValue.power,” or “objectValue.goodness” as appropriate.
+
+Now for the Depiction column. Select the image well inside the Table Cell View in the Depiction column. In the Bindings Inspector, open the Value section. As before, check the Bind to checkbox, ensure that the pulldown menu shows Table Cell View. Set the Model Key Path to “objectValue.depiction”. As we did with the Depiction view above, click on the Value Transformer pop-up list, and choose `NSKeyedUnarchiveFromData`, as shown in Figure [8-11](#A978-1-4302-4543-8_8_Chapter.html#Fig11). That wraps up the table view!
+
+![A978-1-4302-4543-8_8_Fig11_HTML.jpg](A978-1-4302-4543-8_8_Fig11_HTML.jpg)
+
+Figure 8-11.
+
+Setting up bindings for the Depiction column
+
+For the text field below and to the left of the table view showing the number of matches, we’ll use a different binding method that will let us use a format string to build the contents of the text field. In this case, we’ll use Display Pattern Value1 rather than Value. Expand the Display Pattern Value1 section, and check the Bind to checkbox and set the pulldown menu to Mythical Person Array Controller as before. Enter “selection” as the Controller Key. This time, we’re going to use a different key path. Set the Model Key Path to “@count,” and the Display Pattern to “%{value1}@ out of %{value2}@.” There’s another binding available below Display Pattern Value1 now, titled Display Pattern Value2. Expand the Display Pattern Value2 section, and check the Bind to checkbox and set the pulldown menu to Mythical Person Array Controller as before. This time, enter “@count” as the Model Key Path, and enter “arrangedObjects” as the Controller Key instead of “selection.” The Display Pattern will auto-fill with the same value that we entered in the Display Pattern Value1 binding.
+
+Now, we need to wire up the Fetch, Delete, and Add buttons. For this, we’ll use a combination of target-action connections for responding to clicks and Cocoa bindings to enable or disable the buttons as appropriate. Let’s start with the target-action connections. Select the Fetch button and control-drag a connection out to the Mythical Person Array Controller. The array controller will be at the bottom of the list of objects in the Object Dock; if you can’t see it, hover your mouse at the bottom of the Object Dock and it will scroll down to reveal the array controller. Select the `fetch:` action. Do the same thing with the Delete and Add buttons, selecting the `remove:` and `add:` actions respectively.
+
+Next, we’ll establish bindings for the Enabled property of the Add and Remove buttons. Select the Add button and open the Bindings Inspector. Expand the Enabled section, shown under Availability. Can you guess the next step? That’s right; check the Bind to checkbox, ensure that the pulldown menu shows Mythical Person Array Controller. This time, however, change the Controller Key field to be “canAdd.” When you start typing in the Controller Key field, you’ll get a list of potential completions. Do the same thing for the Remove button, changing the Controller Key to “canRemove.”
+
+We’ve now built enough of the UI that we should try it out before going any further. Let’s try it out. Save the nib file and click Run. You should be able to click the Add button and get blank rows in the table view. You should also be able to edit the name and move the sliders, and have the changes reflected in the selected row in the table view. If that’s not the case, then check the bindings and connections in the nib file and see whether they match the instructions.
+
+### Finishing the Bindings: Save and Search
+
+Our application should be able to handle multiple records and allow creating and removing of mythical people. But we can’t save or search it, which makes it a pretty poor database. Let’s fix that now.
+
+Saving is easy. The Application Delegate class generated by Xcode manages that for us; we just need to tell it when to do so. In the Main Menu, there’s a File menu with a Save menu item. The Save menu item comes pre-bound to the ⌘S key equivalent. We’ll use this for our app as well. In the Object Dock in Interface Builder, expand the Main Menu object, then expand the File menu and then the Menu Item – Save item.  Note that we’re talking about objects in the Object Dock, not Xcode’s own menu! Control-drag a connection to the App Delegate in the Object Dock, and select the `saveAction` `:` action from the list. Done!
+
+Search isn’t quite as straightforward, and there’s a bit of terminology to cover first. Core Data search support is based on predicates. A predicate is made up of an attribute name, an operator, and a search value; and a search field can support many predicates. Two examples of predicates are `name contains Heracles` or `goodness greater than 75`. If you’re familiar with SQL, the `WHERE` clause of a SQL command is built up of predicates. For MythBase, all of the attributes of the MythicalPerson entity should be searchable with the exception of depiction, so we’ll need to define several predicates. We can’t search depiction, as binary and transformable attribute are inherently not searchable. The predicates can be defined in the Bindings Inspector, and that’s where we’re heading to next.
+
+We’ll start by defining a predicate to search on the name attribute. Select the Search field at the upper right corner of the screen, and open the Bindings Inspector. Near the bottom of the Bindings Inspector is a section titled Predicate. Open it up and check the Bind to checkbox, binding it to Mythical Person Array Controller. The Controller Key should say “filterPredicate”. Set the Display Name to “Name,” and the predicate format to “name contains[c] $value” where $value indicates the contents of the search box, and name indicates the MythicalPerson entity attribute that should be searched. The operator, contains[c], indicates that we want to return any records where the name attribute contains the value represented in $value, using a case insensitive search—that’s what the [c] at the end means. Without the [c], the search is case-sensitive.
+
+Note that a new binding has been created titled Predicate2\. We’ll use that one to define a predicate to search on all the searchable fields in the entity. Open up Predicate2 and, just like the first one, check the Bind to checkbox, binding it to Mythical Person Array Controller. The Controller Key should say “filterPredicate.” For Predicate2, set the Display Name to “All,” and the predicate format to the following mouthful: “(name contains $value) or (divinity.description contains $value) or (power.description contains $value) or (goodness.description contains $value) or (details contains[c] $value).” Note that there’s now a new binding available called Predicate3.
+
+We’ve shown how to search on one attribute or many. If you’d like to be able to search on other specific fields, such as name or details, feel free to add more predicates by following the same pattern as described above, changing the field name in the predicate format value as appropriate. There are many more possibilities for constructing search predicates than we’ve discussed here, and Apple offers a Predicate Programming Guide section in the Xcode documentation that covers it in detail.
+
+Well, with all that behind us, it’s time to run the app. Press the Run button in the upper-left-hand corner of the Xcode window, and you should be able to create some Mythical Person records, drag an image into the large image well to show a picture, use the File ➤ Save menu item to save the records, and search the database. The question mark icon on the left edge of the search field should let you select which search predicate is operative. When you quit and rerun the app, the records should be preserved and reloaded on launch.
+
+We’ve now made a pretty cool-looking app entirely by defining a model and building a GUI. Notably, we haven’t written any code! This is a great example of the kind of visual programming model that Cocoa has always enabled, and with the addition of Cocoa bindings and Core Data in the past few years it’s become even more complete. Of course, underlying all this stuff are frameworks and APIs that enable all this “magic” to happen in Xcode, and there are times when you will want or need to access Core Data functionality from code. The rest of this chapter will introduce some aspects of programming (in the traditional, code-based sense) with Core Data, starting with a tour of the generated code in the Application Delegate class.
+
+## Exploring the Template Code
+
+When we created the MythBase project, an application delegate class called `MBAppDelegate` was created for us. This class contains code to load the model information from the Core Data model files contained within our application. It also opens up the on-disk storage where Core Data reads and writes its model objects, or creates this storage if it doesn’t already exist. And finally, it provides access to the data storage via an `NSManagedObjectContext`, which other objects can in turn bind to (such as the array controller in our nib file) in order to read from and write to storage.
+
+All the code shown here has been reformatted to better fit the format of this book, so your version may look slightly different, but it should be syntactically identical.
+
+### The App Delegate Interface
+
+Let’s jump right in and take a look at the header file, `MBAppDelegate.h`, shown in the following listing. This is the autogenerated code created by Xcode 4.5 for Mountain Lion. The version created by different versions of Xcode may be slightly different, and if you like you can change it to match the version shown here:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface MBAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;`
+
+`@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;`
+
+`@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;`
+
+`- (IBAction)saveAction:(id)sender;`
+
+`@end`
+
+This code declares a simple class with four properties and one method. The `window` variable also features `IBOutlet` in its property declaration, which makes it into an outlet available for connecting to a window in Interface Builder. The other three properties are instances of some important Core Data classes:
+
+*   `NSPersistentStoreCoordinator` manages the back-storage, giving access to one or more instances of `NSPersistentStore`, each of which represents a storage location (in a file or in memory). The purpose of the coordinator is to let the application access several persistent stores as if they were one. Some applications may want to use this to partition application data across multiple stores. For example, you may want to distinguish between normal entities, whose objects that are saved to disk, and transient entities, whose objects that are only held in memory and will disappear when the user quits the app. Even though they’re not saved to disk, the transient objects will still benefit from the other features of Core Data (simple Undo support, integration with Cocoa bindings, and the like).
+*   `NSManagedObjectModel` loads information about entities and their properties from one or more model files (normally contained inside your application bundle), and acts as a sort of metadata repository containing the structure of the application’s managed objects. Many applications will never need to interact with this directly.
+*   `NSManagedObjectContext` is responsible for dealing with the lifecycle of all managed objects (the model objects that we’re storing via Core Data). It accesses the objects themselves through an `NSPersistentStoreCoordinator` and provides high-level functionality for creating, reading, updating, and deleting objects. Most applications will use an `NSManagedObjectContext` at some time or another for creating objects, saving changes, and so on.
+
+We’ll see how each of those objects is used when we look at the implementation file. The final declaration in the header file is for the `saveAction:` method, which is called when the user selects File ➤ Save from the MythBase menu. We’ll see how that works in the next section.
+
+### The App Delegate Implementation
+
+Now let’s switch over to `MythBase_AppDelegate.m`, and see what it does. Besides implementing the `saveAction:` method declared in the interface, it also needs to make sure that the appropriate accessors for its declared properties are all implemented. That includes both a getter and a setter for window, and just a getter for the others (which were declared read-only). As with the header file, this code was auto-generated using Xcode 4.5 running on Mountain Lion. If you’re using something else, you might see slightly different code.
+
+#### The applicationSupportDirectory Method
+
+The file starts out like this:
+
+`#import "MBAppDelegate.h"`
+
+`@implementation MBAppDelegate`
+
+`@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;`
+
+`@synthesize managedObjectModel = _managedObjectModel;`
+
+`@synthesize managedObjectContext = _managedObjectContext;`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "com.learncocoa.MythBase" in the user's Application Support directory.`
+
+`- (NSURL *)applicationFilesDirectory`
+
+`{`
+
+    `NSFileManager *fileManager = [NSFileManager defaultManager];`
+
+    `NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];`
+
+    `return [appSupportURL URLByAppendingPathComponent:@"com.learncocoa.MythBase"];`
+
+`}`
+
+The first things shown in the class’s implementation are some `@synthesize` directives, which take care of the getters and setters for the properties declared in the header file. Next is the stub for the `applicationDidFinishLaunching:` method, which we’ve seen before and is standard for any application delegate class. After that comes the implementation of a method called `applicationFilesDirectory`, which returns an `NSURL` containing the name of a directory where the application can save its data (in our case, the location where Core Data should save its persistent store). Normally this method returns the full path of a subdirectory of the Application Support directory, which is located inside the Library directory in the user’s home directory (/`Users/somebody/Library/Application Support/MythBase`).
+
+The `applicationFilesDirectory:` method is a “helper” method, called elsewhere in the class’s implementation. Note that this method is neither declared in the header file nor in a private category or anything of the sort. In an Objective-C implementation block, code can call any methods that appear earlier in the same implementation block, even if they’re not declared anywhere. This is sometimes a handy shortcut when you want to refactor your code a bit, extracting some functionality into a method of its own, but don’t need to make it accessible anywhere outside the current class implementation.
+
+#### The managedObjectModel Accessor Method
+
+Next is the `managedObjectModel` method. This method serves as the getter for the `managedObjectModel` property.
+
+`// Creates if necessary and returns the managed object model for the application.`
+
+`- (NSManagedObjectModel *)managedObjectModel`
+
+`{`
+
+    `if (_managedObjectModel) {`
+
+        `return _managedObjectModel;`
+
+    `}`
+
+    `NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MythBase" withExtension:@"momd"];`
+
+    `_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];`
+
+    `return _managedObjectModel;`
+
+`}`
+
+The method simply checks to see if the `managedObjectModel` has already been created. If so, it returns it, and if not, it creates it by reading the `MythBase.momd` resource file contained within the application bundle. This file is created by Xcode from the model file we created at the beginning of the chapter. The `managedObjectModel:` method may be called by any piece of code that needs access to metadata about the model. In particular, it’s called when we create the `NSPersistentStoreCoordinator`, which will need to either read from, or create storage for our model, so it needs the gritty details.
+
+ERROR HANDLING WITH NSERROR
+
+Some of the code shown here makes use of `NSError` objects to handle errors that may occur. We haven’t yet covered `NSError`,  so we’ll offer a brief explanation here.
+
+The basic idea behind `NSError` is that some methods need to be able to inform the caller about potential errors that may occur, without using the return value for this purpose. To make this work, you pass in a pointer to a pointer (sometimes called a “handle” in C parlance) to an `NSError`, so that the method may create an `NSError` object and point a pointer at it, something like this:
+
+`NSError *error = nil;`
+
+`[someObject doSomething:&error];`
+
+`if (error) {`
+
+  `// handle the error somehow!`
+
+`}`
+
+For more details about `NSError`, see [Chapter 14](#A978-1-4302-4543-8_14_Chapter.html).
+
+#### The persistentStoreCoordinator Accessor Method
+
+Next up is the considerably longer `persistentStoreCoordinator` method:
+
+`// Returns the persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)`
+
+`- (NSPersistentStoreCoordinator *)persistentStoreCoordinator`
+
+`{`
+
+    `if (_persistentStoreCoordinator) {`
+
+        `return _persistentStoreCoordinator;`
+
+    `}`
+
+    `NSManagedObjectModel *mom = [self managedObjectModel];`
+
+    `if (!mom) {`
+
+        `NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));`
+
+        `return nil;`
+
+    `}`
+
+    `NSFileManager *fileManager = [NSFileManager defaultManager];`
+
+    `NSURL *applicationFilesDirectory = [self applicationFilesDirectory];`
+
+    `NSError *error = nil;`
+
+    `NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];`
+
+    `if (!properties) {`
+
+        `BOOL ok = NO;`
+
+        `if ([error code] == NSFileReadNoSuchFileError) {`
+
+            `ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];`
+
+        `}`
+
+        `if (!ok) {`
+
+            `[[NSApplication sharedApplication] presentError:error];`
+
+            `return nil;`
+
+        `}`
+
+    `} else {`
+
+        `if (![properties[NSURLIsDirectoryKey] boolValue]) {`
+
+            `// Customize and localize this error.`
+
+            `NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];`
+
+            `NSMutableDictionary *dict = [NSMutableDictionary dictionary];`
+
+            `[dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];`
+
+            `error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];`
+
+            `[[NSApplication sharedApplication] presentError:error];`
+
+            `return nil;`
+
+        `}`
+
+    `}`
+
+    `NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"MythBase.storedata"];`
+
+    `NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];`
+
+    `if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {`
+
+        `[[NSApplication sharedApplication] presentError:error];`
+
+        `return nil;`
+
+    `}`
+
+    `_persistentStoreCoordinator = coordinator;`
+
+    `return _persistentStoreCoordinator;`
+
+`}`
+
+This method looks a little intimidating, but we’ll go through it piece by piece. It starts by looking for an existing object in the `persistentStoreCoordinator` instance variable, returning it if there is one. Otherwise, it needs to initialize the coordinator itself, so it goes on to look for a `managedObjectModel` by calling the method of the same name. If it doesn’t exist, then the application contains no model, and this method logs an error, effectively giving up, and returns nil.
+
+Otherwise, it goes on to check for the existence of a directory (specified by the value returned by the `applicationFilesDirectory` method) where the app’s Core Data storage should be loaded. It does this by calling `resourceValuesForKeys:error:` on the `NSURL` returned by `applicationFilesDirectory`, which returns a `NSDictionary` containing information about the properties requested. In this case, we’re requesting the resource value for the `NSURLIsDirectoryKey` key, which asks the URL if it represents a directory (as opposed to a file).
+
+The `resourceValuesForKeys:error:` method might return nil if the directory isn’t there at all—such as the first time the application is run. If this is the case, the code checks the contents of the `NSError` to see if the path isn’t there. If it’s not there, it tries to create the directory and then checks to see whether the directory creation succeeded. If not, it reports the error and returns nil. On the other hand, if `resourceValuesForKeys:error:` did return a properties object, then it checks the contents of the properties object to see if the path exists but doesn’t represent a directory. This might be the case if there’s a file with the same name already present. If this is the case, the method reports the error (after looking up a localized error message) and returns nil.
+
+If we get past all those edge cases (and we usually will), then the method builds a URL pointing at where the storage file should be located, creates an `NSPersistentStoreCoordinator`, and tells the coordinator to add a new store, given the URL. The coordinator is smart enough to look at the URL, figure out if there’s already a persistent store there, and if not, create one for us. If it encounters any error along the way, it tells us so, and the application reports an error to the user.
+
+A few points of interest about this method: for one thing, this is where the actual filename for our app’s data store (currently `MythBase.storedata`, though in an earlier version of Mac OS/X it defaulted to `MythBase.xml`) is specified. If you wanted to name your file something else, this is where you’d change it.
+
+Also, this is where the type of the backing store is specified, in the call to the `addPersistentStoreWithType:configuration:URL:options:error:` method. It’s currently set to `NSXMLStoreType`, which means that the stored data will be in an XML-formatted file. This sort of storage is nice while you’re developing your app, since the resulting file is easy to parse with other tools, or for that matter read with your own eyes. However, before delivering a final application, you may want to consider changing your data store to another type for the sake of size, speed, and other considerations.
+
+The other choices we have are `NSBinaryStoreType`, which saves its data in a binary format that takes less disk space and is faster to read and write, and `NSSQLiteStoreType`, which in addition to the advantages of `NSBinaryStoreType` also frees the persistent store from the burden of holding the entire object graph in memory at once; it only loads objects as they’re accessed. That difference becomes crucial when dealing with a large data set. Because of this advantage, we recommend changing from `NSXMLStoreType` to `NSSQLiteStoreType` before releasing your application. There’s an additional store type, `NSInMemoryStoreType`, which can be used for maintaining an in-memory object graph that’s never saved to disk.
+
+The default Core Data application template does a pretty good job of tucking away the data storage for you so that you don’t have to give it too much thought, but at some point before shipping your app you will have to decide which of these formats to use for your app’s storage. We’ve given our recommendations, but you might want to consult the documentation in Xcode (search for “core data programming guide” to gain more understanding before deciding how to tackle this issue.
+
+The final thing to point out about `persistentStoreCoordinator` is that if you want to partition your data into different stores (for example one that’s on disk and one that’s only in memory, disappearing when the app terminates) this is where you’d need to make the changes, adding each of your persistent stores to the coordinator.
+
+#### The managedObjectContext Accessor Method
+
+Now let’s look at the `managedObjectContext` method, which is the getter for the read-only property of the same name:
+
+`// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)`
+
+`- (NSManagedObjectContext *)managedObjectContext`
+
+`{`
+
+    `if (_managedObjectContext) {`
+
+        `return _managedObjectContext;`
+
+    `}`
+
+    `NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];`
+
+    `if (!coordinator) {`
+
+        `NSMutableDictionary *dict = [NSMutableDictionary dictionary];`
+
+        `[dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];`
+
+        `[dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];`
+
+        `NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];`
+
+        `[[NSApplication sharedApplication] presentError:error];`
+
+        `return nil;`
+
+    `}`
+
+    `_managedObjectContext = [[NSManagedObjectContext alloc] init];`
+
+    `[_managedObjectContext setPersistentStoreCoordinator:coordinator];`
+
+    `return _managedObjectContext;`
+
+`}`
+
+Like the other methods we’ve seen acting as a getter for a property, this method first checks to see if the instance variable has been set, and if so, returns it. Otherwise, it checks for the existence of a persistent store coordinator by calling the `persistentStoreCoordinator` method. If that returns nil, then the method reports an error and returns nil itself. If not, it simply creates a managed object context, sets its persistent store coordinator, and returns the context.
+
+This code is pretty straightforward and is probably nothing you’ll ever pay much attention to, except perhaps to customize the error reporting.
+
+#### An NSWindow Delegate Method
+
+Next up is an `NSWindow` delegate method called `windowWillReturnUndoManager`.
+
+`// Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.`
+
+`- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window`
+
+`{`
+
+    `return [[self managedObjectContext] undoManager];`
+
+`}`
+
+This method lets us specify the object that handles undo/redo actions for the window containing our GUI. We’ll discuss the undo/redo system in a later chapter, but for now what you need to know is that this method tells the system to use Core Data’s undo manager, which is accessed through the managed object context.
+
+#### The saveAction: Action Method
+
+Next up, the `saveAction:` method, which is called when the user clicks the relevant menu item.
+
+`// Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.`
+
+`- (IBAction)saveAction:(id)sender`
+
+`{`
+
+    `NSError *error = nil;`
+
+    `if (![[self managedObjectContext] commitEditing]) {`
+
+        `NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));`
+
+    `}`
+
+    `if (![[self managedObjectContext] save:&error]) {`
+
+        `[[NSApplication sharedApplication] presentError:error];`
+
+    `}`
+
+`}`
+
+This method is pretty straightforward. It first tells the context to ensure that any pending edits are committed to the underlying model objects and prints a warning in case the commit fails. Whether the commit succeeds or fails, it then proceeds to tell the context to save all model objects to storage. If that fails, it shows the user an error.
+
+#### An NSApplication Delegate Method
+
+Now we come to this class’s last method, the `NSApplication` delegate method `applicationShouldTerminate:`. This method is called by the application when the user selects Quit from the menu, and gives the delegate a chance to save changes, inspect its state, ask the user if they really want to quit, and so on. The value returned by this method determines whether the application will really terminate or not. Here’s the code:
+
+`- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender`
+
+`{`
+
+    `// Save changes in the application's managed object context before the application terminates.`
+
+    `if (!_managedObjectContext) {`
+
+        `return NSTerminateNow;`
+
+    `}`
+
+    `if (![[self managedObjectContext] commitEditing]) {`
+
+        `NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));`
+
+        `return NSTerminateCancel;`
+
+    `}`
+
+    `if (![[self managedObjectContext] hasChanges]) {`
+
+        `return NSTerminateNow;`
+
+    `}`
+
+    `NSError *error = nil;`
+
+    `if (![[self managedObjectContext] save:&error]) {`
+
+        `// Customize this code block to include application-specific recovery steps.`
+
+        `BOOL result = [sender presentError:error];`
+
+        `if (result) {`
+
+            `return NSTerminateCancel;`
+
+        `}`
+
+        `NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");`
+
+        `NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");`
+
+        `NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");`
+
+        `NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");`
+
+        `NSAlert *alert = [[NSAlert alloc] init];`
+
+        `[alert setMessageText:question];`
+
+        `[alert setInformativeText:info];`
+
+        `[alert addButtonWithTitle:quitButton];`
+
+        `[alert addButtonWithTitle:cancelButton];`
+
+        `NSInteger answer = [alert runModal];`
+
+        `if (answer == NSAlertAlternateReturn) {`
+
+            `return NSTerminateCancel;`
+
+        `}`
+
+    `}`
+
+    `return NSTerminateNow;`
+
+`}`
+
+As with the `persistentStoreCoordinator` method, we’ll go through this one piece by piece. First, it checks to see whether there really is a `managedObjectContext` to worry about. If not, it just returns `NSTerminateNow` immediately, and the application terminates. If there is a `managedObjectContext`, it tells the context to commit any pending changes. If that fails, it logs an error message and returns `NSTerminateCancel`, which makes the application abort the current termination procedure and just continue about its business. Then it checks to see whether the `managedObjectContext` actually has any pending changes, and if it doesn’t, it returns `NSTerminateNow`.
+
+Finally, it does the big step of telling the context to save its changes. If the save fails, then the final big conditional block is triggered. That block constructs an `NSAlert`, a special type of window that appears in front of all other application windows and forces you to make a choice by clicking a button (you’ll learn more about `NSAlert` and other windows in [Chapter 11](#A978-1-4302-4543-8_11_Chapter.html)). In this case, it tells the user that their changes were not saved, and asks them to choose whether to quit the app anyway or cancel the termination and go back to normal. Depending on the return value from this request, it either returns `NSTerminateCancel` or “falls through” and returns `NSTerminateNow`.
+
+Time to point out a small bug in this method: near the end, when the method checks to see if the Cancel button was pressed, it’s actually comparing answer to the wrong value. It should be `NSAlertSecondButtonReturn` instead of `NSAlertAlternateReturn`. Not such a big deal perhaps, and we won’t bother to fix it for our sample app, but this error in the logic makes it impossible to avoid quitting when the app is in a particular invalid state. Oops!
+
+One interesting thing to note is the use of `NSLocalizedString` in this method. `NSLocalizedString` is a simple way to let our code use localized resources if present. It’s a C function that takes two arguments: a default string and a key used for looking up a localized string. For instance, in a call like `NSLocalizedString(@"Cancel", @"Cancel button title")`, `NSLocalizedString` will first check to see which language the user prefers, then check to see if there exists a localized string for that language, keyed off @“Cancel button title”, and if so, returns it. Otherwise, it will just return the first parameter, @”Cancel”.
+
+## Adding Business Logic
+
+Now that we’ve seen the basic idea of constructing an application with Core Data, including defining the model, configuring the GUI, and knowing our way around the template-provided code in our project, it’s time to learn a bit about how to use Core Data to actually implement something “interesting” in our model objects: our application’s “business logic.”
+
+Some amount of business logic is specified right in the model file, such as an integer’s `min` and `max` size, while some things require a bit of code. Fortunately, `NSManagedObject` provides several “hooks” into spots where we can test our objects’ attributes to validate them and make sure they’re okay. In order for us to make use of these, however, we first need to make a subclass of `NSManagedObject` to represent our MythicalPerson entity. Up until now, we’ve used `NSManagedObject` itself, but to add code we need to make a subclass.
+
+### Making The MythicalPerson Class
+
+Xcode will merrily make a subclass of `NSManagedObject` for us. To do so, click on File ➤ New ➤ File (or press ⌘N). In the template selector, choose Core Data from the OS X section on the left. Then, select NSManagedObject subclass from the main window. Click Next. In the table view that appears, check the checkbox for MythBase, which indicates that we’re making an `NSManagedObject` subclass that will work with the entities described in the MythBase data model. Click Next. The next choice is to indicate for which entity we’re making an `NSManagedObject` class. Since we’ve only defined one entity, there’s only one choice here, MythicalPerson. Check that, and click Next. Lastly, we’re asked where to save the file. The file panel should default to the main directory for MythBase, which is just where we want it. Leave the other options at their default values, and click Create. We now have a `MythicalPerson.h` and `MythicalPerson.m` file to work with.
+
+The `MythicalPerson.h` file looks like this:
+
+`#import <Foundation/Foundation.h>`
+
+`#import <CoreData/CoreData.h>`
+
+`@interface MythicalPerson : NSManagedObject`
+
+`@property (nonatomic, retain) id depiction;`
+
+`@property (nonatomic, retain) NSString * details;`
+
+`@property (nonatomic, retain) NSNumber * divinity;`
+
+`@property (nonatomic, retain) NSNumber * goodness;`
+
+`@property (nonatomic, retain) NSString * name;`
+
+`@property (nonatomic, retain) NSNumber * power;`
+
+`@end`
+
+We’ve got properties for each of the entity attributes we defined in the model, which appropriate classes for their contents.
+
+In the `MythicalPerson.m` file, we find the following:
+
+`#import "MythicalPerson.h"`
+
+`@implementation MythicalPerson`
+
+`@dynamic depiction;`
+
+`@dynamic details;`
+
+`@dynamic divinity;`
+
+`@dynamic goodness;`
+
+`@dynamic name;`
+
+`@dynamic power;`
+
+`@end`
+
+We haven’t seen the `@dynamic` directive before. This tells Xcode to suppress warnings if it can’t find implementations of accessor methods, even though we didn’t include a `@synthesize` directive, and not to synthesize them automatically. Core Data will generate the appropriate accessors at runtime.
+
+### Validating Single Attributes
+
+Let’s say we want to add a special constraint to MythBase to ensure that no MythicalPerson can be named “Bob.” To do this, we just have to add the method shown here to the `@implementation` section of `MythicalPerson.m`:
+
+`- (BOOL)validateName:(id *)ioValue error:(NSError **)outError`
+
+`{`
+
+  `if (*ioValue == nil) {`
+
+    `return YES;`
+
+  `}`
+
+  `if ([*ioValue isEqualToString:@"Bob"]) {`
+
+    `if (outError != NULL) {`
+
+      `NSString *errorStr = NSLocalizedString(`
+
+        `@"You're not allowed to name a mythical person 'Bob'.  "`
+
+          `" 'Bob' is a real person, just like you and me."`,
+
+        `@"validation: invalid name error");`
+
+      `NSDictionary *userInfoDict = [NSDictionary dictionaryWithObject:errorStr`
+
+        `forKey:NSLocalizedDescriptionKey];`
+
+      `NSError *error = [[NSError alloc] initWithDomain:@"MythicalPersonErrorDomain"`
+
+        `code:13013 userInfo:userInfoDict];`
+
+      `*outError = error;`
+
+    `}`
+
+    `return NO;`
+
+  `}`
+
+  `return YES;`
+
+`}`
+
+Note the name of this method, `validateName:error:`. This naming convention comes from the key-value coding model that’s pervasive in Cocoa. Attribute validation in Core Data works through the use of methods named `validate``>:error:`, which are called (if they exist) on each managed object when it’s time to save changes to the data store. Within this method, we should check the proposed value and return `YES` if it’s okay. If not, it returns `NO` and should also create an `NSError` object describing the error, setting the passed-in `NSError`** to point at it. Note that when creating the error we need to specify a string identifying the error name and an integer specifying just which error it was. In a larger application, it’s a good idea to standardize these values in some way. Doing so can help us track down errors that users may report and can also give us a way to catch some recurring errors and handle them individually (for instance, in the app controller’s `saveAction:` method). We’ll talk about this more in [Chapter 12](#A978-1-4302-4543-8_12_Chapter.html).
+
+At this point, we can compile and run MythBase, and everything should work the same as before… up until when we change a MythicalPerson’s name to “Bob” and try to save our changes, at which point we’ll be warned that it’s an invalid value.
+
+### Validating Multiple Attributes
+
+Sometimes we’ll need to be able to validate several attributes at once, making sure that they make sense together. For example, let’s say that we decide on a new constraint for each MythicalPerson: the value of the `power` attribute can only exceed 50 if the value of the `divinity` attribute is 100 (meaning that only a person operating in full “god mode” can have a `power` level above 50). Rather than check for this condition in `validatePower:error:` or `validateDivinity:error:`, the recommended procedure is to check for this in two other validation methods that are called whenever a new managed object is created, or edited: `validateForInsert:`, and `validateForUpdate:`. Because we’re going to check for the same internal consistency problem (where `power > 50` and `divinity < 100`) in both spots, we’ll put that check into a method of our own, `validateConsistency:`, which is called by the other two. First, let’s implement the two Core Data validation methods in `MythicalPerson.m`:
+
+`- (BOOL)validateForInsert:(NSError **)error`
+
+`{`
+
+  `BOOL propertiesValid = [super validateForInsert:error];`
+
+  `BOOL consistencyValid = [self validateConsistency:error];`
+
+  `return (propertiesValid && consistencyValid);`
+
+`}`
+
+`- (BOOL)validateForUpdate:(NSError **)error`
+
+`{`
+
+  `BOOL propertiesValid = [super validateForUpdate:error];`
+
+  `BOOL consistencyValid = [self validateConsistency:error];`
+
+  `return (propertiesValid && consistencyValid);`
+
+`}`
+
+These methods both work in the same way. First, they call the superclass’s version of the same method; that’s very important because that’s the method that actually calls all of the `validate``:error:` methods for each changed attribute. Then our own `validateConsistency:` method is called. If the return values for both of these calls return `YES`, then the method itself returns `YES`; otherwise it returns `NO`.
+
+Now let’s see what `validateConsistency:` looks like.
+
+`- (BOOL)validateConsistency:(NSError **)error`
+
+`{`
+
+  `int divinity = [[self valueForKey:@"divinity"] intValue];`
+
+  `int power = [[self valueForKey:@"power"] intValue];`
+
+  `if (divinity < 100 && power > 50) {`
+
+    `if (error != NULL) {`
+
+      `NSString *errorStr = NSLocalizedString(`
+
+        `@"Power cannot exceed 50 unless divinity is 100"`,
+
+        `@"validation: divinity / power error");`
+
+      `NSDictionary *userInfoDict = [NSDictionary dictionaryWithObject:errorStr`
+
+        `forKey:NSLocalizedDescriptionKey];`
+
+      `NSError *divinityPowerError = [[NSError alloc]`
+
+        `initWithDomain:@"MythicalPersonErrorDomain" code:182`
+
+        `userInfo:userInfoDict];`
+
+      `if (*error == nil) {`
+
+        `// there was no previous error, return the new error`
+
+        `*error = divinityPowerError;`
+
+      `}`
+
+      `else {`
+
+        `// combine previous error with the new one`
+
+        `*error = [self errorFromOriginalError:*error`
+
+          `error:divinityPowerError];`
+
+      `}`
+
+    `}`
+
+    `return NO;`
+
+  `}`
+
+  `return YES;`
+
+`}`
+
+This method is a little more complicated than the single attribute validation method. We do the same sort of checking for a problem, returning `YES` if it’s okay, and otherwise constructing an `NSError`, setting the error parameter to point at it, and returning `NO`. However, in order to “play nice” with Core Data, we have to check for the existence of a pre-existing error, and if there is one, combine it with our own into a special kind of error. This lets Core Data eventually report back all the errors it finds when it tries to save. This error combining is done using another method of our own, `errorFromOriginalError:error:`, which we should add to our class.
+
+`- (NSError *)errorFromOriginalError:(NSError *)originalError`
+
+   `error:(NSError *)secondError`
+
+`{`
+
+  `NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];`
+
+  `NSMutableArray *errors = [NSMutableArray`
+
+    `arrayWithObject:secondError];`
+
+  `if ([originalError code] == NSValidationMultipleErrorsError) {`
+
+    `[userInfo addEntriesFromDictionary:[originalError userInfo]];`
+
+    `[errors addObjectsFromArray:[userInfo`
+
+      `objectForKey:NSDetailedErrorsKey]];`
+
+  `}`
+
+  `else {`
+
+    `[errors addObject:originalError];`
+
+  `}`
+
+  `[userInfo setObject:errors forKey:NSDetailedErrorsKey];`
+
+  `return [NSError errorWithDomain:NSCocoaErrorDomain`
+
+                             `code:NSValidationMultipleErrorsError`
+
+                         `userInfo:userInfo];`
+
+`}`
+
+Basically, this method checks the `originalError` parameter to see if it already contains multiple errors, and if so, just adds the new one to the list. Otherwise, it combines the two single errors into a new multiple error object.
+
+With all that in place, we should now be able to compile and run, select a MythicalPerson, set their `power` above 50, their `divinity` below 100, and try to save. We’ll see an error telling us about the problem. We can also make sure that reporting of multiple problems works by leaving this power/divinity inconsistency in place, changing the name to “Bob,” and trying to save. We should see a warning panel telling us that multiple validation errors occurred, but we won’t see details about any of them. This suggests a good idea for a future expansion of the app delegate’s `saveAction:` and `applicationShouldTerminate:` methods: come up with a way to display multiple errors instead of just calling `presentError:` as is currently done. There’s something to tackle on a rainy day!
+
+### Creating a Custom Attribute
+
+Another common sort of simple “business logic” calls for the creation of custom attributes that are based on the values contained in an object’s attributes. For example, if we have an entity with `firstName` and `lastName` attributes, we might want to make a custom attribute called `fullName` that combines the two together.
+
+This sort of thing is a piece of cake with Core Data. In our case, let’s say we want to add an attribute to MythicalPerson called `awesomeness`, which will be calculated from the MythicalPerson’s `power`, `divinity`, and `goodness`. We start off by defining a method called `awesomeness` in MythicalPerson’s implementation:
+
+`- (int)awesomeness`
+
+`{`
+
+  `int awesomeness = [[self valueForKey:@"divinity"] intValue] * 10 +`
+
+    `[[self valueForKey:@"power"] intValue] * 5 +`
+
+    `[[self valueForKey:@"goodness"] intValue];`
+
+  `return awesomeness;`
+
+`}`
+
+With that in place, we can call the `awesomeness` method on any MythicalPerson and get the result. This also works with Cocoa bindings, of course, so we can easily bind a GUI control’s value to this new property. Go back to Xcode, make the window and box a little bigger, and add a label and a level indicator from the Library window, something similar to Figure [8-12](#A978-1-4302-4543-8_8_Chapter.html#Fig12).
+
+![A978-1-4302-4543-8_8_Fig12_HTML.jpg](A978-1-4302-4543-8_8_Fig12_HTML.jpg)
+
+Figure 8-12.
+
+MythBase, now with added Awesomeness
+
+Now select the Awesomeness control, and bring up the Attributes Inspector. Set the Style to Continuous, and the Minimum and Maximum to 0 and 1600, respectively. Now switch to the Bindings Inspector, and bind the level indicator’s Value via the Mythical Person Array Controller, with the controller key “selection” and the model key “awesomeness”. Xcode doesn’t know anything about Awesomeness, so we’ll have to type it in ourselves instead of just picking it from the combo box; we’re sure you’ll agree that’s a small price to pay for awesomeness.
+
+Save the changes, switch back to Xcode, click Run, and off we go. Switch between different rows in the table view and see the bar of awesomeness change. Drag a slider and, now wait a minute; the Awesomeness value doesn’t change! The reason for this is that no part of Core Data—not our model file, not our `MythicalPerson` class, not the controller we’re using—knows that Awesomeness depends on other values and needs to be recalculated if they change. This is fixed by implementing one more small method in `MythicalPerson`:
+
+`+ (NSSet *)keyPathsForValuesAffectingAwesomeness {`
+
+  `return [NSSet setWithObjects:@"divinity", @"power", @"goodness"`,
+
+    `nil];`
+
+`}`
+
+This is another method name that’s constructed dynamically based on an accessor name. We saw this pattern when validating a single attribute as well. In this method, we return a set of attribute names that our `awesomeness` attribute is dependent on. With this in place, Core Data will automatically call this method at some point early on in the application’s lifecycle and sort things out so that changes made to any attributes in the set will also trigger controllers to update any objects with bindings to the `awesomeness` attribute. Note the plus sign rather than minus sign in the method signature—this indicates that `keyPathsForValuesAffectingAwesomeness` is a class method, not an instance method. This is part of the Cocoa key-value observing system. Cocoa KVO looks for methods of this structure and calls them if present.
+
+Build and run the app, and now the green bar changes when we drag one of the other sliders. Awesome!
+
+## Wrap Up
+
+In this chapter, we covered a pretty wide range of material about Core Data. We learned about creating a model file in Xcode and about using the combo of Core Data and Cocoa bindings to quickly put together a decent GUI. We also got some idea of the underpinnings of how Core Data stores its data and learned some basics about implementing our own business logic. In [Chapter 9](#A978-1-4302-4543-8_9_Chapter.html), we’ll build on this knowledge, learning how to complete our data models by adding relationships.
+
+# 9. Core Data Relationships
+
+Abstract
+
+The last chapter covered a lot of the basics about how Core Data works, but we worked with an extremely simple data model that contained just a single entity. In this chapter, we’re going to extend our data model to contain multiple entities and define relationships between those entities. We’ll also create a GUI that shows these relationships and lets us edit them. Along the way, we’ll catch our first glimpse of how Core Data deals with multiple, incompatible versions of our data model and how it can migrate a data store from one model version to the next.
+
+The last chapter covered a lot of the basics about how Core Data works, but we worked with an extremely simple data model that contained just a single entity. In this chapter, we’re going to extend our data model to contain multiple entities and define relationships between those entities. We’ll also create a GUI that shows these relationships and lets us edit them. Along the way, we’ll catch our first glimpse of how Core Data deals with multiple, incompatible versions of our data model and how it can migrate a data store from one model version to the next.
+
+We’ll do all of this while extending the MythBase project from [Chapter 7](#A978-1-4302-4543-8_7_Chapter.html) to include some data that’s often overlooked with discussing mythical heroes and gods: the legendary bands they performed in! The night that Achilles and the Grecian Formula shook the Old Parthenon Ballroom to the ground is the stuff of legends, and who could forget The Four Norsemen’s farewell concert at the Clontarf Supper Club? The enhancements we’ll make to MythBase in this chapter (see Figure [9-1](#A978-1-4302-4543-8_9_Chapter.html#Fig1)) will help us keep track of this crucial information.
+
+We’ll start out by adding all the new entities and relationships we want to our data model, then go on to setting up the GUI that will let us edit everything. To prepare for the rest of this chapter, go to the Finder and make a copy of the last chapter’s final MythBase project directory, then go into the new directory and double-click `MythBase.xcodeproj` to open it in Xcode.
+
+![A978-1-4302-4543-8_9_Fig1_HTML.jpg](A978-1-4302-4543-8_9_Fig1_HTML.jpg)
+
+Figure 9-1. 
+
+The new and improved MythBase application we’ll create in this chapter
+
+## Modeling New Entities and Relationships
+
+We’re going to be adding three new entities to MythBase: `MythicalBand`, `MythicalGig`, and `MythicalVenue`. We’ll also add relationships between several of them. When we’re done, our data model will look like Figure [9-2](#A978-1-4302-4543-8_9_Chapter.html#Fig2).
+
+![A978-1-4302-4543-8_9_Fig2_HTML.jpg](A978-1-4302-4543-8_9_Fig2_HTML.jpg)
+
+Figure 9-2. 
+
+The new data model
+
+### Model Versioning and Migrations
+
+Before we start making changes to the data model, there’s one important issue that needs to be addressed: migration. We’re not talking about people moving from one country to the next or birds flying south for the winter; we’re talking about our data. If you’ve ever developed a database application, you’re familiar with the concept of “migrating” data from one deployment version to the next. This typically involves writing some sort of script that makes changes to the database structure itself (adding, deleting, or altering tables and columns) and populates new fields with appropriate values. With Core Data, you don’t exactly write a script, but the same idea is in use. In your data store, Core Data saves some metadata about the structure of the data model. When your app runs, Core Data tries to read from the data store. If it determines that the app has a new version of the data model with a different structure, it will automatically update the data store to match the latest data model. Let’s see how this works.
+
+### Preparing for Multiple Model Versions
+
+The first thing we need to do is convert our current model to a special multi-versioned format. This will allow us to store multiple versions of our data model within the Xcode project as well as within MythBase itself. In Xcode’s navigation pane, open the `Models` group and select `MythBase.xcdatamodeld`. Now select `Editor` ➤ `Add Model Version` from the menu. A dialog box will appear asking for the name of the new version, defaulting to `MythBase 2`. This default name is just fine, so press Finish. Xcode just made us a copy of the data model, so we can extend it while keeping the old one around as well. In the navigation pane, `MythBase.xcdatamodeld` has acquired a small disclosure triangle to the left of the name.
+
+Click the triangle to open the contents, and note that it contains two versions of our model file: `MythBase.xcdatamodel` and `MythBase 2.xcdatamodel`. `MythBase.xcdatamodel` is the original data model, and it has a small green checkbox next to it in the navigation pane showing that it’s the one that Xcode considers to be current. The one with a “2” tacked onto the end of the filename is the new one where we’ll make some changes. First, we need to set MythBase 2 as the current version of the model. Select the `MythBase.xcdatamodeld` file (the parent row containing the disclosure triangle, not either of the two data models underneath). In the File Inspector, there’s a section titled Versioned Core Data Model, as shown in Figure [9-3](#A978-1-4302-4543-8_9_Chapter.html#Fig3). Set the Current Version to be MythBase 2\. When we do this, the green checkbox will move to the `MythBase 2.xcdatamodel` file in the navigation pane. The next time we build MythBase, this new compound model containing multiple versions of the model will be copied into the app, and the app will try to use what we’ve set as the current version.
+
+![A978-1-4302-4543-8_9_Fig3_HTML.jpg](A978-1-4302-4543-8_9_Fig3_HTML.jpg)
+
+Figure 9-3. 
+
+The Versioned Core Data Model controls in the File Inspector
+
+### Adding New Entities
+
+We want to be able to keep track of not just the bands that some of our mythical people played in, but also the venues they played at, and even dates of specific gigs, so we’re going to add three new entities: `MythicalBand`, `MythicalVenue`, and `MythicalGig`. See Figure [9-4](#A978-1-4302-4543-8_9_Chapter.html#Fig4) for an overview.
+
+![A978-1-4302-4543-8_9_Fig4_HTML.jpg](A978-1-4302-4543-8_9_Fig4_HTML.jpg)
+
+Figure 9-4. 
+
+Here are all the entities we’ll define, along with their attributes
+
+Make sure that the new model file is selected, then create a new entity and name it “MythicalBand.” Give this entity a new attribute called “name,” set its type to String, and click to turn off the Optional checkbox and to turn on the Indexed checkbox.
+
+Now create another new entity named “MythicalVenue,” also with a single String attribute called “name,” which should also be Indexed but not Optional.
+
+Finally, create an entity called “MythicalGig.” Unlike the other entities we’ve added, gigs don’t have names. The only distinguishing characteristics of a `MythicalGig` are its relationships to a band and a venue (which we’ll get to in a bit) and the date of the performance. Add a new attribute, name it “performanceDate,” and change its type to Date. We can leave the `performanceDate` set to Optional (since the exact dates of some ancient gigs may have gone down the memory hole), and there’s no need to turn on Indexing for it either.
+
+### Adding Relationships
+
+Now it’s time to add relationships so that each object can be attached to other relevant objects. We’re going to define a one-to-many relationship from `MythicalBand` to `MythicalPerson`, a one-to-many relationship from `MythicalBand` to `MythicalGig`, and finally another one-to-many relationship from `MythicalVenue` to `MythicalGig`. See Figure [9-5](#A978-1-4302-4543-8_9_Chapter.html#Fig5) for an overview.
+
+![A978-1-4302-4543-8_9_Fig5_HTML.jpg](A978-1-4302-4543-8_9_Fig5_HTML.jpg)
+
+Figure 9-5. 
+
+The model will look like this after we add the relationships
+
+At this point we should clarify our terminology a bit. In Core Data, each relationship is actually a one-way affair, and they’re not defined in terms like “one-to-many,” “one-to-one,” “many-to-many,” and so on. Instead, each Core Data relationship is either to-one or to-many. In order to create what in normal usage (if you accept the notion that any form of computer programmer jargon is “normal”) is called a one-to-many relationship in Core Data, we actually have to create two relationships: a to-many relationship rooted at the first entity and ending at the second, and a to-one relationship rooted at the second entity and ending at the first. We then specify in our model that these two are inverse relationships, and Core Data then understands the bidirectional nature of what we’ve configured. This setup allows us, if we wish, to create a relationship that is truly unidirectional, though in practice it’s questionable whether that’s ever really desirable. The examples in this book all use bidirectional relationships.
+
+So, let’s create these relationships, starting with a one-to-many relationship from `MythicalBand` to `MythicalPerson`. Select `MythicalBand`, and click the small + button at the lower-left-hand corner of the Relationships table view. This creates a new relationship whose configuration options (see Figure [9-6](#A978-1-4302-4543-8_9_Chapter.html#Fig6)) look a little different than what we’ve seen when creating attributes.
+
+![A978-1-4302-4543-8_9_Fig6_HTML.jpg](A978-1-4302-4543-8_9_Fig6_HTML.jpg)
+
+Figure 9-6. 
+
+Configuration options for a new relationship
+
+There’s a Name field and checkboxes for Optional and Transient, but otherwise it’s all different. The Destination pop-up lets us choose where the other end of the relationship goes, and after setting it, the Inverse pop-up lets us choose which other relationship (if any) should be used to create a bidirectional relationship. A checkbox lets us specify that this is a to-many relationship, and if that’s checked, two fields are enabled that let us put handy constraints and the minimum and maximum number of objects may be attached on the other end. Finally, the Delete Rule pop-up lets us decide what should happen to objects at the other end of the relationship if the “source” of the relationship is deleted. The most common choices are Nullify (which means that the source is removed from any inverse relationship in the destination element), Cascade (which means that the destination object or objects are also deleted), and Deny (which means that if this relationship is present, the source object will refuse to be deleted at all). A fourth alternative, No Action, leaves the inverse relationship intact, leaving the developer with the task of taking care of it (or risk ending up with data integrity problems). We won’t use that option at all.
+
+Name the relationship we’ve just created “members,” and set its destination entity to MythicalPerson. Click to turn on the To-Many Relationship checkbox, and leave the Delete Rule set to Nullify (which is the default value). Hooray, we’ve just made our first unidirectional relationship! Doing this simple step gives the `MythicalBand` entity a new members property with a whole set of new features. Each band can now provide an array of `MythicalPerson` objects, and that array will be automatically maintained in line with the options we configured. In the graph paper view, there’s a unidirectional arrow with a sort of double head from `MythicalBand` to `MythicalPerson`.
+
+Now let’s create the inverse of this relationship. Select the `MythicalPerson` entity, and add a new relationship. Name it “memberOf,” set its destination entity to MythicalBand, and then set its inverse to members. The rest of the default values can be left as they are. There’s now a bidirectional arrow between `MythicalPerson` and `MythicalBand` with a single head at the band end.
+
+Let’s move on to the one-to-many relationship between `MythicalBand` and `MythicalGig`. Select `MythicalBand`, create a new relationship named “gigs,” with `MythicalGig` as its destination and the To-Many Relationship checked. Because a gig without a band doesn’t do us any good, set the Delete Rule to Cascade. That way, if a band is deleted, all its gigs will be deleted, too. Now select `MythicalGig` and make a new relationship called “band,” with `MythicalBand` as its destination and select gigs as its inverse relationship. Here, we can leave the Delete Rule set to its default value, Nullify. This simply means that if a gig is deleted, any trace of the gig on the remaining end of the relationship to the band will be wiped out, but the band itself will be left intact.
+
+Finally, it’s time for the one-to-many relationship between `MythicalVenue` and `MythicalGigs`. Select `MythicalVenue`, and create a new relationship named “gigs,” with `MythicalGig` as its destination and the To-Many Relationship checked. Because a gig without a venue is just as meaningless as a gig without a band, here we’ll also set the Delete Rule to Cascade, so deleting a venue will also delete all its gigs. Now select `MythicalGig` and make a new relationship called “venue,” with `MythicalVenue` as its destination and gigs as its inverse relationship.
+
+We’ve now created all the relationships we’re going to need for the new version of MythBase, and our model should look similar to what we saw previously in Figure [9-4](#A978-1-4302-4543-8_9_Chapter.html#Fig4).
+
+### Creating a Simple Migration
+
+Assuming that you’ve previously gone through [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html) and used that version of MythBase to save some data, running the new version at this stage will give you some problems. You’ll see some error messages about mismatched data store versions when you start up, and you’ll get nothing but an empty table view where the `MythicalPerson` objects you created previously should be. And if you add some new objects and try to save them, you’ll just get more errors! The reason for this is that the current version of the app’s data model differs quite a bit from the version that was used to save the data previously; Core Data is smart enough to detect this, let the app delegate know about it, and prevent you from overwriting the old version with new data. Not only that, but it’s also smart enough to automatically “upgrade” an existing data store to work with your new model version. This is called a migration.
+
+Core Data offers two kinds of migrations. The first, lightweight migrations, are inferred by Core Data automatically. Core Data is able to recognize many common changes between versions of data models (such as adding, removing, or renaming attributes, entities, and relationships) and is able to automatically figure out how to roll forward. If you’re using iCloud to store your data, this is the only kind of migration available to you. For more complex evolutions of data models, Core Data may not be able to infer the mapping between the changes, and you’ll need to create a mapping model and perhaps write some Objective-C to handle the migration. The mapping model describes how entities and attributes in the old model are represented in the new one, but you might also need code if you’ve made drastic changes. In this example, we’ll get by with the lightweight migration strategy without any extra configuration at all.
+
+### Time to Run
+
+Before we can have the migration happen, we need to make one small change to the application’s source code. In the current version, the app tries to load data from its data store, and if the structure of the stored data doesn’t match the structure described in the latest version of the data model, problems will occur, and the app will show the user an error. To fix this and make the application upgrade the data store, all we need to do is pass in a configuration option to the method that loads the data store. Open up `MBAppDelegate.m`, and locate the `persistentStoreCoordinator` method. Toward the end of that method are a group of lines that look like this:
+
+`if (![coordinator addPersistentStoreWithType:NSXMLStoreType`
+
+    `configuration:nil`
+
+    `URL:url`
+
+    `options:nil`
+
+    `error:&error]){`
+
+What we’re going to do is create a dictionary of options to pass along in that method call. This dictionary contains two key-value pairs that tell the store coordinator that it should try to update existing data to match the current data model and that it should try to infer the mapping automatically. Replace the lines shown above with the following:
+
+`NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:`
+
+  `[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption`,
+
+  `[NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];`
+
+`if (![coordinator addPersistentStoreWithType:NSXMLStoreType`
+
+    `configuration:nil`
+
+    `URL:url`
+
+    `options:optionsDictionary`
+
+    `error:&error]){`
+
+With this code now in place, we should be able to build and run our application, and it will just work! We’ll see the old data that we had previously stored with the [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html) version of MythBase now converted to our app’s newest data model. Of course, we won’t see any of the new entities we’ve created in the model—in fact, if all goes according to plan, we won’t see anything different from [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html) at all, but the underlying structure has now been modified to include the new entities and relationships.
+
+So how did that happen? You may recall from [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html) the following method call in `MBAppDelegate`’s `persistentStoreCoordinator` method:
+
+`[persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType`
+
+                            `configuration:nil`
+
+                            `URL:url`
+
+                            `options:optionsDictionary`
+
+                            `error:&error]`
+
+It may not be obvious, but that method call is what triggers the data migration to occur. When the code shown previously is executed, what normally happens is that the data store is opened up and prepared for use. However, if the structure of the data store doesn’t match the structure of the coordinator’s data model (which is the current version you specified in Xcode), then a whole different chain of events takes place.
+
+Core Data will first look for a model that matches the version info encoded in the data store on disk. If it finds that, then Core Data will look for the existence (within the app’s bundle) of a mapping model that can convert the data store from the old structure to the new structure. If it can’t find one, it will attempt to do a lightweight migration by inferring the mapping. If a mapping can’t be inferred, the process will stop and the method will return `nil` with an error returned in the `error` parameter. If this happens, the next line of code is `[[NSApplication sharedApplication] presentError:error]`, which will cause the application to present an error that reads “The managed object model version used to open the persistent store is incompatible with the one that was used to create the persistent store.” In our case, however, MythBase does have two models available and the mapping can be inferred, so the lightweight migration is performed automatically, with the old data file first being backed up in case something goes terribly wrong. Thanks to this automatic procedure, our users don’t need to worry about importing or converting data. When they run a new version of our app, their previously stored data is converted automatically and, except in the case of a really huge data store, quickly.
+
+## Updating the GUI
+
+Now that we have our updated data model ready to go, it’s time to create the GUI. We’re going to leave the existing window almost intact and add a couple of new windows, one focused on `MythicalBands` and one focused on `MythicalVenues`.
+
+### Creating the Band Window
+
+First, we’ll create a new window to show a list of `MythicalBands`. Much like the process shown in [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html), we’re going to use some `NSTableViews`, an `NSArrayController`, and Cocoa bindings to connect everything. We’re going to first connect a table view to the list of bands, make sure that that works, and then we’ll worry about connecting some `MythicalPersons` to the bands.
+
+To get started, open up `MainMenu.xib` in Xcode. Drag a new NSWindow out from the Object Library. Use the Attributes Inspector to name this window “Mythical Bands.” Drag an NSTableView out from the Object Library and drop it into the upper left-hand corner of the window, letting the blue guidelines indicate where to put it. In the Attributes Inspector, set it to be view-based and with one column instead of two. Resize it by expanding it to the right until we reach the blue guideline near the right edge of the window, so that the table view fills out nearly the width of the window. Move it down a bit so that there’ll be room for a search field, which is what we’re about to add.
+
+Now, drag a Search field out to the space above the table view, along the right edge of the window. Position it so that there’s a blue guideline along the bottom edge and the right edge of the field. This will set up resizing behavior such that the Search field stays tucked against the top of the window and the table view resizes below it.
+
+Next, we’ll need two buttons for Remove and Add. It’s important to be consistent with appearance, so use the same gradient buttons as in the main window. Drag out a gradient buttons to the space just below the table view. Position the right edge of the button so that it’s aligned with the right edge of the table view. Blue guidelines will appear to position it at the appropriate distance below the table view and aligned with the right edge. Double-click the text inside the button, and change the label to “Add.” Drag out another button to the left of the Add button. A whole bunch of blue guidelines will light up when it’s vertically aligned with the Add button, and it will snap into place at the correct distance to the left. Double-click the text inside the button, and relabel it “Remove.”
+
+That gets us enough UI to work with a list of bands, but we need one more object to tie it all together, and that’s an `NSArrayController`. Drag an Array Controller out from the Object Library (type “array” into the Search box to narrow down the list), and drop it onto the graph paper canvas below the Band window. It will disappear and show up in the Object Dock along the left of the Interface Builder pane. Double-click slowly on the new array controller, and rename it “Mythical Bands.” With the Mythical Bands object selected, open up the Attributes Inspector. In the Object Controller section, change the Mode from Class to Entity Name. Enter the string “MythicalBand” into the Entity Name field, and check the Prepares Content box. When done, our Xcode window should look something like Figure [9-7](#A978-1-4302-4543-8_9_Chapter.html#Fig7).
+
+![A978-1-4302-4543-8_9_Fig7_HTML.jpg](A978-1-4302-4543-8_9_Fig7_HTML.jpg)
+
+Figure 9-7. 
+
+The beginnings of the Mythical Band window
+
+### Setting Up Cocoa Bindings
+
+Now that we’ve got the objects laid out, we need to set up the appropriate Cocoa bindings to actually connect the UI controls with the Core Data-managed list of bands. We’ll start with the array controller because it’s already selected. Switch to the Bindings Inspector, and expand the Parameters section. Check the Bind to checkbox, and then select App Delegate from the pull-down menu. Then, enter “managedObjectContext” in the Model Key Path field. This connects the array controller to the Core Data machinery in the App Delegate.
+
+Now it’s time to tackle the bindings for the table view. Since this table view only has one column, it’ll be less hassle than the one in the Mythical Persons window. Start by selecting the table view itself. This is most easily done in the outline view of the Object Dock on the left. Once it’s selected, go over to the Bindings Inspector (which should still be open from the last paragraph) and expand the Content section within the Table Content heading. Check the Bind to checkbox, and ensure that the pull-down menu shows Mythical Bands and that Controller Key shows arrangedObjects. As before, we also want to have the selected row in the table view get passed back to the array controller. To set this, expand the Selection Indices section of the Bindings Inspector. Check the Bind to checkbox here, set the pull-down menu to Mythical Bands, and set the Controller Key to selectionIndexes. This will look a lot like Figure [8-10](#A978-1-4302-4543-8_9_Chapter.html#Fig10) in the previous chapter.
+
+With the binding for the table view itself in place, we can set up the binding for the column. In the Object Dock, expand the table view’s subviews until it shows the one labeled “Static Text – Table View Cell.” In the Bindings Inspector, expand the Value section and select the Bind to checkbox, set the pull-down menu to read Table Cell View, and set the Model Key Path to be “objectValue.name.” This should look like Figure [9-8](#A978-1-4302-4543-8_9_Chapter.html#Fig8). Then, switch to the Attributes Inspector, and change the Behavior pop-up menu from None to Editable. If we don’t make this change, we won’t be able to actually enter the name of a new band in the table view.
+
+Lastly, we’ll deal with the Search box. Select the Search field at the upper right corner of the screen, and open the Bindings Inspector. Near the bottom of the Bindings Inspector is a section titled Predicate. Open it up and check the Bind to checkbox, binding it to Mythical Bands. The Controller Key should say “filterPredicate.” Set the Display Name to “Name” and the predicate format to “name contains[c] $value” where $value indicates the contents of the search box, and name indicates the `MythicalBand` entity attribute that should be searched. This is just like the binding we did for the Search field in [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html).
+
+![A978-1-4302-4543-8_9_Fig8_HTML.jpg](A978-1-4302-4543-8_9_Fig8_HTML.jpg)
+
+Figure 9-8. 
+
+Setting bindings for the Mythical Bands table view
+
+For the buttons, we’ll use the same process as in the last chapter, using a combination of target-action and Cocoa bindings. We’ll use target-action for when a button is pressed, and Cocoa bindings to enable or disable the buttons as appropriate. We’ll start with the actions. Select the Add button, and control-drag to the Mythical Bands array controller. Select the `add:` action from the pop-up menu. Then, select the Remove button, and Control-drag to the same place. This time, select the `remove:` action. To enable and disable the buttons based on the selection in the table view, we need to use the Bindings Inspector. Select the Add button, open the Bindings Inspector, and expand the Enabled section under Availability. Check the Bind to checkbox, set the pull-down menu to Mythical Bands, and change the Controller Key field to read “canAdd.” For the Remove button, do the same thing, but use “canRemove” for the Controller Key field.
+
+Now save your changes, and run the app. The new window appears, and we can add some bands, edit their names directly in the table view, and save our changes.
+
+GIVING USEFUL NAMES TO ARRAY CONTROLLERS
+
+There’s a change we want to recommend that you make in your nib file that will be helpful when configuring the new bindings we’re about to create. It won’t affect the behavior of the app, but you’ll probably be glad that you made the change, and the text going forward assumes that you’ve made this update.
+
+The connection between the Core Data infrastructure and the UI all runs through an `NSArrayController`. The `NSArrayController` that we set up in the last chapter is named Mythical Person Array Controller. This is a long name, and is a bit longer than what the Binding Inspector in Xcode is really designed to show. In fact, it barely fits into the pop-up buttons in the Bindings Inspector, and they make all of the summary info shown for each bound attribute overflow, with some of its text being replaced with ellipses. For the Mythical Bands array controller, we didn’t put the “Array Controller” in the name, which makes it much easier to work with.
+
+You can improve this situation by changing the name of the controller. Changing the names won’t modify any of the bindings you’ve configured or change anything for your application’s users. The only one who’ll see the change at all is you, but remember that you’re important, too. Just as it’s important to format your source code in such a way that it’s easy for you to scan through it and find what you need, doing what you can to streamline your editing experience in Interface Builder will save you time and frustration.
+
+So, if you want to make this change, go to the main nib window, make sure you’re looking at the Object Dock along the left, and find your Mythical Person Array Controller. Click on its name, and change it to just Mythical Person. Doing this will eliminate some words that don’t add any value (e.g. “Array” and “Controller”) and that might otherwise be spread pretty liberally throughout your nib file and code, and leave you with a display that’s hopefully easier for your eyes and brain to scan and comprehend quickly.
+
+### Putting People in Bands
+
+Now let’s make it possible to attach a person to a band by adding a simple pop-up button to the `MythicalPerson` display, which will let us pick a `MythicalBand` for the selected `MythicalPerson`. The pop-up button will be connected through Cocoa bindings, which means that besides always being automatically updated to show the correct value for the selected person (just like the other controls do), it will also be automatically updated to always show the current list of bands, changing its content automatically as the user makes changes in the Mythical Bands window. This will be done by configuring a few bindings on the pop-up button, using both the Mythical Persons and Mythical Bands controllers.
+
+Start off by making a change to the original window so that it better matches the new one. Open up the original window (the one with MythBase in the title), then select the window by clicking its title, and use the Attributes Inspector to rename it “Mythical People.” This way the two windows have the same general appearance. Each is centered around a particular entity, but neither of them has any distinction as the “main window.”
+
+Now, select all the views below the sliders and drag them all down a bit. In the space that we’ve opened up, drag out a label (name it “Member of Band:”) and a pop-up button from the Object Library. Line it all up so it looks roughly like Figure [9-9](#A978-1-4302-4543-8_9_Chapter.html#Fig9).
+
+![A978-1-4302-4543-8_9_Fig9_HTML.jpg](A978-1-4302-4543-8_9_Fig9_HTML.jpg)
+
+Figure 9-9. 
+
+The new and improved Mythical People window
+
+All that’s left now is to configure some bindings for the pop-up button. Unlike a text field or a slider, the pop-up button’s display needs several bindings in order to make it behave in a useful way. Consider that a pop-up button needs to have an array of strings to display (we’re going to display all available band names here), an array of underlying objects that those strings belong to (the bands themselves), and something to indicate which item in the list is selected (through the selected person’s band relationship). The first two of those will be bound via the Mythical Bands controller, through which we can easily bind to an array of all bands or all band names. The third will be bound via the Mythical Persons controller.
+
+Start by selecting the pop-up button and opening the Bindings Inspector. Open the configuration for the Content binding at the top of the list, select Mythical Bands in the pop-up list, select “arrangedObjects” for the Controller Key, and click the checkbox. This tells the pop-up button where to find the list of underlying objects.
+
+Next, open the configuration for the Content Values binding. Once again select Mythical Bands in the pop-up list and “arrangedObjects” for the Controller Key, but this time pick “name” for the Model Key Path. This tells the pop-up button that it should populate its displayed values by grabbing the same array (`arrangedObjects`) and using the result of asking each for its name.
+
+Finally, open the Selected Object binding configuration. Here, choose Mythical Persons from the pop-up list, “selection” for the Controller Key, and “memberOf” for the Model Key Path. The pop-up list will automatically connect things so that when the Mythical Persons controller’s selection changes, the pop-up will notice the new selection’s band, look that up in the array of `Content` (which it picks up from the Mythical Bands controller), and display the corresponding string from the `Content Values` array (also from the Mythical Bands controller). Verify that this works by saving the changes, pressing Run in Xcode, and trying it out. For each `MythicalPerson` we pick, we can select a `MythicalBand` to attach them to (see Figure [9-10](#A978-1-4302-4543-8_9_Chapter.html#Fig10)).
+
+![A978-1-4302-4543-8_9_Fig10_HTML.jpg](A978-1-4302-4543-8_9_Fig10_HTML.jpg)
+
+Figure 9-10. 
+
+Setting Hercules as a member of the band Grecian Formula
+
+### Showing the Bands’ Members
+
+Now that we can add people to a band, how about being able to see a list of all the members in a band? Let’s add that to the Mythical Bands window. It’ll be easy: we’ll manually add a table view and an array controller and hook it all up.
+
+Start by grabbing an NSArrayController from the Object Library, and dragging it to the main nib window. Just like we’ve done with the other array controllers, we want to give this controller a name that is short but meaningful. This controller is going to handle a list of `MythicalPersons`, but we’ve already got an array controller called Mythical Persons, and anyway we want to make it easy to see that there’s some context to this (it will only show people that are members of the selected band), so let’s name this one “Band Members” in the main nib window.
+
+Then, with the new array controller still selected, open the Attributes Inspector, and in the Object Controller section set the Mode to “Entity” and the Entity Name to “MythicalPerson.” Click to turn on the Prepares Content checkbox. This ensures that the controller’s content is fetched automatically when the nib loads.
+
+Now switch to the Bindings Inspector where we’re going to configure two bindings that will let this controller automatically get its content based on the selected `MythicalBand`. First, at the very bottom, open up the configuration for Managed Object Context. Choose App Delegate in the pop-up and “managedObjectContext” for the Model Key Path, which should automatically turn on the Bind to checkbox. This configuration is the same as for all our array controllers and allows them to connect to the Core Data storage. Next, in the Controller Content section, open up the Content Set binding configuration, and choose Mythical Bands in the pop-up, “selection” for the Controller Key, and “members” for the Model Key Path. Doing so makes the controller’s content dependent on the selected band.
+
+Now, make room for the list of members. Bring up the Mythical Bands window, and make it a bit taller, almost twice as high, so that we can fit another table view beneath the current content. Then, drag over a table view from the Object Library, and click it to select the table view itself (instead of the scroll view containing it, which is what is selected by default just after the drag). We’re only going to show the names of the band members here, so we only need one column in this table. Bring up the Attributes Inspector, find the Content Mode setting at the top of the inspector, and change the Content Mode to view-based. Next, find the Columns setting just below Content Mode, and change it to 1\. Then make the column heading nicer, as we’ve done in previous chapters, by setting its title to “Member Name” and making it fill the width of the table. Finally, top it all off with a Band Members label, so the users know what they’re looking at. Figure [9-11](#A978-1-4302-4543-8_9_Chapter.html#Fig11) shows the layout that you’re aiming for.
+
+All that’s left is to configure a binding for the Band Members table. We’ll bind the table to the `NSArrayController`, and then bind the column to the table. Start by selecting the table itself. In the Bindings Inspector, expand the Content section under Table Content. Then, set the Bind to checkbox and set the pull-down menu to Band Members. The default Controller Key, arrangedObjects, is just fine. Now for the column. Using the Object Dock outline view to the left, drill down to the “Static Text - Table View Cell” down inside the table view. In the Bindings Inspector, expand the Value section. The pull-down menu should read Table Cell View. Check the Bind to checkbox, and set the Model Key Path to be “objectValue.name” while leaving the Controller Key field blank. The Bindings Inspector on the right side of the window in Figure [9-11](#A978-1-4302-4543-8_9_Chapter.html#Fig11) shows what this looks like in Xcode.
+
+![A978-1-4302-4543-8_9_Fig11_HTML.jpg](A978-1-4302-4543-8_9_Fig11_HTML.jpg)
+
+Figure 9-11. 
+
+Adding band members to the Mythical Bands window
+
+All right, that should do it for this window. It’s time to save our work, hit Run in Xcode, and see the new functionality: specifying a band for a person will add that person to the band’s members array, which we’ll see when we select the band in the Mythical Band window.
+
+### Creating a Venue Window
+
+Now it’s time to create one more window for displaying and editing `MythicalVenues`. The process of making this window will be a lot like what we did to make the Mythical Bands window—a window, a table view, a couple buttons, and an `NSArrayController`. Since there aren’t that many truly mythical venues, we’ll forego the Search box on this window. And, since we’ve done this once before, we’ll go a little faster.
+
+To get started, drag a window out from the Object Library onto the Interface Builder canvas. In the Attributes Inspector, title it “Mythical Venues.” It’s a bit bigger than we’ll need, so we can shrink it vertically to be about 2/3rds as tall and a bit narrower as well. Drag out a table view and position it in the upper-left hand corner of the screen, letting the blue guidelines inform us where to position it. Expand the table view to fill the window, as shown back in Figure [9-1](#A978-1-4302-4543-8_9_Chapter.html#Fig1). In the Attributes Inspector for the table view, change its Content Mode to be view-based, and change it to have one column. Expand the one column to fill out the table view’s width.
+
+Drag out a Gradient button to the window, and position it below the lower-right edge of the table view. This will be our Add button, so double-click it and change the title to “Add.” Drag out another and position it just to the left of the Add button, and title this one “Remove.” As always, the blue guidelines are our friends for getting the position right.
+
+The next thing we’ll need is an `NSArrayController`. Grab one of those from the Object Library and drag it out onto the Interface Builder canvas. In the Object Dock on the left, title it “Mythical Venues.” In the Attributes Inspector, set its Mode to “Entity Name,” set the entity name to “MythicalVenue,” and check the Prepares Content checkbox so that it will fetch all the venues when the nib is loaded. We also need to connect the Mythical Venues array controller to the managed object context provided by the App Delegate. In the Bindings Inspector, expand the Parameters section at the bottom. Check the Bind to checkbox, set the pull-down menu to App Delegate, and set the Model Key Path to “managedObjectContext.”
+
+We’ve now got to wire this all together. Let’s start with the table view. Select the table view (remember that it’s embedded within a scroll view). In the Bindings Inspector, expand the Content section under Table Content. Then, set the Bind to checkbox and set the pull-down menu to Mythical Venues. The default controller key, arrangedObjects, is just fine. Now for the column. Just as we did with the Band Members table view above, drill down to the “Static Text – Table View Cell” down inside the table view. In the Bindings Inspector, expand the Value section. The pull-down menu should read Table Cell View. Check the Bind to checkbox, and set the Model Key Path to be “objectValue.name” while leaving the Controller Key field blank. While we’re here, switch to the Attributes Inspector, and change the Behavior setting from None to Editable so that when we create a new Venue, we can set the name inside the table view.
+
+Next, we’ll tackle the buttons. Select the Add button, and control-drag to the Mythical Venues array controller. Select the `add:` action from the pop-up menu. Then, select the Remove button, and Control-drag to the same place. This time, select the `remove:` action. To enable and disable the buttons based on the selection in the table view, we need to use the Bindings Inspector. Select the Add button, open the Bindings Inspector, and expand the Enabled section under Availability. Check the Bind to checkbox, set the pull-down menu to Mythical Venues, and change the Controller Key field to read “canAdd.” For the Remove button, do the same thing, but use “canRemove” for the Controller Key field.
+
+Once again, it’s time to save our work, hit Run in Xcode, and see the new functionality: we can add and remove new Mythical Venues.
+
+### Adding a Gig List to the Band Window
+
+The final piece of functionality we need to add is the ability to create `MythicalGigs`. `MythicalGigs` sit between `MythicalBands` and `MythicalVenues`, each of which may have multiple gigs. Gigs, meanwhile, each have exactly one band and one venue. We’ll add another table view to contain the needed functionality, placed beside the members table view in the Mythical Band window. Each row of the table view will contain fields for displaying the gig’s performanceDate and venue. We’ll also be setting up a details area below the table view to allow editing these fields (see Figure [9-12](#A978-1-4302-4543-8_9_Chapter.html#Fig12)).
+
+![A978-1-4302-4543-8_9_Fig12_HTML.jpg](A978-1-4302-4543-8_9_Fig12_HTML.jpg)
+
+Figure 9-12. 
+
+This is what the final Mythical Bands window will look like
+
+Start by finding an NSArrayController in the Object Library. Drag it to the main nib window, and name it “Gigs.” Open the Attributes Inspector, set Mode to Entity and enter “MythicalGig” for the Entity Name, then click to turn on the Prepares Content checkbox. Now switch to the Bindings Inspector. Bind the new array controller’s Managed Object Context to App Delegate’s `managedObjectContext`, and bind its Content Set through Mythical Bands, with Controller Key set to “selection” and Model Key Path set to “gigs.”
+
+Next, we’re going to set up the GUI itself. Drag another table view from the Object Library to the Mythical Bands window, along with a Gigs label, and lay them out as shown in Figure [9-12](#A978-1-4302-4543-8_9_Chapter.html#Fig12). This table view is going to display one column of dates and one column with the name of the venue. The default table view cells will work just fine for this. First, set the table view’s Mode to be view-based in the Attributes Inspector. Then, switch over to the Bindings Inspector, and expand the Content area under Table Content. Bind it to Gigs, leaving the Controller Key set to “arrangedObjects” and the Model Key Path blank. We also need to bind the Selection Indices. Bind that one to Gigs as well, with the Controller Key set to “selectionIndices” and the Model Key Path blank.
+
+The headers of the table columns should have titles—“Date” for the left column and “Venue” for the right—so set those now. Then, expand the object hierarchy in the Object Dock and drill down to the “Static Text – Table View Cell” object for the Date column. In the Bindings Inspector, bind it to Table Cell View, with the Model Key Path set to “objectValue.performanceDate.” Then expand the object hierarchy below the Venue column down to the “Static Text – Table View Cell” in that column. In the Bindings Inspector, bind that one to objectValue.venue.name. This will cover all that we need to do for the table view!
+
+We also will need to have Add and Remove buttons so the user can create and delete gigs. Select and duplicate the two buttons in the upper part of the window, and drag the new ones down below the table view of gigs. Control-drag from the Add button to the Gigs controller and select the `add:` action, then Control-drag from the Remove button to the Gigs controller and select the `remove:` action. As a final touch, we can make these buttons automatically enable and disable themselves appropriately as the table view’s content and selection change by using some simple bindings. Select the Add button, open the Bindings Inspector, and bind its Enabled attribute to the Gigs controller’s `canAdd` controller key. Then select the Remove button, and bind it to the Gigs controller’s `canRemove` controller key.
+
+Now, we need to set up the details area below it. Start with the date display. Drag out a date picker from the Object Library and position it below the table view on the left side. In the Attributes Inspector, set the date picker to be Textual with Stepper rather than Graphical, set the Elements to be Month, Day, and Year, and check the checkbox next to Era (since it’s likely that some of the gigs will be in the BC era). In the Bindings Inspector, expand the Value section. Select Gigs from the pull-down menu, and check the Bind to checkbox. The Controller Key default of selection is what we want. Enter “performanceDate” into the Model Key Path field.
+
+Next it’s time for the Venues menu. Drag out a Popup Button from the Object Library and position it next to the date picker, on the right below the table view. The bindings for this one are a bit more complex. We’ll need to configure three bindings for the pop-up. First, bind Content to the Mythical Venues controller’s arrangedObjects. Next, bind ContentValues to the Mythical Venues controller’s arrangedObjects, this time specifying “name” for the Model Key Path. And last but not least, bind the Selected Object to the Gigs controller, using “venue” as the Model Key Path and leaving the Controller Key as “selection.”
+
+Lastly, let’s put these two fields into a box to visually group them together. This won’t have any effect on how they behave; it’s just for appearances. To do this, select both the date picker and the pop-up button. From the `Editor` menu, select `Embed In` ➤ `Box` to group the two fields together. Set the title of the box to be “Gig Details”. Adjust the size of the box to be the same width as the Gigs table view. With that done, we’ll probably need to adjust the sizes of the controls within the box to make the best use of space. We’ll clean up the sizes as necessary, and we’re done!
+
+Now save this work, press Run in Xcode, and behold! Assuming that everything’s configured correctly, we should now be able to add gigs to each band’s info.
+
+## Wrap Up
+
+In this chapter, we expanded the old data model, growing it from a single entity on its own to a full complement of entities interrelated with relationships. We also saw how each of those relationships can be expressed in a GUI (for example, using a pop-up list to choose the remote end of a to-one relationship and a table view to show all the contents of a to-many relationship), configured, and managed entirely with Cocoa bindings.
+
+Not to beat a dead horse about this visual programming business, but it bears repeating that everything in this chapter was done without a single line of code on our part. Note that our use of the term “visual programming” has nothing to do with Microsoft’s use of the word “visual” in its development tools. The idea behind visual programming is to allow a program, or some portion of it, to be constructed using graphical components that don’t require the sort of textual, procedural programming that’s traditionally been used for writing software. Cocoa embraces visual programming to some extent, letting you put together application prototypes or even entire applications using just the Xcode data modeler and Interface Builder. However, it’s not intended to comprise a complete visual programming system, so for every Cocoa app you build, you will out of necessity have to break down and write some code!
+
+Furthermore, these usage patterns can be applied equally well to your own applications. Just the act of modeling your problem domain, defining entities and relationships, can often start giving you a sense of how to build your GUI. As you get farther along in the application development process, you’re sure to find more ways to connect different kinds of controls to your data using Cocoa bindings, and you will sometimes find a need to supplement that by writing code to connect things and shuffle data between objects.
+
+As you work through the rest of this book, you’ll see several more examples of applications that use Core Data and Cocoa bindings as core parts of their architectures, so you’ll see even more approaches to using these technologies. The next chapter is the last chapter dealing exclusively with Core Data, showing you how to limit the extent of what you’re showing in your GUI, an absolute necessity for any application work with a large set of data.
+
+# 10. Search and Retrieve Core Data with Criteria
+
+Abstract
+
+The MythBase examples in Chapters 8 and 9 demonstrated the basics of how Core Data works, letting us create, retrieve, update, and delete objects from a backing store with a minimum of fuss. So far, we’ve been working primarily with full data sets in MythBase. For most of the entities we’ve used (`MythicalPerson`, `MythicalBand`, and `MythicalVenue`), all the objects for each entity are loaded during application startup and kept in memory for the entire life of the application. That’s okay for an application like MythBase, which maintains a small database, but what if one of our main entities consists of thousands or millions of instances in a backing store? Our app would load everything from storage when the app launches, which would probably lead to the app filling up all available memory, swapping to disk, and so on. Apart from that problem, we’d also probably end up with a bad user experience because a GUI that’s navigable when it’s displaying twenty objects in a table view may become impossible to use effectively when there are thousands of entries.
+
+The MythBase examples in Chapters 8 and 9 demonstrated the basics of how Core Data works, letting us create, retrieve, update, and delete objects from a backing store with a minimum of fuss. So far, we’ve been working primarily with full data sets in MythBase. For most of the entities we’ve used (`MythicalPerson`, `MythicalBand`, and `MythicalVenue`), all the objects for each entity are loaded during application startup and kept in memory for the entire life of the application. That’s okay for an application like MythBase, which maintains a small database, but what if one of our main entities consists of thousands or millions of instances in a backing store? Our app would load everything from storage when the app launches, which would probably lead to the app filling up all available memory, swapping to disk, and so on. Apart from that problem, we’d also probably end up with a bad user experience because a GUI that’s navigable when it’s displaying twenty objects in a table view may become impossible to use effectively when there are thousands of entries.
+
+The solution to this problem involves an important piece of functionality: a way to provide some search criteria so that we can limit the objects pulled out of storage by a controller. This chapter will introduce the use of `NSPredicate` to restrict searches to just a subset of all the objects for a given `Entity`. We’ll specify a hard-coded `NSPredicate`, both in Interface Builder and in our source code, and we’ll let our users define the values for a predicate using `NSPredicateEditor`.
+
+## Creating QuoteMonger
+
+We’ll demonstrate the use of `NSPredicate` by creating an app called QuoteMonger, which allows us to keep track of all our favorite shows and famous quotes from them. It will consist of a Core Data application with two entities, plus a GUI that supports both data entry and flexible querying. Figure [10-1](#A978-1-4302-4543-8_10_Chapter.html#Fig1) shows a view of the completed application.
+
+![A978-1-4302-4543-8_10_Fig1_HTML.jpg](A978-1-4302-4543-8_10_Fig1_HTML.jpg)
+
+Figure 10-1.
+
+QuoteMonger’s data entry and search windows Note
+
+By now you should have experience with the basics of creating Xcode projects and files, so we’re not going to continue giving exact click-by-click instructions for some of the things you’ve already done several times, instead reserving the highest level of detail for the new topics we’re covering in each chapter.
+
+### Creating the Project and Its Data Model
+
+Start by creating a new Core Data project in Xcode and naming it QuoteMonger. Then edit the `QuoteMonger.xcdatamodel` file, and add two entities called `Show` and `Quote`. We walked through this in the previous two chapters, so please flip back a few pages to review if you get stuck.
+
+Give `Show` a single attribute called name, of type `String`. Turn off the Optional checkbox, and turn on the Indexed checkbox. Then give `Quote` two `String` attributes called `quoteText` and `character`. For each of those, turn on the Indexed checkbox, but only turn off the Optional checkbox for `quoteText`, leaving it on for `character` (because it’s conceivable that you can’t quite remember or determine who said something, but want to store it as a quote anyway).
+
+Finally, make a one-to-many relationship from `Show` to `Quote` (remember, that means making two relationships—a to-many from `Show` to `Quote` called `quotes` and a to-one from `Quote` to `Show` called `show`—and configuring them to be each other’s inverse). The resulting data model should look like something like Figure [10-2](#A978-1-4302-4543-8_10_Chapter.html#Fig2).
+
+![A978-1-4302-4543-8_10_Fig2_HTML.jpg](A978-1-4302-4543-8_10_Fig2_HTML.jpg)
+
+Figure 10-2.
+
+The data model for QuoteMonger
+
+### The Data Entry Window
+
+With the data model in place, it’s time to start building the GUI. The interesting part, which this chapter is mostly about, is the search window. But we can’t do any searching until we have some data to search, so we’ll start by creating the portion of the GUI that lets us do data entry. We’re going to make a very basic GUI for this—displaying shows and quotes in a single window and where only quotes that are tied to the currently selected show are displayed.
+
+#### A Window in Two Parts
+
+Double-click `MainMenu.xib` in the Xcode project to open it in an Interface Builder pane. This brings up the standard empty application nib we’ve used previously. Select the `NSWindow` instance in the main nib window, and use the resizing control to make it taller (about twice as tall as it started out). We’ll need this space because we’re going to put two sets of views in here, one for the `Show` entity and one for the `Quote` entity.
+
+#### Showing Shows
+
+We’ll start with a view for the `Show`. Drag out an NSTableView from the Object Library and position it near the top of the window. Resize it to take up most of the space. Don’t worry about the blue guidelines this time; in fact, make it a bit smaller than the guidelines would suggest. We’re going to group it into a box with some other controls, so the sizing isn’t critical yet. Open up the Attributes Inspector, and make the table view view-based with one column. Resize the column itself to take up the width of the table view, and set the column’s name to “Name.” Drag out a button and position it below the lower-right-hand corner of the table view, and label it “Add.” Drag out another button of the same time and position it to the left of the Add button, and label that one “Remove.” Select all three of those controls, and group them into a Box (select Editor ➤ Embed In ➤ Box). Set the title of the Box to be “Show.” Now we can adjust the size of the Box relative to the window, and then adjust the table view inside the Box to get a pleasing arrangement.
+
+Now that we’ve got a place to list the shows, we need to connect them to the core data model, and we’ll use Cocoa bindings and an `NSArrayController` as the glue. Drag out an Array Controller from the Object Library, and title it “Shows.” In the Attribute Inspector, set the Mode to be “Entity Name” in the pop-up menu, and then enter “Show” in the Entity Name field to connect it to the `Show` entity in the Model Editor. Check the checkbox for Prepares Content, which will instruct the Array Controller to load all the `Shows` at launch time. Switch to the Bindings Inspector. Bind the Managed Object Context (at the bottom of the bindings list) to App Delegate, and set the Model Key Path to “managedObjectContext.”
+
+For the bindings, we’ll start with the table view. Select the table view and then open the Bindings Inspector. Expand the Content section under Table Content, and check the checkbox next to Bind to. The pop-up menu should read “Shows”. The default Controller Key of “arrangedObjects” is what we want, and there’s nothing to go in Model Key Path. We also want the array controller to know about the selected row, so bind the Selection Indexes binding to Shows and set the Controller Key here to “selectionIndexes.” Then drill down in the view hierarchy within the table view, using the object dock, down to the “Static Text - Table View Cell.” In the Attributes Inspector, change the Behavior to Editable. Then, in the Bindings Inspector, bind the Value to the Table Cell View and set its Model Key Path to “objectValue.name.”
+
+That covers the table view. To finish up the part of the window dealing with `Shows`, we need to wire up the buttons. This is done just like in the last chapter—with a combination of target-action for handling a click and Cocoa bindings for enabling or disabling the button as appropriate. We’ll do the target-action first. Control-drag from the Add button to the Shows array controller, and select `add:` as the received action. Do the same thing for the Remove button, this time selecting `remove:` as the received action. Select the Add button again, and go to the Bindings Inspector. Check the Bind to checkbox to connect the button to the Shows controller, and enter “canAdd” as the Controller Key. Repeat with the Remove button, binding it to the “canRemove” Controller Key.
+
+The window should look like Figure [10-3](#A978-1-4302-4543-8_10_Chapter.html#Fig3). Note the Outlets Inspector view in the utility area, showing the bindings and target-action connections for the Array Controller. This view can be really useful for troubleshooting when things don’t work as expected!
+
+![A978-1-4302-4543-8_10_Fig3_HTML.jpg](A978-1-4302-4543-8_10_Fig3_HTML.jpg)
+
+Figure 10-3.
+
+Partial layout for the data entry window
+
+#### Quoting Quotes
+
+Now we’re going to repeat most of that same setup below the Show box, for Quotes. As before, drag out a table view and two buttons, positioning them in the bottom half of the window and titling the buttons as done previously. For this table view, however, we’re going to leave it with two columns. Change it to view-based, as before, and check the checkbox labeled Alternating Rows, which will make the content somewhat easier to read. Title the left column “Quote Text” and the right column “Character,” and resize them to give the Quote Text column some more room. In the Quote Text column, double-click the “Table Cell View” text inside the column, and change it to “Quote”. Do the same thing to the “Table Cell View” text in the Character column, changing it to read “Character.” This will help us tell the two columns apart in just a moment. Group these three controls into a box, as before, and title the box “Quote.”
+
+This part of the window will also use an `NSArrayController`, but it’ll be configured a bit differently than the Shows array controller. Drag out a controller, and title it “Quotes.” In the Attributes Inspector, set its Mode to be Entity Name, and then set the Entity Name field to Quote (the same name as the entity that we defined in the Model Editor). Then, switch to the Bindings Inspector. By default, each array controller will fetch all objects for the corresponding entity. We’re going to change this one to only fetch quotes based on the selected Show. Open the Content Set binding, select “Shows” in the pop-up list, “selection” in the Controller Key combo box, and type in “quotes” in the Model Key Path combo box. Finally, press Return to turn on the binding. We also need to connect it to a managed object context, which is provided by the App Delegate. Bind the Managed Object Context (at the bottom of the bindings list) to App Delegate, and set the Model Key Path to “managedObjectContext.”
+
+Now we can bind this table view to the Quotes controller. Select the table view and then open the Bindings Inspector. Expand the Content section under Table Content, and check the checkbox next to Bind to. The pop-up menu should read “Quotes.” The default Controller Key of “arrangedObjects” is what we want. As before, the array controller should be told about the selected row, so bind the Selection Indexes binding to Quotes, and set the Controller Key here to “selectionIndexes.”
+
+To bind the two columns, drill down in the view hierarchy within the table view, using the object dock, down to the “Static Text – Quote” entry. In the Attributes Inspector, change the Behavior to Editable. Then, in the Bindings Inspector, bind the Value to the Table Cell View, and set its Model Key Path to “objectValue.quoteText.” Switch to the “Static Text – Character” entry in the object dock, change its Mode to Editable, and then bind it to the Table Cell View and set its Model Key Path to “objectValue.character.”
+
+Lastly, we need to wire up the buttons. From each of the buttons, control-drag out to the Quotes controller, setting the action to `add:` or `remove:` as appropriate. Bind the enabled binding of each button to the canAdd or canRemove Controller Key on the Quotes controller, as appropriate.
+
+The layout should be similar to that in Figure [10-4](#A978-1-4302-4543-8_10_Chapter.html#Fig4).
+
+![A978-1-4302-4543-8_10_Fig4_HTML.jpg](A978-1-4302-4543-8_10_Fig4_HTML.jpg)
+
+Figure 10-4.
+
+Completed layout for the data entry window
+
+### Entering Some Initial Quotes
+
+Save the changes and click Run. The app should start up and show the Data Entry window. Select the Add button below the upper table view to add a show, and double-click in the highlighted space in the table view to edit the show’s name. Do this a few times to create a few `Show` instances. Now, with one of the shows selected, add a quote in the lower table, editing the text and the names of any characters right into the table. If you add a quote that contains an exchange between two or more characters, enter the names of all involved characters in the Character field. When we later enable search based on character names, it will work with all the names you entered. Add a few more quotes, spread across a few different shows. Note that the list of quotes changes when you select a different show, and if you quit and restart QuoteMonger, you should see that everything you entered has been saved.
+
+If, on the other hand, nothing seems to work, check the debugger log in Xcode and see if the application raised an exception. Common problems are neglecting to set up the bindings for the Managed Object Context on the Array Controllers, or mistyping the name of a Controller Key or Model Key Path binding.
+
+### Creating the Quote Finder Window
+
+Now it’s time to lay the foundation for the search window. Back in the Interface Builder pane in Xcode, drag out a new window from the Object Library and drop it on the canvas. Xcode offers a variety of window types, but we want a normal plain window. (You’ll probably also want to close the QuoteMonger window to get it out of the way, and you can do this by clicking the little x just above the upper left corner of the window on the Interface Builder canvas.)
+
+Select the new window and go to the Attributes Inspector. Title the new window “Quote Finder.” This window will have two visible controls on it: a table view and a text view. The table view will display a list of matching quotes, and the text view will display the contents of a selected quote. Later on, we’ll also use a new one called a predicate editor to define the search criteria. The predicate editor is used when defining filtering rules in `Mail.app` and creating Smart Playlists in iTunes. It’s a general-purpose Cocoa component, and we can play with it too. However, we’re not going to use it just yet.
+
+Let’s get started! Drag out a Table View from the Object Library, and position it near the top of the window. In the Attributes Inspector, set it to be view-based and give it three columns. Title the three columns “Quote Text,” “Character,” and “Show,” respectively. In addition, edit the text in each field to reflect the name of the column. We can also set the Alternating Rows checkbox for this table view in case the search returns a lot of matches. This table view won’t be going into a box so we can resize it to fill out the width of the window, letting the blue guidelines tell us where to stop.
+
+Now, drag out a Text View from the Object Library (enter “text view” into the Search field at the bottom of the library area), and position it below the table view. Expand this one to be the same width as the table view. In the Attributes Inspector, turn off the Editable and Rich Text checkboxes. For Find, set the pop-up menu to Uses Bar and check the Incremental Searching checkbox. This will allow the big text view to use the embedded search bar that was introduced in Mac OS/X 10.7\. The window should look something like Figure [10-5](#A978-1-4302-4543-8_10_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_10_Fig5_HTML.jpg](A978-1-4302-4543-8_10_Fig5_HTML.jpg)
+
+Figure 10-5.
+
+First pass at the Query Finder window
+
+Next, drag out an Array Controller and name it “FoundQuotes.” In the Attributes Inspector, set its Mode to be Entity Name and give “Quote” as the Entity Name to use. Check the checkbox by Prepares Content as well. Above these settings, in the Array Controller block of the Attributes Inspector, check the Auto Rearrange Content checkbox. This will cause it to correctly reload and refilter its contents whenever the user makes changes in the Quotes controller. In the Bindings Inspector, bind its Managed Object Context to the App Delegate and set the Model Key Path to “managedObjectContext.”
+
+Now we need to set up bindings for the user interface controls—the table view and the text view. We’ll start, as usual, with the table view. Bind the Content and Selection Indexes bindings on the table view to the FoundQuotes controller. Bind the Content binding to the arrangedObjects Controller Key, and bind the Selection Indexes binding to the selectionIndexes Controller Key. Then, drill down to the “Static Text - Quote Text” field inside the table view. Configure its Value binding to the Table Cell View, and use “objectValue.quoteText” as the Model Key Path. Configure the “Static Text – Character” field’s Value binding to the Table Cell View, and use “objectValue.character” as the Model Key Path. Lastly, select the “Static Text – Show” field within the table view, and set its Value binding to the Table Cell View, using “objectValue.show.name” as the Model Key Path.
+
+For the text view, it’s a bit simpler. Select the text view, and bind its Value binding to FoundQuotes. Use “selection” as the Controller Key, and “quoteText” as the Model Key Path.
+
+Now click Run, and note the two windows. The new Query Finder window simply shows all quotes we’ve entered with the data entry window. The rest of this chapter will cover how to change that using an `NSPredicate` so that only the quotes a user searches for show up in this window.
+
+## Limiting Results with NSPredicate
+
+As mentioned, we can limit which records an `NSArrayController` prepares for display by using an `NSPredicate`. We can assign a predicate to an array controller directly in Interface Builder; from within our application code during initialization or whenever conditions change, warranting a refetch; or through Cocoa Bindings, which means that changes to a predicate can be automatically propagated to a controller. We’ll explore all of these options in this chapter.
+
+### Creating Predicates
+
+The simplest way to create an `NSPredicate` is by using a format string containing attribute names, comparators, and values to compare against. The definition of a predicate looks a lot like a `WHERE` clause in SQL and serves much the same purpose. Predicates are not limited to just Core Data usage and can be applied to other areas of Mac OS X such as Spotlight. In its most basic form, we can define an `NSPredicate` like this:
+
+`NSPredicate *p = [NSPredicate predicateWithFormat:`
+
+    `@"(quoteText CONTAINS[cd] 'missed') OR "`
+
+     `"(character CONTAINS[cd] 'kramer') OR "`
+
+     `"(show.name CONTAINS[cd] 'trek')"];`
+
+Note
+
+In C, if you have multiple inline string constants in your code separated only by whitespace (including carriage returns) they will all be concatenated together into a single character array, which can help format long strings in your code. This trick works equally well for inline `NSString` constants—just put a single @ symbol before the first string, as shown previously.
+
+In this example, we actually have three conditions, joined together by `OR`s and wrapped in parentheses just like we might do in application code. Each of these conditions uses the `CONTAINS` comparator (which does exactly what you might guess), with some options specified inside square brackets. The `c` makes the comparison case-insensitive, while the `d` makes the comparison diacritic-insensitive. An equality comparison specifying both, for example, will consider “ramon” and “Ramón” to be equal.
+
+`CONTAINS` is just one of several comparators available within the predicate. All attributes can use the `=`, `<`, `>`, `>=`, `<=`, `!=`, and `BETWEEN` comparators. (Note that `==`, `=>`, `=<`, and `<>` are equivalent to `=`, `>=`, `<=`, and `!=`, respectively.) String attributes can use the `BEGINSWITH`, `CONTAINS`, `ENDSWITH`, `LIKE`, and `MATCHES` comparators.
+
+Note
+
+These should mostly be self-explanatory, with a couple of notable exceptions: `BETWEEN` lets us specify a pair of lower and upper bounds, so the value to the right of it should be substituted in with a two-item `NSArray`; `LIKE` lets us do wildcard matching; and `MATCHES` lets us use regular expressions to do advanced comparisons. However, `MATCHES` doesn’t work with an SQLite backend, so it’s not much use when fetching values from a Core Data store.
+
+The hard-coded option is fine if we really need a fixed query for some special purpose in our application, but sometimes we’ll want to create a query based on user input or other current data. Fortunately, the `NSPredicate` class provides an easy way to interpolate values using the same `predicateWithFormat:` method we just saw. For example,
+
+`// Assume these variables exist and point at valid objects`
+
+`NSString *quoteInput;`
+
+`NSString *characterInput;`
+
+`NSString *showNameInput;`
+
+`NSPredicate *p = [NSPredicate predicateWithFormat:`
+
+    `@"(quoteText CONTAINS[cd] %@) OR "`
+
+     `"(character CONTAINS[cd] %@) OR "`
+
+     `"(show.name CONTAINS[cd] %@)"`,
+
+    `quoteInput, characterInput, showNameInput];`
+
+When that code runs, the values of the three variables will be put into the resulting predicate. Note that the `%@` markers in the format string are not surrounded by single-quotes, as the bare values were in the previous example.
+
+### Specifying an NSAppController’s Predicate in Xcode
+
+Let’s try one of the most basic ways to put a predicate to use: attaching it directly to a controller in Xcode. Go back to the `MainMenu.xib` file in Xcode, select the FoundQuotes controller in the main nib window, and bring up the Attributes Inspector. At the bottom is a text view labeled Fetch Predicate, where we can simply add some text to define a predicate. Try entering this:
+
+`show.name CONTAINS[cd] 'trek'`
+
+Then save the changes, switch back to Xcode, and click Run. Now the search window won’t necessarily show all the quotes you’ve entered. If you’ve entered some Star Trek quotes, it will show only those, but if you haven’t entered any Star Trek quotes, you’ll now see nothing in the search window. Of course, it’s possible you’ve only entered Star Trek quotes, in which case this view will be just the same as it was before. In that case, enter some quotes from another show to verify that the predicate is filtering them out (and also because, really, there’s more to television than just Star Trek).
+
+### User-Defined Predicates
+
+The nib-defined predicate is fine for special uses, where some part of the GUI should always show a particular subset of the data, but what we’re after is the ability to let the user define the search parameters themselves. Ideally, they should be able to choose multiple parameters to search on, edit the values to compare against, and even change the comparator itself (instead of just using `CONTAINS` all the time). Fortunately, Cocoa provides a GUI control called `NSPredicateEditor` that does just that!
+
+As we hinted at earlier, with `NSPredicateEditor`, we can make a GUI that works a lot like the Smart Playlist feature in iTunes or the Smart Mailbox feature in Mail. Users can add and remove search criteria, and the results will update on the fly. See Figure [10-6](#A978-1-4302-4543-8_10_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_10_Fig6_HTML.jpg](A978-1-4302-4543-8_10_Fig6_HTML.jpg)
+
+Figure 10-6.
+
+QuoteMonger’s predicate editor in action
+
+Both `NSPredicateEditor` and `NSArrayController` can set and retrieve the value of their `NSPredicate` via a binding, so what we’ll do is add an `NSPredicate` as a property of the app delegate and make the appropriate bindings. Then, when the user makes any changes in the predicate editor, the updated predicate will automatically be passed along to the array controller.
+
+#### Adding a Predicate to the App Delegate
+
+Start by adding a new property to the app delegate. Open the `QMAppDelegate.h` file, which looks just like the default app delegate header that was generated for MythBase. Add a new property called `searchPredicate`. The interface declaration should now look something like this (new lines are in bold):
+
+`@interface QMAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;`
+
+`@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;`
+
+`@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;`
+
+`@property (strong) NSPredicate *searchPredicate;`
+
+`- (IBAction)saveAction:(id)sender;`
+
+`@end`
+
+Now switch over to `QMAppDelegate.m` and add the following code near the top, just after the `@synthesize` directives generated by Xcode. The new lines are in bold.
+
+`@implementation QMAppDelegate`
+
+`@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;`
+
+`@synthesize managedObjectModel = _managedObjectModel;`
+
+`@synthesize managedObjectContext = _managedObjectContext;`
+
+`#define DEFAULT_PREDICATE @"(quoteText CONTAINS[cd] 'space') OR " \`
+
+                           `"(character CONTAINS[cd] 'Knight')"`
+
+`- (id)init`
+
+`{`
+
+    `if ((self = [super init])) {`
+
+        `self.searchPredicate = [NSPredicate predicateWithFormat:DEFAULT_PREDICATE];`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+The `init` method simply creates a default value for the `searchPredicate` property. Now let’s hook up our controller to use this new predicate. Go back to the Interface Builder canvas, select the FoundQuotes controller, and bring up the Attributes Inspector. Select all the text in the Fetch Predicate text view and delete it, then switch to the Bindings Inspector. In the Controller Content Parameters section, open the Filter Predicate binding info. Select App Delegate in the pop-up, type “searchPredicate” into the Model Key Path combo box, and press Return to turn on the binding.
+
+Save the work, go back to Xcode, and click Run. You should now see a different set of results: quotes spoken by a character named “Knight” or containing the word “space.” If nothing is matching, add a quote with one of these characteristics in order to test out the search window.
+
+#### Add a Predicate Editor to the Search Window
+
+We now have the FoundQuotes controller fetching values based on the contents of a predicate that is “owned” by the app delegate. The next step is to add an `NSPredicateEditor` to the search window and configure it to let the user edit the predicate.
+
+In Xcode, bring up the Quote Finder window. Make the whole window a bit taller, and drag the existing table view and text view down to the bottom. Then find an NSPredicateEditor in the Object Library, drag it into the empty space at the top of the window, and resize it to make it fill the available space. Figure [10-7](#A978-1-4302-4543-8_10_Chapter.html#Fig7) shows the idea.
+
+![A978-1-4302-4543-8_10_Fig7_HTML.jpg](A978-1-4302-4543-8_10_Fig7_HTML.jpg)
+
+Figure 10-7.
+
+The predicate editor is in place in our Search window
+
+#### Configuring the Predicate Editor
+
+Now it’s time to bind the editor to the app delegate’s predicate instance. Select the `NSPredicateEditor` (don’t forget the extra click to select the editor itself, not the scroll view that contains it), open the Bindings Inspector, and then examine the Value binding info. Select App Delegate in the pop-up, then type in “searchPredicate” in the Model Key Path combo box, and press Return to activate this binding.
+
+At this point, there’s only one more thing we need to do in order to enable searching with this predicate editor: we have to tailor it to the attributes we want to search on. `NSPredicateEditor` is a quite complex control, and fortunately most of its interesting features can be configured directly in Xcode. The predicate editor displays one or more `NSPredicateEditorRowTemplate` objects, which can each be configured to do searching in a variety of ways. We can make row templates that allow us to specify numbers or dates to compare against object values, or to pick from a list of predefined strings. In our case, we’re going to configure a row template that lets the user type a string in a text field to search by character names, show names, and quote contents. This row template can be reused, allowing the user to specify multiple search criteria simultaneously. In addition, another row template will let the user choose whether the search criteria must all be met (Boolean `AND`) or whether it’s enough that any match succeeds (Boolean `OR`) for a quote to appear in the results.
+
+In the Interface Builder canvas, drill down into the predicate editor by clicking on the lower of the two visible rows (the one containing pop-up buttons showing name and contains). With that row template selected, bring up the Attributes Inspector. Note the checkboxes that let us choose which comparators we’ll allow the user to use, plus the pop-up buttons that let us choose the nature of the expressions used on either side of the comparator (key paths, strings, constant values, and the like). The default setup, with key paths on the left and strings on the right, is perfect for our purposes, but we do need to adjust the key paths for our searching needs.
+
+Edit the three default values that are listed below Left Exprs key paths, changing them to `quoteText`, `character`, and `show.name`. Next, click to turn on the Case Insensitive and Diacritical Mark Insensitive checkboxes (see Figure [10-8](#A978-1-4302-4543-8_10_Chapter.html#Fig8)).
+
+![A978-1-4302-4543-8_10_Fig8_HTML.jpg](A978-1-4302-4543-8_10_Fig8_HTML.jpg)
+
+Figure 10-8.
+
+Configuring an NSPredicateEditorRowTemplate
+
+Then, examine the pop-up button in the row template itself. This will show three entries with names the same as what we just entered for key paths. Change these to more human-readable names: “Quotation,” “Character Name,” and “Show Name.”
+
+Now click the upper row template, the one showing “Any of the following are true.” The configuration for this is very simple. Checkboxes let us choose to allow Boolean `AND`, `OR`, and `NOT` for the user to search on. Enable all of those to allow the most utility.
+
+Now there’s just one more piece of configuration that we need to do. By default, `NSPredicateEditor` lets the user delete all the rows, right down to the last one, at which point there is no longer a + button to add any back in. Change this by selecting the predicate editor itself (not one of the row templates) and clicking to turn off the Can Remove All Rows checkbox in the Attributes Inspector.
+
+Save the work, hit Run in Xcode, and bask in the glory of QuoteMonger! We can now easily search through all saved quotes, using the three criteria we configured in the predicate editor.
+
+## Saving a Predicate
+
+Before we call it a day, let’s add one final bit of polish that will make using QuoteMonger a friendly experience for our users. Right now, each time a user launches the app, it starts up with our silly default query. Wouldn’t it be nice if it instead showed the last query from the previous time it was running? It turns out that this is a piece of cake. `NSPredicate` has a handy method called `predicateFormat` that returns the predicate’s value in the form of a string. So, we can save the current `searchPredicate`’s string representation using `NSUserDefaults` when the user quits the app and check for a saved string when the app launches. Open up `QMAppDelegate.m`, and make the following changes to the first part of its implementation (just add all the lines that appear in bold):
+
+`#import "QMAppDelegate.h"`
+
+`@implementation QMAppDelegate`
+
+`@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;`
+
+`@synthesize managedObjectModel = _managedObjectModel;`
+
+`@synthesize managedObjectContext = _managedObjectContext;`
+
+`#define DEFAULT_PREDICATE @"(quoteText CONTAINS[cd] 'missed') OR " \`
+
+                           `"(character CONTAINS[cd] 'kramer')"`
+
+`#define STORED_PREDICATE_KEY @"storedPredicateFormat"`
+
+`- init`
+
+`{`
+
+  `if ((self = [super init])) {`
+
+    `NSString *format = [[NSUserDefaults standardUserDefaults]`
+
+        `objectForKey:STORED_PREDICATE_KEY];`
+
+    `if (format)`
+
+      `self.searchPredicate = [NSPredicate predicateWithFormat: format];`
+
+    `else`
+
+      `self.searchPredicate = [NSPredicate predicateWithFormat: DEFAULT_PREDICATE];`
+
+  `}`
+
+  `return self;`
+
+`}`
+
+`- (void)applicationWillTerminate:(NSNotification *)aNotification`
+
+`{`
+
+  `NSString *format = [self.searchPredicate predicateFormat];`
+
+  `[[NSUserDefaults standardUserDefaults] setObject:format forKey:STORED_PREDICATE_KEY];`
+
+`}`
+
+We start by defining a string, which will be used as a key to store and retrieve the predicate from the user’s preferences using `NSUserDefaults`. Then, we enhance the `init` method to look for a stored predicate. It first checks to see if a stored predicate string exists, and if it does, it populates the `searchPredicate` instance variable with a new predicate created from the format string. If there is no stored predicate, the default predicate is created instead.
+
+Finally, we implement the `applicationWillTerminate:` method. This method is called automatically when the user quits the application, giving us a chance to do some final cleanup. Here, we convert the current search parameters (maintained in the `searchPredicate` instance variable) into a string, and save that string into the user’s preferences so that the same search will pop up the next time the user runs the app.
+
+Save, run, and then modify the search terms. Quit the app and run it again, and the previous search terms show up again.
+
+## Wrap Up
+
+This chapter showed the basics of how to use `NSPredicate` to narrow down a Core Data result set. We saw how an `NSPredicate` can be constructed in code, or in Xcode, or by user interaction with `NSPredicateEditor`. We even got a hint of how these predicates can be saved for later use, much like iTunes and Mail do with smart playlists and smart folders. These techniques can help you easily bring new levels of functionality to your own apps.
+
+Chapters 8 through 10 covered the main concepts you need to get up and running with Core Data. Now it’s time to move on to other topics. We won’t be leaving Core Data behind, however, as it will still play a role in some further exercises, though not to the same extent. We don’t have enough space in this book to turn every example into a full-fledged application. Even in cases where we’re not using Core Data, however, you might want to think about where it could fit into what we’re demonstrating in the coming chapters. Now that you’ve got Core Data at your fingertips, you’ll probably have a whole new view on some aspects of application development that you would have solved in a different way before. Speaking of views, that’s where we’re headed in [Chapter 11](#A978-1-4302-4543-8_11_Chapter.html), with a look at some of the most prominent and widely used view components in Cocoa and elsewhere: windows, menus, and sheets.
+
+# 11. Windows and Menus and Sheets
+
+Abstract
+
+For the past several chapters, we’ve been focusing on what could be considered the “back end” of Cocoa programming, the model and controller classes that provide functionality to help take care of our application’s infrastructure. Now it’s time to turn our attention to the “front end” of Cocoa and pay more attention to the view part of the MVC architecture.
+
+For the past several chapters, we’ve been focusing on what could be considered the “back end” of Cocoa programming, the model and controller classes that provide functionality to help take care of our application’s infrastructure. Now it’s time to turn our attention to the “front end” of Cocoa and pay more attention to the view part of the MVC architecture.
+
+In this chapter, we’re going to focus on windows (not the Microsoft kind), menus (not the restaurant kind), panels (not the solar kind), and sheets (not the bed kind), all of which are high-level GUI objects that practically no Cocoa application can do without. Windows provide the foundation for view objects to do their drawing. In Cocoa, these are represented by `NSWindow`, its direct subclass `NSPanel`, and several specialized subclasses. Menus provide the familiar top-of-the-screen access to system-wide and application-specific user actions that most Mac applications have, and are represented by a hierarchy of `NSMenu` and `NSMenuItem` objects. Sheets provide an alternative to the classic free-floating modal window by letting us attach a modal window as an overlay on an existing window, giving the user a more coherent interface.
+
+We’re going to explore each of these three areas in a “lab,” a toy application that has no real use and is only created for demonstrating some functionality and letting us see how these things work.
+
+## NSWindow and NSPanel
+
+Start by creating a new Xcode project using the Cocoa Application template, and name it WindowLab. We’ll use this project as a testbed for demonstrating a variety of window features.
+
+In Mac OS X, nearly everything seen on-screen is presented using windows. Many windows are easily recognizable, having the standard controls along the top and a drop-shadow behind.
+
+But some windows aren’t so obvious. For example, if we launch a game that takes over the whole screen for its display, even if it’s presenting custom controls of its own that have nothing to do with Cocoa, that’s all occurring in a window. The Dock at the bottom of the screen is surely a window. And if we drag a file icon from one Finder window to another, the icon we’re dragging is actually being “carried” inside a small, transparent window!
+
+In all of these cases, we’re seeing and interacting with instances of `NSWindow` and its subclasses. `NSWindow` is a very versatile class that lets us configure several behaviors right out of the box and lets us do even more by subclassing. In general, if we want to change the appearance of the window itself, either its “chrome” (the title bar and upper-left corner controls), its transparency, or its shape, we’ll probably need to subclass `NSWindow`, but otherwise, we almost never will. In this book, we’re going to stick to the kinds of windows that are ready to use directly and conform to Apple’s Human Interface Guidelines, and we won’t be subclassing `NSWindow` to change their appearance.
+
+Tip
+
+The Human Interface Guidelines (often shortened to “HIG”) are a set of recommendations that Apple provides for application developers. The HIG acts as a sort of style guide that you can refer to when you’re concerned that your application looks a little “off.” It’s not a strict set of rules, and no one is going to stop you from violating the HIG. In fact, many applications, including Apple’s own, stray from the guidelines in all kinds of ways. However, it provides a good baseline, describing how the various components are meant to be used.
+
+We mentioned the HIG in [Chapter 2](#A978-1-4302-4543-8_2_Chapter.html) already, but it’s worth pointing out again. You can find the HIG online at [`http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines/Intro/Intro.html`](http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines/Intro/Intro.html) .
+
+Figure [11-1](#A978-1-4302-4543-8_11_Chapter.html#Fig1) shows the main kinds of windows that are prevalent in most Cocoa applications today. There are two drawing styles included for `NSWindow`, the “normal” appearance and the “textured” appearance, which somewhat resembles a shiny piece of metal. Either style of `NSWindow` can be configured to support full-screen mode, which adds arrows to the right end of the title bar. `NSPanel`s can be configured to be in utility mode (in which case they have a smaller title bar, cast a smaller shadow, and float above the application’s other windows) or to look like a normal window, and in either case the choice of normal vs. textured also applies, just like `NSWindow`. One additional option for `NSPanel` is to run in HUD (short for heads-up display) mode, in which case the panel’s color scheme is inverted, its title bar and bottom edge are modified, and the whole window is made slightly transparent. This mode (which has no textured option) is intended to allow the user to see through a part of the interface to what’s behind it and is put to good use in applications like iPhoto, where you can bring up a HUD panel containing adjustable color settings, through which the photo you’re looking at can still be seen.
+
+![A978-1-4302-4543-8_11_Fig1_HTML.jpg](A978-1-4302-4543-8_11_Fig1_HTML.jpg)
+
+Figure 11-1.
+
+A sampling of the main types of windows readily available in Cocoa
+
+Unlike some other GUI toolkits, where one of the first things you do when creating a new application is to subclass some sort of Application class and some sort of Window class, Cocoa allows for true separation of the model, view, and controller portions of your application. The window only needs to know how to display itself and provide a graphics context for its views, so that’s all it does. Any code that deals with what happens to a window while the application is running (e.g., it gets loaded from a nib file, or gets dragged across the screen, or gets closed by the user) can typically be dealt with by the window’s delegate object (i.e., its controller).
+
+### Handling Input
+
+In addition to providing a frame for views to display their stuff, `NSWindow` also handles user input from the mouse and keyboard. Any mousing action (clicking, dragging, moving, releasing, and so on) in an `NSWindow` will trigger a method in `NSWindow` that finds the appropriate view object in its contents and calls the same method in the view. This symmetry works because `NSWindow` and `NSView` both inherit from `NSResponder`, where the methods for handling these events are defined. Likewise, when the user presses or releases a key on the keyboard, the application calls a method in the application’s “key window” (i.e. the window that currently has keyboard focus; usually the last window the user clicked in), which in turn determines which view currently has keyboard focus and passes off responsibility, calling the same method in the focused view.
+
+### To Use a Panel, or Not to Use a Panel
+
+Since we’re not going to modify the basic appearance of windows, we’ll be using either `NSWindow` or its subclass `NSPanel` to display the controls and other views in our application. The core elements of our application will usually be in an `NSWindow`, while `NSPanel` is used for auxiliary windows, such as the Show View Options panel in Finder. From a user’s standpoint, there are just a few critical differences between `NSWindow` and `NSPanel`:
+
+*   `NSPanel` instances normally become invisible when another application becomes the active application and reappears when its own application becomes active again.
+*   An `NSPanel` can be made to “float” in front of all the other windows in its application, including the main window.
+*   An `NSPanel` can be easily configured to not become the key window unnecessarily, so a user can click a button in an auxiliary panel and then continue typing in the main window.
+
+### Window Attributes
+
+In the WindowLab project in Xcode, navigate to the MainMenu.xib file and single-click to open it in an Interface Builder canvas. One of the objects included in the application nib file is, as always, a window. Click to select it in the main nib window, then open the Attributes Inspector so that we can explore it a bit (see Figure [11-2](#A978-1-4302-4543-8_11_Chapter.html#Fig2)). In earlier chapters, we used this Inspector for setting a window’s title, but of course there’s more we can do here.
+
+![A978-1-4302-4543-8_11_Fig2_HTML.jpg](A978-1-4302-4543-8_11_Fig2_HTML.jpg)
+
+Figure 11-2.
+
+The Attributes Inspector for an NSWindow
+
+We’re already familiar with the Title text field. Just below that is the Autosave field, which provides a very nice bit of functionality: enter a text string in this field, and the window will use that string as a key in the `NSUserDefaults` system, storing and retrieving its position and location based on that key. That means that as a user rearranges the windows in our application, the window positions are saved in the user’s preferences, and the windows will appear in the same locations the next time they run our app. And all we have to do to make it happen is fill in this text field for each window in our app, entering a unique value for each window.
+
+Next, there are some checkboxes that let us turn off some of the standard window controls. Note that turning off these checkboxes won’t remove the corresponding buttons from the window’s title bar; it will just make them permanently grey and inactive while our app is running. Below that are some checkboxes that for tweaking a window’s appearance, including enabling textured mode, disabling the drop-shadow behind the window, and more. The options that mention Toolbar here are referring to the optional `NSToolbar` that can be attached to a window, which we’ll explain a little later in this chapter. We can also remove a window’s title bar. This is generally a bad idea, since the user won’t be able to reposition the window, but might be useful for an application like a game that takes over the whole screen.
+
+The next chunk of checkboxes lets us fine-tune the window’s behavior in a number of ways, most of them self-explanatory. One exception is the Auto Recalculates View Loop checkbox, whose name is puzzling at best. Here’s the idea: each window maintains a list of all the view objects it contains, which the user can shuffle between by using the Tab key. If we turn this checkbox on, then any views that are added to the window while the app is running will automatically be inserted somewhere into this “loop.” Another exception is the Restorable checkbox. Turning on Restorable tells Cocoa that our window should attempt to be restored to the same state between application launches. With some help from us, our app can reopen the windows that were open when the user quit, and even restore them to the same scroll position and selections that were in place when the user quit.
+
+Below that you’ll find a series of menus that deal with how the window interacts with the desktop. The Mac desktop environment has a feature called Mission Control (located in the System Preferences app) that allows users to have more than one desktop (or space) and move windows between them, and to reveal all the windows or all the windows for a single application. In prior versions of Mac OS/X, Mission Control was two separate features called Spaces and Exposé, and that’s still how they’re referred to in the Attributes Inspector.
+
+In general, we’ll want to leave these as Inferred Behavior, which means that the window behaves normally. For Spaces, the other choices are Can Join All Spaces, which means that the window will always be visible, or Move To Active Space, which means that the window will move to the current space on becoming active rather than shifting the active desktop to the one where the window is. For Exposé, Inferred Behavior is the same as Managed Behavior, which means that the window responds normally to Exposé actions. The other choices are Transient, which causes the window to be hidden when Exposé is activated (which is the default for panels), and Stationary, which means that the window ignores Exposé entirely. The next option deals with whether this window should be included in the set of windows that the user can rotate through using the Window ➤ Cycle Through Windows (⌘-`) command. Next up is whether the window supports a Full Screen option, where the window expands into its own space and takes up the whole display, like an iOS application, including hiding the menu bar. If this is set to Primary Window, a special control is shown in the right-hand side of the title bar to activate full screen mode.
+
+Finally, there are options related to a window’s memory usage. It’s best to leave Deferred on because this skips the allocation of some internal memory for the window until it’s about to actually display the window. Also, we should leave One Shot turned off. If it’s on, that same internal memory is freed as soon as the window is closed, so this should only be turned on in case the window in question is a temporary window that can only be shown once per session, such as a splash screen. Finally, a pop-up window offers us the ability to switch the window’s “backing store” from Buffered to Retained or Unretained. Never do that! The Retained and Unretained options are only there to support specific sorts of legacy code, and all new Cocoa applications should leave this set to Buffered for every window.
+
+Now pull an `NSPanel` out from the Object Library window, and look again at the Attributes Inspector; note the Style pop-up menu and a couple of added checkboxes in addition to the options we saw when inspecting an `NSWindow`. The style options here are Utility, which if chosen gives the panel a distinctive appearance, as well as making it float above the application’s other windows; and HUD, which gives the window the even more distinctive “heads-up” appearance. Try out some of these styles and see how they affect the panel’s appearance. The behavior of a panel can vary from a window, as well. A panel can be marked as an Auxiliary Window in the Full Screen pull-down, which means that it will float over a window in Full Screen mode in the same space. This is useful for things like Find or Info panels that affect a document in another window. After exploring, delete the panel from the nib file.
+
+### Standard System Panels
+
+In addition to the generic window classes that are meant for us to fill with our own views and controls, Cocoa includes some specialized window subclasses for use in our applications. These are meant to meet the needs of a wide variety of applications, so using them provides a lot of functionality for free, and at the same time provides our users with familiar interfaces that they’ve probably used in other applications.
+
+#### The Color Panel
+
+First, let’s take a look at `NSColorPanel`. This panel provides an interface that allows the user to select a color. We’re going to use the color panel to set the color of a piece of on-screen text by implementing a method in our controller class that’s called whenever the user selects a color in the color panel.
+
+Assuming the `MainMenu.xib` file is still open in the WindowLab project we created in Xcode, let’s look at the main Window object in the nib file. Drag out a Wrapping Label (a.k.a. a Multiline Label) from the Object Library, and drop it onto the window. Drag out a button as well, and position it below the label. Use “Show Color Panel” as the title. The layout should look like Figure [11-3](#A978-1-4302-4543-8_11_Chapter.html#Fig3).
+
+![A978-1-4302-4543-8_11_Fig3_HTML.jpg](A978-1-4302-4543-8_11_Fig3_HTML.jpg)
+
+Figure 11-3.
+
+A very simple window layout
+
+Xcode will also have created an App Delegate class for us. If we used WL as the class prefix, then it will be named `WLAppDelegate`. In Xcode, open up an Assistant Editor pane next to the Interface Builder pane (we talked about the Assistant Editor panes back in [Chapter 5](#A978-1-4302-4543-8_5_Chapter.html); click the icon that looks like a butler’s vest and bowtie in the block of icons labeled Editor in the Xcode toolbar.) Odds are that the `WLAppDelegate.h` file will be pre-loaded when we open this pane, but if not, use the nav bar in the top of the pane to open it. We’re going to add an outlet called `title` and an action called `showColorPanel:`. To do so, Control-drag from the Multiline Label to the `WLAppDelegate.h` file, aiming for just below the existing `@property` declaration. Add a new Outlet and title it `title`. Then, Control-drag from the Show Color Panel Button to just below the newly-added outlet, and add an Action named `showColorPanel:` (we’ll need to change the Connection type to Action).
+
+When done, the `WLAppDelegate.h` file should read like this:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface WLAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *title;`
+
+`- (IBAction)showColorPanel:(id)sender;`
+
+`@end`
+
+Now switch to the `.m` file, and add the following implementation for the `showColorPanel:` method, along with a method called `changeColor:`, like this:
+
+`#import "WLAppDelegate.h"`
+
+`@implementation WLAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`- (IBAction)showColorPanel:(id)sender`
+
+`{`
+
+    `// create the color panel`
+
+    `NSColorPanel *panel = [NSColorPanel sharedColorPanel];`
+
+    `// bring the color panel to the front of the screen`
+
+    `[panel orderFront:nil];`
+
+`}`
+
+`- (void)changeColor:(id)sender`
+
+`{`
+
+    `// in this method, the "sender" parameter is the NSColorPanel`
+
+    `// itself.  We just ask it for its color, and pass it along to`
+
+    `// the "title" object.`
+
+    `[self.title setTextColor:[sender color]];`
+
+`}`
+
+`@end`
+
+Note
+
+Although we’ve seen it before, take a close look at the `@property` declarations inside the `WLAppDelegate.h` file. Most of the time, when adding a property connected to a user interface element, the property includes the annotation `weak`. But that’s not the case for the reference to the window. That one is marked `assign`. There’s a good reason for this: the annotations control how Automatic Reference Counting  (ARC) deals with the references. A reference marked as `strong` indicates ownership of the object. A reference marked as `weak` does not indicate ownership, and a weak reference will be zeroed out when all of the strong references to an object are released and the object is deallocated. However, ARC doesn’t work with classes that override `release` and `retain`, which includes `NSWindow`. Since `NSWindow` doesn’t support ARC, the property gets an `assign` annotation. This effectively means the same thing as `weak` but for non-ARC-enabled classes. The app delegate doesn’t own the window, and so the app delegate’s connection to the window shouldn’t prevent the window from being released and deallocated when appropriate.
+
+The `showColorPanel:` method will be called by a simple button click in our GUI, and Xcode already wired that up for us when we Control-dragged from the button. But the `changeColor:` method will be called whenever the user clicks on a color in the color panel, even though there won’t be any direct connection between the color panel and our code. This bit of “magic” works thanks to a Cocoa concept called the responder chain (see sidebar).
+
+THE RESPONDER CHAIN
+
+The responder chain is an ad hoc collection of objects, gathered on the fly when necessary during the life of an application, that can be queried to see if they implement a particular action. This lets certain actions be configured in a generic way, so that at runtime they will be invoked on the object that makes the most sense at the time. The chain is arranged in order of specificity, starting with the object that is “nearest” to the action and continuing along toward the most generic. Configuring an object to use the responder chain is done in Interface Builder by connecting to an action on the nib’s First Responder icon, which is nothing more than a proxy for the first object in the responder chain that says, at runtime, “Yes I can” when asked if it implements a particular method.
+
+This is all made somewhat more confusing by the fact that each window has its own notion of a “first responder,” which is typically the control or view that the user last interacted with (thereby making it a likely candidate for receiving key-presses and the like).
+
+Let’s try to clarify this with an example. Consider the case of a button whose target/action is configured to call a method called `showThing:` on the First Responder. When a user clicks the button, each of a list of objects will be asked, in order, if they implement a `showThing:` method, right up until one of them answers `YES`, at which point that object’s `showThing:` method is called, and the responder chain’s work is done. Here’s an example of what the responder chain can look like:
+
+The window’s “first responder” (the view that’s currently in focus and accepting keyboard input), its superview, the superview’s superview, and so on, all the way up the view hierarchy within the window   The window itself   The window’s delegate   The application object, `NSApp`   The application object’s delegate  
+
+The responder chain may contain additional objects as well, especially if we’re working on a document-based application, in which case open documents and their controller’s will have a spot in the chain as well. More on that in [Chapter 12](#A978-1-4302-4543-8_12_Chapter.html).
+
+As soon as any one of those objects says it implements `showThing:`, then the method is called on that object, and the search is over.
+
+Now save the work and hit Run. Our new app will appear, and clicking the button will bring up the color panel. Click around on some different colors, and the color of the selected text will immediately change to reflect the new selection.
+
+So, considering that the color panel has no direct connection to our app delegate, it’s fair to wonder: how does that work? How does the `changeColor:` method in our app delegate get called? The key is the use of the responder chain, as described earlier. `NSColorPanel` uses the responder chain to find an object that implements the `changeColor:` method. As the application’s delegate, our little controller object is one of the last objects queried to see if it implements the method, and since it does, it gets called. Note that if the window implemented the method itself, or if it had a delegate that implemented the method, one of those methods would have been called instead.
+
+Now we need to end this section with a reality check. In reality, what we just did can be more easily (and more handsomely) accomplished by using an `NSColorWell`, a special control that launches the `NSColorPanel` when clicked. We’d only need to write code to declare a property in a controller class to contain an `NSColor`, and then use Cocoa Bindings to bind the `NSColorWell`’s Value attribute and the `NSTextField`’s Text Color attribute to the property in our controller. This example is included here, as-is, mainly to show you how to use the color panel from your own code, as well as give you a first look at the responder chain concept.
+
+#### The Font Panel
+
+The next special panel we’re going to look at is `NSFontPanel`. Unlike the color panel, the font panel does not have a matching control that launches it. However, it can be integrated fairly easily with the contents of the system’s Format menu, as we’ll see a little later.
+
+What we’re going to do here is add a button to our WindowLab window that will trigger an action method that opens the font panel and another method that will update the text field. Start by making the WindowLab window a little taller. Then select the button that opens up the Color panel, and duplicate it. Title the new button Show Font Panel. Open up an Assistant Editor pane showing the `WLAppDelegate.h` file, and Control-drag from the button to the Assistant Editor pane, aiming just below the existing action methods. Insert a new action, and name it `showFontPanel`.
+
+Adding the action will cause the following method declaration to be added inside the class’s `@interface` block, in the `WLAppDelegate.h` file:
+
+`- (IBAction)showFontPanel:(id)sender;`
+
+The following stub will be added to the `@implementation` in the `WLAppDelegate.m` file:
+
+`- (IBAction)showFontPanel:(id)sender {`
+
+`}`
+
+Switch to the `.m` file and fill in the following code in the `@implementation` section
+
+`- (IBAction)showFontPanel:(id)sender`
+
+`{`
+
+  `NSFontPanel *panel = [NSFontPanel sharedFontPanel];`
+
+  `NSFontManager *manager = [NSFontManager sharedFontManager];`
+
+  `[manager setSelectedFont:[self.title font] isMultiple:NO];`
+
+  `[panel orderFront:nil];`
+
+`}`
+
+`- (void)changeFont:(id)sender`
+
+`{`
+
+  `// here, 'sender' is the shared NSFontManager instance`
+
+  `NSFont *oldFont = [self.title font];`
+
+  `NSFont *newFont = [sender convertFont:oldFont];`
+
+  `[self.title setFont:newFont];`
+
+`}`
+
+This follows the same usage pattern as the color panel. When the user clicks on a font, the font panel uses the responder chain to look for an object that implements the `changeFont:` action method, and it manages to find it in our app delegate. Here, things are slightly more complicated because in both of these methods we make use of a shared instance of the `NSFontManager` class. A running application’s notion of the selected or current font is held within this shared instance, which we use first in `showFontPanel:` to indirectly tell the `NSFontPanel` which font it should begin displaying, and then again in `changeFont:` to get the new selected font. We get the new font by passing the old font to the font manager’s `convertFont:` method, which combines characteristics of the old font with the state of the user’s selection in the font panel (for example, if the old font is Lucida Grande/Bold/36, and the user selects Times New Roman, leaving the rest alone, the converted font will be Times New Roman/Bold/36).
+
+Now, save the work, go back to Xcode, and hit Run. We can now change both the color and the font for the displayed text (see Figure [11-4](#A978-1-4302-4543-8_11_Chapter.html#Fig4)).
+
+![A978-1-4302-4543-8_11_Fig4_HTML.jpg](A978-1-4302-4543-8_11_Fig4_HTML.jpg)
+
+Figure 11-4.
+
+Setting a label’s color and font
+
+## A Controller With a Nib of Its Own
+
+Next, we’re going to demonstrate a simple pattern that occurs often in Cocoa development: making a controller class that loads its own nib file, becoming the “owner” of all the objects in the file. In every application we’ve created so far, all the GUI elements are contained inside the application’s single .xib file. This works well enough for simple applications, but it has its limits. For one thing, we only have one instance of each window and each controller in the nib. For another thing, the entire main nib file is loaded at once, when the application is starting up, and the more stuff you have in that nib, the slower and more memory-intensive the startup phase will be. Granted, on modern computers with several gigabytes of RAM, this may not be such a huge problem, but as a programmer it’s always good to try to not waste CPU and RAM recklessly. Finally, putting too many top-level objects (windows, controllers, and the like) into a single nib file makes life more difficult for you, the programmer, because it’s harder to see which controllers and windows belong together.
+
+The solution to both of these problems is to distribute some of the GUI objects into other nib files, and mediate their use with controller classes that load the nibs. This technique is used by many Cocoa applications, which commonly split windows for preferences, documents, tools, and so on into separate nib files. The following sections will demonstrate two different ways of doing this, with increasing complexity.
+
+### Loading a Nib With NSWindowController
+
+The first and easiest way is to use Cocoa’s `NSWindowController` class to load the nib file and be its owner. We’ll add a button to our main window to trigger loading a new nib file and an `NSMutableArray` to our `WLAppDelegate` to hold onto references to the newly-loaded nibs. Without something to hold a reference to the newly-loaded nib, the ARC system will cause them to be freed immediately.
+
+Start by opening up the `WLAppDelegate.h` file, and add the following property (given in bold):
+
+`@interface WLAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSTextField *title;`
+
+`@property (strong) NSMutableArray *subWindows;`
+
+Then add this line to the `applicationDidFinishLaunching:` method in the `.m` file:
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `self.subWindows = [[NSMutableArray alloc] init];`
+
+`}`
+
+Next, open up the `MainMenu.xib` file, and add a new button to the main window below the two that are already there. Label it “Load Easy Window.” Open up an Assistant Editor pane (if there isn’t one already open) and open the `WLAppDelegate.h` file there. Control-drag out from the new button to the `.h` file, and add a new action called `loadEasyWindow`. Then, fill out the stub in the `.m` file for `WLAppDelegate` with the following implementation:
+
+`- (IBAction)loadEasyWindow:(id)sender`
+
+`{`
+
+  `NSWindowController *easyController = [[NSWindowController alloc]`
+
+      `initWithWindowNibName:@"EasyWindow"];`
+
+  `// need to hold onto a reference to this object.`
+
+  `[self.subWindows addObject:easyController];`
+
+  `[easyController window];`
+
+`}`
+
+In that method, we first initialize a new controller, telling it the name of the nib file to use. Then, we store a reference to that controller in the `subWindows NSMutableArray` that we created in the `applicationDidFinishLaunching:` method, so that the new controller doesn’t get released at the end of the method. If we didn’t keep a reference to it, it would be released when it went out of scope and the newly-loaded nib file would get released along with it. Of course, in a real application, we’d need to have a mechanism to remove objects from this list as appropriate, but we’ll ignore that for the moment. Then we call its `window` method, which is what actually loads the nib file and displays the window. Of course, we haven’t created the EasyWindow nib file yet, so we’ll do that now.
+
+Make a brand new nib file in Xcode by selecting File ➤ New ➤ New File. Select User Interface under OS X in the template chooser, and then choose the Window template, which contains a single `NSWindow` ready for us to use. Give the new file the name EasyWindow, and select the WindowLab folder under the Group pop-up menu. The Group pop-up menu will show five items, the top three of which are WindowLab with an Xcode Project icon, WindowLab with a Folder icon, and Supporting Files with a Folder icon. These correspond to the file groups in the Xcode Navigator area. Select the WindowLab entry with the folder icon, and click Create.
+
+Our newly-created xib file will show up as a new file in the Navigator area in Xcode, so open the file from there. Select the Window in the nib file, and open the Attributes Inspector. Give the window the title “Easy Window.”
+
+In previous chapters, every controller we’ve created has been added to a nib file as a top-level object, but when you’re loading a nib file yourself, you can specify an object to be its “owner,” which in Interface Builder is represented by the File’s Owner object in the main nib window. `NSWindowController`, our controller’s class, already sets itself up as the owner of the nib file when it loads the file, but we still have to manually configure that in Interface Builder so that we can make use of it. To do this, select the File’s Owner icon and open the Identity Inspector. At the top of this Inspector, we can set the class of the object that we want to be the file’s owner. By default it’s set to `NSObject`, but we’ll usually want it to be `NSWindowController` itself or a custom subclass of `NSWindowController`. For now, set its Custom Class to `NSWindowController`, as shown in Figure [11-5](#A978-1-4302-4543-8_11_Chapter.html#Fig5). Lastly, Control-drag from the File’s Owner icon to the window, and assign that to the `window` outlet of File’s Owner. We need to do this so that the `NSWindowController` knows which of potentially many `NSWindow` objects is the “main” window for the nib.
+
+![A978-1-4302-4543-8_11_Fig5_HTML.jpg](A978-1-4302-4543-8_11_Fig5_HTML.jpg)
+
+Figure 11-5.
+
+Setting the class for File’s Owner
+
+Save and then click Run. The app’s new button will let us create new windows with each press of the button (see Figure [11-6](#A978-1-4302-4543-8_11_Chapter.html#Fig6)).
+
+![A978-1-4302-4543-8_11_Fig6_HTML.jpg](A978-1-4302-4543-8_11_Fig6_HTML.jpg)
+
+Figure 11-6.
+
+Some easy windows
+
+Each time it’s actually creating a new `NSWindowController` instance, which loads a fresh copy of the nib file, including all objects inside of it. In this case all we have is a window, but you can put anything you like inside those nib files, including for example controller objects for accessing Core Data.
+
+### Subclassing NSWindowController
+
+Of course, often you’ll need a bit of your own code in your controller class. You can easily subclass `NSWindowController` to suit your needs here as well. Our next steps will be to create a subclass and create a new nib file for it to load, and set up a way to call it from our main window and controller.
+
+In Xcode, make a new class in the WindowLab project called NotSoEasyWindowController by selecting File ➤ New File from the menu and choosing Cocoa from the OS X section in the template selector. Choose Objective-C class, and then specify that we want to make a subclass of NSWindowController. Xcode will suggest WLWindowController as the name, but you should change it to WLNotSoEasyWindowController. Check the With XIB for user interface checkbox, and Xcode will also generate a `WLNotSoEasyWindowController.xib` file for us, with the File’s Owner set to our new subclass, and with the window outlet pre-connected. Xcode will prompt you to save the nib file, and ask which group to add it to. Use the same group that we used with the Easy Window nib file above, the WindowLab folder. Xcode generates `WLNotSoEasyWindowController.h` and `WLNotSoEasyWindowController.m` files with some methods for us, but we’re going to need to do some work on these files.
+
+We’re making our own class here, and there’s only one nib file that it’s intended to manage. Accordingly, we can build in the name of the nib file so that anyone using this class only needs to know about the class, not the name of the nib file itself. We can also make things even easier for callers: assuming that anyone who creates an instance of this class wants to load the nib file, let’s build the call to `window` right into the `init` method. Do this by creating the following `init` method:
+
+`- init`
+
+`{`
+
+  `if ((self = [super initWithWindowNibName:@"WLNotSoEasyWindowController"]))  {`
+
+    `[self window];`
+
+  `}`
+
+  `return self;`
+
+`}`
+
+That’s the recommended form of the standard `init` method, in which we call another `init` method in the superclass, do work specific to our instance if it succeeds, and finish up by returning a pointer to `self`. While we’re in here, let’s remove the `initWithWindow:` method that Xcode generated for us because there’s no need for it to ever be called.
+
+Now switch over to `MainMenu.xib.` Once again, make the window a bit taller, duplicate the last button, and name it “Not So Easy.” Then open `WLAppDelegate.h` in the Assistant Editor, and Control-drag from the button over to `WLAppDelegate.h`, and add a new action called `loadNotSoEasyWindow`. Open up the `WLAppDelegate.m` file, and add the following implementation for that action:
+
+`// add this to WLAppDelegate.m:`
+
+`- (IBAction)loadNotSoEasyWindow:(id)sender`
+
+`{`
+
+    `WLNotSoEasyWindowController *notSoEasyController = [[WLNotSoEasyWindowController alloc] init];`
+
+    `[self.subWindows addObject:notSoEasyController];`
+
+`}`
+
+We’ll also need to add the following `#import` directive at the top of `WLAppDelegate.m` so that the compiler knows about the new class when it’s compiling the app delegate:
+
+`#import "WLNotSoEasyWindowController.h"`
+
+With that in place, let’s add a small bit of functionality to our window controller class, so that after our nib file is created, we can make sure that our window is connecting up with it as it should: a simple method that makes the computer beep when it’s called. Unfortunately, we’ll need to add it by hand, but that’s easy to do.
+
+Add the following method declaration to `WLNotSoEasyWindowController.h`:
+
+`- (IBAction)beep:(id)sender;`
+
+The whole contents of `WLNotSoEasyWindowController.m` should look like this, with the new `beep`: action method added: `#import "WLNotSoEasyWindowController.h"`
+
+`@interface WLNotSoEasyWindowController ()`
+
+`@end`
+
+`@implementation WLNotSoEasyWindowController`
+
+`- init`
+
+`{`
+
+    `if ((self = [super initWithWindowNibName:@"WLNotSoEasyWindowController"])) {`
+
+        `[self window];`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+`- (void)windowDidLoad`
+
+`{`
+
+    `[super windowDidLoad];`
+
+    `// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.`
+
+`}`
+
+`- (IBAction)beep:(id)sender`
+
+`{`
+
+    `NSBeep();`
+
+`}`
+
+`@end`
+
+Open the `WLNotSoEasyWindowController.nib` file in an Interface Builder canvas, and drag out a button from the Object Library, and title it “Beep!” Control-drag from the Beep! button to the File’s Owner icon in the Object Dock, and select the `beep:` action that we just added. Xcode will automatically note that we’ve added a new action and make it available for use. Save the changes and select Run; the newest button will let us create windows that beep when we press their buttons, as seen in Figure [11-7](#A978-1-4302-4543-8_11_Chapter.html#Fig7).
+
+![A978-1-4302-4543-8_11_Fig7_HTML.jpg](A978-1-4302-4543-8_11_Fig7_HTML.jpg)
+
+Figure 11-7.
+
+These windows’ buttons will beep at us
+
+## Modal Windows
+
+Now we’re going to move on to a special kind of GUI item, the modal window. Everyone has used modal windows at one time or another, but if you’re new to desktop GUI programming, the term may be new to you. Basically, a modal window is one that puts our application in a particular “mode.” Specifically, a mode where it will only accept input through the controls on the modal window itself, and clicking anywhere else in the application will just make it beep at us. Because of their disruptive nature, modal windows should be used sparingly—in cases where the application can’t really move forward on its own without the user answering a question of some kinds (such as, “There are five open documents with unsaved changes. Are you sure you want to quit?”). In cases where the information the app needs from the user is related to just a single window or document, it’s better to use a sheet, described later in this chapter, which locks down a single window instead of the entire application.
+
+### The NSAlert Functions
+
+The simplest modal windows available in Cocoa are the alert panels, which are created and run with a single function call. The function returns when the user clicks one of the buttons, and we can then check the return value to determine which of the buttons they clicked. Depending on how we call the function, there may be one, two, or three buttons presented for the user.
+
+The most commonly used modal alert function is `NSRunAlertPanel`. It has a few variants called `NSRunCriticalAlertPanel` and `NSRunInformationalAlertPanel`, which are used for specific purposes outlined in Apple’s user interface guidelines, but we can safely stick with `NSRunAlertPanel`. Each of these functions takes five or more parameters: first the title that appears at the top of the panel, then the full text to display (which presents some information or asks the user a question), then three strings (which may be `nil`) containing the button titles. Button titles left as `nil` will simply won’t be displayed, except for the case where they’re all `nil`, in which case a single OK button is included on the panel.
+
+To see some alert panels in action, open up `MainMenu.xib` in an Interface Builder pane, and then open `WLAppDelegate.h` in an Assistant Editor pane. Add a new button to the WindowLab window, and title it “Run Modal Alerts.” Control-drag from the new button to the Assistant Editor to add a new action. Call the new action `runModalAlerts`. Then, implement the following method in `WLAppDelegate.m` inside the stub generated by Xcode:
+
+`- (IBAction)runModalAlerts:(id)sender`
+
+`{`
+
+  `NSRunCriticalAlertPanel(@"Basic Usage", @"This is a plain alert panel.", nil, nil, nil);`
+
+  `NSRunAlertPanel(@"Three Buttons", @"We can set button titles:"`,
+
+    `@"Really?", @"Oh, how delightful!", @"Whatever.");`
+
+  `NSRunAlertPanel(@"Formatting Strings", @"We can also do some formatting, %@ %@"`,
+
+    `nil, nil, nil, @"putting values for insertion at the end,", @"after the three button values.");`
+
+  `switch (NSRunAlertPanel(@"Noticing The Selection"`,
+
+            `@"And of course, we can detect which button is clicked."`,
+
+            `@"Default", @"Alternate", @"Other")) {`
+
+    `case NSAlertDefaultReturn:`
+
+      `NSRunInformationalAlertPanel(@"Result:", @"You pressed the default button"`,
+
+         `nil, nil, nil);`
+
+      `break;`
+
+    `case NSAlertAlternateReturn:`
+
+      `NSRunInformationalAlertPanel(@"Result:", @"You pressed the alternate button"`,
+
+        `nil, nil, nil);`
+
+      `break;`
+
+    `case NSAlertOtherReturn:`
+
+      `NSRunInformationalAlertPanel(@"Result:", @"You pressed the other button"`,
+
+        `nil, nil, nil);`
+
+      `break;`
+
+    `default:`
+
+      `break;`
+
+  `}`
+
+`}`
+
+Try these out! Save, click Run, and give it a whirl.
+
+### Open Panels and Save Panels
+
+The other most commonly used modal panels in Cocoa are probably the ones for opening and saving files, `NSOpenPanel` and `NSSavePanel`. Using these panels is typically more than just a one-liner. We first need to configure various options on the panel (for instance, whether it should allow the user to select multiple files for opening, or just one), then run the panel, check the return value (which indicates whether the user eventually clicked the Open or Save button, or canceled out), and then grab the resulting filenames from the panel. Note that these panels don’t actually do any file I/O; they just prompt the user for filenames and return the results. Cocoa uses `NSURL`s for file paths instead of `NSStrings`, which allows Open and Save dialogs to refer to things beyond just on the local file system (such as iCloud).
+
+To see an example of how this can work, consider the following method, which pretends to copy a file. This method uses an `NSOpenPanel` to prompt the user for the file to copy, and then uses an `NSSavePanel` to let the user specify where the file should go:
+
+`- (IBAction)copyFile:(id)sender`
+
+`{`
+
+    `NSOpenPanel *openPanel = [NSOpenPanel openPanel];`
+
+    `[openPanel setTitle:@"Select file to copy:"];`
+
+    `if ([openPanel runModal] == NSOKButton) {`
+
+        `// get the first (and only) selected filename`
+
+        `NSURL *openPath = [[openPanel URLs] objectAtIndex:0];`
+
+        `// pull out just the filename, without directory path`
+
+        `NSString *openFilename = [openPath lastPathComponent];`
+
+        `NSSavePanel *savePanel = [NSSavePanel savePanel];`
+
+        `[savePanel setTitle:@"Enter destination filename:"];`
+
+        `[savePanel setNameFieldStringValue:openFilename];`
+
+        `// run the save panel in its default directory, with the opened filename`
+
+        `// as a suggestion.`
+
+        `if ([savePanel runModal] == NSOKButton) {`
+
+            `NSURL *savePath = [savePanel URL];`
+
+            `NSString *message = [NSString stringWithFormat:`
+
+                                 `@"You've opened this file:\n\n%@\n\nand saved it here:\n\n%@\n\n"`,
+
+                                 `openPath, savePath];`
+
+            `NSRunAlertPanel(@"Copying file (not really)", message, nil, nil, nil);`
+
+        `}`
+
+    `}`
+
+`}`
+
+As before, add a button to the main window (call this one “Copy File”) and then Control-drag to the `WLAppDelegate.h` file to add an action. Name the action `copyFile`. Then copy the code above into `WLAppDelegate.m` in place of the action stub generated by Xcode. Save the changes, click Run, and try out the new button. The standard Open panel will appear, followed by a standard Save panel. Note that the Save panel even has built-in functionality to warn us when we’re selecting an existing file and ask us if we really want to overwrite it (remember, it’s perfectly safe to confirm overwriting the file in this example, since we’re not actually copying anything).
+
+It’s probably worth mentioning here the not-so-obvious fact that `NSOpenPanel` is actually a subclass of `NSSavePanel`. That means that if you can’t seem to find the functionality you’re expecting in `NSOpenPanel`’s documentation or header file, you may need to check out `NSSavePanel` as well.
+
+## System Menus
+
+Now that we’ve seen some of the basics of how windows are used in Cocoa, let’s spend some time dealing with another ever-present feature of Mac OS X, the application menu. Unlike most other current operating systems, Mac OS X presents its menu at the top of the screen instead of at the top of each window. This arrangement has some nice upsides: screen real estate is saved because instead of a horizontal strip taking space at the top of every open window, there’s just a single horizontal strip at the top showing the menu for the active application. Also, the menu is easier and quicker to “hit” with the mouse because we can just flick the mouse upwards and we know we’ll hit the menu, leaving us with just fine-tuning left and right to find the top item we want to select.
+
+This arrangement isn’t without complications, however. In a typical Windows application, there might be a number of different windows, each with its own menu, containing items that are only relevant to that window’s contents. While it’s technically possible to do something similar in a Mac OS X application, changing the structure of the menu as different windows are selected, this usage is frowned upon and will probably bother some users, who on the Mac are quite accustomed to applications that behave in a consistent manner. Instead, we can implement a behavior that is fully supported and recommended: enabling and disabling menu items based on the currently selected window (or, indeed, the currently selected object inside a window). In this section, we’re going to demonstrate how to do this, but first we’re going to talk a bit about the system menus that are included with Cocoa and standard across most applications.
+
+### Standard Application Menu Items
+
+Apple’s guidelines define a set of menus and menu items that should appear in most applications. Create a new application in Xcode, and name it MenuLab, and use ML as the class prefix. This is where we’ll do some experimenting with menu items. Open the freshly created `MainMenu.xib` file, and the Interface Builder canvas will show the predefined set of menus at the top. This set contains top-level entries for the application itself, followed by File, Edit, Format, View, Window, and Help, each of which contains menu items of its own. Open up the Connections Inspector so that we can examine some of these items and see what they’re connected to. Just click around on each of the various menu items, and keep your eye on the Inspector after each click. There are a few exceptions, such as the Show Fonts menu item, but most of the items are connected to the First Responder proxy that we talked about earlier. Note that by connecting a menu item to the First Responder, not only will the item call its action method in the most relevant object, it will also be automatically enabled and disabled based on the contents of the responder chain.
+
+### Our Own Menus
+
+The standard menus contain a lot of functionality; everything from bringing up the app’s About Box, to editing and formatting text, to dealing with windows is all set up. However, many applications need some extra functionality—something that doesn’t seem right to attach to a window, or just takes up too much space in a window. One common way to address this is to add one or more additional top-level menu items, usually between the View and Window menus. For instance, the Finder has a Go menu in there, and Xcode has three additional top-level menus: Navigate, Editor, and Product. In our application, we’ll get by with just one additional menu, which we’ll add to our MenuLab project.
+
+### Enabling/Disabling With Bindings
+
+The first thing we’re going to do is set up a pair of menu items to control a Boolean attribute in our app delegate. We could use these to control some sort of switch that affects an application-wide setting. Here, we’ll create a property called `turbo`, which presumably makes everything happen faster (easy enough in MenuLab because it doesn’t actually do anything). We’ll have two menu items labeled “Turbo On” and “Turbo Off,” and connect each of them to an action method in our app delegate to do the actual toggling. Then we’ll use bindings to enable and disable them as appropriate, so that when turbo is `YES`, only the “Turbo Off” item is clickable, and when turbo is `NO`, only the “Turbo On” item is clickable.
+
+Start off in Xcode by adding the `turbo` property to the app delegate, along with an action method to toggle the value of the property. The changes we need to make to both `MLAppDelegate.h` and `MLAppDelegate.m` are shown here, in a somewhat compacted form, with blank lines removed. All we need to add are the lines shown in bold.
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface MLAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (assign) BOOL turbo;`
+
+`- (IBAction)toggleTurbo:(id)sender;`
+
+`@end`
+
+And for `MLAppDelegate.m`:
+
+`#import "MLAppDelegate.h"`
+
+`@implementation MLAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`- (IBAction)toggleTurbo:(id)sender {`
+
+    `self.turbo = !self.turbo;`
+
+`}`
+
+`@end`
+
+Now switch back to `MainMenu.xib` in an Interface Builder canvas. Open up the nib file’s empty window, change its title to “Turbo Switch,” and drag in a checkbox from the Object Library, changing its title to “Turbo!” once it’s in place. We put this checkbox there to give us a direct view of the value stored in the app delegate’s `turbo` property, so we can easily check and see that our menu items are doing the right thing. Open the Bindings Inspector, and configure the checkbox’s Value binding, connecting it to MLAppDelegate using the turbo key path.
+
+Next, it’s time to create some menu items (Figure [11-8](#A978-1-4302-4543-8_11_Chapter.html#Fig8) shows what it should look like when we’re done). To do this, first search for Menu in the Object Library, which will limit the contents. Drag a Submenu Menu Item up into the menu, placing it between the View and Window menus. Double-click the new top-level menu item that we just added, and change its title to “Tools.” Clicking it again will reveal that it already contains a single item (titled “Item”). Click to select it, then press ⌘-D to duplicate it, which places an identical item just below it.
+
+![A978-1-4302-4543-8_11_Fig8_HTML.jpg](A978-1-4302-4543-8_11_Fig8_HTML.jpg)
+
+Figure 11-8.
+
+Setting up menu items for toggling a Boolean attribute
+
+At this point, the lower of the two new menu items should be selected. Double-click to select the title text, and rename it “Turbo Off.” Control-drag from it to the App Delegate icon in the main window, and connect to the `toggleTurbo:` action. Now bring up the Bindings Inspector, and configure the menu item’s Enabled binding, connecting to the App Delegate using the turbo key path. This ensures that the menu will only be enabled if the value of app delegate’s turbo property is `YES`.
+
+Now go back to the upper menu item, renaming it “Turbo On,” and connecting it to the app delegate’s `toggleTurbo:` action just like you did for Turbo Off. Because the condition for whether this menu item should be enabled or disabled is the opposite of the condition for the Turbo Off menu item, the binding is going to be a little different. It should also have its Enabled binding configured with App Delegate and the turbo key path, but below that you also need to specify NSNegateBoolean as the Value Transformer.
+
+Save the changes and click Run. The Turbo Switch window should appear, containing a checkbox. Our app should have a Tools menu containing Turbo On and Turbo Off items, only one of which should be enabled at a time; clicking the enabled item should toggle the checkbox and change the state of both menu items, so that now only the other item is enabled. Also, clicking the checkbox should affect the enabled/disabled state of each menu item appropriately.
+
+This is a simple way to enable and disable menu items through the use of bindings, but we’d be remiss if we didn’t point out that this usage is sort of artificial and not really the way that you’d normally deal with application-wide Boolean values in a menu. In a case like this, instead of two menu items, one of which is always disabled, you’re more likely to use a single menu item showing a checkbox to indicate a state, just like the checkbox in our window does. As it turns out, that’s even easier to do than what we’ve already done. Go back to `MainMenu.xib`, open up the Tools menu in the Interface Builder Canvas, and drag out a new Menu Item from the Object Library onto the Tools menu. Name this new item “Turbo,” and configure its Value binding, connecting to App Delegate using the turbo key path. That’s it! We don’t need to Control-drag to set up the action for the menu item; Cocoa Bindings manages it all for us. Save, Run, and try it out. Note that this quick method doesn’t even need the `toggleTurbo:` method, so if we want, we can delete that method along with the Turbo On and Turbo Off items.
+
+### Enabling/Disabling With First Responder
+
+Now we’re going to show a more common way of automatically enabling and disabling menu items, which gives us more fine-grained control so that the enabled state of each menu item can be updated automatically depending on which window is selected, which text field or other control in a window is selected, and so on. This method works using the responder chain, somewhat similar to how the color panel finds an object to pass a selected color to, as described earlier in this chapter. In this case, the method that’s searched for along the responder chain is `validateUserInterfaceItem:`, whose declaration looks like this:
+
+`- (BOOL)validateUserInterfaceItem:`
+
+          `(id <NSValidatedUserInterfaceItem>)anItem;`
+
+If it’s implemented in the responder chain’s objects, this method is called at the appropriate time to see if the user interface item (in this case, a menu item) should be enabled or not. In implementing this method, we can use `anItem` to get some information about the object that’s going to be enabled or disabled; we can ask it for its action (so we can compare with one of our own methods) and for its tag (in case we’d rather compare against a control tag we’ve set on the object). Usually we’ll just want to use the action. We’ll demonstrate how this works in just a bit, but first we should probably clarify just when this method is called.
+
+Here’s the basic idea: any time Cocoa is about to draw the menu, generally in response to the user clicking on the menu bar, some checks are made for each menu item to determine whether it should be enabled or disabled. The flowchart in Figure [11-9](#A978-1-4302-4543-8_11_Chapter.html#Fig9) gives a rough outline of the sequence of events.
+
+![A978-1-4302-4543-8_11_Fig9_HTML.jpg](A978-1-4302-4543-8_11_Fig9_HTML.jpg)
+
+Figure 11-9.
+
+How the menu system decides whether a menu item should be enabled or not
+
+The upshot of all this is that the menu item’s target object, whether configured explicitly or found in the responder chain, is the one that decides whether the menu item should be enabled (at the current time) or not. This means that we have complete dynamic control over each menu item. By implementing `validateUserInterfaceItem:` in each of our classes containing methods that are called by menu items, whether directly or through the responder chain, we can define some logic that the menu system calls at the right time, and automatically enables or disables each menu item based on what we return.
+
+Let’s illustrate this with an example. We’ll create a new window in our nib file, matched by a new delegate class just for that window, which will implement `validateUserInterfaceItem:` to handle the state of a menu item. In a real application, you would probably base it on the content of a model object, but for simplicity’s sake, we’ll enable or disable a menu item based on what’s selected in the window.
+
+Start by creating a new class in Xcode, just a plain `NSObject` subclass called `MLListWindowDelegate`. To do this, select File ➤ New ➤ File, and then select Cocoa under the OS X heading on the left. Select Objective-C Class. Set the name of the class to be MLListWindowDelegate, and set it as a Subclass of NSObject. In its header, add an `#import <Cocoa/Cocoa.h>` line at the top, and then define an integer property called `selectedTag`, which we’ll later bind to a GUI object (add the lines that are shown in bold):
+
+`// MLListWindowDelegate.h`
+
+`#import <Foundation/Foundation.h>`
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface MLListWindowDelegate : NSObject`
+
+`@property (assign) NSInteger selectedTag;`
+
+`@end`
+
+In the matching `MLListWindowDelegate.m` file, we’re going to implement the `specialAction:` method that a menu item will be connected to with target/action via the First Responder proxy, and implement the `validateUserInterfaceItem:` method. Xcode will automatically synthesize getters and setters for the `selectedTag` property for us.
+
+`// MLListWindowDelegate.m`
+
+`#import "MLListWindowDelegate.h"`
+
+`@implementation MLListWindowDelegate`
+
+`- (BOOL)validateUserInterfaceItem:`
+
+  `(id <NSValidatedUserInterfaceItem>)anItem`
+
+`{`
+
+    `// set the default response to YES, in case it's not the action we care about`
+
+    `BOOL result = YES;`
+
+    `SEL theAction = [anItem action];`
+
+    `if (theAction == @selector(specialAction:) ) {`
+
+        `if (self.selectedTag != 13013) {`
+
+            `result = NO;`
+
+        `}`
+
+    `}`
+
+    `return result;`
+
+`}`
+
+`- (void)specialAction:(id)sender`
+
+`{`
+
+    `NSRunAlertPanel(@"Boy Howdy!"`,
+
+                    `@"That's some mighty special action you got there!"`,
+
+                    `nil, nil, nil);`
+
+`}`
+
+`@end`
+
+We should point out a thing or two about the `validateUserInterfaceItem:` method. First, note that we’re using the item’s action to determine what method it would call if clicked. In code, an action (or any kind of method for that matter) can be referred to by the Objective-C `SEL` type. Technically, a `SEL` is not a method, but a “selector,” which is a sort of hash of the method’s name, somewhat modified for performance considerations, that the Objective-C runtime can use to look up the method’s actual implementation. Besides looking up a method, a `SEL` can be compared to another `SEL`, such as that returned by the `@selector(specialAction:)` construct shown in the code. In our method, we test to see whether the menu item in question is targeted at the action method we care about, in which case we go deeper. If the actions match up, we then do a simple check against some internal state, in the form of the `selectedTag` property, to see if we want to allow this menu item to be enabled or not. If the selector doesn’t match, then we default to returning `YES`.
+
+Now let’s create a GUI to put this code to work. Open the `MainMenu.xib` file into an Interface Builder canvas and drag a plain NSObject from the Object Library to the nib window (search for NSObject in the Object Library Search box). It will appear in the Object Dock along the left side of the screen. Use the Identity Inspector to change its class to `MLListWindowDelegate`. Then drag out a new window from the Object Library, and connect its `delegate` outlet to the `MLListWindowDelegate` object we just set up. Now find a Radio Group in the Object Library, and drag it into the new window. Including this in the window gives us a rudimentary way to provide a sort of selection for the window and its delegate. Bind the group’s Selected Tag to the `ListWindowDelegate's` selectedTag property. That way, the delegate is informed whenever someone clicks one of the radio buttons. Now expand the radio group to contain more radio buttons by option-dragging the lower resize handle until there are seven or eight buttons. Then, click one of the buttons near the middle, and use the Attributes Inspector to change its title to “Special Selection,” and its tag to 13013, the “magic number” that we’ll look for in the code.
+
+All that’s left is configuring a new menu item to call the `specialAction:` method via the First Responder. Start by selecting the First Responder item in the nib window and bringing up the Attributes Inspector. Here is where we can manually add any action methods that we want this proxy object to know about. We’ll see a list of user-defined actions, which starts out empty. Add one of our own by clicking the + button, and changing its name to `specialAction:` (don’t forget the colon!). Now for the menu item: find a plain Menu Item in the Object Library, and drag it into the Tools menu we created earlier. Set its title to “Special Action,” and configure its target/action by Control-dragging to the First Responder item in the nib window and selecting `specialAction:` from the resulting list.
+
+Now it’s time to see this in action. Save the work and click Run. The app now has a new window where we can select one of the radio buttons. Click around on some of the radio buttons, each time clicking the Tools top-level menu item to see if the Special Action item is enabled. It should only be enabled if the Special Selection button is selected. If another radio button is selected, or if the app’s other window (the old window with the Turbo checkbox) is selected, the menu item should be disabled.
+
+This basic concept can be extended as far as you want. The point is that enabling and disabling menu items is really quite simple. You never have to manually enable or disable individual menu items as things happen in your app; you just write code that is called automatically when a menu item is about to be displayed, and deal with it then.
+
+## Sheets
+
+The final topic we’re going to cover in this chapter is the concept of sheets. A sheet is simply a window that is temporarily attached to another window and run in a semi-modal way, such that the “other window” doesn’t receive any events. The idea is that an application can have several windows that aren’t impacted by each other’s demands for user attention. For example, in the TextEdit application included with Mac OS X, you can have the Save As panel appearing as a sheet on one document, the Print panel appearing as a sheet on another, and continue typing in a third.
+
+Chances are you won’t use sheets in every Cocoa app you ever build, but they are useful in situations where your application needs some sort of user input related to a particular window, and you’d rather not use a modal panel that stops input to the rest of your application. In the example just shown, for instance, without the use of sheets, that Save panel would probably run in a modal fashion, blocking input to all other windows until the user dismissed it. With the use of sheets, the user can temporarily leave the ongoing Save operation and do some other interaction with the application before committing the Save.
+
+Sheets aren’t represented by a particular class in Cocoa. Rather, they are normal windows used in a special way. Every `NSWindow` can have a sheet attached to it, and every window or panel that’s normally used in a modal way can be used as a sheet as well.
+
+Let’s see the basics of how to use a sheet by attaching an `NSOpenPanel` to a normal window in a new application that we’ll call SheetLab. Create a new Cocoa application project in Xcode, using SL as the class prefix, and save it as SheetLab. Now, edit `SLAppDelegate.h`, adding an `openDocument:` action method:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface SLAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`- (IBAction)openDocument:(id)sender;`
+
+`@end`
+
+Then edit `SLAppDelegate.m`, adding the following method implementations:
+
+`#import "SLAppDelegate.h"`
+
+`@implementation SLAppDelegate`
+
+`- (IBAction)openDocument:(id)sender {`
+
+  `NSOpenPanel *panel = [NSOpenPanel openPanel];`
+
+  `[panel setCanChooseDirectories:NO];`
+
+  `[panel setAllowsMultipleSelection:NO];`
+
+  `[panel setMessage:@"Please pick one file to import."];`
+
+    `// Display the panel attached to the document's window.`
+
+    `[panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){`
+
+        `if (result == NSFileHandlingPanelOKButton) {`
+
+            `// Set the window title to the filename of the selected file.`
+
+            `NSArray* urls = [panel URLs];`
+
+            `NSString *selectedFile = [[urls lastObject] lastPathComponent];`
+
+            `[self.window setTitle:selectedFile];`
+
+        `}`
+
+    `}];`
+
+`}`
+
+`@end`
+
+We declare a method called `openDocument:` in this class. `openDocument:` is the action used by the File ➤ Open menu item. When the user hits File ➤ Open (or ⌘-O), the responder chain gets followed until an object is found that responds to `openDocument:`. Since the App Delegate is in the responder chain and there’s nothing else in the app that responds to `openDocument:`, our code will get called. The `openDocument:` method grabs the standard open panel, sets it to only allow selection of one file (not directories, and not multiple files), and adds a message to the panel. It then tells it to run modally attached to a window (using the `window` property), using the `beginSheetModalForWindow:completionHandler:` method. The second argument to this method is an Objective-C block, a new concept that we haven’t seen before. It specifies the actions that should be taken when the panel is finished running. In this case, if the user has selected a file and hit OK, we get the URL of the selected file, and then set the `title` of the window to the last part of the path, which should be the filename itself.
+
+Note
+
+A block represents a piece of code that (among other things) can be passed as an argument to a method. In other languages, it’s called a closure or a lambda. The use of blocks is becoming more prevalent in Cocoa, rather than passing pointers to callback functions. A block has access to all of the variables that are in-scope at the point of declaration and has the benefit of being declared at the point of use. Blocks were introduced in OS X 10.6 and iOS 4\. You can read much more about blocks in the Apple Developer Documentation in Xcode, or at [`https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40007502`](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html%23//apple_ref/doc/uid/TP40007502) .
+
+Save the changes, click Run, and the app will launch. Hitting ⌘-O brings up the modal open panel, attached as a sheet on top of the app’s window. When we select a file, the name of the window gets set to the name of the file!
+
+## Wrap Up
+
+This chapter provided an introduction to several key parts of the Cocoa GUI experience, as well as a few examples of how the responder chain is used. These features are crucial to making a professional-quality Mac application. Mac users tend to be pretty unforgiving when applications use non-standard behaviors without a good reason, so it’s important to know how to deal with windows and menus in ways that users will recognize. In the next chapter, we’ll build on this knowledge as we explore Cocoa’s classes for dealing with documents and their associated windows.
+
+# 12. Document-Based Applications
+
+Abstract
+
+So far, the applications we’ve built in this book all have one major shortcoming in common: each of them acts in sort of an all-or-nothing way. We’ve either got a particular piece of data in the one backing store that the application is using (if it’s using one at all), or we don’t have it anywhere. None of them has any notion of letting us split our data into the discrete, unrelated storage units that we call “documents.” Although having everything in a single database is good for some purposes, for others it’s a huge hindrance. What if we want to share just a part of our data with someone else? What if we want to be able to view details for two or more of the same kind of Core Data entity, in multiple windows beside one another, to be able to compare them? Most people are familiar with these possibilities from using almost any modern application where multiple documents can be open simultaneously and where actions applied to one don’t affect the others.
+
+So far, the applications we’ve built in this book all have one major shortcoming in common: each of them acts in sort of an all-or-nothing way. We’ve either got a particular piece of data in the one backing store that the application is using (if it’s using one at all), or we don’t have it anywhere. None of them has any notion of letting us split our data into the discrete, unrelated storage units that we call “documents.” Although having everything in a single database is good for some purposes, for others it’s a huge hindrance. What if we want to share just a part of our data with someone else? What if we want to be able to view details for two or more of the same kind of Core Data entity, in multiple windows beside one another, to be able to compare them? Most people are familiar with these possibilities from using almost any modern application where multiple documents can be open simultaneously and where actions applied to one don’t affect the others.
+
+As it turns out, the good folks at Apple thought of this years ago and built document support right into Cocoa, centered around the `NSDocument` and `NSDocumentController` classes. Cocoa’s document architecture gives us access to a whole lot of infrastructure that we’d otherwise have to build ourselves, such as managing the window and its title bar, dealing with the open panels and save panels, and more. If you’re using Core Data in your application, it will even take care of the actual opening and saving all on its own, so your application code never even has to touch a document file.
+
+This chapter will cover the basics of how to create a document-based Cocoa application, including the use of Core Data, by creating an application called ColorMix. ColorMix lets the user choose two colors using the standard system color panel, and then presents a grid of color swatches demonstrating different methods of blending the two colors together. Each set of two chosen colors (and its 15 blended colors) can be saved in a document, which is just like any other file and can be saved anywhere you like and then reopened later on. Along with learning about how Cocoa does documents, we’ll also build a simple view class for drawing colored rectangles and interact with Core Data in our code. Figure [12-1](#A978-1-4302-4543-8_12_Chapter.html#Fig1) shows what the ColorMix application will look like when we’re all done.
+
+![A978-1-4302-4543-8_12_Fig1_HTML.jpg](A978-1-4302-4543-8_12_Fig1_HTML.jpg)
+
+Figure 12-1. 
+
+The completed ColorMix application
+
+If you’ve used graphics software such as Photoshop or Gimp, you’re probably familiar with some of these blend modes. Each of them uses a particular formula that takes the red, green, and blue components of each of the two colors and produces an output color. We won’t describe the blend modes here, but you can find detailed descriptions and examples of them at [`http://en.wikipedia.org/wiki/Blend_modes`](http://en.wikipedia.org/wiki/Blend_modes) and elsewhere. What we will do here is show how to build an application that gives the user a hands-on way to explore all of these modes, two chosen colors at a time.
+
+The blend modes we’ll be using are all built into Core Graphics, an important part of Cocoa’s graphics architecture that we’ll talk more about in [Chapter 13](#A978-1-4302-4543-8_13_Chapter.html). Using this built-in functionality lets us skip doing any sort of color computation on our own; all we do is call Core Graphics functions to set blend modes and draw rectangles.
+
+## Creating the ColorMix Application
+
+Start by creating a new application in Xcode, using the  Cocoa Application template in theOS X / Application section of the New Project assistant. After clicking Next, name the new application ColorMix, and set the class prefix to CM. The new application will use both `NSDocument` architecture and Core Data, so we’ll need to configure the project properly when creating the application. Make sure that the Create Document-Based Application and Use Core Data checkboxes are both checked. Note that enabling the document checkbox also activates the Document Extension text field. This lets us set the default filename extension that our application will use when saving files. Enter ColorMix here as well, so that we can easily recognize the documents we create.
+
+The ColorMix application will have a few things we haven’t seen created for us before. In particular, it has a class called `CMDocument` (a subclass of `NSPersistentDocument`, which is itself a subclass of `NSDocument`, both of which we’ll explain a little later), and a matching CMDocument.xib resource. These are the two key elements that we’ll extend to define the behavior and appearance of our documents. Apart from that, we’ll also see a model file where we’ll set up the Core Data entity and attribute information for this app.
+
+### Examining the Default Nib Files
+
+Before we get to work on creating anything, open the MainMenu.xib file in Interface Builder. Notice something different about this nib file, compared to every other MainMenu.xib file that’s been created for us? It contains no window! Opening the file reveals various proxy objects, the menu itself, and that’s it. That’s another clue that we’re dealing with a different sort of creature when creating a document-based application, because such an application (such as Xcode, Microsoft Office, Garage Band, and the like) usually doesn’t have any notion of a “main window” and instead puts the bulk of the application into one or more document windows.
+
+Open the Connections Inspector, and take some time to click on some of the menu items and see how they’re hooked up. Many of the items in the File menu are connected to First Responder, calling actions whose names contain the word “document” (`newDocument:`, `openDocument:`, and so on). It turns out that several of these actions are implemented in the `NSDocumentController` class. This is a special class that has a single shared instance at runtime for managing all the application’s open documents. We won’t see this shared instance, or even a proxy for it, in this nib file or anywhere else. The `NSApplication` creates this object during application launch and adds it to the responder chain so that it can handle these actions.
+
+After taking a look around, we can basically forget about the MainMenu.xib for this application, since we’ll never need to open it again. Remember that the only real content in there is the menu, and most of the menu items are connected to actions on First Responder, which means they’ll find their way to the relevant window controller or the shared `NSDocumentController` when the time comes.
+
+Now open CMDocument.xib and see what it has to offer. An `NSWindow` is ready for us to fill in some content, and if we open the Identity Inspector, we’ll see that the File’s Owner is an instance of `CMDocument`. Apart from that, it’s a blank slate, which we’ll make our mark on just a little later.
+
+### Defining the Model
+
+Before we start building a GUI of any kind, let’s create the data model that will be used to represent a document. This is an extremely simple model containing a single entity with two attributes. We’ll create just a single instance of that one entity in each document, but everything you learn about documents in this chapter applies equally well to large, complex data models.
+
+Open the CMDocument.xcdatamodeld. Create an entity and name it ColorSet. With the new entity still selected, create an attribute, name it color1, set its type to Transformable, and click to turn off the Optional checkbox. Then create a second attribute, name it color  2, and configure it just like the first: the type is Transformable, and Optional should be turned off. These attributes represent the two colors that the user will choose for each document. Each of them contains an instance of `NSColor`, which is not one of the supported Core Data types, hence the use of Transformable as described in [Chapter 8](#A978-1-4302-4543-8_8_Chapter.html).
+
+Save the model, and we’re done with it. That was an extremely simple model, wasn’t it!
+
+## Setting Two Colors
+
+Now it’s time to start putting the GUI together. Remember that this occurs in the document window, so switch back to CMDocument.xib in Interface Builder. The default window contains an `NSTextField` (“Your document contents here”), which we should delete before going on. Next we’re going to add an `NSObjectController` to the nib file, which we’ll use to connect some GUI objects to the underlying document. Follow these steps to set this up.
+
+Use the Library panel to find an `NSObjectController`, and drag one over to the dock, where it will join the File’s Owner, the Window, and other top-level objects. While this new object (which is now labeled ”Object Controller”) is selected, open the Attributes Inspector. At the very top of the Inspector is the Mode pop-up. Change it from Class to Entity Name, then enter ”ColorSet” in the Entity Name field just below it.
+
+With the new Object Controller still selected, switch to the Bindings Inspector. We need to tell this controller where it should get its data by binding its managedObjectContext to a reasonable value, so find the Managed Object Context item under the Parameters heading. If the details for this binding aren’t visible, click its disclosure triangle to expose them. Use the Bind To pop-up to select File’s Owner, then enter ”managedObjectContext” into the Model Key Path text field, and press the Enter key to create the binding. As a final bonus step for this object controller, select it in the dock and change its name to ”colorset.” That won’t change anything in the application when it runs, but it adds some clarity to the nib for some programmer in the future (probably you; you’ll thank yourself later for documenting things as you go now).
+
+### The Simplest of GUIs
+
+It’s time to build a simple GUI that lets us view the core details of our ColorSet object, the two colors it contains. Use the Library to find the `UILabel` object, and drag it into our Window. Select its text, and change it to Mix Color 1\. Then press ⌘D to duplicate the label, move it aside a bit, and change its text to Mix Color 2. Now find an `NSColorWell` in the Library, and drag it to the document window we’re building. Once it’s in place, duplicate it with ⌘D, and then rearrange the labels and color wells to look something like Figure [12-2](#A978-1-4302-4543-8_12_Chapter.html#Fig2).
+
+![A978-1-4302-4543-8_12_Fig2_HTML.jpg](A978-1-4302-4543-8_12_Fig2_HTML.jpg)
+
+Figure 12-2. 
+
+The bare minimum GUI for selecting two colors
+
+Now select the color well on the left, open the Bindings Inspector, and configure its Value binding to use the colorset controller with the selection controller key and the color1 model key path. Select the color well on the right, and configure its Value binding to use the colorset controller with the selection controller key, this time with the color2 model key path. Save the work, then click the Run button. The app launches, and a new, empty “Untitled” document window appears, but the color wells are unclickable! In our haste to get something onscreen, we neglected to create something pretty important: a model object!
+
+### Creating a Default ColorSet
+
+What we need to do is write some code that will insert a new `ColorSet` object into the object controller whenever a new document is created. We’ll do this in the `CMDocument` class by adding some facilities there for accessing the object controller we added to the nib file and for keeping track of whether the document was created from scratch or loaded from a file. Select the CMDocument.m file where this new code will be added. For starters, we’re going to add one property, an outlet called `objectController` for pointing to the `NSObjectController` that we put into our nib file a page or two ago. Instead of adding this to the header file, we can use a class extension to declare this property in the .m file. A class extension looks just like a category declaration, but with no category name in the parentheses. Add this code just before the `@implementation` block:
+
+`@interface CMDocument ()`
+
+`@property (weak) IBOutlet NSObjectController *objectController;`
+
+`@end`
+
+Anything that we can declare in a class’s `@interface` block—instance variables, properties, methods, etc.—can be declared in a class extension instead. The advantage of doing so is that it keeps our class’s interface cleaner. We can choose to only expose pieces of our class that are really needed by other classes and let the rest be a sort of private API that is only usable within the class.
+
+We’re also going to add an instance variable, a `BOOL` called `isNew` that we’ll use to keep track of whether each document has just been created or was loaded from a file. Following the information-hiding trail we just followed with the class extension, we’re going to reveal another nice trick: instance variables can be declared in a class’s `@implementation` block instead of the `@interface` in the header file. Do this by adding the bold code shown below:
+
+`@implementation CMDocument`
+
+`{`
+
+    `BOOL isNew;`
+
+`}`
+
+Now take a glance at the rest of this .m file. This file contains some ready-made methods, with comments showing where we can extend their behaviors. We’re going to implement a bit of functionality in the `init` and `windowControllerDidLoadNib:` methods, as well as implement the `initWithType:error:` method, which we’ll explain in a bit. The predefined methods in here all come from `NSDocument`, which handles most of the document-related functionality for us. `CMDocument`’s direct superclass, however, is `NSPersistentDocument`, which implements additional functionality for storing documents as Core Data storage backends. Start off by adding this method:
+
+`- (id)initWithType:(NSString *)typeName error:(NSError **)outError`
+
+`{`
+
+  `if (self = [super initWithType:typeName error:outError]) {`
+
+    `isNew = YES;`
+
+  `}`
+
+  `return self;`
+
+`}`
+
+`- (NSString *)windowNibName`
+
+`{`
+
+    `return @"CMDocument";`
+
+`}`
+
+Then, add the bold lines shown here to the `windowControllerDidLoadNib:` method:
+
+`- (void)windowControllerDidLoadNib:(NSWindowController *)windowController`
+
+`{`
+
+    `[super windowControllerDidLoadNib:windowController];`
+
+    `// Add any code here that needs to be executed once the windowController has loaded`
+
+    `// the document's window.`
+
+    `if (isNew) {`
+
+        `id newObj = [_objectController newObject];`
+
+        `[newObj setValue:[NSColor redColor] forKey:@"color1"];`
+
+        `[newObj setValue:[NSColor yellowColor] forKey:@"color2"];`
+
+        `[_objectController addObject:newObj];`
+
+    `}`
+
+`}`
+
+The bits of bold code are executed when a new document is being created. The first, `initWithType:error` `:`, is only called when a new document is being created from scratch. This is where we’d ideally want to initialize our model objects, but all access to the model objects is mediated through the `NSObjectController`, which is in the nib file, which at this point hasn’t been loaded yet. So we just set the `isNew` flag to `YES`, and move along. A little later, `windowControllerDidLoadNib:` is called in `CMDocument` after its nib has been loaded. Here we use the `objectController` to create a new model object, set values for its two attributes, and add the new object to the controller.
+
+With that in place, all that’s left to do is to connect `CMDocument`’s `objectController` outlet within CMDocument.xib. So switch back over there, Ctrl-drag from the File’s Owner to the colorset object controller, and select the `objectController` outlet. Save the work, then click the Run button. The red and yellow colors in the two color wells should be visible, and clicking on one of them should bring up the color panel and let us change the color.
+
+Not only that, but a full complement of document functionality is now available through the menu. We can save our documents, close them, access recent documents, open documents, and so on.
+
+## Settling on a File Format
+
+Having gotten to this point, you’ve probably noticed that when you save a document, a pop-up list lets you choose to save the file as Binary, SQLite, or XML, and the file extension is set accordingly. While this level of flexibility may be of some use during development, for a shipping product you should really just pick a format and stick with it to avoid confusing your users. In general, SQLite is probably the best choice for most applications. You should also change the file extension to something that suggests the use of your app, instead of the default extension. All of these options are configured in Xcode’s Target settings. Go back to Xcode, select the top-most ColorMix group in the navigation pane, click the ColorMix target, and click the Info tab at the top of the view to see the target settings. Expand the Document Types group, and there will be a view containing all three pre-configured file formats. Delete the Binary and XML options (by using the “x” button at the upper right-hand corner of each of those sections), leaving only the SQLite option. Give this remaining format a decent filename extension by editing the value shown in the Extensions column, changing it to ColorMix. Now save the work, Build & Run, and save a color set, verifying that we now have no choice about what kind of file format to save it as.
+
+## Adding Color
+
+Now the document stuff is all working as it should, but we’ve got a really boring application that doesn’t do anything interesting at all. Let’s make our app do what we promised in the beginning of this chapter: display a bunch of colors made by blending the two chosen colors using all of Core Graphics’ predefined blending modes.
+
+To do this, we’re going to create a new class called `CMColorBlendView`, which will be a direct subclass of `NSView`. One of the primary things you typically do in an `NSView` subclass is override the `drawRect:` mode to specify exactly what should be drawn. We’re going to do just that and fill each view with a blended color. In order to do the blending, each instance of `CMColorBlendView` needs to know which blending mode to use and which two colors to blend. We’ll set up the blending mode for each `CMColorBlendView` by hand, but the values for the two colors will be populated using Cocoa Bindings, so that as soon as the user changes one of the chosen colors, all of the `CMColorBlendView` objects in our window will be instantly redrawn.
+
+### The CMColorBlendView Class
+
+Start by creating a new class in our project. In the New File assistant, choose Objective-C class from the OS X - Cocoa section, then click Next. Name our new class `CMColorBlendView.m`, and make it a subclass of `NSView`.
+
+Now edit CMColorBlendView.h, adding the bold lines shown in the following:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface CMColorBlendView : NSView`
+
+`@property (strong, nonatomic) NSColor *color1;`
+
+`@property (strong, nonatomic) NSColor *color2;`
+
+`@property (assign, nonatomic) CGBlendMode blendMode;`
+
+`@end`
+
+This gives our class two `NSColor` objects, which will be populated by Cocoa Bindings, and a `CGBlendMode`, which will be set by the `MyController` class when it’s loading a nib file. We used the `nonatomic` keyword for all of these properties, which is a way of declaring that the getters and setters for these properties won’t take extra precautions to be thread-safe. Since we know that our code in this simple app is all being used solely on the main thread, using `nonatomic` is safe enough and gives slightly better performance.
+
+Now switch over to CMColorBlendView.m, where the first thing we’ll do is define the methods for the properties we’ve declared. Most of the properties we’ve declared previously in this book have their methods created by an explicit `@synthesize` line, but here we have a bit of a special case because we want our view to redraw itself each time any of the property values changes. So we’ll provide explicit setter methods for each of our properties. Explicit methods, if present, always take the place of any synthesized methods. And actually, this brings us to one more reason we used `nonatomic` in our property declarations: without it, the compiler doesn’t really like letting us mix a synthesized getter with an explicit setter and so would generate a warning.
+
+While we’re doing all this new stuff anyway, we’re going to introduce a pretty new piece of functionality in the LLVM compiler. Any time we declare a property in the interface, we can actually leave out the `@synthesize` row entirely! If we do so, the compiler will still create an instance variable for us, whose name will be the name of the property prefixed by an underscore. We can see this in the following code, which should be added to our class’s `@implementation` section:
+
+`// put these at the beginning of the @implementation block`
+
+`- (void)setBlendMode:(CGBlendMode)bm`
+
+`{`
+
+    `if (_blendMode != bm) {`
+
+        `_blendMode = bm;`
+
+        `[self setNeedsDisplay:YES];`
+
+    `}`
+
+`}`
+
+`- (void)setColor1:(NSColor *)c`
+
+`{`
+
+    `if (![c isEqual:_color1]) {`
+
+        `_color1 = c;`
+
+        `[self setNeedsDisplay:YES];`
+
+    `}`
+
+`}`
+
+`- (void)setColor2:(NSColor *)c`
+
+`{`
+
+    `if (![c isEqual:_color2]) {`
+
+        `_color2 = c;`
+
+        `[self setNeedsDisplay:YES];`
+
+    `}`
+
+`}`
+
+One thing to note is the `[self setNeedsDisplay:YES]` call. We’ll get into this more in later chapters covering drawing in Cocoa, but the basic idea is that when we want to draw some content in an `NSView`, we call this method, which sets a flag, and when our application is done processing whatever event it’s currently handling, it will look through the open windows to see if anyone has been flagged for redrawing, which leads to the eventual calling of the `drawRect:` method.
+
+Speaking of which, the only other method we need to implement in this class is the `drawRect:` method itself.
+
+`- (void)drawRect:(NSRect)dirtyRect`
+
+`{`
+
+  `// don't draw anything if we don't have two valid colors.`
+
+  `if (!self.color1 || !self.color2) return;`
+
+  `CGColorRef cgColor1 = genericRGBWithNSColor(self.color1);`
+
+  `CGColorRef cgColor2 = genericRGBWithNSColor(self.color2);`
+
+  `CGContextRef myContext = [[NSGraphicsContext currentContext] graphicsPort];`
+
+  `CGContextSaveGState(myContext);`
+
+  `CGContextSetFillColorWithColor(myContext, cgColor1);`
+
+  `CGContextSetBlendMode(myContext, kCGBlendModeNormal);`
+
+  `CGContextFillRect(myContext, NSRectToCGRect(dirtyRect));`
+
+  `CGContextSetFillColorWithColor(myContext, cgColor2);`
+
+  `CGContextSetBlendMode(myContext, self.blendMode);`
+
+  `CGContextFillRect(myContext, NSRectToCGRect(dirtyRect));`
+
+  `CGContextRestoreGState(myContext);`
+
+  `CGColorRelease(cgColor1);`
+
+  `CGColorRelease(cgColor2);`
+
+`}`
+
+Try not to get too caught up in the details here. It’s enough if you read the comments and trust that the code is doing what the comments claim it’s doing. After going through some of the later chapters where we’ll be dealing with graphics, this will start to make more sense. For now, note that this code produces some compiler errors until we complete the next step.
+
+The final piece we need to add for this class to work is a conversion routine so that the `NSColor`s that are picked by the user in the color panel can be converted to the `CGColorRef`s that are necessary for the Core Graphics functions. For some reason, Cocoa doesn’t include any one-line function or method calls that do this, but the following function does the trick nicely. Insert this near the top of the .m file. Anywhere above the `drawRect:` method is fine, but, for the sake of keeping things structured, we’d recommend putting it just above the `@implementation` block to make it clear that this function is not a part of the class.
+
+`static CGColorRef genericRGBWithNSColor (NSColor *color)`
+
+`{`
+
+  `CGColorRef cgColor = NULL;`
+
+  `NSColorSpace *nsColorSpace = [NSColorSpace genericRGBColorSpace];`
+
+  `NSColor *deviceRGBColor = [color colorUsingColorSpace: nsColorSpace];`
+
+  `if (deviceRGBColor != nil) {`
+
+    `CGFloat components[4];`
+
+    `[deviceRGBColor getRed: &components[0] green: &components[1]`
+
+                      `blue: &components[2] alpha: &components[3]];`
+
+    `cgColor = CGColorCreate([nsColorSpace CGColorSpace], components);`
+
+  `}`
+
+  `return cgColor;`
+
+`}`
+
+With that in place, the `CMColorBlendView` class is complete. Save the work and click Build, and it should compile cleanly. We’re only asking you to click Build now to make sure that no typos have crept in up to this point; we haven’t set up the GUI yet, so there’s no point hitting Build & Run right now.
+
+### Adding Blended Colors to the GUI
+
+Now it’s time to add the blended color swatches to our document window. Let’s start by adding an outlet for each of them to the CMDocument.h file. Each of the new outlets shown here will end up connected to an instance of `CMColorBlendView`. We’re also adding a line near the top with an `@class` declaration, which simply tells the compiler that the next token (`CMColorBlendView`) is the name of a class. That’s just enough information to let the compiler deal with instance variables and method arguments that are pointers to instances of that class, without importing the class’s header itself. Using these forward declarations instead of `#import`s consistently in our header files can give us slightly better compile times, and also makes our header files less brittle, because they have fewer dependencies on one another. In our implementation files, however, where we’re going to call methods on these classes, we’ll need to import the header file.
+
+`#import <Cocoa/Cocoa.h>`
+
+`@class CMColorBlendView;`
+
+`@interface CMDocument : NSPersistentDocument`
+
+`@property (weak) IBOutlet CMColorBlendView *multiplyBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *screenBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *overlayBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *darkenBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *lightenBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *colorDodgeBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *colorBurnBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *softLightBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *hardLightBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *differenceBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *exclusionBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *hueBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *saturationBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *colorBlendView;`
+
+`@property (weak) IBOutlet CMColorBlendView *luminosityBlendView;`
+
+`@end`
+
+Now go back to CMDocument.xib, and make the window bigger, about 350×500, leaving the two color pickers at the top. Find a `Custom View` (really an instance of a plain old `NSView`) in the Object library, drag it into the window, and use the Identity Inspector to change its class to `CMColorBlendView`. Then resize the `CMColorBlendView` to about 90×50, using the Size Inspector to help. We need to see which blend mode the view represents, so drag a label from the Object library into the window, just below the `CMColorBlendView`. Use the control handles to make the label the same with as the view above it, and use the Attributes Inspector to center the label’s text (see Figure [12-3](#A978-1-4302-4543-8_12_Chapter.html#Fig3)).
+
+![A978-1-4302-4543-8_12_Fig3_HTML.jpg](A978-1-4302-4543-8_12_Fig3_HTML.jpg)
+
+Figure 12-3. 
+
+Putting the first CMColorBlendView in place
+
+Select both the `CMColorBlendView` and the label, press ⌘D to duplicate them, and line the new ones up a bit to the right. Press ⌘D again, and line the new set up even further to the right. Now select all three `ColorBlendView`s and all three labels, press ⌘D, and line the new ones up below the old ones. Keep doing this until there are five rows of three labels, then go through all of the labels and set their titles, as shown in Figure [12-4](#A978-1-4302-4543-8_12_Chapter.html#Fig4).
+
+![A978-1-4302-4543-8_12_Fig4_HTML.jpg](A978-1-4302-4543-8_12_Fig4_HTML.jpg)
+
+Figure 12-4. 
+
+The grid of soon-to-be-blended colors
+
+With the layout in place, it’s time for a whole lot of connecting. The easiest way to do this is to bring up the Connections Inspector, and select the File’s Owner object, which is a proxy to our document class. Doing so will display all of the document’s outlets in the Inspector. Simply drag from each outlet’s circle to the corresponding `CMColorBlendView` we created in our window, using the label names to guide us, as shown in Figure [12-5](#A978-1-4302-4543-8_12_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_12_Fig5_HTML.jpg](A978-1-4302-4543-8_12_Fig5_HTML.jpg)
+
+Figure 12-5. 
+
+About halfway through this list of connections. Things are finally starting to lighten up!
+
+Then it’s time to go back to CMDocument.m. We’re going to add the code that will configure each `CMColorBlendView` with the right blend mode and manually configure bindings so that each `CMColorBlendView` is updated whenever the user picks a color. Start by importing the header file for the `CMColorBlendView` class so that we can call its methods. Add the following line somewhere near the top of CMDocument.m :
+
+`#import "CMColorBlendView.h"`
+
+Next, modify the `windowControllerDidLoadNib:` method as shown here:
+
+`- (void)windowControllerDidLoadNib:(NSWindowController *)windowController`
+
+`{`
+
+    `[super windowControllerDidLoadNib:windowController];`
+
+    `if (isNew) {`
+
+        `id newObj = [_objectController newObject];`
+
+        `[newObj setValue:[NSColor redColor] forKey:@"color1"];`
+
+        `[newObj setValue:[NSColor yellowColor] forKey:@"color2"];`
+
+        `[_objectController addObject:newObj];`
+
+    `}`
+
+    `_multiplyBlendView.blendMode = kCGBlendModeMultiply;`
+
+    `_screenBlendView.blendMode = kCGBlendModeScreen;`
+
+    `_overlayBlendView.blendMode = kCGBlendModeOverlay;`
+
+    `_darkenBlendView.blendMode = kCGBlendModeDarken;`
+
+    `_lightenBlendView.blendMode = kCGBlendModeLighten;`
+
+    `_colorDodgeBlendView.blendMode = kCGBlendModeColorDodge;`
+
+    `_colorBurnBlendView.blendMode = kCGBlendModeColorBurn;`
+
+    `_softLightBlendView.blendMode = kCGBlendModeSoftLight;`
+
+    `_hardLightBlendView.blendMode = kCGBlendModeHardLight;`
+
+    `_differenceBlendView.blendMode = kCGBlendModeDifference;`
+
+    `_exclusionBlendView.blendMode = kCGBlendModeExclusion;`
+
+    `_hueBlendView.blendMode = kCGBlendModeHue;`
+
+    `_saturationBlendView.blendMode = kCGBlendModeSaturation;`
+
+    `_colorBlendView.blendMode = kCGBlendModeColor;`
+
+    `_luminosityBlendView.blendMode = kCGBlendModeLuminosity;`
+
+    `NSArray *allBlendViews =`
+
+    `@[_multiplyBlendView, _screenBlendView, _overlayBlendView`,
+
+    `_darkenBlendView, _lightenBlendView, _colorDodgeBlendView`,
+
+    `_colorBurnBlendView, _softLightBlendView, _hardLightBlendView`,
+
+    `_differenceBlendView, _exclusionBlendView, _hueBlendView`,
+
+    `_saturationBlendView, _colorBlendView, _luminosityBlendView];`
+
+    `for (CMColorBlendView *cbv in allBlendViews) {`
+
+        `[cbv bind:@"color1"`
+
+         `toObject:_objectController`
+
+      `withKeyPath:@"selection.color1"`
+
+          `options:nil];`
+
+        `[cbv bind:@"color2"`
+
+         `toObject:_objectController`
+
+      `withKeyPath:@"selection.color2"`
+
+          `options:nil];`
+
+    `}`
+
+`}`
+
+The first part of that chunk of code sets the blend mode for each view, one at a time. The second part configures bindings for each `CMColorBlendView`. Because the bindings are the same for all of them, we iterate through an array (created on the fly just before the `for` loop) of all the `ColorBlendView`s and do the bindings for each of them.
+
+This is really the first time we’ve asked you to do a lot of GUI configuration in code. With Cocoa’s included objects, you can configure a lot of things right in Interface Builder, but it’s not always so straightforward with your own classes.
+
+Note that the calls to `bind:toObject:withKeyPath:` accomplish the same thing as configuring bindings in Interface Builder. Each binding you configure in Interface Builder is, in fact, more a verb than a noun. When your application loads a nib file containing bindings, each saved binding triggers a call just like you see here. Note also that what’s represented in Interface Builder as a Controller Key and Model Key Path, at the end of the day, are merged into a single string for the `bind:toObject:withKeyPath:` call.
+
+Okay, enough theorizing for now. It’s time to save the work, hit Run, and you should see something like Figure [12-6](#A978-1-4302-4543-8_12_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_12_Fig6_HTML.jpg](A978-1-4302-4543-8_12_Fig6_HTML.jpg)
+
+Figure 12-6. 
+
+Finally, we see the blended colors. If you’re looking at a black and white print copy of this book, just imagine a dazzling array of colors here
+
+Click on one of the color wells to open the color panel and start sliding things around in there, and you’ll see that all 15 blended colors are updated right along with the color you’re setting. Pretty slick!
+
+Now that the application is up and running, we can use the standard menu items to create multiple documents, specify different colors for each document, save documents, close them, manage their windows, and so on. Cocoa’s document architecture takes care of the details of instantiating our documents and document controllers, loading nib files, using a Save panel, and more. All of these features can be enhanced by the developer (e.g., we can customize the process of saving documents in various ways), but we can also go quite a long way using just the basic functionally that works right out of the box.
+
+## About Undo and Redo
+
+At this point, we should mention `NSUndoManager`, which handles undo/redo support in Cocoa. Note that the actions we perform in ColorMix (really just changing colors) are all undoable, and redoable, via items in the Edit menu. Also, note that these undo and redo actions are document-specific; making changes and undoing them in one document is completely separate from whatever happens in other documents. What’s probably not so clear, however, is just what’s enabling that functionality; we haven’t written any code to deal with undo and redo, and yet there it is. The short answer is this: in a Core Data application, basic undo/redo typically is taken care of for us, and we don’t have to do anything. The managed object context that deals with the model objects is able to notice when an object is edited and add an inverse operation to the “undo stack.” The upshot of this is that, for most modern Cocoa apps, we get undo and redo for free.
+
+However, this is a book about programming, not about listing cool features of the frameworks. At the very least, we need to know a bit about how the underlying pieces work, so we have some idea where to tweak things if necessary. So, here’s a crash course in how undo/redo support works in Cocoa, and how Core Data and `NSDocument` conspire to make it work automatically.
+
+### The Undo Stack
+
+Many programmers have probably never given much thought to how undo and redo are typically implemented in an application. It’s one of those things that has become so universally accepted and expected that it seems like it’s just part of the natural order of things. The basic premise is this: each time we edit something in our app, an item representing the reverse of the editing needs to be created. So, if the user adds the letter “X” to the end of a piece of text, a piece of code needs to create a representation of the opposite, an operation that can delete that same “X.” That representation is then placed on a stack of similar items somewhere (the “undo stack”). Invoking an “undo” command consists of popping the most recent item from the top of the undo stack and performing the action it describes. At the same time, invoking an undo command ends up creating yet another item, the reverse of the reversed item from the undo stack (the same as the original edit, in fact), and placing it on a “redo stack” in case the user later wants to undo the undo.
+
+This architecture has variations, such as limited stack sizes, or just single undo items without any stacks at all, but the basic architecture is pretty similar across most platforms. One thing that’s pretty special about Cocoa’s way of implementing this is that, instead of representing each undo item in a special form that has to be later decoded in some way, each undo item is constructed implicitly using the target object, the method selector to be called on it, and whatever arguments are required. When the undo command is triggered, there’s no decoding or lookups of any kind. The method is simply invoked just like any other Objective-C method.
+
+Let’s take a look at an example. Imagine the following method, placed in a class that has a settable name:
+
+`- (void)setName:(NSString *)newName {`
+
+    `if (![newName isEqual:name]) {`
+
+        `name = newName;`
+
+    `}`
+
+`}`
+
+Now imagine that we want to make setting the name an action that can be undone. This is easily accomplished by adding the lines shown in bold below:
+
+`- (void)setName:(NSString *)newName {`
+
+    `if (![newName isEqual:name]) {`
+
+        `NSUndoManager *undoManager = ...`
+
+        `[undoManager registerUndoWithTarget:self`
+
+                `selector:@selector(setName:)`
+
+                `object:name];`
+
+        `[undoManager setActionName:@"Name Change"];`
+
+        `name = newName;`
+
+    `}`
+
+`}`
+
+Note that we left out the part of the code where we actually acquire the undo manager. In an actual application, the undo manager can come from one of several places, depending on whether or not the app has Core Data and `NSDocument` support. In a Core Data app, we can always ask the shared `NSManagedObjectContext` object for an undo manager, and in an app with both Core Data and Document support each document has its own undo manager.
+
+The ultimate expression of this occurs in a Core Data application, which actually implements something like the above on our behalf. Note that the `setName:` method above is pretty formulaic. Core Data implements some magic behind the scenes so that we don’t have to implement that `setName:` method. As soon as any edit occurs to a model object, Core Data notices and sets up the undo for us.
+
+## Wrap Up
+
+We just created our first `NSDocument`-based application from the ground up. We also learned a bit about drawing to an `NSView` and dealing with colors, all of which are useful skills for a variety of application areas. In later chapters, we’ll build on those skills even more, especially the fun graphics programming where Cocoa really shines. However, in the next chapter, we have to take a break from the fun and learn what happens when things go wrong in our apps—and how to deal with them using `NSError` and `NSException`.
+
+# 13. Exceptions, Signals, Errors, and Debugging
+
+Abstract
+
+Anyone who’s done any sort of programming knows that sometimes things just don’t work out as planned. You forget to handle a specific edge case, or a system call fails in a way that’s never occurred to you, and suddenly your program blows up in your face. Every programming language and development environment has ways of dealing with these problems, and Cocoa is no exception.
+
+Anyone who’s done any sort of programming knows that sometimes things just don’t work out as planned. You forget to handle a specific edge case, or a system call fails in a way that’s never occurred to you, and suddenly your program blows up in your face. Every programming language and development environment has ways of dealing with these problems, and Cocoa is no exception.
+
+This chapter will cover Cocoa’s mechanisms for creating and handling exceptions and errors, two similar-sounding but conceptually very different systems. We’ll learn the different ways that each of them is used, how to handle them, and how to initiate them ourselves. We’ll also learn how certain memory abuses can cause signals to occur, typically resulting in a crash. And we’ll take a peek at the debugger built into Xcode, which can help us tackle these problems.
+
+## Exception Handling
+
+Let’s start off with exception handling. An exception is a special object that can be created in one part of a program in order to tell another part that something has gone wrong; this is called “raising” an exception, and in code it might look something like this:
+
+`// imagine we're in a method that has a parameter "index", whose`
+
+`// value must not be negative.`
+
+`if (index < 0) {`
+
+  `[NSException raise:NSRangeException format:`
+
+    `@"I can't take all this negativity! (index == %d)", index];`
+
+`}`
+
+In this case, we’re creating and raising an exception in a single step, using a class method of the `NSException` class. The first parameter to this method is a string for the exception’s name (in this case `NSRangeException`, which is a predefined exception name in Cocoa), which allows for general categorization of exceptions. Unlike many other exception-handling environments, `NSException` is seldom subclassed, and so its name is used to differentiate between different types of exceptions. The second parameter we pass is a format for the exception’s “reason,” a human-readable descriptive string. This format is the same sort of list of items we can pass to `NSLog`, where the first is an `NSString` and the others are interpolated as specified by the string.
+
+### Catching Exceptions
+
+When that code is executed, if `index < 0`, the program’s normal flow is interrupted. Instead of continuing with the rest of the method, the program will start working its way down the call stack, looking for a special code construct called an exception handler. An exception handler will execute all code contained within a pair of curly-braces prefaced by the `@try` keyword and, if an exception is raised during that execution, execution will jump to an adjacent block marked with the `@catch` keyword and execute the code contained there. This is called handling the exception. Finally, we may optionally include a third block of code labeled with `@finally` keyword, which will be executed no matter what happens in the `@try` and `@catch` section, in order to perform any necessary cleanup.
+
+The following example creates the same exception as before, but now within a `@try` block. We catch it in the `@catch` block and output an error message, then move on to the `@finally` section, which is executed no matter what happens. In this simple case, we don’t need the `@finally` section and could just omit it, but it can be useful in situations where some resource is initialized in the `@try` block and needs to be freed up.
+
+`@try {`
+
+  `if (index < 0) {`
+
+    `[NSException raise:NSRangeException format:`
+
+      `@"I can't take all this negativity! (index == %d)", index];`
+
+  `}`
+
+`}`
+
+`@catch (NSException *e) {`
+
+  `NSLog(@"Encountered exception %@ with reason %@"`,
+
+    `[e name]`,
+
+    `[e reason]);`
+
+`}`
+
+`@finally {`
+
+  `// we don't have anything to do here, really.`
+
+`}`
+
+This example handles the exception in the same method where it was raised, but that’s actually pretty uncommon. More likely, no local exception handler is found, so the system traverses the call stack looking for an exception handler, first in the current method’s caller, then that method’s caller, and so on. This search continues down the call stack until an exception handler is found. If none is found, a special-case scenario can be configured to handle the uncaught exception. By default, a Cocoa app that encounters an uncaught exception will print some info about the exception to the console log and then try to continue running as usual.
+
+### The Limited Role of Exceptions in Cocoa
+
+In Cocoa, exceptions are used to make a method break out of its normal operating flow in case of a serious problem that should not occur while the program is running. In general, if your code causes an exception to be raised, you’ve got a bug. With few exceptions, a properly written Cocoa program should be able to run forever without a single exception ever being raised.
+
+If you have a background in Java, Ruby, Python, or C++, this may seem a little restrictive. In many other environments, exceptions are used a little more freely, such as a file-reading method raising an exception to tell the caller that it’s read to the end of the file (which, if you think about it, is not an exceptional state at all, because every file has an end). In Python, one common idiom for iterating through an array is to increment an index, try to read the indexed value from the array, and catch the resulting exception when you read past the end. In Cocoa, however, this sort of thing is frowned upon, and exceptions are normally used only for reporting unexpected results that are probably caused by a bug in the program.
+
+Because of the rather limited role of exceptions in Cocoa, you don’t often see a lot of exception-handling code inside Cocoa apps. Unlike Java, Objective-C doesn’t require (or even allow) its methods to specify what kinds of exceptions they may raise, and in theory you don’t really have to handle them at all. By default, each Cocoa app you create will have a sort of top-level exception handler that simply outputs some information about the exception to the system log, and then lets the app continue on its way as best it can. Unfortunately, this isn’t much of a strategy because whatever the app was doing at the time of the exception was most likely happening in response to the last user action (clicking a button, pressing a key, and the like), and whatever else that action was supposed to be doing after that is just skipped right over, potentially leaving the application in an undefined or inconsistent state!
+
+Some applications install a special top-level exception handler of their own to deal with these situations. Xcode, for instance, occasionally hits an exception (yes, even Xcode has bugs!), at which point it typically gives the user the opportunity to quit the app, recognizing the possibility that something is mucked up.
+
+### Create a Testbed
+
+Let’s build a small application that demonstrates some of the kinds of exceptions that Cocoa programmers are likely to encounter. In Xcode, create a new Cocoa application (no Core Data or documents involved this time) named “ExceptionCity” and give it “EC” as the class prefix. The application we create will automatically have a class named `ECAppDelegate`.
+
+Our app delegate is going to be a very simple class, containing the `applicationDidFinishLaunching:` delegate method, which calls three different “utility” methods, each of which demonstrates a common Cocoa pitfall that can result in exceptions being raised at runtime. If all three methods manage to do their work and return, we’ll be rewarded by the appearance of a congratulatory alert panel (just what we always wanted). However, each utility method has a problem that will raise an exception. Our goal is to find and fix each problem. Here’s the complete content of the ECAppDelegate.m file:
+
+`#import "ECAppDelegate.h"`
+
+`@implementation ECAppDelegate`
+
+`- (void)invalidArgumentException_unrecognizedSelector {`
+
+    `// The downside of dynamism is the occasional type mismatch.`
+
+    `// For instance, it's sometimes hard to be sure what's coming`
+
+    `// out of an array.  Imagine this array is created somewhere...`
+
+    `NSArray *nameComponents = @[@"Thurston"`,
+
+                                `@"Howell"`,
+
+                                `[NSNumber numberWithInt:3]];`
+
+    `// ... and accessed later on, by code that just assumes all the`
+
+    `// array's items are strings:`
+
+    `NSInteger nameComponentLength = 0;`
+
+    `for (NSString *component in nameComponents) {`
+
+        `nameComponentLength += [component length];`
+
+    `}`
+
+    `NSLog(@"Total length of all name components: %ld"`,
+
+          `(long)nameComponentLength);`
+
+`}`
+
+`- (void)invalidArgumentException_insertNil {`
+
+    `// Assuming we have an array to put things into...`
+
+    `NSMutableArray *array = [NSMutableArray array];`
+
+    `// ... we can add an object to it.`
+
+    `id object1 = @"hello";`
+
+    `[array addObject:object1];`
+
+    `// But suppose we take a method parameter or instance variable`
+
+    `// whose value we haven't checked to make sure it wasn't nil...`
+
+    `id object2 = nil;`
+
+    `// ... and try to add it to the array?`
+
+    `[array addObject:object2];`
+
+    `NSLog(@"inserted all the objects I could!");`
+
+`}`
+
+`- (void)rangeException {`
+
+    `// Assuming we have an array of things...`
+
+    `NSArray *array = @[@"one", @"two", @"three"];`
+
+    `// ... we can ask for the index of an item...`
+
+    `NSUInteger indexOfTwo = [array indexOfObject:@"two"];`
+
+    `// ... and we can later retrieve that value using the same index.`
+
+    `NSLog(@"found indexed item %@", array[indexOfTwo]);`
+
+    `// But, what if we try to find the index for something that's not`
+
+    `// there?`
+
+    `NSUInteger indexOfFive = [array indexOfObject:@"five"];`
+
+    `// And we forget to check the return value to make sure it's not`
+
+    `// NSNotFound?`
+
+    `NSLog(@"found indexed item %@", array[indexOfFive]);`
+
+`}`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `[self invalidArgumentException_unrecognizedSelector];`
+
+    `[self invalidArgumentException_insertNil];`
+
+    `[self rangeException];`
+
+    `NSRunAlertPanel(@"Success", @"Hooray, you fixed everything!"`,
+
+                    `nil, nil, nil);`
+
+`}`
+
+`@end`
+
+Run this code. The promised alert panel won’t appear (but the empty window included in the default nib file will). What will happen, though, is that something like the following will appear in Xcode’s debug output:
+
+`2013-02-07 00:25:12.756 ExceptionCity[43532:303] -[__NSCFNumber length]: unrecognized selector sent to instance 0x387`
+
+If you look back at the `invalidArgumentException_unrecognizedSelector` method and its comments, you can probably see where this is coming from: our array contains an `NSNumber`, which doesn’t have a `length` method, and as a result an exception is raised. We’re not doing anything to explicitly deal with the exception, and it ends up going all the way down the call stack without being handled, which leads to the default behavior mentioned earlier: some info about the exception (specifically, its `reason`) is logged, and the application skips the rest of the current event. In this case, the event being processed is the application launch, which is already done at this point.
+
+If we hadn’t just pointed out that method for you, things wouldn’t be so clear. The logged exception info doesn’t tell us anything about where it came from, the name of the exception, or anything else that might help us find what part of our code triggered the exception. This is where our new friend, the Xcode debugger, comes in. The debugger lets us set a breakpoint on all exceptions, so we can pause the program the moment an exception is raised and try to spot the problem.
+
+THE DEBUGGER
+
+Most developers are probably familiar with the concept of a debugger, which lets you inspect the state of your application while it’s running in order to diagnose problems. If you haven’t encountered a debugger before, here’s a quick rundown of some of the key concepts:
+
+*   A breakpoint lets you specify, either with a line number in your source code or the name of a method or function, a spot where the program should halt. All the breakpoints you’ve currently set up are shown in the Breakpoint Navigator on the left side of the project window. When your program stops at a breakpoint, you can examine all CPU registers at that spot in the program’s execution. If you have the source code for the program, you can also access any variables (local, instance, or otherwise) that are relevant at that spot. All CPU registers and available variables are shown in a table view in Xcode’s Debug Area at the bottom of the project window.
+*   The call stack is the list of all the nested methods and functions that are in operation at any point in time. This appears in a table view in Xcode’s Debug Navigator on the left side of the project window. When your program is halted, the current method or function appears at the top of the call stack, the method or function that called it appears below it, and so on. You can choose a particular item or “frame” in the call stack in order to switch focus, at which point the Debug Area will display the CPU registers and variables as they were when that method or function called the method or function above it in the call stack.
+*   The debugger contains buttons that let you perform some actions relative to the currently highlighted code line. You can step over the current line (which executes the rest of what’s on the current line and then halts at the next line), step into the next method or function (which will halt at the beginning of the next method or function that’s called), step out of the current method or function, halting in the caller just after returning, or continue or stop the program.
+*   The debugger contains a command-line interface called `lldb` (a modern offshoot/rewrite of the `gdb` command that has historically been standard on most UNIX-based operating systems) which lets you use all the functionality mentioned before, as well as execute arbitrary code and examine the results. You can call C functions and Objective-C methods by typing their names just as you would in our source code, and use values from the running program’s variables as message recipients and parameters.
+
+For more detailed information on using the Xcode debugger, see the Debug and Tune Your App document included with the Xcode documentation.
+
+In Xcode, open the Breakpoint Navigator view by selecting View ➤ Navigators ➤ Show Breakpoint Navigator or by pressing ⌘6\. This makes the navigation panel show all the current breakpoints (see Figure [13-1](#A978-1-4302-4543-8_13_Chapter.html#Fig1)).
+
+![A978-1-4302-4543-8_13_Fig1_HTML.jpg](A978-1-4302-4543-8_13_Fig1_HTML.jpg)
+
+Figure 13-1. 
+
+Xcode’s Breakpoint Navigator, showing a couple of breakpoints. Your first time here, you’ll have an empty list on the left
+
+The Breakpoint Navigator shows all the breakpoints that Xcode currently has configured for our project. Since we’ve just created a brand-new project, this list should be empty! We’ll change that by adding an exception breakpoint to catch any exception that is raised in our app. Remember, every raised exception is the result of a bug, probably ours, and we’ll want to take every chance we get to stop and see where it’s coming from.
+
+Click the + symbol at the absolute bottom-left of the Breakpoint Navigator to create a new breakpoint. A small pop-up menu will appear and ask what kind of breakpoint to create. Choose “Add Exception Breakpoint”, and a larger pop-up view will appear above with some options for a new breakpoint. Set the Exception pop-up to Objective-C, and make sure the Break pop-up is set to On Throw, then click Done.
+
+Now we have a breakpoint that will stop Xcode for any Objective-C exception that is raised. Perfect! Restart the ExceptionCity application by choosing Product ➤ Run from the menu, first quitting it if it’s still running. This time, when the application hits the problematic code, it will halt execution where the exception is raised. Figure [13-2](#A978-1-4302-4543-8_13_Chapter.html#Fig2) shows roughly what Xcode looks like at this point.
+
+![A978-1-4302-4543-8_13_Fig2_HTML.jpg](A978-1-4302-4543-8_13_Fig2_HTML.jpg)
+
+Figure 13-2. 
+
+Xcode stops at a breakpoint
+
+The navigation panel on the left changes to the Debug Navigator and shows the call stack with the location of our breakpoint (a function called `objc_exception_throw`, which is where Xcode really places its exception breakpoints) at the top and all callers below. Note that the frames for which we have source code available are rendered with black text, while the frames that are stuck in closed-source libraries are shown with gray text. The grayed-out frames are still accessible, but only in the form of assembly language. We can also see, by looking at the sequence of frame numbers at the left, that not all frames are displayed. By default, Xcode shows the frames that we have the source code for, and little else—the rest being compacted into horizontal dotted lines. We can use the horizontal slider at the bottom of the Debug Navigator to change this, making Xcode show more or fewer frames if we wish.
+
+At the bottom of the project window is the Debug Area, which is divided into two parts. The left side shows all available variables and register values where we can see some simple values immediately. The right side shows the lldb console interface where we can both view our program’s output (generated by `NSLog`, etc.) and enter commands at the lldb prompt. If you’re not seeing that bottom view, you can make it appear by selecting View ➤ Debug Area ➤ Activate Console from the menu.
+
+The main editor view shows the source code or compiled assembly code for the chosen stack frame, with an arrow and a highlight pointing out the row where it’s halted.
+
+At this point, having halted right at the moment that an exception was raised, it would be interesting to see what the exception is. But how? When Xcode pauses, it points at the uppermost stack frame containing our source code. That’s the place in our program where the problem is, but we can’t “see” the exception there. That is, there’s no local variable or any globally available structure we can access from there that will show us the exception itself.
+
+Instead, we need to focus on the uppermost stack frame where the program is truly halted, in the `objc_exception_throw` function. Click on it to take a peek at things. It should look like Figure [13-3](#A978-1-4302-4543-8_13_Chapter.html#Fig3).
+
+![A978-1-4302-4543-8_13_Fig3_HTML.jpg](A978-1-4302-4543-8_13_Fig3_HTML.jpg)
+
+Figure 13-3. 
+
+Source code? Who needs it!
+
+All we see is a pile of assembly code, no variable names or anything else to guide our way. Fortunately, there is a calling convention that we can make use of. In code compiled for Mac OS X (on 64-bit Intel hardware), the return value of any function is stored temporarily in a CPU register called `rax`, which in lldb can be accessed with a special variable called `$rax`. When our program halts in the `objc_exception_throw` function, the `$rax` register happens to contain the new exception, so we are all set! The lldb debugger includes the `po` command for printing an object’s value in a readable format (what it actually does is call the object’s `description` method, which returns an `NSString`, and prints that string value). Try this at the lldb prompt:
+
+ `(lldb) po $rax`
+
+`$1 = 4296302928 -[__NSCFNumber length]: unrecognized selector sent to instance 0x387`
+
+Look familiar? That is basically the same text we saw in the output earlier. Knowing that we have access to the `NSException` here, we can make use of lldb’s live Objective-C method execution to ask it some more things:
+
+ `(lldb) po [$rax name]`
+
+`$2 = 0x00007fff783e0a30 NSInvalidArgumentException`
+
+`(lldb) po [$rax reason]`
+
+`$3 = 0x0000000100136650 -[__NSCFNumber length]: unrecognized selector sent to instance 0x387`
+
+Here we see that the `reason` method’s return value is the same as the description return value, but the name method returns the name, which you may recall is typically used as a sort of type or category for the exception. In this case, we’re looking at one of the most frequently encountered exception types in Cocoa: `NSInvalidArgumentException`.
+
+### NSInvalidArgumentException
+
+This exception can, in theory, be raised by any method that determines that its parameters are invalid in some way. In practice, there are two typical situations where most Cocoa developers will encounter this at some point, and we’ve just hit the first. Remember that our code loops through all the elements in an array, and tries to call the `length` method on each, like so:
+
+`for (NSString *component in nameComponents) {`
+
+    `nameComponentLength += [component length];`
+
+`}`
+
+In this case, the problem arises when trying to call `length` on an object that doesn’t have such a method. Our code tries calling the `length` method on `NSCFNumber` (the concrete subclass of `NSNumber` that happens to be used when we create an `NSNumber` in the usual way), and that class doesn’t implement that method, all of which we can reasonably deduce from the exception’s `reason`. We could split hairs now and complain that Apple really should use a different exception name here that would clearly tell us that the exception is related to a method name, but this seems to be what we’re stuck with.
+
+In any case, we can explore further by using the graphical debugger in Xcode. In the table showing the call stack, click on the line labeled “-[ECAppDelegate invalidArgumentException_unrecognizedSelector]” to switch back to the last piece of code that was being executed before the exception was raised. The Editor pane switches back to the relevant source code file, and the variable view now shows the variables available to us at that point in the program (see Figure [13-4](#A978-1-4302-4543-8_13_Chapter.html#Fig4)).
+
+![A978-1-4302-4543-8_13_Fig4_HTML.jpg](A978-1-4302-4543-8_13_Fig4_HTML.jpg)
+
+Figure 13-4. 
+
+Choosing a different entry in the call stack gives us access to a different part of our running program. Note that the command-line interface at the bottom shows commands that were executed at the top level of the call stack, inside objc_exception_throw. If we entered the same commands with the current stack frame in focus, $rax would have a different value
+
+Based on the information we’ve gotten about the exception and what part of our code triggered it, we should be able to figure out the problem. We can even take additional steps here to examine the current state of our program, such as printing out summary information for the object that the `for` loop is currently looking at, by typing `po component`. We can also use the variable view at the lower-left to examine the variables that are available to us. For example, click the disclosure triangle next to the `nameComponents` variable to see its contents. In this case, it’s pretty simple: our array contains an `NSNumber`, which doesn’t have a `length` method.
+
+At this point, we have to decide how to fix the problem. We still want to implement the same basic algorithm that adds the lengths of the character strings for each component; we just want to make it so that the value of the `NSNumber` (in this case, `3`) is converted to a string (`@`“`3`”). Here we can make use of the `description` method, defined on `NSObject` and therefore available in all Cocoa objects. Incidentally, the `description` method is what’s used by lldb whenever you issue a `po` command to see an object’s value. For most classes, calling `description` will get the result defined by `NSObject`’s implementation (typically something like `<NameOfObjectClass: 0x10cdb0>`), but some classes, such as `NSString` and `NSNumber`, override this method to return something else. `NSString`’s implementation just returns the `NSString` itself, while `NSNumber`’s implementation converts the numeric value into an `NSString` and returns it.
+
+So, to make this work, edit the `invalidArgumentException_unrecognizedSelector` method, changing the line inside the `for` loop to the following:
+
+`nameComponentLength += [[component description] length];`
+
+Because we know that `NSObject`, and therefore every object, implements the `description` method and returns a string, we know that this call will now always work. Even if someone slips another kind of object in there that doesn’t give us a nice, compact result like `NSString` and `NSNumber` do, at least we know the method is there and will be called!
+
+So do the fix, run the app again, and see what shows up in the Xcode output console.
+
+`2013-02-10 23:51:08.291 ExceptionCity[71675:303] Total length of all name components: 15`
+
+`(lldb)`
+
+Dang, another one! Our app has executed some code that raised another exception. Since we already had an exception breakpoint set up, this halts the program and drops us back at the lldb prompt. As before, select the top stack frame (`objc_exception_throw`) in the debug navigator, and we can once again enter some commands at the lldb prompt to get some info about the exception:
+
+ `(lldb) po $rax`
+
+`$0 = 4327021824 *** -[__NSArrayM insertObject:atIndex:]: object cannot be nil`
+
+`(lldb) po [$rax name]`
+
+`$1 = 0x00007fff783e0a30 NSInvalidArgumentException`
+
+And if we scan back down the call stack looking for the first location that shows black instead of grey, we’ll find `-[ECAppDelegate invalidArgumentException_insertNil]`, the location of the piece of our code that triggered the exception. Click that line, and see the code editor window highlight this line in `invalidArgumentException_insertNil`:
+
+`[array addObject:object2];`
+
+Take a look at the code just above that, and there’s the problem: `object2` is a pointer to `nil`, and `NSMutableArray` won’t allow us to insert a `nil` into it. In a complex application, you may want to track down the root cause (where did the nil pointer come from, and is nil a valid value for that variable?), but in this case we’ll work around the problem by putting a safety check before adding the object, like this:
+
+`if (object2 != nil) {`
+
+    `[array addObject:object2];`
+
+`}`
+
+This takes care of that. `NSInvalidArgumentException` is one of the most frequently encountered exceptions in Cocoa, and we’ve just seen the two most frequent situations that trigger it: calling a method on a class that doesn’t implement that method, and trying to insert `nil` into an array.
+
+Run the app again, and get ready for the next problem.
+
+### NSRangeException
+
+The previous exceptions have been cleared up, but look what happens now:
+
+`2009-09-16 23:44:33.038 ExceptionCity[8881:10b] Total length of all name components: 15`
+
+`2009-09-16 23:44:33.065 ExceptionCity[8881:10b] inserted all the objects I could!`
+
+`2009-09-16 23:44:33.066 ExceptionCity[8881:10b] found indexed item two`
+
+`2009-09-16 23:44:33.066 ExceptionCity[8881:10b] *** -[NSCFArray objectAtIndex:]: index`
+
+`(2137483647( or possibly larger)) beyond bounds (3)`
+
+`2013-02-10 23:57:55.575 ExceptionCity[71731:303] Total length of all name components: 15`
+
+`2013-02-10 23:57:55.576 ExceptionCity[71731:303] inserted all the objects I could!`
+
+`2013-02-10 23:57:55.576 ExceptionCity[71731:303] found indexed item two`
+
+`(lldb)`
+
+We’ve halted once again, due to another exception. Just like before, click the `objc_exception_throw` line in the Debug Navigator, and examine the exception to find the problem.
+
+`(lldb) po $rax`
+
+`$0 = 4300330528 *** -[__NSArrayI objectAtIndex:]: index 9223372036854775807 beyond bounds [0 .. 2]`
+
+`(lldb) po [$rax name]`
+
+`$1 = 0x00007fff783e0a10 NSRangeException`
+
+Crikey! That’s one big index value. Now look at the call stack again, and click on the uppermost item within our code: `-[ECAppDelegate rangeException]`. This will highlight the following line in the text editor:
+
+`NSLog(@"found indexed item %@", array[indexOfFive]);`
+
+This line actually makes two calls: first to the `objectAtIndex:` method (implicit in the new Objective-C array accessor syntax that Apple includes starting with Xcode 4.5), then to the `NSLog` function. A glance at the call stack shows that the `objectAtIndex:` method is the one complaining. Apparently it doesn’t like the value contained in `indexOfFive`. If we look in the variable view, or type `p indexOfFive` (note the use of `p` for standard C types, as opposed to `po` for Objective-C objects), we’ll see `9223372036854775807`. That does seem a bit high! If we look at the code where it’s set, just two lines earlier, we’ll see this:
+
+`NSUInteger indexOfFive = [array indexOfObject:@"five"];`
+
+That line is asking `array` for the index of an object that it doesn’t actually contain. In this case, `NSArray` returns a special integer value called `NSNotFound`, which is defined to be the maximum possible integer value. On Mac OS X running in 64-bit mode, that turns out to be `9223372036854775807`. This value is used to tell the caller that, “Hey, that object you want the index of? I don’t have it.” This is pretty useful to know! A consequence of this is that whenever we get a value from `indexOfObject:`, we really have to check to make sure that it’s not `NSNotFound`. In our case we know exactly where the problem is, so we could just check that second time, but it’s good to make a habit of always checking that return value, so we’ll update the entire method like this:
+
+`- (void)rangeException {`
+
+    `// Assuming we have an array of things...`
+
+    `NSArray *array = @[@"one", @"two", @"three"];`
+
+    `// ... we can ask for the index of an item...`
+
+    `NSUInteger indexOfTwo = [array indexOfObject:@"two"];`
+
+    `if (indexOfTwo != NSNotFound) {`
+
+        `// ... and we can later retrieve that value using the same index.`
+
+        `NSLog(@"found indexed item %@", array[indexOfTwo]);`
+
+    `}`
+
+    `// But, what if we try to find the index for something that's not`
+
+    `// there?`
+
+    `NSUInteger indexOfFive = [array indexOfObject:@"five"];`
+
+    `if (indexOfFive != NSNotFound) {`
+
+        `// And we forget to check the return value to make sure it's not`
+
+        `// NSNotFound?`
+
+        `NSLog(@"found indexed item %@", array[indexOfFive]);`
+
+    `}`
+
+`}`
+
+Make those changes, run the app, and note the reward of the congratulatory alert panel. Oh, sweet success!
+
+Having tackled those, we’ve now experienced and fixed the main types of runtime exceptions that every Cocoa programmer gets at some point. That’s it! This may come as a surprise to people come from other, more exception-heavy environments, but like we said, in Cocoa exceptions are used sparingly and almost always to signal that the programmer has made an error. `NSRangeException` and `NSInvalidArgumentException` (for both of the causes shown above) really make up the bulk of all exceptions you’re likely to deal with.
+
+### And the Rest
+
+Okay, there are more exceptions that can be raised in a Cocoa app. There are more predefined exception names in NSException.h, for example, but chances are you won’t encounter any of them. `NSGenericException` seems to arise sometimes when working with SQLite or Apple Events, and on rare occasions `NSInternalInconsistencyException` can rear its ugly head if you override a method that you shouldn’t (such as when the documentation warns you not to), but real-world examples of those are pretty hard to come by.
+
+The one instance where you’re likely to see any exceptions occur is if you’re using Apple’s Distributed Objects (DO) technology, which uses exceptions in a much more liberal fashion than the rest of Cocoa. For example, DO will raise exceptions to warn you if it loses a connection to the process you’re connected to. Most of the predefined exception names defined by Cocoa, in fact, are specifically for DO’s use. We’re not describing the use of DO in this book, so we won’t say anything more about these exceptions, but it’s good to be aware of in case you go down that path at some point.
+
+## Worse than Exceptions: Death by Signal
+
+Now that we’ve seen how some bugs can be handled by code-level operations like catching an exception, it’s time to look at another kind of problem that arises when object pointers are misused. In Cocoa, every Objective-C object is referenced through a pointer to a specific sort of C struct that defines the basic structure of an Objective-C object. If the pointer isn’t pointing either at a chunk of memory containing a valid object, or at nil, then some form of memory access error is almost certain to occur, leading to the creation of a signal that ultimately kills our app.
+
+There are two ways that Cocoa programmers inadvertently cause a signal to kill their app. The first way is to try to send a message to an uninitialized object pointer. By default, when we declare a new pointer as a local variable in an Objective-C method, we can’t count on it to automatically point at nil or some other harmless thing. In fact, we can often count on it pointing at something completely inappropriate, like a memory address that is not even mapped into the system (the situation is different for instance variables, static local variables, and global variables, which are in fact initialized with nil values).
+
+It’s hard to trigger this behavior intentionally with an uninitialized pointer, since it’s always possible that such a pointer just happens to contain a zero, which evaluates to nil, which is of course a valid message recipient. We can set up the situation artificially, however, by adding the following method to the app delegate:
+
+`- (void)uninitializedObject {`
+
+    `NSMutableString *string = (__bridge NSMutableString *)(void *)0xdeadbeef;`
+
+    `[string appendFormat:@"foo"];`
+
+`}`
+
+Because we’re using ARC, which is very smart about these things, we have to jump through some hoops to actually insert garbage into our pointer, first casting it to `void*` and then to `NSMutableString*`. The addition of the `__bridge` qualifier tells the compiler to ignore the memory-management implications of this assignment.
+
+Now we have an `NSMutableString` pointer that is pointing at a garbage memory location. So when it tries to call the `appendFormat:` method, the receiver isn’t a valid object, which will lead to trouble. To see the effect of this, add this line to the `applicationDidFinishLaunching:` method :
+
+`[self uninitializedObject];`
+
+Run the app, and watch. The program will halt, displaying something similar to Figure [13-5](#A978-1-4302-4543-8_13_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_13_Fig5_HTML.jpg](A978-1-4302-4543-8_13_Fig5_HTML.jpg)
+
+Figure 13-5. 
+
+The program stops upon receiving a signal
+
+Depending on exactly what this garbage pointer is pointing at, you may see a different signal name, such as `SIGSEGV` or `SIGILL`. As a bonus bit of wrongness, it’s even possible that it could be pointing at some other, valid object in our program, perhaps even an `NSMutableString`, making it extra-insidious to track down. The specifics don’t really matter; the point is that we’ve got an uninitialized pointer (or in this specific case, just for demonstration purposes, a pointer to a bad memory location). This problem is easily solved by applying a general rule: whenever you declare an Objective-C object pointer inside a method, immediately assign it a value, even if it’s just `nil`.
+
+So, fix this by changing the string declaration line to this:
+
+`NSMutableString *string = nil;`
+
+Build and run the app, and off we go. It’s perfectly okay to send a message to a nil pointer in Objective-C (it’s basically a non-operation, and the return value from a nil message is typically nil, 0, or NO), so, although the fixed version of the method won’t actually do anything, it won’t cause a crash either.
+
+Now, there’s one more source of memory problems that we should mention here: sending a message to an object that’s already been freed. Throughout this book, we’ve been using ARC for every app we’ve created, which virtually eliminates this kind of bug entirely, but in case you’re working at some point on a project with manual reference counting (using retain and release) it’s good to know what causes this type of problem.
+
+Without ARC, memory management for Objective-C objects is handled with manual reference counting. To make a long story short: any time we create an object with an `alloc` or `copy` method, or mark an object as being “in use” by sending it a `retain`, its retain count is increased. We must at some point (when we’re done with the object) send the object a `release` or `autorelease` message, either of which will decrease its retain count. When the retain count hits zero, the object is freed.
+
+When we’re using ARC, the same `retain` and `release` calls are built into our app, but instead of us putting it into our source code, the compiler does it for us. It turns out that computers are better than we are at consistently following the `retain`/`release` rules!
+
+If we’re not using ARC, the problem that can arise is that if we don’t do this quite right, we may end up in a situation where a variable contains a pointer to a space in memory that was formerly occupied by a “live” object, but now may contain a freed object, or may have been reused for some other purpose. ARC is so good at dealing with this issue that it’s really quite difficult to construct a situation where it occurs with ARC enabled. So for the next demonstration, let’s switch ARC off temporarily. To do this, select the top-level ExceptionCity item in the project navigator, then select the Build Settings tab. Use the search field at the top to search for “automatic,” and then turn off Objective-C Automatic Reference Counting. Figure [13-6](#A978-1-4302-4543-8_13_Chapter.html#Fig6) shows what this looks like.
+
+![A978-1-4302-4543-8_13_Fig6_HTML.jpg](A978-1-4302-4543-8_13_Fig6_HTML.jpg)
+
+Figure 13-6. 
+
+Messing with the build settings. You know you want to
+
+Now add the following method to the app delegate class. This exhibits a simplified version of some bad behavior that could have gotten us into trouble pre-ARC.
+
+`- (void)freedObject {`
+
+    `NSString *object = [[NSString alloc] initWithCString:"hi there"`
+
+                                                `encoding:NSUTF8StringEncoding];`
+
+    `[object release];`
+
+    `NSLog(@"Where is my object? %@", object);`
+
+`}`
+
+Then add a `[self freedObject];` line to the `applicationDidFinishLaunching:` method, run the app, and see what happens. The program will halt and show something like that in Figure [13-7](#A978-1-4302-4543-8_13_Chapter.html#Fig7).
+
+![A978-1-4302-4543-8_13_Fig7_HTML.jpg](A978-1-4302-4543-8_13_Fig7_HTML.jpg)
+
+Figure 13-7. 
+
+The green bar shows the spot where the program halted. This isn’t very helpful! Good thing we have other stack frames to look at, too
+
+As with the previous signal-generating bug, the program may receive a different signal than the one shown here, but it’ll certainly receive something, and if we look in the call stack for the uppermost stack frame containing our code, we’ll see that it contains both our `freedObject` method and the `NSLog` function that it was calling.
+
+The way to fix this is, as with the previous case, a matter of self-discipline: any time we send an object a `release` or `autorelease` message, if we still have a pointer to that object in a variable, immediately point that variable at `nil`! Sending `release` or `autorelease` may not always immediately cause the object to be freed (since some other code may have increased its retain count as well), but locally within each method, we should consider anything we’ve released to be off-limits, and get rid of any dangling pointers to it as soon as we can.
+
+In this case, the solution is to follow up the `[object release];` line with this:
+
+`object = nil;`
+
+Add that line, run the app again, and we’re back to smooth sailing! Again, this type of bug can really only occur if we’re not using ARC. And, apart from this relatively simple rule of thumb about setting pointers to `nil` after releasing objects, there are other ways that a non-ARC app can wind up in similar situations, such as forgetting to retain an object that we want to use for a while. These bugs can be some of the trickiest to track down, which is one of the strongest reasons for using ARC wherever possible.
+
+Before moving on, we need to re-enable ARC in our project. Once again, select the top-level project item in the project navigator, find the Objective-C Automatic Reference Counting item in the Build Settings tab, and turn it on. We’ll also need to delete the `[object release];` line from the `freedObject` method in the app delegate, since ARC doesn’t let us call release explicitly.
+
+## NSError
+
+Now you know that exceptions in Cocoa aren’t typically used for flow control, instead being used primarily to point out bugs. Some other languages and frameworks in use today use exceptions for all sorts of things that aren’t bugs but can be side effects of conditions outside the developer’s direct control, such as file-related errors when trying to access a file, or network errors when trying to read data from a socket. In Cocoa, these types of situations are handled more often using a class called `NSError`. In this section, we’ll learn about the content of an `NSError` object, what kinds of situations lead to its creation, and how to deal with it in our code, including giving our application the ability to retry certain kinds of error-triggering operations.
+
+### Domains and Codes
+
+Traditionally, every operating system has its own ways of reporting system errors, typically providing an integer value that we can compare with a predefined list in a header file to determine what to do. In UNIX-based systems, for example, we can (in fact, should) examine the value of `errno` (which is either a global variable, or a symbol that calls a function, depending on a number of factors we won’t get into here) after every system call, including functions to open a file, read from a file, write to a file, and the like. The idea is that if any system function encounters a problem, it will put an integer into `errno` to let us know the nature of the error.
+
+In “classic Mac OS” programming (everything predating OS X), things were a bit different. Instead of populating a global variable, many system functions have a return type of `OSStatus`, which again boils down to an integer that we should check after calling each function to make sure nothing unexpected happened.
+
+OS X is sort of a hybrid OS. Its underpinnings are firmly rooted in UNIX, and, as you know, it contains all of the Objective-C frameworks that make up Cocoa. It also includes Carbon, a large set of APIs and technologies adapted from older versions of Mac OS. Furthermore, there are modern APIs written entirely in C for both OS X and iOS. Each of these “worlds” contains functions and/or methods that need to report back error codes in one way or another, and since these worlds developed in a separate fashion, of course there is some overlap between the sets of error codes. At some point, Apple realized that there could be some benefit to dealing with error messages from these different worlds in a common way, letting each of them continue to use the same error codes they always have (ensuring binary compatibility with existing software) without any risk of confusion by tagging each error with a string specifying its domain.
+
+And that’s what we have in the `NSError` class, which basically wraps a system-level error code in an Objective-C object. Each `NSError` instance has an `NSString` to specify the name of its “domain” (generically, which library or framework it came from), an integer to specify the relevant error code, and an optional `NSDictionary` that can contain additional information about the error. Because these are normal Objective-C objects, they can be dealt with like any other object: passed around, put into an `NSArray`, and so on.
+
+Cocoa includes some predefined string constants to categorize the main sources of `NSError` objects in the Cocoa frameworks themselves. The domains you’re most likely to encounter as a Cocoa programmer are the following:
+
+*   NSPOSIXErrorDomain: UNIX errors (those that are part of the POSIX standard).
+*   NSOSStatusErrorDomain: Errors from Carbon functions (which typically return an OSStatus).
+*   NSCocoaErrorDomain: Errors arising directly within Cocoa’s own classes.
+
+Whenever a Cocoa method gives us an `NSError`, its domain will likely be one of these. If you start creating your own `NSError` instances in your code, you’ll probably want to define your own domains and error codes in order to make it easier for you to handle them in your application.
+
+Each of the predefined error domains also has an associated list of error codes, defined in one or more header files. The error codes applicable to `NSPOSIXErrorDomain` are found in errno.h. Those for `NSOSStatusErrorDomain` are in MacErrors.h; and the error codes in use for the `NSCocoaErrorDomain` are contained in FoundationErrors.h, AppKitErrors.h, and CoreDataErrors.h. Each of these headers can be found easily in Xcode by bringing up the Open Quickly window (⌘⇧O) and typing the name of the file.
+
+### Recognizing an Error
+
+So now we know a little bit about the `NSError` class. But, where do `NSError` instances come from, and how do they affect our application while it’s running? Unlike exceptions, `NSError` objects don’t do anything to change the flow of our code. Typically, an `NSError` instance is returned to us from a method call, not as the return value but by referencing a pointer we pass in. This form of parameter twiddling is not too uncommon in C, but fairly unusual in Objective-C. The idea is that an error-prone method should receive as a parameter a pointer to an `NSError` pointer. This means we don’t pass in a pointer to an `NSError`, but rather a pointer to a pointer (the address of our pointer) so that the receiving method can create an `NSError` instance and assign our pointer to it! (This may sound confusing, but once you see the pattern, things should clear up.)
+
+As an example, consider the `NSFileManager` class. The file manager lets us perform certain disk operations such as creating directories, accessing file attributes, and so on. It has a method whose signature looks like this:
+
+`- (NSDictionary *)attributesOfItemAtPath:(NSString *)path`
+
+    `error:(NSError **)error`
+
+We can use this method to access a dictionary containing a whole lot of relevant file system information about the file or directory specified in the `path` parameter. Note that the second parameter, `error`, is of type `NSError**`, which means that we pass in a pointer to a variable that can point at an `NSError`. If the method actually encounters an error situation, it will create an `NSError` and stick its address in the location specified by `error`. If we want to ignore any error that a method like this produces, we can pass in the special `NULL` pointer as the last parameter.
+
+The following method shows what this looks like from the caller’s perspective. We create a variable for pointing at an `NSError` and initialize it to point at `nil`. Then we pass the address of that variable to a potentially error-generating method and afterwards check the variable to see whether or not it’s still pointing at `nil`. If not, we know that the method encountered an error, and we ask the application to present the error to the user.
+
+`- (void)fileError {`
+
+    `NSFileManager *fileManager = [NSFileManager defaultManager];`
+
+    `// Declare a variable and point it at nil`
+
+    `NSError *fileError = nil;`
+
+    `// Pass the address of the fileError variable to the method`
+
+    `NSDictionary *attributes = [fileManager`
+
+                                `attributesOfItemAtPath:@"/tmp" error:&fileError];`
+
+    `// Check to see if the previous method call gave us an NSError`
+
+    `if (fileError == nil) {`
+
+        `// Show the attributes`
+
+        `NSRunAlertPanel(@"Found file attributes"`,
+
+                        `[attributes description], nil, nil, nil);`
+
+    `} else {`
+
+        `// Report the error`
+
+        `[NSApp presentError:fileError];`
+
+    `}`
+
+`}`
+
+For simplicity’s sake, while exploring `NSError` we’ll continue building onto the project we’re already playing with. Add the `fileError` method shown previously to the app delegate class, and add a `[self fileError];` line to the `applicationDidFinishLaunching:` method. Run the app, and we’ll see something like the alert panel shown in Figure [13-8](#A978-1-4302-4543-8_13_Chapter.html#Fig8).
+
+![A978-1-4302-4543-8_13_Fig8_HTML.jpg](A978-1-4302-4543-8_13_Fig8_HTML.jpg)
+
+Figure 13-8. 
+
+No error here!
+
+Now go back and edit the `fileManager` call, changing the string parameter from `@`“`/tmp`” to `@`“`/tmpfoo`” or some other non-existent path. This will cause `fileManager` to encounter an error and give it back to us, in the `fileError` variable whose address we passed in. It will notice this error and pass it off to `NSApp`, resulting in the alert panel shown in [Figure 12-5](#A978-1-4302-4543-8_13_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_13_Fig9_HTML.jpg](A978-1-4302-4543-8_13_Fig9_HTML.jpg)
+
+Figure 13-9. 
+
+There’s the error
+
+That’s fine, but look at the text in that alert panel: “The file “tmpfoo” couldn’t be opened because there is no such file.” Doesn’t that seem a little… non-technical? Aren’t we used to a bit more jargony language in our computer systems? After all, the error was triggered by a low-level system routine that reported just an error number and nothing else. Where did that text come from?
+
+It turns out that `NSError` has a method called `localizedDescription`, which gives us a nice, human-readable explanation of the error. This description is what’s eventually displayed by the `reportError:` method.
+
+Let’s explore this a bit by using the debugger. In Xcode, set a breakpoint on the line containing `[NSApp presentError:fileError]` by clicking in the gutter to the left of the line in the text editor (the gutter is the space where the line numbers are shown). This is the most straightforward way to set a breakpoint in our code. Then run the app again. The app will halt at the chosen line, leaving us with the lldb prompt in the output console. Let’s dig in a bit, asking the error about its domain and error code by executing commands at the lldb prompt:
+
+ `(lldb) po [fileError domain]`
+
+`$0 = 0x00007fff7cdab110 NSCocoaErrorDomain`
+
+`(lldb) p (int)[fileError code]`
+
+`(int) $1 = 260`
+
+`(lldb) po [fileError localizedDescription]`
+
+`$2 = 0x0000000102327470 The file "tmpfoo" couldn't be opened because there is no such file.`
+
+Note that we can print the value of an `NSString` using the `po` command and the value of any basic C type using the `p` command. Often when using the `p` command, lldb will complain that it doesn’t know the type of the value we’re trying to display, so we put a little `(int)` just before the method call, which tells lldb what to expect.
+
+Now we know the error code and domain. A quick look in `FoundationErrors.h` turns up this info:
+
+`NSFileReadNoSuchFileError = 260,    // Read error (no such file)`
+
+That still might leave you wondering how this hangs together. As you recall, when you create an `NSError`, you specify a domain, a code, and optionally a dictionary containing additional info. This dictionary is a key piece of the puzzle. If the dictionary you pass into this method has a value for a key called `@`“`NSLocalizedDescriptionKey`”, then that value will be returned whenever `localizedDescription` is called.
+
+So, let’s see what the `userInfo` dictionary contains.
+
+`(lldb) po [fileError userInfo]`
+
+`$3 = 0x0000000102118850 {`
+
+    `NSFilePath = "/tmpfoo";`
+
+    `NSUnderlyingError = "Error Domain=NSPOSIXErrorDomain Code=2 \"The operation couldn\U2019t be completed. No such file or directory\"";`
+
+`}`
+
+Um, apparently that’s not the answer. The `userInfo` dictionary doesn’t specify a localized description, but it does include a couple of other things: the path to the file we were trying to access, and what looks like another `NSError`. An error wrapped inside an error! Let’s see what that inner error’s `domain`, `code`, `userInfo`, and `localizedError` look like. We start off with another lldb command called `expression`, which simply executes the statements on the rest of the line just as if it were source code, but without printing a result like the `po` or `p` commands do. In this case, we’re assigning the address of the inner error object to a new variable we’re calling `$inner`. This is a nice feature of lldb that lets us hang on to the results of queries we execute, letting values stick around, and saving us some typing later on. We’ll grab the `userInfo` dictionary from the `fileError`, then immediately use Objective-C’s new dictionary look-up syntax to access the underlying error.
+
+`(lldb) expression id $inner = [fileError userInfo][@"NSUnderlyingError"]`
+
+`(lldb) po $inner`
+
+`$inner = 0x000000010210a9e0 Error Domain=NSPOSIXErrorDomain Code=2 "The operation couldn't be completed. No such file or directory"`
+
+After assigning the object’s address to the new variable, use the `po` command to see the address of our new variable and its content, the object it’s pointing at. From here on out, we can refer to that inner error as just `$inner`, like this:
+
+ `(lldb) po [$inner domain]`
+
+`$9 = 0x00007fff7cdab0b0 NSPOSIXErrorDomain`
+
+`(lldb) p (int)[$inner code]`
+
+`(int) $10 = 2`
+
+`(lldb) po [$inner userInfo]`
+
+`$11 = 0x00000001001039d0 {`
+
+`}`
+
+`(lldb) po [$inner localizedDescription]`
+
+`$12 = 0x000000010011d2c0 The operation couldn't be completed. No such file or directory`
+
+This presents us with yet another riddle. When we look at the underlying error, which has no `userInfo` dictionary at all, it still presents a human-readable `localizedDescription` that doesn’t seem immediately apparent just by looking at the domain and code. In fact, we could make our own inner and outer errors like this:
+
+`NSError *innerError = [NSError errorWithDomain:NSPOSIXErrorDomain`
+
+                                          `code:2 userInfo:nil];`
+
+`NSDictionary *outerInfo = @{NSUnderlyingErrorKey: innerError`,
+
+                            `NSFilePathErrorKey: @"/tmpfoo"};`
+
+`NSError *outerError = [NSError errorWithDomain:NSCocoaErrorDomain`
+
+                                          `code:260 userInfo:outerInfo];`
+
+Those errors will behave exactly like the ones generated by `NSFileManager`, including displaying human-readable text that we’re not specifying anywhere! As it turns out, the source of this magic seems to be the `NSError` class itself. It apparently has enough built-in specific knowledge about Cocoa’s error domains and error codes to generate meaningful sentences about many of the errors that a program is likely to encounter. This means that, in general, the errors provided to us by Cocoa method calls won’t need to be prettied up in order to be shown to users.
+
+### Presenting an Error
+
+And how about showing errors to users, while we’re at it? Here we’ve been calling `[NSApp presentError:e]` to make the application display a modal window, but there are some other choices. In truth, the `presentError:` method is implemented in `NSResponder`, `NSDocument`, and `NSDocumentController`, which means that whenever an error occurs, we can pass it along to the nearest or most relevant object around, at which point it is passed along a chain of responsibility, similar to the responder chain, until some object actually displays the error. This opens up possibilities for displaying error messages in a different fashion, such as with a document-modal sheet alert.
+
+## Wrap Up
+
+We’ve now seen the primary ways that a Cocoa app can deal with various kinds of unpleasantness, how to avoid some common mistakes, and how to use lldb to help track down problems. We’ve also seen how methods can use `NSError` instances to deal with problems in a controlled manner. All of this will come in handy as we delve further into Cocoa programming.
+
+# 14. Drawing in Cocoa
+
+Abstract
+
+By now we’ve learned lots of powerful Cocoa techniques for dealing with data, optimally arranging our application’s classes, and using the wide range of on-screen controls and other views that are included with Cocoa. Now it’s time to start learning how to use Cocoa to make our own view classes, gaining complete control over the display of text and graphics. Mac applications are commonly known for including “eye candy”—not just for drawing needless graphical flourishes, but also for creating a more immersive interactive experience for the user. The graphics technologies available to us as Cocoa programmers can help us achieve some of the same kinds of effects with a surprisingly small amount of effort on our part.
+
+By now we’ve learned lots of powerful Cocoa techniques for dealing with data, optimally arranging our application’s classes, and using the wide range of on-screen controls and other views that are included with Cocoa. Now it’s time to start learning how to use Cocoa to make our own view classes, gaining complete control over the display of text and graphics. Mac applications are commonly known for including “eye candy”—not just for drawing needless graphical flourishes, but also for creating a more immersive interactive experience for the user. The graphics technologies available to us as Cocoa programmers can help us achieve some of the same kinds of effects with a surprisingly small amount of effort on our part.
+
+Core Graphics provides rich functionality for rendering paths, manipulating coordinate systems, and more. One major part of Core Graphics is a set of APIs known as Quartz. Quartz, in fact, makes up such a huge part of Core Graphics that the two terms are sometimes used interchangeably. Core Animation takes things even further, letting us animate our views in a remarkably simple way.
+
+This chapter will cover some of the basics of coordinate systems and drawing into an `NSView` instance, and demonstrate how to display a view larger than the space available to it in the window by putting it in a scrolling view. It will also touch on how to easily add basic printing support to our applications.
+
+## Fundamentals
+
+In this section, we’ll go through some of the basic concepts used in Cocoa’s drawing APIs. If you’ve done any sort of graphics programming, some of what’s available for drawing in Cocoa will be pretty familiar. After all, most of the basic concepts of computer graphics were hammered out decades ago. Where Cocoa stands out is both in the quality of its rendering, including anti-aliasing for both text and graphics primitives, and the availability of high-level abstractions for more complex concepts.
+
+Throughout this chapter, we’ll be referring to points, not pixels. Drawing in Cocoa is generally vector-based and resolution-independent. With the introduction of high-pixel-density displays (also called HiDPI or Retina displays), a point in the drawing model might actually be represented by one or four pixels on the display. It’s best, where possible, to let the underlying operating system figure out how to convert from the drawing primitives to actual pixels. By doing so, it’ll automatically look great on a high-resolution display. If you’re dealing with pixel-specific code, then you don’t get off so easy and you’ll need to worry about the differences between points and pixels, and how to scale bitmaps appropriately. For now, though, we’ll only be talking about points.
+
+### The View Coordinate System
+
+Cocoa’s drawing systems work with an x-y coordinate system where, by default, the origin point (0,0) is at the lower left, the x-axis points to the right (increasing values take us further to the right), and the y-axis points up (increasing values take us further up on the screen). This is similar to the way graphs are traditionally done in mathematics, but flipped from many other computer graphics systems where the y-axis points down (increasing values take us further down on the screen). Although it’s possible and sometimes desirable to flip the y-axis in Cocoa, we won’t be doing so in our examples.
+
+Drawing is normally done by instances of `NSView` subclasses. Views exist in a hierarchy. If the top-most view in the hierarchy is set to be the contentView of an `NSWindow`, then all the views in that hierarchy are displayed within that window. The top-level view in a window, the contentView, can draw across the entire area of the window. For every other view in the hierarchy, the drawing area is limited to its frame, a space within the coordinates of its parent view (see Figure [14-1](#A978-1-4302-4543-8_14_Chapter.html#Fig1)).
+
+![A978-1-4302-4543-8_14_Fig1_HTML.jpg](A978-1-4302-4543-8_14_Fig1_HTML.jpg)
+
+Figure 14-1.
+
+A simple hierarchy of views. The window’s contentView contains an NSBox, which in turn contains an NSMatrix containing radio buttons
+
+### Frame Rectangle vs. Bounds Rectangle
+
+For each view in a window, there are a couple of important rectangles (or rects, as they are commonly called) that define a lot about its drawing characteristics: its frame rect and its bounds rect. The frame rect simply specifies the view’s location and size within its parent view’s coordinate space. For example, imagine the top-level view in a window. Let’s call it A. If A has a subview called B that extends from point (10,20) to point (40,60), then B’s frame rect has (10,20) as its origin and (30,40) as its size.
+
+Apart from its frame, which determines where and to what extent it appears in its superview, each view has a bounds rect, which defines its own inner coordinate space. For example, view B described previously will by default have a bounds rect whose origin is (0,0) and whose size is (30,40). We can easily change this if we want. For example, say we’ve got a bunch of points to plot with x and y values of between 0.0 and 10.0\. By changing the bounds rect of B, setting its size to (10,10), the points will exactly fill the space occupied by B, no matter how much space B actually takes on-screen (see Figure [14-2](#A978-1-4302-4543-8_14_Chapter.html#Fig2)).
+
+![A978-1-4302-4543-8_14_Fig2_HTML.jpg](A978-1-4302-4543-8_14_Fig2_HTML.jpg)
+
+Figure 14-2.
+
+On the left, plotting points from a narrow range in a view with default bounds. On the right, the same points plotted in a view with smaller bounds
+
+### Rects, Points, and Sizes
+
+In Cocoa, rectangles are represented by a C struct called `NSRect`, which is composed of an `NSPoint` containing the origin and an `NSSize` containing the size. Both the origin and size each contain two values of type `CGFloat`, a basic C type used throughout Cocoa’s drawing APIs; origin has x and y, size has width and height.
+
+To confuse matters somewhat, many functions in Core Graphics make use of equivalent structures `CGRect`, `CGPoint`, and `CGSize`, which have the same structural layout and are all composed of `CGFloat` elements. The historical reasons for this divide aren’t terribly interesting, and as long as we’re not working with a 32-bit legacy application, these C structs have identical layouts and can be converted back and forth with inline functions (for example, `NSRectToCGRect`, `NSSizeFromCGSize`, and so on) that are really little more than typecasts. In this chapter, we’ll mostly be using the NS-prefixed versions.
+
+### Path Basics
+
+Cocoa’s drawing mechanism includes the concept of paths, which can contain any number of straight or curved-line segments. Each path doesn’t need to be contiguous. We can “pick up the pen” at one point and start drawing again at another. Before a path is actually drawn, we can specify values such as line thickness, color, and the like. Those settings will be applied to every part of the path. Any shapes outlined by parts of the path can also be filled with a separate color or pattern.
+
+## Creating an NSView Subclass
+
+Let’s start exploring a bit by creating an application that’s able to draw a very happy smiley face (see Figure [14-3](#A978-1-4302-4543-8_14_Chapter.html#Fig3)). In Xcode, create a new Cocoa project named MrSmiley. We’ll be using a class prefix of MS for our Mr Smiley app, and we’ll want to leave Automatic Reference Counting turned on.
+
+![A978-1-4302-4543-8_14_Fig3_HTML.jpg](A978-1-4302-4543-8_14_Fig3_HTML.jpg)
+
+Figure 14-3.
+
+Mr Smiley is very, very happy
+
+Now create a new Objective-C class, a subclass of `NSView`, and name it `MSSmileyView`. Do this by selecting File ➤ New ➤ File  .  .  .  (⌘-N), or by right-clicking in the Project Navigator pane on the left side of the Xcode window and selecting New File  .  .  .  from the pop-up menu. Xcode will create the class’s files for us, including `MSSmileyView.m`, where all this section’s work will take place.
+
+Before getting started on the code, open the project’s `MainMenu.xib` file. Grab a custom view from the Library window, and drag it into the blank window that is created by default. Use the Identity Inspector to change the view’s class to MSSmileyView (under the Custom Class heading), then use the Size Inspector to change its width and height to 100×100\. Finally, select the window and press ⌘-= to make the window resize itself to perfectly fit the view. Then save the changes.
+
+### The Basic Drawing Method, drawRect:
+
+Now let’s get into the code. The `MSSmileyView.m` file created by Xcode contains an empty `drawRect:` method, which is where we’ll start writing our code. The `drawRect:` method is something we usually won’t call directly, except for cases where we’re implementing a subclass of an existing view and calling `[super drawRect:rect]` to let the superclass do its part of the drawing. Instead, the `drawRect:` method is called automatically whenever the application’s main run loop determines that the view needs to be redrawn (typically after a view has been created or resized, or our own code has called `setNeedsDisplay:` on our view, passing YES as the argument). The `drawRect:` method takes one argument, a rectangle that indicates which portion of the view is considered “dirty” and needs to be redrawn. This can be used to optimize drawing of complex views, but in our examples we’ll just ignore that, and instead make use of the view’s bounds rectangle for drawing.
+
+### Graphics States
+
+All drawing in Cocoa occurs within a particular context, which is represented by the `NSGraphicsContext` class. Depending on the context, we may be drawing directly into a window buffer or drawing into a chunk of off-screen memory for later use. But apart from that, the context has some state information of its own that can change over time, such as the current color to be used for any drawing commands. When it’s time for our view to draw itself, it should do so in such a way that the graphics state is put back into the state it was in when drawing started.
+
+Fortunately, `NSGraphicsContext` provides us with an easy way to do just that. Its `saveGraphicsState` method will push all relevant state info onto a stack, and the `restoreGraphicsState` method will pop the state back off the stack. We can use these two method calls to “bracket” our actual drawing code like the following excerpt shows, so we know we aren’t leaving the graphics context in an unexpected state.
+
+`- (void)drawRect:(NSRect)dirtyRect`
+
+`{`
+
+  `[NSGraphicsContext saveGraphicsState];`
+
+  `// Drawing code here.`
+
+  `[NSGraphicsContext restoreGraphicsState];`
+
+`}`
+
+### Path Helpers
+
+To draw the view shown at the beginning of this section, we’ll first draw the background, then the face itself. For each of those two elements, we’ll first fill in the background, then draw the edge. All of this is done using the `NSBezierPath` class. A Bezier path allows us to define paths of arbitrary complexity, including straight lines, points, curves, and so on. One of the niceties of the `NSBezierPath` class is that it provides nice shortcuts for creating a Bezier path representing common shapes such as rectangles, ovals, and the like.
+
+Let’s start by creating a path that defines the visible edge of the view, using a class method on `NSBezierPath` that gives us a rounded rect. The lines shown in bold below create a path, fill it with white, and then “stroke” the path (draw its edge) in black:
+
+`- (void)drawRect:(NSRect)dirtyRect`
+
+`{`
+
+  `[NSGraphicsContext saveGraphicsState];`
+
+  `NSRect bRect = CGRectInset([self bounds], 5, 5);`
+
+  `NSBezierPath *border = [NSBezierPath bezierPathWithRoundedRect:bRect`
+
+    `xRadius:5 yRadius:5];`
+
+  `[[NSColor whiteColor] set];`
+
+  `[border fill];`
+
+  `[border setLineWidth:3];`
+
+  `[[NSColor blackColor] set];`
+
+  `[border stroke];`
+
+  `[NSGraphicsContext restoreGraphicsState];`
+
+`}`
+
+The first step uses the `CGRectInset` function to shrink our bounds rect a bit, giving us a little wiggle room so that we can draw a rounded rect with thick lines without having them clipped by our edges. Then we create a path representing a rounded rect, specifying the basic geometry of the rect as well as two numbers defining the size of the elliptical curves used for the rounded corners. After that, we issue simple commands to set colors, a line width, and do some drawing.
+
+### Colors and the Graphics Context
+
+Note that specifying which color to use for a drawing operation is a separate step from the drawing operation itself, as is setting the line width. Also, although setting the line width is done through a method on the path itself, setting the color looks like a sort of free-floating operation. We just send any color the set message, and suddenly it’s the current color! What’s happening is that `NSColor`’s set method interacts with the underlying graphics context, setting the color that will be used for subsequent drawing operations. One consequence of this is that `NSColor`’s set method will only do something useful while there is a current graphics context, such as within a `drawRect:` method. Another consequence is that the current color is a property (in a general sense, if not an Objective-C language sense) of the graphics context, so whatever color was set before our method is saved at the beginning of our method when `[NSGraphicsContext saveGraphicsState]` is called and is restored at the end when `[NSGraphicsContext restoreGraphicsState]` is called, putting everything back in order again.
+
+At this point, if we Run the application in Xcode, we’ll see that it draws a white rect with a black outline (Figure [14-4](#A978-1-4302-4543-8_14_Chapter.html#Fig4)).
+
+![A978-1-4302-4543-8_14_Fig4_HTML.jpg](A978-1-4302-4543-8_14_Fig4_HTML.jpg)
+
+Figure 14-4.
+
+The shape of things to come
+
+### Beyond Color
+
+Now let’s start drawing the head. Add these lines to the `drawRect:` method, toward the end but still before the `[NSGraphicsContext restoreGraphicsState]` call:
+
+`NSRect hRect = CGRectInset([self bounds],20,20);`
+
+`NSBezierPath *head = [NSBezierPath bezierPathWithOvalInRect:hRect];`
+
+`NSGradient *faceGradient = [[NSGradient alloc]`
+
+  `initWithStartingColor:[NSColor whiteColor]`
+
+  `endingColor:[NSColor lightGrayColor]];`
+
+`[faceGradient drawInBezierPath:head angle:45];`
+
+`[head setLineWidth:3];`
+
+`[head stroke];`
+
+Here we are once again using `CGRectInset` to make a new rect that is smaller than our bounds, this time to create an oval shape for Mr Smiley’s head. After creating a Bezier path, we create something new, an instance of `NSGradient`, which knows how to take two or more colors and draw a smooth gradient between them. In this example, it can draw itself across the inner surface of a Bezier path. Run this code; the view now contains a round “head” with a shaded gradient (Figure [14-5](#A978-1-4302-4543-8_14_Chapter.html#Fig5)).
+
+![A978-1-4302-4543-8_14_Fig5_HTML.jpg](A978-1-4302-4543-8_14_Fig5_HTML.jpg)
+
+Figure 14-5.
+
+The basic head shot
+
+### Manual Path Construction
+
+Now all that’s left is to draw the facial features (a simple mouth and eyes). Add these lines to the end of `drawRect:` (but before the final `[NSGraphicsContext restoreGraphicsState]` call):
+
+`NSBezierPath *features = [NSBezierPath bezierPath];`
+
+`[features moveToPoint:NSMakePoint(35, 30)];`
+
+`[features lineToPoint:NSMakePoint(65, 30)];`
+
+`[features moveToPoint:NSMakePoint(40, 40)];`
+
+`[features lineToPoint:NSMakePoint(40, 40)];`
+
+`[features moveToPoint:NSMakePoint(60, 40)];`
+
+`[features lineToPoint:NSMakePoint(60, 40)];`
+
+`[features setLineCapStyle:NSRoundLineCapStyle];`
+
+`[features setLineWidth:3];`
+
+`[features stroke];`
+
+Here, instead of using one of the convenient class methods on `NSBezierPath` to get a complete shape right away, we are using some more basic methods to construct a path out of nothing. The `moveToPoint:` method positions a virtual “pen” at the specified point, without drawing a line to it. And `lineToPoint:` draws a line from the path’s current point to the new point. In reality, these methods don’t do any drawing; they simply build up the Bezier path structure that is later drawn by the stroke method.
+
+One additional finesse here is that we set the line cap style. This setting defines what happens at the ends of lines. This is especially important for the eyes, which are drawn as a single point. Using the default setting, which lops off everything precisely where the line segment ends, the eyes were completely invisible, but using `NSRoundLineCapStyle` gives us a perfect tiny circle for each eye. Click Run to see the final result (Figure [14-6](#A978-1-4302-4543-8_14_Chapter.html#Fig6)).
+
+![A978-1-4302-4543-8_14_Fig6_HTML.jpg](A978-1-4302-4543-8_14_Fig6_HTML.jpg)
+
+Figure 14-6.
+
+Mr Smiley. He really is happy!
+
+### Pushing Boundaries
+
+Now that `MSSmileyView` is drawing a perfect happy face, naturally we’ll want to be able to resize this to fit it into different spots. When we fit the window to the contents, the `MSSmileyView` custom view should have automatically set constraints to have the view change size with the window. We can tell that this is the case by seeing blue lines extending from the edges of the custom view out to the window, as shown in Figure [14-7](#A978-1-4302-4543-8_14_Chapter.html#Fig7). If that isn’t the case, we can resize the `MSSmileyView` using the resize handles on the edges until the blue guidelines appear on all four sides. This positions the custom view at an inset of 20 points from the window borders all around.
+
+![A978-1-4302-4543-8_14_Fig7_HTML.jpg](A978-1-4302-4543-8_14_Fig7_HTML.jpg)
+
+Figure 14-7.
+
+Resize constraints in place
+
+Save the work, click Run, and resize the view. It should look like Figure [14-8](#A978-1-4302-4543-8_14_Chapter.html#Fig8).
+
+![A978-1-4302-4543-8_14_Fig8_HTML.jpg](A978-1-4302-4543-8_14_Fig8_HTML.jpg)
+
+Figure 14-8.
+
+Oops upside your head!
+
+Now that doesn’t seem right, does it? The problem is that in the `drawRect:` method, we have a bit of a mix ‘n’ match approach when specifying path geometry. For the outline and the head shape, we base everything on the bounds rect, but for the facial features we’re hard-coding numeric pixel widths. When the view resizes, our bounds rect automatically resizes along with it. This makes the outline and head stretch out to accommodate the new bounds, while the facial features are still stuck in their rigid little world.
+
+Also, notice that the lines are the exact same thickness after resizing, which means that their relative thickness, compared to the overall size of the view, has changed. If we made this view really huge, the lines would seem extraordinarily thin.
+
+Fortunately, there’s an easy way to remedy all of this. Remember earlier in this chapter when we mentioned the distinction between a view’s frame and bounds rects? The frame defines the view’s position and size within its superview. The bounds, however, determine the extent and position of the coordinate system within the view. If we can configure things so that the view’s bounds rect never changes, then it will always draw the exact same content, but perfectly stretched to match the actual frame it’s drawing in!
+
+To do this, we simply need to manually set the bounds to that original rect every time the view is resized. So, let’s add a property (for holding the bounds that we want) to `MSSmileyView.h`, complete the `initWithFrame:` method and implement the `setFrameSize:` method as shown here:
+
+`// A portion of MSSmileyView.h:`
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface MSSmileyView : NSView`
+
+`@property NSRect preferredBounds;`
+
+`@end`
+
+`// A portion of MSSmileyView.m:`
+
+`- (id)initWithFrame:(NSRect)frame`
+
+`{`
+
+    `self = [super initWithFrame:frame];`
+
+    `if (self) {`
+
+        `self.preferredBounds = NSMakeRect(0, 0, 100, 100);`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+`- (void)setFrameSize:(NSSize)newSize`
+
+`{`
+
+    `[super setFrameSize:newSize];`
+
+    `[self setBounds:self.preferredBounds];`
+
+`}`
+
+The `setFrameSize:` method is one that gets called during live dragging while the user is resizing a window. What we’re doing here is resetting the view’s bounds rect every step of the way, so that when it comes time to draw, all the drawing will occur based on the original bounds. Now click Run, resize the window, and witness the magic (Figure [14-9](#A978-1-4302-4543-8_14_Chapter.html#Fig9)).
+
+![A978-1-4302-4543-8_14_Fig9_HTML.jpg](A978-1-4302-4543-8_14_Fig9_HTML.jpg)
+
+Figure 14-9.
+
+A real stretch
+
+As you can see, everything stretches perfectly faithfully, including the widths of the lines. Also, everything is rendered to match the actual display resolution. We can stretch that out as big as we want, and we’ll always see perfectly anti-aliased curves. Whatever geometry we specify for our bounds will be adjusted to match the frame we’re sitting in. What we’re seeing here is, in fact, a two-dimensional transformation.
+
+Apart from being a nice way to deal with resizing, this built-in transformation possibility means that we can do our drawing at whatever scale we’re comfortable with just by setting the bounds rect. If we want to do our graphics at pixel resolution, we can do so, but if we’re plotting details of a mathematical curve ranging from 0.0 to 0.1, we can set our bounds accordingly and don’t have to multiply all our display values to make them match the screen coordinates.
+
+## LOLmaker
+
+Now that we’ve got a basic understanding of drawing in an `NSView` and manipulating its geometry, let’s move on to a new project: LOLmaker. LOLmaker is a simple application that lets us create our own LOLcat-style imagery by just dragging in an image and typing the text we want it to contain. It’s not rocket science, but it will introduce us to a few more issues around drawing in an `NSView`.
+
+A FEW WORDS ABOUT LOLCATS
+
+In case you’ve missed out on the whole LOLcat meme or are reading this book in a future world where LOLcats have been forgotten, a LOLcat is basically a picture of a cat (or other animal) with a humorous caption, typically written in a style mocking the Internet slang of the early 21st century.
+
+We like LOLcats simply because they are pictures of cats that make us laugh out loud. Please don’t think that we’d stoop to the level of including LOLcats content in our book just to sell more copies! It’s a well-known fact that most LOLcats fans are also pirates and will only read this book in the form of a stolen PDF.
+
+### First Steps to LOL
+
+Start by creating a new basic Cocoa project in Xcode, with Automatic Reference Counting turned on, but there’s no need for Document or Core Data support this time. Although both of those could be put to good use in this project, for now we’re going to focus on just the drawing aspects. This project won’t actually save anything. Name the project LOLmaker, and use LOL as the class prefix.
+
+Now, edit the `LOLAppDelegate.h` file to add the following lines in bold:
+
+`#import <Cocoa/Cocoa.h>`
+
+`#import "LOLView.h"`
+
+`@interface LOLAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet LOLView *lolView;`
+
+`@property (strong) NSImage *image;`
+
+`@property (copy) NSString *text;`
+
+`@end`
+
+These properties will be used with Cocoa Bindings to let the user drag in an image and type in some text that will be automatically attached to our controller object, which in turn will update the view. Notice (as will Xcode) that we’re importing a `LOLView.h` header file and declaring a property of type `LOLView*`, even though the `LOLView` class hasn’t been completed yet. Solve that problem right away by creating another new set of class files, this time for `LOLView`, an `NSView` subclass.
+
+We’ll implement `LOLView` in just a few minutes, but for now let’s go configure the GUI. Click `MainMenu.xib` to bring it up in an Interface Builder canvas, and use the Library to drag a custom view, an image well, and a text field into the empty window. Use the Identity Inspector to set the class of the custom view to LOLView, and use the Attributes Inspector to turn on the Editable checkbox for the image well. Finally, connect the app delegate’s lolView outlet to the `LOLView` in the window. When everything is laid out, the window should resemble Figure [14-10](#A978-1-4302-4543-8_14_Chapter.html#Fig10).
+
+![A978-1-4302-4543-8_14_Fig10_HTML.jpg](A978-1-4302-4543-8_14_Fig10_HTML.jpg)
+
+Figure 14-10.
+
+The layout of our LOLmaker window
+
+This window will let the user drag in an image (to the drag well) and type in a message that will be displayed over the image. The `LOLView` will notice the dragged-in image and edited text, and will trigger a redisplay of itself through the use of Cocoa Bindings. The first half of the bindings will be configured in Interface Builder, the second half in code.
+
+First, select the image well and switch to the Bindings Inspector. Create a binding for the Value attribute, selecting the app delegate in the pop-up list and typing self.image into the Model Key Path field. Then select the text field, and create a binding for its Value attribute, again selecting the app delegate in the pop-up list and this time typing self.text into the Model Key Path field.
+
+That takes care of the bindings for the controls, but because Interface Builder doesn’t know about `LOLView` and what its bindable values are, we have to set up its bindings in code. Go back to Xcode, and edit `LOLAppDelegate.m`, adding the following method to the `@implementation` section:
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+  `[self.lolView bind:@"image" toObject:self withKeyPath:@"image"`
+
+    `options:nil];`
+
+  `[self.lolView bind:@"text" toObject:self withKeyPath:@"text"`
+
+    `options:nil];`
+
+`}`
+
+That takes care of the basic communications between all the objects in this application. User edits to the controls in the window are passed along to the app delegate, and from there they’ll be passed along to the `LOLView`, all through Cocoa Bindings. The “plumbing” of our app is now complete!
+
+### LOLView
+
+So, how about the `LOLView` itself? For starters, it’s going to have a couple of properties, just like the properties of the app delegate, to contain the values that are coming from the user. In this case, however, we want to trigger a redisplay every time one of the values changes so that the `LOLView` will be redrawn. Therefore, we implement the setter methods ourselves, instead of just using the default setters generated by the compiler. Because we’re using our own setters but allowing the compiler to generate the getters, we have to mark the properties as `nonatomic`. The compiler-generated getters and setters include synchronization code to ensure that half-constructed objects are never returned by these methods. Since we’re building our own setter, the compiler can’t provide that guarantee, but we don’t need to care for this application. Add the following to `LOLView.h` and `LOLView.m`, as indicated:
+
+`// LOLView.h:`
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface LOLView : NSView`
+
+`@property (strong, nonatomic) NSImage *image;`
+
+`@property (copy, nonatomic) NSString *text;`
+
+`@end`
+
+`// LOLView.m:`
+
+`#import "LOLView.h"`
+
+`@implementation LOLView`
+
+`- (id)initWithFrame:(NSRect)frame`
+
+`{`
+
+    `self = [super initWithFrame:frame];`
+
+    `if (self) {`
+
+        `// Initialization code here.`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+`- (void)drawRect:(NSRect)dirtyRect`
+
+`{`
+
+    `// Drawing code here.`
+
+`}`
+
+`- (void)setImage:(NSImage *)i {`
+
+    `if (![i isEqual:_image]) {`
+
+        `_image = i;`
+
+        `[self setNeedsDisplay:YES];`
+
+    `}`
+
+`}`
+
+`- (void)setText:(NSString *)t {`
+
+    `if (![t isEqual:_text]) {`
+
+        `_text = [t copy];`
+
+        `[self setNeedsDisplay:YES];`
+
+    `}`
+
+`}`
+
+In the two setters, we’re making direct use of the instance variable generated by the property. By default, the instance variable’s name is the name of the property with a leading underscore, but you can control the name if you need to, and you can control whether an instance variable is synthesized at all. In the `setText:` method, we’re making an explicit copy of the `NSString` that’s passed in to our code. We have to do this because we said we would in the property declaration (note that it’s marked as `copy` rather than as `strong` or `weak`). In general, this is a good idea when receiving an object such as `NSString` because the caller may actually be passing you a mutable string that can be changed by some other piece of code.
+
+### Drawing a Bitmap
+
+Now let’s move on to the “meat” of the `LOLView` class: drawing the image and superimposing some text. Let’s start with the image, which we can copy into place quite quickly by adding a few lines to the `drawRect:` method that was put in place when we created the class:
+
+`- (void)drawRect:(NSRect)dirtyRect {`
+
+  `NSRect srcImageRect = NSMakeRect(0, 0, [self.image size].width`,
+
+    `[self.image size].height);`
+
+  `[self.image drawAtPoint:[self bounds].origin fromRect:srcImageRect`
+
+    `operation:NSCompositeCopy fraction:1.0];`
+
+`}`
+
+The first thing we’re doing here is creating a rect called `srcImageRect` with origin (0,0) and size equal to the image’s size. Then we send a message to the image itself, telling it to draw the portion of the image specified by `srcImageRect` (in this case, the entire image) into the current graphics context, located at the origin of our view’s bounds rect. In short, the entire image is copied, and its lower left-hand corner will be located precisely at the view’s lower left-hand corner. The drawing method we’re using here also lets us specify an operation, which determines how transparencies in the source and destination images are merged, as well as an integer between 0.0 and 1.0 that acts as an overall alpha level for the entire image. Any value below 1.0 makes the image somewhat transparent; all the way down to 0.0 makes the image completely invisible.
+
+Now, Run the app, and take a look at what we’ve got so far. The app opens, showing a mostly blank window with the image well and text field at the bottom. Find a nice LOLcat-friendly image somewhere (we’re using a non-copyright image from the US National Archives, found via Flickr), and drag it into the image well, which will look something like Figure [14-11](#A978-1-4302-4543-8_14_Chapter.html#Fig11).
+
+![A978-1-4302-4543-8_14_Fig11_HTML.jpg](A978-1-4302-4543-8_14_Fig11_HTML.jpg)
+
+Figure 14-11.
+
+Not much LOL here
+
+Hey, that’s not very satisfying! All we’re seeing is the lower left-hand corner of the picture we dragged in! If only there were some way we could see the whole image  .  .  .
+
+### Let It Scroll
+
+Well, of course there is. Cocoa includes a class called `NSScrollView` that will help here. By putting a view inside of an `NSScrollView`, we get access to horizontal and vertical scrollbars that the user can use to slide the view around. The scroll view takes care of all the hard work. The drawing code for any views we put in there doesn’t need to change at all! Putting the `LOLView` into an `NSScrollView` is surprisingly simple. We just need to add a bit of code and make a couple of adjustments in Interface Builder.
+
+First, open up the nib file in Xcode to prepare the scroll view itself. Select the `LOLView`, then select Editor ➤ Embed in ➤ Scroll View from the menu. Our `LOLView` is now wrapped in a scroll view, but the positioning and sizing are a little off. Move the scroll view until the blue guidelines flash in the upper left-hand corner of the window, then resize a little with the lower-right resizing control until the blue guidelines flash on that side. The view should nearly fill the width of the window with the usual border around the edge, and extend it just far enough down to leave a decent margin above the other controls (see Figure [14-12](#A978-1-4302-4543-8_14_Chapter.html#Fig12)).
+
+We also can get some helpful zooming behavior for free with the scroll view, which is useful with multi-touch trackpads where the user can pinch to zoom. Let’s make use of that, since it’s free. With the Scroll View selected, open the Attributes Inspector. One of the options is "Magnification." Check the checkbox next to Allow, and we’re done, except for the code.
+
+![A978-1-4302-4543-8_14_Fig12_HTML.jpg](A978-1-4302-4543-8_14_Fig12_HTML.jpg)
+
+Figure 14-12.
+
+The LOLmaker window, adjusted for scrolling
+
+The code we need to add is actually one more piece of the `setImage:` method. What we’re going to do is resize the `LOLView` each time a new image is set so that the view’s size matches the image’s size. Later, when the `LOLView` is enclosed in an `NSScrollView`, the scroll view will notice the new view size and automatically rerender everything including the scrollbars. The new code looks like this:
+
+`- (void)setImage:(NSImage *)i {`
+
+  `if (![i isEqual:_image]) {`
+
+    `if (i) {`
+
+      `NSRect newImageFrame = NSMakeRect(0, 0, [i size].width`,
+
+        `[i size].height);`
+
+      `[self setFrame:newImageFrame];`
+
+    `}`
+
+    `_image = i;`
+
+    `[self setNeedsDisplay:YES];`
+
+  `}`
+
+`}`
+
+Save all the work, click Run, and we are done with the scroll view! Drag in a large image, and note that it starts off in the lower left, but scrollbars are present, and we can drag around to wherever we want, and we can pinch and zoom if our hardware supports it! See this in action in Figure [14-13](#A978-1-4302-4543-8_14_Chapter.html#Fig13).
+
+![A978-1-4302-4543-8_14_Fig13_HTML.jpg](A978-1-4302-4543-8_14_Fig13_HTML.jpg)
+
+Figure 14-13.
+
+Scrollbars: so simple, even a cat can do it
+
+### Drawing Text
+
+Okay, so let’s get to the final step, drawing the text. It is traditional in the LOLcats community to use a text caption in the Impact font, using white text with a black shadow. This font is installed with Mountain Lion, so all our users should have it. This should be a piece of cake. The only mildly tricky part is choosing a font size. Because images can be all sorts of sizes, we need to dynamically choose the font size so that the caption fills up a decent portion of the view without extending off the side. We’ll do this by testing several font sizes, starting with 1 and working our way upwards by doubling the size each time until we hit a point where the size of the text would be wider than the view itself. That we ratchet the font size back down a bit, and draw the text. This is all done by adding the bold lines shown below:
+
+`- (void)drawRect:(NSRect)dirtyRect {`
+
+  `// Drawing code here.`
+
+  `NSRect srcImageRect = NSMakeRect(0, 0, [self.image size].width`,
+
+    `[self.image size].height);`
+
+  `[self.image drawAtPoint:[self bounds].origin fromRect:srcImageRect`
+
+    `operation:NSCompositeCopy fraction:1.0];`
+
+  `if (self.text != nil && [self.text length] > 0) {`
+
+    `NSPoint textLocation = NSMakePoint(0,0);`
+
+    `NSShadow *textShadow = [[NSShadow alloc] init];`
+
+    `[textShadow setShadowOffset:NSMakeSize(0,0)];`
+
+    `[textShadow setShadowColor:[NSColor blackColor]];`
+
+    `[textShadow setShadowBlurRadius:10];`
+
+    `NSMutableDictionary *textAttributes =`
+
+      `[NSMutableDictionary dictionaryWithObjectsAndKeys:`
+
+        `[NSFont fontWithName:@"Impact" size:40], NSFontAttributeName`,
+
+        `[NSColor whiteColor], NSForegroundColorAttributeName`,
+
+        `textShadow, NSShadowAttributeName`,
+
+        `nil];`
+
+    `// find the optimal size`
+
+    `CGFloat fontSize;`
+
+    `NSSize testSize = NSMakeSize(0, 0);`
+
+    `for(fontSize=1; testSize.width < [self.image size].width; fontSize*=2)`
+
+    `{`
+
+      `[textAttributes setObject:[NSFont fontWithName:@"Impact"`
+
+        `size:fontSize]`
+
+        `forKey:NSFontAttributeName];`
+
+      `testSize = [self.text sizeWithAttributes:textAttributes];`
+
+    `}`
+
+    `[textAttributes setObject:[NSFont fontWithName:@"Impact"`
+
+      `size:fontSize/4]`
+
+      `forKey:NSFontAttributeName];`
+
+    `// and draw the text`
+
+    `[self.text drawAtPoint:textLocation`
+
+      `withAttributes:textAttributes];`
+
+  `}`
+
+`}`
+
+Now click Run, drag in an image to the image well, and write some text. Voila! It should look something like Figure [14-14](#A978-1-4302-4543-8_14_Chapter.html#Fig14).
+
+![A978-1-4302-4543-8_14_Fig14_HTML.jpg](A978-1-4302-4543-8_14_Fig14_HTML.jpg)
+
+Figure 14-14.
+
+I can haz press conference?
+
+## Wrap Up
+
+In this chapter, we gained a lot of understanding of the workings of `NSView`, `NSBezierPath`, and some other classes and data structures that deal with drawing. However, there’s still lots more we can do with Cocoa’s drawing facilities, including drawing more interesting curves, modifying our drawing in response to mouse events, and animating our views, all of which will be covered in the next chapter.
+
+# 15. Advanced Drawing Topics
+
+Abstract
+
+[Chapter 14](#A978-1-4302-4543-8_14_Chapter.html) provided some basic knowledge of Cocoa’s key drawing concepts, such as using paths to describe shapes, copying images to the screen, and rendering text. This chapter will expand upon this, demonstrating a few techniques that will bring our graphics to life. The first section will cover how to make a view respond to mouse events, letting users interact with our customized views. The second section will provide a brief introduction to Core Animation, an exciting technology that lets us create smooth animations with just a few lines of code.
+
+[Chapter 14](#A978-1-4302-4543-8_14_Chapter.html) provided some basic knowledge of Cocoa’s key drawing concepts, such as using paths to describe shapes, copying images to the screen, and rendering text. This chapter will expand upon this, demonstrating a few techniques that will bring our graphics to life. The first section will cover how to make a view respond to mouse events, letting users interact with our customized views. The second section will provide a brief introduction to Core Animation, an exciting technology that lets us create smooth animations with just a few lines of code.
+
+## Editing a Curve
+
+[Chapter 14](#A978-1-4302-4543-8_14_Chapter.html) introduced the `NSBezierPath` class for drawing rounded rectangles, ovals, straight lines, and points. If you’ve used a Bezier drawing tool in Photoshop or other applications, you may have wondered what those shapes have to do with Bezier curves at all! A Bezier curve is essentially a series of points describing a path and control points describing the curves between the points. As such, basically any shape that can be drawn with a pen (in the real world, or virtually in a computer graphics system) can be described as a Bezier curve, including straight lines and jagged angles.
+
+However, as a layman’s term, Bezier curve usually means something more along the lines of what’s shown in Figure [15-1](#A978-1-4302-4543-8_15_Chapter.html#Fig1). In it, the black curve is a Bezier curve, defined by two endpoints (the lower-left and upper-right corners) and two control points depicted by rather gigantic circles at the end of sticks. By dragging the control points around, the user can change the shape of the curve. A view like this can be useful as a pacing control, determining the rate of change of some value over time, such as the movement of object from one point to another. Make the curve into a straight line to specify a perfectly linear transition, or make a sort of S-shape to make a value start changing slowly, quickly ramp up halfway through, and then slow down as it approaches the target value (sometimes known as an “ease-in/ease-out” transition). This control is what we’re going to be implementing in this section.
+
+![A978-1-4302-4543-8_15_Fig1_HTML.jpg](A978-1-4302-4543-8_15_Fig1_HTML.jpg)
+
+Figure 15-1.
+
+A Bezier curve
+
+### Preparations
+
+Create a new Cocoa project in Xcode and name it CurveEdit. Ensure that Automatic Reference Counting is checked, and use CE as the class prefix for this application.
+
+The interesting part of this application will all be in the view object, but first let’s take care of the infrastructure surrounding the view. We’re going to stick with the MVC architecture for this project, which will help us make sure that the view we create will be usable as a standalone component. The text fields for displaying each control point’s x and y values will be connected to our controller object with Cocoa Bindings, as will the custom view itself. The model in this app will just be a set of instance variables in our controller class, but all the views could just as easily be bound to a real model object if we chose to use or create one.
+
+Make a new `NSView` subclass called `CECurveView`, and leave its implementation as-is for now. We’ll get back to it soon enough. Open `MainMenu.xib`. From the Object Library, drag out a Custom View, and use the Identity Inspector to set its class to `CECurveView`. Resize it to about 240 x 240\. Next, we need to connect the app delegate and the view that we just dropped into the window. To do this, open up the `CEAppDelegate.h` file in an Assistant Editor, and control-drag from the `CECurveView` custom view over to the `CEAppDelegate.h` code in the Assistant Editor window. Drag to just under the existing `@property` declaration, and an “Insert Outlet” message should appear. Title the new outlet `curveView`.
+
+We’ve got a few more changes to make. We’re going to add an import statement to pull in the `CECurveView` header file and some additional properties that we’ll soon be using through Cocoa Bindings. Put the following in the `.h` file:
+
+`#import <Cocoa/Cocoa.h>`
+
+`#import "CECurveView.h"`
+
+`@interface CEAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet CECurveView *curveView;`
+
+`@property (assign) CGFloat cp1X;`
+
+`@property (assign) CGFloat cp1Y;`
+
+`@property (assign) CGFloat cp2X;`
+
+`@property (assign) CGFloat cp2Y;`
+
+`@end`
+
+Then switch to the `.m` file, and add the following lines:
+
+`#import "CEAppDelegate.h"`
+
+`@implementation CEAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {`
+
+  `// make the CECurveView notice my changes`
+
+  `[self.curveView bind:@"cp1X" toObject:self withKeyPath:@"cp1X"`
+
+    `options:nil];`
+
+  `[self.curveView bind:@"cp1Y" toObject:self withKeyPath:@"cp1Y"`
+
+    `options:nil];`
+
+  `[self.curveView bind:@"cp2X" toObject:self withKeyPath:@"cp2X"`
+
+    `options:nil];`
+
+  `[self.curveView bind:@"cp2Y" toObject:self withKeyPath:@"cp2Y"`
+
+    `options:nil];`
+
+  `// make me notice the CECurveView's changes`
+
+  `[self bind:@"cp1X" toObject:self.curveView withKeyPath:@"cp1X"`
+
+    `options:nil];`
+
+  `[self bind:@"cp1Y" toObject:self.curveView withKeyPath:@"cp1Y"`
+
+    `options:nil];`
+
+  `[self bind:@"cp2X" toObject:self.curveView withKeyPath:@"cp2X"`
+
+    `options:nil];`
+
+  `[self bind:@"cp2Y" toObject:self.curveView withKeyPath:@"cp2Y"`
+
+    `options:nil];`
+
+  `// set initial values`
+
+  `self.cp1X = 0.5;`
+
+  `self.cp1Y = 0.0;`
+
+  `self.cp2X = 0.5;`
+
+  `self.cp2Y = 1.0;`
+
+`}`
+
+`@end`
+
+As you can see, the controller class is very simple. All it does is declare properties for accessing the control points’ x and y values and an `IBOutlet` to connect to the `CECurveView` itself, establish some bindings on behalf of our `curveView` (because we can’t do those in Interface Builder), and set some default starting values for the control points. Because we’re setting this object’s bindings in code, the `CECurveView` instance is now all set (as far as our nib is concerned). With that, we can close the Assistant Editor.
+
+Go back to the Object Library and pull out a Label, dropping it below the `CECurveView`. Change the title of the label to be X1:. Drag out a Text Field as well, and drop it next to the label so that the blue guidelines indicate good alignment. Select the label and the text field together, and then hit ⌘D to duplicate them. Position the new set below the first one, and change the label’s title to read Y1:. This form will show us the x and y values for the first control point in a Bezier curve. Create bindings for each of the two text fields. For each, we want to bind its Value attribute to the `CEAppDelegate` object using the model key paths cp1X and cp1Y, respectively.
+
+Select both labels and both text fields, duplicate them (⌘-D), and position the new copies the right of the first set. These fields will show us the values for the second control point, so rename the labels as X2: and Y2:, and set up bindings similar to the first set, but using cp2X and cp2Y as the key paths instead.
+
+Refer to Figure [15-1](#A978-1-4302-4543-8_15_Chapter.html#Fig1) to see what it should look like, lay things out nicely, and resize the window to match the added content. Save the files, and Run the project just to make sure there are no errors at this point. The resulting app will only let us edit the contents of the four text fields. It will also complain that `CECurveView` isn’t key value coding compliant for the key `cp1X`, which is true: we haven’t yet added that to the `CECurveView`, but we’re about to change that!
+
+### Bezier Plumbing
+
+Let’s get started with the `CECurveView` class by establishing some infrastructure. `CECurveView` needs to keep track of two control points, which we’ll set up as four floats, each accessible through a property, just like we did for the controller class. We also want to use a technique similar to the one we used for MrSmiley in [Chapter 14](#A978-1-4302-4543-8_14_Chapter.html), so that the GUI scales to match whatever size it’s rendered. This time, we’re going to set up fixed bounds so that we can always draw a curve in a square between (0,0) and (1,1) on the plane, leaving a little extra surrounding space, so we’ll add some code that sets the bounds to a square between (-0.1,-0.1) and (1.1,1.1), and maintain those bounds no matter how the view is resized. Take care of all that by adding the bold lines shown here:
+
+`// CECurveView.h:`
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface CECurveView : NSView {`
+
+  `NSRect myBounds;`
+
+`}`
+
+`@property (assign, nonatomic) CGFloat cp1X;`
+
+`@property (assign, nonatomic) CGFloat cp1Y;`
+
+`@property (assign, nonatomic) CGFloat cp2X;`
+
+`@property (assign, nonatomic) CGFloat cp2Y;`
+
+`@end`
+
+Then these lines to the .m file:
+
+`// CECurveView.m:`
+
+`#import "CECurveView.h"`
+
+`@implementation CECurveView`
+
+`- (void)setCp1X:(CGFloat)f {`
+
+  `self.cp1X = MAX(MIN(f, 1.0), 0.0);`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+`- (void)setCp1Y:(CGFloat)f {`
+
+  `self.cp1Y = MAX(MIN(f, 1.0), 0.0);`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+`- (void)setCp2X:(CGFloat)f {`
+
+  `self.cp2X = MAX(MIN(f, 1.0), 0.0);`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+`- (void)setCp2Y:(CGFloat)f {`
+
+  `self.cp2Y = MAX(MIN(f, 1.0), 0.0);`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+`- (id)initWithFrame:(NSRect)frame {`
+
+  `self = [super initWithFrame:frame];`
+
+  `if (self) {`
+
+    `// Initialization code here.`
+
+    `myBounds = NSMakeRect(-0.1, -0.1, 1.2, 1.2);`
+
+    `[self setBounds:myBounds];`
+
+  `}`
+
+  `return self;`
+
+`}`
+
+`- (void)setFrameSize:(NSSize)newSize {`
+
+  `[super setFrameSize:newSize];`
+
+  `[self setBounds:myBounds];`
+
+`}`
+
+`- (void)drawRect:(NSRect)rect {`
+
+  `// Drawing code here.`
+
+`}`
+
+`@end`
+
+Note that we’re implementing our own setters for the properties, so we’ll need to mark the properties as `nonatomic`. The compiler will note that we’re not implementing our own getters, so the compiler will still generate those for us. In the setters, we’ll enforce a limited range on the input value, making it fit in the range from 0.0 to 1.0\. We’ll also mark the window as “dirty” with `setNeedsDisplay:`, forcing the system to redraw it whenever a property changes.
+
+### Drawing a Curve
+
+Now let’s move on to the fun part: drawing the curve itself. We’ll use preprocessor `#defines` to establish values for colors and line widths, making it easier to spot them and change them in order to tweak the appearance. Add these lines somewhere near the top of `CECurveView.m`:
+
+`#define CP_RADIUS 0.1`
+
+`#define CP_DIAMETER (CP_RADIUS*2)`
+
+`#define BACKGROUND_COLOR [NSColor whiteColor]`
+
+`#define GRID_STROKE_COLOR [NSColor lightGrayColor]`
+
+`#define GRID_FILL_COLOR [NSColor colorWithCalibratedWhite:0.9 alpha:1.0]`
+
+`#define CURVE_COLOR [NSColor blackColor]`
+
+`#define LINE_TO_CP_COLOR [NSColor darkGrayColor]`
+
+`#define CP_GRADIENT_COLOR1 [NSColor lightGrayColor]`
+
+`#define CP_GRADIENT_COLOR2 [NSColor darkGrayColor]`
+
+We’ll implement the `drawControlPointAtX:y:` and `drawRect:` methods as shown in the following example. The code for drawing the control points demonstrates the use of the `NSGradient` class, which can be used to fill the inside of a Bezier path instead of just a solid color fill.
+
+`- (void)drawControlPointAtX:(CGFloat)x y:(CGFloat)y {`
+
+  `NSBezierPath *cp = [NSBezierPath bezierPathWithOvalInRect:`
+
+    `NSMakeRect(x - CP_RADIUS, y - CP_RADIUS`,
+
+               `CP_DIAMETER, CP_DIAMETER)];`
+
+  `NSGradient *g;`
+
+  `g = [[NSGradient alloc] initWithStartingColor:CP_GRADIENT_COLOR1`
+
+                          `endingColor:CP_GRADIENT_COLOR2];`
+
+  `[g drawInBezierPath:cp`
+
+     `relativeCenterPosition:NSMakePoint(0.0, 0.0)];`
+
+`}`
+
+`- (void)drawRect:(NSRect)rect {`
+
+  `[NSGraphicsContext saveGraphicsState];`
+
+  `// draw the background`
+
+  `NSBezierPath *bg = [NSBezierPath bezierPathWithRoundedRect:myBounds`
+
+                                   `xRadius:0.1 yRadius:0.1];`
+
+  `[BACKGROUND_COLOR set];`
+
+  `[bg fill];`
+
+  `// draw the grid`
+
+  `NSBezierPath *grid1 = [NSBezierPath bezierPath];`
+
+  `[grid1 moveToPoint:NSMakePoint(0.0, 0.0)];`
+
+  `[grid1 lineToPoint:NSMakePoint(1.0, 0.0)];`
+
+  `[grid1 lineToPoint:NSMakePoint(1.0, 1.0)];`
+
+  `[grid1 lineToPoint:NSMakePoint(0.0, 1.0)];`
+
+  `[grid1 lineToPoint:NSMakePoint(0.0, 0.0)];`
+
+  `[grid1 moveToPoint:NSMakePoint(0.5, 0.0)];`
+
+  `[grid1 lineToPoint:NSMakePoint(0.5, 1.0)];`
+
+  `[grid1 moveToPoint:NSMakePoint(0.0, 0.5)];`
+
+  `[grid1 lineToPoint:NSMakePoint(1.0, 0.5)];`
+
+  `[GRID_FILL_COLOR set];`
+
+  `[grid1 fill];`
+
+  `[GRID_STROKE_COLOR set];`
+
+  `[grid1 setLineWidth:0.01];`
+
+  `[grid1 stroke];`
+
+  `// draw the lines leading to the control points`
+
+  `NSBezierPath *cpLines = [NSBezierPath bezierPath];`
+
+  `[cpLines moveToPoint:NSMakePoint(0.0, 0.0)];`
+
+  `[cpLines lineToPoint:NSMakePoint(self.cp1X, self.cp1Y)];`
+
+  `[cpLines moveToPoint:NSMakePoint(1.0, 1.0)];`
+
+  `[cpLines lineToPoint:NSMakePoint(self.cp2X, self.cp2Y)];`
+
+  `[LINE_TO_CP_COLOR set];`
+
+  `[cpLines setLineWidth:0.01];`
+
+  `[cpLines stroke];`
+
+  `// draw the curve itself`
+
+  `NSBezierPath *bp = [NSBezierPath bezierPath];`
+
+  `[bp moveToPoint:NSMakePoint(0.0, 0.0)];`
+
+  `[bp curveToPoint:NSMakePoint(1.0, 1.0)`
+
+    `controlPoint1:NSMakePoint(self.cp1X, self.cp1Y)`
+
+    `controlPoint2:NSMakePoint(self.cp2X, self.cp2Y)];`
+
+  `[CURVE_COLOR set];`
+
+  `[bp setLineWidth:0.01];`
+
+  `[bp stroke];`
+
+  `// draw the control points`
+
+  `[self drawControlPointAtX:self.cp1X y:self.cp1Y];`
+
+  `[self drawControlPointAtX:self.cp2X y:self.cp2Y];`
+
+  `[NSGraphicsContext restoreGraphicsState];`
+
+`}`
+
+This sort of drawing code can make for some pretty long methods, but it’s often pretty straightforward, as in `drawRect:` shown previously. Not a single loop or `if` construct in the whole method! Note that unlike the Mr. Smiley code in [Chapter 14](#A978-1-4302-4543-8_14_Chapter.html), this drawing code doesn’t refer to our view’s bounds rect at all. Because we know that the bounds are always adjusted to contain a square from (0,0) to (1,1), we make use of simple hardcoded values to draw our graphics in and around this unit square.
+
+Click Run to run the app; it should look something like Figure [15-1](#A978-1-4302-4543-8_15_Chapter.html#Fig1). We should be able to edit the values in the text fields (any values between 0.0 and 1.0 work well) and see the control points and curve change accordingly.
+
+### Watching the Mouse
+
+But entering numeric values into text fields isn’t the point of this exercise; we want to drag those control points around. As it turns out, this is pretty simple to do. `NSView` contains methods that are automatically called whenever a user interacts with the view by clicking, dragging, and so on. All we have to do is override a few methods, and we can respond to every click, drag, and release of the mouse.
+
+Let’s start by adding a pair of `BOOL` properties to our view to keep track of whether one of the control points is currently being dragged. Add the following two lines to the `@interface` declaration in `CECurveView.h`:
+
+`@property (assign) BOOL draggingCp1;`
+
+`@property (assign) BOOL draggingCp2;`
+
+Now let’s add some methods to the `@implementation` section of `CECurveView.m` in order to start intercepting the mouse activity we want to watch. The first method, `mouseDown:`, will be called whenever a user clicks in our view.
+
+`- (void)mouseDown:(NSEvent *)theEvent {`
+
+  `// get current mouse location, convert to our coordinate space`
+
+  `// (the one expresed by our bounds)`
+
+  `NSPoint mouseLocation = [theEvent locationInWindow];`
+
+  `NSPoint convertedLocation = [self convertPoint:mouseLocation`
+
+    `fromView:nil];`
+
+  `// see if the click was on one of our control knobs`
+
+  `NSPoint cp1 = NSMakePoint(self.cp1X, self.cp1Y);`
+
+  `NSPoint cp2 = NSMakePoint(self.cp2X, self.cp2Y);`
+
+  `if (pointsWithinDistance(self.cp1, convertedLocation, CP_RADIUS)) {`
+
+    `self.draggingCp1 = YES;`
+
+  `} else if (pointsWithinDistance(cp2, convertedLocation, CP_RADIUS)){`
+
+    `self.draggingCp2 = YES;`
+
+  `}`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+In the `mouseDown:` method, we first ask the window for the current mouse location, then use a built-in `NSView` method to convert the coordinates from the window’s coordinate system to our own. This means that a click in the upper right-hand corner of our unit square, for instance, which starts off being the number of horizontal and vertical pixels from the window’s lower left-hand corner, will end up being converted to (1,1) or somewhere nearby. Then we do a pair of tests to see if one of our control points is being clicked. This test is done using the following function, which we should add to the top of `CurveEdit.m`, between the group of `#defines` and the `@implementation` section:
+
+`static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {`
+
+  `return pow((p1.x-p2.x), 2) + pow((p1.y - p2.y), 2) <= pow(d, 2);`
+
+`}`
+
+The `pointsWithinDistance` function makes use of the Pythagorean formula to determine whether the distance between the two points (in our case, the center of a control point and the location of the mouse) is less than the distance we pass in (the control point radius). Using this, we are able to check to see whether the user clicked on a control point, and if so, we set the corresponding flag (`draggingCp1` or `draggingCp2`) to `YES`.
+
+The next method to implement is `mouseDragged:`, which is called every time the mouse is moved while the button is held down. Note that this method is not called in every view the mouse is dragged over. It’s always called in the view where the original mouse click occurred; in a sense, whichever view receives the click “owns” all subsequent dragging. In this method, we once again grab the mouse location from the event, transform it into our view’s own coordinate system, and then update the coordinates for the control point that’s currently being dragged. If none of them are currently being dragged, then nothing happens.
+
+`- (void)mouseDragged:(NSEvent *)theEvent {`
+
+  `NSPoint mouseLocation = [theEvent locationInWindow];`
+
+  `NSPoint convertedLocation = [self convertPoint:mouseLocation`
+
+    `fromView:nil];`
+
+  `if (self.draggingCp1) {`
+
+    `self.cp1X = convertedLocation.x;`
+
+    `self.cp1Y = convertedLocation.y;`
+
+  `} else if (self.draggingCp2) {`
+
+    `self.cp2X = convertedLocation.x;`
+
+    `self.cp2Y = convertedLocation.y;`
+
+  `}`
+
+  `[self setNeedsDisplay:YES];`
+
+`}`
+
+The final method we need for dealing with the mouse is `mouseUp:`, which lets us handle the release of the button. Like `mouseDragged:`, `mouseUp:` is always called on the view that originated the drag, which means that after the user clicks in our view, no matter where the user lets go of the mouse button, we will receive this message. All we do here is simply set the flags to indicate that nothing is being dragged.
+
+`- (void)mouseUp:(NSEvent *)theEvent {`
+
+  `self.draggingCp1 = NO;`
+
+  `self.draggingCp2 = NO;`
+
+`}`
+
+With all that in place, Run the app. We should be able to drag the controls around, with the curve following every move, and the numbers in the text fields will change as we drag.
+
+### A Little Polish
+
+That’s pretty cool, but as we’ve often noticed when toying around with a new GUI design, some enhancements become self-evident with a little use. For one thing, we’re always drawing the control points in the same order, so control point 2 is always on top, even if we’re dragging control point 1 right over it. This feels pretty unnatural. Fortunately, the fix for this is extremely simple, and this is the real, practical reason we split out the control point drawing into two separate methods. At the end of the `drawRect:` method, add the bold lines shown here:
+
+`// draw the control points`
+
+`if (self.draggingCp1) {`
+
+  `[self drawControlPointAtX:self.cp2X y:self.cp2Y];`
+
+  `[self drawControlPointAtX:self.cp1X y:self.cp1Y];`
+
+`} else {`
+
+  `[self drawControlPointAtX:self.cp1X y:self.cp1Y];`
+
+  `[self drawControlPointAtX:self.cp2X y:self.cp2Y];`
+
+`}`
+
+That’s it! Click Run. Note that whenever we’re dragging the first control point, it appears in front of the second.
+
+It would also be nice to highlight the control point that’s currently being dragged, maybe by drawing it with a different color. This is also a pretty easy change that gives the user some useful feedback. Start by defining some highlight colors for a new gradient, adding these lines among the other `#defines` at the top of the file:
+
+`#define CP_GRADIENT_HIGHLIGHT_COLOR1 [NSColor whiteColor]`
+
+`#define CP_GRADIENT_HIGHLIGHT_COLOR2 [NSColor redColor]`
+
+Now, modify the `drawControlPointAtX:y:` methods, adding an additional parameter to specify whether or not do draw the highlighted variant, by adding the following bold lines:
+
+`- (void)drawControlPointAtX:(CGFloat)x y:(CGFloat)y dragging:(BOOL)dragging {`
+
+  `NSBezierPath *cp = [NSBezierPath bezierPathWithOvalInRect:`
+
+    `NSMakeRect(x - CP_RADIUS, y - CP_RADIUS, CP_DIAMETER, CP_DIAMETER)];`
+
+  `NSGradient *g;`
+
+  `if (dragging) {`
+
+    `g = [[NSGradient alloc] initWithStartingColor:CP_GRADIENT_HIGHLIGHT_COLOR1`
+
+                            `endingColor:CP_GRADIENT_HIGHLIGHT_COLOR2];`
+
+  `} else {`
+
+    `g = [[NSGradient alloc] initWithStartingColor:CP_GRADIENT_COLOR1`
+
+                            `endingColor:CP_GRADIENT_COLOR2];`
+
+  `}`
+
+  `[g drawInBezierPath:cp`
+
+     `relativeCenterPosition:NSMakePoint(0.0, 0.0)];`
+
+`}`
+
+Because we added a parameter to the control-point drawing method, we need to also change the way it’s called at the end of `drawRect:`, like this:
+
+`// draw the control points`
+
+`if (self.draggingCp1) {`
+
+  `[self drawControlPointAtX:self.cp2X y:self.cp2Y dragging:self.draggingCp2];`
+
+  `[self drawControlPointAtX:self.cp1X y:self.cp1Y dragging:self.draggingCp1];`
+
+`} else {`
+
+  `[self drawControlPointAtX:self.cp1X y:cp1Y dragging:self.draggingCp1];`
+
+  `[self drawControlPointAtX:self.cp2X y:self.cp2Y dragging:self.draggingCp2];`
+
+`}`
+
+Now click Run, and see that the otherwise gray control points now light up red while dragging, giving the user a nice visual cue. Also note that the control point that was most recently dragged stays red when we release. To fix this, add
+
+`[self setNeedsDisplay:YES];`
+
+to the end of the `mouseUp:` method.
+
+## Core Animation: A Primer
+
+One of the most exciting technologies Apple includes with Mac OS X is a graphics system called Core Animation, which lets us easily create animated effects in our applications. We can make our views slide, fade, rotate, and scale smoothly and easily, often with just a few lines of code. In essence, Core Animation lets us specify a change in an object—such as changing its location to a different spot in the window—in such a way that, instead of the change happening instantaneously, it’s automatically split up into several small movements that are rendered over time by Core Animation. We can specify a transition’s length in seconds, as well as the timing or pacing of the change. We can also group animations together so that they all execute in perfect synchrony.
+
+### Core Animation Basics
+
+From a technical standpoint, the basic unit at the heart of all this is a class called `CALayer` (a pre-release version of Core Animation was even called Layer Kit). Each `NSView` can optionally have a `CALayer` attached to it, either by flicking a switch in Interface Builder or setting it up in code. The process of assigning a layer to a view actually begins a recursive process through all the view’s subviews, so that when a view has a layer, all its subviews (and all their subviews, and so on) also acquire layers. Once a layer is in place, we can start animating the view.
+
+Under the hood, each `CALayer` is associated with some OpenGL structures for rendering its graphics. OpenGL does a really great job of quickly drawing rectangles to the screen, even rectangles that are resized, rotated, and the like, so using `CALayer` lets us have views that do all sorts of on-screen tricks without slowing our application down. The Core Animation APIs shield us completely from OpenGL itself, so it will work away quietly without us having to think about it too much. The only thing to bear in mind is that each layer uses some amount of the memory available to the computer’s graphics hardware, so we’re better off using layers only for those parts of our application where we actually want to do some animation, instead of applying them to every view in every window.
+
+### Implicit Animations
+
+Any layer-backed view can be animated by using its animator proxy. This is a special object that acts as a substitute for the view itself, setting up an animation corresponding to the method it’s sent instead of making an immediate change. For instance, if we want to animate the movement of a view, then instead of setting its frame like
+
+`[myView setFrame:newFrame];`
+
+we can set it like this:
+
+`[[myView animator] setFrame:newFrame];`
+
+To see this in action, create a new Cocoa project, name it MovingButton, and use MB as the class prefix. First we’ll set up the user interface. Open `MainMenu.xib` in an Interface Builder canvas, open up the MovingButton window, and put a button called Move in the empty window. Next, open up an Assistant Editor, and open up the `MBAppDelegate.h` file in the it. Control-drag from the button to the `MBAppDelegate.h` file, adding an action right below the `@property` declaration for the window. Call the new action `move`.
+
+Now, let’s fill in the implementation of the `move:` action, as shown here:
+
+`- (IBAction)move:(id)sender {`
+
+  `NSRect senderFrame = [sender frame];`
+
+  `NSRect superBounds = [[sender superview] bounds];`
+
+  `senderFrame.origin.x = (superBounds.size.width -`
+
+    `senderFrame.size.width) * drand48();`
+
+  `senderFrame.origin.y = (superBounds.size.height -`
+
+    `senderFrame.size.height) * drand48();`
+
+  `[sender setFrame:senderFrame];`
+
+`}`
+
+This simple action method just calculates a new random location for sender within its superview and moves it there. Save the changes, Run the project, and see that each time we click the Move button, it hops to another location in the window.
+
+Now, let’s animate the movement. We just need to edit a single line, changing
+
+`[sender setFrame:senderFrame];`
+
+to
+
+`[[sender animator] setFrame:senderFrame];`
+
+Click Run again, click the Move button, and see what happens. Now, each time we click the button, it slides smoothly into the new location instead of just switching instantaneously. The object returned by the animator method is a proxy that responds to each of `NSView`’s setter methods and schedules animations to apply the change gradually. Behind the scenes, Core Animation does all the work of modifying the relevant value bit by bit until it reaches the target value specified in the call to the setter.
+
+Each thread maintains an animation context in the form of an instance of `NSAnimationContext`, which among other things lets us set the length of time (in seconds) that an implicit animation will take by first setting a value like this:
+
+`[[NSAnimationContext currentContext] setDuration:1.0];`
+
+If that’s all the control we need over our animations, then we can get pretty far using implicit animations. If we need more fine-tuning, such as being able to ensure that several animations occur in a synchronized manner or trigger some activity when an animation completes, then we’ll need something more, such as…
+
+### Explicit Animations
+
+Core Animation provides a technique for setting up animations explicitly in our code, instead of using the “magic” of `NSView`’s animator method. Each animation we create explicitly is framed by methods that start and stop a section of animation code, making everything a little clearer. Combined with the added capabilities that explicit animations have, it’s clear that this is the right approach for all but the simplest of animations.
+
+In order to use Core Animation, we first have to add the `QuartzCore` framework to our Xcode project. In Xcode, select the MovingButton project itself in the Project Navigator pane: this is the very top item in the Project Navigator. Select MovingButton under the Targets section, as shown in Figure [15-2](#A978-1-4302-4543-8_15_Chapter.html#Fig2). In the Linked Frameworks and Libraries section, hit the + button at the bottom of the table view to add a new framework. Find `QuartzCore.framework` in the list (use the search field at the top), and add it.
+
+![A978-1-4302-4543-8_15_Fig2_HTML.jpg](A978-1-4302-4543-8_15_Fig2_HTML.jpg)
+
+Figure 15-2.
+
+Adding a new framework to the project
+
+Then, at the top of `MBAppDelegate.m`, add the following line:
+
+`#import <QuartzCore/QuartzCore.h>`
+
+Now we’re ready to refer to Core Animation classes in our own code. Let’s start by modifying the previous example to use explicit animation instead of implicit. To do this, we have to create an instance of a Core Animation class called `CABasicAnimation`, which is capable of animating between values for any `CALayer` property that can be animated. In our case, rather than animating the frame, we’ll animate the layer’s position property. We explicitly set start and end locations for the position using the animation’s `toValue` and `fromValue` properties. Note that these properties expect a proper object, not just a struct like `NSPoint`, so we have to wrap each `NSPoint` value inside an `NSValue` instance. After creating the animation, we add it to the view’s layer, along with a key. This key doesn’t have anything to do with the property we’re animating, it’s only there to help us in case we later want to identify this animation. Finally, we change the frame on the view object itself since the animation only affects the drawing of the view’s layer. We want the view to actually move as well, so we have to set its target frame manually. Here’s the code to do all of this:
+
+`- (IBAction)move:(id)sender {`
+
+  `NSRect senderFrame = [sender frame];`
+
+  `NSRect superBounds = [[sender superview] bounds];`
+
+  `CABasicAnimation *a = [CABasicAnimation`
+
+                         `animationWithKeyPath:@"position"];`
+
+  `a.fromValue = [NSValue valueWithPoint:senderFrame.origin];`
+
+  `senderFrame.origin.x = (superBounds.size.width -`
+
+    `senderFrame.size.width)*drand48();`
+
+  `senderFrame.origin.y = (superBounds.size.height -`
+
+    `senderFrame.size.height)*drand48();`
+
+  `a.toValue = [NSValue valueWithPoint:senderFrame.origin];`
+
+  `[[sender layer] addAnimation:a forKey:@"position"];`
+
+  `[[sender animator] setFrame:senderFrame];`
+
+  `[sender setFrame:senderFrame];`
+
+`}`
+
+Note that we also removed the `[[sender animator] setFrame:senderFrame];` line from this method because we don’t want to trigger an implicit animation this time. Before this will work, we need to do one more step that the implicit animations took care of for us: establish layers for the views that need to be animated. Using the animator proxy made this happen automatically, but now we have to turn it on ourselves for any views that are going to be animated, including the superview of any view that’s going to be moving. In our case, this means that the button’s superview (the window’s content view) needs to be given a layer, and it in turn will establish layers for its subview hierarchy, which is just the button itself. The easiest way to do this is to go back to `MainMenu.xib`, select the button in our window, and open the View Effects Inspector (⌘⌥8). At the top of this Inspector is a section titled Core Animation Layer, which shows a list of view objects (see Figure [15-3](#A978-1-4302-4543-8_15_Chapter.html#Fig3)).
+
+![A978-1-4302-4543-8_15_Fig3_HTML.jpg](A978-1-4302-4543-8_15_Fig3_HTML.jpg)
+
+Figure 15-3.
+
+Establishing animation layers
+
+The selected object (the button) is at the bottom, and all its superviews (in this case just one view, the window’s content view) are stacked up above it. Click the checkbox to turn on a layer for the view. We can leave the checkbox for the button unchecked, since the superview will establish a layer for it.
+
+Now save everything, run the app, and we’ll see the exact same behavior as we had before. So, this new version achieves the same result at the expense of a few additional lines of code. So far it doesn’t seem like much of a win. But wait, there’s more! Explicit animation via the animation classes, such as `CABasicAnimation`, lets us do several more key things that we couldn’t do with implicit animation.
+
+For starters, we can set the animation’s duration. Add the following line just before adding the animation to the layer (with `[[sender layer] addAnimation:a forKey:@"position"]`) to make this animation run a little more slowly:
+
+`a.duration = 1.0;`
+
+Run with that in place, and we’ll see that the button transitions more slowly. We can also change the pacing of the animation so that it doesn’t go from one point to the next in a strictly linear fashion. Let’s set it to an “ease-in, ease-out” motion like this:
+
+`a.timingFunction = [CAMediaTimingFunction functionWithName:`
+
+                      `kCAMediaTimingFunctionEaseInEaseOut];`
+
+Run now, and we’ll see that when we click the button, it starts moving slowly, then gradually builds up steam and moves more quickly, only to taper off its speed as it reaches its target. Under the hood, these timing functions work by providing a simple mapping for a value shifting from 0.0 to 1.0, using a pair of control points to describe a curve between the two. Does that ring a bell? This seems like the perfect use for the curve editing control we implemented in the first half of this chapter! We can use the curve editor to define the timing that will be applied to the button’s movement each time we click it.
+
+Start by adding the `CECurveView` class files from the previous project. In the MovingButton project, right-click the MovingButton folder, then select Add Files to “MovingButton” from the context menu. Navigate to the location of `CECurveView.h` and `CECurveView.m`, select them both, and click the Add button. In the sheet that appears, click to turn on the Copy items into destination group’s folder checkbox, and make sure the MovingButton target is checked in the lower part of the sheet (see Figure [15-4](#A978-1-4302-4543-8_15_Chapter.html#Fig4)).
+
+![A978-1-4302-4543-8_15_Fig4_HTML.jpg](A978-1-4302-4543-8_15_Fig4_HTML.jpg)
+
+Figure 15-4.
+
+Adding existing files to a project
+
+This time, rather than setting up bindings to this control, let’s just add an outlet in our controller definition so that we can access the `CECurveView` we’re going to set up. Modify `MBAppDelegate.h`, adding the bold lines here:
+
+`#import <Cocoa/Cocoa.h>`
+
+`@class CECurveView;`
+
+`@interface MBAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet CECurveView *curveView;`
+
+`- (IBAction)move:(id)sender;`
+
+`@end`
+
+Now reopen `MainMenu.xib` in an Interface Builder canvas. We’re going to add a small `NSPanel` that will work as a sort of inspector for our button animation. From the Object Library, drag out an NSPanel, then drag a Custom View into the new panel. Resize the Custom View to 100×100, and change its class to `CECurveView`. The GUI in Interface Builder should now look something like Figure [15-5](#A978-1-4302-4543-8_15_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_15_Fig5_HTML.jpg](A978-1-4302-4543-8_15_Fig5_HTML.jpg)
+
+Figure 15-5.
+
+Adding a CECurveView for configuring our animation
+
+Now connect the app delegate’s `curveView` outlet to the `CECurveView` instance we just created and then switch back to the `MBAppDelegate.m` file. Import the `CECurveView` header somewhere at the top of the app delegate’s implementation file by adding the following line:
+
+`#import "CECurveView.h"`
+
+Update the `move:` method as follows:
+
+`- (IBAction)move:(id)sender {`
+
+    `NSRect senderFrame = [sender frame];`
+
+    `NSRect superBounds = [[sender superview] bounds];`
+
+    `CABasicAnimation *a = [CABasicAnimation`
+
+                           `animationWithKeyPath:@"position"];`
+
+    `a.fromValue = [NSValue valueWithPoint:senderFrame.origin];`
+
+    `senderFrame.origin.x = (superBounds.size.width -`
+
+                            `senderFrame.size.width)*drand48();`
+
+    `senderFrame.origin.y = (superBounds.size.height -`
+
+                            `senderFrame.size.height)*drand48();`
+
+    `a.toValue = [NSValue valueWithPoint:senderFrame.origin];`
+
+    `a.duration = 1.0;`
+
+    `a.timingFunction = [CAMediaTimingFunction`
+
+                        `functionWithControlPoints:self.curveView.cp1X`
+
+                        `:self.curveView.cp1Y`
+
+                        `:self.curveView.cp2X`
+
+                        `:self.curveView.cp2Y];`
+
+    `// add it to the layer`
+
+    `[[sender layer] addAnimation:a forKey:@"position"];`
+
+    `[sender setFrame:senderFrame];`
+
+`}`
+
+Now, every time the user clicks the Move button, the resulting animation’s timing function will be determined by the values in the `CECurveView` control. Save the files, run the app, and we should see this happening. Drag the handles around to create different curve shapes, click the Move button, and see how it moves.
+
+## Grouping Animations
+
+We’ve now gotten a taste of how Core Animation works, but in the somewhat silly context of randomly moving a button around the screen. Not really a GUI design that we’d recommend! In the real world, Core Animation is most often used to animate transitions between different views. Chances are you’ve seen this used again and again on the iPhone (the platform that Core Animation was really built for, before being “backported” to Mac OS X). All the smooth slides, scales, and fades that occur throughout the iPhone interface are implemented with Core Animation. In Mac OS X, Core Animation isn’t quite so omnipresent, but it’s put to good use in places like Calendar’s week transitions and the transitions between screens in Mission Control. In this section, we’ll see how to implement some nice transitions by grouping animations together so that they run simultaneously.
+
+In Xcode, create a new Cocoa project called FlipIt, with FI as the class prefix. What we’re going to do is present a GUI where the user can flip between several “pages,” and Core Animation will animate nicely between them. We’ll use a box in the nib’s empty window to show the content pages, which themselves will be held in an `NSTabView`. We won’t display the tab view itself, we’re just using it as a handy container for our content pages.
+
+We’ll start by laying out the views in `MainMenu.xib`, so open that file up in an Interface Builder canvas. Drag a button from the Object Library to the bottom of our GUI’s empty window. Then duplicate the button, and title the two buttons Previous and Next. Place the two buttons side by side at the lower center of the window. Open up an Assistant Editor pane on the `FIAppDelegate.h` file. We’ll be using this Assistant Editor for the next few steps as we wire things up. To start that process, Control-drag from each button to the Assistant Editor window, and create new actions titled `next` and `previous` to match the two buttons. We should end up with something that looks like Figure [15-6](#A978-1-4302-4543-8_15_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_15_Fig6_HTML.jpg](A978-1-4302-4543-8_15_Fig6_HTML.jpg)
+
+Figure 15-6.
+
+Preparing the window
+
+Now find an `NSBox` in the Object Library and drag it to the empty window, placing it above the buttons and resizing it to fill most of the screen. Use the Attributes Inspector to remove the box’s title by setting the Title Position popup to None (see Figure [15-7](#A978-1-4302-4543-8_15_Chapter.html#Fig7)). Then Control-drag from the box to the `FIAppDelegate.h` code in the Assistant Editor and create a new outlet called `box`, so that we can reach the box from our class.
+
+![A978-1-4302-4543-8_15_Fig7_HTML.jpg](A978-1-4302-4543-8_15_Fig7_HTML.jpg)
+
+Figure 15-7.
+
+The display window is now ready
+
+Our next course of action is to set up a set of views for switching in and out of the main view. We’ll use an `NSTabView` for this, simply because it’s a convenient way for us to build a series of views in Xcode that can later be maintained as a list of off-screen views when our application runs. Find an `NSTabView` in the Object Library, but drag it all the way over to the left and drop it in the Object Dock, underneath the App Delegate and Font Manager objects. Note that the tab view appears as a top-level icon in the nib window, alongside the app delegate, the window, and other items (see Figure [15-8](#A978-1-4302-4543-8_15_Chapter.html#Fig8)).
+
+![A978-1-4302-4543-8_15_Fig8_HTML.jpg](A978-1-4302-4543-8_15_Fig8_HTML.jpg)
+
+Figure 15-8.
+
+It’s an unusual place to find a tab view, but there it is
+
+A tab view (or any other `NSView` subclass) placed at the top level of a nib file won’t be displayed when the nib is loaded, but as long as we have an outlet pointing at it, we’ll be able to access it and make use of it in any way we like, including putting it into a window’s view hierarchy. In our case, we’ll never put the tab view itself on display, just the content views it contains. In order to get at the content views, we’ll need to wire it up to the App Delegate class. Control-drag from the tab view in the Object Dock to the `FIAppDelegate.h` file in the Assistant Editor, and create an outlet named `tabView` so that we can access it later.
+
+Double-click the tab view entry in the Object Dock, and see the tab view appear without a window around it, as shown in the bottom of the Interface Builder canvas in Figure [15-8](#A978-1-4302-4543-8_15_Chapter.html#Fig8). It still has the resizing frame around it, though, and we can resize it in Interface Builder just like we would resize a window. Resize it now, making it about the same size as the `NSBox` we put into the main window a little while ago.
+
+Now let’s put some content into this tab view, the “pages” that we’ll be able to flip between. By default, the tab view contains just two content views, but let’s increase that number (using the Attributes Inspector  ) so that we have even more views to switch between. The actual content isn’t that important as long as something is unique on each page so that we can easily see the content change from one page to the next. A good start is just to grab a Label from the Object Library, give it a nice big font, and change its text to the word “One.” Then copy this label and paste it into each of the other views (which we can switch between using the tabs at the top, just like otherwise), changing the text accordingly each time. Just for fun, add some unique items to each page as well (a table view here, a set of buttons there) so that when the app is done, we’ll see more things in motion while flipping between pages.
+
+It’s time to round out the interface for our controller class, so we’ll turn our attention to the `FIAppDelegate.h` file. It currently declares three properties. The first is connected to the main window. The other two are the ones we added for the two views we need to manage: `tabView`, the object containing the views we’re going to display, and `box`, the on-screen view where we’ll be displaying them. We need to add five additional properties. Three of these are `weak` properties for pointing at the views that are actively transitioning in and out of focus. We’ll also need to add a `strong` property to reference the tab view’s array containing all the available views, and an `NSInteger` scalar property to identify the current focused view.
+
+Add the lines in bold to `FIAppDelegate.h` to add all of these.
+
+`@interface FIAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSBox *box;`
+
+`@property (weak) IBOutlet NSTabView *tabView;`
+
+`@property (weak) NSView *leftView;`
+
+`@property (weak) NSView *rightView;`
+
+`@property (weak) NSView *middleView;`
+
+`@property (strong) NSArray *items;`
+
+`@property NSInteger currentTabIndex;`
+
+`- (IBAction)previous:(id)sender;`
+
+`- (IBAction)next:(id)sender;`
+
+`@end`
+
+Now let’s start implementing our app delegate class in `FIAppDelegate.m`. This class will have a number of methods for preparing a transition by setting up the next view to be displayed out to the side of the box, transitioning the new view into position, and transitioning the current view out to the other side. Because we want to be able to do transitions in two directions, depending on whether we’re flipping to the right or the left, each of those methods exists in two forms, setting things up and executing a rightward flip or leftward flip. In addition, we’ll implement our two action methods that start up the transitions and a startup method (`applicationDidFinishLaunching:`) that sets up the initial view. If you’ve still got both an Interface Builder canvas and an Assistant Editor open, you might want to close them and switch to `FIAppDelegate.m` as the main view in Xcode.
+
+Let’s start by creating a preprocessor definition, `ANIM_DURATION` to define the duration (in seconds) of the animations we’re going to create. By putting this in one place, at the top of the file, we can easily experiment, tweaking this setting until we find a speed we like. Define it like this:
+
+`#define ANIM_DURATION 1.0`
+
+Now let’s move on to the `applicationDidFinishLaunching:` method. Here we grab the list of views from the `tabView` and store it in our `items` property. The `items` property needs to be a `strong` reference because the `tabView` returns a copy of its internal array, not a reference to the array itself. This means that our code now owns the `NSArray` returned by the call to `tabViewItems`. If we don’t put it into a `strong` reference ourselves, there won’t be any strong references to the copy of the array and it will be deallocated when the automatic reference counting cleans it up.
+
+We also set up `currentTabIndex` to point at the end of the array so that the first item will be lined up (more on this later). Then we call the first of our internal methods, `prepareRightSide`, which will set up the next view for display on the right side of the box. Then we make use of the `ANIM_DURATION` value, using it to specify the duration of any animations we create within the current animation context. Then we call another internal method, `transitionInFromRight`, which will start up the animations to move the next view into the right position. Finally, we set `currentTabIndex` to point at item zero (the first object in the `items` array).
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {`
+
+    `self.items = [self.tabView tabViewItems];`
+
+    `self.currentTabIndex = [self.items count]-1;`
+
+    `[self prepareRightSide];`
+
+    `[[NSAnimationContext currentContext] setDuration:ANIM_DURATION];`
+
+    `[self transitionInFromRight];`
+
+    `self.currentTabIndex = 0;`
+
+    `self.middleView = self.rightView;`
+
+`}`
+
+As you enter this code, Xcode will complain that it can’t find methods named `prepareRightSide` and `transitionInFromRight`. So, let’s write the code for these two internal methods now. We won’t bother putting these methods into a separate protocol or anything. In Objective-C, code can freely call any other methods declared in the same `@implementation` block, even if those methods aren’t declared in any `@interface`, so all we have to do is put these internal methods somewhere in the `@implementation` block—below the implementation of `applicationDidFinishLaunching:` is a good spot.
+
+The first of these, `prepareRightSide`, starts off by determining the index of the next view to display. We compute this index by adding one to `currentTabIndex` and then doing a simple bounds check on the new index, resetting it to zero if it’s gotten too high. Then we use that index to grab the next view and set its frame to be the same size as box, shifted off to the right by exactly the width of box so that it’s just out of sight. We set its alpha value to 0.0, making it effectively invisible, and finally we add the view as a subview of `box`, so that it will actually be displayed.
+
+`- (void)prepareRightSide {`
+
+    `NSInteger nextTabIndex = self.currentTabIndex + 1;`
+
+    `if (nextTabIndex >= [self.items count])`
+
+        `nextTabIndex = 0;`
+
+    `self.rightView = [[self.items objectAtIndex:nextTabIndex] view];`
+
+    `NSRect viewFrame = [self.box bounds];`
+
+    `viewFrame.origin.x += viewFrame.size.width;`
+
+    `[self.rightView setFrame:viewFrame];`
+
+    `[self.rightView setAlphaValue:0.0];`
+
+    `[self.box addSubview:self.rightView];`
+
+`}`
+
+The next method, `transitionInFromRight`, takes `rightView` and slides it into place so that it fits perfectly into the space provided by `box`. It also sets the alpha value to 1.0, making it fully opaque. Note that unlike the previous method, this uses `rightView`’s `animator` method to access the view’s animation proxy so that setting these values actually creates implicit animations for us.
+
+`- (void)transitionInFromRight {`
+
+    `[[self.rightView animator] setFrame:[self.box bounds]];`
+
+    `[[self.rightView animator] setAlphaValue:1.0];`
+
+`}`
+
+Before we go any further, let’s check our work. Run the app, and see the first item from the tab view slide into place and fade in from invisibility to full opacity at the same time, as shown in Figure [15-9](#A978-1-4302-4543-8_15_Chapter.html#Fig9).
+
+![A978-1-4302-4543-8_15_Fig9_HTML.jpg](A978-1-4302-4543-8_15_Fig9_HTML.jpg)
+
+Figure 15-9.
+
+The first “page” is sliding into view. Note the slightly grayed-out appearance of the objects in the box, which are all at about 50 percent opacity at this point
+
+That’s a start! Now let’s move on to the next item in the list: providing an implementation for the `next:` method. Some of this code is similar to what we had in the `applicationDidFinishLaunching:` method. We prepare the right side, start some transitions (including a call to another new internal method, `transitionOutToLeft`, which we’ll get to soon), and update an index (including another bounds check) and some pointers at the end.
+
+The biggest difference here is that the methods that are going to do animation are all sandwiched between calls to `[NSAnimationContext beginGrouping]` and `[NSAnimationContext endGrouping]`, which work together to form a sort of transaction. Between those two calls, any animations that are added to the default animation context, including all implicit animations, will be set up to run simultaneously. This means that as we create implicit animations in our internal methods, they will all be set up to fire off simultaneously. Without this step, the animations we create would all start running in sequence, one after another as they’re created. Normally this won’t make much of a difference, but it’s entirely possible that some unexpected event could occur just as those animations are being created, such as another process suddenly hogging the CPU, which could lead to these animations running in a slightly staggered manner, starting and ending at different times. By wrapping them in a grouping as shown here, that potential problem is eliminated.
+
+`- (IBAction)next:(id)sender {`
+
+    `[self prepareRightSide];`
+
+    `[NSAnimationContext beginGrouping];`
+
+    `[[NSAnimationContext currentContext] setDuration:ANIM_DURATION];`
+
+    `[self transitionInFromRight];`
+
+    `[self transitionOutToLeft];`
+
+    `[NSAnimationContext endGrouping];`
+
+    `self.currentTabIndex++;`
+
+    `if (self.currentTabIndex >= [self.items count])`
+
+        `self.currentTabIndex = 0;`
+
+    `self.leftView = self.middleView;`
+
+    `self.middleView = self.rightView;`
+
+`}`
+
+The `next:` method also calls another internal method, `transitionOutToLeft`, which will take the current view and shuffle it off to the left. Its implementation looks like this:
+
+`- (void)transitionOutToLeft {`
+
+    `NSRect newFrame = [self.middleView frame];`
+
+    `newFrame.origin.x -= newFrame.size.width;`
+
+    `[[self.middleView animator] setFrame:newFrame];`
+
+    `[[self.middleView animator] setAlphaValue:0.0];`
+
+`}`
+
+With that in place, we’re now ready to Run once again. This time we’ll see that not only does the initial view setup work, but now we can also hit the Next button to transition to the next view! Smooth. See Figure [15-10](#A978-1-4302-4543-8_15_Chapter.html#Fig10).
+
+![A978-1-4302-4543-8_15_Fig10_HTML.jpg](A978-1-4302-4543-8_15_Fig10_HTML.jpg)
+
+Figure 15-10.
+
+View Three is on its way out, View Four is almost halfway in
+
+Now all that’s left is to implement matching methods for rightward transitions. These methods are all pretty similar to the others and are presented here without further comment, except one: you may be tempted to copy and paste the existing methods and make whatever you changes you can spot, but be careful! Some of the differences are subtle but important.
+
+`- (void)prepareLeftSide {`
+
+    `NSInteger previousTabIndex = self.currentTabIndex-1;`
+
+    `if (previousTabIndex < 0)`
+
+        `previousTabIndex = [self.items count]-1;`
+
+    `self.leftView = [[self.items objectAtIndex:previousTabIndex] view];`
+
+    `NSRect viewFrame = [self.box bounds];`
+
+    `viewFrame.origin.x -= viewFrame.size.width;`
+
+    `[self.leftView setFrame:viewFrame];`
+
+    `[self.leftView setAlphaValue:0.0];`
+
+    `[self.box addSubview:self.leftView];`
+
+`}`
+
+`- (void)transitionInFromLeft {`
+
+    `[[self.leftView animator] setFrame:[self.box bounds]];`
+
+    `[[self.leftView animator] setAlphaValue:1.0];`
+
+`}`
+
+`- (void)transitionOutToRight {`
+
+    `NSRect newFrame = [self.middleView frame];`
+
+    `newFrame.origin.x += [self.box bounds].size.width;`
+
+    `[[self.middleView animator] setFrame:newFrame];`
+
+    `[[self.middleView animator] setAlphaValue:0.0];`
+
+`}`
+
+`- (IBAction)previous:(id)sender {`
+
+    `[self prepareLeftSide];`
+
+    `[NSAnimationContext beginGrouping];`
+
+    `[[NSAnimationContext currentContext] setDuration:ANIM_DURATION];`
+
+    `[self transitionInFromLeft];`
+
+    `[self transitionOutToRight];`
+
+    `[NSAnimationContext endGrouping];`
+
+    `self.currentTabIndex--;`
+
+    `if (self.currentTabIndex < 0)`
+
+        `self.currentTabIndex = [self.items count]-1;`
+
+    `self.rightView = self.middleView;`
+
+    `self.middleView = self.leftView;`
+
+`}`
+
+Now click Run; we should be able to animate transitions in both directions.
+
+## Wrap Up
+
+Hopefully the previous chapter and this one have provided a solid footing in a variety of Cocoa drawing techniques, including several uses of Bezier curves, making views interactive by using the mouse, and fairly painless animation with Core Animation. The scope of this book doesn’t really allow us to delve any further into these topics, but know that especially considering that where graphics and animation are concerned, the only limit is your own imagination! We’ve provided the basic tools. If you want to do more with graphics, you should dig deeper into the areas that interest you most and see what you can do with the APIs that Cocoa gives you. That’s where the fun really begins!
+
+# 16. Working with Files
+
+Abstract
+
+Most applications will need to deal with files stored on disk in one way or another. So far in this book, we really haven’t dealt much with this topic (except for a bit of discussion about Core Data and its data stores), so let’s remedy that right now. Cocoa actually includes several useful classes for dealing with files in a number of ways. There are classes that provide APIs mimicking operations the user can normally do in the Finder and others that represent a file in an abstract way. Still other classes have built-in functionality for reading and writing files. This chapter will provide an overview of how these mechanisms work.
+
+Most applications will need to deal with files stored on disk in one way or another. So far in this book, we really haven’t dealt much with this topic (except for a bit of discussion about Core Data and its data stores), so let’s remedy that right now. Cocoa actually includes several useful classes for dealing with files in a number of ways. There are classes that provide APIs mimicking operations the user can normally do in the Finder and others that represent a file in an abstract way. Still other classes have built-in functionality for reading and writing files. This chapter will provide an overview of how these mechanisms work.
+
+## Implicit File Access
+
+Several classes in Cocoa, such as `NSString`, `NSData`, `NSArray`, and `NSDictionary`, provide methods for reading data directly from a file, or writing their contents directly to a file, using just a string containing the full path to the relevant file. For instance, if we want to read the entire contents of a file into a string, we can do something as simple as this:
+
+`NSError *myError;`
+
+`NSStringEncoding encoding;`
+
+`NSString *myString = [NSString stringWithContentsOfFile:@"/path/to/something"`
+
+ `usedEncoding:&encoding error:&myError];`
+
+This code will take care of all the busy work of opening the file and reading its contents. It will even tell us what text encoding it used to interpret the contents of the file as a character string and tell us any errors that occur. But only if we pass in non-`NULL` values for the second and third parameters. Apart from file-related errors, such as insufficient permissions to access the file, this method can also report back errors related to dealing with data as a character string, such as text encoding errors if the file contains binary data. Later in this chapter we’ll see this in action.
+
+`NSArray` and `NSDictionary` have similar methods, which for some reason don’t include the sort of error reporting that `NSString` does, so if they fail, they simply return a `nil` pointer and leave you wondering. Those methods are also much more special-purpose, since they are designed to read values from files stored in Apple’s special property-list format. One common use of `NSDictionary`’s `dictionaryWithContentsOfFile:` class method is to read data from a configuration file created in a text editor or in Xcode’s plist editor. Cocoa also includes a special-purpose class called `NSPropertyListSerialization` for dealing with the property-list format. If we really need to parse a property-list in a general way, with complete error reporting and more control, we can use its class method `propertyListWithData:options:format:error:` (try saying that five times in a row).
+
+Of the classes mentioned at the start of this section, `NSData` provides the most general file access. It can read any sort of data from disk and represent it as an array of bytes for us to use as we will. This is the ideal way of dealing with binary data. `NSData` even provides an option for hinting that the file should be mapped into virtual memory (in case we know it’s such a large file, we don’t want it all in memory at once), like this:
+
+`NSData *myData = [NSData dataWithContentsOfFile:@"/path/to/something"`
+
+ `options:NSDataReadingMappedIfSafe error: &myError];`
+
+Each of the classes mentioned here also contains a method called `writeToFile` `:atomically:` whose second parameter is a `BOOL` specifying whether the data should first be written to an auxiliary file, which then replaces the original after all data is written. The `NSString` version of this method is actually deprecated, so we should use `writeToFile:atomically:encoding:error:` instead, which forces us to specify which text encoding to use and gives us the chance to inspect any errors that may occur. `NSData` provides the similar `writeToFile:options:error:`, which also gives us a chance to see any errors that occur when writing to a file.
+
+## High-Level File Operations
+
+Besides the basics of reading and writing files, Cocoa provides a number of classes that let us deal with files in ways similar to how the Finder deals with files. We can get access to file-system attributes, get the file’s icon, see which application will open this file by default, and more. The rest of this chapter will explore some of these capabilities in the context of a new application called “What About That File?” (see Figure [16-1](#A978-1-4302-4543-8_16_Chapter.html#Fig1)).
+
+This application lets the user choose a file, at which point some information about the file is shown, as well as the file’s contents in the form of a string. If the file contains data that can’t be represented as a character string, it will tell the user so. Otherwise, the user can use an included pop-up list to change the text encoding that is used when reading the file from disk and show the resulting string.
+
+![A978-1-4302-4543-8_16_Fig1_HTML.jpg](A978-1-4302-4543-8_16_Fig1_HTML.jpg)
+
+Figure 16-1. 
+
+The completed “What About That File?” application
+
+### What About That File: The Code
+
+Use Xcode to make a new Cocoa application (no Document support or Core Data this time) named WhatAboutThatFile, and do the usual steps of making sure ARC is enabled and assigning a class prefix to the project, in this case WAT. This creates a simple project with nothing more than a `WATAppDelegate` class and a xib file called MainMenu.xib. In previous chapters, we’ve assembled applications one step at a time, but now that we’re this far along, let’s take on bigger chunks of application code. We’ll present the complete code of the application, with some commentary interspersed, and then describe how to wire up everything in Interface Builder using Cocoa bindings. For starters, here’s the header file of the app delegate, which declares a large number of properties used for accessing values through Cocoa bindings. It also declares an action method that will let the user open a file from the menu.
+
+`//`
+
+`//  WATAppDelegate.h`
+
+`//`
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface WATAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (strong) NSFileWrapper *fileWrapper;`
+
+`@property (strong) NSURL *fileURL;`
+
+`@property (assign) NSStringEncoding chosenEncoding;`
+
+`@property (readonly) NSDictionary *fileAttributes;`
+
+`@property (readonly) NSString *filename;`
+
+`@property (readonly) NSImage *fileIcon;`
+
+`@property (readonly) NSImage *opensAppIcon;`
+
+`@property (readonly) NSString *opensAppName;`
+
+`@property (weak) NSString *stringEncodingName;`
+
+`@property (readonly) NSString *fileStringValue;`
+
+`@property (readonly) NSDictionary *encodingNames;`
+
+`- (IBAction)chooseFile:(id)sender;`
+
+`@end`
+
+Now let’s move on to the `.m` file. By default, this contains the `applicationDidFinishLaunching:` method, but we don’t need to configure anything when the app runs, so we can just ignore that and go on with our own business.
+
+The `chooseFile:` method uses the `NSOpenPanel` class to ask the user to choose a file to inspect. If the user actually picks a file, we set all of our instance variables based on the selection. The `chosenEncoding` property of type `NSStringEncoding` (which is at heart simply an unsigned integer) is set to 0\. That isn’t a valid string encoding type, so that at a later stage we can let the system try to deduce the string encoding type for us. After that, we set `fileURL` based on the selection in the open panel, and finally set `fileWrapper`, an instance of the `NSFileWrapper` class, which simply wraps a file and lets us get some metadata about it, based on the value of `fileURL`. We also have some error handling in there in case there’s a problem with the chosen file.
+
+`- (IBAction)chooseFile:(id)sender`
+
+`{`
+
+    `NSOpenPanel *openPanel = [NSOpenPanel openPanel];`
+
+    `[openPanel setCanChooseFiles:YES];`
+
+    `[openPanel setCanChooseDirectories:NO];`
+
+    `[openPanel setResolvesAliases:NO];`
+
+    `[openPanel setAllowsMultipleSelection:NO];`
+
+    `if ([openPanel runModal] == NSFileHandlingPanelOKButton) {`
+
+        `self.chosenEncoding = 0;`
+
+        `self.fileURL = [openPanel URL];`
+
+        `NSError *fileError;`
+
+        `self.fileWrapper = [[NSFileWrapper alloc] initWithURL:self.fileURL`
+
+                                                      `options:0`
+
+                                                        `error:&fileError];`
+
+        `if (!self.fileWrapper) {`
+
+            `NSRunAlertPanel(@"Couldn't access file"`,
+
+                            `[fileError localizedDescription], nil, nil, nil);`
+
+        `}`
+
+    `}`
+
+`}`
+
+Next, we have the `filename` and `fileIcon` methods, which will be read by the uppermost GUI objects in our window. Note that this reading occurs via Cocoa bindings, so we use the convention of providing class methods named `keyPathsForValuesAffectingFilename` and `keyPathsForValuesAffectingFileIcon` in order to ensure that changes made to one bindings-friendly value cause another value to be refetched. We last used this in the context of a Core Data model class, but it works equally well here, ensuring that any time the `fileURL` or `fileWrapper` values are changed, any views binding their content to `filename` or `fileIcon` will automatically reload their content. Both the `filename` and `fileIcon` methods use the previously-created `fileWrapper` to access the values for display.
+
+`+ (NSSet *)keyPathsForValuesAffectingFilename`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper", nil];`
+
+`}`
+
+`- (NSString *)filename`
+
+`{`
+
+    `return [self.fileWrapper filename];`
+
+`}`
+
+`+ (NSSet *)keyPathsForValuesAffectingFileIcon`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper", nil];`
+
+`}`
+
+`- (NSImage *)fileIcon`
+
+`{`
+
+    `return [self.fileWrapper icon];`
+
+`}`
+
+We provide similar functionality in order to display info about the application that will be launched if the user double-clicks the chosen file in the Finder. This time, we’re using the `NSWorkspace` class, which represents something akin to the Finder itself. `NSWorkspace` can do a number of things, such as launching applications and manipulating files. In `opensAppName`, we use the workspace to get the name of the application that is the default “opener” for the chosen file. In `opensAppIcon` we do the same, then ask the workspace for the application’s icon. Once again, we use the `keyPathsForValuesAffectingXxx` convention to make sure these values are properly refreshed when a new file is selected.
+
+`+ (NSSet *)keyPathsForValuesAffectingOpensAppName`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper", nil];`
+
+`}`
+
+`- (NSString *)opensAppName {`
+
+    `NSWorkspace *workspace = [NSWorkspace sharedWorkspace];`
+
+    `NSString *appName = nil;`
+
+    `[workspace getInfoForFile:self.fileURL.path application:&appName type:NULL];`
+
+    `return appName;`
+
+`}`
+
+`+ (NSSet *)keyPathsForValuesAffectingOpensAppIcon`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper", nil];`
+
+`}`
+
+`- (NSImage *)opensAppIcon`
+
+`{`
+
+    `NSWorkspace *workspace = [NSWorkspace sharedWorkspace];`
+
+    `NSString *appName = nil;`
+
+    `[workspace getInfoForFile:self.fileURL.path application:&appName type:NULL];`
+
+    `return appName ? [workspace iconForFile:appName] : nil;`
+
+`}`
+
+In the next snippet, the `fileAttributes` accessor returns a dictionary, which it gets from `fileWrapper`. This dictionary contains a dozen or more filesystem attributes and will be displayed in a table view in the GUI by using an `NSDictionaryController`.
+
+`+ (NSSet *)keyPathsForValuesAffectingFileAttributes {`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper", nil];`
+
+`}`
+
+`- (NSDictionary *)fileAttributes {`
+
+    `return [self.fileWrapper fileAttributes];`
+
+`}`
+
+Now we get into the somewhat hairier issue of string encodings. As mentioned earlier, `NSString` provides functionality for reading a string from a file and guessing which string encoding it should use. This may be right most of the time, but sometimes it can be useful to see the contents of a string through a different set of goggles, so to speak. It may be enlightening, for instance, to see how a modern UTF8 document may appear if viewed in an archaic application on some other platform that doesn’t have any concept of string encodings and always uses the one and only string encoding available to it.
+
+We start off by defining the `encodingNames` method. This method will provide a list of all system-defined encoding names to the pop-up button in our GUI and will also serve as an internal lookup mechanism for mapping between encoding names and their code-level representation, the `NSStringEncoding` type. For keys, this dictionary uses the numeric value of each encoding wrapped in an `NSString`. You might think that it would make more sense, given the numeric nature of these values, to wrap them in `NSNumber` objects instead, and you’d be right except for one small catch: if you’re using an `NSDictionary` in a key-value observer context, such as Cocoa Bindings, you have to use strings as keys! Because we’re using this dictionary to populate an object via Cocoa Bindings, that’s what we’re doing.
+
+`- (NSDictionary *)encodingNames`
+
+`{`
+
+    `static NSDictionary *encodingNames = nil;`
+
+    `if (!encodingNames) {`
+
+        `encodingNames = @{@"1" : @"NSASCIIStringEncoding"`,
+
+                          `@"2" : @"NSNEXTSTEPStringEncoding"`,
+
+                          `@"3" : @"NSJapaneseEUCStringEncoding"`,
+
+                          `@"4" : @"NSUTF8StringEncoding"`,
+
+                          `@"5" : @"NSISOLatin1StringEncoding"`,
+
+                          `@"6" : @"NSSymbolStringEncoding"`,
+
+                          `@"7" : @"NSNonLossyASCIIStringEncoding"`,
+
+                          `@"8" : @"NSShiftJISStringEncoding"`,
+
+                          `@"9" : @"NSISOLatin2StringEncoding"`,
+
+                          `@"10" : @"NSUnicodeStringEncoding"`,
+
+                          `@"11" : @"NSWindowsCP1251StringEncoding"`,
+
+                          `@"12" : @"NSWindowsCP1252StringEncoding"`,
+
+                          `@"13" : @"NSWindowsCP1253StringEncoding"`,
+
+                          `@"14" : @"NSWindowsCP1254StringEncoding"`,
+
+                          `@"15" : @"NSWindowsCP1250StringEncoding"`,
+
+                          `@"21" : @"NSISO2022JPStringEncoding"`,
+
+                          `@"30" : @"NSMacOSRomanStringEncoding"`,
+
+                          `@"2415919360" : @"NSUTF16BigEndianStringEncoding"`,
+
+                          `@"2483028224" : @"NSUTF16LittleEndianStringEncoding"`,
+
+                          `@"2348810496" : @"NSUTF32StringEncoding"`,
+
+                          `@"2550137088" : @"NSUTF32BigEndianStringEncoding"`,
+
+                          `@"2617245952" : @"NSUTF32LittleEndianStringEncoding"};`
+
+    `}`
+
+    `return encodingNames;`
+
+`}`
+
+Continuing our efforts with string encodings, we’ll now define accessors for `stringEncodingName`, this time adding a setter into the mix (because this value will be settable from the pop-up button). As before, we implement `keyPathsForValuesAffectingStringEncodingName`, this time adding `chosenEncoding` as one of the keys to watch for.
+
+The `stringEncodingName` method has two main execution paths. If `chosenEncoding` has been set (which is the case if the user has picked an encoding from the pop-up list), we simply look up the name of the chosen encoding in the dictionary we defined earlier. Otherwise, we actually read the file’s contents with `stringWithContentsOfFile:usedEncoding:error:` and use the resulting encoding to look up the name of the discovered encoding (or return a brief problem description if no encoding could be discovered).
+
+The `setStringEncodingName:` method is quite simple. We do a reverse lookup in the dictionary to find the key (a string containing the integer value of the encoding) corresponding to the chosen encoding. This method is called when the user selects an encoding name in the pop-up.
+
+`+ (NSSet *)keyPathsForValuesAffectingStringEncodingName`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper"`,
+
+            `@"chosenEncoding", nil];`
+
+`}`
+
+`- (NSString *)stringEncodingName`
+
+`{`
+
+    `if (!self.fileURL) return nil;`
+
+    `if (self.chosenEncoding != 0) {`
+
+        `return [[self encodingNames] objectForKey:`
+
+                `@(self.chosenEncoding).stringValue];`
+
+    `} else {`
+
+        `NSStringEncoding encoding = 0;`
+
+        `NSError *err = nil;`
+
+        `[NSString stringWithContentsOfFile:self.fileURL.path`
+
+                              `usedEncoding:&encoding error:&err];`
+
+        `if (encoding==0) {`
+
+            `return @"No encoding detected.  Perhaps a binary file?";`
+
+        `}`
+
+        `return [[self encodingNames] objectForKey:`
+
+                `@(self.chosenEncoding).stringValue];`
+
+    `}`
+
+`}`
+
+`- (void)setStringEncodingName:(NSString *)name`
+
+`{`
+
+    `NSString *key = [[[self encodingNames] allKeysForObject:name]`
+
+                     `lastObject];`
+
+    `self.chosenEncoding = [key longLongValue];`
+
+`}`
+
+Finally, `fileStringValue` and its matching `keyPathsForValuesAffectingFileStringValue` method. Here we also have a couple of primary code paths. In the first case, where `chosenEncoding` has been set, we attempt to read a string value from the chosen file using the chosen encoding. In the other case, where the no encoding has been chosen, we attempt to read a string value but let the system try to figure out which encoding to use. In either case, we do a bit of error checking and show an alert panel if a particular string encoding error is encountered.
+
+`+ (NSSet *)keyPathsForValuesAffectingFileStringValue`
+
+`{`
+
+    `return [NSSet setWithObjects:@"fileURL", @"fileWrapper"`,
+
+            `@"chosenEncoding", nil];`
+
+`}`
+
+`- (NSString *)fileStringValue`
+
+`{`
+
+    `if (!self.fileURL) return nil;`
+
+    `NSError *err = nil;`
+
+    `NSString *value = nil;`
+
+    `if (self.chosenEncoding != 0) {`
+
+        `value = [NSString stringWithContentsOfFile:self.fileURL.path`
+
+                                          `encoding:self.chosenEncoding error:&err];`
+
+    `} else {`
+
+        `NSStringEncoding encoding = 0;`
+
+        `value = [NSString stringWithContentsOfFile:self.fileURL.path`
+
+                                      `usedEncoding:&encoding error:&err];`
+
+    `}`
+
+    `if (err)  {`
+
+        `if ([err code]==NSFileReadInapplicableStringEncodingError &&`
+
+            `[[err domain] isEqual:NSCocoaErrorDomain]) {`
+
+            `NSRunAlertPanel(@"Invalid string encoding"`,
+
+                            `[err localizedDescription], nil, nil, nil);`
+
+        `}`
+
+        `NSLog(@"encountered error: %@", err);`
+
+    `}`
+
+    `return value;`
+
+`}`
+
+### What About That File: The GUI
+
+That’s all, as far as the code is concerned. Now let’s set up the GUI. Open up MainMenu.xib, where we’ll want to start off by making a connection so that a menu item can call our app delegate’s `chooseFile:` method. Open the menu inside the main nib editing area, go into the File menu, and Ctrl-drag a connection from the Open item to the icon representing the app delegate in the main nib window. Then select chooseFile: from the small menu that appears.
+
+Now it’s time to get started on the window itself, so double-click its icon in the dock to make it appear in the editing area. This GUI is completely powered by Cocoa Bindings. Our controller doesn’t have any outlets pointing at anything in this window, and nothing in this window calls any action methods in our controller. We’ll go through all the bindings piece by piece, but first, Figure [16-2](#A978-1-4302-4543-8_16_Chapter.html#Fig2) shows a view of the complete window, as seen in Interface Builder, with all objects selected.
+
+![A978-1-4302-4543-8_16_Fig2_HTML.jpg](A978-1-4302-4543-8_16_Fig2_HTML.jpg)
+
+Figure 16-2. 
+
+All our window components, highlighted for visibility
+
+Note that between the table view and the large text view there’s a small “dimple.” This is actually the draggable control of an `NSSplitView`, which lets us stack two views vertically or horizontally and resize both of them at once with a single drag. It’s often used in Xcode and elsewhere, and later we’ll see how to set it up here.
+
+For now, let’s start off creating this window one section at a time, hooking up all the bindings as we go. The first few objects should end up looking like Figure [16-3](#A978-1-4302-4543-8_16_Chapter.html#Fig3), so peek ahead to get some guidance. Near the top of the window, put a couple of labels, and change the title of the one on the left to “Selected File:”. Then place an `NSImageView` between them. To find this class, search the Library for “NSImageView”, “image well,” or “image view.” Make the label on the left appear in bold text by selecting it and selecting Edit ➤ Format ➤ Font ➤ Bold from the menu, and stretch out the label on the right so that it extends almost to the right edge of the window. We want the file icon displayed by the image view to appear to float right over the window background, so select the image view and use the Attributes Inspector to remove its border by selecting None from the Border pop-up. Also, change the Scaling pop-up to Proportionally Up or Down as well, so that whether the system gives us a tiny icon or a huge one, it will be scaled to fit the available space. The GUI should look like Figure [16-3](#A978-1-4302-4543-8_16_Chapter.html#Fig3) at this point.
+
+![A978-1-4302-4543-8_16_Fig3_HTML.jpg](A978-1-4302-4543-8_16_Fig3_HTML.jpg)
+
+Figure 16-3. 
+
+GUI for displaying the selected file’s icon and path. The image view is selected for this screenshot; otherwise it would be invisible
+
+Now it’s time to set up the bindings for the image view and the right-hand label. Select the image view, open the Bindings Inspector, and bind its Value to the app delegate using the `self.fileIcon` key path. Then select the label on the right, and bind its Value to the app delegate using the `self.filename` key path.
+
+The next portion of the window looks just like what we created previously. In fact, the quickest way to add these objects is to select the three shown above by dragging a box over them, pressing ⌘D to duplicate the selected object, and then dragging the new ones down, lining them up below the others. Change the title of the new left-side label to “Opens Application:” and adjust its position if necessary. Figure [16-4](#A978-1-4302-4543-8_16_Chapter.html#Fig4) shows what this looks like.
+
+![A978-1-4302-4543-8_16_Fig4_HTML.jpg](A978-1-4302-4543-8_16_Fig4_HTML.jpg)
+
+Figure 16-4. 
+
+This portion of the GUI will let us see with which app the file will launch. Here both image views are shown because otherwise, just like before, they’d be invisible
+
+Reconfigure the new image view’s binding, connecting its Value to the app delegate with the `self.opensAppIcon` key path, and then the right-side label’s Value to the app delegate using the `self.opensAppName` key path.
+
+Next, let’s move on to the table view. Drag one out from the Library, and widen it to match Figure [16-5](#A978-1-4302-4543-8_16_Chapter.html#Fig5).
+
+![A978-1-4302-4543-8_16_Fig5_HTML.jpg](A978-1-4302-4543-8_16_Fig5_HTML.jpg)
+
+Figure 16-5. 
+
+Here we’ll display all the file’s attributes
+
+This table view is going to contain all the file attributes that the system gives us. Those attributes come to us in the form of a dictionary, which is a perfect use of Apple’s `NSDictionaryController` class. Using `NSDictionaryController`, we’ll be able to display all of the selected file’s attributes as key-value pairs in the table view just by hooking them up with Cocoa bindings.
+
+Search for `NSDictionaryController` in the Library, and drag one to the Interface Builder dock in order to add it to the nib. Then click the text next to its icon in the dock, and rename it attrDict so that we can easily identify it when binding to it later on. Like the other included controller classes, the dictionary controller class is able to get its content via a binding. Use the Bindings Inspector to bind its Content Dictionary (in the Controller Content group) to the app delegate’s `self.fileAttributes` key path.
+
+Now we just have to bind the table view’s columns to the new controller. Select the left column, and use the Bindings Inspector to bind its Value column to attrDict, using arrangedObjects as the controller key and key as the key path. That will make the left column show the keys for each key-value pair in the dictionary. Now select the right column, and bind its Value column to attrDict, using arrangedObjects as the Controller Key and value as the Model Key Path.
+
+Next, grab an `NSTextView` from the Library and drag it into the window we’ve been creating, placing it near the bottom. Our window is starting to get a little cramped now! Reduce the height of both the table view and the text view so that they fit comfortably on top of one another, leaving a fair chunk of space beneath as well since we’re going to need it. Then resize the text view so that it’s the same width as the table view. All this is shown in Figure [16-6](#A978-1-4302-4543-8_16_Chapter.html#Fig6).
+
+![A978-1-4302-4543-8_16_Fig6_HTML.jpg](A978-1-4302-4543-8_16_Fig6_HTML.jpg)
+
+Figure 16-6. 
+
+This is what the window should look like after we position the text view properly beneath the table view
+
+When we drag a text view from the Library, it’s actually contained within a scroll view, so give it an extra click to select the text view inside the scroll view. Then use the Attributes Inspector to turn off the Editable checkbox (we just want to display a file here, not edit it) as well as the Rich Text checkbox. Now is as good a time as any to bring the `NSSplitView` into play, as hinted at earlier. Make sure the table view and the text view (actually, the scroll view that contains it) are about the same size, and line them up one above the other. Then select both of them, and choose Editor ➤ Embed In ➤ Split View from the menu. Doing so will line them up tightly and draw the little dimple between them.
+
+Now select just the text view again. Remember, we can avoid the ambiguity and extra steps involved to select the correct object in the view hierarchy by Shift-Ctrl-clicking the text view and selecting the text view from the stack of objects that’s displayed. Switch to the Bindings Inspector, and bind the text view’s Value to the app delegate’s `self.fileStringValue` key path.
+
+Finally, let’s provide a GUI for the list of string encodings that will be used to let us reinterpret the contents of the selected file. For this, we’ll need a label and a pop-up button from the Library. Lay them out as shown, including the extra-wide pop-up button, since some of the entries in the list will be quite long (see Figure [16-7](#A978-1-4302-4543-8_16_Chapter.html#Fig7)).
+
+![A978-1-4302-4543-8_16_Fig7_HTML.jpg](A978-1-4302-4543-8_16_Fig7_HTML.jpg)
+
+Figure 16-7. 
+
+Really, who wouldn’t want their pop-up button wide enough to fully display “NSUTF32LittleEndianStringEncoding”?
+
+The values for the pop-up list will be retrieved from the app delegate’s `encodingNames` method, so we don’t need to enter them in Interface Builder. Here we’ll use `NSDictionaryController` again, this time to display just the values from the `encodingNames` dictionary. In order to do that, we need to first drag another `NSDictionaryController` from the Library to the nib window, renaming it strEncs while we’re at it, and bind its Content Dictionary to the app delegate’s `self.encodingNames` key path. Then, bind the pop-up button’s Content to strEncs, using arrangedObjects as the Controller Key and value as the Model Key Path.
+
+Finally, we need to establish a binding so that the value the user sets in the pop-up is noticed by the app delegate, making the app delegate redisplay the text using the selected encoding. Do this by binding the pop-up button’s Selected Object to the app delegate, using `self.stringEncodingName` as the key path.
+
+Now save all the changes, and Build & Run the app. We should see the GUI we’ve built, including a File ➤ Open menu item that lets us choose a file and will show us the file’s attributes as well as its content. Choosing another encoding from the pop-up list will make the app redisplay the data in the text view using the chosen encoding.
+
+## Wrap Up
+
+In this chapter, we’ve seen how to use Cocoa to access files and their metadata. We’ve also learned a bit about string encodings, and how Cocoa deals with them. What’s more, we’ve seen another example of a GUI powered by Cocoa bindings. Except for the menu item that opens a file, everything that happens here does so through bindings, including setting a value in a pop-up list, which ends up causing the text field to reload. That’s a fairly complicated interaction, and until you’re used to it, it’s not really obvious how it works because parts of it occurs behind the scenes, thanks to Cocoa bindings. If you don’t quite understand how it’s working, consider rereading this chapter and see if it brings you any closer to the a-ha! moment where it suddenly all makes sense. Otherwise, proceed to the next chapter and learn how to use concurrency to make our application more responsive.
+
+# 17. Concurrency
+
+Abstract
+
+One of the biggest challenges in software development is writing software that will do more than one thing at a time. For decades, computers have been able to give an illusion of concurrency by quickly switching between tasks at a high rate, making it seem that they’re doing several things at once (when in reality they’re continuously flipping from one task to the next, only “paying attention” to one at a time). Today’s computers frequently contain two or more computation cores so they really can do multiple things at once, simultaneously executing instructions on all cores at the same time.
+
+One of the biggest challenges in software development is writing software that will do more than one thing at a time. For decades, computers have been able to give an illusion of concurrency by quickly switching between tasks at a high rate, making it seem that they’re doing several things at once (when in reality they’re continuously flipping from one task to the next, only “paying attention” to one at a time). Today’s computers frequently contain two or more computation cores so they really can do multiple things at once, simultaneously executing instructions on all cores at the same time.
+
+However, even if our computer’s hardware and OS are capable of working with a multitude of cores, writing application software that can effectively make use of multiple cores is still technically challenging. In most development environments, the default assumption is that the code we’re writing is performed sequentially, one operation after the other, and splitting things up so that work can be performed concurrently can be a pretty big task.
+
+This chapter will present an example of a common situation in which Cocoa applications can benefit from concurrency and show how it’s done. You’re surely familiar with OS X’s spinning disk cursor (sometimes called the “spinning beach ball of death”) that appears whenever an application isn’t responding to user actions. This typically appears after we click a button or menu item that triggers any sort of processing that takes more than a few seconds. OS X notices that the process isn’t handling input events and shows the spinning disk cursor to alert the user. This also happens whenever an application has really stopped responding entirely and is on its way to crashing (or being killed by the user). So when an app stops responding and starts showing the spinning disk cursor, the immediate reaction for many users is a moment of panic when they suspect that the app is about to crash!
+
+Therefore, it’s in our best interests to make sure that any sort of long-running operation in our application is handled in such a way that the user can still interact with our application and not get the spinning disk—by making the operation occur in the background and letting our application still handle user input events as it normally does. This chapter will demonstrate two ways to add this sort of concurrency to a Cocoa application with a minimum of fuss. We’ll use the concepts embodied by the `NSOperation` and `NSOperationQueue` classes available in the Foundation framework, and we’ll also see how it can be done using Grand Central Dispatch (GCD from here on out), which is a C-language API usable by all OS X applications, whether they are Cocoa-based or not.
+
+## SlowWorker
+
+As a platform for demonstrating these concurrency options, we’ll create a simple application called SlowWorker, which simulates doing some long-running operations such as fetching data from a server and performing some calculations. This app presents the user with a button to initiate some work and shows the results in a text view (see Figure [17-1](#A978-1-4302-4543-8_17_Chapter.html#Fig1)).
+
+![A978-1-4302-4543-8_17_Fig1_HTML.jpg](A978-1-4302-4543-8_17_Fig1_HTML.jpg)
+
+Figure 17-1. 
+
+The SlowWorker in action (inaction?)
+
+Start by making a new Cocoa application in Xcode. Name it SlowWorker, and use SW as the class prefix. No Core Data or Document support is necessary. Once that’s done, add the following bold code to SWAppDelegate.h :
+
+`#import <Cocoa/Cocoa.h>`
+
+`@interface SWAppDelegate : NSObject <NSApplicationDelegate>`
+
+`@property (assign) IBOutlet NSWindow *window;`
+
+`@property (weak) IBOutlet NSButton *startButton;`
+
+`@property (assign) IBOutlet NSTextView *resultsTextView;`
+
+`@property (assign) BOOL isWorking;`
+
+`- (IBAction)doWork:(id)sender;`
+
+`@end`
+
+This defines a couple of outlets to the two objects visible in our GUI, a Boolean flag called `isWorking` (which we’ll use later to keep track of whether we have stuff going on in the background or not), and an action method to be triggered by the button.
+
+Note
+
+The sharp-eyed will notice that the `resultsTextView` property is declared with `assign` instead of `weak`. That’s because the `NSTextView` forbids us to use it in a weak context, just like `NSWindow`, which was discussed in [Chapter 11](#A978-1-4302-4543-8_11_Chapter.html). There aren’t many classes in OS X that have this restriction, but you can take comfort in the fact that Xcode will give you a confusing “synthesis of a weak-unavailable property is disallowed” when you try to use weak with a class that doesn’t like it. This is the price of backward compatibility.
+
+Now add the bold methods from the following code block to SWAppDelegate.m :
+
+`#import "SWAppDelegate.h"`
+
+`@implementation SWAppDelegate`
+
+`- (void)applicationDidFinishLaunching:(NSNotification *)aNotification`
+
+`{`
+
+    `// Insert code here to initialize your application`
+
+`}`
+
+`- (NSString *)fetchSomethingFromServer`
+
+`{`
+
+    `sleep(1);`
+
+    `return @"Hi there";`
+
+`}`
+
+`- (NSString *)processData:(NSString *)data`
+
+`{`
+
+    `sleep(2);`
+
+    `return [data uppercaseString];`
+
+`}`
+
+`- (NSString *)calculateFirstResult:(NSString *)data`
+
+`{`
+
+    `sleep(3);`
+
+    `return [NSString stringWithFormat:@"Number of chars: %ld"`,
+
+            `[data length]];`
+
+`}`
+
+`- (NSString *)calculateSecondResult:(NSString *)data`
+
+`{`
+
+    `sleep(4);`
+
+    `return [data stringByReplacingOccurrencesOfString:@"E"`
+
+                                           `withString:@"e"];`
+
+`}`
+
+`- (IBAction)doWork:(id)sender`
+
+`{`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `NSString *fetchedData;`
+
+    `NSString *processed;`
+
+    `NSString *firstResult;`
+
+    `NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `fetchedData = [self fetchSomethingFromServer];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"Fetched: %@\n", fetchedData];`
+
+    `processed = [self processData:fetchedData];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"Processed: %@\n", processed];`
+
+    `firstResult = [self calculateFirstResult:processed];`
+
+    `secondResult = [self calculateSecondResult:processed];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                               `firstResult, secondResult];`
+
+    `NSDate *endTime = [NSDate date];`
+
+    `NSLog(@"Completed in %f seconds"`,
+
+          `[endTime timeIntervalSinceDate:startTime]);`
+
+    `self.isWorking = NO;`
+
+`}`
+
+`@end`
+
+Note that the work of this class (such as it is) is split up into a number of small chunks. This code is just meant to simulate some slow activities, and none of these methods really does anything time consuming at all. So, to make it interesting, each method contains a call to the `sleep()` function, which simply makes the program (specifically, the thread from which the function is called) effectively pause and do nothing at all for the given number of seconds. The `doWork:` method also contains code at the beginning and end to calculate the amount of time it took for all the work to be done.
+
+Now, open up MainMenu.xib, and put an `NSButton` and an `NSTextView` into the empty window, laying things out as shown in Figure [17-1](#A978-1-4302-4543-8_17_Chapter.html#Fig1). Connect the app delegate’s two outlets to the relevant controls, and connect the button’s action back to the app delegate’s `doWork:` method. Then configure the `NSTextView` a bit, deleting the example text from the view, and turning off the Editable checkbox in the Attributes Inspector.
+
+Now save the work, and hit Run in Xcode. The app should start, and clicking the button will make it work for about ten seconds (the sum of all those sleep amounts) before showing the results. About five or six seconds in, the mouse cursor will change to the spinning-disk cursor, and it stays that way until the work is complete. The `NSTextView` we put in the window remains blank until the end, even though our code tries to update its content occasionally, because the main thread that needs to redraw the display is “stuck” doing all of our background processing. Also, during the entire time, the application’s menu is unresponsive, along with the window controls. In fact, the only way we can interact with our application at all, besides killing it with Mac OS X’s Force Quit window, is to move its window around because the OS itself handles that. This is exactly the state of affairs we want to avoid! In this particular case, it’s not too bad because the application appears to be hung for just a few seconds. However, if your app regularly “beachballs” this way for much longer than that, you’ll end up with some unhappy users—and maybe even some ex-users!
+
+## Threading Basics
+
+Before we start implementing solutions, let’s go over some of the basics involved in concurrency. This is far from a complete description of threading in OS X or threading in general. For that, you’ll need to look elsewhere. We just want to explain enough for you to understand what we’re doing in this chapter.
+
+In most modern operating systems (including, of course, OS X), apart from the notion of a process, which contains a running instance of a program stored on disk, there’s also the notion of threads of execution. Each process can consist of multiple threads that all run concurrently. If there’s just one processor core, the OS will switch between executing multiple threads, much like it switches between executing multiple processes. If there’s more than one core available, the threads will be distributed among them just like processes are.
+
+All threads in a process share the same executable program code and the same global data. Each thread can also have some data that is exclusive to the thread. Threads can make use of a special structure called a mutex (short for mutual exclusion) or a lock, which can ensure that a particular chunk of code can’t be run by multiple threads at once. This is useful for ensuring correct outcomes when multiple threads access the same data simultaneously by locking out other threads when one thread is updating a value (in what’s called a “critical section” of the code). For example, let’s say our application implements a banking system where an account balance can be modified as part of a transaction. In a multi-threaded system, we need to protect the section of code that adds or subtracts from the account balance to eliminate the possibility that two threads are both messing with it at the exact same time. Otherwise, we might have both threads reading the old balance more or less simultaneously, and both threads later writing back their own ideas of the new balance, oblivious to the changes that the other was trying to make, leading to an incorrect final state; whichever sets the value last is the “winner,” and the other thread’s change to the balance is simply lost.
+
+A common concern when dealing with threads is the idea of code being thread-safe. Some software libraries are written with concurrency in mind and have all their critical sections properly protected with mutexes. Some code libraries simply don’t. For instance, in Cocoa, the AppKit framework (containing the classes specific to building GUI applications, such as `NSApplication`, `NSView` and all its subclasses, and the like) is for the most part not thread-safe. This means that in a running Cocoa application, all method calls that deal with any AppKit objects should be executed from within the same thread, which is commonly known as the main thread. If we access AppKit objects from another thread, all bets are off; we are likely to encounter seemingly inexplicable bugs. By default, the main thread is where all the action of our Cocoa app (such as dealing with actions triggered by user events) occurs, so for simple applications it’s nothing we need to worry about. Action methods triggered by a user are already running in the main thread. Up to this point in the book, our code has been running exclusively on the main thread, but that’s about to change.
+
+### Units of Work
+
+The problem with the threading model just described is that for the average programmer, writing error-free, multi-threaded code is nearly impossible. This is not meant as a critique of our industry or of the average programmer’s abilities; it’s simply an observation. The complex interactions we have to account for in our code when synchronizing data and actions across multiple threads are really just too much for most people to tackle. Imagine that 5 percent of all people have the capacity to write software at all. Only a small fraction of those 5 percent are really up to the task of writing heavy-duty, multi-threaded applications. Even people who have done it successfully will often advise others to not follow their example!
+
+Fortunately, all hope is not yet lost. It is possible to implement some concurrency without too much low-level thread-twisting. Just like we have the ability to display data on the screen without directly poking bits into video RAM and to read data from disk without interfacing directly with disk controllers, software abstractions exist that let us run our code on multiple threads without requiring us to do much directly with the threads at all. The solutions that Apple encourages us to use are centered around the idea of splitting up long-running tasks into units of work and putting those units into queues for execution. The system manages the queues for us, executing units of work on multiple threads. We don’t need to start and manage the background threads directly and are freed from much of the “bookkeeping” that’s usually involved in implementing concurrent applications. The system takes care of that for us.
+
+### Operation Queues
+
+Since the release of OS X 10.5, Apple has provided us with a pair of classes called `NSOperation` and `NSOperationQueue` that work together to provide operation queues. The idea is that we split our computational tasks into chunks or units of work, wrap each of them up in an `NSOperation`, and put each operation into an `NSOperationQueue`. We can also establish interoperation dependencies, specifying that an operation won’t begin executing until another one is complete. The `NSOperationQueue` then takes care of these units the best it can, using the order that operations were added to the queue, along with the dependencies we specified, to determine its course of action. If the dependencies we specify allow some operations to execute at the same time, and there are enough cores available to run them, the operation queue will use multiple threads to execute multiple operations simultaneously.
+
+### Becoming a Blockhead
+
+One of the most straightforward ways to use Apple’s concurrency APIs, either with `NSOperationQueue` or with GCD, is through the use of blocks. Originally released along with GCD, blocks are a bit of new syntax that Apple has added to the C language itself (and, by extension, Objective-C and C++). This new language feature, which is also known as closures in some other languages, is really important for getting the most out of GCD. The idea behind a block is to let a particular chunk of code be treated like any other C-language type. A block can be assigned to a variable, passed as an argument to a function or method, and in general treated like any other Objective-C object. Unlike other most other types available in C, blocks can also be executed. We can create a block in one object and pass it off to another object that can execute it later. In this way, blocks can be used as an alternative to the delegate pattern in Objective-C or to callback functions in C. Much like a method or function, a block can take one or more parameters and specify a return value. In order to declare a block variable, we make use of the caret (^) symbol along with some additional parenthesized bits to declare parameters and return types. To define the block itself, we do roughly the same, but follow it up with the actual code defining the block wrapped in curly braces. Here are some examples of what we’re talking about:
+
+`// Declare a block variable "loggerBlock" with no parameters and no return value.`
+
+`void (^loggerBlock)(void);`
+
+`// Assign a block to the variable declared above.  A block without parameters`
+
+`// and with no return value, like this one, needs no "decorations" like the use`
+
+`// of void in the preceeding variable declaration.`
+
+`loggerBlock = ^{ NSLog(@"I'm just glad they didn't call it a closure"); };`
+
+`// Execute the block, just like calling a function.`
+
+`loggerBlock();  // this produces some output in the console`
+
+If you’ve done much C programming, you may recognize that this is similar to the concept of a function pointer in C. However, there are a few critical differences. Perhaps the biggest difference is that a block can be defined inline, inside the body of a function or method. We can define a block right at the point where it’s going to be assigned to a variable, or passed to another method or function. Another big difference is that a block can access variables available in the scope where it’s created. By default, the block makes ready-only copies of any variables we access this way, leaving the originals intact. At the same time, it automatically increases the reference count of any Objective-C object used from the surrounding scope and decreases the reference count again when the block has executed. However, we can make any outside variable read/write by prepending `__block` before its declaration.
+
+`// define a variable which can be changed by a block`
+
+`__block int a = 0;`
+
+`// define a block that tries to modify a variable in its scope`
+
+`void (^sillyBlock)(void) = ^{ a = 47; };`
+
+`// check the value of our variable before calling the block`
+
+`NSLog(@"a == %d", a); // outputs "a == 0"`
+
+`// execute the block`
+
+`sillyBlock();`
+
+`// check the values of our variable again, after calling the block`
+
+`NSLog(@"a == %d", a); // outputs "a == 47"`
+
+As mentioned, blocks really shine when used with GCD. GCD includes a set of functions that accomplish the same sorts of things that `NSOperation` and `NSOperationQueue` do, but with a different spin. The main difference is that, instead of explicitly creating a bunch of operations, optionally declaring inter-operation dependencies, and then assigning adding the operations to queues, with GCD we call a function that takes a block and adds it to a queue in a single step. We’ll get to that a little later, but first we’ll show how to tackle concurrency with operation queues.
+
+## Vitalizing SlowWorker
+
+To see how operation queues work, let’s put them to the test in SlowWorker. Before we start, make a copy of the entire folder containing the SlowWorker project. Later on in this chapter we’re going to use the original version of SlowWorker as a starting point for another way to implement concurrency, so keep a copy of it lying around.
+
+Recall that the problem with this app is that the single action method calls several other methods in sequence, the total length of which is enough to make the app feel unresponsive. What we’re going to do is put each of those other methods into an operation, put all the operations into a queue, and let the queue do its thing.
+
+The `doWork:` method is the place where we’re going to make all our changes. We start off by giving all of our local `NSString` variables the `__block` storage qualifier. Then we wrap each little chunk of work inside a block, declare some dependencies so that they run in the right order, and then pass them off to a new queue for execution. Take a look at the bold lines shown here (and add them to our method as well, of course) and then we’ll discuss the details a little more:
+
+`- (IBAction)doWork:(id)sender {`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `__block` `NSString *fetchedData;`
+
+    `__block` `NSString *processed;`
+
+    `__block` `NSString *firstResult;`
+
+    `__block` `NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `NSBlockOperation *fetch = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `fetchedData = [self fetchSomethingFromServer];`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"Fetched: %@\n", fetchedData];`
+
+    `}];`
+
+    `NSBlockOperation *process = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `processed = [self processData:fetchedData];`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"Processed: %@\n", processed];`
+
+    `}];`
+
+    `NSBlockOperation *calcFirst = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `firstResult = [self calculateFirstResult:processed];`
+
+    `}];`
+
+    `NSBlockOperation *calcSecond = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `secondResult = [self calculateSecondResult:processed];`
+
+    `}];`
+
+    `NSBlockOperation *showResults = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                                   `firstResult, secondResult];`
+
+        `NSDate *endTime = [NSDate date];`
+
+        `NSLog(@"Completed in %f seconds"`,
+
+              `[endTime timeIntervalSinceDate:startTime]);`
+
+              `self.isWorking = YES;`
+
+    `}];`
+
+    `[process addDependency:fetch];`
+
+    `[calcFirst addDependency:process];`
+
+    `[calcSecond addDependency:process];`
+
+    `[showResults addDependency:calcFirst];`
+
+    `[showResults addDependency:calcSecond];`
+
+    `NSOperationQueue *queue = [[NSOperationQueue alloc] init];`
+
+    `[queue addOperations:@[fetch, process, calcFirst, calcSecond, showResults]`
+
+       `waitUntilFinished:NO];`
+
+`}`
+
+The first thing we did was add the `__block` storage qualifier to some local variables. That way, each of those `NSString` pointers remains a single, unique pointer that can be both read from and written to by each block. In this context, “writing” means assigning to the pointer to point at a different object. Without `__block`, each block would get a new pointer of its own, all pointing at the same initial object, and none of them writable at all! So `__block` gives us a way of sharing some data between blocks.
+
+Next, we create some operations. Instead of simply executing each worker method directly, it now creates an `NSBlockOperation` for each. `NSBlockOperation` is simply a class of `NSOperation` that is designed to be created from a block.
+
+Then we define a set of dependencies between these operations, so that `process` is only executed after `fetch` is done, `calcFirst` and `calcSecond` are only executed after `process` is done, and `showResults` is only executed after all the others are done.
+
+Finally, we create a new `NSOperationQueue` and pass it an array containing all our operations. The queue will look at all the dependencies between these operations and figure out how to execute them in the correct order.
+
+### Demanding the Main Thread
+
+However, we’re still not quite ready to roll. Remember that the AppKit classes (such as all the window and view classes) are generally not thread-safe. All access to them should be performed exclusively on the main thread. But right now we are accessing the `NSTextView` from several of our operations. In all likelihood, some of those operations will run on some other thread when its time comes! Even though this may “work” in this simple test app, it’s not a really a safe foundation to build upon. We need to adjust each of those operations so that all access to the `NSTextView` happens on the main thread.
+
+To do this, we’ll wrap each such access inside yet another block, which will be passed directly to a special queue that always runs its operations on the main thread. The bold code here shows the final changes we need to make to the `doWork:` method:
+
+`- (IBAction)doWork:(id)sender {`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `__block NSString *fetchedData;`
+
+    `__block NSString *processed;`
+
+    `__block NSString *firstResult;`
+
+    `__block NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `NSBlockOperation *fetch = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `fetchedData = [self fetchSomethingFromServer];`
+
+        `[[NSOperationQueue mainQueue] addOperationWithBlock:^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"Fetched: %@\n", fetchedData];`
+
+        `}];`
+
+    `}];`
+
+    `NSBlockOperation *process = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `processed = [self processData:fetchedData];`
+
+        `[[NSOperationQueue mainQueue] addOperationWithBlock:^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"Processed: %@\n", processed];`
+
+        `}];`
+
+    `}];`
+
+    `NSBlockOperation *calcFirst = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `firstResult = [self calculateFirstResult:processed];`
+
+    `}];`
+
+    `NSBlockOperation *calcSecond = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `secondResult = [self calculateSecondResult:processed];`
+
+    `}];`
+
+    `NSBlockOperation *showResults = [NSBlockOperation blockOperationWithBlock:^{`
+
+        `[[NSOperationQueue mainQueue] addOperationWithBlock:^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                                       `firstResult, secondResult];`
+
+            `NSDate *endTime = [NSDate date];`
+
+            `NSLog(@"Completed in %f seconds"`,
+
+                  `[endTime timeIntervalSinceDate:startTime]);`
+
+           `self.isWorking = NO;`
+
+        `}];`
+
+    `}];`
+
+    `[process addDependency:fetch];`
+
+    `[calcFirst addDependency:process];`
+
+    `[calcSecond addDependency:process];`
+
+    `[showResults addDependency:calcFirst];`
+
+    `[showResults addDependency:calcSecond];`
+
+    `NSOperationQueue *queue = [[NSOperationQueue alloc] init];`
+
+    `[queue addOperations:@[fetch, process, calcFirst, calcSecond, showResults]`
+
+       `waitUntilFinished:NO];`
+
+`}`
+
+Now we should be able to run our app, and we’ll notice something perhaps a little different after pressing the Start button: the button immediately reverts back to its non-clicked state, and the menus still work. The first two operations put some text into the `NSTextView` as they finish. After about seven seconds (down from the ten seconds the first version used, since some of our work methods are running at the same time now), the final output appears in the text view. That’s all well and good, but we can easily make things even more responsive by using Cocoa Bindings and the `isWorking` property, which we created back at the start. Open up MainMenu.xib again, and use the Object Library to find a circular progress indicator. Then add it to our window as shown in Figure [17-2](#A978-1-4302-4543-8_17_Chapter.html#Fig2).
+
+![A978-1-4302-4543-8_17_Fig2_HTML.jpg](A978-1-4302-4543-8_17_Fig2_HTML.jpg)
+
+Figure 17-2. 
+
+Adding a progress indicator
+
+With the progress indicator selected, use the Attributes Inspector to make sure that its Display When Stopped checkbox is turned off. Then switch to the Bindings Inspector, expand the view for its Animate parameter, and bind it to the App Delegate after typing `isWorking` as the Model Key Path. Then select the Start button in the window, where we’ll make a similar configuration. Bind the button’s Enabled attribute to the app delegate with the `isWorking` key path, and this time add an `NSNegateBoolean` as a Value Transformer.
+
+Save the changes, and click Run; when we click the Start button, it becomes disabled, and the circular progress indicator appears and starts spinning. When the work is done, the progress indicator disappears, and the button goes back to normal.
+
+Now let’s take this just one step farther: add a horizontal progress indicator (a horizontal movement that tells us that things are happening, such as in a software installer). The progress view will go from 0 to 4, each work method upping the number a bit. Like the circular progress indicator, this will be configured entirely with Cocoa Bindings.
+
+Start off by adding a new property called `completed` to SWAppDelegate.h :
+
+`//  SWAppDelegate.h`
+
+`//  Insert this after the @interface line`
+
+`@property (assign) NSInteger completed;`
+
+Next, switch over to SWAppDelegate.m. Add the following near the top of the `doWork:` method to reset this counter as soon as the user hits the Start button:
+
+`self.completed = 0;`
+
+Each work method now needs to increment this variable when they’re done. We could add the following line to each work method:
+
+`self.completed = self.completed + 1;`
+
+However, this is where one of those sticky multi-threaded problems turns up. In this line of code, what really happens is that it first grabs the current value of the `completed` property by calling `[self completed]`, then adds one to it, and then stores the result back into the completed property by calling `[self setCompleted:]`. In a multi-threaded environment, this can lead to incorrect behavior. What if, for instance, two threads execute a line like this at about the same time? Suppose the starting value of `completed` is 2\. If both threads read the current value before either of them writes out their own result, each will add 1 to their own copy of the value, then each of them will write their local sum (3) back into the completed property, which ends up containing the value 3 instead of the correct value, 4.
+
+A way around this is to use Objective-C’s `@synchronized` keyword, which lets us specify that a piece of code can only be run by one thread at a time. Enter the following method somewhere in the app delegate’s `@implementation` section:
+
+`- (void)incrementCompleted {`
+
+  `@synchronized(self) {`
+
+  `self.completed = self.completed + 1;`
+
+  `}`
+
+`}`
+
+What we’re doing there is taking the same code we thought about earlier and wrapping it in a sort of a safe zone. The `@synchronized` keyword takes as its one argument an object that will be used to determine the scope of the synchronization limiting. Basically, any calls using the same value will each try to grab the same lock. If some other thread has already claimed it, the current thread has to wait until the other thread is done. In this case, because we’re using `self`, any calls made to this method on the same instance will all try to acquire the same lock. We only have one instance of our app delegate, so this is in practice a global lock, but for our purposes that’s okay.
+
+The coding we need to do in order for this to work is to just add this line to each of the work methods, just before the `return` in each of them:
+
+`[self incrementCompleted];`
+
+And finally, we need to configure the GUI. Go back to the MainMenu.xib file in Interface Builder, and search the Library for a progress indicator. In addition to the circular one we’ve already used, there’s a horizontal one labeled Indeterminate Progress Indicator. Drag that to the window, and lay it out as shown in Figure [17-3](#A978-1-4302-4543-8_17_Chapter.html#Fig3).
+
+![A978-1-4302-4543-8_17_Fig3_HTML.jpg](A978-1-4302-4543-8_17_Fig3_HTML.jpg)
+
+Figure 17-3. 
+
+The final GUI touch-up
+
+Now bring up the Attributes Inspector. Click to turn off both the Display When Stopped and Indeterminate checkboxes, then set its Minimum and Current values to 0 and its Maximum value to 4\. Now switch to the Bindings Inspector where we’ll configure two bindings. First, bind its Animate attribute to the app delegate’s `isWorking` key, just like we did for the circular progress indicator. Then, bind its Value attribute to the app delegate’s `completed` key.
+
+Save the work, Run, and click the Start button. Beside the circular progress indicator, a horizontal progress indicator also appears, with a bar moving across as each of the work methods completes.
+
+And there it is: relatively painless concurrency. Granted, this contrived example isn’t much compared to a large application, but these concepts can scale up to handle more complex situations as well. What we’ve shown works well in today’s OS X and iOS applications, but Apple didn’t stop there. Starting with Snow Leopard, most of the design of `NSOperation` and `NSOperationQueue` has been reimplemented at a lower level in the OS, resulting in a nice piece of technology called Grand Central Dispatch.
+
+## GCD: Low-Level Queuing
+
+This idea of putting units of work into queues that can be executed in the background, with the system managing the threads for us, is really powerful and greatly simplifies many development situations where concurrency is needed. It seems that once this technology was up and running in the form of `NSOperationQueue` in Leopard, Apple decided to make a more general solution that could work not only from Objective-C, but also C and C++. Starting with Snow Leopard, this solution, called Grand Central Dispatch (which we’ll call GCD from now on), is ready for use. GCD puts most of the core concepts of `NSOperationQueue`—units of work, painless background processing, automatic thread management—into a C interface that can be used from all of the C-based languages. This means that it’s not just for Cocoa programmers. Now even low-level command-line utilities written in C can take advantage of these features. `NSOperationQueue` itself was rewritten for Snow Leopard using GCD, and to top things off, Apple has made its implementation of GCD open source so that it can be ported to other Unix-like operating systems as well.
+
+The main difference between the design of `NSOperationQueue` and the queues in GCD is that while `NSOperationQueue` can deal with arbitrarily complex dependency relationships between its `NSOperation`s to determine in what order they should be executed, the GCD queues are strictly FIFO (first-in, first-out). Units of work added to a GCD queue will always be started in the order they were placed in the queue. That being said, they may not always finish in the same order because a GCD queue will automatically distribute its work among multiple threads.
+
+With GCD, each queue has access to a pool of threads that are reused throughout the lifetime of the application. GCD will always try to maintain a pool of threads that is appropriate for the machine’s architecture, automatically taking advantage of a more powerful machine by utilizing more processor cores when it has work to do.
+
+### Improving SlowWorker a Second Time
+
+To see how this works, let’s take a look at the original form of SlowWorker’s `doWork:` method. To get to it, open up the copy of the original SlowWorker project directory we made earlier and use that for the rest of the changes we’re going to show. Here’s the original method:
+
+`- (IBAction)doWork:(id)sender {`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `NSString *fetchedData;`
+
+    `NSString *processed;`
+
+    `NSString *firstResult;`
+
+    `NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `fetchedData = [self fetchSomethingFromServer];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"Fetched: %@\n", fetchedData];`
+
+    `processed = [self processData:fetchedData];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"Processed: %@\n", processed];`
+
+    `firstResult = [self calculateFirstResult:processed];`
+
+    `secondResult = [self calculateSecondResult:processed];`
+
+    `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                               `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                               `firstResult, secondResult];`
+
+    `NSDate *endTime = [NSDate date];`
+
+    `NSLog(@"Completed in %f seconds"`,
+
+          `[endTime timeIntervalSinceDate:startTime]);`
+
+    `self.isWorking = NO;`
+
+`}`
+
+We can make this method run entirely in the background by wrapping all the code in a block and passing it to a GCD function called `dispatch_async`. This function takes two parameters: a GCD dispatch queue (conceptually similar to an `NSOperationQueue`) and a block to assign to the queue. As with the other approach, we’ll give our local variables the `__block` storage qualifier as well. Take a look:
+
+`- (IBAction)doWork:(id)sender {`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `__block` `NSString *fetchedData;`
+
+    `__block` `NSString *processed;`
+
+    `__block` `NSString *firstResult;`
+
+    `__block` `NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `dispatch_async(dispatch_get_global_queue(0, 0), ^{`
+
+        `fetchedData = [self fetchSomethingFromServer];`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"Fetched: %@\n", fetchedData];`
+
+        `processed = [self processData:fetchedData];`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"Processed: %@\n", processed];`
+
+        `firstResult = [self calculateFirstResult:processed];`
+
+        `secondResult = [self calculateSecondResult:processed];`
+
+        `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                   `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                                   `firstResult, secondResult];`
+
+        `NSDate *endTime = [NSDate date];`
+
+        `NSLog(@"Completed in %f seconds"`,
+
+              `[endTime timeIntervalSinceDate:startTime]);`
+
+        `self.isWorking = NO;`
+
+    `});`
+
+`}`
+
+This approach starts off by grabbing a pre-existing global queue that’s always available, using the `dispatch_get_global_queue()` function (unlike `NSOperationQueue`, with GCD there’s always a global queue available, ready to dispatch work to the background threads). That function takes two arguments: the first lets us specify a priority, and the second is currently unused and should always be 0\. If we specify a different priority in the first argument, such as `DISPATCH_QUEUE_PRIORITY_HIGH` or `DISPATCH_QUEUE_PRIORITY_LOW` (passing a 0 is the same as passing `DISPATCH_QUEUE_PRIORITY_DEFAULT`), we will actually get a different global queue, which the system will prioritize differently. For now, we’ll stick with the default global queue.
+
+The queue is then passed to the `dispatch_async()` function, along with the block of code that comes after. GCD then takes that entire block and passes it off to a background thread, where it will be executed one step at a time, just like it when it was running in the main thread.
+
+#### Don’t Forget That Main Thread
+
+There’s one problem here: AppKit thread safety. Remember, messaging any GUI object, including our `resultsTextView`, from a background thread is a no-no. Fortunately, GCD provides us with a way to deal with this, too. Inside the block, we can call another dispatching function, passing work back to the main thread! We do this by once again calling `dispatch_async()`, this time passing in the queue returned by the `dispatch_get_main_queue()` function, which always gives us the special queue that lives on the main thread, ready to execute blocks that require the use of the main thread. Adding the bold lines shown here will make all of the AppKit calls happen on the main thread:
+
+`- (IBAction)doWork:(id)sender {`
+
+    `NSDate *startTime = [NSDate date];`
+
+    `__block NSString *fetchedData;`
+
+    `__block NSString *processed;`
+
+    `__block NSString *firstResult;`
+
+    `__block NSString *secondResult;`
+
+    `self.isWorking = YES;`
+
+    `dispatch_async(dispatch_get_global_queue(0, 0), ^{`
+
+        `fetchedData = [self fetchSomethingFromServer];`
+
+        `dispatch_async(dispatch_get_main_queue(), ^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"Fetched: %@\n", fetchedData];`
+
+        `});`
+
+        `processed = [self processData:fetchedData];`
+
+        `dispatch_async(dispatch_get_main_queue(), ^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"Processed: %@\n", processed];`
+
+        `});`
+
+        `firstResult = [self calculateFirstResult:processed];`
+
+        `secondResult = [self calculateSecondResult:processed];`
+
+        `dispatch_async(dispatch_get_main_queue(), ^{`
+
+            `_resultsTextView.string = [_resultsTextView.string stringByAppendingFormat:`
+
+                                       `@"First Result: [%@]\nSecond Result: [%@]\n\n"`,
+
+                                       `firstResult, secondResult];`
+
+        `});`
+
+        `NSDate *endTime = [NSDate date];`
+
+        `NSLog(@"Completed in %f seconds"`,
+
+              `[endTime timeIntervalSinceDate:startTime]);`
+
+        `self.isWorking = NO;`
+
+    `});`
+
+`}`
+
+#### Concurrent Blocks in GCD
+
+We still have one more change to make in order for this program to behave the same and run at least as fast as our previous version that used `NSOperationQueue`. Remember that when we set up operations in the queue, we allowed `calculateFirstResult` and `calculateSecondResult` to run at the same time through the use of dependencies? We declared that each of them was dependent on the preceding call to `processData`, and that in turn the following call to `finishWorking` was dependent on both of them. That left it up to the operation queue to run both of those at the same time, if possible. In what we currently have in our GCD version, that’s not the case. The code runs straight through just as shown, always calling `calculateSecondResult:` only after `calculateFirstResult:` has completed.
+
+Fortunately, once again GCD has a way to accomplish the same thing by using what’s called a dispatch group. All blocks that are dispatched asynchronously within the context of a group are set loose to execute as fast as they can, including being distributed to multiple threads for concurrent execution if possible. We can also use `dispatch_group_notify()` to specify an additional block that will be executed when all the blocks in the group have been run. Here’s what it looks like:
+
+`- (IBAction)doWork:(id)sender {`
+
+  `NSDate *startTime = [NSDate date];`
+
+  `dispatch_async(dispatch_get_global_queue(0, 0), ^{`
+
+    `NSString *fetchedData = [self fetchSomethingFromServer];`
+
+    `NSString *processed = [self processData:fetchedData];`
+
+    `__block NSString *firstResult;`
+
+    `__block NSString *secondResult;`
+
+    `dispatch_group_t group = dispatch_group_create();`
+
+    `dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{`
+
+      `firstResult = [self calculateFirstResult:processed];`
+
+    `});`
+
+    `dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{`
+
+      `secondResult = [self calculateSecondResult:processed];`
+
+    `});`
+
+    `dispatch_group_notify(group, dispatch_get_global_queue(0, 0), ^{`
+
+      `NSString *resultsSummary = [NSString stringWithFormat:`
+
+        `@"First: [%@]\nSecond: [%@]", firstResult, secondResult];`
+
+      `dispatch_async(dispatch_get_main_queue(), ^{`
+
+        `[_resultsTextView setString:resultsSummary];`
+
+      `});`
+
+      `NSDate *endTime = [NSDate date];`
+
+      `NSLog(@"Completed in %f seconds"`,
+
+        `[endTime timeIntervalSinceDate:startTime]);`
+
+    `});`
+
+  `});`
+
+`}`
+
+With all that in place, we should be able to Run our app and see the same behavior and performance that we saw after the first set of improvements, but not the additional changes we made where we used Cocoa Bindings to improve the GUI’s behavior while the work is being performed. Applying the changes to the GCD-enhanced version of SlowWorker is left as an exercise for the reader.
+
+## A Little Concurrency Goes a Long Way
+
+We’ve now seen some concrete examples of how to provide basic concurrency in our applications using both `NSOperationQueue` and GCD. Our simple example project doesn’t do anything interesting, but these techniques can be applied to any situation where we have lengthy activities going on and don’t want to expose our users to the spinning busy cursor. We’ve also learned a bit about the new block syntax and how it can be used to create work units ready for running in background threads.
+
+Using these technologies can have a huge impact on the user experience for your application, and you should really use them any time your users are waiting around for your application to do something! It’s up to you to decide whether to use `NSOperationQueue` or GCD. Remember that in every release of OS X since 10.6, `NSOperationQueue` has been implemented using GCD, so your app will have similar performance characteristics either way. It’s up to you to decide which way you want to go.
+
+# 18. Future Paths
+
+Abstract
+
+You’ve now reached the final chapter of Learn Cocoa on the Mac! Hopefully you now have a good feel for how Cocoa works and how the various parts can be used to write all sorts of interesting desktop applications. However, the Cocoa frameworks are really huge, and we’ve only scratched the surface on most of the classes and concepts we’ve covered. This book was never meant to be an encyclopedic Cocoa reference (you’ve already got that on your computer, installed with Xcode), but rather a guide to help you find your way. Continuing in that spirit, we’re going to wrap up the book with an overview of additional techniques and resources that will help you take your Cocoa development efforts above and beyond what we’ve covered so far.
+
+You’ve now reached the final chapter of Learn Cocoa on the Mac! Hopefully you now have a good feel for how Cocoa works and how the various parts can be used to write all sorts of interesting desktop applications. However, the Cocoa frameworks are really huge, and we’ve only scratched the surface on most of the classes and concepts we’ve covered. This book was never meant to be an encyclopedic Cocoa reference (you’ve already got that on your computer, installed with Xcode), but rather a guide to help you find your way. Continuing in that spirit, we’re going to wrap up the book with an overview of additional techniques and resources that will help you take your Cocoa development efforts above and beyond what we’ve covered so far.
+
+We’ll start off with a bit of expansion on a few design patterns that we’ve mentioned but deserve a little more attention. We’ll also take a look at how to use languages other than Objective-C to do Cocoa programming. Finally, we’ll look at some ways take your hard-earned Cocoa skills and apply them to realms other than just the Mac OS X desktop.
+
+## More Cocoa-isms
+
+We’ve spent a lot of time in thisbook dealing with the MVC pattern, which helps us partition our application into logical layers, as well as the delegate pattern, which lets us define the behavior of some GUI objects inside our controller layer, instead of subclassing the GUI objects themselves. These techniques use language features and conventions to define patterns of usage. Along those lines, Cocoa has more tricks up its sleeve. One of them is the concept of notifications (referred to as the observer pattern in some circles), which let an object notify a collection of other objects when something happens. Another is the use of blocks to simplify our code in spots where a full-blown delegate, or even a single method, might be overkill. We’ve already seen blocks in use elsewhere in the book, but we’ll touch on some other interesting uses here as well.
+
+### Notifications
+
+Cocoa’s `NSNotification` and `NSNotificationCenter` classes provide a way to let one object send a message to a bunch of other objects without any of the objects needing to know anything about the others. All they really need to know is the name of the notification, which can be anything we like. An object that wants to be notified signs up as an observer of a particular notification name in advance, and the object that wants to broadcast a notification uses that name to send its message out to any observers that are listening.
+
+For example, let’s say we have several parts of our application that need to be updated whenever a particular event occurs, such as a piece of networking code reading a response from a web server. Using notifications, our networking code doesn’t need to know about every other object that wants the information. Instead, we can define a notification name for both the networking code and the observers to use, preferably in a header file that can be included by all classes involved, like so:
+
+`#define DATA_RECEIVED @"dataReceived"`
+
+Observers can sign up to receive notifications at any time, but typically this happens during an object’s initialization.
+
+`- (id)init`
+
+`{`
+
+    `if ((self = [super init])) {`
+
+        `[[NSNotificationCenter defaultCenter] addObserver:self`
+
+                                                 `selector:@selector(receiveNetworkData:)`
+
+                                                     `name:DATA_RECEIVED`
+
+                                                   `object:nil];`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+This tells the application’s one and only instance of `NSNotificationCenter` that it should notify the caller by calling its `receiveNetworkData:` method whenever anyone posts a `DATA_RECEIVED` notification. Note the final parameter where we’re passing a `nil`: if we instead specified an object there, that would limit the notification-observing to only apply to that particular object. Any other object posting the same notification wouldn’t have any effect. To make this work, the observer also needs to implement the method it specified when registering. This method always receives the `NSNotification` itself as a parameter.
+
+`- (void)receiveNetworkData:(NSNotification *)notification`
+
+`{`
+
+  `NSLog(@"received notification: %@", notification);`
+
+`}`
+
+Finally, any object that sets itself up as observer should usually remove itself from the observer list later on. A common idiom is to do something like the following in the `dealloc` method of any class that ever registers as an observer:
+
+`- (void)dealloc`
+
+`{`
+
+    `[[NSNotificationCenter defaultCenter] removeObserver:self];`
+
+`}`
+
+Now, what about the notifier itself, in our case the network-reading object that’s going to broadcast its status? That’s taken care of as simply as this:
+
+`if (some condition is met) {`
+
+    `[[NSNotificationCenter defaultCenter]`
+
+        `postNotificationName:DATA_RECEIVED`
+
+                      `object:self];`
+
+`}`
+
+The idea is that the notifier can fling out a notification like this, and the notification center takes care of the actual delivery. The notifier can also pass along additional information in the form of a dictionary that can be retrieved by an observer, like this:
+
+`// in the notifier`
+
+`NSDictionary *info = @{@"data" : someData};`
+
+`[[NSNotificationCenter defaultCenter]`
+
+    `postNotificationName:DATA_RECEIVED`
+
+                  `object:self`
+
+                `userInfo:info];`
+
+`// in the observer`
+
+`NSLog(@"received data %@", [[notification userInfo] objectForKey:@"data"]);`
+
+Notifications can be a really useful way to let separate parts of our application talk to each other without using formal APIs. All we need to do is decide on some strings to represent various events, and start observing and posting.
+
+### Blocks
+
+Chapters 11 and 17 introduced blocks, an addition to C that Apple came up with a few years ago. We mostly used blocks with the concurrency features provided by Grand Central Dispatch, where blocks fit in really well, but there are many more uses for blocks. It seems that in each new major version of OS X, Apple extends several Cocoa classes, adding new methods that take blocks as parameters. Let’s take a look at some of them.
+
+#### Enumeration
+
+Let’s start with something simple: enumeration. You’re probably familiar with the standard C-based ways of stepping through a list, and perhaps the use of `NSEnumerator`, and even the new fast enumeration (“for – in” loops) that’s been available since the release of OS X 10.5\. Now, blocks provide yet another way to do the same thing.
+
+`NSArray *array = @[@"zero", @"one", @"two", @"three"];`
+
+`// C-style enumeration`
+
+`int i;`
+
+`for (i = 0; i < [array count]; i++) {`
+
+    `NSLog(@"C enumeration accessing object: %@", array[i]);`
+
+`}`
+
+`// NSEnumerator, the "classic" Cocoa way to enumerate`
+
+`NSEnumerator *aEnum = [array objectEnumerator];`
+
+`id classicEnumerated;`
+
+`while ((classicEnumerated = [aEnum nextObject])) {`
+
+    `NSLog(@"NSEnumerator accessing object: %@", classicEnumerated );`
+
+`}`
+
+`// "Fast enumeration", released with OS X 10.5`
+
+`id fastEnumerated;`
+
+`for (fastEnumerated in array) {`
+
+    `NSLog(@"Fast enumeration accessing object: %@", fastEnumerated );`
+
+`}`
+
+`// "Block enumeration", released with OS X 10.6`
+
+`[array enumerateObjectsUsingBlock:^(id blockEnumerated, NSUInteger i, BOOL *stop) {`
+
+    `NSLog(@"Block enumeration accessing object: %@", blockEnumerated);`
+
+`}];`
+
+The block we pass in to `enumerateObjectsUsingBlock:` takes three arguments and returns nothing. That’s the block signature declared by the method, and that’s what we have to follow. The three arguments sent into our block are an object from the array, an integer containing that object’s index in the array, and a `BOOL` passed by reference that lets us halt the enumeration by setting its value to `YES`.
+
+Looking at it that way, it may not be obvious at first why the block version is any better than the others, but the fact is that it really combines the best of all the other ways of enumerating. For one thing, it gives us the index of the current object, which neither of the previous Objective-C-based alternatives did. This comes in handy if we want to do something like print out a numbered list of the items in an array. We can’t tell you how many times we’ve dropped down to C-style iteration just for easy access to each object’s index value! Also, there’s a variant of this method that lets us specify options defining how the enumeration runs, such as make it run concurrently, like so:
+
+`[array enumerateObjectsWithOptions:NSEnumerationConcurrent`
+
+    `usingBlock:^(id blockEnumerated, NSUInteger i, BOOL *stop) {`
+
+    `NSLog(@"Block enumeration accessing object: %@", blockEnumerated);`
+
+`}];`
+
+This method actually uses GCD to spread the work around to all available processor cores, which will make our app run more quickly and better utilize system resources. And we get it for free!
+
+Similar enumeration methods exist for the `NSSet` class, but without the index parameter (because the objects in a set are, by definition, unordered). `NSDictionary` has also gotten some good block action with new methods such as `enumerateKeysAndObjectsUsingBlock:` (and its options-taking variant that allows for concurrency), letting us specify a block that gets the key and value together. This is much better than previous ways of enumerating the contents of a dictionary, which typically involved stepping through all the keys and looking up the value for each key.
+
+#### Observing Notifications Using Blocks
+
+We realize that we just threw notifications at you a few pages ago, but guess what: Apple’s already taken the block concept and applied it to the `NSNotification` class as well, which boasts a method that lets us specify a block rather than a selector, like this:
+
+`id observe = [[NSNotificationCenter defaultCenter] addObserverForName:DATA_RECEIVED`
+
+  `object:nil queue:nil usingBlock:^(NSNotification *notification){`
+
+  `NSLog(@"received notification: %@", notification);`
+
+`}];`
+
+This is cool in a couple of ways. For one thing, it frees us from the burden of creating a method for our notification-handling code, letting us instead put it inline with the code that’s setting it up, which can make our code easier to read. The other cool thing, which is true of all blocks, is that because the block we create picks up its context from the location where it’s defined, it has access to not only instance variables, but also local variables defined earlier in the same method. That means that our block can be created with some values that are available at setup time and used later when the block is run, without needing to explicitly put them into instance variables or pass them along in some other manual way.
+
+Note that this version returns a value of type `id`, which we are stuffing into a variable called `observe`. The block notification observer needs to be removed just like any other observer, so we can use this return value to tidy up by calling this at the appropriate time:
+
+`[[NSNotificationCenter defaultCenter] removeObserver:observe];`
+
+One thing to be aware of when using blocks this way is that cleaning up in the `dealloc` method may not be good enough; if the block has made use of the `self` pointer, either explicitly or indirectly, then a sort of circular reference occurs and the object will never be freed! This brings us to our next block topic.
+
+#### Weakening Pointers for Blocks
+
+Going back to the last topic, imagine that we have a class with an instance variable called `observation` and the following `init` and `dealloc` methods:
+
+`@implementation MyController {`
+
+    `id observation;`
+
+`}`
+
+`- (id)init {`
+
+    `if ((self = [super init])) {`
+
+        `observation = [[NSNotificationCenter defaultCenter]`
+
+                       `addObserverForName:@"ESCHATON"`
+
+                       `object:nil`
+
+                       `queue:nil`
+
+                       `usingBlock: ^(NSNotification *notification){`
+
+                           `NSLog(@"notified observer: %@", self);`
+
+                       `}];`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+`- (void)dealloc {`
+
+    `[[NSNotificationCenter defaultCenter] removeObserver:observation];`
+
+`}`
+
+`@end`
+
+This looks fine at first glance, but there’s a subtle problem. This setup creates a sort of circular reference chain, which means that neither the `MyController` instance nor the `observation` object will ever be released! The reason is that when `init` is executed and the block (which we pass to `NSNotificationCenter`) is created, a special series of events occurs. Behind the scenes, ARC makes sure that any variables accessed inside the block are made “block-ready.” That means that for normal C types (`int`, `float`, etc.), a new read-only variable slot is prepared for use within the block, and that Objective-C object pointers are sent a `retain` message, thereby increasing their reference count during the entire lifetime of the block.
+
+Meanwhile, the return value that is assigned to `observation` is also handled nicely by ARC, which sends it a retain message so that it won’t disappear. The result is the following:
+
+*   `MyController` instance holds a strong reference to `observation`.
+*   The `observation` object holds a strong reference to its block, since it “owns” it.
+*   The block holds a strong reference to our `MyController` instance.
+
+The way to break this cycle is to turn one of those strong references into a weak one. The best way to do this is by changing `init` as follows:
+
+`- (id)init {`
+
+    `if ((self = [super init])) {`
+
+        `__weak id weakSelf = self;`
+
+        `observation = [[NSNotificationCenter defaultCenter]`
+
+                       `addObserverForName:@"ESCHATON"`
+
+                       `object:nil`
+
+                       `queue:nil`
+
+                       `usingBlock: ^(NSNotification *notification){`
+
+                           `NSLog(@"notified observer: %@", self);`
+
+                           `NSLog(@"notified observer: %@", weakSelf);`
+
+                       `}];`
+
+    `}`
+
+    `return self;`
+
+`}`
+
+Here we declare a new weak pointer to `self`, stored in a new variable called `weakSelf`. This new pointer is used inside the block. When the compiler sees this, it understands that this is a weak pointer and therefore should not be retained by the block. That means that `self` never receives an extra `retain`, so it’s free to be released at some point in time when it’s not being used. When that happens, the `dealloc` method is executed, the `observation` object is released, and the block it owns is then also released.
+
+It’s also important to realize this: a block will capture any object referred to in its code, but in the case of instance variables, it’s not the instance variable itself that is retained, but instead the `self` pointer! The reason for this is that instance variables are accessed through a C-style struct, even though we don’t see this in our code. In effect,
+
+`[tableView reloadData];`
+
+is essentially the same as
+
+`[self->tableView reloadData];`
+
+In the face of that, the compiler’s ARC rules demand that `self` be retained.
+
+Even though we may not see this every day, it’s important to understand how this mechanism works and why we must resort to this sort of workaround. Blocks that are going to be executed and released immediately (e.g., when being used with an enumerator) probably don’t need this sort of scrutiny. However, as soon as we pass a block off to another object and we either know it’s going to be a long-lived object or aren’t quite sure, we should take extra care to check our blocks and make sure we’re not accidentally setting ourselves up for trouble.
+
+#### Filtering
+
+Another use of blocks that Apple has added to Cocoa is `NSArray`’s `indexesOfObjectsPassingTest:` method. This method lets us declare a block that will examine an object, and, based on our own criteria, determine whether it should be included in the set of indexes that comes out (which can in turn be used to extract the “successes” from the original array). For example, assuming we have an array of people, we can find all the people named “Bob” like this:
+
+`NSArray *people;  // <- assume this exists`
+
+`NSIndexSet *bobIndexes = [people indexesOfObjectsPassingTest:`
+
+    `BOOL ^(id obj, NSUInteger idx, BOOL *stop){`
+
+    `return [obj.firstName isEqual:@"Bob"];`
+
+`}];`
+
+`NSArray *bobs = [people objectsAtIndexes:bobIndexes];`
+
+Although the use of blocks may seem tricky at first, after a while they become second nature, and once you get started, you’ll probably find more and more ways to use them. They are a really important tool for every Cocoa programmer.
+
+## Cocoa in a Foreign Language
+
+As much as some of us love Objective-C, it’s not the only game in town, and some people would rather use another language for developing Cocoa apps. Maybe you have a particular code library you want to make use of, or maybe you just prefer some other language. The good news is that there are some languages out there that can interface with Objective-C well enough to allow for some Cocoa development through the use of what’s called a “bridge” between the other language and Objective-C.
+
+The bad news, for some people at least, is that two of the biggest, most popular languages (C++ and Java) aren’t among them. You may be wondering why not. Well, without getting too deep: C++ and Java are just too inflexible. They don’t have the sort of runtime introspection capability that’s required for fully interfacing with complex Objective-C class libraries like Cocoa. Maybe, technically, Java has got what it takes. In fact, Apple included a Java bridge for building Cocoa apps in the first several versions of Mac OS X. But the fact that programmers weren’t lining up at the gates to use it, combined with the technical challenge of implementing and maintaining the Java bridge, made it not worthwhile for them, so Apple abandoned the project several years ago. And because we can actually combine Objective-C and C++ together in the form of Objective-C++, the need for bridging there is somewhat reduced. There are some real limitations there. We can’t, for instance, implement an Objective-C delegate in the form of a C++ class, so we need to create some “glue classes,” typically paired up across the border (one C++, one Objective-C) that are each able to deal with their own world and translate things for one another. It works, but that sort of code is not much fun to write or maintain.
+
+Back on the good news side of things, a batch of popular scripting languages (Ruby, Python, and JavaScript) have solid, working bridges that let us do real Cocoa work with them.
+
+### PyObjC
+
+One of the earliest projects to bridge a non-Objective-C language with the Cocoa frameworks is PyObjC, which lets us do a significant amount of Cocoa development in Python. As you’re well aware by this point, Objective-C’s syntax, in particular the intermixing of method names and arguments, is somewhat unusual, and most other languages don’t have any equivalent. What PyObjC does is provide mappings for all methods in all Objective-C classes included in Cocoa, so that we can call them from Python. The mappings are determined by a pretty simple formula: the entire Objective-C method name is pushed into a single symbol, with each colon in the method name replaced by an underscore character. All the method arguments are sent between parentheses, just like a standard C function. All objects are automatically bridged so that we can use all the standard Cocoa classes right from Python. For example, let’s look at a line of code talking about notifications. Here’s the Objective-C version:
+
+`[[NSNotificationCenter defaultCenter]`
+
+  `postNotificationName:DATA_RECEIVED object:self];`
+
+The Python version, using PyObjC, looks something like this:
+
+`center = NSNotificationCenter.defaultCenter()`
+
+`center.postNotificationName_object_(DATA_RECEIVED, self);`
+
+As you can see, the lack of intermixed method name parts and arguments really impacts the readability. Also, on the whole it’s rather “un-Pythonic,” so, while it works well for what it does, there are things for all sides to be somewhat unhappy about.
+
+PyObjC seems to have reached a stable state a few years ago, with most of the past few releases focusing on bug fixes. The version available at [`http://packages.python.org/pyobjc/`](http://packages.python.org/pyobjc/) seems to be in good shape and is in use in real-world projects.
+
+### MacRuby
+
+On the Ruby front, there are a couple of ways to bridge to Objective-C. For several years, a project called RubyCocoa has been available that works similarly to PyObjC in many ways. However, RubyCocoa seems to have stagnated, with most forward momentum having shifted to a newer project called MacRuby. This Apple-sponsored project aims to bring Ruby syntax to Cocoa in a whole different way. Instead of bridging between similar classes, MacRuby takes a different approach, basically jettisoning all the existing Ruby standard library classes and using the Cocoa equivalents instead, often giving them new methods whose names match their equivalents in the Ruby world. This means that experienced Ruby developers who jump on a MacRuby project may find that lots of their favorite classes and methods are missing or subtly different.
+
+One interesting difference between MacRuby and both PyObjC and RubyCocoa is that MacRuby goes the extra mile to make method calls feel similar to the way they do in Objective-C, while still working within Ruby syntax. This works by a smart use of Ruby’s keyed arguments, using the name of the Ruby method being called and the argument keys to look for a matching Objective-C method. Returning to the previous example,
+
+`[[NSNotificationCenter defaultCenter]`
+
+  `postNotificationName:DATA_RECEIVED object:self];`
+
+is written like so in MacRuby:
+
+`center = NSNotificationCenter.defaultCenter`
+
+`center.postNotificationName(DATA_RECEIVED, object:self)`
+
+When MacRuby hits that second line, it uses the method name (`postNotificationName`) and the argument key (`object`) to look for an Objective-C method called `postNotificationName:object:` in the receiver (`center`), finds it, and calls it. If we didn’t include a keyed argument for `object`, or included other keyed arguments that aren’t part of the underlying method we’re shooting for, this method call wouldn’t find a matching Objective-C method and would fail.
+
+On top of all that, MacRuby offers some other interesting features, such as compilation to native code, both just in time and ahead of time. It has also moved away from the traditional Ruby VM, instead sporting a new runtime built atop of LLVM, which some of you will recognize as the most modern of the compilers that Xcode can use.
+
+At the time of writing, MacRuby hasn’t produced a 1.0 version yet, but it’s definitely something to keep an eye on via [`www.macruby.org`](http://www.macruby.org) .
+
+### Nu
+
+Another interesting language in this context is Nu. Unlike PyObjC and MacRuby, here it’s not a matter of interfacing an existing language to Objective-C. Instead, Nu is essentially a whole new language (really a Lisp variant) that is designed specifically for interoperation with Objective-C, so it features the same interwoven method and argument syntax. Let’s bring back that example one more time. Objective-C:
+
+`[[NSNotificationCenter defaultCenter]`
+
+  `postNotificationName:DATA_RECEIVED object:self];`
+
+Nu:
+
+`((NSNotificationCenter defaultCenter)`
+
+  `postNotificationName:DATA_RECEIVED object:self)`
+
+How about that! Of course, it’s not completely identical. Even ignoring the change from square brackets to parentheses, there are lots of other syntax changes when declaring classes, methods, and so on, often stemming from Nu’s origins as a Lisp-based language. However, in general there’s a lot here that’s immediately recognizable to an Objective-C developer.
+
+Apart from the language itself, Nu also includes a command-line shell (nush), a make-like tool (nuke), and more. These tools add up to a package that lets us fire up a shell and do some ad-hoc scripting using the Cocoa classes we know and love. We can interact with live objects and take an exploratory approach to the Cocoa frameworks. Head on over to [`http://programming.nu`](http://programming.nu) to download it and see more about this interesting crossover between Cocoa and Lisp.
+
+### JavaScript
+
+The odd man out here, in some sense, is JavaScript. Everyone knows that JavaScript can be used to script web pages, but did you know that you can script your app with it? The WebKit framework included with Mac OS X won’t let us create an entire app in JavaScript, but it does let us include a scripting layer, with or without a web view, that lets someone familiar with JavaScript define some of what happens in the application.
+
+This is something we’re most likely to use in conjunction with a web view. Using the `WebView` class from WebKit, we can “reach through” to a `WebScriptObject`, which lets us call JavaScript functions from Objective-C, and also lets us expose an Objective-C object to the JavaScript interpreter so that the JavaScript code can call Objective-C methods using a method-to-function mapping similar to what we described for PyObjC. This is primarily useful if we want to use a `WebView` to lay out our GUI but still include controls in our GUI that can affect things outside of the JavaScript environment.
+
+But wait, there’s more! Besides the JavaScript support that WebKit gives us, there’s a third-party option called JSCocoa that fully bridges JavaScript with Cocoa using the same JavaScript engine (JavaScriptCore) that’s a part of WebKit. This lets us write complete Cocoa applications in JavaScript, much like we can in Python or Ruby. One nice feature of JSCocoa, which it shares with Cappuccino (described in the final section of this chapter) is that, in addition to the translation between JavaScript-style function names and Objective-C method names, JSCocoa actually lets us write our JavaScript in a syntax that is hauntingly similar to Objective-C.
+
+`[[NSNotificationCenter defaultCenter]`
+
+  `postNotificationName:DATA_RECEIVED object:self];`
+
+JSCocoa:
+
+`[[NSNotificationCenter defaultCenter]`
+
+  `postNotificationName:DATA_RECEIVED object:self]`
+
+That’s right—the only difference is the absent semicolon because we don’t need a semicolon at the end of a line of JavaScript if the end of the line is also a valid statement ending. We’re the first to admit that this seems like a JavaScript miracle: we don’t have the JavaScript knowledge to have the slightest idea how this trick was pulled off, and probably never will, but that’s okay. To learn more about this, go to   [`http://inexdo.com/JSCocoa`](http://inexdo.com/JSCocoa) .
+
+### F-Script
+
+No discussion of alternate languages for programming in Cocoa would be complete without mentioning F-Script. Unlike most of the language bridges, which are ultimately meant to let us build Cocoa apps in a different language, F-Script seems to have a couple of complementary purposes. First of all, we can embed F-Script into our applications, providing an easy way to add user scripting to our apps, including GUI components for entering and trying out scripts written in the F-Script language, which is based on Smalltalk and is therefore pretty similar to Objective-C.
+
+The other, perhaps even more useful features of F-Script are the tools it provides to us, the developers, in the form of an interactive command shell that lets us explore our running application. This includes a graphical browser that lets us navigate among the objects in our application, inspecting their properties, traversing relationships to other objects, and so on. It’s like taking the interactivity of Xcode’s debugger and turning it up to 11.
+
+Not only that, we can also inject F-Script into any running Cocoa application and use the same tools to explore its objects! Although this functionality is not as useful without the target app’s source, being able to browse the structure of other applications can be highly educational—and fun as well. All Cocoa developers should have some familiarity with this tool. Head over to [`http://www.fscript.org`](http://www.fscript.org) to try this out for yourself.
+
+## Ported Cocoa
+
+This book is primarily about making Mac software (it’s right there in the title), but we’d be doing you a disservice if we didn’t point out the other areas where Cocoa and Cocoa-ish technologies may be applied.
+
+### Cocoa Touch
+
+These days, with iPhone development growing by leaps and bounds, presumably everyone reading this book knows a bit about the iPhone development model and the fact that it’s based around Objective-C. In fact, it’s a pretty safe bet that you probably did some iPhone development before testing the Mac waters. In spite of that, it’s worth mentioning the iPhone’s Cocoa Touch frameworks and how it differs from the Cocoa frameworks we’ve been covering.
+
+Cocoa’s core classes are split between two frameworks: Foundation contains all the fundamental classes that can be useful in every type of development (`NSString`, `NSArray`, and so on), and AppKit contains all the classes that are specific to desktop GUI app development (`NSApplication`, `NSView`, `NSWindow`, and so on). In Cocoa Touch on the iPhone, the Foundation framework is about the same, but the AppKit is gone, and UIKit has taken its place.
+
+Many of the fundamentals of UIKit are similar to AppKit, with a few twists to make it work easily on a small, accelerometer-enabled, touch-screen device. Each application has a single `UIWindow` where all drawing occurs, and that `UIWindow` contains a hierarchy of `UIView` subclasses (such as `UIButton`, `UITextField`, and the like). Although AppKit’s only native user input methods are mouse and keyboard, UIKit also provides similar event-based input for handling multiple onscreen touches as well as movement of the device.
+
+In some other ways, UIKit is sort of “AppKit 2.0.” Apple took the opportunity to toss out some baggage in the form of APIs and classes that may have seemed like a good idea a decade or two ago, but now seem unnecessary. For instance, the whole concept of cell classes distinct from views (as exhibited by the `NSCell` classes) is now gone. The only UIKit class with cell in its name is `UITableViewCell`, which is really a `UIView` subclass used to draw a chunk of a table view (hence the name). Also, UIKit embraces Objective-C 2.0’s properties in a way that AppKit never has, providing declared properties for most of the configurable attributes.
+
+Apart from that, there are a few important parts of Cocoa that aren’t available in Cocoa Touch (at least, not as of this writing). Specifically, in terms of what you’ve read in this book, the biggest missing piece is Cocoa Bindings. KVC and KVO are there, so, if you’re feeling ambitious, the underpinnings for building your own binding technology are there. Without doing that, you’ll find that a big chunk of any iOS app is glue code that’s pushing values from model objects into various kinds of views and controls.
+
+### GNUstep and Cocotron
+
+Another platform that can run Cocoa-like apps is GNUstep and its more recent brother-in-arms, Cocotron. The GNUstep project has been around for a long time, and its original goals were centered on providing a desktop application programming environment for Linux and other Unix machines. The development libraries were based around the OpenStep API, a published standard that lists classes and APIs that are a subset of today’s Foundation and AppKit frameworks. That, in turn, came from a collaboration between NeXT and Sun in the mid-1990s when Sun wanted help providing an application development environment for their Solaris OS, all of which preceded Apple’s later acquisition of NeXT, whose OS and software later morphed into Mac OS X.
+
+So here we are today, and GNUstep is still out there in the wild. GNUstep continues to grow, acquiring new APIs as volunteers reimplement the latest things that Apple adds to Mac OS X, but its main goal has always been to implement the old OpenStep APIs, with the new additions being just a bonus. So far, there’s not much for GNUstep to shout about in terms of big-name projects, but as a way to port a Cocoa app to another Unix variant or to Windows, GNUstep at [`www.gnustep.org`](http://www.gnustep.org) is worth looking into.
+
+A few years ago, a new alternative called Cocotron turned up. Cocotron has a slightly different focus (trying to keep on top of all of Apple’s latest classes and API changes) and a different deployment target (it’s focused primarily on Windows instead of Unix), but it may also be worth thinking about if you want to port your app to Windows. It also has a less stringent license than GNUstep, which means you’re free to build Cocotron into your own closed-source applications. The official Cocotron web site at [`www.cocotron.org`](http://www.cocotron.org) seems to be nearly dead, but some development is still happening, as evidenced by the discussions at the project’s Google group at [`http://groups.google.com/group/cocotron-dev/`](http://groups.google.com/group/cocotron-dev/) .
+
+### Cappuccino/Objective-J
+
+Another interesting development from the past few years is the Cappuccino development environment. Unlike the other environments we’ve mentioned, Cappuccino is all about making web apps, not desktop apps. So instead of running Cappuccino apps on the desktop, they’re hosted on a web server and run in a web browser. Cappuccino development is all about running software on the client side, using JavaScript running in the context of a single HTML page, rather serving up page after page of content like a traditional web development framework does.
+
+Cappuccino contains class libraries that mimic much of Foundation and AppKit in name and functionality, and even manages to pull off the amazing trick of implementing much of Objective-C’s syntax in JavaScript, as we described when we mentioned JSCocoa. The applications created using Cappuccino can then be published on any web server and run in any modern browser, just like any other web application. This implementing of Objective-C in JavaScript is called Objective-J and is a crucial part of what makes Cappuccino tick.
+
+Cappuccino started off as a strange hybrid, consisting of an open source core containing the JavaScript frameworks and what was meant to be a commercial IDE called Atlas, which was itself a Cappuccino app. The company behind this idea was bought out before Atlas was ever released, though. Nowadays, the open source project has expanded to include tools that let you build the GUI for your Cappuccino app directly in Xcode’s Interface Builder instead. Go to [`www.cappuccino-project.org`](http://www.cappuccino-project.org) to follow the action.
+
+## Here at the End of All Things
+
+That wraps up the discussion of future paths for you to take as you develop your Cocoa skills; this also concludes this book. We hope this book has taken you to a place you wanted to get to, but let’s not assume that this stopping place is the final destination! Visit the Learn Cocoa on the Mac web site, where you’ll find forums for discussing with other Cocoa developers, source code for all the examples in this book, and more. And be sure to visit us at [`http://learncocoa.org`](http://learncocoa.org) where we’ll do our best to help you learn even more!
+
+Jack Nutting and Peter ClarkLearn Cocoa on the Mac10.1007/978-1-4302-4543-8© Apress 2013 Index A alloc/copy method Animator proxy Apple Developer Connection (ADC) applicationDidFinishLaunching: method applicationDidFinishLaunching: delegate method applicationWillTerminate: method Assistant editor Attributes details attribute divinity, goodness editing MythicalPerson entity Optional power Transient Unsupported Types Attributes Inspector B Bindings Inspector C Cappuccino Catching exceptions CMColorBlendView class blended colors to GUI binding configuration bind:toObject:withKeyPath: @class declaration CMDocument.h file CMDocument.m final output #imports list of connections Size Inspector soon-to-be-blended colors grid windowControllerDidLoadNib: method CGColorRefs CMColorBlendView.m drawRect: method drawRect: mode editing CMColorBlendView.h @implementation section @implementation nonatomic NSColor objects subclass of NSView class @synthesize CMDocument class Cocoa classes drawing automatic reference counting Bezier curve Bezier plumbing CEAppDelegate.h file CECurveView control point core animation See (see Core animation) curve drawing CurveEdit custom view frame rectangle vs. bounds rectangle fundamentals .h file LOLmaker See(see LOLmaker) .m file mouse activity NSRect NSSize NSView subclass See(see NSView subclass) paths view coordinate system learncocoa.org site Mac application NeXTStep AppKit Objective-C object-oriented frameworks OS X uses programming knowledge source code Xcode Cocoa bindings DungeonThing project and preferences window Attributes Inspector Character Generation preferences Dungeon Generation preferences MainMenu.xib Monster Generation preferences Object Library pane Tab View addition Main Window creation Attributes Inspector DungeonThingAppDelegate See (see DungeonThingAppDelegate) Object Library pane Size Inspector text field creation NSUserDefaultsController NSUserDefaultsController See (see NSUserDefaultsController) Table View Array Controller configuration DungeonThingAppDelegate.h DungeonThingAppDelegate.m file init method key-value coding key-value observing table display text field Cocoa skills blocks filtering Grand Central Dispatch init and dealloc methods MyController instance notification-handling code NSEnumerator NSNotification observation observation object weakSelf foreign language F-Script JavaScript MacRuby Nu Objective-C and C++ PyObjC GUI objects MVC pattern NSNotification ported See (see Ported Cocoa) Cocoa Touch Cocotron ColorMix application blend modes CMColorBlendView class See (see CMColorBlendView class) CMDocument class Core Data Core Graphics data model file format nib files NSDocument architecture setting two colors ColorSet creation GUI creation NSObjectController NSTextField undo and redo ColorSet object Concurrency GCD See (see Grand Central Dispatch (GCD)) SlowWorker definition doWork: method Editable checkbox inaction isWorking Mac OS X’s Force Quit window NSBlockOperation single action method SWAppDelegate.h SWAppDelegate.m thread AppKit classes Attributes Inspector closures doWork: method GCD Indeterminate Progress Indicator main thread mutex NSTextView operating systems operation queues Start button: method SWAppDelegate.h SWAppDelegate.m thread-safe Units of Work Value Transformer contentView Core animation basics explicit animations animation layers animator proxy CABasicAnimation class CECurveView MovingButton target NSPanel QuartzCore framework timing function grouping animations ANIM_DURATION applicationDidFinishLaunching: method assistant editor attributes inspector currentTabIndex display window FIAppDelegate.h file FIAppDelegate.m class FlipIt @implementation block items property matching methods NSArray NSBox NSInteger scalar property NSTabView NSView subclass Object dock prepareRightSide method transitionInFromRight method transitionOutToLeft method transitions implicit animations Core data business logic Custom Attribute creation Multiple Attributes validation MythicalPerson class Single Attributes validation Cocoa Bindings Inspector managedObjectContext MBAppDelegate Model Key Path field NSArrayController NSImage NSMutableDictionary predicates saveAction table view GUI Attributes Inspector Column Sizing MainMenu.xib file Mythical Details management NSScrollView NSTextField NSTextView Object Library table view integration with Cocoa bindings MythBase creation attributes See (see Attributes) Automatic Reference Counting entities Entity creation relationships Xcode’s model editor NSMutableDictionary persistence template vode See (see Template code) undo/redo support Core data relationships Array Controller entity model attributes configuration options Delete Rule pop-up destination pop-up migration multiple model versions MythBase one-to-many relationship run to-many relationship versioning and migrations GUI updation arrangedObjects Attributes Inspector band Grecian Formula band window Bindings Inspector Cocoa bindings Content Mode Gig List Model Key Path Mythical Bands controller Mythical Bands window Mythical People window NSArrayController pop-up button venue window MythBase application D DATA_RECEIVED notification dealloc method dispatch_async dispatch_get_global_queue() function Distributed Objects (DO) technology Document-based application ColorMix See (see ColorMix application) NSDocument class doWork: method DungeonThingAppDelegate action methods constants definition default preferences values specification E ECAppDelegate enumerateKeysAndObjectsUsingBlock: enumerateObjectsUsingBlock: esNSDocumentController class Exception handling catching exceptions Cocoa debugger Debug Navigator definition ECAppDelegate invalidArgumentException_unrecognizedSelector method NSException class NSInvalidArgumentException NSRangeException objc_exception_throw function rax Xcode’s Breakpoint Navigator F fileError method File handling high-level file operation See (see WhatAboutThatFile application) implicit file access classes content interpretation NSData NSPropertyListSerialization class property-list format writeToFile File-system attributes FlipIt freedObject method F-Script G GNUstep Grand Central Dispatch (GCD) NSOperationQueue SlowWorker concurrent Blocks dispatch_get_main_queue(  ) function SlowWorker’s doWork: method GUI component Cocoa UI elements coding default villain input key names updateDetailViews See (see updateDetailViews) NSButton NSControl VillainTrackerAppDelegate class connections inspector delegate method GUI class notesView property NSMutableDictionary outlet/action run button self.villain setVillain takeLastKnownLocation takeLastSeenDate VillainTracker application box view check box combo box date picker image view level indicator MainMenu.xib MVC design NSView pop-up button radio buttons resizing text field text view VillainTracker.xcodeproj H Human Interface Guidelines (HIG) I Identity inspector @implementation block Indeterminate Progress Indicator @interface block init method initWithObjectsAndKeys method initWithType: error invalidArgumentException_unrecognizedSelector method isWorking J JavaScript JSCocoa K keyPathsForValuesAffectingFileIcon class keyPathsForValuesAffectingFilename class L localizedDescription LOLmaker attributes inspector bindings inspector bitmap drawing identity inspector LOLAppDelegate.h file LOLAppDelegate.m LOLcat-style imagery LOLView scrolling text drawing Value attribute window M MacRuby MacRuby Language MainMenu.xib Mission Control Modal Windows alert function open and save panels Run Modal Alerts Model–view–controller (MVC) Mutex MyController class MythBase N nib-defined predicate Nib file Attributes Inspector alignment buttons font and size Interface Builder label’s attributes Mac OS X color picker NSTextField class system-default font blue guidelines Editor Inspector attributes definition Interface Builder’s Inspectors user interface Interface Builder mode Label Library NSArrayController NSArray’sindexesOfObjectsPassingTest: method NSCocoaErrorDomain NSDocument class NSDocumentController class NSError applicationDidFinishLaunching: method domains and codes error-generating method fileError method fileManager file-related errors localizedDescription NSFileManager class NSString po command presentError: method NSInvalidArgumentException NSManagedObjectContext object NSOperation NSOperationQueue NSOSStatusErrorDomain NSPersistentDocument NSPOSIXErrorDomain NSPredicate creation NSAppController, Xcode QuoteMonger See (see QuoteMonger) saving user-defined predicates app delegate editor configuration nib-defined predicate NSPredicateEditor Search window NSPredicateEditor NSPredicateEditorRowTemplate NSPropertyListSerialization class NSRangeException NSRect NSTableCellView NSTextField class NSUserDefaults NSUserDefaultsController character generation characterClassAllowedBard, Fighter characterClassAllowedPaladin key characterMaxNameLength Max Value Min Value NSUserDefaults NSUserDefaultsController Selected Tag attribute Dungeon Generation Monster Generation NSView subclass boundaries initWithFrame: method resizing setFrameSize: method stretching view position and size CGRectInset drawRect: method graphics context graphics states identity inspector MainMenu.xib file manual path construction path helpers size inspector NSWindow and NSPanel Apple’s Human Interface Guidelines input handling panel use System Panels See (see System Panels) Window Attributes windows sample NSWindowController Nib loading ARC system Easy Window File’s Owner Load Easy Window subclassing NSWorkspace class Nu language O objc_exception_throw function objectAtIndex: method objectController Objective-C compiler controller class creation Assistant Editor ButtonAppDelegate class ButtonsAppDelegate.m control-dragging implementation label property nib file Xcode delegate application ButtonsAppDelegate class configuration Documentation Browser main(  ) function NSApplication outlet and action Attributes Inspector Autosave field Cocoa application control-dragging IBAction I-beam IBOutlet interface builder MainMenu.xib method Minimize checkbox control nameField placeholder object Resize control Size Inspector Window Interface See (see Window Interface) Xcode Objective-J P po command Ported Cocoa Cappuccino/Objective-J Cocoa Touch GNUstep and Cocotron Mac software presentError: method PyObjC Language Q QMAppDelegate.h file QMAppDelegate.m Quartz Quote entity QuoteMonger data entry window initial quotes MainMenu.xib NSWindow instance Quote entity Quote Finder window quoting Quotes Show entity showing Shows project and data model creation search window R Responder chain resultsTextView property S searchPredicate property setName: method Sheets Show entity Signal alloc/copy method applicationDidFinishLaunching: method ARC Cocoa programmers freedObject method NSMutableString* Objective-C object release or autorelease message SIGSEGV/SIGILL Size Inspector SlowWorker stringEncodingName method SWAppDelegate.h SWAppDelegate.m System Menus bindings Boolean attribute menu items setting up turbo property Value binding Value Transformer first responder action method flowchart menu items new window creation Object Library responder chain own menus single horizontal strip standard application menu Windows application System Panels color panel Multiline Label responder chain Show Color Panel Text Color window layout Font Panel T Table view addition and deletion method Attributes Inspector code edition column identifier method dataSource and delegate outlet delegate method delete villain: method edition isEqual: method lazy loading method Project Navigator selectRowIndices Villains addition Villains selection VillainTrackerAppDelegate.m Column Size Content Mode data collection Identity Inspector Image combo box mugshot NSAddTemplate NSTableColumn Object Library Project Navigator panel resize/constraints appearance box blue line guidelines Cocoa Auto Layout Content Hugging control edition interface builder pane myButton resize handle scrollview selection Table View Cell VillainTrackerAppDelegate VillainTrackerAppDelegate class’s interface VillainTrackerAppDelegate preparation Template code App Delegate implementation action method applicationSupportDirectory method managedObjectContext accessor method managedObjectModel accessor method NSApplication delegate method NSWindow delegate method persistentStoreCoordinator accessor method App Delegate interface U UILabel object Undo stack updateDetailViews applicationDidFinishLaunching method evilnessView fast enumeration lazy loading powers primaryMotivation setStringValue: swornEnemy User-interface control User interfaces controller classes frameworks AppKit Cocoa framework definition foundation framework MVC model OS X unique outlets and actions action method akeIntValueFrom Attributes Inspector BookAppDelegate Cocoa Simulator Connections Inspector control-dragging integral values Interface Builder mode label properties laying out User Interface controls NSTextField class Object Library outlets definition project settings resize slider takeDoubleValueFrom Text Fields View section Xcode V VillainTrackerAppDelegate class connections inspector delegate method GUI class notesView property NSMutableDictionary outlet/action run button self.villain setVillain takeLastKnownLocation takeLastSeenDate VillainTracker application box view check box combo box date picker image view level indicator MainMenu.xib MVC design NSView pop-up button radio buttons resizing text field text view VillainTracker.xcodeproj W weakSelf WhatAboutThatFile application character string code applicationDidFinishLaunching method chooseFile method chosenEncoding property Cocoa bindings encodingNames method error checking error handling fileAttributes keyPathsForValuesAffectingFileIcon keyPathsForValuesAffectingFilename MainMenu.xib NSString NSWorkspace class setStringEncodingName method stringEncodingName method WATAppDelegate class GUI arrangedObjects controller key file attributes file selection MainMenu.xib NSDictionaryController class Opens Application pop-up button string encoding text view window components windowControllerDidLoadNib: method Window Interface blue guidelines font panel GUI object Interface Builder pane Object Library writeToFile method X, Y, Z Xcode archive build process Cocoa Application icon Editor pane icon application Mac App Store MainMenu.xib. Navigator pane nib file See (see Nib file) project options project’s main window property list run save location XML-based format

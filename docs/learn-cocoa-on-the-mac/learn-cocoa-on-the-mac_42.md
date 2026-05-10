@@ -1,0 +1,843 @@
+# Mac 上的 Cocoa
+
+Jack Nutting 和 Peter Clark
+
+*学习 Mac 上的 Cocoa*  
+10.1007/978-1-4302-4543-8  
+© Apress 2013
+
+## 索引
+
+### A
+- `alloc`/`copy` 方法
+- 动画代理
+- Apple 开发者连接 (ADC)
+- `applicationDidFinishLaunching:` 方法
+- `applicationDidFinishLaunching:` 委托方法
+- `applicationWillTerminate:` 方法
+- 助理编辑器
+- 属性检查器
+  - 属性详情：神性、善良
+  - 编辑 `MythicalPerson` 实体
+  - 可选
+  - 力量
+  - 瞬态
+  - 不支持的类型
+- 属性检查器
+
+### B
+- 绑定检查器
+
+### C
+- Cappuccino
+- 捕获异常
+- `CMColorBlendView` 类
+  - 混合颜色到 GUI 绑定配置
+  - `bind:toObject:withKeyPath:`
+  - `@class` 声明
+  - `CMDocument.h` 文件
+  - `CMDocument.m` 最终输出
+  - `#imports`
+  - 连接列表
+  - 尺寸检查器
+  - 即将混合的颜色网格
+  - `windowControllerDidLoadNib:` 方法
+- `CGColorRefs`
+- `CMColorBlendView.m`
+  - `drawRect:` 方法
+  - `drawRect:` 模式编辑
+  - `CMColorBlendView.h`
+  - `@implementation` 部分
+  - `@implementation` nonatomic
+  - `NSColor` 对象
+  - `NSView` 类的子类
+  - `@synthesize`
+- `CMDocument` 类
+- Cocoa 类
+  - 绘图
+  - 自动引用计数
+  - 贝塞尔曲线
+  - 贝塞尔管道
+- `CEAppDelegate.h` 文件
+- `CECurveView`
+  - 控制点
+  - 核心动画（参见 核心动画）
+  - 曲线绘制
+  - `CurveEdit` 自定义视图
+  - 框架矩形与边界矩形
+  - 基础
+  - `.h` 文件
+  - `LOLmaker`（参见 LOLmaker）
+  - `.m` 文件
+  - 鼠标活动
+  - `NSRect`
+  - `NSSize`
+  - `NSView` 子类（参见 `NSView` 子类）
+  - 路径
+  - 视图坐标系
+- `learncocoa.org` 网站
+- Mac 应用程序
+- NeXTStep
+- AppKit
+- Objective-C
+- 面向对象框架
+- OS X 的使用
+- 编程知识
+- 源代码
+- Xcode
+
+### Cocoa 绑定
+- `DungeonThing` 项目与偏好设置窗口
+  - 属性检查器
+  - 角色生成偏好设置
+  - 地牢生成偏好设置
+  - `MainMenu.xib`
+  - 怪物生成偏好设置
+  - 对象库面板
+  - 标签页视图的添加
+  - 主窗口的创建
+  - 属性检查器
+  - `DungeonThingAppDelegate`（参见 `DungeonThingAppDelegate`）
+  - 对象库面板
+  - 尺寸检查器
+  - 文本字段的创建
+- `NSUserDefaultsController`
+- `NSUserDefaultsController`（参见 `NSUserDefaultsController`）
+- 表格视图
+  - 数组控制器配置
+  - `DungeonThingAppDelegate.h`
+  - `DungeonThingAppDelegate.m` 文件
+  - `init` 方法
+  - 键值编码
+  - 键值观察
+  - 表格显示
+  - 文本字段
+
+### Cocoa 技能
+- 块
+- 过滤
+- Grand Central Dispatch
+- `init` 和 `dealloc` 方法
+- `MyController` 实例
+- 通知处理代码
+- `NSEnumerator`
+- `NSNotification`
+  - 观察
+  - 观察对象
+  - `weakSelf`
+- 外语
+  - F-Script
+  - JavaScript
+  - MacRuby
+  - Nu
+  - Objective-C 和 C++
+  - PyObjC
+- GUI 对象
+- MVC 模式
+- `NSNotification`
+  - 移植（参见 移植的 Cocoa）
+- Cocoa Touch
+- Cocotron
+
+### ColorMix 应用
+- 混合模式
+  - `CMColorBlendView` 类（参见 `CMColorBlendView` 类）
+  - `CMDocument` 类
+  - Core Data
+  - Core Graphics
+  - 数据模型
+  - 文件格式
+  - nib 文件
+  - `NSDocument` 架构
+  - 设置两种颜色
+- `ColorSet` 的创建
+  - GUI 创建
+  - `NSObjectController`
+  - `NSTextField`
+  - 撤销与重做
+- `ColorSet` 对象
+
+### 并发
+- GCD（参见 Grand Central Dispatch (GCD)）
+- `SlowWorker` 定义
+  - `doWork:` 方法
+  - 可编辑复选框
+  - 无操作
+  - `isWorking`
+  - Mac OS X 的强制退出窗口
+  - `NSBlockOperation`
+  - 单个操作方法
+  - `SWAppDelegate.h`
+  - `SWAppDelegate.m`
+  - 线程
+- AppKit 类
+- 属性检查器
+- 闭包
+- `doWork:` 方法
+- GCD
+- 不确定进度指示器
+- 主线程
+- 互斥锁
+- `NSTextView`
+- 操作系统
+- 操作队列
+- `开始` 按钮：方法
+- `SWAppDelegate.h`
+- `SWAppDelegate.m`
+- 线程安全
+- 工作单元
+- 值转换器
+
+### 内容视图
+- 核心动画基础
+  - 显式动画
+  - 动画层
+  - 动画代理
+  - `CABasicAnimation` 类
+  - `CECurveView`
+  - `MovingButton` 目标
+  - `NSPanel`
+  - `QuartzCore` 框架
+  - 时间函数
+- 动画分组
+  - `ANIM_DURATION`
+  - `applicationDidFinishLaunching:` 方法
+  - 助理编辑器
+  - 属性检查器
+  - `currentTabIndex`
+  - 显示窗口
+  - `FIAppDelegate.h` 文件
+  - `FIAppDelegate.m` 类
+  - `FlipIt`
+  - `@implementation` 块
+  - items 属性
+  - 匹配方法
+  - `NSArray`
+  - `NSBox`
+  - `NSInteger` 标量属性
+  - `NSTabView`
+  - `NSView` 子类
+  - 对象停靠栏
+  - `prepareRightSide` 方法
+  - `transitionInFromRight` 方法
+  - `transitionOutToLeft` 方法
+  - 转场
+- 隐式动画
+
+### Core Data
+- 业务逻辑
+- 自定义属性的创建
+- 多属性验证
+- `MythicalPerson` 类
+- 单属性验证
+- Cocoa 绑定检查器
+- `managedObjectContext`
+- `MBAppDelegate`
+- 模型键路径字段
+- `NSArrayController`
+- `NSImage`
+- `NSMutableDictionary`
+- 谓词
+- `saveAction`
+- 表格视图
+  - GUI
+  - 属性检查器
+  - 列宽调整
+  - `MainMenu.xib`
+  - `Mythical Details` 管理
+  - `NSScrollView`
+  - `NSTextField`
+  - `NSTextView`
+  - 对象库
+  - 表格视图与 Cocoa 绑定的集成
+- `MythBase` 的创建
+  - 属性（参见 属性）
+  - 自动引用计数
+  - 实体
+  - 实体的创建
+  - 关系
+  - Xcode 的模型编辑器
+- `NSMutableDictionary` 持久化
+- 模板代码（参见 模板代码）
+- 撤销/重做支持
+
+### Core Data 关系
+- 数组控制器实体模型
+  - 属性
+  - 配置选项
+  - 删除规则弹出菜单
+  - 目标弹出菜单
+  - 迁移
+  - 多模型版本
+  - `MythBase`
+  - 一对多关系
+  - 运行
+  - 对多关系
+  - 版本控制与迁移
+- GUI 更新
+  - `arrangedObjects`
+  - 属性检查器
+  - 带区
+  - `Grecian Formula` 乐队窗口
+  - 绑定检查器
+  - Cocoa 绑定
+  - 内容模式
+  - 演出列表
+  - 模型键路径
+  - `Mythical Bands` 控制器
+  - `Mythical Bands` 窗口
+  - `Mythical People` 窗口
+  - `NSArrayController`
+  - 弹出按钮
+  - 场地窗口
+- `MythBase` 应用
+
+### D
+- `DATA_RECEIVED` 通知
+- `dealloc` 方法
+- `dispatch_async`
+- `dispatch_get_global_queue()` 函数
+- 分布式对象 (DO) 技术
+- 基于文档的应用
+  - `ColorMix`（参见 `ColorMix` 应用）
+  - `NSDocument` 类
+- `doWork:` 方法
+- `DungeonThingAppDelegate`
+  - 操作方法
+  - 常量定义
+  - 默认偏好设置值指定
+
+### E
+- `ECAppDelegate`
+- `enumerateKeysAndObjectsUsingBlock:`
+- `enumerateObjectsUsingBlock:`
+- `NSDocumentController` 类
+- 异常处理
+  - 捕获异常
+  - Cocoa
+  - 调试器
+  - 调试导航器
+  - 定义
+  - `ECAppDelegate`
+  - `invalidArgumentException_unrecognizedSelector` 方法
+  - `NSException` 类
+  - `NSInvalidArgumentException`
+  - `NSRangeException`
+  - `objc_exception_throw` 函数
+  - rax
+  - Xcode 的断点导航器
+
+### F
+- `fileError` 方法
+- 文件处理
+  - 高级文件操作（参见 `WhatAboutThatFile` 应用）
+  - 隐式文件访问类
+  - 内容解释
+  - `NSData`
+  - `NSPropertyListSerialization` 类
+  - 属性列表格式
+  - `writeToFile`
+- 文件系统属性
+- `FlipIt`
+- `freedObject` 方法
+- F-Script
+
+### G
+- GNUstep
+- Grand Central Dispatch (GCD)
+  - `NSOperationQueue`
+  - `SlowWorker` 并发块
+  - `dispatch_get_main_queue()` 函数
+  - `SlowWorker` 的 `doWork:` 方法
+- GUI 组件
+  - Cocoa UI 元素
+  - 编码
+  - 默认反派输入
+  - 键名
+  - `updateDetailViews`（参见 `updateDetailViews`）
+  - `NSButton`
+  - `NSControl`
+  - `VillainTrackerAppDelegate` 类
+  - 连接检查器
+  - 委托方法
+  - GUI 类
+  - `notesView` 属性
+  - `NSMutableDictionary`
+  - 输出口/动作
+  - 运行按钮
+  - `self.villain`
+  - `setVillain`
+  - `takeLastKnownLocation`
+  - `takeLastSeenDate`
+  - `VillainTracker` 应用
+    - 框视图
+    - 复选框
+    - 组合框
+    - 日期选择器
+    - 图像视图
+    - 级别指示器
+    - `MainMenu.xib`
+    - MVC 设计
+    - `NSView`
+    - 弹出按钮
+    - 单选按钮
+    - 调整大小
+    - 文本字段
+    - 文本视图
+    - `VillainTracker.xcodeproj`
+
+### H
+- 人机界面指南 (HIG)
+
+### I
+- 标识检查器
+- `@implementation` 块
+- 不确定进度指示器
+- `@interface` 块
+- `init` 方法
+- `initWithObjectsAndKeys` 方法
+- `initWithType:error`
+- `invalidArgumentException_unrecognizedSelector` 方法
+- `isWorking`
+
+### J
+- JavaScript
+- JSCocoa
+
+### K
+- `keyPathsForValuesAffectingFileIcon` 类
+- `keyPathsForValuesAffectingFilename` 类
+
+### L
+- `localizedDescription`
+- `LOLmaker`
+  - 属性检查器
+  - 绑定检查器
+  - 位图绘制
+  - 标识检查器
+  - `LOLAppDelegate.h` 文件
+  - `LOLAppDelegate.m`
+  - `LOLcat` 风格图像
+  - `LOLView`
+  - 滚动文本绘制
+  - 值属性
+  - 窗口
+
+### M
+- MacRuby
+- MacRuby 语言
+- `MainMenu.xib`
+- Mission Control
+- 模态窗口
+  - 警报功能
+  - 打开和保存面板
+  - 运行模态警报
+- 模型–视图–控制器 (MVC)
+- 互斥锁
+- `MyController` 类
+- `MythBase`
+
+### N
+- nib 定义的谓词
+- Nib 文件
+  - 属性检查器
+  - 对齐按钮
+  - 字体和大小
+  - Interface Builder
+  - 标签的属性
+  - Mac OS X 颜色选择器
+  - `NSTextField` 类
+  - 系统默认字体
+  - 蓝色参考线
+  - 编辑器
+  - 检查器属性定义
+  - Interface Builder 的检查器
+  - 用户界面
+  - Interface Builder 模式
+  - 标签
+  - 库
+  - `NSArrayController`
+  - `NSArray` 的 `indexesOfObjectsPassingTest:` 方法
+- `NSCocoaErrorDomain`
+- `NSDocument` 类
+- `NSDocumentController` 类
+- `NSError`
+  - `applicationDidFinishLaunching:` 方法
+  - 域和代码
+  - 错误生成方法
+  - `fileError` 方法
+  - `fileManager`
+  - 文件相关错误
+  - `localizedDescription`
+  - `NSFileManager` 类
+  - `NSString` 类
+  - `po` 命令
+  - `presentError:` 方法
+- `NSInvalidArgumentException`
+- `NSManagedObjectContext` 对象
+- `NSOperation`
+- `NSOperationQueue`
+- `NSOSStatusErrorDomain`
+- `NSPersistentDocument`
+- `NSPOSIXErrorDomain`
+- `NSPredicate` 创建
+  - `NSAppController`, Xcode
+  - `QuoteMonger`（参见 `QuoteMonger`）
+  - 保存用户定义的谓词
+    - 应用委托编辑器配置
+    - nib 定义的谓词
+    - `NSPredicateEditor`
+    - 搜索窗口
+    - `NSPredicateEditor`
+    - `NSPredicateEditorRowTemplate`
+- `NSPropertyListSerialization` 类
+- `NSRangeException`
+- `NSRect`
+- `NSTableCellView`
+- `NSTextField` 类
+- `NSUserDefaults`
+- `NSUserDefaultsController`
+  - 角色生成
+    - `characterClassAllowedBard`, `Fighter`
+    - `characterClassAllowedPaladin` 键
+    - `characterMaxNameLength`
+    - 最大值
+    - 最小值
+    - `NSUserDefaults`
+    - `NSUserDefaultsController`
+    - 选定标签属性
+    - 地牢生成
+    - 怪物生成
+- `NSView` 子类
+  - 边界
+  - `initWithFrame:` 方法
+  - 调整大小
+  - `setFrameSize:` 方法
+  - 拉伸
+  - 视图位置和大小
+    - `CGRectInset`
+    - `drawRect:` 方法
+    - 图形上下文
+    - 图形状态
+    - 标识检查器
+    - `MainMenu.xib` 文件
+    - 手动路径构建
+    - 路径辅助函数
+    - 尺寸检查器
+- `NSWindow` 和 `NSPanel`
+  - Apple 的人机界面指南
+  - 输入处理
+  - 面板的使用
+  - 系统面板（参见 系统面板）
+  - 窗口属性
+  - 窗口示例
+- `NSWindowController`
+  - Nib 加载
+  - ARC 系统
+  - 简易窗口
+  - 文件所有者
+  - 加载简易窗口
+  - 子类化
+- `NSWorkspace` 类
+- Nu 语言
+
+### O
+- `objc_exception_throw` 函数
+- `objectAtIndex:` 方法
+- `objectController`
+- Objective-C 编译器
+  - 控制器类的创建
+  - 助理编辑器
+  - `ButtonAppDelegate` 类
+  - `ButtonsAppDelegate.m`
+  - 控制拖拽
+  - 实现
+  - 标签属性
+  - nib 文件
+  - Xcode
+  - 委托应用
+- `ButtonsAppDelegate` 类配置
+- 文档浏览器
+- `main()` 函数
+- `NSApplication`
+- 输出口和动作
+  - 属性检查器
+  - 自动保存字段
+  - Cocoa 应用
+  - 控制拖拽
+  - `IBAction`
+  - I 形光标
+  - `IBOutlet`
+  - Interface Builder
+  - `MainMenu.xib`
+  - 方法
+  - 最小化复选框控件
+  - `nameField` 占位对象
+  - 调整大小控件
+  - 尺寸检查器
+  - 窗口界面（参见 窗口界面）
+  - Xcode
+- Objective-J
+
+### P
+- `po` 命令
+- 移植的 Cocoa
+  - Cappuccino/Objective-J
+  - Cocoa Touch
+  - GNUstep 和 Cocotron
+  - Mac 软件
+- `presentError:` 方法
+- PyObjC 语言
+
+### Q
+- `QMAppDelegate.h` 文件
+- `QMAppDelegate.m`
+- Quartz
+- `Quote` 实体
+- `QuoteMonger`
+  - 数据录入窗口
+  - 初始引用
+  - `MainMenu.xib`
+  - `NSWindow` 实例
+  - `Quote` 实体
+  - 引用查找器窗口
+  - 引用
+  - `Quotes` `Show` 实体
+  - 显示 `Shows`
+  - 项目与数据模型创建
+  - 搜索窗口
+
+### R
+- 响应者链
+- `resultsTextView` 属性
+
+### S
+- `searchPredicate` 属性
+- `setName:` 方法
+- 表单
+- `Show` 实体
+- 信号
+  - `alloc`/`copy` 方法
+  - `applicationDidFinishLaunching:` 方法
+  - ARC
+  - Cocoa 程序员
+  - `freedObject` 方法
+  - `NSMutableString*`
+  - Objective-C 对象
+  - `release` 或 `autorelease` 消息
+  - SIGSEGV/SIGILL
+- 尺寸检查器
+- `SlowWorker`
+- `stringEncodingName` 方法
+- `SWAppDelegate.h`
+- `SWAppDelegate.m`
+- 系统菜单
+  - 绑定
+  - 布尔属性
+  - 菜单项设置
+  - `turbo` 属性
+  - 值绑定
+  - 值转换器
+  - 第一响应者操作方法
+  - 流程图
+  - 创建新窗口的菜单项
+  - 对象库
+  - 响应者链
+  - 自有菜单
+  - 单条水平条
+  - 标准应用程序菜单
+  - Windows 应用
+- 系统面板
+  - 颜色面板
+  - 多行标签
+  - 响应者链
+  - 显示颜色面板
+  - 文本颜色
+  - 窗口布局
+  - 字体面板
+
+### T
+- 表格视图
+  - 添加和删除方法
+  - 属性检查器
+  - 代码编辑
+  - 列标识方法
+  - `dataSource` 和 `delegate` 输出口
+  - 委托方法
+  - `delete villain:` 方法
+  - 编辑
+  - `isEqual:` 方法
+  - 懒加载方法
+  - 项目导航器
+  - `selectRowIndices`
+  - 添加反派
+  - 选择反派
+  - `VillainTrackerAppDelegate.m`
+  - 列大小
+  - 内容模式
+  - 数据集合
+  - 标识检查器
+  - 图像组合框
+  - `mugshot`
+  - `NSAddTemplate`
+  - `NSTableColumn`
+  - 对象库
+  - 项目导航器面板
+  - 调整大小/约束外观
+  - 框
+  - 蓝色参考线
+  - Cocoa 自动布局
+  - 内容拥抱控制
+  - 编辑
+  - Interface Builder 面板
+  - `myButton`
+  - 调整大小手柄
+  - 滚动视图
+  - 选择
+  - 表格视图单元格
+  - `VillainTrackerAppDelegate`
+  - `VillainTrackerAppDelegate` 类的接口
+  - `VillainTrackerAppDelegate` 准备工作
+- 模板代码
+  - 应用委托的实现
+    - 操作方法
+    - `applicationSupportDirectory` 方法
+    - `managedObjectContext` 访问器方法
+    - `managedObjectModel` 访问器方法
+    - `NSApplication` 委托方法
+    - `NSWindow` 委托方法
+    - `persistentStoreCoordinator` 访问器方法
+  - 应用委托接口
+
+### U
+- `UILabel` 对象
+- 撤销栈
+- `updateDetailViews`
+  - `applicationDidFinishLaunching` 方法
+  - `evilnessView`
+  - 快速枚举
+  - 懒加载
+  - `powers`
+  - `primaryMotivation`
+  - `setStringValue:`
+  - `swornEnemy`
+- 用户界面控件
+- 用户界面
+  - 控制器类
+  - 框架
+    - AppKit
+    - Cocoa 框架
+    - 定义
+    - 基础框架
+    - MVC 模型
+    - OS X
+    - 唯一的输出口和动作
+  - 操作方法
+  - `akeIntValueFrom`
+  - 属性检查器
+  - `BookAppDelegate`
+  - Cocoa 模拟器
+  - 连接检查器
+  - 控制拖拽
+  - 整数值
+  - Interface Builder 模式
+  - 标签属性
+  - 布局用户界面控件
+  - `NSTextField` 类
+  - 对象库
+  - 输出口定义
+  - 项目设置
+  - 调整大小
+  - 滑块
+  - `takeDoubleValueFrom`
+  - 文本字段
+  - 视图部分
+  - Xcode
+
+### V
+- `VillainTrackerAppDelegate` 类
+  - 连接检查器
+  - 委托方法
+  - GUI 类
+  - `notesView` 属性
+  - `NSMutableDictionary`
+  - 输出口/动作
+  - 运行按钮
+  - `self.villain`
+  - `setVillain`
+  - `takeLastKnownLocation`
+  - `takeLastSeenDate`
+  - `VillainTracker` 应用
+    - 框视图
+    - 复选框
+    - 组合框
+    - 日期选择器
+    - 图像视图
+    - 级别指示器
+    - `MainMenu.xib`
+    - MVC 设计
+    - `NSView`
+    - 弹出按钮
+    - 单选按钮
+    - 调整大小
+    - 文本字段
+    - 文本视图
+    - `VillainTracker.xcodeproj`
+
+### W
+- `weakSelf`
+- `WhatAboutThatFile` 应用
+  - 字符串代码
+  - `applicationDidFinishLaunching` 方法
+  - `chooseFile` 方法
+  - `chosenEncoding` 属性
+  - Cocoa 绑定
+  - `encodingNames` 方法
+  - 错误检查
+  - 错误处理
+  - `fileAttributes`
+  - `keyPathsForValuesAffectingFileIcon`
+  - `keyPathsForValuesAffectingFilename`
+  - `MainMenu.xib`
+  - `NSString`
+  - `NSWorkspace` 类
+  - `setStringEncodingName` 方法
+  - `stringEncodingName` 方法
+  - `WATAppDelegate` 类
+    - GUI
+    - `arrangedObjects` 控制器键
+    - 文件属性
+    - 文件选择
+    - `MainMenu.xib`
+    - `NSDictionaryController` 类
+    - 打开应用弹出按钮
+    - 字符串编码
+    - 文本视图
+    - 窗口组件
+    - `windowControllerDidLoadNib:` 方法
+- 窗口界面
+  - 蓝色参考线
+  - 字体面板
+  - GUI 对象
+  - Interface Builder 面板
+  - 对象库
+- `writeToFile` 方法
+
+### X, Y, Z
+- Xcode
+  - 归档
+  - 构建过程
+  - Cocoa 应用图标
+  - 编辑器面板
+  - 图标
+  - 应用
+  - Mac App Store
+  - `MainMenu.xib`
+  - 导航器面板
+  - nib 文件（参见 Nib 文件）
+  - 项目选项
+  - 项目主窗口
+  - 属性列表
+  - 运行
+  - 保存位置
+  - 基于 XML 的格式
