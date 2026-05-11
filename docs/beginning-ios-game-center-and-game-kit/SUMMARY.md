@@ -1,0 +1,8 @@
++   [IOS Game Center 与 Game Kit 入门指南](README.md)
++   [开始使用 iOS 游戏中心与游戏套件：适用于 iPhone、iPad 和 iPod touch](beginning-ios-game-center-and-game-kit_1.md)
++   [目录](beginning-ios-game-center-and-game-kit_2.md)
++   [目录](beginning-ios-game-center-and-game-kit_3.md)
++   [网络设计概述](beginning-ios-game-center-and-game-kit_4.md)
++   [第 9 章](beginning-ios-game-center-and-game-kit_5.md)
++   [使用 Game Center 进行回合制游戏](beginning-ios-game-center-and-game-kit_6.md)
++   [I, J, H](beginning-ios-game-center-and-game-kit_7.md)
