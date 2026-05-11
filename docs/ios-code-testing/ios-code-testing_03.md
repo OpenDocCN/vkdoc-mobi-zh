@@ -1,0 +1,247 @@
+# 目录
+
+- 第 1 章：测试驱动开发简介
+  - 什么是测试驱动开发？
+  - TDD 术语
+  - 被测对象
+  - 单元测试
+  - 状态验证测试
+  - 交互测试
+  - 负面测试
+  - 测试套件
+  - 断言
+  - 实例化类以进行测试
+  - 测试驱动开发原则
+  - 测试优先
+  - 红 – 绿 – 重构
+  - 编写最少的代码
+  - 消除重复
+  - 总结
+  - 附注
+
+- 第 2 章：使用 Xcode 编写您的第一组单元测试
+  - 下载并安装 Xcode
+  - 创建支持单元测试的新项目
+  - 为现有项目添加单元测试支持
+  - Xcode 概览
+  - 项目导航器
+  - 测试用例类
+  - 测试导航器
+  - 查看测试报告
+  - 代码覆盖率报告
+  - 构建 Cookie 工厂应用
+  - 构建 Cookie 类
+  - 构建 CookieController 类
+  - 更新视图控制器类
+  - 查看代码覆盖率数据
+  - 总结
+
+- 第 3 章：MVVM 架构模式
+  - MVC 架构模式
+  - 模型-视图-控制器架构模式
+  - 模型-视图-控制器的可测试性问题
+  - 模型-视图-视图模型架构模式
+  - MVVM 的优势
+  - 视图模型实例化
+  - 隔离的视图控制器
+  - 表视图控制器
+  - 基于导航控制器的应用
+  - 总结
+
+- 第 4 章：将 TDD 应用于模型
+  - 创建 Xcode 项目
+  - 构建模型层
+  - AccountOwner 类
+  - 创建名字验证器类
+  - 创建姓氏验证器类
+  - 创建电子邮件地址验证器类
+  - 将验证器类集成到 AccountOwner 类中
+  - Transaction 类
+  - BankAccount 类
+  - 测试 Core Data
+  - 总结
+
+- 第 5 章：将 TDD 应用于视图控制器
+  - 应用架构
+  - 创建 Xcode 项目
+  - 构建用户界面层
+  - 构建登录视图控制器场景
+  - 构建注册视图控制器场景
+  - 在登录场景和注册场景之间创建转场
+  - 构建模型层
+  - LoginModel 类
+  - SignupModel 类
+  - 构建视图模型层
+  - LoginViewModel 类
+  - 视图模型 – 视图控制器绑定
+  - SignupViewModel 类
+  - 将视图控制器连接到视图模型
+  - 将登录视图控制器类绑定到视图模型
+  - 将注册视图控制器类绑定到视图模型
+  - 从登录视图控制器过渡到注册视图控制器
+  - 总结
+
+- 第 6 章：将 TDD 应用于集合视图控制器
+  - 应用架构
+  - 创建 Xcode 项目
+  - 向项目添加资源
+  - 构建用户界面层
+  - 创建新类
+  - 构建集合视图控制器场景
+  - 添加节头部辅助视图
+  - 构建集合视图单元格
+  - 构建模型层
+  - Photo 类
+  - City 类
+  - Album 类
+  - 构建视图模型层
+  - CollectionViewModel 类
+  - CollectionViewCellViewModel 类
+  - CollectionViewSectionHeaderViewModel 类
+  - 将视图层绑定到视图模型
+  - 将集合视图控制器类绑定到视图模型
+  - 将 CollectionViewCell 类绑定到视图模型
+  - 将 CollectionViewSectionHeader 类绑定到视图模型
+  - 总结
+
+- 第 7 章：测试 URLSession
+  - 测试网络层的策略
+  - 准备 PhotoBook 项目
+  - 远程内容规范
+  - 配置应用传输安全
+  - 构建网络层
+  - 创建 ServiceController 类
+  - 创建 MockURLSession 类
+  - 创建 MockURLSessionDataTask 类
+  - 更新模型层
+  - 更新 Album 类
+  - 更新 Photo 类
+  - 更新视图模型层
+  - 对集合视图模型的更新
+  - 对集合视图单元格视图模型的更新
+  - 更新视图层
+  - 对集合视图控制器的更新
+  - 对集合视图单元格的更新
+  - 总结
+
+- 第 8 章：处理遗留代码
+  - 拆分大型类
+  - 向现有类添加功能
+  - 使用类和方法进行封装
+  - 重命名与替换
+  - 装饰器
+  - 使用协议解耦类
+  - 使用依赖注入创建更具可测试性的代码
+  - 总结
+  - 附注
+
+- 第 9 章：持续集成
+  - 安装 macOS Server
+  - 启动 macOS Server
+  - 为团队成员设置访问权限
+  - 启动 Xcode Server
+  - 配置 Xcode Server
+  - Xcode 版本
+  - Apple 开发者团队
+  - 开发设备
+  - 仓库
+  - 在 Xcode Server 上创建新的 Git 仓库
+  - 配置 Xcode
+  - 向 Xcode 添加 Xcode Server 凭据
+  - 创建一个新的 Xcode 项目并将其仓库托管在 Xcode Server 上
+  - 将现有的本地仓库克隆到 Xcode Server
+  - 从 Xcode Server 克隆 Git 仓库
+  - 从 GitHub 克隆 Git 仓库
+  - 创建和集成机器人
+  - 创建机器人
+  - 集成机器人
+  - 总结
+
+- 第 10 章：行为驱动开发简介
+  - 什么是行为驱动开发
+  - BDD 与 TDD 的区别
+  - 业务需求与用户场景
+  - 从用户场景到 BDD 测试
+  - Quick 测试用例剖析
+  - BDD 的优缺点
+  - 总结
+
+- 第 11 章：安装 Quick
+  - 向 Xcode 项目添加 Quick
+  - 使用 CocoaPods 向 Xcode 项目添加 Quick
+  - 使用 Carthage 向 Xcode 项目添加 Quick
+  - 使用 Git 子模块向 Xcode 项目添加 Quick
+  - 总结
+
+- 第 12 章：应用 TDD 和 BDD 技术
+  - 审查业务需求
+  - 高层级应用架构
+  - 创建 Xcode 项目
+  - 向项目添加资源
+  - 构建用户界面层
+  - 使用 Quick 编写 BDD 测试
+  - 检查场景 3 的 BDD 测试
+  - 检查场景 4 的 BDD 测试
+  - 检查场景 5 的 BDD 测试
+  - 检查场景 6 的 BDD 测试
+  - 检查场景 7 的 BDD 测试
+  - 检查场景 8 的 BDD 测试
+  - 检查场景 9 的 BDD 测试
+  - 创建桩对象
+  - 向项目添加餐厅数据文件
+  - 检查剩余的编译错误
+  - 构建模型层
+  - 构建视图模型层
+  - SearchViewModel 类
+  - RestaurantTableViewModel 类
+  - RestaurantTableCellViewModel 类
+  - 视图控制器到视图模型的绑定
+  - 总结
+
+- 第 13 章：测试用户界面
+  - 为项目添加 UI 测试支持
+  - 新项目
+  - 现有项目
+  - UI 测试类
+  - 创建新的测试类
+  - 为支持 UI 测试而对 XCTest 的更改
+  - XCUIApplication
+  - XCUIDevice
+  - XCUIElement、XCUIElementAttributes
+  - XCUIElementAttributes
+  - XCUIElementQuery 和 XCUIElementTypeQueryProvider
+  - 断言
+  - UI 录制
+  - 断言前的等待
+  - 综合运用
+  - 总结
+
+- 索引
+
+## 内容概览
+
+- 关于作者
+- 关于技术审校
+- 致谢
+- 第 1 章：测试驱动开发简介
+- 第 2 章：使用 Xcode 编写您的第一组单元测试
+- 第 3 章：MVVM 架构模式
+- 第 4 章：将 TDD 应用于模型
+- 第 5 章：将 TDD 应用于视图控制器
+- 第 6 章：将 TDD 应用于集合视图控制器
+- 第 7 章：测试 URLSession
+- 第 8 章：处理遗留代码
+- 第 9 章：持续集成
+- 第 10 章：行为驱动开发简介
+- 第 11 章：安装 Quick
+- 第 12 章：应用 TDD 和 BDD 技术
+- 第 13 章：测试用户界面
+- 索引
+
+## 关于作者与关于技术审校
+
+- 关于作者
+- 关于技术审校
+
+
+

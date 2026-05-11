@@ -1,0 +1,6458 @@
+# 关于作者与技术审校者
+
+关于作者
+关于技术审校者
+
+
+
+## 1. 需求
+
+本书旨在阐述设计、架构、构建并发布一款电商移动应用所涉及的步骤。本书中使用的“电商”一词，特指向客户销售产品并收取款项。本书不涉及如何在移动应用中投放广告，也不涉及当客户在其他网站或移动应用上购买商品时提供推荐链接等内容。
+
+本书将介绍如何构建一款能让用户购买产品的移动应用。这包括收集客户的姓名、地址和信用卡信息。所收取的款项将转入银行账户，订购的产品随后将进行运输和配送。尽管听起来很有挑战性，但这比让已注册的合法商业实体来处理这些细节要容易得多。
+
+本书假设您具备一定的 iOS 编程知识。不过，如果您是一位计划通过移动应用销售产品，并正考虑聘请 iOS 开发者或咨询公司来实现目标的业务所有者，本书将帮助您了解整个流程、所需步骤以及涉及的工作量。
+
+在本章中，您将了解：
+
+-   电商移动应用的常见需求
+-   构建、测试和发布 iOS 应用的先决条件
+
+### 常见的应用需求
+
+您最喜欢的 iOS 电商应用是什么？在您深入思考之前，请考虑这一点：每台 iPhone、iPad 和 iPod Touch 都内置了一个应用，那就是 Apple Store 应用（见图 1-1）。如果您从未使用过它，现在是时候探索一番了。
+
+![A978-1-4842-1317-9_1_Fig1_HTML.jpg](img/A978-1-4842-1317-9_1_Fig1_HTML.jpg)
+
+图 1-1. iPhone 上的 Apple Store 应用图标
+
+#### Apple Store 应用
+
+在撰写本书时，Apple Store iOS 应用已收到 53,706 条评论，平均评分为 3.5 星。2015 年 9 月 24 日发布的 3.5 版本平均评分为 4 星。
+
+该应用有五个顶级内容类别（见图 1-2）：
+
+![A978-1-4842-1317-9_1_Fig2_HTML.jpg](img/A978-1-4842-1317-9_1_Fig2_HTML.jpg)
+
+图 1-2. Apple Store iPhone 应用的五个内容类别
+
+-   精选
+-   商店
+-   门店
+-   账户
+-   购物车
+
+##### 精选
+
+“精选”类别用于展示主打产品（例如 Apple Watch）。点击某一主打产品会显示产品详情。
+
+#### 商店
+
+“商店”类别一览无余地展示了 Apple Store 中的所有产品类别，包括 Mac 电脑、iPhone、Apple Watch 和配件。“商店”屏幕顶部还包含一个搜索栏（见图 1-3）。
+
+![A978-1-4842-1317-9_1_Fig3_HTML.jpg](img/A978-1-4842-1317-9_1_Fig3_HTML.jpg)
+
+图 1-3. Apple Store iPhone 应用的“商店”类别
+
+点击一个产品类别，您将看到属于该类别的所有产品。另请注意，产品列表屏幕的标题与类别名称一致。例如，如果您在“商店”屏幕上点击“Mac”类别，则 Mac 电脑列表屏幕的标题会显示为“Mac”。
+
+在产品列表屏幕上点击一个项目会显示产品详情屏幕。除了精心挑选的产品图片外，您还会看到产品描述、价格、“加入购物车”按钮以及当前屏幕顶部的操作按钮（见图 1-4）。您可能还会看到自定义产品的选项，这会将您引导至更多屏幕。
+
+![A978-1-4842-1317-9_1_Fig4_HTML.jpg](img/A978-1-4842-1317-9_1_Fig4_HTML.jpg)
+
+图 1-4. 产品详情屏幕顶部的“加入购物车”按钮
+
+其他功能包括检查是否有货、阅读更多产品特性介绍、对产品进行评分和评论，以及提问和查找答案（问答）（见图 1-5）。
+
+![A978-1-4842-1317-9_1_Fig5_HTML.jpg](img/A978-1-4842-1317-9_1_Fig5_HTML.jpg)
+
+图 1-5. 产品详情屏幕上的更多功能
+
+##### 门店
+
+“门店”类别会引导您找到最近的 Apple Store。该应用还会检测定位服务是否已开启，如果未开启，则会通知您（见图 1-6）。
+
+![A978-1-4842-1317-9_1_Fig6_HTML.jpg](img/A978-1-4842-1317-9_1_Fig6_HTML.jpg)
+
+图 1-6. 使用 Apple Store 应用时需要开启定位服务
+
+该应用还提供搜索功能，使您能够按城市或邮政编码查找门店，并以列表形式浏览门店或在地图上查看它们（见图 1-7）。
+
+![A978-1-4842-1317-9_1_Fig7_HTML.jpg](img/A978-1-4842-1317-9_1_Fig7_HTML.jpg)
+
+图 1-7. 按城市或邮政编码查找门店，在列表视图和地图视图之间切换
+
+### 账户
+
+“账户”类别是您管理客户资料的地方，例如收藏夹、订单历史记录、与 Apple Store 天才的预约以及设置。仅当您拥有账户并已登录 Apple Store 时，才能访问此类别。如果您没有账户或尚未登录，该应用仅显示常规的关于信息，例如条款、隐私政策、应用版本以及要求您登录的按钮。
+
+###### 收藏夹
+
+“收藏夹”类别列出了您之前“喜欢”的项目（通过在产品详情页面点击心形按钮）。点击“收藏夹”，您将看到一个产品列表。您还可以编辑该列表，例如删除某个产品。另一个不错的功能是，您可以切换视图，以列表或网格模式查看您的收藏夹。
+
+###### 订单
+
+“订单”类别是您可以查看订单历史记录的地方（见图 1-8）。默认情况下，列表按从最新到最旧的顺序排序。
+
+![A978-1-4842-1317-9_1_Fig8_HTML.jpg](img/A978-1-4842-1317-9_1_Fig8_HTML.jpg)
+
+图 1-8. 用户的订单历史记录
+
+### 账户设置
+
+“账户设置”是您可以编辑支付方式和送货地址的地方。
+
+###### 更多
+
+还有更多功能。在“通知设置”中，您可以指定是否希望接收有关订单状态的推送通知。
+
+在此屏幕上，您还可以访问帮助页面以及销售与退款政策、隐私政策和版权信息。
+
+### 购物车
+
+“购物车”（在最新版本的应用中称为“购物袋”）是您的购物篮。您可以查看和编辑购物车中的内容，以及如果您要为他人的购买商品，可以留下礼品留言（见图 1-9）。
+
+![A978-1-4842-1317-9_1_Fig9_HTML.jpg](img/A978-1-4842-1317-9_1_Fig9_HTML.jpg)
+
+图 1-9. 购物车中的一件商品
+
+您还可以查看购买的小计，以及最重要的，您的支付选项（图 1-10）。
+
+![A978-1-4842-1317-9_1_Fig10_HTML.jpg](img/A978-1-4842-1317-9_1_Fig10_HTML.jpg)
+
+图 1-10. 购物车中的小计和支付选项
+
+另请注意，购物车图标包含一个角标，指示购物车中有多少件商品（见图 1-11）。如果您的购物车是空的，则不会显示角标。
+
+![A978-1-4842-1317-9_1_Fig11_HTML.jpg](img/A978-1-4842-1317-9_1_Fig11_HTML.jpg)
+
+图 1-11. 角标显示购物车中的商品数量
+
+
+
+### 必备功能列表
+
+通过对 Apple Store 应用的快速概览，我们可以清晰地了解到一款电商应用所应具备的核心功能。它应具备：
+
+- 按类别列出产品
+- 为每个类别展示产品列表
+- 展示产品详情
+- 具备搜索功能
+- 拥有购物车
+- 展示用户的收藏（心愿单）商品
+- 展示用户的订单历史
+- 展示公司信息，如关于我们、联系我们、隐私政策和版权信息
+
+一款优秀的电商应用还应允许用户：
+
+- 评论产品
+- 将产品标记为收藏（或加入心愿单）
+- 将产品加入购物车
+- 创建用户账户
+- 登录和登出
+- 添加和编辑收货地址
+- 添加和编辑支付方式
+- 使用第三方凭证（如 Facebook 或 Twitter）登录
+- 请求重置密码（以防忘记）
+
+要运营业务，你还需要一些开展营销活动的方法：
+
+- 向客户发送新产品或促销活动的推送通知
+- 邀请用户在 App Store 上为你的应用撰写好评
+
+为了做出明智的商业决策并改进应用，你还需要：
+
+- 追踪用户如何使用我们的应用
+- 追踪应用崩溃情况
+
+### 预备知识
+
+要在 App Store 上开发并发布 iOS 应用，你需要注册 iOS 开发者计划，并在你的电脑上搭建 Mac OS 开发环境。
+
+### iOS 开发者计划
+
+默认情况下，App Store 会为该账户下发布的每个应用显示注册 iOS 开发者计划的开发者名称。然而，为了赢得用户的信任，建议改为显示商业实体的名称，如图 1-12 所示。要以商业实体的名称发布应用，你需要拥有 D-U-N-S™ 编号——这比注册 iOS 开发者计划更耗时一些。
+
+![A978-1-4842-1317-9_1_Fig12_HTML.jpg](img/A978-1-4842-1317-9_1_Fig12_HTML.jpg)  
+图 1-12. Apple 发布 Apple Store 应用
+
+获取 D-U-N-S™ 编号是免费的。但美国公司可能需要一个月才能获得该编号，非美国公司则可能需要更长时间。一旦你获得了编号，Apple 需要最多两周时间来验证该编号。简而言之，尽早申请你的 D-U-N-S 编号，不要拖延。
+
+**注意**：要了解更多关于获取 D-U-N-S 编号的信息，请访问 [`https://developer.apple.com/support/ios/D-U-N-S.php`](https://developer.apple.com/support/ios/D-U-N-S.php)。
+
+#### 开发环境
+
+要构建 iOS 应用，你还需要一台运行最新 Mac OS 的 Mac 电脑。开发软件是 `Xcode`，它包含了 iOS SDK（见图 1-13）。
+
+![A978-1-4842-1317-9_1_Fig13_HTML.jpg](img/A978-1-4842-1317-9_1_Fig13_HTML.jpg)  
+图 1-13. 从 Mac App Store 下载 `Xcode`
+
+尽管你可以在 iPhone 模拟器上运行示例项目，但为了确保你的应用在设备上正常运行，你确实应该拥有一台安装了最新 iOS 系统的 iOS 设备，例如 iPhone 或 iPod touch。
+
+本书中的示例项目均基于最新的 iOS 版本进行开发，并且在有新版本可用时，将始终更新至最新 iOS 版本。
+
+**注意**：Apple 会频繁更新 `Xcode` 和 iOS SDK。在撰写本文时，我使用的是 `Xcode` 6.3.1 版本和 iOS SDK 8.1。
+
+### 示例 iPhone 应用：Beauty & Me
+
+在本书中，你将学习构建一个用于销售美容和化妆品（如洗面奶、洁面乳及其他护肤产品）的 iOS 应用。
+
+与 Apple Store 应用一样，我将引导你了解 Apple Store 应用中引入的大部分功能。
+
+**注意**：要查看该应用的外观，你可以从 App Store 搜索“Beauty & Me”并下载。
+
+### 总结
+
+在本章中，我对 Apple Store iPhone 应用进行了概述，并总结了其功能，为你自己的电商应用应该包含哪些内容提供了一些指导。
+
+## 2. 规划与构建原型
+
+电子补充材料 本章的在线版本（doi:[10.​1007/​978-1-4842-1317-9_​2](http://dx.doi.org/10.1007/978-1-4842-1317-9_2)）包含补充材料，供授权用户使用。
+
+在你开始编写第一行代码之前，制作一个原型来了解应用的外观、用户体验如何、有哪些功能以及它们如何组织，这一点非常重要。在本章中，我将向你展示如何使用 `Xcode` 为示例电商 iPhone 应用构建原型。
+
+Apple Store iPhone 应用采用了基于 `UITTabBarController` 的用户界面（UI）设计模式。这种模式对于电商应用来说非常标准且强大；其他应用如 Target 和 EAT24 也使用了这种 UI 模式。标签栏界面的优点在于，每个标签页的视图控制器状态会自动保持。这意味着，当我们离开某个标签页的屏幕并与其他标签页交互后，再返回该标签页时，它总会显示我们刚刚离开时的内容。
+
+本章主要是关于规划。我不会给出详细的指令并展示如何将 `UIViewController` 或 UI 控件拖放到 `UIStoryboard` 中的图示，但在某些情况下，我会揭示我使用过的一些技巧。
+
+本章涵盖以下内容：
+
+- 用户界面与体验
+- 视图控制器的大致总数
+- 视图控制器的类型，`UITableViewController` 或 `UIViewController`
+- 自定义视图
+- 应用的外观
+
+### 设计用户体验
+
+本书配套示例应用的目标是为用户/顾客提供与 Apple Store iPhone 应用相似的使用体验。Apple Store 应用基于标签式设计，因此你希望在 `Xcode` 中使用标签式应用模板。开始前，启动 `Xcode`，并按照以下步骤操作：
+
+1. 基于“标签式应用”模板创建一个新项目，并将其命名为，例如，“第 2 章”。通常来说，标签式应用模板非常适合电商移动应用。
+
+![A978-1-4842-1317-9_2_Fig1_HTML.jpg](img/A978-1-4842-1317-9_2_Fig1_HTML.jpg)  
+图 2-1. 使用 `Xcode` 创建一个标签式应用
+
+2. 接下来，打开 `Main.storyboard` 文件。默认的 nib 文件是自由尺寸。让我们在“模拟度量”中将其更改为 iPhone 4 英寸，如图 2-2 所示。
+
+![A978-1-4842-1317-9_2_Fig2_HTML.jpg](img/A978-1-4842-1317-9_2_Fig2_HTML.jpg)  
+图 2-2. 将模拟度量更改为 iPhone 4 英寸
+
+3. 添加三个导航控制器。
+
+4. 按住“Control”键，将根 TabController 拖拽到这三个导航控制器上。一个 `UITabBar` 会出现在每个 `UINavigationController` 上，如图 2-3 所示。
+
+![A978-1-4842-1317-9_2_Fig3_HTML.gif](img/A978-1-4842-1317-9_2_Fig3_HTML.gif)  
+图 2-3. 将三个 `UINavigationControllers` 连接到 TabController
+
+5. 将三个 `UITabBar` 的标题分别更改为“`商店`”、“`我的账户`”和“`购物袋`”（见图 2-3）。
+
+![A978-1-4842-1317-9_2_Fig4_HTML.jpg](img/A978-1-4842-1317-9_2_Fig4_HTML.jpg)  
+图 2-4. 更改标签栏项目的名称
+
+
+
+#### 商店
+
+**Shop 导航控制器**的根视图控制器是 **Shop 表格视图控制器**。你将使用该控制器来展示美容产品类别。
+
+在本例中，将单元格数量设置为三个（参见图 2-5）。对于每个单元格，使用 `UITableViewCell` 的 `Basic`（基本）`Style`（样式）。这意味着每个单元格只会有一个标题标签。这三个标签的文本分别为“沐浴与身体护理”、“彩妆”和“护肤”，如图 2-6 所示。
+
+![A978-1-4842-1317-9_2_Fig6_HTML.jpg](img/A978-1-4842-1317-9_2_Fig6_HTML.jpg)  
+*图 2-6. Shop 表格视图控制器的部分用户界面*
+
+![A978-1-4842-1317-9_2_Fig5_HTML.jpg](img/A978-1-4842-1317-9_2_Fig5_HTML.jpg)  
+*图 2-5. 为 UITableView 设置三个静态行*
+
+该示例将在每个产品类别下显示产品列表，因此你需要向 `UIStoryboard` 中添加另一个 `UITableViewController`。将其标识符设置为 `ProductsTableViewController`，标题设置为 `Products`（产品），如图 2-7 所示。
+
+![A978-1-4842-1317-9_2_Fig7_HTML.jpg](img/A978-1-4842-1317-9_2_Fig7_HTML.jpg)  
+*图 2-7. 为 UITableViewController 设置标识符*
+
+接下来，你需要将 `ShopTableViewController` 中的“沐浴与身体护理”单元格连接到 `ProductsTableViewController`。按住 `Control` 键，在单元格和目标视图控制器之间拖放鼠标光标，以连接这两个控制器。
+
+在 iPhone 模拟器上构建并运行项目。当你点击应用首页中的“沐浴与身体护理”单元格时，你应该会看到一个标题为“Products”（产品）的空表格，如图 2-8 所示。
+
+![A978-1-4842-1317-9_2_Fig8_HTML.jpg](img/A978-1-4842-1317-9_2_Fig8_HTML.jpg)  
+*图 2-8. Products UITableViewController 的用户界面*
+
+接下来，你将处理 `Products` `UITableViewController`。该视图控制器将显示产品信息，例如产品名称和单价。你还可以为其添加搜索和过滤功能。
+
+对于每个单元格，使用 `Subtitle`（副标题）样式，如图 2-9 所示，这意味着在主文本标签下方会有一个副标题标签。将“Skin So Soft Originals 5-piece Pampering Set”作为主文本标签，并将“$10.99”作为副标题标签的内容。
+
+![A978-1-4842-1317-9_2_Fig9_HTML.jpg](img/A978-1-4842-1317-9_2_Fig9_HTML.jpg)  
+*图 2-9. 为 UITableViewCell 使用“副标题”样式*
+
+将一个 `UISearchBar` 拖拽到 `ProductsTableViewController`，并将其占位符文本设置为“产品名称”。见图 2-10。这向用户提示，他们输入的搜索词将仅用于搜索产品名称。
+
+![A978-1-4842-1317-9_2_Fig10_HTML.jpg](img/A978-1-4842-1317-9_2_Fig10_HTML.jpg)  
+*图 2-10. 向 UITableView 添加 UISearchBar*
+
+在“Beauty & Me”示例应用中，用户可以根据价格范围过滤产品。向 `Products` `TableViewController` 添加一个 `UIBarButtonItem`，并将其标题更改为“过滤”。添加一个新的 `UIViewController`，将其标识符设置为“FilterViewController”，标题设置为“价格过滤”。将 `Filter` `UIBarButtonItem` 连接到新的 `FilterViewController`。以模态方式呈现视图控制器能提供更好的用户体验。你还将在该视图控制器的左侧添加一个系统 `Cancel`（取消）`UIBarButtonItem`，在右侧添加一个系统 `Done`（完成）`UIBarButtonItem`。
+
+为了让用户快速更改价格范围，请使用两个 `UISlider` 控件：一个用于设置最低价格；另一个用于设置最高价格。你还需要两个 `UILabel` 控件来显示当前最低 `UISlider` 的值和当前最高 `UISlider` 的值。添加几个其他 `UILabel` 来告知用户可以调节哪些范围，如图 2-11 所示。
+
+![A978-1-4842-1317-9_2_Fig11_HTML.jpg](img/A978-1-4842-1317-9_2_Fig11_HTML.jpg)  
+*图 2-11. FilterViewController 的用户界面*
+
+当用户点击某个产品单元格时，会显示产品的详细信息，如图 2-12 所示。向 `UIStoryboard` 中添加一个新的标识符为“ProductDetailViewController”的 `UIViewController`，并将 `ProductsTableViewController` 上的任意单元格连接到这个新的视图控制器。`ProductDetailViewController` 的标题应为所选的产品名称，并且需要根据用户的选择进行更改。目前，我们先将“Skin So Soft Original 5-piece Pampering Set”设为其标题。
+
+![A978-1-4842-1317-9_2_Fig12_HTML.jpg](img/A978-1-4842-1317-9_2_Fig12_HTML.jpg)  
+*图 2-12. ProductDetailViewController 的用户界面*
+
+产品详情视图控制器将显示产品的全尺寸图像、产品名称、价格和描述；你还需要一个按钮，让用户可以将产品添加到购物袋中。最后，你希望用户能够将产品添加到收藏列表，因此再添加一个标题为“收藏”的按钮。
+
+再次构建项目并在模拟器上运行。尽管你尚未添加真正的搜索、过滤、加入购物袋和收藏功能，但它仍能让你对应用的最终样貌有所了解。最重要的是，你可以在此基础上进一步完善用户界面的设计。
+
+图 2-13 展示了“商店”功能的所有 `UIViewControllers`。
+
+![A978-1-4842-1317-9_2_Fig13_HTML.gif](img/A978-1-4842-1317-9_2_Fig13_HTML.gif)  
+*图 2-13. 商店中使用的视图控制器*
+
+
+
+### 我的账户
+
+根视图控制器 `MyAccountTableViewController` 是管理所有用户活动的地方，例如收货地址和付款地址、订单历史记录以及支付方式。我们还可以用它来显示应用信息、隐私政策、联系方式和应用版本——就像 Apple Store iPhone 应用那样。
+
+对于 `MyAccountTableViewController`，我们将其 `UITableView` 设置为分组样式，并创建三个区段。每个单元格都设置为静态和基本样式。图 2-14 展示了该视图控制器的外观。
+
+![A978-1-4842-1317-9_2_Fig14_HTML.jpg](img/A978-1-4842-1317-9_2_Fig14_HTML.jpg)
+
+图 2-14. `MyAccountTableViewController` 的实际用户界面
+
+“退出登录”单元格用于用户登出。当该单元格被点击时，会显示一个屏幕，要求用户重新登录。这涉及到一些编程，我们将在后面介绍。
+
+首先，我将专注于第一个“账户”区段的原型设计。
+
+向主 `UIStoryboard` 添加另一个 `UITableViewController`，使用 `UserAddressTableViewController` 作为其标识符，并使用“配送地址”作为其标题，如图 2-15 所示。
+
+![A978-1-4842-1317-9_2_Fig15_HTML.jpg](img/A978-1-4842-1317-9_2_Fig15_HTML.jpg)
+
+图 2-15. 这是 `UserAddressTableViewController` 用户界面的一部分
+
+这次，我们对 `UserAddressTableViewController` 的 `UITableViewCell` 进行一些自定义。理想情况下，用户应该能够编辑他们的配送地址信息。对于每个单元格，使用一个 `UILabel` 来表明该单元格的用途，并使用一个 `UITextField` 来获取用户输入。另一方面，如果我们知道用户已有完整的地址信息，更好的用户体验是让 `UITextField` 默认不可编辑。使用一个编辑系统的 `UIBarButtonItem` 来让用户点击按钮编辑信息，以避免误编辑。
+
+将 `MyAccountTableViewController` 上第一个区段的第一个单元格连接到新的 `UserAddressTableViewController`。
+
+构建并运行项目；然后我们应该能够体验这些新功能。
+
+接下来，我们来处理支付方式的用户界面。从技术上讲，你无法存储用户的信用卡号或 CVC 号码，但你可以存储信用卡的类型（例如 Visa、MasterCard 或 American Express）、卡号后四位以及到期年月。通常，用户会向自己的账户添加几张信用卡。因此，你需要使用一个 `UITableViewController` 来显示与该账户关联的所有信用卡。
+
+向你的主 `UIStoryboard` 添加一个新的 `UITableViewController`，并将其命名为 `UserPaymentMethodsTableViewController`。对于 `UITableView`，将其样式设置为 Plain，内容设置为静态单元格。你需要一个区段和两个单元格。
+
+将每个单元格设置为“副标题样式”。对于第一个单元格，设置其 `TextLabel` 的内容：Visa XXXX-XXXX-XXXX-4242，副标题文本设为 04/20；对于第二个单元格，使用 MasterCard XXXX-XXXX-XXXX-XXXX-4444 和 05/18，如图 2-16 所示。
+
+![A978-1-4842-1317-9_2_Fig16_HTML.jpg](img/A978-1-4842-1317-9_2_Fig16_HTML.jpg)
+
+图 2-16. `UserPaymentMethodsTableViewController` 的实际用户界面
+
+通常，当用户首次在我们这里注册账户时，系统中不会有信用卡信息。你应该提供一种让用户添加新卡的方式。将一个 `UIBarButtonItem` 拖动到视图控制器的左侧栏按钮项，并将其设置为系统的“添加”栏按钮项。
+
+另一个用例是，你需要为用户设置一张默认信用卡，以加快结账流程。将第一张信用卡设置为默认卡，并使用复选标记表示。但允许用户将任何卡片设置为默认卡。
+
+接下来，让我们设计一个用户的订单历史记录原型。向 `UIStoryboard` 添加另一个 `UITableViewController`，将其标识符命名为 `UserOrderHistoryTableViewController`，并将控制器的标题设置为“订单历史”。
+
+通常，你会显示订单的下单时间、购买总金额、订单中购买的商品（如果空间足够）、订单状态；或者至少需要突出显示一些已取消的订单。首先，将单元格高度设为 66 像素。然后在一个单元格上放置三个 `UILabel`：一个标签用于订单日期，另一个用于总金额，还有一个用于产品名称。对于标签，将行数设置为 0，换行模式设置为自动换行。用户订购多个产品是很常见的，因此产品名称标签无法显示所有产品的名称。使用灰色文本颜色来表示已取消的订单，如图 2-17 所示。
+
+![A978-1-4842-1317-9_2_Fig17_HTML.jpg](img/A978-1-4842-1317-9_2_Fig17_HTML.jpg)
+
+图 2-17. 这是 `UserOrderHistoryTableViewController` 的部分用户界面
+
+这就是 `MyAccount` 所需的全部内容。现在你可以构建项目并运行它。图 2-18 展示了“我的账户”中使用的每个视图控制器。
+
+![A978-1-4842-1317-9_2_Fig18_HTML.gif](img/A978-1-4842-1317-9_2_Fig18_HTML.gif)
+
+图 2-18. 这里是“我的账户”视图控制器
+
+#### 购物袋
+
+`BagNavigationController` 的根视图控制器是一个 `UITableViewController`。为了显示用户的购物袋内容，使用该 `UITableViewController` 并将其命名为 `BagTableViewController`，标题设为“购物袋”。
+
+此外，需要满足以下需求：用户必须能够进行结账；用户应该能够更改商品数量或从购物袋中移除商品；购物袋应显示总金额，并且该金额需要根据商品的单价和数量自动变化。
+
+首先，处理 `UITableViewCell`。需要显示的内容相当多，所以我们把单元格调高一些。在本例中，将其设为 66 像素。
+
+你还需要三个 `UILabel`：一个用于产品名称，一个用于单价，第三个用于数量。同时，在单元格中添加一个 `UIStepper` 控件，这样用户就可以改变她想要购买的数量，如图 2-19 所示。
+
+![A978-1-4842-1317-9_2_Fig19_HTML.jpg](img/A978-1-4842-1317-9_2_Fig19_HTML.jpg)
+
+图 2-19. `BagTableViewController` 的视图层级
+
+你还需要一个 `UITableViewCell` 来显示用户应付的总金额。添加另一个单元格，将其样式设置为“右侧详细信息”，并将总金额 $36.00 设置为该单元格的副标题。
+
+用户通常希望留下关于订单的说明，因此向视图控制器添加一个撰写系统的 `UIBarButtonItem`。目前它不会执行任何实际操作，但至少表明我们已考虑到这个功能。
+
+拖动两个 `UIView`：一个用于 `UITableView` 的页眉视图，另一个用于页脚视图。
+
+向表格页眉视图添加一个 `UILabel`。这个 `UILabel` 将用于显示这些商品何时被添加到购物袋中。
+
+向页脚视图添加两个 `UIButton`。一个按钮的标题为“使用信用卡购买”，另一个为“使用 Apple Pay 购买”。我们需要从 Apple 的网站下载该按钮的图形资源。它随本章的源代码一起提供。图 2-20 展示了 `BagTableViewController` 的外观。图 2-21 展示了“购物袋”的所有视图控制器。
+
+![A978-1-4842-1317-9_2_Fig21_HTML.gif](img/A978-1-4842-1317-9_2_Fig21_HTML.gif)
+
+图 2-21. “购物袋”中使用的视图控制器
+
+![A978-1-4842-1317-9_2_Fig20_HTML.jpg](img/A978-1-4842-1317-9_2_Fig20_HTML.jpg)
+
+图 2-20. 这是 `BagTableViewController` 的部分用户界面
+
+
+
+#### 注册或登录
+
+一款用户友好的 App 并不总是要求用户从一开始就创建账户。它应当让用户有机会了解这款 App 是什么，以及它能给用户的生活带来什么价值。我们的 Beauty & Me 也不例外。
+
+对于这个原型，当满足以下任一条件时，要求用户创建账户或登录。用户点击以下任一选项：
+
+-   “我的账户”标签页
+-   “购物袋”标签页
+-   `ProductDetailViewController` 上的“加入购物袋”按钮
+
+让我们创建另一个故事板来处理登录和注册工作流程。
+
+打开现有项目。从 Xcode 的文件菜单中，选择 新建 ➤ 文件。此时会弹出如图 2-22 所示的对话框窗口。接下来，选择用户界面并选择 `Storyboard`。将 `UIStoryboard` 命名为 `LoginSignup.storyboard`。
+
+![A978-1-4842-1317-9_2_Fig22_HTML.jpg](img/A978-1-4842-1317-9_2_Fig22_HTML.jpg)
+
+图 2-22.
+
+创建一个 `UIStoryboard` 文件。在故事板上添加一个 `UINavigationController`，将其标识符设置为 `“DispatchNavigationController”`，并勾选“作为初始视图控制器（Is Initial View Controller）”，如图 2-23 所示。删除其默认的根视图控制器（一个 `UITableViewController`）。
+
+![A978-1-4842-1317-9_2_Fig23_HTML.jpg](img/A978-1-4842-1317-9_2_Fig23_HTML.jpg)
+
+图 2-23.
+
+将 `DispatchNavigationController` 设置为初始视图控制器。添加一个 `UIViewController`，并将其设置为 `DispatchNavigationController` 的根视图控制器。将新的根视图控制器标识符命名为 `“DispatchViewController”`，并将其标题设置为“Beauty & Me”。在 `DispatchViewController` 的视图上添加三个按钮，并分别为每个按钮设置标题——`“使用 Facebook 登录（Log In with Facebook）”`、`“注册（Sign Up）”` 和 `“登录（Log In）”`。之所以将“使用 Facebook 登录”按钮放在顶部，是因为你确实希望鼓励用户在我们这里创建账户。
+
+`DispatchNavigationController` 将以模态方式呈现，以便用户有机会取消该流程。在 `UIBarButtonItem` 的左侧添加一个系统提供的取消 `UIBarButtonItem`。此功能仅在您实现了用户点击“使用 Facebook 登录”按钮时的操作后才有效。目前，它不会执行任何操作。
+
+添加另一个 `UIViewController`，并将其命名为 `“SignUpViewController”`，标题设置为 `“注册（Sign Up）”`。将“注册”按钮与 `SignUpViewController` 连接。在此视图控制器上，让用户输入其电子邮件和密码来向您注册账户。为确保用户能记住密码，让用户再输入一次密码。创建此用户体验的标准方法是使用包含三个单元格的 `UITableView`。每个单元格用于容纳一个 `UITextField`。在每个 `UITextField` 上放置占位符文本，以指示该单元格的用途，如图 2-24 所示。在 `UITableView` 下方添加一个标题为“注册（Sign Up）”的 `UIButton`，并在右侧栏按钮项中添加一个标题为“注册（Sign Up）”的 `UIBarButtonItem`，以便用户可以点击其中任何一个进行注册。
+
+![A978-1-4842-1317-9_2_Fig24_HTML.jpg](img/A978-1-4842-1317-9_2_Fig24_HTML.jpg)
+
+图 2-24.
+
+这是 `SignupViewController` 的部分用户界面。以类似的方式，添加另一个 `UIViewController`，并将其命名为 `“LoginViewController”`，标题设置为 `“登录（Log In）”`。添加一个包含两个静态单元格的 `UITableView`。这次只需要用户的电子邮件和密码即可登录。图 2-25 显示了其外观。
+
+![A978-1-4842-1317-9_2_Fig25_HTML.jpg](img/A978-1-4842-1317-9_2_Fig25_HTML.jpg)
+
+图 2-25.
+
+这是 `LoginViewController` 的部分用户界面。图 2-26 显示了完整的 `LoginSignup.storyboard`。
+
+![A978-1-4842-1317-9_2_Fig26_HTML.gif](img/A978-1-4842-1317-9_2_Fig26_HTML.gif)
+
+图 2-26.
+
+在 `LoginSignup.storyboard` 中使用的视图控制器。
+
+### 整合实现
+
+为了使我们的原型像真实 App 一样工作，您需要编写少量代码来处理以下情况：
+
+-   用户尚未创建账户，但点击了“我的账户”或“加入购物袋”。
+-   用户注销。
+
+您可能想知道是否可以在用户刚打开 App 时就要求他们注册账户？从技术上讲，可以，但这并不是良好的用户体验。用户还不知道 App 是什么以及它能做什么，您却已经要求他们注册账户？很可能用户会直接退出并删除该 App。
+
+使用 `NSUserDefault` 来保存客户的登录/注销状态。当 App 刚打开时，假设用户不是注册用户。代码如下：
+
+```
+AppDelegate.m
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    // 应用程序启动后的自定义覆盖点。
+
+    UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+
+    tabBarController.delegate = self;
+
+     NSString *const kIsLoggedInfKey   = @"kIsLoggedIn";
+
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kIsLoggedInfKey:@(NO)}];
+
+    return YES;
+
+}
+```
+
+当用户点击“我的账户”或“购物袋”标签页时，显示我们的 `DispatchViewController`。要做到这一点，您需要做一些额外的工作。
+
+首先，在 `AppDelegate` 中，您需要声明 `UITabBarContollerDelegate`：
+
+```
+UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+
+    tabBarController.delegate = self;
+```
+
+当用户点击除“我的账户”或“购物袋”之外的标签页时，不要求用户注册或登录。
+
+以下是实现 `UITabBarControllerDelegates` 中的一个方法以响应标签页选择的方式：
+
+```
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+
+    UINavigationController *navViewController = (UINavigationController *)viewController;
+
+    if (![navViewController.title isEqualToString:@"商店（Shop）"]) {
+
+        if (!([[NSUserDefaults standardUserDefaults] boolForKey:kIsLoggedInfKey])) {
+
+            UIStoryboard *dispatchStoryboard = [UIStoryboard storyboardWithName:@"LoginSignup" bundle:nil];
+
+            UINavigationController *navController = (UINavigationController *)[dispatchStoryboard instantiateInitialViewController];
+
+            [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+
+        }
+
+    }
+
+}
+```
+
+首先，通过检查导航控制器的标题来判断选择了哪个标签页。然后询问用户是否已登录；如果未登录，则通过故事板标识符获取分派导航控制器，然后将其呈现出来。
+
+在分派视图控制器中，实现两个 `IBActions`：用户使用“使用 Facebook 登录”功能登录，或者用户取消登录或注册流程：
+
+```
+-(IBAction)onFacebookLogin:(id)sender{
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsLoggedInfKey];
+
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+```
+
+这里，我们只需将 `NSUserDefaults` 的 `kIsLoggedInKey` 设置为 `Yes`，然后关闭分派导航视图控制器。
+
+```
+-(IBAction)onCancel:(id)sender{
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+```
+
+一旦用户点击“取消” `UIBarButtonItem`，我们就关闭分派导航视图控制器。
+
+**注意：** 完整的实现可以在第 2 章的源代码中找到。
+
+### 总结
+
+在本章中，我介绍了如何使用 `UIStoryboard` 为本书中使用的 App 创建原型。我使用了标签页应用模板。三个标签页，即“商店”、“购物袋”和“我的账户”，分别对应 App 的三个主要功能。我还展示了如何设置注册或登录的 `UIStoryboard`。通过一些代码来模拟已登录用户，我创建了该 App 的原型。
+
+
+
+## 3. 解析基础
+
+Parse 拥有众多特性和功能，旨在简化开发者的工作。这些特性将在本书中逐一介绍。本章将重点讲解 Parse iOS SDK。
+
+在本章中，你将了解到：
+
+- 与 Parse `PFObject` 类及其子类进行交互
+- 使用 `PFQuery` 类检索数据
+- 通过指针、数组、Parse 关系和连接表来创建对象之间的关系
+- 使用 `PFImageView` 类加载和显示图像
+- 使用 `PFTableViewCell` 类显示图像
+- 使用 `PFQueryTableViewController` 类查询和展示数据
+
+### 与对象交互：`PFObject`
+
+如果你是一名 iOS 开发者，你对 `NSObject` 应该不陌生。`NSObject` 是大多数 Objective-C 类层次结构的根类。`PFObject` 则是 Parse iOS 的根类。在开发 iOS 应用时，你将从 `PFObject` 开始：
+
+```
+@interface PFObject : NSObject
+```
+
+`PFObject` 之所以能如此轻松地与 Parse 后端配合使用，是因为每个 `PFObject` 都包含由 JSON 兼容数据组成的键值对。这些数据是无模式的，这意味着你无需预先指定每个 `PFObject` 上存在哪些键——只需设置你想要的任何键值对，Parse 后端就会将其存储起来。
+
+另一个好用的特性是，Parse 不会限制新类的创建方式。你可以前往 Parse 网站上的项目主页，通过数据浏览器、导入数据或从客户端来添加新类。要从客户端创建新类，请记住在项目主页的设置页面中启用客户端类创建功能（见图 3-1）。
+
+![A978-1-4842-1317-9_3_Fig1_HTML.jpg](img/A978-1-4842-1317-9_3_Fig1_HTML.jpg)
+
+图 3-1. 在 Parse 控制台中启用“允许客户端类创建”
+
+例如，要创建一个包含 `title`、`subtitle`、`unitPrice` 和 `priceUnit`（如个、磅等单位）等属性的 `Product` 类，请在 Xcode 中编写以下代码：
+
+```
+PFObject *product = [PFObject objectWithClassName:@"Product"];
+[product setObject:@"iOS eCommerce App Development with Parse" forKey:@"title"];
+[product setObject:@(19.99) forKey:@"unitPrice"];
+[product setObject:@"ea" forKey:@"priceUnit"];
+[product setObject:@"A real world iOS app development with Parse" forKey:@"subtitle"];
+[product save];
+```
+
+要保存该类，你需要调用 `PFObject` 的 `save` 方法。如果 Parse 后端上不存在名为“Product”的类，Parse 会为你创建一个。同时，还会为该类添加一行数据，如图 3-2 所示。
+
+![A978-1-4842-1317-9_3_Fig2_HTML.jpg](img/A978-1-4842-1317-9_3_Fig2_HTML.jpg)
+
+图 3-2. Parse 创建了一个 `Product` 类，并带有一行记录
+
+如果后端已经存在名为“Product”的类，执行相同的代码将添加另一行数据。
+
+尽管创建类很容易，但你可能很快就会遇到问题。例如，每个类对象与你试图模拟的实际业务对象关联不大。在这种情况下，`Product` 是你想要表示的实际对象，但你只称它为 `PFObject`，而不是 `Product`。此外，你还必须记住所有键，并用正确的值设置它们——这有点像使用 `NSDictionary`。幸运的是，Parse 原生的 `PFObject` 子类功能可以解决这个问题。
+
+使用 `PFObject` 子类甚至比直接使用类还要简单。操作方法如下：在 Xcode 中，创建一个新文件并选择 Cocoa Touch Class；然后将文件命名为 `Product`，并使其成为 `PFObject` 的子类，如图 3-3 所示。
+
+![A978-1-4842-1317-9_3_Fig3_HTML.jpg](img/A978-1-4842-1317-9_3_Fig3_HTML.jpg)
+
+图 3-3. 使用 Xcode 创建一个 `PFObject` 的 `Product` 子类
+
+这样会创建两个文件：`Product.h` 和 `Product.m`。
+
+在 `Product.h` 中，你需要声明 `Product` 类必须遵循 `PFSubclassing` 协议；然后，像往常一样创建一个带有 `title`、`subtitle`、`unitPrice` 和 `priceUnit` 属性的 `NSObject`。
+
+```
+#import <Parse/Parse.h>
+
+@interface Product : PFObject<PFSubclassing>
+
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, assign) double unitPrice;
+@property (nonatomic, copy) NSString *priceUnit;
+
+@end
+```
+
+在 `Product.m` 中，你需要导入 `<Parse/PFSubclassing.h>`：
+
+```
+#import "Product.h"
+#import <Parse/PFObject+Subclass.h>
+```
+
+对于这个实现，请为你的属性使用 `@dynamic` 关键字：
+
+```
+@dynamic title, subtitle, priceUnit, unitPrice;
+```
+
+还需要实现另一个必需的方法：
+
+```
++(NSString *)parseClassName
+{
+    return @"Product";
+}
+```
+
+就是这样。以下是 `Product.m` 文件的完整代码：
+
+```
+#import "Product.h"
+#import <Parse/PFObject+Subclass.h>
+
+@implementation Product
+
+@dynamic title, subtitle, priceUnit, unitPrice;
+
++(NSString *)parseClassName
+{
+    return @"Product";
+}
+
+@end
+```
+
+你还需要做一件事。在 `AppDelegate.m` 文件中，在声明任何与 Parse 相关的内容之前，先声明 `Product` 类：
+
+```
+#import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import "Product.h"
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Product registerSubclass];
+    [Parse setApplicationId:@"YOUR-PARSE-APPLICATION-ID"  clientKey:@"YOUR-PARSE-CLIENT-KEY"];
+    return YES;
+}
+```
+
+基本上，这就是创建 `PFObject` 子类的方法。现在，使用 `Product` 类变得更加简单和直观：
+
+```
+Product *product = [Product object];
+product.title = @"iOS eCommerce App Development with Parse";
+product.subtitle = @"A real world iOS app development with Parse";
+product.priceUnit = @"ea";
+product.unitPrice = 19.99;
+[product save];
+```
+
+与对象打交道时，通常涉及四种类型的操作：创建、读取、更新和删除。Parse 凭借其子类简化了开发者的工作。以下面的 `Product` 子类使用场景为例。
+
+- **创建（Create）**——正如你所见，创建一个产品对象实例很容易：`Product *product = [Product object];`
+- **读取（Read）**——可以使用标准方式处理 `NSObject` 来读取产品对象的属性。例如，如果你想把产品的标题打印到控制台，可以使用：`NSLog(@"%@", product.title);`
+- **编辑（Edit）**——编辑产品可能意味着更改产品的属性，比如为该产品设置一个新价格：`product.unitPrice = 21.99;`
+- 将更新后的产品保存到 Parse 中非常重要，因此你需要调用：`[product save];`
+- 或者，你也可以异步调用 `save` 方法——为了获得更好的用户体验，这通常是推荐的做法：`[product saveInBackground];`
+- **删除（Delete）**——像 `NSObject` 实例一样，将此对象设置为 nil。但是，你还需要让 Parse 知道该对象已不存在，因此调用 `delete` 方法：`[product delete];`
+- 或者异步调用：`[product deleteInBackground];`
+
+**注意：** 有关 `PFObject` 及其 API 的更多信息，请访问 [`parse.com/docs/ios/api/Classes/PFObject.html`](https://parse.com/docs/ios/api/Classes/PFObject.html)。
+
+
+
+### 检索数据：`PFQuery`
+
+由于你的所有数据都存储在 Parse 上，从 Parse 获取这些数据就变得至关重要。为此，你可以使用 `PFQuery` 辅助类来查询 Parse。
+
+`PFQuery` 是 `PFObject` 的子类，它让常见的查询相关 API 调用变得更加简单。假设你想创建一个 `PFQuery` 实例，可以这样使用：
+
+`PFQuery *query = [PFQuery queryWithClassName:@"Product"];`
+
+内置的类方法 `(+PFQuery *)queryWithClassName` 以类名作为参数，表明查询的是 `Product` 类。
+
+Parse 提供了许多易于记忆和使用的*方法*，以保持查询对开发者友好。
+
+比如说，你想检索所有的产品，可以这样使用：
+
+`NSArray *products = [query findObjects];`
+
+或者你也可以使用异步方法：
+
+```
+__block NSArray *products;
+[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+    if (!error) {
+        products = objects;
+    }
+}];
+```
+
+默认情况下，Parse 会返回存储在 Parse 上的前 200 个产品条目。如果你想自定义检索的条目数量，可以使用 `PFQuery` 的方法：`-(void)setLimit: (NSInteger)limit`
+
+```
+[query setLimit:100];
+```
+
+如果你只想获取标题为 “iOS eCommerce App Development with Parse” 的产品，可以使用查询约束方法：
+
+```
+[query whereKey:@"title" equalTo:@"iOS eCommerce App Development with Parse"];
+```
+
+你还可以自定义返回对象的排序顺序。默认结果是按 `createdAt` 属性升序排列。如果你想按产品标题的字母顺序升序排列返回的条目，可以这样使用：
+
+```
+[query orderByAscending:@"title"];
+```
+
+结合这些约束，你可以执行非常强大的查询。
+
+**注意：** 有关 `PFQuery` 及其 API 的更多信息，请访问 [`parse.com/docs/ios/api/Classes/PFQuery.html`](https://parse.com/docs/ios/api/Classes/PFQuery.html)。
+
+### 创建对象间的关系
+
+对象之间可以拥有多种关系。一个产品通常属于一个产品类别。例如，这本书通常被归入 Barnes & Noble 的“计算机编程”类别。而“计算机编程”类别包含了许多不同的编程书籍：这是一个典型的一对多关系场景。
+
+你可能还听说过其他关系类型，例如一对一和多对多。Parse 提供了四种不同的方式来构建关系：指针、数组、Parse 关系和连接表。
+
+#### 使用指针
+
+指针用于一对一和一对多关系。例如，假设你有一个书籍和书籍类别，分别对应 `Product` 类和 `ProductCategory` 类；以下是在 `Product.h` 中使用 `PFObject` 子类定义关系的方法：
+
+```
+#import <Parse/Parse.h>
+@class ProductCategory;
+@interface Product : PFObject<PFSubclassing>
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, assign) double unitPrice;
+@property (nonatomic, copy) NSString *priceUnit;
+@property (nonatomic, strong) ProductCategory *category;
+@end
+```
+
+假设你有一个标题为 “Programming Books” 的 `ProductCategory` 对象，并且你想让这本书属于这个类别，可以这样使用：
+
+```
+ProductCategory *category = [ProductCategory object];
+category.title = @"Programming Book";
+Product *product = [Product object];
+product.category = category;
+[product saveInBackground];
+```
+
+Parse 的一个好处是，如果你现在保存这个产品，`ProductCategory` 的 category 对象将自动保存到 Parse，而无需显式调用 `save` 方法。
+
+一旦你在这本书和书籍类别之间建立了多对一关系，并且你想展示编程书籍类别中的所有书籍，可以使用这个查询：
+
+```
+PFQuery *query = [PFQuery queryWithClassName:@"Product"];
+[query whereKey:@"category" equalTo:category];
+[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+    if (!error) {
+    }
+}];
+```
+
+**注意：** 如果你有一些自定义的查询方法，最好将它们放在子类中，而不是放在你将使用的主视图控制器里。
+
+#### 使用数组
+
+数组在多对多关系中的使用方式，与在一对多关系中大致相同。关系一侧的所有对象将拥有一个数组列，其中包含关系另一侧的多个对象。以书籍产品为例，一本书可以由多位作者合著。以下是在 `Product` 类中声明这种关系的方法：
+
+```
+#import <Parse/Parse.h>
+@class ProductCategory;
+@interface Product : PFObject<PFSubclassing>
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, assign) double unitPrice;
+@property (nonatomic, copy) NSString *priceUnit;
+@property (nonatomic, strong) ProductCategory *category;
+@property (nonatomic, strong) NSArray *authors;
+@end
+```
+
+假设你有两个 `Author` 对象：
+
+```
+product.authors = @[author1, author2];
+```
+
+当执行 `Product` 查询时，如果你还想获取相关的作者，可以使用 `-(void)include` 这个 `PFQuery` 方法。以下代码展示了如何从 `Product` 查询中获取所有作者，并打印第一位作者的姓名：
+
+```
+PFQuery *query = [PFQuery queryWithClassName:@"Product"];
+[query includeKey:@"authors"];
+[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+    if (!error) {
+        Product *product = objects[0];
+        NSArray *authors = product.authors;
+        PFUser *author = authors[0];
+        NSLog(@"%@", [author objectForKey:@"name"]);
+    }
+}];
+```
+
+**注意：** 当你想要获取数组所包含的对象数据时，使用 `includeKey` 方法非常重要。
+
+#### 使用 Parse 关系
+
+Parse 关系，即 `PFRelation`，其工作方式类似于 `PFObject` 的 `NSArray`。不同之处在于，你不需要一次性下载关系中的所有对象。这使得 `PFRelation` 能够扩展到比 `PFObject` 的 `NSArray` 方法更多的对象。一个例子是，一个用户可能喜欢很多产品。要保存用户已喜欢的产品，你可以使用 `PFRelation`：
+
+```
+PFObject *user = [PFObject object];
+PFRelation *relation = [user relationForKey:@"likes"];
+[relation addObject:product];
+[user saveInBackground];
+```
+
+要从用户的收藏列表中移除一个产品，可以这样使用：
+
+```
+[relation removeObject:product];
+```
+
+默认情况下，用户已收藏的产品列表是不会被下载的。你可以通过以下方式获取产品列表：
+
+```
+[[relation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+    if (!error) {
+        Product *product = objects[0];
+        NSLog(@"%@", product.title);
+    }
+}];
+```
+
+#### 连接表
+
+使用连接表方法可以帮助你获取除关系本身之外的更多信息。以下面这个用例为例：如果你想建立用户与其评论过的产品之间的关系，你会关心谁写了评论、评论了哪个产品以及评论的内容。针对这个用例，`ProductReview` 这个 `PFObject` 子类如下所示：
+
+```
+#import <Parse/Parse.h>
+@class Product;
+@interface ProductReview : PFObject
+@property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) Product *product;
+@property (nonatomic, copy) NSString *content;
+@end
+```
+
+
+
+### 介绍特殊解析对象：PFUser
+
+`PFUser` 类是持久化到 Parse 数据中的用户的本地表示形式。该类是 `PFObject` 的子类，具有所有相同的功能，例如灵活的模式、自动持久化和键值接口。不同之处在于 `PFUser` 具有一些特定于用户账户的特殊附加功能，包括身份验证、注册和唯一性验证。
+
+值得注意的是，`username` 和 `password` 是 `PFUser` 的两个必需属性。`PFUser` 的 `e-mail` 属性始终存在，即使您可能想要为其设置值。
+
+要使用用户名和密码注册用户，首先创建一个 `PFUser` 实例：
+
+```
+PFUser *user = [PFUser user];
+```
+
+接下来，从两个 `UITextField` 实例中获取 `username` 和 `password`：
+
+```
+user.username = usernameTextField.text;
+user.password = passwordTextField.text;
+```
+
+然后调用 `-(BOOL)signUp` 方法，或异步调用 `signUp` 方法：
+
+```
+[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (!error) {
+    }
+}];
+```
+
+如今，要求用户将电子邮件地址作为用户名是很常见的。您可以使用 `UITextField` 来收集用户的电子邮件：
+
+```
+user.username = emailTextField.text;
+user.password = passwordTextField.text;
+user.email = emailTextField.text;
+```
+
+接下来，您需要验证 `emailTextField` 中的文本是否为有效的电子邮件地址。Parse 为 `PFUser` 提供了 `emailVerified` 属性。只有当此用户点击 Parse 发送的验证电子邮件中的链接时（此过程在第 19 章中讨论），`emailVerified` 的值才能被设置为 `true`。
+
+您可以使用 `PFUser` 的类方法 `logInWithUsernameInBackground:password` 登录用户：
+
+```
+[PFUser logInWithUsernameInBackground:emailTextField.text
+                            password:passwordTextField.text
+                               block:^(PFUser *user, NSError *error) {
+    if (!error) {
+    }
+}];
+```
+
+一旦此用户登录，使用类方法 `[PFUser currentUser]` 获取当前用户的实例。该用户会持久化在客户端上。除非用户已注销，否则您可以始终使用此方法来获取当前用户。
+
+要注销用户，只需调用此方法：
+
+```
+[PFUser logOut];
+```
+
+Parse 还提供了匿名用户功能。可以在没有用户名和密码的情况下创建匿名用户，同时保留与其他任何 `PFUser` 相同的所有能力。注销后，匿名用户将被弃用，并且用户的数据将不再可访问。一个典型的用例是在您的应用首次启动时创建一个匿名用户；然后您让用户将产品添加到购物袋中，并跟踪用户喜欢的内容。您稍后才会要求用户使用电子邮件和密码注册，否则用户的数据将被丢弃。
+
+要启用此功能，请在 `AppDelegate.m` 的 `application:didFinishLaunchingWithOptions:` 中调用它：
+
+```
+[PFUser enableAutomaticUser];
+```
+
+一旦调用了此方法，当检查 `[PFUser currentUser]` 时，它将不会返回 `nil`。
+
+要检查当前用户是否是匿名用户，请使用 `PFAnonymousUtils` 方法 `+ (BOOL)isLinkedWithUser:(nullable PFUser *)user`：
+
+```
+if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
+    NSLog(@"这是一个匿名用户。");
+}
+```
+
+您可以像创建 `PFObject` 子类一样创建 `PFUser` 的子类。例如，如果您有一个 `Customer` 对象，`Customer.h` 文件将如下所示：
+
+```objective-c
+#import <Parse/Parse.h>
+
+@interface Customer : PFUser<PFSubclassing>
+
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, copy) NSString *address1;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *zipcode;
+
+@end
+```
+
+`Customer.m` 将如下所示：
+
+```objective-c
+#import "Customer.h"
+#import <Parse/PFObject+Subclass.h>
+
+@implementation Customer
+
+@dynamic firstName, lastName, address1, city, state, zipcode;
+
+@end
+```
+
+对于 `PFUser` 的子类，不需要实现 `+(NSString *)parseClassName` 方法，因为 Parse 类名始终是 `"_User"`。
+
+> **注意：** 要了解更多关于 `PFUser` 的信息，请访问 [`https://parse.com/docs/osx/api/Classes/PFUser.html`](https://parse.com/docs/osx/api/Classes/PFUser.html)。
+
+### 加载和显示图像：PFImageView
+
+`PFImageView` 是 `UIimageView` 的子类。它是一个辅助类，可以更轻松地从 Parse 服务器下载图像文件。使用方式与使用 `UIimageView` 相同。要显示图像，请编写以下代码：
+
+```objective-c
+PFImageView *imageView = [[PFImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 180.0)];
+imageView.contentMode = UIViewContentModeScaleAspectFill;
+imageView.file = product.image;
+[imageView loadInBackground];
+```
+
+`PFImageView` 有一个 `file` 属性，它是 `PFFile` 的一个实例。您的 `Product` 实例有一个属性 `image`，它也是 `PFFile` 的一个实例。
+
+> **注意：** 您可以在 [`https://parse.com/docs/osx/api/Classes/PFFile.html`](https://parse.com/docs/osx/api/Classes/PFFile.html) 上了解更多关于 `PFFile` 的信息。
+
+### 在单元格中显示图像：PFTableViewCell
+
+`PFTableViewCell` 是 `UITableViewCell` 的子类。它是一个辅助类，可以更轻松地显示从 Parse 服务器下载的任何图像。
+
+```objective-c
+- (PFTableViewCell *)tableView:(UITableView * __nonnull)tableView
+         cellForRowAtIndexPath:(NSIndexPath * __nonnull)indexPath
+                        object:(nullable Product *)object
+{
+    PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductCell"];
+    cell.imageView.file = object.image;
+    [cell.imageView loadInBackground];
+    return cell;
+}
+```
+
+
+
+### 查询与展示数据：`PFQueryTableViewController`
+
+在开发 iOS 应用时，你通常都会使用 `UITableViewController`。在典型的网络应用中，你会通过 `UITableViewController` 来显示从远程服务器获取的内容。通常还需要实现一些功能，比如加载指示器、下拉刷新、分页、点击单元格加载并显示下一页，以及在每个 `UITableViewCell` 上加载并显示图片。Parse 创建了 `PFQueryTableViewController`（一个 `UITableViewController` 的子类），让开发者的工作变得更加轻松。
+
+下面是一个如何使用 `PFQueryTableViewController` 的示例；假设你想要实现一个展示所有产品的功能，并将其命名为 `ProductsTableViewController` 类，如图 3-4 所示。
+
+![A978-1-4842-1317-9_3_Fig4_HTML.jpg](img/A978-1-4842-1317-9_3_Fig4_HTML.jpg)
+
+图 3-4. 创建一个 `PFQueryTableViewController` 的子类
+
+这是 `ProductsTableViewController.h` 文件的内容：
+
+```
+#import "PFQueryTableViewController.h"
+
+@interface ProductsTableViewController : PFQueryTableViewController
+
+@end
+```
+
+这是 `ProductsTableViewController.m` 文件的内容：
+
+```
+#import "ProductsTableViewController.h"
+#import "Product.h"
+#import <ParseUI/PFTableViewCell.h>
+#import <ParseUI/PFImageView.h>
+
+@implementation ProductsTableViewController
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.parseClassName = @"Product";
+    self.pullToRefreshEnabled = YES;
+    self.paginationEnabled = YES;
+    self.objectsPerPage = 10;
+}
+
+- (PFQuery *)queryForTable {
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+
+#pragma mark
+
+-(PFTableViewCell *)tableView:(UITableView * __nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * __nonnull)indexPath object:(nullable Product *)object
+{
+    PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductCell"];
+    cell.textLabel.text = object.title;
+        cell.imageView.file = object.image;
+    [cell.imageView loadInBackground];
+    return cell;
+}
+
+@end
+```
+
+首先，如果你在 UIStoryboard 或独立的 XIB 文件中为 `ProductsTableViewController` 使用了 XIB 文件，你需要实现 `-(void)awakeFromNib` 方法。指定你将在此控制器中使用的 Parse 类名：本例中为 `Product` 类。如果你希望使用下拉刷新或分页功能，请将 `self.pullToRefreshEnabled` 和 `self.paginationEnabled` 设置为 `YES`。同时，设置每页显示 10 个对象。你可以根据单元格高度来调整这个数字，以提供更好的用户体验。
+
+第二个你需要实现的方法是 `+(PFQuery *)queryForTable`。指定你要查询的 Parse 类以及缓存策略。本例中，查询 `Product` 这个 Parse 类，并将缓存策略设置为 `kPFCachePolicyCacheThenNetwork`。
+
+第三个方法是用于在每个 `PFTableViewCell` 上显示对象。在这个示例中，将产品标题设置为单元格的 `textLabel`，将产品图片设置为单元格的 `imageView`。
+
+### 本章小结
+
+在本章中，我介绍了与构建 iOS 电商应用相关的 Parse 基础知识。我从 `PFObject` 类及其子类开始讲起，然后介绍了 `PFObjects` 和 `PFUser` 中的四种关系类型。我还涵盖了三个基本的 Parse UI，即 `PFImageView`、`PFTableViewCell` 和 `PFQueryTableViewController`。
+
+## 4. Parse 项目设置
+
+电子补充材料 本章的在线版本（doi:[10.​1007/​978-1-4842-1317-9_​4](http://dx.doi.org/10.1007/978-1-4842-1317-9_4)）包含补充材料，仅供授权用户使用。
+
+本章介绍如何设置一个 Parse 项目。你需要记下几个应用密钥和密码。为了让这个过程更简单，我们将从一个辅助类开始，用它来记住这些密钥和密码。
+
+在本章中，你将学习如何：
+
+*   使用 `EMABConstants` 辅助类来管理你的密钥
+*   创建一个新的 Parse 应用
+*   设置支付、交易邮件和 Facebook 登录
+*   使用 CocoaPods 管理依赖
+*   使用 `SVProgressHud` 实现进度指示器
+
+### 管理你的密钥：`EMABConstants` 类
+
+接着 第 2 章 的源代码继续；创建一个新的 Cocoa Touch 类文件，将其命名为 `EMABConstants`，并使其成为 `NSObject` 的子类。这个类的一个用途是管理那些全局可访问的 `NSStrings`，例如所有的密钥和密码。在这种情况下，使用 `extern NSString *const` 是首选的方法。
+
+此外，你为每个创建的文件都使用了 `EMAB` 作为前缀——`EMAB` 代表“电子商务移动应用开发”，但你可以随意命名。
+
+### 创建一个新的 Parse 应用
+
+如果你还没有 Parse 账户，现在正是注册的时候！在你喜欢的浏览器中打开 [`https://parse.com`](https://parse.com/)，然后按照屏幕上的指引注册一个 Parse 账户。这个过程很简单。一旦你验证了需要提供的电子邮件地址，你就可以直接开始创建新应用了。
+
+Parse 只会要求你输入要创建的新应用的名称。在本教程中，你的应用名称是 `EcommerceAppBook`。确认项目名称后，你会看到一个类似图 4-1 所示的项目概览。
+
+![A978-1-4842-1317-9_4_Fig1_HTML.jpg](img/A978-1-4842-1317-9_4_Fig1_HTML.jpg)
+
+图 4-1. 一个新的 Parse 应用
+
+点击摘要框内的图标，你将看到一个仪表盘界面。此时，你只需要获取你的应用密钥。因此，点击仪表盘顶部的“设置”选项卡，然后点击左侧栏中的“密钥”。你将看到几个应用密钥：用于你的 iOS 应用的 Application ID 和 Client Key（见图 4-2）。
+
+![A978-1-4842-1317-9_4_Fig2_HTML.jpg](img/A978-1-4842-1317-9_4_Fig2_HTML.jpg)
+
+图 4-2. Parse 应用密钥
+
+将这两个密钥粘贴到你的 `EMABConstants.h` 文件中：
+
+```
+extern NSString *const kParseApplicationID;
+extern NSString *const kParseClientKey;
+```
+
+在 `EMABConstants.m` 文件中，实现这两个密钥的内容：
+
+```
+NSString *const kParseApplicationID = @"YOUR-PARSE-APPLICATION-ID";
+NSString *const kParseClientKey = @"YOUR-PARSE-CLIENT-KEY";
+```
+
+请记住使用你真实的 Parse 应用 ID 和客户端密钥。
+
+
+
+### 设置支付：Stripe
+
+维基百科称，Stripe 是一家为个人和企业提供在线支付服务的公司。Stripe 自称：专为开发者打造的网页与移动支付。电子商务应用最重要的功能就是接受付款。在本教程中，用户在输入信用卡卡号后，你将使用 Stripe 处理支付流程。最终，Stripe 会从用户的信用卡中扣款，并将资金（扣除少量服务费后）转入你的银行账户。服务费金额根据你的地理位置计算。例如，在编写本文时，美国的费用标准是每笔成功交易收取 2.4% + 20 美分。没有月费、退款手续费或隐藏费用。如果你还没有注册，现在正是注册 Stripe 的好时机。
+
+**注意**  
+更多关于 Stripe 定价的信息，请访问 [`https://stripe.com/gb/pricing`](https://stripe.com/gb/pricing)。
+
+要开始使用 Stripe，请点击 Stripe 主页上的注册按钮，网址是 [`https://stripe.com/gb`](https://stripe.com/gb)。与现在大多数账户注册流程一样，系统会要求你提供邮箱地址和密码。Stripe 会向你提供的邮箱发送一封验证邮件。请务必在继续操作前完成邮箱验证。
+
+点击验证邮件中的链接，你会返回到 Stripe 网站。使用邮箱和密码登录以激活你的账户。
+
+Stripe 支持在同一用户账户下管理多个子账户。从“你的账户”菜单中选择“创建新账户”，为账户命名（例如你的公司名称），然后点击“创建账户”，如图 4-3 所示。
+
+![A978-1-4842-1317-9_4_Fig3_HTML.jpg](img/A978-1-4842-1317-9_4_Fig3_HTML.jpg)
+
+图 4-3. 创建一个新的 Stripe 账户
+
+与 Parse 类似，你会看到一个仪表盘。点击右上角的账户名称，然后点击“账户设置”（见图 4-4）。
+
+![A978-1-4842-1317-9_4_Fig4_HTML.jpg](img/A978-1-4842-1317-9_4_Fig4_HTML.jpg)
+
+图 4-4. 进入账户设置
+
+找到“API 密钥”选项卡，将测试可发布密钥和在线可发布密钥复制并粘贴到你的 `EMBAConstants` 类中。
+
+在 `EMABConstants.h` 中：
+
+```
+extern NSString *const kStripeTestPublishableKey;
+extern NSString *const kStripeLivePublishableKey;
+```
+
+在 `EMABConstants.m` 中：
+
+```
+NSString *const kStripeTestPublishableKey = @"YOUR-STRIPE-TEST-PUBLISHABLE-KEY";
+NSString *const kStripeLivePublishableKey = @"YOUR-STRIPE-LIVE-PUBLISHABLE-KEY";
+```
+
+你的 Xcode 项目中不需要测试密钥和在线密钥；但后续会用到。在线密钥非常重要，请勿与他人分享。
+
+**注意**  
+测试可发布密钥和密钥对用于开发环境；你需要在生产环境中使用在线可发布密钥和密钥。我将在第 14 章中介绍如何使用密钥。
+
+值得一提的是，当你的项目进入生产环境时，Stripe 会要求你为该账户提供更多信息，例如法定代表人的姓名、出生日期和社会安全号码。它还需要合法的企业名称、地址以及 EIN/税号（如果有的话）。并且需要一个银行路由号码和账户号码，以便资金转入用户的银行账户。
+
+### 设置事务性邮件：Mailgun
+
+本示例将使用对开发者友好的 Mailgun API，在下订单时发送事务性邮件。Mailgun 的定价非常合理：每月前 10,000 封邮件免费。你也可以选择 Sendgrid 或其他服务。我选择 Mailgun 主要是因为 Parse 为开发者内置了 Mailgun 云模块。
+
+**注意**  
+更多关于 Mailgun 定价的信息，请访问 [`http://www.mailgun.com/pricing`](http://www.mailgun.com/pricing)。
+
+注册 Mailgun 账户很简单。访问 [`https://mailgun.com/signup`](https://mailgun.com/signup)，输入你的公司/账户名称、个人姓名、邮箱地址和密码，然后注册。
+
+Mailgun 也需要邮箱验证。按照验证邮件中的说明操作，你会回到 Mailgun 网站。使用邮箱和密码登录，你将进入仪表盘页面。点击顶部的“域名”选项卡。你会看到一个默认自动分配给你的沙盒域名；在项目中使用此域名。点击此域名以查找 API 密钥（见图 4-5）。
+
+![A978-1-4842-1317-9_4_Fig5_HTML.jpg](img/A978-1-4842-1317-9_4_Fig5_HTML.jpg)
+
+图 4-5. Mailgun 中的域名选项卡
+
+你的 Xcode 项目中不需要这个 API 密钥；但你稍后会在 Parse 云代码中使用它。
+
+**注意**  
+在生产环境中，你应该使用 Mailgun 设置自己的邮件域名，这样收到的每封邮件都将显示为你公司的邮箱地址。
+
+### 设置 Facebook 登录
+
+由于你将使用 Facebook 登录功能，因此必须创建一个 Facebook 应用来启用此功能。
+
+访问 [`https://developers.facebook.com/apps`](https://developers.facebook.com/apps)。点击“添加新应用”，并选择 iOS。你会看到一个“iOS 快速入门”页面。选择右上角的“跳过并创建应用编号”。Facebook 会要求你提供应用的显示名称和类别。输入最能描述你业务的内容，然后点击“创建应用编号”按钮。图 4-6 显示了点击按钮后的页面。
+
+![A978-1-4842-1317-9_4_Fig6_HTML.jpg](img/A978-1-4842-1317-9_4_Fig6_HTML.jpg)
+
+图 4-6. 使用 Facebook 开发者控制台添加新的 iOS 应用
+
+在查看应用编号（一个 16 位数字）之前，你可能还需要通过另一个安全检查页面。记下这个数字；你将在 Xcode 项目中使用它。
+
+你可以通过编辑第 4 章项目源代码的 `.plist` 文件来添加此密钥，如图 4-7 所示。
+
+![A978-1-4842-1317-9_4_Fig7_HTML.jpg](img/A978-1-4842-1317-9_4_Fig7_HTML.jpg)
+
+图 4-7. 使用 Xcode 项目的 `.plist` 文件配置 Facebook 开发者应用编号
+
+创建一个名为 `FacebookAppID` 的键，其值为字符串，并将 16 位应用编号添加进去。
+
+创建一个名为 `FacebookDisplayName` 的键，其值为字符串，并将我们在 Facebook 应用仪表盘中已有的显示名称添加进去。
+
+创建一个名为 `URL types` 的数组键，其中包含一个名为 `URL Schemes` 的数组子项。为其提供一个以 `fb` 为前缀的应用编号项；它应该看起来像 `fb1235789899153886` 这样。对于文档角色，使用默认参数：编辑器。
+
+**注意**  
+Facebook 有关于如何创建 Facebook 应用的详细文档。要了解更多信息，请访问 [`https://developers.facebook.com/docs/ios/getting-started`](https://developers.facebook.com/docs/ios/getting-started)。
+
+### 管理依赖：CocoaPods
+
+作为一名 iOS 开发者，你应该熟悉 CocoaPods。CocoaPods 是 Swift 和 Objective-C 的 Cocoa 项目的依赖管理器。它拥有数千个库，可以帮助你优雅地扩展项目。
+
+如果你还没有在 Mac 电脑上安装 CocoaPods，现在是时候安装了；你将使用 CocoaPods 安装所有 Parse 相关的 SDK 和其他库。
+
+**注意**  
+访问 [`https://guides.cocoapods.org/using/getting-started.html#getting-started`](https://guides.cocoapods.org/using/getting-started.html#getting-started) 可以开始使用 CocoaPods 并获取故障排除提示。
+
+通过在终端中运行以下命令来安装 CocoaPods：
+
+```
+$ sudo gem install cocoapods
+```
+
+
+
+### 安装 Podfile
+
+你的 Podfile 包含了一些与 Parse 相关的库：Parse iOS 核心 SDK、Parse UI iOS SDK、Facebook iOS SDK 和 ParseFacebookUtility iOS SDK。当前 Podfile 的内容如下所示。
+
+```
+source 'https://github.com/CocoaPods/Specs.git'
+
+pod 'Parse'
+pod 'ParseFacebookUtils'
+pod 'Facebook-iOS-SDK'
+pod 'ParseUI'
+```
+
+该 Podfile 随第 4 章的源代码一同提供。安装完 Cocoapods 后，只需在项目目录中运行以下命令：
+
+`pod install`
+
+所有依赖的 SDK 将被自动拉取并添加到项目中。请注意，从现在开始，你需要使用在添加依赖 SDK 过程中生成的 `Xcworkspace` 文件。
+
+当你想将这些依赖 SDK 更新到最新版本时，只需在终端窗口中随时运行以下命令（只要时机合适）：
+
+`pod update`
+
+### 实现进度指示器：SVProgressHud
+
+在 iOS 开发中，通常需要弹出消息来告知用户一些简单信息，例如内容已保存、发生错误等。iOS 标准处理方式是使用 `UIAlertController`。例如，要向用户指示保存操作成功，可以使用以下代码：
+
+```
+UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"成功"
+                                                           message:@"您的数据已保存。"
+                                                    preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {}];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+```
+
+`UIAlertViewController` 的问题在于用户必须点击“确定”按钮才能关闭此提示。从实现角度来看，你需要在应用中反复编写相同的代码。
+
+为了突出电商 iPhone 应用业务逻辑的实现，应尽可能少用依赖库。但我还是想介绍一下 `SVProgessHud` 库。`SVProgressHUD` 是一个简洁易用的 HUD，用于显示正在进行的任务的进度，或仅显示一条消息。显示成功消息：
+
+`[SVProgressHUD showSuccessWithStatus:@"保存成功"];`
+
+显示错误消息：
+
+`[SVProgressHUD showErrorWithStatus:[error localizedDescription]];`
+
+无论哪种情况，`SVProgressHud` 都会在三秒后自动消失。
+
+要显示数据加载状态并在加载完成后取消状态，你可以这样使用 `SVProgressHud`：
+
+```
+[SVProgressHUD show];
+[product saveInBackgroundWithBlock:^(BOOL success, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"已保存"];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+        }
+}];
+```
+
+现在，你可以编辑 Podfile 并添加 `SVProgressHud` 库依赖：
+
+`pod 'SVProgressHUD'`
+
+然后再次更新 pods：
+
+`pod update`
+
+> **注意：** 要了解更多关于 `SVProgressHud` 的信息以及如何自定义其外观，请访问 [`github.com/TransitApp/SVProgressHUD`](https://github.com/TransitApp/SVProgressHUD)。
+
+### 总结
+
+在本章中，我介绍了如何在 parse.com 上设置 Parse 项目。我还引入了一个自定义类来跟踪从 Parse.com、Stripe.com 和 Mailgun.com 获得的重要密钥。我还简要介绍了如何申请 Facebook 开发者账户，然后设置与提议应用关联的 Facebook App ID。在本章的最后部分，我描述了本书将使用的 Podfile。
+
+## 5. 产品类别
+
+电子补充材料 本章的在线版本 (doi:[10.1007/978-1-4842-1317-9_5](http://dx.doi.org/10.1007/978-1-4842-1317-9_5)) 包含补充材料，仅提供给授权用户。
+
+本书附带的 Beauty & Me 示例应用以传统方式向用户展示产品。首先，我们让用户销售我们提供的所有品牌。如果你不认识任何品牌，我会编造一些，例如 Origins、NUDE Skincare 等。在每个品牌下，我们都有所有产品。当用户选择某个产品时，应用会显示该产品的详细信息。本章将介绍品牌，或者更通用的名称——产品类别。
+
+在 iOS 应用开发中，模型-视图-控制器 (MVC) 是一种广泛使用的设计模式。我按照此 MVC 模式构建了后续章节：首先介绍用于实现所讨论功能的模型，然后是视图，最后是控制器（如果适用）。
+
+在本章中，你将学习：
+
+- 产品类别模型
+- 类别视图 (`UITableViewCell`)
+- 类别控制器
+- 使用 `UIStoryboard` 将模型、视图和控制器整合在一起
+- 在 Parse.com 中添加示例数据
+
+
+
+### 产品类别模型
+
+产品类别模型用于模拟化妆品品牌。一个品牌至少包含标题、标识、原产国以及关于该品牌的描述。在本文示例中，由于我只经营知名品牌，因此仅使用品牌标题和标识图片。
+
+我已经在第 3 章中介绍了`PFObject`。你的类别模型将是`PFObject`的一个子类。继承`PFObject`需要指定一个`ParseClassName`。这个`ParseClassName`必须与你在 Parse 网站上设置的名称一致。换句话说，如果你在 Parse.com 的项目中创建了一个名为`Category`的模型类，那么你需要在子类文件中使用`"Category"`作为`ParseClassName`。下面的示例代码展示了具体实现方法。
+
+首先，在`EMCAConstants.h`中注册一个`kCategory`字符串常量：
+
+`extern NSString *const kCategory;`
+
+然后在`EMABConstants.m`文件中：
+
+`NSString *const kCategory = @"Category";`
+
+接下来，创建一个`EMABCategory`子类来表示你的化妆品产品类别。该类有两个属性：`title`和`image`，分别代表品牌名称和标识。在第 3 章中，我解释了如何创建`PFObject`子类——例如，使用`NSString`实例保存品牌标题，用`UIImage`保存标识。每个品牌的图片文件存储在 Parse 服务器上；你的 iOS 应用将获取该图片文件并转换为`UIImage`，然后通过`UIImageView`显示图片。在 iOS 开发中，从远程服务器加载图片文件始终是一项具有挑战性的任务。如果你想缓存图片文件以避免下次再次获取，还需要做更多工作。
+
+由于这是 iOS 应用开发中常见的任务，Parse 通过引入一个名为`PFFile`的类简化了操作。我将很快用一个示例来演示使用该类如何让开发者的工作更轻松。目前，只需使用`PFFile`类来保存图片。
+
+iPhone 应用还将从 Parse 服务器获取所有产品类别。第 3 章介绍了`PFQuery`类。对于本文示例，你需要在`EMABCategory`子类中创建一个名为`+(PFQuery *)basicQuery`的辅助类方法。
+
+以下是完整的`EMABCategory`头文件：
+
+`EMABCategory.h`
+
+```
+#import <Parse/Parse.h>
+
+@interface EMABCategory : PFObject<PFSubclassing>
+
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) PFFile *image;
+
++(PFQuery *)basicQuery;
+
+@end
+```
+
+如果`PFObject`无法识别，请确认你已经包含了`#import <Parse/Parse.h>`。
+
+`EMABCategory`的实现可能是本书中最简单的。除了导入该子类的头文件外，你还需要导入`"EMABConstants.h"`，因为必需的`+(NSString *)ParseClassName`方法需要返回一个`NSString`。你可以这样编写：
+
+```
++(NSString *)parseClassName {
+    return @"Category";
+}
+```
+
+如果你在不同位置使用了`@"Category"`模型类名，但后来想将其改为`@"Brand"`，你就需要在整个项目中查找并替换为`"Brand"`。使用全局常量有助于解决这个问题。你只需在`"EMABConstants.m"`中将`"Category"`改为`"Brand"`一次即可。
+
+在`+(PFQuery *)basicQuery`的实现中，你通过使用`orderByAscending`方法按字母顺序对获取结果进行排序——这是 Parse 的另一个优势。设想你同时为 iOS、Android 或 Web 开发。如果你希望这三个平台具有相同的功能，由于后端通常没有排序功能，平台工程师需要编写自己的排序方法。
+
+以下是完整的实现代码：
+
+`EMABCategory.m`
+
+```
+#import "EMABCategory.h"
+#import  <Parse/PFObject+Subclass.h>
+#import   "EMABConstants.h"
+
+@implementation EMABCategory
+
+@dynamic title, image;
+
++(NSString *)parseClassName
+{
+    return kCategory;
+}
+
++(PFQuery *)basicQuery{
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query orderByAscending:@"title"];
+    return query;
+}
+
+@end
+```
+
+### 产品类别视图
+
+如第 2 章中示例应用的原型所示，使用`UITableViewController`来展示所有品牌。虽然`UITableView`本身看起来相当简单，但让界面更丰富的是每个`UITableViewCell`，如图 5-1 所示。对于品牌部分，重点在于`UITableViewCell`。
+
+![A978-1-4842-1317-9_5_Fig1_HTML.jpg](img/A978-1-4842-1317-9_5_Fig1_HTML.jpg)
+
+图 5-1. `EMABCategoryTableViewController`中的类别单元格
+
+`EMABCategory`有两个属性：`title`和`image`；而`EMABCategoryTableViewCell`作为`PFTableViewCell`的子类，也有两个属性来保存标题和图片：一个是`UILabel`，另一个是`PFImageView`。
+
+你还希望将`EMABCategory`模型对象与`EMABCategoryTableViewCell`关联起来，因此创建一个辅助方法：`-(void)configureItem:(EMABCategory *)item`。以下是完整的头文件：
+
+`EMABCategoryTableViewCell.h`
+
+```
+#import "PFTableViewCell.h"
+@class EMABCategory;
+
+@interface EMABCategoryTableViewCell : PFTableViewCell
+
+-(void)configureItem:(EMABCategory *)item;
+
+@end
+```
+
+如你所见，你没有在头文件中定义`UILabel`和`PFImageView`属性——而是在实现文件中定义它们。原因在于这些属性是私有的，无需让外部知道你在使用什么。另一方面，你的 UI 相当简单，为了保持代码整洁，你将使用`IBOutlet`将实现中的属性与主 UI 故事板关联起来。以下是`.m`文件中的接口类别：
+
+```
+@interface EMABCategoryTableViewCell()
+
+@property (nonatomic, weak) IBOutlet PFImageView *backgroundImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+
+@end;
+```
+
+`titleLabel`将显示品牌标题。很简单，使用`self.titleLabel.text = item.title`即可。要显示品牌图片，你使用`PFImageView`和`PFFile`：
+
+```
+self.backgroundImageView.file = item.image;
+[self.backgroundImageView loadInBackground];
+```
+
+神奇之处在于`[self.backgroundImageView loadInBackground]`。它自动处理异步图片加载、显示以及缓存。
+
+以下是完整的实现代码：
+
+`EMABCategoryTableViewCell.m`
+
+```
+#import "EMABCategoryTableViewCell.h"
+#import <ParseUI/PFImageView.h>
+#import "EMABCategory.h"
+
+@implementation EMABCategoryTableViewCell
+
+-(void)configureItem:(EMABCategory *)item
+{
+    self.titleLabel.text = item.title;
+    self.backgroundImageView.image = nil;
+    if (item.image) {
+        self.backgroundImageView.file = item.image;
+        [self.backgroundImageView loadInBackground];
+    } else {
+        self.backgroundImageView.image = [UIImage imageNamed:@"category_cell_default_background"];
+    }
+}
+
+@end
+```
+
+你可能会疑惑为什么我设置了`self.backgroundImageView.image = nil`。当`UITableView`重用其`UITableViewCell`时，旧的和屏幕外的单元格中的图片会在新图片加载替换之前显示。当你滚动`UITableView`时，你会看到奇怪的图片刷新现象。有几种不同的方法可以解决这个问题；一种方法是在`UITableViewCell`的`-(void)prepareForReuse`中处理，但为了简单起见，我们在`-(void)configureItem:(EMABCategory)item`中执行此操作。
+
+
+
+### 产品类别控制器
+
+接下来，你将处理控制器部分。
+
+首先，创建一个名为 `EMABCategoriesTableViewController` 的新类，并确保它是 `PFQueryTableViewController` 的子类。我在第 3 章中已经介绍过 `PFQueryTableViewController`。在这个视图控制器中，你将在 `EMABCategory` 类和 `EMABCateogryUITableViewCell` 之间建立一对一的映射。你还将使用诸如下拉刷新、分页以及在加载数据前后显示和隐藏加载活动指示器等特性。
+
+以下是自动生成的头文件：
+
+`EMABCategoriesTableViewController.h`
+
+```
+#import <UIKit/UIKit.h>
+#import <ParseUI/PFQueryTableViewController.h>
+
+@interface EMABCategoriesTableViewController : PFQueryTableViewController
+
+@end
+```
+
+在 `.m` 实现文件中，首先导入必要的辅助文件，例如 `EMABConstants.h`、`EMABCategory.h` 和 `EMABCategoryTableViewCell.h`。
+
+接下来，实现 `-(void)awakeFromNib` 方法。`parseClassName`、`objectsPerPage` 和 `pullToRefreshEnabled` 是 `PFQueryTableViewController` 的属性，因此你可以直接使用它们并设置你想要的值。在本例中，`ParseClassName` 由 `kCategory` 定义。你希望每页显示 10 个对象并启用下拉刷新。加载活动指示器将默认显示。
+
+```
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.parseClassName = kCategory;
+    self.paginationEnabled = YES;
+    self.objectsPerPage = 10;
+    self.pullToRefreshEnabled = YES;
+}
+```
+
+请记住，你正在使用 Storyboard 初始化你的视图控制器，因此 `-(void)awakeFromNib` 方法是启用下拉刷新、分页等功能的合适位置。如果你使用其他方式，例如 `-(instancetype)initWithStyle:(UITableViewStyle)style`，那么该方法则是你设置 `ParseClassName`、分页等属性的地方。
+
+接下来，你需要让 `PFQueryTableViewController` 的子类知道需要执行哪种查询。你需要实现 `-(PFQuery *)queryForTable` 方法。在 `EMABCategory` 类中，你已经定义了一个名为 `+(PFQuery *)basicQuery` 的辅助方法。现在你可以直接使用它。
+
+```
+PFQuery *query = [EMABCategory basicQuery];
+```
+
+或者，你也可以直接使用默认实现：
+
+```
+PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+[query orderByAscending:@"title"];
+```
+
+如果你最终需要多次使用相同的代码，那么在 `EMABCategory` 类中实现它更有意义。
+
+接下来，`PFQuery` 还提供一个方法来管理缓存策略：`kPFCachePolicyCacheThenNetwork`。这个策略的含义不言而喻。请记住，当使用 `kPFCachePolicyCacheThenNetwork` 作为缓存策略时，你的回调总是会触发两次。这是因为该策略是先使用缓存，然后访问网络，而不是只使用缓存。还有其他缓存选项，例如 `kPFCachePolicyIgnoreCache`、`kPFCachePolicyCacheOnly`、`kPFCachePolicyNetworkOnly`、`kPFCachePolicyCacheElseNetwork`、`kPFCachePolicyNetworkElseCache` 和 `kPFCachePolicyCacheThenNetwork`。
+
+```
+if ([self.objects count] == 0) {
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+}
+```
+
+`-(PFQuery *)queryForTable` 的完整实现如下：
+
+```
+-(PFQuery *)queryForTable {
+    PFQuery *query = [EMABCategory basicQuery];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+```
+
+接下来，实现 `PFQueryTableViewController` 的数据源方法。首先，你想要扩展默认的单元格高度，因此将每个单元格的高度设置为 60 点：
+
+```
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
+}
+```
+
+`PFQueryTableViewController` 已经重写了标准 `UITableView` 的 `-tableView:cellForRowAtIndexPath:` 方法。具体来说，是 `-tableView:cellForRowAtIndexPath:object:` 方法。传统上，你需要对象数组。然后你使用 `indexPath.row` 来获取每一行的对象。现在，你可以自动获得这个对象。
+
+然而，这个重写方法假设你将向每一行提供一个对象，并且只有一个 section。如果你有多个 section，这个方法将无法自动工作。
+
+由于你还启用了分页，并且每页有 10 个对象，因此每个单元格都将配置一个项目。为此，你使用 `EMABCategoryTableViewCell` 的方法 `-(void)configureItem:(EMABCategory *)item`。
+
+你还需要一种加载下一页的方法。这里，你在 10 个对象之后添加了一个额外的单元格。这个单元格的标题是“加载更多…”。如果用户点击此单元格，应用程序将再加载 10 个对象或一页。
+
+以下是完整的实现：
+
+```
+- (EMABCategoryTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(EMABCategory *)object{
+    EMABCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
+    if (indexPath.row == [[self objects] count]) {
+        cell.textLabel.text = NSLocalizedString(@"Load More…", @"");
+    } else {
+        [cell configureItem:object];
+    }
+    return cell;
+}
+```
+
+最后一步是处理用户点击“加载更多…”以及其他 `CategoryCell` 的情况。当“加载更多…”单元格被点击时，另外 10 个对象将被加载并显示在表格中。幸运的是，Parse 已经为你准备好了这个方法。只需调用 `-(void)loadNextPage` 方法即可。
+
+单击品牌单元格会显示该品牌下的所有产品（我将在下一章中对此进行更详细的讨论）。
+
+以下是完整的实现：
+
+```
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == [[self objects] count]) {
+        [self loadNextPage];
+    } else {
+        //待办
+    }
+}
+```
+
+这些就是所有的代码部分。但是你还需要在 `UIStoryboard` 中做一些额外的工作。
+
+### 整合所有内容：UIStoryboard
+
+首先，你需要将在第 2 章中介绍的品牌 `UITableViewController` 设置为你的 `EMABCategoryTableViewController`。图 5-2 展示了如何执行此操作。
+
+![A978-1-4842-1317-9_5_Fig2_HTML.jpg](img/A978-1-4842-1317-9_5_Fig2_HTML.jpg)
+
+图 5-2. 为自定义类设置 Storyboard ID
+
+就个人而言，我也喜欢使用类名作为 Storyboard ID 和 Restoration ID，以确保它们是唯一的。
+
+其次，将 `TableView Content` 从 `Static Cells` 更改为 `Dynamic Prototypes`，如图 5-3 所示。
+
+![A978-1-4842-1317-9_5_Fig3_HTML.jpg](img/A978-1-4842-1317-9_5_Fig3_HTML.jpg)
+
+图 5-3. 为 `UITableViewCell` 使用动态原型
+
+然后，将 `TableViewCell` 的 `Style` 从“Basic”设置为“Custom”，并设置标识符“CategoryCell”，如图 5-4 所示。
+
+![A978-1-4842-1317-9_5_Fig4_HTML.jpg](img/A978-1-4842-1317-9_5_Fig4_HTML.jpg)
+
+图 5-4. 使用自定义样式
+
+同时，将此单元格的类设置为 `EMABCategoryTableViewCell`，如图 5-5 所示。
+
+![A978-1-4842-1317-9_5_Fig5_HTML.jpg](img/A978-1-4842-1317-9_5_Fig5_HTML.jpg)
+
+图 5-5. 使用 `EMABCategoryTableViewCell` 类
+
+接下来，将单元格高度设置为 60，如图 5-6 所示。
+
+![A978-1-4842-1317-9_5_Fig6_HTML.jpg](img/A978-1-4842-1317-9_5_Fig6_HTML.jpg)
+
+图 5-6. 设置行高
+
+最后，将 `UIImageView` 设置为 `PFImageView`，如图 5-7 所示。
+
+![A978-1-4842-1317-9_5_Fig7_HTML.jpg](img/A978-1-4842-1317-9_5_Fig7_HTML.jpg)
+
+图 5-7. 使用 `PFImageView`
+
+现在是时候构建并运行这个项目了。
+
+
+
+### 添加样本数据
+
+如果按照目前的操作进行下去，项目可以正常运行；但界面上仍无内容可显示。你需要先向 Parse 后端添加一些样本数据。
+
+前往 Parse.com，登录后浏览至项目的 "Core" 页面。然后点击 "Add Class" 并将其命名为 `Category`。点击 "+Col"，为第一个列选择 String 类型，将其值设为 `title`，然后点击 "Create Column"。再次点击 "+Col"，这次选择 File 类型，将值设为 `image`，然后点击 "Create Column"。接着，添加一些样本数据。对于这个示例，我准备了七个品牌，分别是：Original、Nade Skincare、Lencome、Fresh Skin、Aven、Diar 和 Esta Louder。你也可以使用任意图片作为这些品牌的演示用途。或者直接使用我包含在第 5 章源代码中的图片。点击 "+Row" 按钮。Parse 会创建一个空行，每一列都带有 `undefined` 占位符。对于本例，你只需关注 `image` 和 `title` 列。点击 `Image` 列中的 `(undefined)` 区域，Parse 会要求你上传一张图片。上传图片后，设置一个标题，例如 `Origins`。当你按下 "Enter" 键时，Parse 会自动为你生成 `objectId`、`createdAt`、`updatedAt` 和 `ACL`（我将在第 18 章中介绍 `ACL`）。重复步骤 5 六次，以添加另外六行。
+
+现在，当你返回 Xcode 项目，或在模拟器/真机上打开应用时，构建并运行项目后，你应该能看到刚刚添加的七个品牌。
+
+### 小结
+
+在本章中，我介绍了如何实现产品品牌功能。我引入了 `EMABCategory` 模型、`EMABCategoryTableViewCell` 视图以及 `EMABCategoriesTableViewController` 控制器。我还演示了如何通过 `UIStoryboard` 连接视图和视图控制器。最后，我讲解了如何向 Parse 添加样本数据，以便应用能够动态加载数据。
+
+## 6. 产品界面
+
+电子补充材料 本章在线版本（doi:[10.1007/978-1-4842-1317-9_6](http://dx.doi.org/10.1007/978-1-4842-1317-9_6)）包含补充材料，仅供授权用户使用。
+
+本章你将学习如何实现产品界面。更具体地说，你将学习如何展示产品、让用户搜索产品列表以及根据特定条件筛选产品。但首先，需要创建一个产品模型。
+
+### 产品模型
+
+沿用此前章节引入的模式，在 `EMABConstants` 辅助类中指定模型名称：
+
+`NSString *const kProduct= @"Product";`
+
+接下来，创建一个新的 `PFObject` 子类，并将其命名为 `EMABProduct`。观察一款典型的美妆产品，你可能需要很多属性来描述它。例如，`EMABProduct` 模型包含以下属性：`name`（名称）、`unit price`（单价）、`price unit`（价格单位）、`detail`（详情）、`thumbnail`（缩略图）以及完整尺寸的图片。此外，还需要在产品类别和产品之间建立一对多关系，因此另一个重要属性是 `brand`（品牌）。
+
+本教程使用以下属性：`name`、`detail`（不要使用 `description`）、`price`、`priceUnit`、`thumbnail`（出于性能考虑）和 `fullsizeImage`；同时有一个指向 `EMABCategory` 的指针 `brand`。你将在 `EMABCategory` 和 `EMABProduct` 之间建立一对多关系。一个品牌下可以拥有多款产品。Parse 提供了多种选项，你可以直接使用指针。
+
+`EMABProduct.h`
+
+```
+#import <Parse/Parse.h>
+
+@class EMABCategory;
+
+@interface EMABProduct : PFObject<PFSubclassing>
+
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *detail;
+@property (nonatomic, assign) float unitPrice;
+@property (nonatomic, copy) NSString *priceUnit;
+@property (nonatomic, strong) PFFile *thumbnail;
+@property (nonatomic, strong) PFFile *fullsizeImage;
+@property (nonatomic, strong) EMABCategory *brand;
+```
+
+最后需要做的是定义一个自定义静态方法，用于查询某个品牌下的所有产品：
+
+`+(PFQuery *)queryForCategory:(EMABCategory *)brand;`
+
+当 `priceUnit` 和 `unitPrice` 属性已经定义（如我此处所做）时，通常需要显示产品价格（例如 `$3.50/ea`）。在 `UILabel` 上呈现价格时，必须持续使用以下格式化方法：
+
+`[NSString stringWithFormat:@%@/%.2f, product.unitPrice, product.priceUnit];`
+
+为了方便起见，创建一个辅助方法：
+
+`-(NSString *)friendlyPrice;`
+
+目前这样已经足够。后续如有需要，你可以添加更多辅助方法或属性。接下来，继续实现 `EMABProduct` 类。
+
+除了导入必要的头文件和动态属性声明外，`+(NSString *)parseClassName` 方法如下：
+
+```
++(NSString *)parseClassName
+{
+    return kProduct;
+}
+```
+
+`+(PFQuery *)basicQuery` 方法如下所示；这里你也会像处理品牌一样，按产品名称对所有产品进行排序。
+
+```
++(PFQuery *)basicQuery {
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query orderByAscending:@"name"];
+    return query;
+}
+```
+
+如果你想根据产品添加到 Parse 数据存储的时间进行排序，可以使用以下代码：
+
+`[query orderByDescending:@"createdAt"];`
+
+下一个查询辅助方法是查询某品牌下的所有产品。其实现可能如下：
+
+```
++(PFQuery *)queryForCategory:(EMABCategory *)brand{
+    PFQuery  *query = [self basicQuery];
+    [query whereKey:@"brand" equalTo:brand];
+    return query;
+}
+```
+
+在这个查询方法中，输入参数是一个 `EMABCategory` 对象。确保 `EMABProduct` 中的 `brand` 属性与该对象相等。
+
+`[query whereKey:@"brand" equalTo:brand];`
+
+另一方面，`+(PFQuery *)basicQuery` 方法定义了如何对查询结果进行排序。它帮助你创建各种查询辅助方法，而无需重复编写相同的代码。
+
+最后一个方法是 `-(NSString *)friendlyPrice`：
+
+```
+-(NSString *)friendlyPrice{
+    return [NSString localizedStringWithFormat:@"$ %.2f/%@", self.unitPrice, self.priceUnit];
+}
+```
+
+
+
+### 产品视图
+
+你将使用 `UITableView` 来展示产品列表。`UITableView` 的关键视图是其单元格。在 Xcode 中，创建一个 `PFTableViewCell` 的子类，并将其命名为 `EMABProductTableViewCell`。
+
+在头文件中，添加一个辅助方法：
+
+`-(void)configureItem:(EMABProduct *)product;`
+
+用于连接 `EMABProduct` 模型与该视图。以下是完整的头文件：
+
+`EMABProductTableViewCell`
+
+```
+#import "PFTableViewCell.h"
+
+@class EMABProduct;
+
+@interface EMABProductTableViewCell : PFTableViewCell
+
+-(void)configureItem:(EMABProduct *)product;
+
+@end
+```
+
+图 6-1 展示了产品单元格的外观。
+
+![A978-1-4842-1317-9_6_Fig1_HTML.gif](img/A978-1-4842-1317-9_6_Fig1_HTML.gif)
+
+**图 6-1.** 产品表格视图单元格
+
+该产品单元格由三个 UI 元素组成：一个 `UILabel` 用于显示产品名称，一个 `UILabel` 用于显示产品价格，以及一个 `PFImage` 用于显示产品缩略图。
+
+同样地，使用 `EMABProductTableViewCell` 分类来声明属性：
+
+```
+@interface EMABProductTableViewCell()
+
+@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *priceLabel;
+@property (nonatomic, weak) IBOutlet PFImageView *thumbnailImageView;
+
+@end
+```
+
+在 `EMABProductTableViewCell` 单元格中，你只需要实现一个方法 `-(void)configureItem:(EMABProduct*) product`。
+
+此时，你的 `EMABProduct` 已拥有 `name`、`unitPrice`、`priceUnit` 和 `thumbnail` 这些属性；你需要做的只是将产品对象的值赋给 `EMABProductTableViewCell` 的 UI 属性。`EMABProduct` 有一个辅助方法用于生成带单位的价格；你可以将其用作 `priceLabel` 的文本。为了显示产品的缩略图，请使用 `thumbnailImageView` 的 `file` 属性，并调用 `loadInBackground`。以下代码展示了完整的实现。
+
+正如第 5 章中所讨论的，在将 `thumbnailImageView` 的 `file` 设置为产品的缩略图之前，务必将 `thumbnailImageView` 设置为 `nil`。这可以确保由于 `UITableViewCell` 的重用特性，`ImageView` 在显示新图像之前不会显示旧图像。这并不是实现此目标的唯一方法。例如，你也可以在 `UITableViewCell` 中使用 `-(void)prepareForUse` 方法来处理这种情况。
+
+```
+-(void)prepareForReuse{
+    [super prepareForReuse];
+    self.nameLabel.text = @"";
+    self.priceLabel.text = @"";
+    self.thumbnailImageView.image = nil;
+}
+
+-(void)configureItem:(EMABProduct *)product{
+    self.nameLabel.text = product.name;
+    self.priceLabel.text = [product friendlyPrice];
+    self.thumbnailImageView.image = nil;
+    if (product.thumbnail) {
+        self.thumbnailImageView.file = product.thumbnail;
+        [self.thumbnailImageView loadInBackground];
+    } else
+        self.thumbnailImageView.image = [UIImage imageNamed:@"default_product_thumbnail"];
+}
+```
+
+如果 `EMABProduct` 对象中没有缩略图文件，则使用项目自带的默认图像。
+
+### 产品控制器
+
+你已经完成了视图部分。现在可以开始构建控制器了。在 Xcode 中，创建一个新的 `PFQueryTableViewController` 子类 `EMABProductsTableViewController`。
+
+在生成的头文件中，声明一个 `EMABCategory` 属性。当用户选择一个品牌时，显示产品的视图控制器。在此视图控制器中，你需根据品牌创建一个产品查询。使用这个 `brand` 属性来关联品牌表格视图控制器和产品表格视图控制器。
+
+`@property (nonatomic, strong) EMABCategory *brand;`
+
+以下是完整的 `EMABProductsTableViewController` 头文件：
+
+`EMABProductsTableViewController.h`
+
+```
+#import <UIKit/UIKit.h>
+#import <ParseUI/PFQueryTableViewController.h>
+
+@class EMABCategory;
+
+@interface EMABProductsTableViewController : PFQueryTableViewController
+
+@property (nonatomic, strong) EMABCategory *brand;
+
+@end
+```
+
+在实现文件中，你需要实现一个品牌的 setter 方法：
+
+```
+-(void)setBrand:(EMABCategory *)brand
+{
+    if (_brand != brand) {
+        _brand = brand;
+    }
+}
+```
+
+`–(void)awakeFromNib` 方法应该如下所示：
+
+```
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.parseClassName = kProduct;
+    self.objectsPerPage = 20;
+    self.paginationEnabled = YES;
+    self.pullToRefreshEnabled = YES;
+}
+```
+
+同时，`–(PFQuery *)queryForTable` 方法需要考虑 `brand` 属性：
+
+```
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABProduct queryForCategory:self.brand];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+```
+
+接下来，自定义 `UITableView` 的数据源；在此例中，将单元格高度设置为 80.0 点：
+
+```
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
+}
+```
+
+同样地，使用 `PFQueryTableViewController` 的自定义方法 `–tableView:cellForRowAtIndexPath:` 来根据给定的 `EMABProduct` 对象自定义每个单元格。由于我们每页加载 20 个对象，我们将在第 21 个单元格上添加“加载更多…”文本。以下代码展示了该方法的完整实现。此方法将返回一个 `EMABProductTableViewCell` 实例。你还使用 `–(void)configureItem:(EMABProduct *)object` 方法来连接产品对象及其视图。
+
+```
+- (EMABProductTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(EMABProduct *)object{
+    EMABProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductCell" forIndexPath:indexPath];
+    if (indexPath.row == [[self objects] count]) {
+        cell.textLabel.text = NSLocalizedString(@"Load More…", @"");
+    } else {
+        [cell configureItem:object];
+    }
+    return cell;
+}
+```
+
+最后一个方法处理用户点击某个单元格时发生的事件。当用户点击一个产品单元格时，应用程序应显示产品详情页面。由于我尚未讲解产品详情页面，暂时插入一个注释（`//todo`）作为占位符。当用户点击“加载更多…”单元格时，将加载接下来的 20 个产品。以下是完整的实现代码：
+
+```
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == [[self objects] count]) {
+        [self loadNextPage];
+    } else {
+        //todo
+    }
+}
+
+@end
+```
+
+你现在几乎已经准备好可以在模拟器或你的设备上运行该应用了。只差在 `EMABCategoriesTableViewController` 中实现一个功能。当用户点击一个品牌单元格后，应加载产品表格视图控制器。前往 `EMABCategoriesTableViewController.m` 并添加以下代码：
+
+```
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == [[self objects] count]) {
+        [self loadNextPage];
+    } else {
+        EMABProductsTableViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EMABProductsTableViewController"];
+        NSIndexPath  *indexPath = [self.tableView indexPathForSelectedRow];
+        [viewController setBrand:self.objects[indexPath.row]];
+        [self.navigationController pushViewController:viewController];
+    }
+}
+```
+
+现在你可以构建并运行你的项目，确保没有错误。
+
+
+
+### 添加示例数据
+
+到目前为止，您尚未为任何品牌添加产品，因此点击品牌后不会显示任何内容。您需要向 Parse 后端添加一些产品数据。
+
+前往 Parse.com，登录并浏览至示例项目的“Core”页面。然后点击“Add Class”，并将其命名为“Product”。
+
+接下来，点击“+Col”；对于第一列，选择 String 类型并将其值设为“name”，然后点击“Create Column”。以相同方式添加 String 类型的“detail”列、Number 类型的“unitPrice”列、String 类型的“priceUnit”列、PFFile 类型的“thumbnail”列以及 PFFile 类型的“fullsizeImage”列。最后一列很重要：我们添加一个 Pointer 类型的“brand”列，它应指向“Category”类。详情请参见图 6-2。
+
+![A978-1-4842-1317-9_6_Fig2_HTML.jpg](img/A978-1-4842-1317-9_6_Fig2_HTML.jpg)
+
+图 6-2.
+
+在 Parse 中添加 Pointer 类型
+
+现在该添加产品数据了。我准备了三个 Esta Louder 产品。您也可以为这些品牌找到用于演示的图片。或者直接使用我为第 6 章项目源代码准备的图片。
+
+接着，点击“+Row”按钮。Parse 会创建一个空行，并为每一列显示“undefined”占位符。您需要填充多个列。其中最重要的列之一是“brand”列。
+
+首先，点击“Category”类，找到 Esta Louder 所在的行。复制该行“objectId”列的值。然后转到“Product”类，点击“brand”列中的“(undefined)”区域，粘贴“objectId”值。现在您可以添加产品名称、产品简介、单价，并将 `priceUnit` 设为“ea”；然后为此产品上传缩略图和全尺寸图片。
+
+按照上述步骤，再添加两行。
+
+返回您的 Xcode 项目，或在模拟器或设备上打开应用。现在，在品牌页面中，当您点击 Esta Louder 单元格时，应该能看到刚刚添加的三个产品。
+
+### 添加搜索功能
+
+应用的一项必备功能是，客户能在产品列表视图中根据产品名称的一部分搜索产品。处理搜索时，可以实现仅从已加载数据中搜索，或在后端数据存储中搜索所有匹配项。显然，从已加载数据中搜索速度更快，但结果也有限，可能导致找不到结果。因此最佳方法是在后端进行搜索。
+
+目前应用中的搜索功能有限。用户只能根据产品名称搜索产品。例如，一个 Esta Louder 的产品名称中包含“Night Repair”字符串。如果用户在搜索框中输入“Night”，应用不会找到所有名称或详情中包含“Night”的产品。并且搜索关键字是区分大小写的。如果用户输入“night”而非“Night”，所有名称包含“Night”的产品都不会被返回。要解决此限制，您可以预处理用户输入并将每个单词的首字母大写。
+
+首先，在 `EMABProduct` 模型类中添加一个新的查询方法。在头文件中声明该方法：
+
+`EMABProduct.h`
+
+`+(PFQuery *)queryForCategory:(EMABCategory *)brand keyword:(NSString *)keyword;`
+
+在其实现中，调用 `+(PFQuery *)queryForCategory:(EMABCategory *)brand` 方法，并添加另一个查询条件：
+`– whereKey:containsString:`
+
+以下是完整的实现代码：
+
+```
++(PFQuery *)queryForCategory:(EMABCategory *)brand keyword:(NSString *)keyword
+{
+    PFQuery *query = [self queryForCategory:brand];
+    [query whereKey:@"name" containsString:keyword];
+    return query;
+}
+```
+
+接下来，处理控制器。有几个地方需要实现。
+
+首先，您需要跟踪用户的搜索关键字；在 `EMABProductsTableViewController` 类别中添加一个新属性：
+
+`@property (nonatomic, copy) NSString *keyword;`
+
+其次，您还需要在类类别中声明 `UISearchBar` 委托协议：
+
+`@interface EMABProductsTableViewController()<UISearchBarDelegate>`
+
+第三，您需要将 `UISearchBar` 连接到视图控制器委托（您在第 5 章中已在控制器 xib 文件中添加了 `UISearchBar`）。图 6-3 显示了如何连接。
+
+![A978-1-4842-1317-9_6_Fig3_HTML.jpg](img/A978-1-4842-1317-9_6_Fig3_HTML.jpg)
+
+图 6-3.
+
+UISearchBar 委托
+
+以下是完整的实现代码：
+
+`EMABProductsTableViewController.m`
+
+```
+@interface EMABProductsTableViewController()<UISearchBarDelegate>
+@property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, copy) NSString *keyword;
+@end;
+```
+
+第四，实现 `UISearchBar` 委托方法：
+
+```
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if ([searchBar.text length] > 0) {
+        [searchBar resignFirstResponder];
+        self.keyword = searchBar.text;
+        [self clear];
+        [self loadObjects];
+    }
+}
+```
+
+检查搜索栏（`searchBar`）中是否有文本。如果有，则关闭键盘，将关键字设为 `searchBar` 的文本，并调用 `PFQueryTableViewController` 的方法 `-(void)clear` 来清空 `UITableView`。最后，使用另一个 `PFQueryTableViewController` 的方法 `-(void)loadObjects` 触发新的查询。这次，为此搜索目的使用不同的查询。
+
+第五，修改 `– (PFQuery *)queryForTable`，如下所示：
+
+```
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABProduct queryForCategory:self.brand];
+    if (self.keyword) {
+        query = [EMABProduct queryForCategory:self.brand keyword:self.keyword];
+    }
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+```
+
+在此实现中，默认查询是 `[EMABProduct queryForCategory:self.brand]`。仅当 `self.keyword` 不等于 `nil` 时才会执行搜索查询。在第 4 步中，`[self loadObjects]` 会再次使用 `–(PFQuery *)queryForTable`；这就是您使用 `queryForCategory:` 关键字的方式：
+
+```
+if (self.keyword) {
+    query = [EMABProduct queryForCategory:self.brand keyword:self.keyword];
+}
+```
+
+因此，您需要在搜索完成后将 `self.keyword` 设为 `nil`。这可以在 `–(void)viewWillAppear` 中完成：
+
+```
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.keyword = nil;
+}
+```
+
+有时用户打算执行搜索，点击了 `UISearchBar`，但随后决定放弃。点击 `UISearchBar` 会弹出软键盘；因此您需要关闭键盘。
+
+
+
+### 添加筛选选项
+
+作为产品功能的一部分，用户可以基于价格等属性筛选产品。同理，你也可以从已加载的结果中筛选产品，或根据查询条件向远程服务器发送请求以获取新结果。在本实现中，你将学习如何查询远程服务器。
+
+在示例应用的界面设计中，当用户点击“筛选”栏按钮项时，会显示一个新的`UIViewController`。用户通过滑动两个滑块来确定自己感兴趣的最低和最高价格。设定价格范围后，用户点击“完成”栏按钮项。该视图控制器将被关闭，产品列表视图控制器会更新为新的搜索结果。图 6-4 展示了所有界面元素。
+
+![A978-1-4842-1317-9_6_Fig4_HTML.jpg](img/A978-1-4842-1317-9_6_Fig4_HTML.jpg)
+
+**图 6-4.** `EMABProductsFilterViewController` 界面元素
+
+首先，在`EMABProduct`模型类中添加一个新方法。在头文件中，按如下方式声明该方法：
+
+`EMABProduct.h`
+
+```
++(PFQuery *)queryForCategory:(EMABCategory *)brand minPrice:(float)min maxPrice:(float)max;
+```
+
+在该方法中，你根据用户指定的最低价格和最高价格来查询品牌。
+
+在实现中，使用`PFQuery`的`–whereKey:lessThanOrEqualTo:`和`–whereKey:greaterThanOrEqualTo:`来帮助从服务器筛选产品。
+
+`EMABProduct.m`
+
+```
++(PFQuery *)queryForCategory:(EMABCategory *)brand minPrice:(float)min maxPrice:(float)max{
+    PFQuery *query = [self queryForCategory:brand];
+    [query whereKey:@"price" greaterThanOrEqualTo:@(min)];
+    [query whereKey:@"price" lessThanOrEqualTo:@(max)];
+    return query;
+}
+```
+
+接下来，创建一个新的`UIViewController`子类`EMABProductsFilterViewController`。在其头文件中，创建一个`typedef`使代码更易读：
+
+```
+typedef void (^ViewControllerDidFinish)(EMABProductsFilterViewController *viewController, float minPrice, float maxPrice);
+```
+
+此代码块用于处理用户点击“完成”栏按钮项后的操作。
+
+继续创建两个接口属性：
+
+```
+@property (nonatomic, copy) ViewControllerDidFinish finishBlock;
+```
+
+仅处理价格范围就需要完成不少工作。首先，使用两个成员变量来跟踪最低和最高价格。由于你还需要更新视图控制器界面以显示当前滑块值，因此还需要其他`UILabels`。此外，为了跟踪`UISlider`的值，为它们创建两个属性。以下是完整的实现代码：
+
+```
+@interface EMABProductsFilterViewController (){
+    float minPrice;
+    float maxPrice;
+}
+
+@property (nonatomic, weak) IBOutlet UILabel *minLabel;
+@property (nonatomic, weak) IBOutlet UILabel *maxLabel;
+@property (nonatomic, weak) IBOutlet UISlider *minSlider;
+@property (nonatomic, weak) IBOutlet UISlider *maxSlider;
+
+@end
+```
+
+在实现文件中，在`–(void)viewDidLoad`中初始化成员变量：
+
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    minPrice = 0.0;
+    maxPrice = 0.0;
+}
+```
+
+为两个`UISliders`创建一个`IBAction`方法，命名为`onSlider`。当用户滑动任意滑块时，将其值更新到`UILabel`。同时让`minPrice`和`maxPrice`跟踪滑块的值。
+
+```
+-(IBAction)onSlider:(id)sender{
+    UISlider *slider = (UISlider *)sender;
+    NSString *friendlySliderValue = [NSString stringWithFormat:@"%.0f",slider.value];
+    if (slider.tag == 99) {
+        minPrice = slider.value;
+        self.minLabel.text = friendlySliderValue;
+    } else {
+        maxPrice = slider.value;
+        self.maxLabel.text = friendlySliderValue;
+    }
+}
+```
+
+为“取消”栏按钮项添加一个`IBAction`，如下面的代码片段所示；基本上，你只需弹出当前视图控制器：
+
+```
+-(IBAction)onCancel:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+```
+
+最后，为“完成”栏按钮项添加一个`IBAction`，如下面的代码片段所示。如何处理用户未作任何操作就直接点击“完成”的情况？在这种情况下，你将提醒用户需要更多信息，或用户需要更准确地输入。
+
+```
+-(IBAction)onDone:(id)sender{
+    if (minPrice > 0 && minPrice < maxPrice) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"错误") message:NSLocalizedString(@"Please make sure your max price is greater than your min price.", @"请确保你的最高价格大于最低价格。") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"确定") otherButtonTitles:nil, nil];
+        [alertView show];
+    } else {
+        self.finishBlock(self, minPrice, maxPrice);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+@end
+```
+
+最后，返回到`EMABProductsViewController`。以类似的方式添加两个成员变量：
+
+```
+@interface EMABProductsTableViewController()<UISearchBarDelegate>{
+    float minPrice;
+    float maxPrice;
+}
+```
+
+接下来，添加以下`IBAction`方法来处理用户点击“筛选”栏按钮项的情况。在此方法中，你需要完成几件事：首先，呈现`EMABProductsFilterViewController`；然后，处理用户设置的最低和最高价格；接着，清空当前表格视图；最后，执行一次查询。以下是完整的实现代码。
+
+```
+-(IBAction)onFilter:(id)sender
+{
+    EMABProductsFilterViewController *viewController = (EMABProductsFilterViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"EMABProductsFilterViewController"];
+    viewController.finishBlock = ^(EMABProductsFilterViewController *viewControlle, float minValue, float maxValue){
+        minPrice = minValue;
+        maxPrice = maxValue;
+        self.keyword = nil;
+        [self clear];
+        [self loadObjects];
+    };
+    [self.navigationController presentViewController:viewController animated:YES completion:nil];
+}
+```
+
+最后，需要修改`-(PFQuery *)queryForTable`，如下所示：
+
+```
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABProduct queryForCategory:self.brand];
+    if (self.keyword) {
+        query = [EMABProduct queryForCategory:self.brand keyword:self.keyword];
+    }
+    if (minPrice > 0 && maxPrice>0) {
+        query = [EMABProduct queryForCategory:self.brand minPrice:minPrice maxPrice:maxPrice];
+    }
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+```
+
+不要忘记将“筛选”`UIBarButtonItem`连接到该方法。
+
+现在可以构建并运行项目了。
+
+### 本章小结
+
+在本章中，我介绍了在产品分类下显示产品列表、根据名称搜索产品以及根据价格筛选产品等相关主题。
+
+## 7. 产品详情界面
+
+电子补充材料 本章的在线版本 (doi:[10.1007/978-1-4842-1317-9_7](http://dx.doi.org/10.1007/978-1-4842-1317-9_7)) 包含补充材料，仅供授权用户使用。
+
+在本章中，你将学习如何实现产品详情界面，该界面包含产品名称、价格、详情和全尺寸图片等信息；同时还包括分享菜单、购买产品或添加到收藏夹的选项。
+
+
+
+### 构建产品详情界面
+
+图 7-1 展示了产品详情界面的最终效果。该界面使用 `UINavigationBar` 标题显示产品名称；右侧栏按钮用于添加分享选项；还有一个“心形”按钮，供用户将产品添加到收藏列表。为了显示产品名称和价格，你使用了两个 `UILabel`。产品详情可能相当冗长，因此你使用 `UITextView` 来容纳其内容。最后，你使用一个标记为“加入购物袋”的普通按钮，让用户将该产品添加到购物袋中。
+
+![A978-1-4842-1317-9_7_Fig1_HTML.jpg](img/A978-1-4842-1317-9_7_Fig1_HTML.jpg)
+
+图 7-1. 完成后的产品详情用户界面
+
+以下是实现该界面的方式。首先，创建一个 `UIViewController` 子类 `EMABProductDetailViewController`。在生成的头文件中，创建一个属性：
+
+```
+@property (nonatomic, strong) EMABProduct *product;
+```
+
+接着，将所选 `EMABProduct` 实例从上一个产品列表传递到该产品详情。你创建的属性正用于此目的。以下是完整的实现：
+
+**EMABProductDetailViewController.h**
+
+```
+#import <UIKit/UIKit.h>
+
+@class EMABProduct;
+
+@interface EMABProductDetailViewController : UIViewController
+
+@property (nonatomic, strong) EMABProduct *product;
+
+@end
+```
+
+在实现文件中，你需要一个 `PFImageView` 属性来显示产品的全尺寸图片，一个 `UILabel` 来显示产品名称，一个 `UILabel` 来显示价格，以及一个 `UITextView` 来显示详情。你还需要一个自定义按钮，供用户点击以将产品添加到收藏列表。以下是完整代码：
+
+```
+@interface EMABProductDetailViewController ()
+
+@property (nonatomic, weak) IBOutlet PFImageView *fullsizeImageView;
+@property (nonatomic, weak) IBOutlet UILabel *productNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *productPriceLabel;
+@property (nonatomic, weak) IBOutlet UITextView *detailTextView;
+@property (nonatomic, weak) IBOutlet UIButton *heartButton;
+
+@end
+```
+
+在实现中，首先实现 `EMABProduct` 属性的 setter 方法：
+
+```
+-(void)setProduct:(EMABProduct *)product{
+    if (_product !=product) {
+        _product = product;
+        [self updateUI];
+    }
+}
+```
+
+在这个 setter 中，还使用了辅助方法 `-(void)updateUI`。你可能需要在多个场合更新整个界面（这是我通常的做法）。与其到处处理界面更新，我使用一个单一方法，在 `-(void)viewDidLoad` 方法中调用，如下所示：
+
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self updateUI];
+}
+```
+
+目前，这个 `updateUI` 方法只做一件事：连接模型和视图。以下是完整代码：
+
+```
+-(void)updateUI{
+    if (self.product.fullsizeImage) {
+        self.fullsizeImageView.file = self.product.fullsizeImage;
+        [self.fullsizeImageView loadInBackground];
+    }
+    self.productNameLabel.text = self.product.name;
+    self.productPriceLabel.text = [self.product friendlyPrice];
+    self.detailTextView.text = [self.product detail];
+}
+```
+
+接下来，实现当用户点击“加入购物袋”按钮时触发的 `IBAction`。当按钮被点击时，你需要检查顾客是有效的注册用户还是仅访客。为此，使用 Parse 的 `[PFUser currentUser]` 方法。如果是注册用户，`[PFUser currentUser]` 将返回一个实例，否则返回 `nil`。此时，你需要请用户注册账户或登录（如果尚未完成）。我将在后续章节讨论如何处理“加入购物袋”请求。现在，以下是提醒用户注册或登录的方式：
+
+```
+-(IBAction)onBag:(id)sender
+{
+    if (! [PFUser currentUser]) {
+        [self showWarning];
+    } else {
+        //todo:
+    }
+}
+```
+
+在这个示例代码中，辅助方法 `-(void)showWarning` 用于提醒用户。你将在其他场合再次使用它，因此最好创建一个通用方法：
+
+```
+-(void)showWarning
+{
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", @"Warning") message:NSLocalizedString(@"Please sign up or log in", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Later", @"Later") otherButtonTitles: NSLocalizedString(@"OK", @"OK"), nil] show];
+}
+```
+
+这个实现仅弹出一个警告。更好的方式是当用户点击“确定”时，调出注册或登录界面。
+
+### 添加分享选项
+
+应用的一个重要功能是分享选项或菜单。要添加此功能，请使用 `UIActivityViewController`。使用 `UIActivityViewController` 非常简单（了解更多信息，请参考 iOS 文档）。首先，创建你想要分享的内容，实例化一个 `UIActivityViewController` 实例，定义哪些服务不用于此次分享目的，然后弹出该实例。图 7-2 从用户角度展示了 `UIActivityViewController`。
+
+![A978-1-4842-1317-9_7_Fig2_HTML.jpg](img/A978-1-4842-1317-9_7_Fig2_HTML.jpg)
+
+图 7-2. 从用户角度看到的 `UIActivityViewController`
+
+以下是完整代码：
+
+```
+-(IBAction)onShare:(id)sender {
+    NSString *textToShare = [NSString stringWithFormat:@"%@, %@", self.product.name, [self.product friendlyPrice]];
+    NSURL *imageUrl = [NSURL URLWithString:self.product.fullsizeImage.url];
+    NSArray *objectsToShare = @[textToShare, imageUrl];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    NSArray *excludeActivities = @[
+        UIActivityTypeAssignToContact,
+        UIActivityTypeSaveToCameraRoll,
+        UIActivityTypePostToFlickr,
+        UIActivityTypePostToVimeo
+    ];
+    activityVC.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+```
+
+请记住，这是一个经过极大简化的 API。并非所有可用的服务都必然支持用户可能想要分享的数据内容。你可能还希望为你想要支持的服务添加更多内容。
+
+
+
+### 添加收藏列表
+
+要实现收藏列表功能，你需要创建一个新的模型类。
+
+在 Xcode 中，创建一个新的 `PFObject` 子类，并将其命名为 `EMABFavoriteProduct`。该模型有两个属性——`PFUser` 和 `EMABProduct`——用于表示用户喜欢某个产品。换句话说，这个模型类是 Parse 连接表关系的一种用例。每当用户喜欢一个产品时，就会在该模型类中创建一条记录。你可能会觉得这有些冗余。你也可以使用其他方法；例如，可以为该用户使用一个收藏数组。毕竟，一个用户对应多个收藏产品，因此在这种情况下使用数组是可行的。然而，使用连接表方法的优点是代码相当简洁。
+
+要获取用户的收藏列表，请使用 `PFQuery`。创建一个基本的 `PFQuery` 方法，并根据你的需求进行定制。以下是完整的代码：
+
+`EMABFavoriteProduct.h`
+
+```
+#import <Parse/Parse.h>
+
+@class EMABProduct;
+
+@interface EMABFavoriteProduct : PFObject<PFSubclassing>
+
+@property (nonatomic, strong) PFUser *customer;
+@property (nonatomic, strong) EMABProduct *product;
+
++(PFQuery *)basicQuery;
++(PFQuery *)queryForCustomer:(PFUser *)customer;
++(PFQuery *)queryForCustomer:(PFUser *)customer product:(EMABProduct *)product;
+
+@end
+```
+
+在此代码段中，你有两个额外的辅助查询方法：`+(PFQuery *)queryForCustomer:(PFUser *)customer` 用于获取用户的收藏产品列表；`+(PFQuery *)queryForCustomer:(PFUser *)customer product:(EMABProduct *)product` 用于检查用户是否已将某个产品添加到收藏列表。
+
+在 `EMABConstants.h` 中添加一个新的 `NSString` 常量 `kFavoriteProduct`，并在 `EMABConstants.m` 文件中实现它。
+
+```
+NSString *const kFavoriteProduct = @"FavoriteProduct";
+```
+
+在必需的 `+(NSString *)parseClassName` 方法中，使用该 `NSString` 常量来表示模型类的名称。
+
+```
++(NSString *)parseClassName
+{
+    return kFavoriteProduct;
+}
+```
+
+在 `+(PFQuery *)basicQuery` 方法中，根据创建时间对结果进行排序。你还可以使用 `PFQuery` 的 `-include:` 方法来包含用户和产品数据。这是显示产品详情或用户详情所必需的。
+
+```
++(PFQuery *)basicQuery
+{
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query orderByDescending:@"createdAt"];
+    [query include:@"customer"];
+    [query include:@"product"];
+    return query;
+}
+```
+
+在 `+(PFQuery *)queryForCustomer:(PFUser *)customer` 方法中，使用 `PFQuery` 的查询条件方法 `-whereKey: equalTo:`：
+
+```
++(PFQuery *)queryForCustomer:(PFUser *)customer {
+    PFQuery *query = [self basicQuery];
+    [query whereKey:@"customer" equalTo:customer];
+    return query;
+}
+```
+
+然后实现 `+(PFQuery *)queryForCustomer:(PFUser *)customer product:(EMABProduct *)product`：
+
+```
++(PFQuery *)queryForCustomer:(PFUser *)customer product:(EMABProduct *)product
+{
+    PFQuery *query = [self queryForCustomer:customer];
+    [query whereKey:@"product" equalTo:product];
+    return query;
+}
+
+@end
+```
+
+这就是 `EMABFavoriteProduct`。不要忘记在 `AppDelegate` 中通过调用以下代码来注册此 `PFSubclass`：
+
+```
+[EMABFavoriteProduct registerSublcass];
+```
+
+接下来，转到 `EMABProductDetailViewController.m` 文件。在 `-(void)viewDidLoad` 方法中，检查用户是否已经喜欢了该产品（假设存在有效用户）。
+
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self updateUI];
+    [self checkIfFavorited];
+}
+```
+
+`checkIfFavorited` 方法用于验证后端服务器上是否存在记录。如果存在，则禁用收藏按钮。你还需要确保只有在存在有效用户时才查询服务器。
+
+```
+-(void)checkIfFavorited
+{
+    if (![PFUser currentUser]) {
+        PFQuery *fPQuery = [EMABFavoriteProduct queryForCustomer:[PFUser currentUser] product:self.product];
+        [fPQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            if (!error) {
+                self.heartButton.enabled = false;
+            }
+        }];
+    }
+}
+
+@end
+```
+
+你还希望允许用户将产品添加到其收藏列表中。“心形”按钮连接到一个 IBOutlet 方法 `-(IBAction)onFavorite:(id)sender`。
+
+只有注册或登录的用户才能将产品添加到购物袋或喜欢某个产品。因此，首先你需要检查是否存在有效用户。如果存在，则创建一个新的 `FavoriteProduct` 对象，并将其保存到 Parse 后端。保存成功后，向用户显示一条成功消息。以下是完整的代码：
+
+```
+-(IBAction)onFavorite:(id)sender{
+    if (![PFUser currentUser]) {
+        [self showWarning];
+    } else {
+        EMABFavoriteProduct *favoriteProduct = [EMABFavoriteProduct object];
+        [favoriteProduct setCustomer:[PFUser currentUser]];
+        [favoriteProduct setProduct:self.product];
+        [favoriteProduct saveInBackgroundWithBlock:^(BOOL success, NSError *error){
+            if (!error) {
+                [SVProgressHud showSuccessWithStatus:NSLocalizedString(@"Successfully added", @"")];
+            }
+        }];
+    }
+}
+```
+
+### 本章小结
+
+在本章中，我介绍了如何实现以下功能：显示产品详情、将产品详情分享到用户手机上的不同服务，以及将产品添加到用户的收藏列表（前提是该产品之前未被添加过）。收藏产品功能是通过一个连接表模型类 `EMABFavoriteProduct` 实现的。我还强调了在获取用户收藏列表时，使用 `PFQuery` 中的 `-include:` 方法来获取用户数据或产品数据的重要性。
+
+## 8. 注册功能
+
+电子补充材料 本章的在线版本 (doi:[10.1007/978-1-4842-1317-9_8](http://dx.doi.org/10.1007/978-1-4842-1317-9_8)) 包含补充材料，仅供授权用户使用。
+
+在上一章中，你学习了如何在用户将产品添加到购物袋或收藏列表时，提示用户进行注册或登录。在本章中，你将实现一个调度屏幕，使用户能够创建账户、登录现有账户或使用 Facebook 登录。你还将学习如何实现客户注册。如何实现直接登录和 Facebook 登录功能将在第 9 章中介绍。
+
+### 构建调度屏幕
+
+当实现主调度功能时，你创建了一个名为 `LoginSignupStoryboard` 的不同 `UIStoryboard`，以减轻 `Main.storyboard` 的工作量。
+
+此 `DispatchViewController` 的用户界面非常简单。有三个按钮：标记为“注册”的按钮用于显示注册屏幕；标记为“登录”和“使用 Facebook 登录”的按钮将在第 9 章中介绍。
+
+为了简化主视图控制器，请在 `LoginSignUpStoryboard` 中使用 Segue 将“注册”按钮连接到 `EMABSignUpViewController`，将“登录”按钮连接到 `EMABLoginViewController`，并为“使用 Facebook 登录”设置一个 IBAction。
+
+同时提供一个“取消” `UIBarButtonItem`，以防用户此时不想登录或注册账户，以便其可以离开该屏幕。这个 `LoginSignUpStoryboard` 通过其自己的 `UINavigationController` 实现，因此你可以简单地使用：
+
+```
+[self dismissViewControllerAnimated:YES completion:nil];
+```
+
+来关闭调度屏幕。
+
+以下是完整的实现：
+
+```
+@implementation EMABDispatchViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+-(IBAction)onFacebookLogin:(id)sender{
+    //待实现
+}
+
+-(IBAction)onCancel:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
+```
+
+
+
+### 注册模型
+
+让我们直接进入`User`模型——`EMABUser`，它是`PFUser`的子类。默认情况下，`EMABUser`类继承了`PFUser`的属性：`username`、`password`和`e-mail`；你可能还希望从用户那里收集更多信息，例如姓名、地址和照片。以下是完整的实现代码：
+
+`EMABUser.h`
+
+```
+#import <Parse/Parse.h>
+
+@interface EMABUser : PFUser<PFSubclassing>
+
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, assign) int gender;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *address1;
+@property (nonatomic, copy) NSString *address2;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *zipcode;
+@property (nonatomic, copy) PFFile *photo;
+
++(EMABUser *)currentUser;
+
+@end
+```
+
+在注册用户时，你只需让用户输入电子邮件地址和密码。当用户购买商品时，你需要知道将产品运送到哪里，因此你需要在此之前要求用户输入收货地址。你还提供了 Facebook 登录功能，以便获取更多用户信息，如个人资料照片、性别、地区、关系和兴趣。这需要向用户和 Facebook 申请不同的权限。目前，只需请求获取用户的性别和照片。
+
+你还需要`override +(PFUser *)currentUser`方法，使其返回`EMABUser`，否则 Xcode 会一直给出警告。
+
+以下是`EMABUser`的实现部分：
+
+`EMABUser.m`
+
+```
+#import "EMABUser.h"
+#import  <Parse/PFObject+Subclass.h>
+
+@implementation EMABUser
+
+@dynamic firstName, lastName, gender, phone, address1, address2, city, state, zipcode, photo;
+
++(EMABUser *)currentUser{
+    return (EMABUser *)[PFUser currentUser];
+}
+
+@end
+```
+
+### 注册视图
+
+注册界面由一个`UITableView`、一个标题为“注册”的按钮，以及一个标题同为“注册”的条形按钮项组成。
+
+`UITableView`包含三个单元格。每个单元格中，使用一个`UITextField`来捕获用户的输入。第一个单元格用于注册邮箱，第二个单元格用于注册密码，第三个单元格用于确认密码。
+
+由于后续你会多次使用带有`UITextField`的类似`UITableView`（即`UITextField` `UITableViewCell`），因此创建一个`UITextField`的子类来消除冗余代码。
+
+首先，创建`EMABEmailTextField`类。
+
+`EMABEmailTextField.h`
+
+```
+#import <UIKit/UIKit.h>
+
+@interface EMABEmailTextField : UITextField
+
+@end
+```
+
+`EMABEmailTextField.m`
+
+```
+#import "EMABEmailTextField.h"
+
+@implementation EMABEmailTextField
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.borderStyle = UITextBorderStyleNone;
+        self.textColor = [UIColor blackColor];
+        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.placeholder = NSLocalizedString(@"邮箱", @"");
+        self.backgroundColor = [UIColor whiteColor];
+        self.autocorrectionType = UITextAutocorrectionTypeNo; . . . // 不启用自动纠正
+        self.keyboardType = UIKeyboardTypeEmailAddress; . . . // 使用默认输入法类型（全键盘）
+        self.returnKeyType = UIReturnKeyDone;
+        self.clearButtonMode = UITextFieldViewModeWhileEditing; . . . // 右侧显示清除按钮“x”
+        // 添加辅助功能标签，说明文本字段的用途。
+        [self setAccessibilityLabel:NSLocalizedString(@"邮箱", @"")];
+    }
+    return self;
+}
+
+@end
+```
+
+在此实现中，你设置了边框样式、文本颜色、占位符文本、背景颜色、键盘类型、自动纠正类型以及清除按钮模式，以提供更好的用户界面和体验。
+
+接下来，创建`EMABPasswordTextField`来定制密码文本框的外观和感觉。实现代码如下：
+
+`EMABPasswordTextField.h`
+
+```
+#import <UIKit/UIKit.h>
+
+@interface EMABPasswordTextField : UITextField
+
+@end
+```
+
+`EMABPasswordTextField.m`
+
+```
+#import "EMABPasswordTextField.h"
+
+@implementation EMABPasswordTextField
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.borderStyle = UITextBorderStyleNone;
+        self.textColor = [UIColor blackColor];
+        self.placeholder = NSLocalizedString(@"密码",@"");
+        self.backgroundColor = [UIColor whiteColor];
+        self.keyboardType = UIKeyboardTypeDefault;
+        self.returnKeyType = UIReturnKeyDone;
+        self.secureTextEntry = YES;   // 使文本输入安全（显示为圆点）
+        self.clearButtonMode = UITextFieldViewModeWhileEditing;    // 右侧显示清除按钮“x”
+        [self setAccessibilityLabel:NSLocalizedString(@"密码", @"")];
+    }
+    return self;
+}
+
+@end
+```
+
+这段代码与`EMABEmailTextField`非常相似；主要区别在于你需要使用`secureTextEntry`属性来隐藏用户输入的密码。
+
+请注意，并非一定要在`UITableViewCell`中使用`UiTableView`搭配`UITextField`——只是为了外观更美观。有些开发者会选择将三个`UITextField`放置在带有几条分隔线的背景图片之上。如果你能找到这种背景图片，这种方法同样效果不错。
+
+
+
+### 注册控制器
+
+接下来，准备实现 `EMABSignUpViewController`。
+
+首先，创建 `EMABSignUpViewController` 类作为 `UIViewController` 的子类。其头文件无需过多处理，应重点关注实现文件。由于使用了 `UITableView`，需要引入 `UITableView` 协议，同时因为使用 `UITextField`，建议采用 `UITextField Delegate` 协议，以便用户在点击“完成”按钮时关闭键盘。以下是具体实现：
+
+`EMABSignupViewController.m`
+
+```objective-c
+#import "EMABSignupViewController.h"
+#import "EMABConstants.h"
+#import "EMABEmailTextField.h"
+#import "EMABPasswordTextField.h"
+#import "EMABUser.h"
+
+@interface EMABSignupViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) EMABEmailTextField *emailTextField;
+@property (nonatomic, strong) EMABPasswordTextField *passwordTextField;
+@property (nonatomic, strong) EMABPasswordTextField *passwordAgainTextField;
+
+@end
+```
+
+还需要创建三个属性来引用 `EMABEmailTextField` 和 `EMABPasswordTextfield`。为了给每个单元格的标题留出显示空间，需要调整每个 `UITextField` 的大小和位置。以下代码展示了如何通过 `-(void)viewDidLoad` 方法实现：
+
+```objective-c
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.emailTextField = [[EMABEmailTextField alloc] initWithFrame:CGRectMake(kLeftMargin, kTopMargin, kTextFieldWidth, kTextFieldHeight)];
+    self.emialTextField.delegate = self;
+    self.passwordTextField = [[EMABPasswordTextField alloc] initWithFrame:CGRectMake(kLeftMargin, kTopMargin, kTextFieldWidth, kTextFieldHeight)];
+    self.passwordTextField.delegate = self;
+    self.passwordAgainTextField = [[EMABPasswordTextField alloc] initWithFrame:CGRectMake(kLeftMargin, kTopMargin, kTextFieldWidth, kTextFieldHeight)];
+    [self.passwordAgainTextField setPlaceholder:NSLocalizedString(@"再次输入密码", @"Password Again")];
+    self.passwordAgainTextField.delegate = self;
+}
+```
+
+请注意，`kLeftMargin`、`kTopMargin`、`kTextFieldWidth` 和 `kTextFieldHeight` 均在 `EMABConstants` 类中定义，后续其他场景也会用到。
+
+接着，实现 `UITableViewDataSource` 协议方法。该 `UITableView` 需要包含一个分区和三个单元格。
+
+```objective-c
+#pragma mark - tableview datasource
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+```
+
+在 `UIStoryboard` 的 nib 文件中设置标识符 `"SignUpCell"` 后，按如下方式创建三个单元格：
+
+```objective-c
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    cell = [tableView dequeueReusableCellWithIdentifier:@"SignupCell" forIndexPath:indexPath];
+    UITextField *textField = nil;
+    switch (indexPath.row) {
+        case 0:
+            textField = self.emailTextField;
+            break;
+        case 1:
+            textField = self.passwordTextField;
+            break;
+        case 2:
+            textField = self.passwordAgainTextField;
+            break;
+        default:
+            break;
+    }
+    // 确保文本输入框的宽度与单元格宽度匹配
+    CGRect newFrame = textField.frame;
+    newFrame.size.width = CGRectGetWidth(cell.contentView.frame) - kLeftMargin*2;
+    textField.frame = newFrame;
+    // 当单元格尺寸变化时，保持文本输入框宽度适应
+    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [cell.contentView addSubview:textField];
+    return cell;
+}
+```
+
+最后需要处理 `UITableView` 的一个代理方法，但该方法的实现并非必需：
+
+```objective-c
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+```
+
+如您所见，界面的配置相当简单。不过，用户注册还需要额外处理一些内容。
+
+首先，需验证用户提供的邮箱地址是否有效。可使用 `-(BOOL)isValidEmail` 方法：
+
+```objective-c
+#pragma mark - helper
+
+-(BOOL)isValidEmail {
+    // https://github.com/benmcredmond/DHValidation
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:self.emailTextField.text];
+}
+```
+
+接着，当输入的邮箱有误时需提醒用户，这里使用 `UIAlertView` 实现。后续还会展示其他警告信息，如密码长度或注册错误等。为此创建一个 `-(void)showWarning:(NSString *)message` 辅助方法：
+
+```objective-c
+-(void)showWarning:(NSString *)message {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"警告", @"Warning") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"确定", @"OK") otherButtonTitles:nil , nil] show];
+}
+```
+
+最后，允许用户关闭软键盘，因此实现 `UITextField` 代理方法如下：
+
+```objective-c
+#pragma mark - UITextField Delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+@end
+```
+
+接下来，实现用户点击“注册”按钮时的 `IBAction` 方法。需检查两个密码 `UITextField` 单元格的文本是否达到最小长度要求，以及两个文本输入框的内容是否一致。同时确保邮箱 `UITextField` 的文本长度满足最小要求且为有效邮箱地址。若输入信息有误，将依次显示相应警告。最后，使用 `[PFUser user]` 创建用户实例并转换为 `EMABUser`。该用户的用户名和邮箱均设为邮箱 `UITextField` 中的文本，密码设为密码 `UITextField` 单元格中的文本，然后调用 Parse 的 `-(BFTask *)signUpInBackground` 方法。完整实现如下：
+
+```objective-c
+-(IBAction)onSignup:(id)sender{
+    BOOL cont0 = [self.passwordTextField.text length] > kMinTextLength;
+    BOOL cont1 = [self.passwordAgainTextField.text length] > kMinTextLength;
+    BOOL cont2 = [self.passwordTextField.text isEqualToString:self.passwordAgainTextField.text];
+    BOOL cont3 = [self.emailTextField.text length] > kMinTextLength;
+    BOOL cont4 = [self isValidEmail];
+    
+    if (!cont0) {
+        [self showWarning:NSLocalizedString(@"密码至少 6 个字符。", @"Password at least 6 characters.")];
+    }
+    if (!cont1) {
+        [self showWarning:NSLocalizedString(@"密码至少 6 个字符。", @"Password at least 6 characters.")];
+    }
+    if (!cont2) {
+        [self showWarning:NSLocalizedString(@"两次密码必须一致。", @"Passwords have to match.")];
+    }
+    if (!cont3) {
+        [self showWarning:NSLocalizedString(@"邮箱至少 6 个字符。", @"Password at least 6 characters.")];
+    }
+    if (!cont4) {
+        [self showWarning:NSLocalizedString(@"邮箱格式无效。", @"Doesn't look like a valid email.")];
+    }
+    
+    if (cont0 && cont1 && cont2 && cont3 && cont4) {
+        [self.emailTextField resignFirstResponder];
+        [self.passwordTextField resignFirstResponder];
+        [self.passwordAgainTextField resignFirstResponder];
+        EMABUser *user = (EMABUser *)[PFUser user];
+        user.username = [self.emailTextField text];
+        user.email = [self.emailTextField text];
+        user.password = [self.passwordTextField text];
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (!error) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
+}
+```
+
+
+
+### 总结
+
+本章讲解了如何创建用户界面（UI），让用户通过电子邮件和密码注册账户。同时，还介绍了如何在开发用户界面时打造更佳的用户体验。最终，利用 `Parse` 进行用户注册仅是一个 API 方法。
+
+## 9. 登录功能
+
+电子补充材料 本章在线版本（doi:[10.1007/978-1-4842-1317-9_9](http://dx.doi.org/10.1007/978-1-4842-1317-9_9)）包含补充材料，仅供授权用户使用。
+
+在上一章中，您学习了如何注册新用户。本章中，您将学习如何实现登录以及使用 Facebook 登录的功能。
+
+### 使用直接登录
+
+与注册功能类似，用户通过电子邮件和密码登录，因此您可以使用相同的模型（`EMABUser`）、类似的视图（`EMABEmailTextField`、`EMABPasswordTextField` 和 `UITableView`）以及一个“登录”按钮。
+
+在请求 `Parse` 验证用户提供的信息之前，您需要像处理注册功能那样进行一些信息检查；例如，需要检查电子邮件是否有效、电子邮件长度是否符合最小长度要求，以及密码长度是否符合最小长度要求。您还需要设置一些辅助方法，其中之一将重复电子邮件验证方法。因此，将该方法移至 `EMABConstants` 中。
+
+来自 `Parse` 的关键登录 API 是 `+ (void)logInWithUsernameInBackground:(NSString *)username password:(NSString *)password block:(PF_NULLABLE PFUserResultBlock)block`。
+
+以下是实现代码：
+
+`EMABLoginViewController.m`
+
+```
+#import "EMABLoginViewController.h"
+#import "EMABConstants.h"
+#import "EMABUser.h"
+#import "EMABEmailTextField.h"
+#import "EMABPasswordTextField.h"
+
+@interface EMABLoginViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (nonatomic, strong) UITextField *emailTextField;
+@property (nonatomic, strong) UITextField *passwordTextField;
+@property (nonatomic, weak) IBOutlet UITableView *loginTableView;
+@end
+
+@implementation EMABLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.emailTextField = [[EMABEmailTextField alloc] initWithFrame:CGRectMake(kLeftMargin, kTopMargin, kTextFieldWidth, kTextFieldHeight)];
+    self.emailTextField.delegate = self;
+    self.passwordTextField = [[EMABPasswordTextField alloc] initWithFrame:CGRectMake(kLeftMargin, kTopMargin, kTextFieldWidth, kTextFieldHeight)];
+    self.passwordTextField.delegate = self;
+}
+
+-(IBAction)onLogin:(id)sender{
+    BOOL cont0 = [self.passwordTextField.text length] > kMinTextLength;
+    BOOL cont1 = [self.emailTextField.text length] > kMinTextLength;
+    BOOL cont2 = [EMABConstants isValidEmail:self.emailTextField.text];
+    if (!cont0) {
+        [self showWarning:NSLocalizedString(@"Password at least 6 characters.", @"Password at least 6 characters.")];
+    }
+    if (!cont1) {
+        [self showWarning:NSLocalizedString(@"Email at least 6 characters.", @"Password at least 6 characters.")];
+    }
+    if (!cont2) {
+        [self showWarning:NSLocalizedString(@"Doesn’t look like a valid email.", @"Doesn’t look like a valid email.")];
+    }
+    if (cont0 && cont1 && cont2) {
+        [self.emailTextField resignFirstResponder];
+        [self.passwordTextField resignFirstResponder];
+        [PFUser logInWithUsernameInBackground:self.emailTextField.text password:self.passwordTextField.text
+            block:^(PFUser *user, NSError *error) {
+            if (!error) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self showWarning:[error localizedDescription]];
+            }
+        }];
+    }
+}
+
+#pragma mark - tableview datasource
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    cell = [tableView dequeueReusableCellWithIdentifier:@"LoginCell" forIndexPath:indexPath];
+    UITextField *textField = nil;
+    switch (indexPath.row) {
+        case 0:
+            textField = self.emailTextField;
+            break;
+        case 1:
+            textField = self.passwordTextField;
+            break;
+        default:
+            break;
+    }
+    // make sure this textfield's width matches the width of the cell
+    CGRect newFrame = textField.frame;
+    newFrame.size.width = CGRectGetWidth(cell.contentView.frame) - kLeftMargin*2;
+    textField.frame = newFrame;
+    // if the cell is ever resized, keep the textfield's width to match the cell's width
+    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [cell.contentView addSubview:textField];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark - helper
+
+-(void)showWarning:(NSString *)message {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", @"Warning") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil, nil] show];
+}
+
+#pragma mark - UITextField Delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+@end
+```
+
+
+
+### 使用 Facebook 登录
+
+iOS 电商应用集成 Facebook 登录功能是很常见的做法。虽然管理两套用户体系可能颇具挑战，但 Facebook SDK 可以与 Parse SDK 配合使用，并与 `PFUser` 类集成，从而轻松地将用户与其 Facebook 身份关联起来。
+
+此功能需要 `ParseFacebookUtils` 或 `ParseFacebookUtilsV4` SDK，因此你需要如下修改 Podfile：
+
+```
+pod 'ParseFacebookUtilsV4','1.7.1'
+```
+
+**注意：** Facebook 和 Parse 会频繁更新其 SDK。当你运行此示例时，可能需要更新 SDK 版本。
+
+在本节中，你将学习如何使用 Parse 实现 Facebook 登录，以及如何获取用户的 Facebook 资料，以便保存到自己的记录中。
+
+请记住，你需要一个 Facebook 开发者账号来实现此功能（详见第 4 章）。
+
+模型层使用 `EMABUser`（与第 8 章相同）；视图层使用“使用 Facebook 登录”按钮（见第 8 章）。由于你需要与 Facebook API 通信以授权用户，还需要获取用户资料并保存到 Parse 后端。我将引入一个 `UIActivityIndicator` 来显示进行中的过程，并在处理期间禁用某些按钮，以防用户不愿等待完成。整体思路是创造更友好的用户体验。
+
+以下是头文件声明：
+
+```
+#import "EMABDispatchViewController.h"
+#import "EMABConstants.h"
+#import "EMABUser.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+
+@interface EMABDispatchViewController ()
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+@end
+```
+
+当用户看到此界面时，`c` 实例是隐藏的。只有当用户点击“使用 Facebook 登录”按钮并发出网络请求时，它才会变得可见。一旦网络请求完成，动画停止，`UIActivityIndicator` 实例即被隐藏。
+
+```
+@implementation EMABDispatchViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.activityIndicatorView.hidden = YES;
+}
+```
+
+辅助方法 `-(void)updateIndicator` 用于更新 UI。当发出 Facebook API 请求时，您希望禁用左侧栏按钮项，以防止用户跳过登录过程。你也可以使用此方法来显示或隐藏指示器。
+
+```
+-(void)updateIndicator:(BOOL)shouldEnable{
+    self.navigationItem.leftBarButtonItem.enabled = !shouldEnable;
+    (shouldEnable)?[self.activityIndicatorView startAnimating]:[self.activityIndicatorView stopAnimating];
+    self.activityIndicatorView.hidden = !shouldEnable;
+}
+```
+
+正如你在前几章中所做的那样，使用 `UIAlertView` 来显示登录过程中可能出现的任何错误。
+
+```
+#pragma mark - helper
+-(void)showError:(NSString *)message {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil , nil] show];
+}
+```
+
+接下来，进入 Facebook 登录过程。首先，告诉 Facebook 将从用户那里获取哪些信息，并向 Facebook 请求权限。在此示例中，你只需要一些基本信息 `"user_about_me"`，例如用户的电子邮件、姓名和性别。如果你需要更多信息，则需要登录 `developer.facebook.com` 门户以请求额外权限。
+
+同样，Parse 简化了这一过程。你将使用 `PFFacebookUtils` 的 `logInWithPermissions:block` 方法来发出此请求。
+
+当你发出此请求时，可能会收到成功或错误消息。如果收到错误，你可以简单地让用户知道出了问题并指出具体问题。你使用 `showError:` 方法来实现这一点。当成功时，你将获得一个 `PFUser` 实例。但此 `PFUser` 实例并未关联 Facebook 用户信息；这需要额外步骤。这就是为什么你需要另一个辅助方法 `obtainFacebookUserInfo`：
+
+```
+-(IBAction)onFacebookLogin:(id)sender{
+    // 设置从 Facebook 用户帐户请求的权限
+    NSArray *permissionsArray = @[@"user_about_me"];
+    [self updateIndicator:YES];
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        if (error) {
+            NSString *facebookError = [FBErrorUtility userMessageForError:error];
+            [self showError:facebookError];
+        } else {
+            [self obtainFacebookUserInfo:user];
+        }
+        [self updateIndicator:NO];
+    }];
+}
+```
+
+要开始请求此用户的 Facebook 资料信息，你可以使用 `[FBRequest requestForMe]` 创建一个 `FBRequest` 实例，如下代码所示。接下来的方法是 `FBRequest` 实例方法 `startWithCompletionHandler`。这个异步回调将返回错误或你正在寻找的结果。类似地，你可以通过向用户显示错误来处理任何错误；同时，离开此界面，返回主应用。你不希望用户卡在这里。
+
+如果收到成功结果，则将此字典结果映射到 `EMABUser` 实例的属性。如前所述，`"user_about_me"` 权限将让你获取用户信息，例如电子邮件、姓名、性别和个人资料图片 URL。映射电子邮件、姓名和性别很容易。
+
+```
+NSDictionary *userData = (NSDictionary *)result;
+[fbUser setEmail:userData[@"email"]];
+[fbUser setUsername:userData[@"email"]];
+[fbUser setName:userData[@"name"]];
+if (userData[@"gender"]) {
+    [fbUser setGender:userData[@"gender"]];
+}
+```
+
+将图片 URL 映射到 `EMABUser` 中声明的 `PFFile` 需要额外的工作。首先，你需要以正确的格式获取图片 URL。
+
+```
+NSString *facebookID = userData[@"id"];
+NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1", facebookID]];
+```
+
+在此例中，你使用用户的方形资料图片。要从图片 URL 转换为 `PFFile`，你可以从该 URL 获取 `NSData`，然后使用 `[PFFile fileWithName:Data]` 类方法创建 `PFFile` 实例。以下代码展示了如何处理此问题：
+
+```
+if ([pictureURL absoluteString]) {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pictureURL absoluteString]]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            PFFile *iconFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
+            [iconFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    fbUser.photo = iconFile;
+                }
+            }];
+        });
+    });
+}
+```
+
+最后，保存此 `EMABUser` 实例并关闭当前界面：
+
+```
+[fbUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (!error) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}];
+```
+
+以下是完整的实现：
+
+```
+-(void)obtainFacebookUserInfo:(PFUser *)user{
+    [self updateIndicator:YES];
+    EMABUser *fbUser = (EMABUser *)user;
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        [self updateIndicator:NO];
+        if (!error) {
+            // 解析接收到的数据
+            NSString *facebookID = userData[@"id"];
+            NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1", facebookID]];
+            if ([pictureURL absoluteString]) {
+```
+
+
+```objectivec
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+
+dispatch_async(queue, ^{
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pictureURL absoluteString]]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PFFile *iconFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
+        [iconFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                fbUser.photo = iconFile;
+            }
+        }];
+    });
+});
+
+[fbUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (!error) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+} else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+            isEqualToString: @"OAuthException"]) {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showError:@"Facebook 会话已失效"];
+    }];
+} else {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showError:[error localizedDescription]];
+    }];
+}];
+
+-(IBAction)onCancel:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
+```
+
+### 本章小结
+
+在本章中，我讲解了如何在提供直观友好的用户体验的同时，实现已注册用户的登录。我还介绍了如何使用 Apps 实现 Facebook 登录、获取用户的 Facebook 个人资料，然后通过集成 Parse `ParseFacebookUtilsV4` SDK 将这些信息保存到 Parse 后端。
+
+## 10. 购物袋
+
+至此，如果您一路跟随操作，现在应该拥有一个已注册的用户，该用户已准备好将产品添加到购物袋中。在本章中，我将向您展示如何将产品添加到购物袋、更新产品数量、从购物袋中删除单个产品或全部产品，以及更新总金额。当客户再次查看购物袋时，应能清楚看到袋中的内容。
+
+### 购物袋模型
+
+首先，创建表示购物袋中某个商品的模型：创建一个 `PFObject` 的子类，将其命名为 `EMABOrderItem`。然后，通过 `EMABConstant` 注册这个类名，并提供一个 `NSString` 键：`kOrderItem`。该子类拥有两个属性：一个是数量，另一个是 `EMABProduct` 实例。同时创建一个实例方法 `-(double)subTotal` 用于计算该商品的总价。
+
+以下是头文件：
+
+`EMABOrderItem.h`
+
+```objectivec
+#import <Parse/Parse.h>
+
+@class EMABProduct;
+
+@interface EMABOrderItem : PFObject
+
+@property (nonatomic, assign) double quantity;
+@property (nonatomic, strong) EMABProduct *product;
+
+-(double)subTotal;
+
+@end
+```
+
+在实现文件中，`subTotal` 方法简单地返回数量与该产品单价的乘积。
+
+以下是实现代码：
+
+`EMABOrderItem.m`
+
+```objectivec
+#import "EMABOrderItem.h"
+#import  <Parse/PFObject+Subclass.h>
+#import "EMABConstants.h"
+#import "EMABProduct.h"
+
+@implementation EMABOrderItem
+
+@dynamic quantity,product;
+
++(NSString *)parseClassName
+{
+    return kOrderItem;
+}
+
+-(double)subTotal {
+    return self.quantity *self.product.unitPrice;
+}
+
+@end
+```
+
+您需要的第二个模型是 `EMABOrder` 模型；通过 `EMABConstants` 类注册一个 `NSString` 键，名称为 `kOrder`。
+
+不要忘记，您还需要在 `AppDelegate` 中注册这两个 `PFObject` 子类。
+
+对于这个模型类，您需要以下几个属性：用户、所有订单项、订单编号（稍后分配）、订单日期以及订单状态。订单状态枚举类型用于区分订单是仍在购物袋中还是已经处理完成。为使代码可读性更强，该枚举类型在 `EMABConstants` 类中声明。
+
+```objectivec
+typedef NS_OPTIONS(NSInteger, ORDER_STATUS){
+    ORDER_NOT_MADE = 0,
+    ORDER_MADE = 1
+};
+```
+
+您还需要一些辅助方法：一个用于显示购物袋中的总金额；一个显然是您的 `basicQuery` 方法；一个用于查询特定用户；以及一个用于根据订单状态查询用户。
+
+以下是头文件：
+
+`EMABOrder.h`
+
+```objectivec
+#import <Parse/Parse.h>
+#import "EMABConstants.h"
+
+@class EMABOrderItem;
+@class EMABUser;
+
+@interface EMABOrder : PFObject<PFSubclassing>
+
+@property (nonatomic, strong) EMABUser *customer;
+@property (nonatomic, assign) int64_t orderNo;
+@property (nonatomic, assign) NSDate *orderDate;
+@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) ORDER_STATUS orderStatus;
+
+-(double)total;
++(PFQuery *)basicQuery;
++(PFQuery *)queryForCustomer:(EMABUser *)customer;
++(PFQuery *)queryForCustomer:(EMABUser *)customer orderStatus:(ORDER_STATUS)status;
+
+@end
+```
+
+在实现中，计算总金额的方法很简单：遍历每个订单项，并累加您在 `OrderItem` 类中创建的小计金额。
+
+```objectivec
+-(double)total
+{
+    double sum = 0.0;
+    if (self.items) {
+        for (EMABOrderItem *item in self.items) {
+            sum += [item subTotal];
+        }
+    }
+    return sum;
+}
+```
+
+在 `+(PFQuery *)basicQuery` 方法中，您需在每个 `OrderItem` 中关联产品信息。Parse 已预见到这种使用场景，因此提供了点表示法来实现此目的。
+
+```objectivec
++(PFQuery *)basicQuery{
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query includeKey:@"items.product"];
+    [query orderByDescending:@"createdAt"];
+    return query;
+}
+```
+
+请务必保持名称一致。您有一个名为 "items" 的属性，它是 `EMABOrderItem` 实例的数组。每个 `EMABOrderItem` 拥有 "product" 属性。为了确保点表示法正常工作，应使用 "items" 和 "product"。
+
+`+(PFQuery *)queryForCustomer:(EMABUser *)customer` 方法基于 `basicQuery` 方法实现；您只需添加以下语句即可：
+
+`[query whereKey:@"customer" equalTo:customer];`
+
+```objectivec
++(PFQuery *)queryForCustomer:(EMABUser *)customer {
+    PFQuery *query = [self basicQuery];
+    [query whereKey:@"customer" equalTo:customer];
+    return query;
+}
+```
+
+同样，`+(PFQuery *)queryForCustomer:(EMABUser *)customer orderStatus:(ORDER_STATUS)status` 基于 `+(PFQuery *)queryForCustomer:(EMABUser *)customer` 实现：
+
+```objectivec
++(PFQuery *)queryForCustomer:(EMABUser *)customer orderStatus:(ORDER_STATUS)status{
+    PFQuery  *query = [self queryForCustomer:customer];
+    [query whereKey:@"orderStatus" equalTo:@(status)];
+    return query;
+}
+```
+
+目前您需要的就这些。之后可能需要的其他方法可以稍后添加到此模型类中。
+
+
+### 购物袋视图
+
+此购物袋的重要视图之一是商品`UITableViewCell`，如图 10-1 所示。
+
+![A978-1-4842-1317-9_10_Fig1_HTML.jpg](img/A978-1-4842-1317-9_10_Fig1_HTML.jpg)
+
+图 10-1. 订单商品单元格
+
+该单元格包含：显示商品名称的`UILabel`、显示单价的`UILabel`、显示数量的`UILabel`，以及让用户更改所需购买商品数量的`UIStepper`。
+
+这些 UI 元素的布局简单直接。创建一个`PFTableViewCell`子类，将其命名为`EMABOrderItemTableViewCell`。以下是头文件：
+
+`EMABOrderItemTableViewCell.h`
+
+```
+#import "PFTableViewCell.h"
+
+@class EMABOrderItem;
+
+@interface EMABOrderItemTableViewCell : PFTableViewCell
+
+-(void)configureItem:(EMABOrderItem *)item;
+
+@end
+```
+
+该头文件中的实例方法`-(void)configureItem`的功能与前述一致。
+
+以下是该类的实现文件：
+
+`EMABOrderItemTableViewCell.m`
+
+```
+#import "EMABOrderItemTableViewCell.h"
+#import "EMABOrderItem.h"
+#import "EMABProduct.h"
+
+@interface EMABOrderItemTableViewCell()
+
+@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *unitPriceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *quantityLabel;
+@property (nonatomic, weak) IBOutlet UIStepper *quantityStepper;
+
+@end
+
+@implementation EMABOrderItemTableViewCell
+
+-(void)configureItem:(EMABOrderItem *)item {
+    self.nameLabel.text = item.product.name;
+    self.unitPriceLabel.text = [item.product friendlyPrice];
+    self.quantityLabel.text = [item friendlyQuantity];
+}
+
+@end
+```
+
+本质上，你依赖 xib 文件并使用`IBOutlet`来实例化 UI 元素。通过`configureItem`方法显示商品信息，如商品名称、价格和数量。
+
+
+好的，作为一名高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例格式，将给定的英文文本翻译成中文。
+
+
+### 购物袋控制器
+
+回想一下，在第 7 章中，我要求你为将商品添加到购物袋的程序添加一个待办注释：
+
+```
+-(IBAction)onBag:(id)sender
+{
+    if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self showWarning];
+    } else {
+        //todo:
+    }
+}
+```
+
+现在是时候完成这个功能了。
+
+就我个人而言，我希望这个体验尽可能简单。如果点击“添加到购物袋”，商品将被静默添加到购物袋，并通知用户商品已添加。在此过程中，用户将无法指定数量；用户可以在结账前更改数量。你不希望在两个不同的地方实现相同的功能。
+
+你需要处理两种不同的情况：
+
+-   购物袋是空的。在这种情况下，你将创建一个新的 `EMABOrderItem` 和 `EMABOrder` 实例。
+-   购物袋不是空的。在这种情况下，你需要查询 Parse 后端。首先，查询后端以查看用户是否有未完成的订单。如果有，则创建一个本地的 `EMABOrder` 实例来跟踪它。再仔细想想，用户点击“添加到购物袋”后会有两种情况：(1) 现有订单不包含此商品；(2) 用户购物袋中可能已有相同的商品，现在我们将其解释为用户希望再次添加相同的商品。
+
+考虑到这一点，将以下属性添加到 `EMABProductDetailViewController` 类中：
+
+```
+@property(nonatomic, strong) EMABOrder *order;
+```
+
+设置一个辅助方法 `-(void)queryForUnfinishedOrder`。
+
+```
+-(void)queryForUnfinishedOrder{
+    PFQuery *orderQuery = [EMABOrder queryForCustomer:[EMABUser currentUser] orderStatus:ORDER_NOT_MADE];
+    __weak typeof(self) weakSelf = self;
+    [orderQuery getFirstObjectInBackgroundWithBlock:^(PFObject *order, NSError *error){
+        if (!error) {
+            weakSelf.order = (EMABOrder *)order;
+        }
+    }];
+}
+```
+
+同时创建一个辅助方法来检查订单商品数组是否包含某个商品。基本上，你需要遍历这个数组并检查这个商品的 `objectId` 属性。代码如下：
+
+```
+-(int)containsProduct:(NSArray *)items target:(EMABProduct *)product {
+    int index = -1;
+    for (int i = 0; i<[items count]; i++){
+        EMABOrderItem *item = items[i];
+        if ([item.product.objectId isEqualToString:self.product.objectId]) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+```
+
+`EMABOrder` 有一个 `items` 属性，它是一个 `EMABOrderItem` 实例的数组。当向此订单添加商品时，你需要考虑以下步骤：
+
+创建一个 `EMABOrderItem` 实例。让商品成为当前查看的商品，并将数量设置为 1。从订单实例中获取 `items` 数组。如果它为 null，则使用步骤 1 中的商品创建一个新的 `NSArray`。将此 `NSArray` 实例设为此订单的 `items`。如果不为 null，则创建 `items` 的可变副本，并添加来自步骤 1 的新元素。然后将不可变副本作为 `items` 赋予此订单。
+
+在 `EMBAOrder` 类中创建一个辅助方法，并将其命名为 `-(void)addSingleProduct:(EMABProduct *)product`。
+
+```
+-(void)addSingleProduct:(EMABProduct *)product{
+    EMABOrderItem *item = [EMABOrderItem object];
+    [item setProduct:product];
+    [item setQuantity:1];
+    if (self.items) {
+        NSMutableArray *existedItems = [self.items mutableCopy];
+        [existedItems addObject:item];
+        [self setItems:[existedItems copy]];
+    } else
+        [self setItems:@[item]];
+}
+```
+
+最后，是时候实现 `onBag:` IBAction 方法了。请遵循以下逻辑顺序：
+
+是否有注册用户？如果没有，则显示警告以提示用户注册或登录。
+是否有未完成的订单？如果没有，则创建一个新的 `EMABOrder` 实例，设置诸如 `customer` 和 `orderStatus` 之类的属性，并调用 `-(void)addSingleProduct` 方法。如果有，则检查此未完成订单是否包含你想要添加到购物袋的商品。如果没有，则调用 `-(void)addSingleProduct`，所有繁重的工作都将由此方法处理。如果包含，则需要找到哪个商品项拥有此商品，将该商品项的数量加 1，然后用新的商品项替换原有项。最后，异步保存此订单实例，并在保存完成后通知用户。
+
+代码如下：
+
+```
+-(IBAction)onBag:(id)sender
+{
+    if (![PFUser currentUser]) {
+        [self showWarning];
+    } else {
+        if (self.order) {
+            if ([self.order.items count] > 0) {
+                if ([self containsProduct:self.order.items target:self.product] > -1) {
+                    int index = [self containsProduct:self.order.items target:self.product];
+                    NSMutableArray *eItems = [NSMutableArray arrayWithArray:self.order.items];
+                    EMABOrderItem *foundItem = eItems[index];
+                    [foundItem setQuantity:foundItem.quantity+1];
+                    [eItems replaceObjectAtIndex:index withObject:foundItem];
+                    self.order.items = [eItems copy];
+                } else {
+                    [self.order addSingleProduct:self.product];
+                }
+            } else {
+                [self.order addSingleProduct:self.product];
+            }
+        } else {
+            self.order = [EMABOrder object];
+            [self.order setCustomer:[EMABUser currentUser]];
+            [self.order setOrderStatus:ORDER_NOT_MADE];
+            [self.order addSingleProduct:self.product];
+        }
+    }
+    [self.order saveInBackgroundWithBlock:^(BOOL success, NSError *error){
+        if (!error) {
+            [self showSuccess];
+        }
+    }];
+}
+```
+
+这可能是你在本书中迄今为止处理过的最复杂的逻辑。用户不会知道你的任何实现细节。用户看到的是，点击“添加到购物袋”按钮后，弹出一个提示框显示“添加成功”。
+
+接下来是 `EMABBagTableViewController`，它是 `UITableViewController` 的子类。以下是头文件：
+
+```
+#import <UIKit/UIKit.h>
+
+@interface EMABBagTableViewController : UITableViewController
+
+@end
+```
+
+图 10-2 展示了购物袋界面的外观。
+
+![A978-1-4842-1317-9_10_Fig2_HTML.jpg](img/A978-1-4842-1317-9_10_Fig2_HTML.jpg)
+
+图 10-2. 购物袋界面
+
+你已经为 `UITableViewCell` 准备好了 `EMABOrderItemTableViewCell`；你还需要一些其他 UI 元素来显示信息，例如订单号、订单日期、总金额，以及“用信用卡购买”和“用 Apple Pay 购买”按钮。
+
+你将使用 `UITableView` 的页眉和页脚视图作为容器视图。页眉视图将用于容纳两个 `UILabel`：一个 `UILabel` 显示订单号，另一个 `UILabel` 显示订单日期。
+
+想一下订单号的问题。你知道订单号需要在 Parse 后端创建。只有订单成功下达后才能拥有订单号。换句话说，当用户仅将商品放入购物袋时，你不应该创建订单号。那么，为什么要为订单号创建一个 `UILabel` 呢？你可以从两个方面来看待它。一是像后面显示的那样，显示一条“您的购物袋是空的”消息。你也可以在用户完成结账流程并希望重新查看订单详情时，重用此界面来显示订单详情。（我将在第 16 章也讨论这种情况。）
+
+这个 `UITableView` 的页脚视图包含两个 `UILabel`：一个用于显示“总计：”文本，另一个用于显示此购物袋中的总金额。你还需要两个 `UIButton`：一个用于通过信用卡结账，另一个用于通过 Apple Pay 结账。如你所见，UI 布局本身非常简单。
+
+以下是 `EMABBagTableViewController` 的头部分类：
+
+```
+@interface EMABBagTableViewController(){
+}
+@property (nonatomic, weak) IBOutlet UILabel *ordeNoLabel;
+@property (nonatomic, weak) IBOutlet UILabel *ordeDateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalTextLabel;
+@property (nonatomic, weak) IBOutlet UIButton *payWithCCButton;
+@property (nonatomic, weak) IBOutlet UIButton *payWithApplePayButton;
+@property (nonatomic, strong) EMABOrder *order;
+@end
+```
+
+在实现中，从 `-(void)viewWillAppear` 开始。就像你在 `EMABProductDetailViewController` 中所做的那样，为此用户查询未完成的订单。
+
+```
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([EMABUser currentUser]) {
+        [self queryForUnfinishedOrder];
+    }
+}
+```
+
+在 `EMABOrder` 类中，你已经创建了辅助方法 `queryForCustomer: orderStatus:`。客户将是当前的 `EMABUser` 实例；订单状态将是 `ORDER_NOT_MADE`。为了让 UI 更友好一些，你可以利用 `UIRefreshControl`，你可以通过 nib 文件来指定它。
+
+在进行此查询时，我们可能会找到某些内容，也可能找不到。如果没有找到任何内容，你可以假设此用户没有待处理的订单，因此向用户显示一条消息，同时隐藏所有其他 UI。根据是否有待处理的订单，或者用户是否从购物袋中删除了所有商品，你可能需要持续进行这种隐藏和显示操作。为此，创建一个辅助方法 `-(void)updateUI`。
+
+如果没有 `EMABorder` 实例或其值为 `nil`，则隐藏除 `orderNo` `UILabel` 之外的所有内容，并让此 `UILabel` 的文本显示“您的购物袋是空的。”如果存在 `EMABOrder` 实例且其值不为 `nil`，则恢复所有内容的显示。代码如下：
+
+```
+-(void)updateUI {
+    BOOL shouldClear = self.order == nil;
+    if (shouldClear) {
+        self.ordeNoLabel.text = NSLocalizedString(@"您的购物袋是空的。", @"");
+        self.ordeDateLabel.text = @"";
+        self.totalLabel.text = @"";
+        self.totalTextLabel.text = @"";
+        self.payWithApplePayButton.hidden = YES;
+        self.payWithCCButton.hidden = YES;
+        self.payWithApplePayButton.enabled = NO;
+        self.payWithCCButton.enabled = NO;
+    } else {
+        self.totalTextLabel.text = NSLocalizedString(@"总计: ", @"");
+        self.payWithApplePayButton.hidden = NO;
+        self.payWithCCButton.hidden = NO;
+        self.payWithApplePayButton.enabled = YES;
+        self.payWithCCButton.enabled = YES;
+    }
+    [self.tableView reloadData];
+}
+```
+
+一旦此查询返回有效的 `EMABOrder` 结果，你就需要显示每条信息，例如订单创建日期和总金额。以下是此查询的完整代码：
+
+```
+-(IBAction)queryForUnfinishedOrder {
+    self.order = nil; //清除缓存
+    PFQuery *orderQuery = [EMABOrder queryForCustomer:[EMABUser currentUser] orderStatus:ORDER_NOT_MADE];
+    __weak typeof(self) weakSelf = self;
+    [orderQuery getFirstObjectInBackgroundWithBlock:^(PFObject *order, NSError *error){
+        if ([weakSelf.refreshControl isRefreshing]) {
+            [weakSelf.refreshControl endRefreshing];
+        }
+        if (!error) {
+            if (order) {
+                weakSelf.order = (EMABOrder *)order;
+                weakSelf.ordeNoLabel.text = @"";
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+                [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+                weakSelf.ordeDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+                weakSelf.totalLabel.text = [self.order friendlyTotal];
+                [weakSelf updateUI];
+            } else {
+                [weakSelf updateUI];
+            }
+        } else {
+            [weakSelf updateUI];
+        }
+    }];
+}
+```
+
+你有一个 `UITableView`，`UITableView` 上的商品将是订单商品。首先，将单元格高度设置得比默认值稍高一些：
+
+```
+#pragma mark - UITableView 数据源
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
+}
+```
+
+只会有一个分区：
+
+```
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+```
+
+总的单元格数量是该订单实例中商品项的数量。
+
+```
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.order.items count];
+}
+```
+
+单元格本身将是 `EMABOrderItemTableViewCell` 的一个实例。你可能注意到我为这个 `configureItem:(EMABOrderItem)item` 方法添加了一个新参数 tag。原因是你需要监听哪个 `UIStepper` 被点击。提供一个 tag 来跟踪它。tag 编号就是行号。
+
+```
+- (EMABOrderItemTableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    EMABOrderItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BagItemCell" forIndexPath:indexPath];
+    if (self.order) [cell configureItem:self.order.items[indexPath.row] tag:indexPath.row];
+    else [cell configureItem:nil tag:100+indexPath.row];
+    return cell;
+}
+```
+
+接下来，处理用户点击任何单元格上的 `UIStepper` 的情况。当用户点击 `UIStepper` 时，意味着需要更改此商品项的数量。“+”表示增加 1，“-”表示减去 1。如果数量为 0，则从订单中移除该商品项。如果所有商品项的数量都为 0，则意味着需要移除所有商品项。
+
+根据这个逻辑，创建此订单商品项的可变副本，然后找到你需要修改的商品项。可以通过用户点击的 `UIStepper` 的 tag 索引来找到它。
+
+然而，当用户试图将最后一件或唯一一件商品的数量减少到 0 时，你确实想提醒用户。因此，你创建一个名为 `-(void)showDeleteAlert` 的 `UIAlertController` 辅助方法，让用户确认。如果用户确认这样做，则不仅在本地删除订单，还要在远程服务器上删除。一旦订单被移除，执行另一个查询 `-(void)queryForUnfinishedOrder` 来验证删除并更新 UI。
+
+以下是实现代码：
+
+```
+-(void)showDeleteAlert {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"清空购物袋",@"")
+        message:NSLocalizedString(@"您确定要清空您的购物袋吗？",@"")
+        preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) weakSelf = self;
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"是",@"") style:UIAlertActionStyleDefault
+        handler:^(UIAlertAction * action) {
+            [weakSelf.order deleteInBackgroundWithBlock:^(BOOL success, NSError *error){
+                if (!error) {
+                    [weakSelf queryForUnfinishedOrder];
+                }
+            }];
+        }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消",@"") style:UIAlertActionStyleCancel
+        handler:^(UIAlertAction * action) {}];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+```
+
+以下是 `-(IBAction)onStepper` 方法——请记住，每当用户点击任何 `UIStepper` 时，你都需要更新总金额：
+
+```
+-(IBAction)onStepper:(id)sender {
+    UIStepper *stepper = (UIStepper *)sender;
+    NSInteger index = stepper.tag - 100;
+    NSMutableArray *orderItems = [NSMutableArray arrayWithArray:self.order.items];
+    EMABOrderItem *orderItem = orderItems[index];
+    orderItem.quantity = (int)stepper.value;
+    if ((int)stepper.value == 0) {
+        [orderItems removeObjectAtIndex:index];
+    } else {
+        [orderItems replaceObjectAtIndex:index withObject:orderItem];
+    }
+    if ([orderItems count] == 0) {
+        [self showDeleteAlert];
+    } else {
+        self.order.items = [orderItems copy];
+        [self.tableView reloadData];
+        self.totalLabel.text = [self.order friendlyTotal];
+    }
+}
+```
+
+如果客户更改了数量但尚未结账怎么办？用户只是喜欢通过调整来探索，这很常见。客户可能会更改购物袋中的数量，然后离开购物袋界面去浏览其他商品页面。在这种情况下，请在购物袋界面即将消失时保存订单：
+
+```
+-(void)viewWillDisappear:(BOOL)animated
+{
+    if (self.order && self.order.isDirty) {
+        [self.order saveInBackground];
+    }
+}
+```
+
+这里的 `self.order.isDirty` 表示订单已被更改。
+
+
+
+### 总结
+
+本章涵盖如何实现购物袋以及如何在处理客户及其购物习惯时，针对各种使用场景正确实现这一功能。
+
+## 11. 送货地址
+
+电子补充材料 本章在线版本（doi:[10.​1007/​978-1-4842-1317-9_​11](http://dx.doi.org/10.1007/978-1-4842-1317-9_11)）包含补充材料，仅供授权用户使用。
+
+在第 10 章中，您学习了如何实现将商品添加到购物袋、更新商品数量、从购物袋中删除商品以及更新总金额等功能。然而，为了让客户完成结账流程，您还需要收集尚未获取的额外信息：即客户的送货地址和账单地址。
+
+本章介绍如何创建一个基于`UITableView`的表单来收集美国送货地址。用户界面本身可能看起来非常简单，但仍有一些技巧需要讲解。
+
+图 11-1 展示了送货地址表单的外观。
+
+![A978-1-4842-1317-9_11_Fig1_HTML.jpg](img/A978-1-4842-1317-9_11_Fig1_HTML.jpg)
+
+**图 11-1.** 送货地址表单
+
+### 送货地址模型
+
+本章使用的模型仍然是`EMABUser`模型，但您需要添加额外的属性：`address1`、`address2`、`city`、`state`和`zipcode`。以下是头文件：
+
+**EMABUser.h**
+
+```
+@interface EMABUser : PFUser<PFSubclassing>
+
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *gender;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *address1;
+@property (nonatomic, copy) NSString *address2;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *zipcode;
+@property (nonatomic, copy) PFFile *photo;
+
+@end
+```
+
+### 送货地址视图
+
+首先创建一个`UITableViewCell`的子类，并将其命名为`EMABUserProfileTableViewCell`。如您所见，该单元格上使用了`UITextField`。您还需要一个辅助方法来定制单元格的标题、`UITextField`的占位符文本以及键盘类型。
+
+**EMABUserProfileTableViewCell.h**
+
+```
+@interface EMABUserProfileTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UITextField *textField;
+
+- (void)setContentForTableCellLabel:(NSString*)title placeHolder:(NSString *)placeHolder text:(NSString *)text keyBoardType:(NSNumber *)type enabled:(BOOL)enabled;
+
+@end
+```
+
+这次，您希望以编程方式将此`UITextField`添加为该`UITableViewCell`的附属视图。该单元格仍通过 xib 文件进行设置。因此，您需要调用不同的实例化方法`-(instancetype)initWithCoder:(NSCode *)aDecorder`，如下代码所示。
+
+请记住，您使用了一个常量值来定位此`UITextField`。这对于不同的 iPhone 屏幕尺寸来说效果不佳。由于本书的重点是业务逻辑而非用户界面，因此此实现可能无法适配所有 iPhone 屏幕尺寸。
+
+以下是实例化方法：
+
+**EMABUserProfileTableViewCell.m**
+
+```
+@implementation EMABUserProfileTableViewCell
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        CGRect frame = CGRectMake(100, kTopMargin, 210.0, kTextFieldHeight);
+        self.textField = [[UITextField alloc] initWithFrame:frame];
+        self.textField.borderStyle = UITextBorderStyleNone;
+        self.textField.textColor = [UIColor blackColor];
+        self.textField.font = [UIFont systemFontOfSize:13.0];
+        self.textField.textAlignment = NSTextAlignmentRight;
+        self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        self.textField.enabled = NO;
+        self.textField.backgroundColor = [UIColor clearColor];
+        self.textField.autocorrectionType = UITextAutocorrectionTypeNo;    // 无自动更正支持
+        self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        self.textField.returnKeyType = UIReturnKeyDone;
+        self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;  // 右侧有清除按钮 'x'
+        self.accessoryView = self.textField;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+```
+
+辅助方法`-(void)setContentForTableCellLabel:(NSString*)title placeHolder:(NSString *)placeHolder :(NSString *)text keyBoardType:(NSNumber *)type enabled:(BOOL)enabled`用于通过动态内容定制每个单元格。以下是其实现：
+
+```
+- (void)setContentForTableCellLabel:(NSString*)title placeHolder:(NSString *)placeHolder :(NSString *)text keyBoardType:(NSNumber *)type enabled:(BOOL)enabled
+{
+    self.textLabel.text = title;
+    self.textField.text = text;
+    self.textField.placeholder = placeHolder;
+    self.textField.keyboardType = [type intValue];
+    self.textField.layer.cornerRadius = 4.0f;
+    self.textField.layer.masksToBounds = YES;
+    self.textField.layer.borderColor = (enabled)?[[UIColor colorWithRed:0.0 green:153.0/255.0 blue:204.0/255.0 alpha:1] CGColor ]:[[UIColor clearColor] CGColor];
+    self.textField.layer.borderWidth = 1.0f;
+    self.textField.enabled = enabled;
+}
+
+@end
+```
+
+这段代码还为`UITextField`添加了边框，如图 11-1 所示。
+
+
+
+### 配送地址控制器
+
+在 Xcode 中，创建一个新的 `UITableViewController`，并将其命名为 `EMABUserProfileTableViewController`。
+
+`EMABUserInfoViewController.m`：
+
+```objc
+#import "EMABUserProfileTableViewController.h"
+#import "EMABUserProfileTableViewCell.h"
+#import "EMABUser.h"
+
+static NSString *kTitleKey = @"titleKey";
+static NSString *kPlaceholderKey = @"placeholderKey";
+static NSString *kKeyboardKey = @"keyboardTypeKey";
+
+@interface EMABUserProfileTableViewController ()<UITextFieldDelegate>
+@property (nonatomic, strong) NSArray *dataSourceArray;
+@property (nonatomic, strong) EMABUser *customer;
+@end
+```
+
+在这个 `UITableView` 中，有九个静态的 `UITableViewCell`；也就是说，这些单元格的标题是固定的，每个单元格中 `UITextField` 的占位符文本也是固定的。为了避免在每个单元格中硬编码这些内容，可以使用一个 `NSArray` 来存放所有内容，并动态地分配给每个单元格。这个 `NSArray` 中的每个元素都是一个 `NSDictionary`。每个字典有三个键。这就是为什么在 `static NSString` 中定义了 `kTitleKey`、`kPlaceholderKey` 和 `kKeyboardKey` 这些常量。
+
+你还定义了一个名为 `customer` 的 `EMABUser` 属性。你需要用它来跟踪用户的输入，并与该用户保持一致。
+
+由于每个单元格上都有一个 `UITextField`，你需要在接口类别中声明 `UITextFieldDelegate`：
+
+```objc
+@interface EMABUserProfileTableViewController ()<UITextFieldDelegate>
+```
+
+`EMABUserProfileTableViewController.m`：
+
+```objc
+@implementation EMABUserProfileTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.dataSourceArray = @[
+        @{
+            kTitleKey:NSLocalizedString(@"First Name*", @"名字(必填)"),
+            kPlaceholderKey:NSLocalizedString(@"First Name", @"名字"),
+            kKeyboardKey:@(UIKeyboardTypeNamePhonePad)},
+        @{
+            kTitleKey:NSLocalizedString(@"Last Name*",@""),
+            kPlaceholderKey:NSLocalizedString(@"Last Name",@"姓氏"),
+            kKeyboardKey:@(UIKeyboardTypeNamePhonePad)},
+        @{
+            kTitleKey:NSLocalizedString(@"Phone*",@""),
+            kPlaceholderKey:@"555-555-5555",
+            kKeyboardKey:@(UIKeyboardTypePhonePad)},
+        @{
+            kTitleKey:NSLocalizedString(@"Email*",@""),
+            kPlaceholderKey:@"Email",
+            kKeyboardKey:@(UIKeyboardTypeEmailAddress)},
+        @{
+            kTitleKey:NSLocalizedString(@"Address 1*",@""),
+            kPlaceholderKey:@"地址 1",
+            kKeyboardKey:@(UIKeyboardTypeDefault)},
+        @{
+            kTitleKey:NSLocalizedString(@"Address 2",@""),
+            kPlaceholderKey:@"地址 2",
+            kKeyboardKey:@(UIKeyboardTypeDefault)},
+        @{
+            kTitleKey:NSLocalizedString(@"City*",@""),
+            kPlaceholderKey:NSLocalizedString(@"City",@"城市"),
+            kKeyboardKey:@(UIKeyboardTypeDefault)},
+        @{
+            kTitleKey:NSLocalizedString(@"State*",@""),
+            kPlaceholderKey:NSLocalizedString(@"State",@"州/省"),
+            kKeyboardKey:@(UIKeyboardTypeDefault)},
+        @{
+            kTitleKey:NSLocalizedString(@"Zipcode*",@""),
+            kPlaceholderKey:@"#####",
+            kKeyboardKey:@(UIKeyboardTypeNumberPad)}
+    ];
+    self.customer = [EMABUser currentUser];
+}
+```
+
+设置好数据源后，你可以向 `UITableView` 添加一些实际数据。这里有一个分区，九个单元格——也就是 `dataSourceArray` 的大小。
+
+```objc
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.dataSourceArray count];
+}
+
+- (EMABUserProfileTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    EMABUserProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"customerProfile" forIndexPath:indexPath];
+    NSInteger row = indexPath.row;
+    cell.textField.delegate = self;
+    cell.textField.tag = 100 + row;
+    NSString *text = @"";
+    switch (row) {
+        case 0:
+            text = self.customer.firstName;
+            break;
+        case 1:
+            text = self.customer.lastName;
+            break;
+        case 2:
+            text = self.customer.phone;
+            break;
+        case 3:
+            text = self.customer.email;
+            break;
+        case 4:
+            text = self.customer.address1;
+            break;
+        case 5:
+            text = self.customer.address2;
+            break;
+        case 6:
+            text = self.customer.city;
+            break;
+        case 7:
+            text = self.customer.state;
+```
+
+
+```objectivec
+break;
+case 8:
+    text = self.customer.zipcode;
+    break;
+default:
+    break;
+}
+NSString *title = self.dataSourceArray[row][kTitleKey];
+NSString *placeholder = self.dataSourceArray[row][kPlaceholderKey];
+NSNumber *keyboardType = self.dataSourceArray[row][kKeyboardKey];
+[cell setContentForTableCellLabel:title placeHolder:placeholder text:text keyBoardType:keyboardType enabled:self.isEditing];
+return cell;
+}
+```
+
+对于每个单元格，`UITextField` 的文本应该为空，因为用户尚未输入任何内容。你可能还需要提供一个选项，让用户在输入所有信息后可以编辑其地址。换句话说，你将在其他场合复用`EMABUserProfileViewController`。这就是为什么你让每个`UITextField`的文本与`EMABUser`模型中的一个地址属性相对应。
+
+你还会给每个`UITextField`分配一个标签（tag），以便日后能够确定正在使用的是哪个`UITextField`。
+
+最后，使用`EMABUserProfileTableViewCell`的辅助方法自定义每个单元格。
+
+接下来，实现`UITextField`的委托方法。
+
+```objectivec
+#pragma mark - UITextField Delegate methods
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case 100:
+            self.customer.firstName = textField.text;
+            break;
+        case 101:
+            self.customer.lastName = textField.text;
+            break;
+        case 102:
+            self.customer.phone = textField.text;
+            break;
+        case 103:
+            self.customer.email = textField.text;
+            break;
+        case 104:
+            self.customer.address1 = textField.text;
+            break;
+        case 105:
+            self.customer.address2 = textField.text;
+            break;
+        case 106:
+            self.customer.city = textField.text;
+            break;
+        case 107:
+            self.customer.state = textField.text;
+            break;
+        case 108:
+            self.customer.zipcode = textField.text;
+            break;
+        default:
+            break;
+    }
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+```
+
+`-(BOOL)textFieldShouldEndEditing:(UITextField *)textField`这个方法很重要。一旦用户完成一个单元格的输入，你需要将信息发送给这个用户实例。当有更多单元格，并且用户需要上下滚动来填写内容时，这样做的原因会更加明显。
+
+如你所见，在`UINavigationBar`上设置了一个“完成”栏按钮项。当用户点击“完成”时，用户输入的所有内容都会被保存，并且屏幕会被关闭。但如果用户实际上没有输入任何内容，或者提供的信息不够完整，该怎么办？让我们做一点检查。
+
+你需要在`EMABUser`模型的头文件中声明一个辅助方法：
+
+```objectivec
+-(BOOL)isShippingAddressCompleted;
+```
+
+以下是实现：
+
+```objectivec
+-(BOOL)isShippingAddressCompleted{
+    BOOL cont0 = self.firstName && self.lastName && [self.firstName length] > 0 && [self.lastName length] > 0;
+    BOOL cont1 = self.address1 && [self.address1 length] > 0;
+    BOOL cont2 = self.city && [self.city length] > 0;
+    BOOL cont3 = self.state && [self.state length] > 0;
+    BOOL cont4 = self.zipcode && [self.zipcode length]> 0;
+    return cont0 && cont1 && cont1 && cont2 && cont3 && cont4;
+}
+```
+
+现在，当用户点击“完成”时，你可以使用这个辅助方法。如果你认为所有信息都已提供，则保存用户信息。如果没有，则显示一个警告，通知用户需要提供更多信息。
+
+```objectivec
+-(IBAction)onDone:(id)sender
+{
+    [self.tableView.superview endEditing:YES];
+    if ([self.customer isShippingAddressCompleted]) {
+        __weak typeof(self) weakSelf = self;
+        [self.customer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    } else {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"请完成带 * 号标记的必填信息",@"")];
+    }
+}
+```
+
+当然，你也提供了一个栏按钮项，让用户跳过这个屏幕。
+
+```objectivec
+-(void)onCancel:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+```
+
+这就是`EMABUserProfileViewController`的全部内容。回到`EMABBagsTableViewController`。当用户点击“使用信用卡支付”时，我们会检查用户是否拥有完整的送货地址：
+
+```objectivec
+-(IBAction)onPayWithCreditCard:(id)sender{
+    if ([[EMABUser currentUser] isShippingAddressCompleted]) {
+        //待处理
+    } else {
+        EMABUserProfileTableViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EMABUserProfileTableViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+```
+
+如果送货地址不完整，则会显示`EMABUserProfileTableViewController`。如果地址完整（`YES`），那么你将请求用户的信用卡信息——这将在下一章中介绍。
+
+### 总结
+
+在本章中，我介绍了如何使用`UITableView`实现一个用于收集用户地址的表单。我利用了`UITableView`的滚动特性，使得`UITableViewCell`可以移动到屏幕顶部，这样用户的 iPhone 软键盘就不会遮挡内容。我还为不同的地址部分考虑了不同的键盘类型，以方便输入。当然，还有其他方法可以达到同样的目的。但我认为我在这里的方法更简单。
+
+## 12. 使用信用卡支付
+
+电子补充材料 本章的在线版本 (doi:[10.​1007/​978-1-4842-1317-9_​12](http://dx.doi.org/10.1007/978-1-4842-1317-9_12)) 包含补充材料，仅供授权用户使用。
+
+在上一章中，我讨论了在结账前获取用户的送货地址。在本章中，我将介绍用户如何使用信用卡支付。对于这个应用，你将使用 Stripe iOS SDK 来简化流程。要集成 Stripe iOS SDK，你需要更新你的 Cocoapods Podfile，添加以下两行：
+
+```ruby
+pod 'Stripe'
+pod 'Stripe/ApplePay'
+```
+
+然后运行“`Pod update`”。
+
+
+### 支付模型
+
+你需要为用户信用卡创建一个新的 `PFObject` 模型。建议将其命名为 `EMABPaymentMethod`，而非 `EMABCreditCard`，因为未来你可能需要集成 PayPal 等其他支付方式。记得在 `EMABConstants` 类中注册一个 `NSString` 常量，并在 `AppDelegate` 类中注册该模型。
+
+在此模型类中，你需要定义以下属性：支付方式的所有者、信用卡类型、信用卡后四位数字、到期月份和年份，以及`Stripe Customer ID`。`Stripe Customer ID`属性是必需的，通过它你可以请求 Stripe 对信用卡进行实际扣款；同时，借助该属性，你还能在无需用户重复输入信息的情况下，对同一客户进行后续扣款。
+
+此外，你还需要一些辅助方法，例如格式化信用卡后四位数字、到期月份和年份，以及信用卡类型（Visa、Master Card 等）。
+
+要获取某位客户的所有信用卡，你需要执行一次查询。参照之前的做法，你需要实现 `+(PFQuery *)basicQuery` 方法和 `+(PFQuery *)queryForOwner: (EMABUser *)owner` 方法。
+
+以下是头文件：
+
+`EMABPaymentMethod.h`
+
+```
+#import <Parse/Parse.h>
+#import "Stripe.h"
+
+@class EMABUser;
+
+@interface EMABPaymentMethod : PFObject<PFSubclassing>
+
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *stripeCustomerId;
+@property (nonatomic, copy) NSString *lastFourDigit;
+@property (nonatomic, assign) NSUInteger_t expirationMonth;
+@property (nonatomic, assign) NSUInteger _t expirationYear;
+@property (nonatomic, strong) EMABUser *owner;
+
+-(NSString *)friendlyCreditCardNumber;
+-(NSString *)friendlyExpirationMonthYear;
++(PFQuery *)basicQuery;
++(PFQuery *)queryForOwner:(EMABUser *)owner;
+-(NSString *)friendlyType:(STPCardBrand)brand;
+
+@end
+```
+
+以下是实现文件：
+
+`EMABPaymentMethod.m`
+
+```
+#import "EMABPaymentMethod.h"
+#import <Parse/PFObject+Subclass.h>
+#import "EMABUser.h"
+#import "EMABConstants.h"
+
+@implementation EMABPaymentMethod
+
+@dynamic type,lastFourDigit, expirationMonth, expirationYear,stripeCustomerId, owner;
+
++(NSString *)parseClassName
+{
+    return kPaymentMethod;
+}
+
+-(NSString *)friendlyCreditCardNumber{
+    return  [NSString stringWithFormat:@"####-####-####-%@",self. lastFourDigit];
+}
+
+-(NSString *)friendlyExpirationMonthYear{
+    return [NSString stringWithFormat:@"%lld/%lld",self.expirationMonth, self.expirationYear];
+}
+
++(PFQuery *)basicQuery{
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query orderByDescending:@"createdAt"];
+    return query;
+}
+
++(PFQuery *)queryForOwner:(EMABUser *)owner{
+    PFQuery *query = [self basicQuery];
+    [query whereKey:@"owner" equalTo:owner];
+    return query;
+}
+
+-(NSString *)friendlyType:(STPCardBrand)brand{
+    NSString *title = @"";
+    switch (brand) {
+        case STPCardBrandVisa:
+            title = @"Visa";
+            break;
+        case STPCardBrandAmex:
+            title = @"American Express";
+            break;
+        case STPCardBrandMasterCard:
+            title = @"MasterCard";
+            break;
+        case STPCardBrandDiscover:
+            title = @"Discover";
+            break;
+        case STPCardBrandJCB:
+            title = @"JCB";
+            break;
+        case STPCardBrandDinersClub:
+            title = @"Dinner Club";
+            break;
+        default:
+            title = @"Unknown";
+            break;
+    }
+    return title;
+}
+
+@end
+```
+
+在上述实现中，对于辅助方法 `-(NSString *)friendlyCreditCardNumber`，更好的做法是使其基于不同信用卡类型进行格式化。例如，美国运通信用卡通常为 15 位数字，而非 16 位。
+
+### 支付视图
+
+Stripe iOS SDK 的示例代码提供了一个 `PKView`，你需要将其包含在项目中。它并非 Stripe iOS SDK 的组成部分。图 12-1 展示了它的外观。
+
+![A978-1-4842-1317-9_12_Fig1_HTML.jpg](img/A978-1-4842-1317-9_12_Fig1_HTML.jpg)
+
+图 12-1 `PKView`
+
+
+
+### 支付控制器
+
+接下来，创建一个新的 `UIViewController` 子类 `EMABAddCreditCardViewController`。当此视图控制器从 `EMABBagTableViewController` 中被呈现时，你需要让该控制器将 Stripe 客户 ID 传回给 `EMABBagTableViewController`，以便能够从客户的信用卡扣款。
+
+为了帮助两个控制器之间传递数据，你可以使用委托或闭包方法。闭包是首选方式，因为它能使代码既简单又易读。
+
+以下是 `EMABAddCreditCardViewController` 的头文件：
+
+`EMABAddCreditCardViewController.h`
+
+```
+#import <UIKit/UIKit.h>
+
+@class EMABAddCreditCardViewController;
+
+typedef void (^AddCreditCardViewControllerDidFinish)(NSString *customerId);
+
+@interface EMABAddCreditCardViewController : UIViewController
+
+@property (nonatomic, copy) AddCreditCardViewControllerDidFinish finishBlock;
+
+@end
+```
+
+在实现文件中，你希望充分利用 `PTKView`。其中一个重要特性是该 `PTKView` 的委托方法。我们在 `EMABAddCreditCardViewController` 的分类接口中声明了这个委托。
+
+`EMABAddCreditCardViewController.m`
+
+```
+#import "EMABAddCreditCardViewController.h"
+#import "Stripe.h"
+#import "PTKView.h"
+#import "EMABUser.h"
+#import "EMABPaymentMethod.h"
+
+@interface EMABAddCreditCardViewController ()<PTKViewDelegate>
+
+@property (nonatomic, weak) IBOutlet PTKView *paymentView;
+
+@end
+```
+
+你还需要一个条形按钮项作为这个 `UINavigationItem` 的右侧按钮；将其标题设置为“授权”。如果用户尚未完成信用卡信息的输入，则应禁用该条形按钮项。另一方面，启用此按钮，使用户可以点击以再次通过 Stripe 服务器授权信用卡信息。以下两个方法用于此目的：
+
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancel:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Authorize", @"") style:UIBarButtonItemStylePlain target:self action:@selector(onAuthorize:)];
+}
+
+- (void)paymentView:(PTKView *)paymentView withCard:(PTKCard *)card isValid:(BOOL)valid {
+    // 如果结账信息有效，则启用保存按钮
+    self.navigationItem.rightBarButtonItem.enabled = valid;
+}
+```
+
+接下来，实现 `onAuthorize:` 方法。逻辑如下。从 `PTKView` 中获取信用卡号和有效期，然后将这些信息发送到 Stripe 进行验证。如果信用卡信息有效，Stripe 将返回一个令牌。在典型情况下，你可以直接使用此令牌对信用卡扣款。如果将来希望再次对同一张信用卡扣款，可以将该令牌保存到 Parse 后端服务器。
+
+通常，存储令牌既安全又方便。然而，最好将每一笔扣款关联到一个 `Stripe` 客户对象。出于这个原因，在授权信用卡时，你请求的是 Stripe 客户 ID 而非令牌；这样你就可以将此客户 ID 保存到 Parse，并将来使用该 ID 对此信用卡重复扣款。在 Parse 后端，任何访问你控制台的人都只会看到一个客户 ID，而不会看到扣款令牌。我认为这种方法更优。
+
+但是如何创建 Stripe 客户 ID 呢？你可以使用 Parse Cloud 函数。我将在第 14 章中详细介绍 Parse Cloud 函数；现在，我先假设有一个名为 `createStripeCustomer` 的云函数已经实现好了；所以现在就直接用它吧。
+
+以下是你操作的流程：
+
+1.  根据用户的信用卡信息，调用 Stripe API 获取该信用卡的 Stripe 令牌。
+2.  基于 Stripe 令牌，调用你的 Parse Cloud 函数来获取一个 Stripe 客户 ID。
+3.  根据用户信用卡的部分信息，以及你在步骤 2 中收到的 Stripe 客户 ID，创建一个 `EMABPayment` 实例；将信用卡最后四位数字、到期月份和年份以及 Stripe 客户 ID 映射到实例属性中。将此实例保存到 Parse。
+4.  保存成功后，离开此界面并返回 `EMABBagViewController`，同时携带 Stripe 客户 ID，然后使用此 ID 对信用卡扣款。
+
+以下是完整的代码：
+
+```
+- (void)onAuthorize:(id)sender {
+    if (![self.paymentView isValid]) {
+        return;
+    }
+
+    STPCard *card = [[STPCard alloc] init];
+    card.number = self.paymentView.card.number;
+    card.expMonth = self.paymentView.card.expMonth;
+    card.expYear = self.paymentView.card.expYear;
+    card.cvc = self.paymentView.card.cvc;
+
+    [[STPAPIClient sharedClient] createTokenWithCard:card
+        completion:^(STPToken *token, NSError *error) {
+            if (error) {
+            } else {
+                EMABUser *user = [EMABUser currentUser];
+                NSDictionary *stripeCustomerDictionary = @{@"tokenId":token.tokenId,
+                                                           @"customerEmail":user.email
+                                                           };
+                [PFCloud callFunctionInBackground:@"createStripeCustomer"
+                                   withParameters:stripeCustomerDictionary
+                                           block:^(NSString *customerId, NSError *error) {
+                    if (!error) {
+                        EMABPaymentMethod *creditCard = [EMABPaymentMethod object];
+                        creditCard.owner = user;
+                        creditCard.stripeCustomerId = customerId;
+                        creditCard.expirationMonth = card.expMonth;
+                        creditCard.expirationYear = card.expYear;
+                        creditCard.type = [creditCard friendlyType:card.brand];
+                        creditCard.lastFourDigit = card.last4;
+                        creditCard.stripeCustomerId = customerId;
+                        [creditCard saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (!error) {
+                                [self readyToCharge:customerId];
+                            }
+                        }];
+                    } else {
+                    }
+                }];
+            }
+        }];
+}
+
+-(void)readyToCharge:(NSString *)customerId {
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.finishBlock(self, customerId);
+    }];
+}
+```
+
+你还需要提供一个“取消”条形按钮项，以便用户可以跳过此界面：
+
+```
+- (void)onCancel:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+```
+
+基本上，这就是 `EMABAddCreditCardViewController` 的全部内容。
+
+`EMABBagsTableViewController` 中还有一些工作要做。用户点击“用信用卡购买”后，你检查是否有配送地址。如果没有，则弹出 `EMABUserProfileTableViewController`。如果有，则需要弹出 `EMABAddCreditCardViewController`。以下是代码：
+
+```
+-(IBAction)onPayWithCreditCard:(id)sender{
+    if ([[EMABUser currentUser] isShippingAddressCompleted]) {
+        EMABAddCreditCardViewController *viewController = (EMABAddCreditCardViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"EMABAddCreditCardViewController"];
+        __weak typeof(self) weakSelf = self;
+        viewController.finishBlock = ^(NSString *customerId){
+            [weakSelf charge:customerId];
+        };
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else {
+        EMABUserProfileTableViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EMABUserProfileTableViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+```
+
+你可能已经注意到 `charge:` 方法尚未实现。我将在下一章中介绍这个实现。
+
+### 总结
+
+在本章中，我展示了如何集成 Stripe iOS SDK 来收集用户的信用卡信息、授权扣款、请求 Stripe 客户 ID，并将该 ID 保存到 Parse。我还讨论了如何根据用户是否已填写配送地址来展示不同的视图控制器。
+
+
+
+## 13. 使用 Apple Pay 付款
+
+电子补充材料 本章在线版（doi:`10.​1007/​978-1-4842-1317-9_​13`<http://dx.doi.org/10.1007/978-1-4842-1317-9_​13>）包含仅供授权用户使用的补充材料。
+
+作为 iOS 开发者，你可能已经听说过 Apple Pay。Apple Pay 允许 iPhone 用户通过其手机完成购物付款。对于开发者而言，在应用中集成 Apple Pay 能带来诸多显著优势。例如，你的客户无需输入信用卡号、有效期和 CVC 安全码，某些情况下也无需在购买前填写收货地址和账单地址。这些都意味着更快捷、更便利的结账流程。另一个好处是，这被公认为处理信用卡扣款更安全的方式。本章将演示如何实现“通过 Apple Pay 和 Stripe 付款”的功能。
+
+### Apple Pay 概述
+
+事实上，Apple Pay 只负责整个扣款流程中的部分环节。具体而言，Apple Pay 完成了以下事项：
+
+-   验证用户（即 iPhone 持有者或信用卡持有人）的身份。
+-   通过用户界面展示其购买的商品。
+-   向你（开发者）提供用户的收货地址和账单地址。
+-   向你（开发者）提供一个令牌，以便你将其兑换给真实的支付处理商，例如 Stripe。
+
+注意：要更深入了解 Apple Pay 的工作原理，请参考[`https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf`](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf)。
+
+
+
+### Apple Pay 与 Stripe
+
+**注意**：要使用 Apple Pay，你需要在 Xcode 中为应用添加“Apple Pay”功能。这首先需要你在 Apple 处创建一个商户 ID。你可以通过教程[`https://stripe.com/docs/mobile/apple-pay`](https://stripe.com/docs/mobile/apple-pay)了解更多流程。
+
+在第 12 章中，我展示了如何将 Stripe/ApplePay CocoaPod 添加到你的项目中。在设置好商户 ID 和“Apple Pay”功能后，你就可以充分利用 Stripe Apple Pay SDK 所提供的功能。具体步骤如下：
+
+-   生成一个 `PKPaymentRequest` 以提交给 Apple。
+-   将 `paymentSummaryItems` 属性设置为一个由 `PKPaymentSummaryItem` 组成的 `NSArray`。这些类似于收据上的明细行，用于向用户解释我们的收费项目。
+-   创建请求后，查询设备以确认 Apple Pay 是否可用（即，应用是否运行在最新的硬件上，且用户已添加有效的信用卡）。
+-   创建并显示支付请求视图控制器。
+-   在支付请求控制器返回 `PKPayment` 后，你可以通过一个简单的方法调用将其转换为单次使用的 Stripe 令牌。
+-   收到 Stripe 令牌后，调用 Parse Cloud Function 进行实际收费。实际的收费将由我们的后端处理，就像我们使用信用卡支付一样。
+
+如你所见，使用信用卡支付与使用 Apple Pay 支付的区别在于，处理 Apple Pay 支付时，你无需创建 `EMABPayment` 实例并保存它——用户设备上的 Apple Pay 已存储了信用卡信息。另一个好处是，你无需询问用户的收货地址；你可以直接从支付请求中获取。
+
+以下是实现方法，假设你已通过 Apple Developer 门户注册了一个商户 ID。
+
+用我们的 `EMABConstants` 类记下你的商户 ID，并将其命名为 `kAppleMerchantID`。接下来，创建一个属性来跟踪 `PKPaymentRequest`。
+
+```
+@property (nonatomic, strong) PKPaymentRequest *paymentRequest;
+```
+
+如前所述，你需要使用 Apple 的 `PKPaymentAuthorizationViewController`。这个视图控制器有一些需要你实现的代理方法，因此请声明如下：
+
+```
+@interface EMABBagTableViewController()<PKPaymentAuthorizationViewControllerDelegate>
+```
+
+此外，为了显示用户正在购买的商品，你需要设置符合 `PKPaymentAuthorizationViewController` API `PKPaymentSummaryItem` 的商品列表。换句话说，你需要将我们的 `EMABOrderItem` 转换为 `PKPaymentSummaryItem`。以下是实现这一转换的辅助方法：
+
+```
+- (NSArray *)summaryItemsForShippingMethod:(PKShippingMethod *)shippingMethod {
+    NSMutableArray *purchasedItems = [NSMutableArray arrayWithCapacity:[self.order.items count]];
+    for (EMABOrderItem *item in self.order.items) {
+        double total = item.quantity * item.product.unitPrice;
+        NSString *readable = [NSString stringWithFormat:@"%.2f",total];
+        NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:readable];
+        PKPaymentSummaryItem *purchasedItem = [PKPaymentSummaryItem summaryItemWithLabel:item.product.name amount:price];
+        [purchasedItems addObject:purchasedItem];
+    }
+    return [NSArray arrayWithArray:purchasedItems];
+}
+```
+
+基本上，你创建一个可变数组，遍历 `EMABOrderItem`，并根据 `EMABOrderItem` 的实例实例化 `PKPaymentSummaryItem`。最后，返回该容器数组的不可变副本。
+
+请仔细看下面两行代码：
+
+```
+NSString *readable = [NSString stringWithFormat:@"%.2f",total];
+NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:readable];
+```
+
+这绝对不是表示货币金额的最佳方式，因为通常货币金额只有两位尾数。Apple Pay API 推荐的做法是：
+
+```
+NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithMantissa:total exponent:-2 isNegative:NO];
+```
+
+在初始化 `PKPaymentRequest` 之前，你需要知道用户的 iPhone 是否已配置为使用 Apple Pay 支付。幸运的是，Stripe 为你提供了一个便捷方法：`-(BOOL) canSubmitPaymentRequest`。如果是，则继续执行；如果不是，则需要优雅地向用户报告。
+
+你还需要获取用户的收货地址，以便邮寄包裹。`PKPaymentRequest` 有一个方法 `setRequiredShippingAddressFields:PKAddressFieldPostalAddress` 用于此目的。
+
+以下是代码：
+
+```
+-(IBAction)onApplePay:(id)sender{
+    NSString *merchantId = kAppleMerchantID;
+    self.paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:merchantId];
+    if ([Stripe canSubmitPaymentRequest:self.paymentRequest]) {
+        [self.paymentRequest setRequiredShippingAddressFields:PKAddressFieldPostalAddress];
+        [self.paymentRequest setRequiredBillingAddressFields:PKAddressFieldPostalAddress];
+        self.paymentRequest.paymentSummaryItems = [self summaryItemsForShippingMethod:nil];
+        PKPaymentAuthorizationViewController *auth = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:self.paymentRequest];
+        auth.delegate = self;
+        if (auth) {
+            [self presentViewController:auth animated:YES completion:nil];
+        } else
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Something Wrong", @"Something Wrong")];
+    } else {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Apple Pay is not enabled. Please enable your Apple Pay or Pay with Credit Card.", @"")];
+    }
+}
+```
+
+接下来，展示 `PKPaymentAuthorizationViewController`。用户点击支付。点击后会发生什么？以下是实现视图控制器代理方法的方式：
+
+```
+-(void)paymentAuthorizationViewController:(nonnull PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(nonnull PKPayment *)payment completion:(nonnull void (^)(PKPaymentAuthorizationStatus))completion{
+    [self handlePaymentAuthorizationWithPayment:payment completion:nil];
+}
+```
+
+创建辅助方法 `handlePaymentAuthorizationWithPayment`，然后在“创建单次使用令牌”中实现此方法。请注意，你还获得了一个接受 `PKPaymentAuthorizationStatus` 的代码块。在所有异步代码执行完毕后，使用 `PKPaymentAuthorizationStatusSuccess` 或 `PKPaymentAuthorizationStatusFailure` 调用此函数。这样 `PKPaymentAuthorizationViewController` 就能知道何时以及如何更新其 UI。
+
+```
+- (void)handlePaymentAuthorizationWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+    [[STPAPIClient sharedClient] createTokenWithPayment:payment
+                           completion:^(STPToken *token, NSError *error) {
+                              if (error) {
+                                 completion(PKPaymentAuthorizationStatusFailure);
+                                 return;
+                              }
+                              [self createBackendChargeWithToken:token completion:completion];
+                           }];
+}
+```
+
+一旦收到收费令牌，调用 Parse Cloud function 进行实际收费：
+
+```
+- (void)createBackendChargeWithToken:(STPToken *)token
+                          completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+    [self chargeWithToken:token.tokenId];
+}
+```
+
+以下是调用 Cloud function 的方式：
+
+```
+-(void)chargeWithToken:(NSString *)tokenId{
+    [self.order saveInBackgroundWithBlock:^(BOOL success, NSError *error){
+        if (!error) {
+            __weak typeof(self) weakSelf = self;
+            NSDictionary *params = @{@"chargeToken":tokenId, @"orderId":weakSelf.order.objectId};
+            [PFCloud callFunctionInBackground:@"ChargeToken" withParameters:params block:^(NSString *message, NSError *error){
+                if (!error) {
+                    [weakSelf queryForUnfinishedOrder];
+                }
+            }];
+        }
+    }];
+}
+```
+
+你必须首先保存当前订单。保存操作完成后，将 Stripe 令牌和订单 ID 传递给后端。这是一种更安全的方式。一旦收费成功运行，你将发出另一个 API 调用来检查订单状态是否已更改，并同时更新你的 UI。
+
+
+
+### 摘要
+
+本章简要总结了 Apple Pay 的工作原理，以及如何使用 Stripe 的 Apple Pay 库实现“通过 Apple Pay 付款”功能。
+
+## 14. 扣款与电子邮件
+
+**电子补充材料** 本章的在线版本（doi: [10.1007/978-1-4842-1317-9_14](http://dx.doi.org/10.1007/978-1-4842-1317-9_14)）包含补充材料，可供授权用户使用。
+
+在第 12 章中，我向你展示了如何使用云函数创建并扣款 Stripe 客户。在第 13 章中，我向你展示了如何使用云函数通过 Apple Pay 付款。这三种方法分别调用你编写并托管在 Parse 上的 `"main.js"` 文件中的 `"createStripeCustomer"`、`"chargeCustomer"` 和 `"chargeToken"` 函数。这三个函数接收字典输入并执行，成功时返回字符串，发生错误时返回 `NSError` 对象。在本章中，我将向你展示如何实现这三个 JavaScript 函数。此外，你还将学习如何在 Stripe 成功扣款用户信用卡后，使用 Mailgun 发送订单确认邮件。
+
+### 创建并扣款客户
+
+回顾一下，本章你将使用以下三个 JavaScript 函数：
+
+**创建客户**
+
+```
+[PFCloud callFunctionInBackground:@"createStripeCustomer" withParameters:stripeCustomerDictionary block:^(NSString *customerId, NSError *error) {
+
+}];
+```
+
+**扣款客户**
+
+```
+[PFCloud callFunctionInBackground:@" chargeCustomer" withParameters:params block:^(NSString *message, NSError *error){
+
+}];
+```
+
+**通过 Apple Pay 付款**
+
+```
+[PFCloud callFunctionInBackground:@"ChargeToken" withParameters:params block:^(NSString *message, NSError *error){
+
+}];
+```
+
+### Parse 云代码
+
+首先，这里是关于 Parse 云代码的一些背景知识。Parse 云代码使用 JavaScript 编写，运行在 Parse 云端，而非移动设备上。你编写的 Parse 云代码将像你自己的后端代码一样工作。显然，当你的云代码更新时，它会立即在所有移动环境中生效。你无需等待应用的新版本发布。这让你能够随时更改应用行为，并更快地添加新功能。图 14-1 展示了你的云函数 `main.js` 在 Parse 中的样子。
+
+![A978-1-4842-1317-9_14_Fig1_HTML.jpg](img/A978-1-4842-1317-9_14_Fig1_HTML.jpg)
+
+**图 14-1.** Parse 中的云代码
+
+### Parse 命令行工具 (CLT)
+
+在使用 Parse 云代码之前，你需要在用于开发的计算机上安装 Parse 命令行工具。该命令行工具将帮助你部署代码到 Parse 云端。要安装此工具，只需在终端中运行以下命令：
+
+`curl -s` `https://www.parse.com/downloads/cloud_code/installer.sh` `| sudo /bin/bash`
+
+安装好 Parse CLT 后，你就可以开始设置云代码目录了。打开终端应用，`cd` 到你想放置云代码目录的路径，然后输入：
+
+`>parse configure accountKey –d`
+
+CLT 会响应：
+
+```
+> Input your account key or press enter to generate a new one.
+Account Key: ${YOUR_ACCOUNT_KEY}
+```
+
+按回车键，输入以下命令，然后再次按回车键：
+
+`> parse new`
+
+CLT 会响应：
+
+```
+Would you like to create a new app, or add Cloud Code to an existing app?
+Type "(n)ew" or "(e)xisting": e
+1:  MyApp
+2:  MyOtherApp
+Select an App to add to config: 1
+Awesome! Now it's time to setup some Cloud Code for the app: "MyApp",
+Next we will create a directory to hold your Cloud Code.
+Please enter the name to use for this directory,
+or hit ENTER to use "MyApp" as the directory name.
+```
+
+做出选择。然后输入：
+
+`> parse deploy`
+
+一旦你从 CLT 收到成功消息，就可以转到 Parse.com，在你的项目面板中查看云代码部分，如图 14-1 所示。你将看到一个简单的 "Hello World" 云函数。
+
+从现在开始，你可以在本地目录中编写 `main.js`。准备好部署时，使用：
+
+`> parse deploy`
+
+部署到 Parse 服务器。
+
+同时，你也可以通过点击 Parse 面板上的 "Logs"（如图 14-2 所示）来阅读云代码生成的任何日志，或每次调用云函数时生成的日志。
+
+![A978-1-4842-1317-9_14_Fig2_HTML.jpg](img/A978-1-4842-1317-9_14_Fig2_HTML.jpg)
+
+**图 14-2.** 云代码日志
+
+> **注意：** 要了解有关 Parse 命令行工具的更多信息，请访问 [`https://parse.com/apps/quickstart#cloud_code/unix`](https://parse.com/apps/quickstart#cloud_code/unix)。
+
+### Parse 云模块
+
+为了让开发者的生活更轻松，Parse 还通过云模块提供了与第三方服务和库的集成。云模块的工作方式与 JavaScript 库类似。在本例中，你将使用 Stripe 云模块和 Mailgun 云模块。
+
+```
+/* 初始化 Stripe 和 Mailgun 云模块 */
+var Stripe = require('stripe');
+Stripe.initialize('YOUR_STRIPE_TEST_SECRET');
+var Mailgun = require('mailgun');
+Mailgun.initialize("YOUR_MAILGUN_PROJECT_NAME", "YOUR_MAILGUN_API_KEY");
+```
+
+### 创建 Stripe 客户
+
+在第 12 章中，你学习了如何使用 `"createStripeCustomer"` 云函数创建 Stripe 客户。如果你在代码中确实使用了此方法，将会收到一个错误，提示没有名为 `"createStripeCustomer"` 的函数。因此，你将要实现的第一个云函数就是 `"createStripeCustomer"`。
+
+```
+[PFCloud callFunctionInBackground:@"createStripeCustomer" withParameters:stripeCustomerDictionary block:^(NSString *customerId, NSError *error) {
+
+}];
+```
+
+首先，你需要在代码中包含 Stripe 云模块；同时指定测试密钥，如下所示：
+
+```
+var Stripe = require('stripe');
+Stripe.initialize('YOUR_TEST_STRIPE_KEY');
+```
+
+接下来，通过调用 `Parse.Cloud.define` 定义函数名称。请记住，每个函数都需要一个唯一的名称。
+
+如果你熟悉 JavaScript，除了回调之外，Parse JavaScript SDK 中的每个异步方法都会返回一个 Promise。使用 Promise，你的代码可以比使用回调的嵌套代码清晰得多。
+
+> **注意：** 要了解更多关于 Parse Promise 的信息，请参考 [`https://parse.com/docs/js/guide`](https://parse.com/docs/js/guide) `– promises。`
+
+仔细看看下面这个简单的 Stripe 客户创建函数：
+
+```
+Parse.Cloud.define("createStripeCustomer",function(request,response){
+  Parse.Cloud.useMasterKey();
+  Parse.Promise.as().then(function(){
+    return Stripe.Customers.create({
+    description: 'customer for Beauty & Me',
+    card:request.params.tokenId,
+           email:request.params.customerEmail
+    }).then(null, function(error){
+      console.log('Creating customer with stripe failed. Error: ' + error);
+      return Parse.Promise.error('An error has occurred.');
+    });
+  }).then(function(customer) {
+    response.success(customer.id);
+  }, function(error) {
+    response.error(error);
+  });
+});
+```
+
+基本上，你调用了 `Stripe.Customer.create` API 来创建 Stripe 客户。你提供从 iOS 应用接收到的令牌以及用户的电子邮件来创建客户。如果客户创建成功，你将收到 Stripe 客户对象。由于你只需要客户 id，因此在成功响应中返回 id。如果出现任何错误，你也应告知你的 iOS 应用。
+
+
+
+### 向客户收费
+
+下一个云函数是 `charge`。此函数接收一个订单对象 ID 和一个客户 ID。你需要遵循以下步骤：
+
+根据订单对象 ID 查找订单；你还需要包含与该订单关联的产品和客户信息。你将需要这些信息来生成收据。根据 Stripe 客户 ID 向客户收费。用新的 `ORDER_COMPLETED` 状态更新订单，然后根据系统中的订单总数生成一个真实的订单 ID 和一个大整数。通过调用 `Mailgun` 解析云模块向客户发送电子邮件。你可能需要混合使用 HTML 标签和订单信息来编写一些邮件内容。一旦订单确认邮件成功发送，向 iOS 应用发回一条消息。如果发生任何错误，返回错误信息。
+
+以下是前五个步骤的代码：
+
+```
+/* 初始化 Stripe 和 Mailgun 云模块 */
+
+var Stripe = require('stripe');
+Stripe.initialize('your_own_stripe_secret');
+
+var Mailgun = require('mailgun');
+Mailgun.initialize("your_mailgun_email_account", "your_mailgun_key");
+
+Parse.Cloud.define("chargeCustomer", function(request, response) {
+    Parse.Cloud.useMasterKey();
+    var order;
+    var orderNo;
+
+    Parse.Promise.as().then(function() {
+        var orderQuery = new Parse.Query('Order');
+        orderQuery.equalTo('objectId', request.params.orderId);
+        orderQuery.include("customer");
+        orderQuery.include(["items.product"]);
+        orderQuery.descending("createdAt");
+        return orderQuery.first().then(null, function(error) {
+            return Parse.Promise.error('对不起，这个订单不存在。');
+        });
+    }).then(function(result) {
+        order = result;
+    }).then(function(result) {
+        var countQuery = new Parse.Query("Order");
+        return countQuery.count().then(null, function(error) {
+            return Parse.Promise.error('出了点问题。');
+        });
+    }).then(function(result) {
+        orderNo = result;
+    }).then(function(order) {
+        return Stripe.Charges.create({
+            amount: request.params.amount, // 以美分表示美元金额
+            currency: "usd",
+            customer: request.params.customerId
+        }).then(null, function(error) {
+            console.log('使用 Stripe 收费失败。错误: ' + error);
+            return Parse.Promise.error('发生错误。您的信用卡未被扣款。');
+        });
+    }).then(function(purchase) {
+        orderNo = 1000000 + orderNo;
+        order.set('stripePaymentId', purchase.id);
+        order.set('orderStatus', 1);  // 订单已生成
+        order.set('orderNo', orderNo);
+        return order.save().then(null, function(error) {
+            return Parse.Promise.error('您的订单出现严重错误。请尽快联系 info@beauty4you.co。');
+        });
+    }).then(function(result) {
+        var greeting = "尊敬的 ";
+        if (request.params.name !== "N/A")
+            greeting += request.params.name + "，\n\n";
+        else
+            greeting += request.params.email + "，\n\n";
+        var orderId = "订单号: " + orderNo + "\n";
+        var body = greeting + orderId + "  我们已收到您对以下商品的订单：\n\n" +
+            request.params.itemDesc + "\n";
+        var note = "备注: " + request.params.note + "\n\n";
+        body += "\总计: $" + (request.params.amount / 100.00).toFixed(2) + "\n\n" + note;
+        var thankYouNote = "如有任何疑问，请联系我们！\n\n" +
+            "\n 谢谢，\n" + "Beauty 4 You 团队";
+        body += thankYouNote;
+
+        // 发送邮件。
+        return Mailgun.sendEmail({
+            to: request.params.email,
+            bcc: 'CUSTOMER-EMAIL',
+            from: 'YOUR-EMAIL',
+            subject: '',
+            text: body
+        }).then(null, function(error) {
+            return Parse.Promise.error('您的购买已成功，但我们无法向您发送邮件。如有任何问题，请联系我们: YOUR-EMAIL。');
+        });
+    }).then(function() {
+        // 完成！
+        response.success('成功');
+    }, function(error) {
+        response.error(error);
+    });
+});
+```
+
+### 收费令牌
+
+此函数与 `chargeCustomer` 函数几乎相同。唯一的区别是，你需要在 `Stripe.Charges.create` 函数中使用 `card` 属性：
+
+```
+Stripe.Charges.create({
+    amount: request.params.amount, // 以美分表示美元金额
+    currency: "usd",
+    card: request.params.customerId
+})
+```
+
+### 总结
+
+在本章中，我向你展示了如何创建一个 Stripe 客户 ID，然后使用此客户 ID 通过 Parse 云模块对用户的信用卡进行收费。我还解释了如何使用 `Mailgun` 向此用户发送订单确认邮件。
+
+## 15. 我的账户
+
+电子补充材料 本章在线版本 (doi:[10.​1007/​978-1-4842-1317-9_​15](http://dx.doi.org/10.1007/978-1-4842-1317-9_15)) 包含补充材料，可供授权用户使用。
+
+至此，应用可以完成其主要功能——购买并支付商品。然而，要使其成为一个完整的应用，还有一些工作要做。例如，用户应该能够更改其收货地址和更新付款方式。他们还应该能够查看标记为收藏的商品、查看订单历史记录以及退出账户——这些功能都尚未实现。
+
+在本章中，你将学习如何：
+
+-   实现一个静态的“我的账户”屏幕。根据是否有登录用户，此屏幕是用户注销或登录的入口；显示用户的收货地址；访问订单历史记录；管理付款方式。
+-   允许用户查看和编辑其收货地址。
+-   允许用户查看其订单历史记录。
+-   允许用户管理其付款方式。
+-   使用户能够管理其收藏列表。
+
+
+
+### 创建“我的账户”界面
+
+首先，创建一个`UITableViewController`的子类，并将其命名为`EMABUserAccountTableViewController`。接下来，你将把一些静态信息整理到`UITableView`中。为所需的单元格内容定义一个枚举类型。
+
+```
+typedef NS_OPTIONS(NSInteger, TABLE_ROW){
+    SIGNED_IN = 0,
+    CONTACT_INFO = 1,
+    PAYMENT = 2,
+    FAVORITE = 3,
+    HISTORY
+};
+```
+
+你还需要一个属性来表示当前已登录的用户。
+
+```
+@interface EMABUserAccountTableViewController ()
+@property (nonatomic, strong) EMABUser *customer;
+@end
+```
+
+总的来说，这个界面的实现相当简单。以下大部分代码都一目了然：
+
+```
+@implementation EMABUserAccountTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.customer = [EMABUser currentUser];
+}
+```
+
+用户在`-(void)viewDidLoad`方法中实例化。如果没有已登录的用户，`self.customer`将为 nil。你将利用这一信息来决定`UITableView`需要显示多少个单元格。
+
+```
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // 返回节（section）的数量
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // 返回该节中的行数
+    return (self.customer)?5:1;
+}
+```
+
+如果没有有效用户，则只返回一个单元格；对于任何有效用户，则创建五个单元格。
+
+```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountCell" forIndexPath:indexPath];
+    // 配置单元格…
+    NSString *title = @"";
+    NSString *subtitle = @"";
+    switch (indexPath.row) {
+        case SIGNED_IN:
+            title = (self.customer)?NSLocalizedString(@"Sign In", @""): NSLocalizedString(@"Sign Out", @"");
+            subtitle = self.customer.email;
+            break;
+        case CONTACT_INFO:
+            title = NSLocalizedString(@"Contact Info", @"");
+            break;
+        case PAYMENT:
+            title = NSLocalizedString(@"Payment", @"");
+            break;
+        case FAVORITE:
+            title = NSLocalizedString(@"Favorite", @"");
+            break;
+        case HISTORY:
+            title = NSLocalizedString(@"Order History", @"");
+            break;
+        default:
+            break;
+    }
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = subtitle;
+    return cell;
+}
+```
+
+以下`UITableView`代理方法实现了两个功能：
+
+* 第一个单元格用于让用户在点击该单元格时登出，对应“登出”文本。对于未登录的用户，则显示注册或登录界面，对应“登录”文本。
+* 剩余的单元格根据所选单元格展示不同的视图控制器。
+
+```
+#pragma mark -
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  {
+    NSString *viewControllerIdentifier = @"";
+    switch (indexPath.row) {
+        case SIGNED_IN:
+            if (self.customer) {
+                [self signOut];
+            } else {
+                [self presentSignupOrLogin];
+            }
+            break;
+        case CONTACT_INFO:
+            viewControllerIdentifier = @"EMABUserProfileTableViewController";
+            break;
+        case FAVORITE:
+            viewControllerIdentifier = @"MABUserFavoriteHistoryTableViewControlle";
+            break;
+        case HISTORY:
+            viewControllerIdentifier = @"EMABUserOrderHistoryTableViewController";
+            break;
+        case PAYMENT:
+            viewControllerIdentifier = @"EMABUserPaymentMethodTableViewController";
+            break;
+        default:
+            break;
+    }
+    if ([viewControllerIdentifier length] > 0) {
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:viewControllerIdentifier];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
+-(void)signOut {
+    [EMABUser logOut];
+    [self.tableView reloadData];
+}
+
+-(void)presentSignupOrLogin {
+    UIStoryboard *dispatchStoryboard = [UIStoryboard storyboardWithName:@"LoginSignup" bundle:nil];
+    UINavigationController *navController = (UINavigationController *)[dispatchStoryboard instantiateInitialViewController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+@end
+```
+
+图 15-1 展示了最终结果。
+
+![A978-1-4842-1317-9_15_Fig1_HTML.jpg](img/A978-1-4842-1317-9_15_Fig1_HTML.jpg)
+
+图 15-1. “我的账户”`UITableViewController`界面
+
+#### 联系信息
+
+我在第 11 章中已经向你展示了如何实现`EMABUserProfileTableViewController`。当用户想要查看和编辑他/她的收货地址时，可以通过“我的账户”中的“联系信息”打开`EMABUserProfileTableViewController`，然后根据需要查看和编辑。
+
+#### 支付方式
+
+无论是在实体店、线上还是通过 App 购物，顾客可能使用不同的信用卡。如果每次遇到不同的信用卡你都保存一个`EMABPaymentMethod`实例，用户可能会在你这里存储多张卡。你需要提供一个地方让用户管理这些信用卡，例如设置一张卡为默认卡、删除一张信用卡或添加一张新卡。
+
+本节介绍如何显示与用户关联的所有信用卡，以及如何让用户添加更多卡和/或删除一些卡。
+
+本节使用的模型是`EMABPaymentMethod`模型。
+
+### 视图
+
+使用标准的`UITableViewCell`来显示基本的信用卡信息，例如卡号后四位和有效期。图 15-2 展示了基本的`UITableViewCell`。
+
+![A978-1-4842-1317-9_15_Fig2_HTML.jpg](img/A978-1-4842-1317-9_15_Fig2_HTML.jpg)
+
+图 15-2. 支付方式单元格显示卡号后四位和有效期
+
+
+
+### 控制器
+
+对于控制器，创建一个 `PFQueryTableViewController` 子类，并命名为 `EMABUserPaymentMethodTableViewController`。以下是上一章节中介绍的如何使用 `PFQueryTableViewController` 的方法：
+
+```
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.parseClassName = kPaymentMethod;
+    self.objectsPerPage = 10;
+    self.paginationEnabled = YES;
+    self.pullToRefreshEnabled = YES;
+}
+
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABPaymentMethod queryForOwner:[EMABUser currentUser]];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+```
+
+`EMABPaymentMethod` 模型使用了一个辅助查询方法 `+(PFQuery *)queryForOwner:(EMABUser *)user;`：
+
+```
+#pragma mark - UITableView 数据源
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(EMABPaymentMethod *)object{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaymentMethodCell" forIndexPath:indexPath];
+    if (indexPath.row == [[self objects] count]) {
+        cell.textLabel.text = NSLocalizedString(@"加载更多…", @"");
+    } else {
+        cell.textLabel.text = [object friendlyCreditCardNumber];
+        cell.detailTextLabel.text = [object friendlyExpirationMonthYear];
+    }
+    return cell;
+}
+```
+
+对于每个单元格，使用 `EMABPaymentMethod` 辅助方法显示两条信息：格式化后的最后四位数字和有效期。
+
+你希望用户可以通过滑动手势删除信用卡。为此，需要在 `-(void)viewDidLoad` 中进行声明：
+
+```
+UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onLeftSwipe:)];
+[leftSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
+leftSwipe.delegate = self;
+[self.tableView addGestureRecognizer:leftSwipe];
+```
+
+当用户执行左滑手势时，根据屏幕上的触点位置确定被滑动的单元格。然后调用 `PFObject` 异步删除方法，并再次调用查询方法以更新界面：
+
+```
+-(void)onLeftSwipe:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    if (indexPath) {
+        EMABPaymentMethod *paymentMethod = (EMABPaymentMethod *)[self objectAtIndexPath:indexPath];
+        __weak typeof(self) weakSelf = self;
+        [paymentMethod deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [weakSelf loadObjects];
+            }
+        }];
+    }
+}
+```
+
+如图 15-3 所示，“+” 栏按钮项（参见第 2 章）用于让用户添加新的信用卡。你已经创建了 `EMABAddCreditCardViewController`，因此只需展示它即可；在此过程中会创建一个 `EMABPayment` 实例。
+
+![A978-1-4842-1317-9_15_Fig3_HTML.jpg](img/A978-1-4842-1317-9_15_Fig3_HTML.jpg)
+
+**图 15-3.** `UINavigationBar` 上的 “+” 栏按钮项让用户可以添加另一种支付方式
+
+以下是代码：
+
+```
+#pragma mark - IBAction
+
+-(IBAction)onAdd:(id)sender
+{
+    EMABAddCreditCardViewController *viewController = (EMABAddCreditCardViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"EMABAddCreditCardViewController"];
+    __weak typeof(self) weakSelf = self;
+    viewController.finishBlock = ^(NSString *customerId){
+        [weakSelf loadObjects];
+    };
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+@end
+```
+
+在上述代码中，`-(void)loadObjects` 是 `PFQueryTableViewController` 的一个方法。你使用它来发起 API 请求，加载新的信用卡信息，并将其显示在表格视图上。
+
+### 我的订单历史
+
+根据需求，用户应该能够浏览所有订单历史，并查看特定订单的详情。在本节中，我将介绍如何实现这一功能。
+
+### 视图
+
+图 15-4 展示了如何使用 `UITableViewCell` 显示用户的订单历史。这相当简单。依次使用一个 `UILabel` 显示订单日期、一个 `UILabel` 显示订单总金额，以及产品名称。一个订单中可能包含多个产品。由于没有空间在一个订单中显示所有产品，因此只显示第一个产品。
+
+![A978-1-4842-1317-9_15_Fig4_HTML.jpg](img/A978-1-4842-1317-9_15_Fig4_HTML.jpg)
+
+**图 15-4.** 一个基本的订单历史单元格
+
+你可以使用一个辅助方法将数据模型与这个视图连接起来：
+
+`-(void)configureItem:(EMABOrder *)item;`
+
+```
+#import "PFTableViewCell.h"
+@class EMABOrder;
+
+@interface EMABOrderHistoryTableViewCell : PFTableViewCell
+-(void)configureItem:(EMABOrder *)item;
+@end
+```
+
+以下是实现文件：
+
+```
+#import "EMABOrderHistoryTableViewCell.h"
+#import "EMABOrder.h"
+
+@interface EMABOrderHistoryTableViewCell()
+@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalLabel;
+@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@end
+
+@implementation EMABOrderHistoryTableViewCell
+
+-(void)configureItem:(EMABOrder *)item
+{
+    if (item) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        self.dateLabel.text = [dateFormatter stringFromDate:item.updatedAt];
+        self.totalLabel.text = [item friendlyTotal];
+        self.nameLabel.text = [item.items[0] name];
+    }
+}
+
+@end
+```
+
+
+
+### 控制器
+
+创建一个 `PFQueryTableViewController` 的子类，并将其命名为 `EMABUserOrderHistoryViewController`。对于这个视图控制器，整个实现非常直接。
+
+```
+@implementation EMABUserOrderHistoryViewController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.parseClassName = kOrder;
+    self.objectsPerPage = 10;
+    self.paginationEnabled = YES;
+    self.pullToRefreshEnabled = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.title = NSLocalizedString(@"Order History", @"Order History");
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABOrder queryForCustomer:[EMABUser currentUser] orderStatus:ORDER_MADE];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.0;
+}
+
+- (EMABOrderHistoryTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(EMABOrder *)object {
+    EMABOrderHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
+    [cell configureItem:object];
+    return cell;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"ShowOrderDetail"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        EMABOrder *order = self.objects[indexPath.row];
+        EMABOrderDetailTableViewController *viewController = segue.destinationViewController;
+        [viewController setOrder:order];
+    }
+}
+
+@end
+```
+
+当用户点击一个订单单元格时，会显示该订单的更多信息。这个订单详情界面可能与 `EMABBagTableViewController` 非常相似。然而，你不希望用户更改订单项，并且显然没有支付选项。这可以通过两种方式之一实现：你可以重用 `EMABBagTableViewController` 并隐藏不想显示的 UI 控件，或者创建另一个视图控制器。在本例中，使用第二种方法。原因之一是 `EMABBagTableViewController` 已经相当混乱。另一个原因是你可能以后想添加更多功能。当没有那么多代码需要处理时，添加功能会更容易。
+
+首先创建一个新的 `UITableViewController`，并将其命名为 `EMABOrderDetailTableViewController`。你仍然希望显示订单编号、订单日期、完整描述和订单总金额。以同样的方式，使用 `UITableView` 的头部视图来显示订单编号和订单日期；使用 `UITableView` 的尾部视图来显示完整描述和总金额。
+
+对于每个 `UITableViewCell`，显示每个商品的名称、单价和数量。以下是实现代码：
+
+```
+#import "EMABOrderDetailTableViewController.h"
+#import "EMABOrder.h"
+#import "EMABOrderItem.h"
+#import "EMABProduct.h"
+
+@interface EMABOrderDetailTableViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *ordeNoLabel;
+@property (nonatomic, weak) IBOutlet UILabel *ordeDateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalTextLabel;
+@end
+
+@implementation EMABOrderDetailTableViewController
+
+-(void)setOrder:(EMABOrder *)order {
+    if (_order != order) {
+        _order = order;
+        [self configureView];
+    }
+}
+
+-(void)configureView {
+    self.ordeNoLabel.text = [self.order friendlyOrderNo];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    self.ordeDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+    self.totalLabel.text = [self.order friendlyTotal];
+    [self.tableView reloadData];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = NSLocalizedString(@"Order Detail", @"Order Detail");
+    [self configureView];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return [self.order.items count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderItemCell" forIndexPath:indexPath];
+    if (self.order) {
+        EMABOrderItem *item = self.order.items[indexPath.row];
+        cell.textLabel.text = item.product.name;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ x %lld", [item.product friendlyPrice], item.quantity];
+    }
+    return cell;
+}
+
+@end
+```
+
+### 收藏的商品
+
+这部分展示了如何显示用户的收藏商品列表，并允许用户从列表中删除商品。你还可以让用户点击列表中的某个商品以查看商品详情。
+
+### 模型
+
+使用第 [7] 章中介绍的 `EMABFavoriteProduct` 模型。
+
+### 视图
+
+重用第 [6] 章中介绍的 `EMABProductTableViewCell`。请参见图 [15-5]。
+
+![A978-1-4842-1317-9_15_Fig5_HTML.jpg](img/A978-1-4842-1317-9_15_Fig5_HTML.jpg)
+
+图 15-5. 收藏商品的单元格
+
+
+
+### 控制器
+
+创建一个`PFQueryTableViewController`子类，并命名为`EMABUserFavoriteHistoryTableViewController`。
+
+```
+#import "EMABUserFavoriteHistoryTableViewController.h"
+#import "EMABConstants.h"
+#import "EMABFavoriteProduct.h"
+#import "EMABProduct.h"
+#import "EMABUser.h"
+#import "EMABProductTableViewCell.h"
+#import "EMABProductDetailViewController.h"
+
+@implementation EMABUserFavoriteHistoryTableViewController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.parseClassName = kProduct;
+    self.objectsPerPage = 10;
+    self.paginationEnabled = YES;
+    self.pullToRefreshEnabled = YES;
+}
+
+- (PFQuery *)queryForTable {
+    PFQuery *query = [EMABFavoriteProduct queryForCustomer:[EMABUser currentUser]];
+    if ([self.objects count] == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    return query;
+}
+
+#pragma mark - UITableView 数据源
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0;
+}
+
+- (EMABProductTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(EMABFavoriteProduct *)object {
+    EMABProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductCell" forIndexPath:indexPath];
+    if (indexPath.row == [[self objects] count]) {
+        cell.textLabel.text = NSLocalizedString(@"加载更多…", @"");
+    } else {
+        [cell configureItem:object.product];
+    }
+    return cell;
+}
+```
+
+要使此列表可编辑，请使用`UITableView`代理方法`tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath`。
+
+首先，为用户提供一个按钮，以便您知道用户有编辑意图。为`UINavigationItem`添加一个条形按钮项作为右条形按钮项，并使用系统“编辑”按钮样式。
+
+其次，通过调用以下方法启用行的“编辑模式”：
+
+```
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+```
+
+一旦用户点击“编辑”按钮，每个单元格上会出现一个红色的“-”。点击“-”图标，将执行以下方法：
+
+```
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        EMABFavoriteProduct *fProduct = (EMABFavoriteProduct *)[self objectAtIndexPath:indexPath];
+        [fProduct deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [self loadObjects];
+            }
+        }];
+    }
+}
+```
+
+您将只监听删除操作，并调用`PFObject`的异步删除方法。一旦删除成功完成，查询后端服务器并更新 UI。
+
+当用户点击列表中的某个产品时，将显示产品详情。您已经准备好了`EMABProductDetailViewController`，只需将正确的`EMABProduct`实例传递给它即可。由于您的`PFQuery`返回的是`EMABFavoriteProduct`列表，您需要额外一步来获取`EMABProduct`。代码如下：
+
+```
+#pragma mark - UITableView 代理
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [[self objects] count]) {
+        [self loadNextPage];
+    } else {
+        EMABProductDetailViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EMABProductDetailViewController"];
+        [viewController setProduct:(EMABProduct *)[self objectAtIndexPath:indexPath]];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
+@end
+```
+
+### 总结
+
+在本章中，我向您展示了如何实现一个基本的“我的账户”屏幕。根据用户是否登录，我们为每种场景呈现了不同的内容。我还演示了登录用户如何查看自己的收货地址、支付方式、收藏列表和订单历史。另一方面，当用户未登录时，我们只会显示“登录”。
+
+我还展示了如何使用`PFQueryTableViewController`来显示用户之前输入的信用卡信息。然后，我展示了如何让用户添加新的信用卡或删除已有的信用卡，以及如何查看用户的订单历史和特定订单的详情。
+
+最后，我讨论了如何显示收藏产品列表。接着，您学习了当用户点击列表中的某个产品时如何显示产品详情。
+
+## 16. 添加产品
+
+电子补充材料 本章在线版本（doi:[10.1007/978-1-4842-1317-9_16](http://dx.doi.org/10.1007/978-1-4842-1317-9_16)）包含补充材料，供授权用户使用。
+
+到目前为止，您都是通过 Parse.com 上的 Parse 项目仪表板为应用添加产品。一旦您的应用上线，可能不允许所有人这样做。如果让每个人都能访问 Parse 仪表板，可能会出现一些问题：
+
+- 您可能会向不应知道信息的人泄露过多信息。
+- 您有可能会错误地输入数据。
+- 您的数据可能容易被删除或修改。
+
+一般来说，Parse 仪表板既不是一个用户友好的界面，也不是手动输入大量数据的有效方式。
+
+通常，您会创建一个 Web 应用来让某些管理员用户添加或编辑产品。总的来说，使用 Web 应用进行数据输入工作更高效。为了本书的完整性，我将向您介绍如何创建一个管理员用户，并为此用户提供一个特殊界面，使其能够从移动应用添加或编辑产品。此功能的一些使用场景可能包括：一家需要输入产品数量不多的商店，或者一个需要拍摄大量产品照片并上传到服务器的企业。
+
+### 模型
+
+首先，您需要在`EMABUser`模型中添加一个新的布尔属性，并命名为`isAdmin`：
+
+```
+@property (nonatomic, assign) BOOL isAdmin;
+```
+
+您还需要在`EMABUser`实现文件中将其添加到`@dynamic`列表。
+
+当用户通过您的应用注册时，如第 8 章所述，您需要在 Parse 仪表板中将用户的`isAdmin`属性更新为 true。
+
+
+
+### 视图
+
+在`EMABUserAccountTableViewController`中新增一个分区，如第 15 章所述，该分区仅向管理员用户显示特定内容。
+
+```
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // 返回分区数量
+    return (self.customer && self.customer.isAdmin)?2:1;
+}
+```
+
+此分区只需一个单元格。该单元格的标题为"添加产品"。点击该单元格时，将呈现产品添加界面。图 16-1 展示了该界面的外观。该界面包含一个`PFImageView`用于显示产品缩略图。当管理员点击该图像视图时，系统会询问是否从手机相册上传图片或拍摄新照片。此外，还包含一个`UITextField`用于输入产品名称，以及一个`UITextField`用于输入产品单价和价格单位。另有一个`UITextField`用于输入产品品牌，最后还有一个`UITextView`用于输入产品描述。
+
+![A978-1-4842-1317-9_16_Fig1_HTML.jpg](img/A978-1-4842-1317-9_16_Fig1_HTML.jpg)
+
+图 16-1. 添加产品界面
+
+以下是表示所有 UI 控件的部分属性：
+
+```
+@property (nonatomic, weak) IBOutlet PFImageView *productImageView;
+@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *priceTextField;
+@property (nonatomic, weak) IBOutlet UITextField *unitTextField;
+@property (nonatomic, weak) IBOutlet UITextField *brandTextField;
+@property (nonatomic, weak) IBOutlet UITextView *desciptionTextView;
+```
+
+### 控制器
+
+创建一个新的`UIViewController`子类，并将其命名为"`EMABAddProductTableViewController`"。在深入实现之前，先思考该视图控制器的功能。
+
+- 需要实现将产品图片上传到 Parse 的功能。
+- 允许管理员输入产品名称、价格、单价和产品摘要。
+- 允许管理员输入产品品牌。由于允许管理员从列表中选择品牌，这将提供更好的用户体验。
+- 需要确保管理员在点击"保存"按钮前已输入所有信息。
+- 当管理员开始输入时，软件键盘会弹出并占据部分屏幕。需要处理这种情况，以便管理员始终能看到正在输入的内容。
+
+我将逐一处理这五个任务。
+
+### 上传产品照片
+
+首先，在产品图像视图中添加一个点击手势，如下所示：
+
+```
+-(void)setupProductImageview
+{
+    UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onThumbnail:)];
+    [self.productImageView addGestureRecognizer:portraitTap];
+}
+```
+
+当管理员点击图像视图时，系统会询问是从相册上传图片还是拍摄新照片。这在`onThumbnail:`方法中实现：
+
+```
+-(void)onThumbnail:(UITapGestureRecognizer *)recognizer{
+    //询问是否添加新收据
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"图片来源", @"Photo Source")
+                                                                   message:NSLocalizedString(@"请选择", @"Choose One")
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {
+                                                         }];
+    UIAlertAction* photoLibraryAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {
+                                                                   [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                                                               }];
+    UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+                                                         }];
+    [alert addAction:cancelAction];
+    [alert addAction:photoLibraryAction];
+    [alert addAction:cameraAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+```
+
+以下是基于来源类型的图片选择器实现。如果来源类型是`UIImagePickerControllerSourceTypePhotoLibrary`，则无需过多操作。`UIImagePickerController`的代理方法会自动返回选中的图片数据。如果来源类型是`UIImagePickerControllerSourceTypeCamera`，则稍微复杂一些。首先，需要添加两个工具栏按钮：一个用于"取消"，另一个用于"拍照"。其次，需要在相机预览界面上提供一个覆盖层，以便管理员裁剪覆盖区域。
+
+以下是完整实现：
+
+```
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    if (sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        CGRect frame =  [UIScreen mainScreen].applicationFrame;
+        UIToolbar *toolBar=[[UIToolbar alloc] initWithFrame:CGRectMake(0, frame.size.height-44, self.view.frame.size.width, 44)];
+        toolBar.barStyle =  UIBarStyleBlackOpaque;
+        NSArray *items=@[
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel  target:self action:@selector(cancelPicture:)],
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace  target:nil action:nil],
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera  target:self action:@selector(shootPicture:)]
+        ];
+        [toolBar setItems:items];
+        // 创建覆盖视图
+        UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 64.0, frame.size.width, frame.size.height-44.0)];
+        overlayView.opaque=NO;
+        overlayView.backgroundColor=[UIColor clearColor];
+        // 覆盖层的父视图
+        UIView *cameraView=[[UIView alloc] initWithFrame:frame];
+        [cameraView addSubview:overlayView];
+        [cameraView addSubview:toolBar];
+        imagePickerController.showsCameraControls = NO;
+        imagePickerController.extendedLayoutIncludesOpaqueBars = YES;
+        [imagePickerController setCameraOverlayView:cameraView];
+        EMABAppDelegate* appDel = (EMABAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDel.tabBarController presentViewController:imagePickerController animated:YES completion:^{
+        }];
+    }
+}
+```
+
+
+
+`} else`
+
+`[self.parentViewController presentViewController:imagePickerController animated:YES completion:nil];`
+
+`}`
+
+实现"取消"和"拍照"栏按钮方法非常简单：
+
+`#pragma mark - ImagePickerController`
+
+`-(IBAction)cancelPicture:(id)sender{`
+
+`[self dismissViewControllerAnimated:YES completion:nil];`
+
+`}`
+
+`-(IBAction)shootPicture:(id)sender{`
+
+`[imagePickerController takePicture];`
+
+`}`
+
+最后，你需要实现 `UIImagePickerController` 的委托方法：`-(void)imagePickerController: DidFinishPickingMediaWithInfo`。
+
+在这个方法中，你需要完成两件事。首先，将图片裁剪至较小尺寸——此处宽度为 408 像素——并作为产品图片的缩略图上传。其次，从相机应用拍摄的图片仍然过大，因此你需要将其缩放至更小尺寸，此处宽度为 1632 像素。选择 408 和 1632 这两个尺寸，是基于上传至 Parse 服务器的速度与图片质量的合理分辨率之间的权衡。
+
+下一步是将 `UIImage` 转换为 `PFFile`。你可以使用 `PFFile` 的类方法 `(PFFile *)fileWithName:(NSString *)filename data:(NSData *)data`。一旦你获得了原图和缩略图的 `PFFile` 实例，就需要将这两个 `PFFile` 保存到 Parse。当保存操作成功完成后，你需要将这两个 `PFFile` 赋值给该产品。
+
+以下是完整实现：
+
+```
+// 当从图库中选择或从相机拍摄图片时，调用此方法。
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+  UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+  UIImage *fullsize = [UIImage imageWithImage:image scaledToWidth:1632];
+  UIImage *thumbnail = [UIImage imageWithImage:fullsize scaledToWidth:408];
+  self.productImageView.image = image;
+  __weak typeof(self) weakSelf = self;
+
+  PFFile *fullsizeFile = [PFFile fileWithName:@"fullszie.jpg" data:UIImageJPEGRepresentation(fullsize, 0.75)];
+  [fullsizeFile saveInBackgroundWithBlock:^(BOOL success, NSError *error){
+    if (!error) {
+      weakSelf.product.fullsizeImage = fullsizeFile;
+    } else {
+      NSLog(@"错误：%@",[error localizedDescription]);
+    }
+  }];
+
+  PFFile *thumbnailFile = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(thumbnail, 0.75)];
+  [thumbnailFile saveInBackgroundWithBlock:^(BOOL success, NSError *error){
+    if (!error) {
+      weakSelf.product.thumbnail = thumbnailFile;
+    } else {
+      NSLog(@"错误：%@",[error localizedDescription]);
+    }
+  }];
+
+  [self.navigationController dismissViewControllerAnimated:YES completion:^{
+  }];
+}
+```
+
+在实现中，使用了一个 `UIImage` 分类方法 `-(UIImage *)imageWithImage: scaledToWidth`。
+
+```
++(UIImage*)imageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width
+{
+  float oldWidth = sourceImage.size.width;
+  float scaleFactor = i_width / oldWidth;
+  float newHeight = sourceImage.size.height * scaleFactor;
+  float newWidth = oldWidth * scaleFactor;
+  UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+  [sourceImage drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return newImage;
+}
+```
+
+### 输入产品名称、价格、单价和产品摘要
+
+通常，实现一个 `UITextField` 或 `UITextView` 来接受用户输入是件简单的事。但在实际开发中，你需要考虑到软件键盘会占据部分屏幕。为了解决这个问题，我将介绍一种方法：使用 `UIScrollView` 作为容器视图来容纳所有其他 UI 控件。`UIScrollView` 的作用是在软键盘弹出时帮助我们整体上移视图。为此，第一步是在 `UITextView` 的委托方法中添加方法 `-(void)moveTextViewForKeyboard:(NSNotification *)aNotification up:(BOOL)up`。当 `UITextView` 进入编辑模式时，你需要将 `UITextView` 上移以适应软键盘；当 `UITextView` 结束编辑时，再将 `UITextView` 下移。
+
+```
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+  [self moveTextViewForKeyboard:nil up:YES];
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+  [self moveTextViewForKeyboard:nil up:NO];
+  return YES;
+}
+```
+
+接下来，实现如何上下移动 `UITextView`。在竖屏模式下，软键盘的高度已知为 216 点。移动 `UITextView` 的核心思路是将其原点位置改变 0.7 * 键盘高度的量，从而为软键盘腾出空间。在下面的实现中，我还考虑了设备处于横屏模式的情况。
+
+```
+#pragma mark - 键盘事件通知
+- (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up {
+  CGRect keyboardEndFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, KEYBOARD_HEIGHT);
+  [UIView animateWithDuration:1.0 animations:nil completion:^(BOOL finished) {
+    CGRect newFrame = self.view.frame;
+    if (keyboardEndFrame.size.height > keyboardEndFrame.size.width)
+    {   // 当前处于横屏模式
+      if (keyboardEndFrame.origin.x==0)
+      {   // 倒置方向，需要翻转原点
+        newFrame.origin = CGPointMake(keyboardEndFrame.size.width, 0);
+      }
+      newFrame.size.width -= keyboardEndFrame.size.width * (up?1:-1);
+    } else
+    {   // 竖屏模式
+      if (keyboardEndFrame.origin.y==0)
+      {
+        // 倒置方向，需要翻转原点
+        newFrame.origin = CGPointMake(0, keyboardEndFrame.size.height);
+      }
+      CGPoint origin = CGPointMake(0, keyboardEndFrame.size.height* 0.7*(up?-1:0));
+      newFrame.origin = origin;
+    }
+    self.view.frame = newFrame;
+  }];
+}
+```
+
+最后，你还可以调用一个简单的 `UIScrollView` 方法，当管理员拖动 `UIScrollView` 实例时，可以关闭由任何 `UITextField` 或 `UITextView` 触发的软件键盘。
+
+```
+self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+```
+
+
+
+#### 选择品牌
+
+让管理员从列表中选择品牌能带来更好的用户体验，以下是实现方法。在 `viewDidLoad` 中，你从 Parse 后端查询品牌。在我的实现中，我使用了一个专门的方法来完成此任务：
+
+`-(void)fireUpBrands`
+
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self fireUpBrands];
+    // 加载视图后的其他设置
+    self.title = NSLocalizedString(@"新产品", @"新产品");
+    self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.product = [EMABProduct object];
+}
+```
+
+你还需要定义 `NSArray` 属性 `brands`，以及一个用于保存查询结果的变量。以下是具体实现：
+
+```
+-(void)fireUpBrands
+{
+    __weak typeof(self) weakSelf = self;
+    PFQuery *brandQuery = [EMABCategory basicQuery];
+    [brandQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            weakSelf.brands = objects;
+            weakSelf.brandTextField.inputView = weakSelf.brandPickerView;
+        }
+    }];
+}
+```
+
+你查询 Parse 以获取所有品牌，并将品牌 `UITextField` 的 `inputView` 设置为 `UIPickerView` 的实例。
+
+```
+-(UIPickerView *)brandPickerView{
+    if (_brandPickerView ==nil) {
+        _brandPickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
+        _brandPickerView.showsSelectionIndicator = YES;    // 注意：此属性默认值为 NO
+        _brandPickerView.tag = 121;
+        // 将本视图控制器设置为数据源和代理
+        _brandPickerView.delegate = self;
+        _brandPickerView.dataSource = self;
+        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGSize pickerSize = [_brandPickerView sizeThatFits:CGSizeZero];
+        CGRect startRect = CGRectMake(0.0,
+                                      screenRect.origin.y + screenRect.size.height,
+                                      pickerSize.width, pickerSize.height);
+        _brandPickerView.frame = startRect;
+        // 计算最终位置
+        CGRect pickerRect = CGRectMake(0.0,
+                                       screenRect.origin.y + screenRect.size.height - pickerSize.height,
+                                       pickerSize.width,
+                                       pickerSize.height);
+        // 如果喜欢，可以添加一些动画效果
+        _brandPickerView.frame = pickerRect;
+    }
+    return _brandPickerView;
+}
+```
+
+现在你有了 `brands` 数组，需要将它设置为 `UIPickerView` 的数据源。
+
+```
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [self.brands count];
+}
+
+#pragma mark - UIPickerViewDelegate
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (self.brands && [self.brands count] > 0) {
+        EMABCategory *brand = self.brands[row];
+        return brand.title;
+    }
+    return NSLocalizedString(@"暂无数据", @"暂无数据");
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    EMABCategory *brand = self.brands[row];
+    self.product.brand = brand;
+    self.brandTextField.text = brand.title;
+}
+```
+
+`UIPickerView` 的数据源是品牌数组。当管理员选择一行时，将该行对应的对象设置为产品的品牌，同时在品牌 `UITextField` 中显示品牌名称。
+
+#### 保存
+
+在视图控制器中，你已在 `UINavigationBar` 上设置了两个栏按钮项：一个用于“保存”，另一个用于“取消”。当管理员准备保存产品信息时，可以点击“保存”按钮。在底层，你会调用异步方法 `PFObject` 的 `-(void)saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)` 将产品保存到 Parse 后端，然后离开当前页面。如果发生任何错误，则显示错误信息。
+
+```
+-(IBAction)onDone:(id)sender
+{
+    [self.desciptionTextView resignFirstResponder];
+    self.product.name = self.nameTextField.text;
+    self.product.unitPrice  = [self.priceTextField.text doubleValue];
+    self.product.priceUnit = self.unitTextField.text;
+    self.product.detail = self.desciptionTextView.text;
+    [self.product saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"保存成功",@"")];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+        }
+    }];
+}
+```
+
+同时，当管理员点击“取消”栏按钮项时，关闭当前界面。
+
+```
+-(IBAction)onCancel:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+```
+
+以上是实现此功能所需的所有步骤。为完整起见，我还添加了头文件声明、类接口中的代理声明，以及其他一些 UI 控件和属性。
+
+```
+#import "EMABAddProductViewController.h"
+#import "EMABProduct.h"
+#import "EMABUser.h"
+#import <ParseUI/PFImageView.h>
+#import "EMABAppDelegate.h"
+#import "UIImage+Resize.h"
+#import "EMABCategory.h"
+#import "SVProgressHud.h"
+
+#define KEYBOARD_HEIGHT 216.0
+
+@interface EMABAddProductViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate, UIAlertViewDelegate>{
+    UIImagePickerController * imagePickerController;
+}
+
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) EMABProduct *product;
+@property (nonatomic, strong) EMABUser *owner;
+@property (nonatomic, strong) NSArray *brands;
+@property (nonatomic, strong) UIPickerView *brandPickerView;
+
+@end
+```
+
+### 摘要
+
+在本章中，我讨论了如何以管理员身份登录，以及如何添加或编辑产品。
+
+## 17. 推广
+
+电子补充材料 本章的在线版本（doi:[10.​1007/​978-1-4842-1317-9_​17](http://dx.doi.org/10.1007/978-1-4842-1317-9_17)）包含补充材料，仅供授权用户使用。
+
+推送通知营销常用于推广折扣、优惠和新产品。一般来说，创建推送通知营销功能可能相当复杂。一个常见的用例是：当应用收到推送通知且用户点击后，应用会直接跳转到产品页面或应用内的促销专区。实现此类功能需要花费不少精力。然而，我们也见过这样的用例：用户的设备收到推送通知，用户打开应用后看到促销页面。这个页面就像一张传单，内容类似于“看看我们的新产品”或“圣诞特惠九折”。由于该传单页面是覆盖在应用主界面之上的，点击即可关闭。在本章中，我将演示如何利用 Parse 易用的推送通知功能来实现这一行为。
+
+但请注意，要实际看到效果，你需要按照第 4 章中介绍的方法，通过 Apple Developer Portal 和 Parse 配置应用以接收推送通知。
+
+
+
+### 模型
+
+为此促销模型创建一个新的`PFObject`子类，并将其命名为`EMABPromotion`。它包含两个属性：一个用于促销内容，另一个用于促销图片。以下是头文件：
+
+`EMABPromotion.h`
+
+```
+#import <Parse/Parse.h>
+
+@interface EMABPromotion : PFObject<PFSubclassing>
+
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, strong) PFFile *image;
+
+@end
+```
+
+接下来，在`EMABConstants`类中注册一个新的`NSString`常量`kPromotion`。同时，在`AppDelegate`类中注册新的`EMABPromotion`模型。以下是`EMABPromotion`的实现文件：
+
+`EMABPromotion.m`
+
+```
+#import "EMABPromotion.h"
+#import <Parse/PFObject+Subclass.h>
+#import "EMABConstants.h"
+
+@implementation EMABPromotion
+
+@dynamic content, image;
+
++(NSString *)parseClassName
+{
+    return kPromotion;
+}
+
+@end
+```
+
+### 视图
+
+促销传单视图非常简单。使用`UILabel`显示内容，使用`PFImageView`显示图片，就像传单一样。图 17-1 展示了它的外观。
+
+![A978-1-4842-1317-9_17_Fig1_HTML.jpg](img/A978-1-4842-1317-9_17_Fig1_HTML.jpg)
+
+**图 17-1.** 促销传单示例
+
+### 控制器
+
+创建一个新的`UIViewController`子类，并将其命名为`EMABPromotionViewController`。以下是该控制器的头文件：
+
+`EMABPromotionViewController.h`
+
+```
+#import <UIKit/UIKit.h>
+
+@class EMABPromotion;
+
+@interface EMABPromotionViewController : UIViewController
+
+@property (nonatomic, strong) EMABPromotion *promotion;
+
+@end
+```
+
+```
+#import "EMABPromotionViewController.h"
+#import "EMABPromotion.h"
+#import <ParseUI/PFImageView.h>
+
+@interface EMABPromotionViewController ()
+
+@property (nonatomic, weak) IBOutlet UILabel *contentLabel;
+@property (nonatomic, weak) IBOutlet PFImageView *imageView;
+
+@end
+```
+
+以下是实现文件，逻辑非常基础。一旦获得`EMABPromotion`实例，就将此模型与视图连接起来。让内容标签显示促销内容，让图片视图显示促销图片。
+
+```
+@implementation EMABPromotionViewController
+
+-(void)setPromotion:(EMABPromotion *)promotion
+{
+    if (_promotion != promotion) {
+        _promotion = promotion;
+        [self configureView];
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self configureView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDone:)];
+}
+
+-(void)configureView {
+    self.contentLabel.text = self.promotion.content;
+    if (self.promotion.image) {
+        self.imageView.file = self.promotion.image;
+        [self.imageView loadInBackground];
+    }
+}
+
+-(void)onDone:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
+```
+
+最后，使用一个栏按钮项，当用户点击时关闭视图控制器。
+
+接下来，思考如何显示传单视图控制器。传单的内容通过推送通知发送。当用户点击通知时，屏幕会显示。你需要转到`EMABAppDelegate`。
+
+你会用到`-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions` 来响应用户点击通知消息的操作（假设应用处于后台），或者在没有辅助方法`-(void)handlePromotion:(NSDictionary *)options`的情况下使用。
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Register EMABPromotion class
+    [EMABPromotion registerSubclass];
+    // Handle Promotion
+    [self handlePromotion:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
+    return YES;
+}
+
+-(void)handlePromotion:(NSDictionary *)notificationPayload {
+    // Create a pointer to the Photo object
+    NSString *objectId = [notificationPayload objectForKey:@"p"];
+    EMABPromotion *promotion = (EMABPromotion *)[PFObject objectWithoutDataWithClassName:kPromotion
+                                                                                 objectId:objectId];
+    [promotion fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        // Show promotion view controller
+        if (!error) {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            EMABPromotionViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"EMABPromotionViewController"];
+            [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
+        }
+    }];
+}
+```
+
+在此辅助方法中，检查是否有促销通知消息。如果有，则根据消息内容中的一个键（即`objectId`）构造一个`EMABPromotion`实例。你需要执行一些远程获取操作来获取完整内容。获取完成后，弹出`EMABPromotionViewController`。
+
+使用 Parse，就是这么简单。
+
+### 总结
+
+在本章中，我介绍了如何利用推送通知进行一些营销活动。基本上，当用户点击促销推送通知时，你实现一个传单页面，然后你的应用会从 Parse 后端服务器查询并加载促销内容。
+
+## 18. 安全
+
+到目前为止，我已经讨论了我想要介绍的一款电商 iPhone 应用的所有功能，除了一点：实现的安全性如何，或者说使用 Parse 有多安全。本章将介绍 Parse 的安全特性，以及你如何遵循一些行业标准最佳实践来让这款 iPhone 应用更加安全。
+
+### 密钥
+
+你可能已经注意到，在创建 Parse 项目后，项目仪表板中会生成一些密钥。你在本 iPhone 应用中使用了客户端密钥，在 Parse 云代码中使用了主密钥。请记住，客户端密钥并非安全机制。此密钥随你的应用一起发布。任何人通过反编译你的应用并读取源代码，或者通过代理网络流量并在另一台设备上查看此应用，都会知道这个密钥。同样的规则也适用于 Parse 仪表板中的其他密钥，如 REST 密钥、.net 密钥和 JavaScript 密钥。
+
+另一方面，你可能已经注意到，如第 14 章所述，你需要保护主密钥。正如其名称所示，主密钥就像应用服务器的管理员密码。请记住，不要将此密钥包含在你的源代码中，也不要将其签入源代码管理。不要与他人分享。在 Parse 云代码中，你只需调用以下方法即可使用主密钥：
+
+```
+Parse.Cloud.useMasterKey();
+```
+
+如果你的主密钥泄露，你可以重置它。只需向下滚动页面，直到看到所有密钥，然后你就会看到如何重置主密钥（见图 18-1）。
+
+![A978-1-4842-1317-9_18_Fig1_HTML.jpg](img/A978-1-4842-1317-9_18_Fig1_HTML.jpg)
+
+**图 18-1.** 你可以重置主密钥
+
+
+
+### 权限
+
+在此电商应用中，大部分用户只能读取品牌和产品信息。只有少数用户能创建、编辑或删除品牌和产品。这是权限的典型用例。
+
+`Parse` 可让你更轻松地创建类级别的权限。你创建的几乎所有类都应在一定程度上拥有某些读写权限。
+
+要开始设置类级别权限，请点击数据浏览器中要配置类的“Security”（安全）选项（见图 18-2）。
+
+![A978-1-4842-1317-9_18_Fig2_HTML.jpg](img/A978-1-4842-1317-9_18_Fig2_HTML.jpg)
+
+图 18-2. 设置类级别权限（CLP）
+
+在 `FavoriteProduct` 类中，默认权限是所有用户均可读写该类，这符合你的用例。然而，`Product` 类的正确权限设置应为：所有用户可“读取”，仅“少数用户”可“写入”。“少数用户”可以是某些预定义的角色或用户。角色就是一组应共享相同权限的用户和角色。例如，你可以设置一个名为 `admins` 的角色，并让某个表只有该角色可写。
+
+在开发模式下，“客户端类创建”功能是自动开启的，这对于无需离开 Xcode 就能创建类及其属性的开发者来说是一大便利。建议在应用进入生产模式时关闭此功能。图 18-3 展示了如何禁用它。
+
+![A978-1-4842-1317-9_18_Fig3_HTML.jpg](img/A978-1-4842-1317-9_18_Fig3_HTML.jpg)
+
+图 18-3. 应用级别的客户端类创建
+
+#### 访问控制列表（ACL）
+
+如果一个对象没有 ACL，则所有用户都可对其进行读写。唯一的例外是 `_User` 类。你永远不应允许用户互相写入彼此的数据，但默认情况下他们可以读取。为了非常简便地为每个对象创建用户私有 ACL，你可以设置一个默认的 ACL，该 ACL 将用于你创建的每个新对象。
+
+```
+[PFACL setDefaultACL:[PFACL ACL] withAccessForCurrentUser:YES];
+```
+
+并且将这行代码放入 `AppDelegate.m` 的 `- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions` 方法中。
+
+接下来，我来介绍一些你可能需要处理的其他常见用例。
+
+第一个相当常见的用例是，你可以对某个对象设置不同的读写权限。例如，以下是为你创建的产品评价（由用户发布，且任何人均可阅读）创建 ACL 的方法：
+
+```
+PFACL *acl = [PFACL ACL];
+[acl setPublicReadAccess:true];
+[acl setWriteAccess:true forUser:[PFUser currentUser]];
+[review setACL: acl];
+```
+
+第二个用例是用户的数据，例如电子邮件地址或电话号码。你不希望让其他用户看到彼此的电子邮件。要为当前用户的数据设置一个不应公开可读的 ACL，你只需这样做：
+
+```
+PFUser *user = [PFUser currentUser];
+user.ACL = [PFACL ACLWithUser:user];
+```
+
+第三个用例是，你希望某个用户创建的数据既有公开部分也有私有部分；最好的办法是使用两个独立的对象。你可以从公开对象中添加一个指向私有数据的指针。
+
+```
+PFObject *privateData = [PFObject objectWithClassName:@"PrivateUserData"];
+privateData.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+[privateData setObject:@"555-5309" forKey:@"phoneNumber"];
+[PFUser setObject:privateData forKey:@"privateData"];
+```
+
+第四个用例是，你只想限制某些超级用户写入其他用户的数据，或者如果你不想逐个用户地管理权限，可以使用角色对象。角色是一种特殊对象，它允许我们创建一个用户组，这些用户可以全部被分配到一个 ACL 中。例如，你有一个 `admins` 角色，可以允许某些用户拥有此角色。在创建 Review 对象时，你让 `admins` 拥有完全的读写权限。你可以这样做：
+
+```
+PFACL *acl = [PFACL ACL];
+[acl setPublicReadAccess:true];
+[acl setWriteAccess:true forRoleWithName:@"admins"];
+```
+
+角色的好处之一是，你可以在不更新受该角色限制的每个对象的情况下，向角色添加或移除用户。
+
+最后，作为开发者，如果你需要更新其他的 `_User` 对象，可以使用云代码结合用户 `MasterKey` 选项来实现。
+
+### 云代码
+
+在这个电商 iPhone 应用中，我已经展示过你可以将重要的功能交给云代码处理，这意味着你将 JavaScript 代码上传到你的 Parse 项目服务器。你调用某些函数，让 Parse 为你运行它们。这与 iPhone 应用的代码不同，因为它运行在用户的设备上。对于想要修改你代码的人来说，这要容易得多。另一方面，你无法总是信任用户的输入。更好的做法是，你应该验证用户的输入数据；正确的位置是在云代码中，这样恶意客户端就无法绕过你在客户端实现的验证逻辑。
+
+例如，我在第 8 章和第 9 章中展示过，在这个 iPhone 应用中，你需要在该用户注册或登录前验证其电子邮件地址输入。这种做法更多是为了提升用户体验，而非作为安全措施。换句话说，你不希望在发送应用调用后才告诉用户输入的电子邮件地址无效。然而，黑客可以轻松绕过客户端的电子邮件验证。验证用户输入的正确方法是使用云代码的 `beforeSave`（保存前）触发器。只要对象被保存，这些触发器就会被触发。你还有机会修改对象或完全拒绝保存。
+
+例如，以下是在用户注册时验证其是否有电子邮件地址的方法：
+
+```
+Parse.Cloud.beforeSave(Parse.User, function(request, response) {
+  var user = request.object;
+  if (!user.get("email")) {
+    response.error("每个用户必须有一个电子邮件地址。");
+  } else {
+    response.success();
+  }
+});
+```
+
+另一方面，还有其他情况，你的用户没有写入某个对象的完全权限，但你希望绕过这个限制。例如，如果你希望允许用户“点赞”一个 `Post` 对象，但该用户没有 `Post` 对象的完全写入权限，你可以通过在你的 JavaScript 代码中使用云代码函数和 `useMasterKey` 选项来实现此功能。使用 `useMasterKey` 选项，你将覆盖写入或读取权限的限制。
+
+```
+Parse.Cloud.define("like", function(request, response) {
+  var post = new Parse.Object("Post");
+  post.id = request.params.postId;
+  post.increment("likes");
+  post.save(null, { useMasterKey: true }).then(function() {
+    response.success();
+  }, function(error) {
+    response.error(error);
+  });
+});
+```
+
+最后但同样重要的是，Parse 提供了一个很棒的功能，允许客户端（例如你的 iPhone 应用）发起推送通知。这在开发应用时提供了一些灵活性。当你的应用投入生产环境后，最好通过在你的 Parse 项目设置中禁用“客户端推送”来关闭此功能。原因相同：你不能信任来自应用的行为。相反，你应该验证将通过云代码函数发送的数据。
+
+
+
+### 会话
+
+当用户通过多个设备登录你的应用时，Parse 云会在特定设备上为你的应用分配一个唯一的、可撤销的`Session`对象。这意味着不同设备和浏览器将为同一用户分配不同的会话令牌。在移动设备和你的应用中，你无需担心会话的创建与销毁。当用户登录或注册时，Parse 云会自动创建相应的`Session`对象。当用户退出登录时，Parse 云会自动销毁相应的`Session`对象，使之前分配给该用户设备的会话令牌失效。
+
+Parse 还引入了一套灵活的可撤销会话 API，让你能够轻松理解并安全地管理应用中的用户会话。你可以像处理其他 Parse 对象一样，在数据浏览器中查看应用的`Session`对象。如果用户向你反映其账户可能被盗用，你可以使用数据浏览器、REST API 或云代码，通过主密钥强制撤销用户会话。此外，为了增强安全性，你还可以配置应用，使不活跃的用户会话自动过期。
+
+> **注：** 更多信息，请访问 Parse 官方博客系列文章：[`http://blog.parse.com/learn/engineering/parse-security-i-are-you-the-key-master/`](http://blog.parse.com/learn/engineering/parse-security-i-are-you-the-key-master/)。
+
+### 小结
+
+在本章中，我讨论了 Parse 为保护你的应用和用户数据安全而提供的安全机制。即：类级权限、访问控制列表（ACL）、云代码和可撤销会话。请记住，它们并非彼此独立。在实际的生产级应用中，你很可能需要组合使用所有这些方法。
+
+> **注：** 阅读更多关于 Parse 安全性的内容，请访问 [`https://parse.com/docs/data`](https://parse.com/docs/data)。
+
+## 19. 深入了解 Parse
+
+在第 8 章中，我介绍了注册功能。但如何知道用户是否输入了有效的电子邮件呢？你需要进行一些验证，以确保用户输入的电子邮件地址格式正确。但实际上，你并未确认该邮件地址是否真的属于该用户。在电子商务领域，邮件营销仍被证明是有效的。因此，你需要在用户注册时提供一种验证电子邮件的方法。
+
+幸运的是，Parse 也考虑到了这些常见用例，并提供了简单的解决方案。让我们深入了解电子邮件验证流程。
+
+### 电子邮件验证
+
+首先，在你的项目 Parse Dashboard 中，在“设置”>“电子邮件”下启用电子邮件验证功能，如图 19-1 所示。
+
+![A978-1-4842-1317-9_19_Fig1_HTML.jpg](img/A978-1-4842-1317-9_19_Fig1_HTML.jpg)
+
+**图 19-1.** 启用“验证用户电子邮件”功能
+
+接下来，在你的`EMABUser`模型中，添加一个新的布尔属性：`emailVerified`：
+
+```objc
+@property (nonatomic, assign) BOOL emailVerified;
+```
+
+同时，在`EMABUser.m`文件的`@dynamic`声明中添加该属性。
+
+接下来，创建一个电子邮件验证请求的邮件模板，如图 19-2 所示。
+
+![A978-1-4842-1317-9_19_Fig2_HTML.jpg](img/A978-1-4842-1317-9_19_Fig2_HTML.jpg)
+
+**图 19-2.** 这是一个电子邮件验证请求的邮件模板
+
+你可以根据需要添加或编辑内容。如果你不希望在自己的服务器上托管该模板，请确保不要更改图 19-3 中所示的以下 URL。
+
+![A978-1-4842-1317-9_19_Fig3_HTML.jpg](img/A978-1-4842-1317-9_19_Fig3_HTML.jpg)
+
+**图 19-3.** 这是一个电子邮件验证页面 URL 示例
+
+现在，当你需要检查用户是否已验证其电子邮件时，可以这样使用该属性：
+
+```objc
+if (self.user.emailVerified) {
+    // 我们继续处理
+} else {
+    // 我们要求该用户进行验证
+    UIAlertView *emailAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email Verification Request",@"")
+                                                         message:NSLocalizedString(@"Your email has not been verified, please verify it to finish signing up.",@"")
+                                                        delegate:nil
+                                               cancelButtonTitle:NSLocalizedString(@"OK ",@"")
+                                               otherButtonTitles:nil, nil];
+    [emailAlert show];
+}
+```
+
+你仍然需要用户来验证电子邮件。该用户可能不小心删除了验证邮件，但现在他（她）要求我们重新发送。该如何实现呢？
+
+基本上，解决方案是将用户的“电子邮件”属性设置为文件中已有的相同电子邮件地址，然后保存该用户。一旦保存成功，系统将触发向该用户提供的电子邮件地址重新发送验证邮件。代码如下：
+
+```objc
+if (!self.user.emailVerified) {
+    UIAlertView *emailAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email Verification Request",@"")
+                                                         message:NSLocalizedString(@"Your email has not been verified, please verify it to finish signing up.",@"")
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"Resent it",@"")
+                                               otherButtonTitles:NSLocalizedString(@"OK",@""), nil];
+    emailAlert.tag = 99;
+    [emailAlert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    } else if (alertView.tag == 99){
+        if (buttonIndex == 1) {
+            [alertView dismissWithClickedButtonIndex:buttonIndex animated:NO];
+        } else if (buttonIndex == 0){
+            NSString *email = self.user.email;
+            [self.user setEmail:email];
+            [self.user saveEventually:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@ %@.", NSLocalizedString(@"An verification email has been sent to",@""), self.useremail]];
+                }
+            }];
+        }
+    }
+}
+```
+
+
+
+### 密码重置
+
+另一方面，你在第 9 章中实现了允许用户登录的功能。如果用户忘记了自己的密码怎么办？正如你从 Parse 数据面板中所注意到的，开发者也同样无法看到用户的密码。你将无法告知用户其密码。因此，当用户需要时，你需要一种方法来帮助用户找回或重置密码。
+
+密码重置的流程如下：
+
+- 用户请求通过输入其电子邮件来重置密码。
+- Parse 向该地址发送一封包含特殊密码重置链接的邮件。
+- 用户点击重置链接，并被引导至一个特殊的 Parse 页面，该页面允许用户输入新密码。
+- 用户输入新密码。密码现已重置为指定的值。
+
+在登录屏幕上，添加一个标题为“忘记密码？”的新按钮。一旦用户点击此按钮，就执行密码重置操作；弹出一个 `alertView`，让用户输入其电子邮件地址；一封密码重置说明将会发送到此电子邮件地址。以下是请求用户电子邮件地址的实现代码：
+
+```
+- (IBAction)onPasswordReset:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Password Reset",@"") message:NSLocalizedString(@"Enter your email to reset password",@"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Reset",@""), nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *emailField = (UITextField*)[alertView textFieldAtIndex:0];
+    emailField.placeholder = NSLocalizedString(@"Email",@"");
+    [alertView show];
+}
+```
+
+接下来，实现 `alertView` 的委托方法：
+
+```
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    } else {
+        UITextField *emailField = (UITextField*)[alertView textFieldAtIndex:0];
+        [PFUser requestPasswordResetForEmailInBackground:emailField.text block:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Password reset instruction sent", @"Password reset instruction sent")];
+            }
+        }];
+    }
+}
+```
+
+上述代码调用了 `PFUser` 的 `+(void)requestPasswordResetForEmailInBackground` 方法。Parse 会负责向该用户的电子邮件地址发送一封密码重置说明邮件。
+
+同样地，Parse 已经为我们创建了一个电子邮件模板，如图 19-4 所示。
+
+![A978-1-4842-1317-9_19_Fig4_HTML.jpg](img/A978-1-4842-1317-9_19_Fig4_HTML.jpg)
+
+**图 19-4.** 这是一个密码重置电子邮件模板示例
+
+另请注意，Parse 提供了“选择密码”和“密码重置成功”的 URL，如图 19-5 所示。
+
+![A978-1-4842-1317-9_19_Fig5_HTML.jpg](img/A978-1-4842-1317-9_19_Fig5_HTML.jpg)
+
+**图 19-5.** 这里是“选择新密码”和“密码已更改”页面的示例 URL
+
+如果你想将这些模板上传到你自己的服务器上，请对用户隐藏 `parse.com`。
+
+### 分析
+
+Parse 提供了许多钩子，让你能够洞察应用程序的实时运行状况。无需实现任何客户端逻辑，你就可以在应用程序的数据面板中查看 API 请求的实时图表和细分数据（按设备类型、Parse 类名或 REST 动词），并保存这些图表过滤器以快速访问你感兴趣的数据。
+
+Parse 应用程序打开与推送分析钩子允许你跟踪应用程序的启动。通过在 `applicationDidFinishLaunching:` 中添加以下代码行，你将开始收集有关应用程序何时以及多久被打开的数据。
+
+```
+[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+```
+
+你可以从应用程序的数据面板访问你的统计数据图表和细分数据。
+
+`PFAnalytics` 还允许你使用少量的 `NSString` 键和值来跟踪自由形式的事件。这些额外的维度允许你通过应用程序的数据面板对你的自定义事件进行细分。假设你的应用程序提供公寓列表搜索功能，并且你想跟踪该功能的使用频率以及一些附加的元数据。代码如下：
+
+```
+NSDictionary *dimensions = @{
+  // 定义范围以将数据点分组成有意义的区间
+  @"priceRange": @"1000-1500",
+  // 用户是否筛选了查询？
+  @"source": @"craigslist",
+  // 搜索在工作日还是周末更频繁发生？
+  @"dayType": @"weekday"
+};
+// 将维度与 'search' 事件一起发送到 Parse
+[PFAnalytics trackEvent:@"search" dimensions:dimensions];
+```
+
+### 崩溃报告
+
+Parse 崩溃报告 iOS SDK 是 Parse 开发者在应用程序被用户下载和使用后了解崩溃情况的绝佳方式。存在一些已有的库可以帮助跟踪 iOS 应用程序的崩溃并生成报告，例如 Crashlytics 和 Apple 的 Xcode 崩溃报告功能。在我看来，Parse 崩溃报告的优点有三点：
+
+- 首先，鉴于你已选择 Parse 作为后端，你可以从一个数据面板查看所有数据和分析。Parse 提供了很好的分析功能，你可以直接在同一数据面板中查看应用程序的崩溃报告。
+- 其次，与 Xcode 的崩溃报告功能相比，你可以轻松地将成员添加到 Parse 项目，这样即使没有安装 Xcode 的成员也可以轻松浏览崩溃并将其标记为已解决。如果你有专门的 QA 团队，这是一个很棒的功能。另一方面，如果你选择使用 Xcode 的崩溃报告，则必须使用 Xcode。
+- 第三，Parse 按版本跟踪崩溃。如果你在应用程序的新版本中引入了一个旧错误，Parse 能让你轻松注意到该旧错误，从而可以快速修复，即使你之前已将其标记为“已解决”。
+
+要将 Parse 崩溃报告 iOS SDK 包含到你的项目中，请使用 CocoaPods，在 podfile 中添加以下行：
+
+```
+pod 'ParseCrashReporting'
+```
+
+然后运行 `pod update`；你应该已经将其包含到你的项目中。
+
+接下来，在你的 `EMABAppDelegate` 中，在设置 Parse Application ID 和客户端密钥之前启用 `ParseCrashReporting`。
+
+```
+// 启用崩溃报告
+[ParseCrashReporting enable];
+// 设置 Parse
+[Parse setApplicationId:@"YOUR-PARSE-APP-ID" clientKey:@"YOUR-PARSE-APP-CLIENT-KEY"];
+```
+
+之后，配置你的项目，为应用程序的每个构建版本向 Parse 发送符号文件。这允许 Parse 正确地汇总崩溃事件，并在数据面板上显示包含正确栈跟踪符号的崩溃信息。要实现在每次构建应用程序时自动上传符号文件，请通过运行以下命令（例如，在你的 Xcode 项目所在目录下）初始化一个新的 Parse Cloud Code 目录：
+
+```
+parse new
+```
+
+在应用程序目标的“构建阶段”中添加一个新的“运行脚本”阶段：
+
+```
+export PATH=/usr/local/bin:$PATH
+cd <path_to_cloudcode_folder>  
+parse symbols <app_name_from_cloud_code_config_globals> --path="${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}"
+```
+
+这就是你需要做的全部工作。
+
+### 总结
+
+在本章中，我介绍了用户注册时的电子邮件验证，以及如何通过上传一些模板到你自己的服务器来重置用户密码。我简要介绍了 Parse 分析。最后，我还介绍了 Parse 的崩溃报告功能，以便你可以在 Parse 数据面板中查看崩溃历史记录。
+
+
+
