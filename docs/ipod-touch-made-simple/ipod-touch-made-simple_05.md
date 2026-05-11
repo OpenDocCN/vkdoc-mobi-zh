@@ -1,0 +1,59 @@
+# 目录
+
+- 查看应用详情
+- 查找要下载的应用
+- 查看新应用
+- 查看热门内容
+- Genius 功能
+- 分类
+- 查看前 25 名榜单
+- 搜索应用
+- 下载应用
+- 赠送应用
+- 查找免费或打折应用
+- 兑换充值卡或 iTunes 兑换码
+- 维护与更新应用
+- 重新下载应用
+- 自动下载
+- 其他 App Store 设置
+- ![images](img/square1.jpg)第 23 章：游戏与娱乐
+  - 将 iPod touch 用作游戏设备
+  - 获取游戏及其他趣味应用
+  - 购买前阅读评论
+  - 寻找免费试用版或精简版
+  - 游戏时注意安全
+  - 双人游戏
+  - 在线与无线游戏
+  - 其他趣味内容：棒球
+  - AirPlay 镜像输出
+- ![images](img/square1.jpg)第 24 章：社交网络
+  - Facebook
+  - 连接到 Facebook 的不同方式
+  - Facebook 应用
+  - Facebook 通知
+  - LinkedIn
+  - 下载 LinkedIn 应用
+  - Twitter
+  - 设置 Twitter
+  - 使用 Twitter
+  - 刷新推文列表
+  - 你的 Twitter 个人资料
+  - 撰写按钮
+  - 推文中的选项
+- ![images](img/square1.jpg)第 25 章：故障排除
+  - 基础故障排除
+  - 如果 iPod touch 停止响应该怎么办
+  - 如何强制重启你的 iPod touch
+  - 如何软重启你的 iPod touch
+  - 音乐、视频、提醒或铃声没有声音
+  - 如果无法从 iTunes 或 App Store 购买内容
+  - 高级故障排除
+  - 当你的 iPod touch 未在 iTunes 中显示时
+  - 同步问题
+  - 重新安装 iPod touch 操作系统（可选择是否恢复数据）
+  - 其他故障排除与帮助资源
+  - iPod touch 设备上的用户指南
+  - Apple 知识库
+  - iPod touch 相关博客
+- 索引
+

@@ -1,0 +1,27 @@
+# 第 16 章：集合视图自定义布局
+- 关于自定义布局
+- 何时创建自定义集合视图布局
+- 创建自定义布局子类
+- 决定何时计算属性
+- 自定义布局的作用
+- 什么是布局属性？
+- 需要实现的四个关键函数
+- `prepareLayout`
+- `collectionViewContentSize`
+- `layoutAttributesForElementsInRect`
+- `layoutAttributesForItemAtIndexPath`
+- 补充视图和装饰视图属性
+- 检查是否需要补充或装饰视图
+- 计算补充和装饰视图属性
+- 本章项目
+- SwiftClock：“静态”示例
+- 开始
+- 初始项目
+- 更新项目
+- 添加自定义布局类
+- 实现布局函数
+- 实现自定义布局函数
+- 下一步
+- 显示数字和指针
+- 总结
+

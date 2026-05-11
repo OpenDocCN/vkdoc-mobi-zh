@@ -1,0 +1,356 @@
+name: Pro Multithreading and Memory Management for IOS and OS X
+name_cn: iOS 和 OS X 的多线程与内存管理高级指南
+slug: pro-multithreading-and-memory-management-for-ios-and-os-x
+toc:
+- - '##'
+  - 内容概览
+- - '#'
+  - 引言
+- - '##'
+  - 前言
+- - '##'
+  - 本书适合的读者
+- - '#'
+  - 第 1 章 自动引用计数的前世今生
+- - '##'
+  - 引用计数内存管理概述
+- - '##'
+  - 进一步探索内存管理
+- - '##'
+  - 放弃 retain 对象的所有权
+- - '##'
+  - 返回一个不附带所有权的新对象
+- - '##'
+  - 实现 alloc、retain、release 和 dealloc
+- - '###'
+  - '`alloc`方法'
+- - '####'
+  - '`retain` 方法'
+- - '####'
+  - '`release` 方法'
+- - '####'
+  - '`dealloc` 方法'
+- - '###'
+  - Apple 对 `alloc`、`retain`、`release` 和 `dealloc` 的实现
+- - '###'
+  - 自动释放池
+- - '###'
+  - 自动变量
+- - '###'
+  - 实现 autorelease
+- - '####'
+  - Apple 对 `autorelease` 的实现
+- - '###'
+  - 小结
+- - '#'
+  - 第 2 章 ARC 规则
+- - '##'
+  - 概述
+- - '##'
+  - 引用计数机制的变更
+- - '##'
+  - 所有权修饰符
+- - '###'
+  - '`__strong` 所有权修饰符'
+- - '####'
+  - 赋值给 `__strong` 修饰的变量
+- - '####'
+  - 强引用的工作原理
+- - '###'
+  - '`__weak` 所有权修饰符'
+- - '####'
+  - 循环引用
+- - '####'
+  - 自引用
+- - '####'
+  - 弱引用自动失效
+- - '###'
+  - '`__unsafe_unretained` 所有权修饰符'
+- - '###'
+  - '`__autoreleasing` 所有权修饰符'
+- - '####'
+  - 编译器自动处理 `__autoreleasing`
+- - '####'
+  - 将结果作为参数返回
+- - '###'
+  - '`__strong` 与 `__weak`'
+- - '##'
+  - 规则
+- - '###'
+  - 忘记使用 Retain、Release、RetainCount 或 Autorelease
+- - '###'
+  - 忘记使用 `NSAllocateObject` 或 `NSDeallocateObject`
+- - '###'
+  - 遵循与对象创建相关的方法命名规则
+- - '###'
+  - 忘记显式调用 `dealloc`
+- - '###'
+  - 使用 `@autoreleasepool` 代替 `NSAutoreleasePool`
+- - '###'
+  - 忘记使用 Zone (`NSZone`)
+- - '###'
+  - C 语言的 struct 或 union 中的成员变量不能是对象类型
+- - '###'
+  - '`id` 和 `void*` 必须显式转换'
+- - '####'
+  - '`__bridge` 转换'
+- - '####'
+  - '`__bridge_retained` Cast'
+- - '####'
+  - '`__bridge_transfer` Cast'
+- - '####'
+  - Objective-C 对象与 Core Foundation 对象
+- - '####'
+  - '`CFBridgingRetain` 函数'
+- - '####'
+  - CFBridgingRelease 函数
+- - '##'
+  - 属性
+- - '###'
+  - 数组
+- - '###'
+  - 总结
+- - '#'
+  - 第 3 章 ARC 实现
+- - '##'
+  - __strong 所有权限定符
+- - '###'
+  - 调用数组方法
+- - '###'
+  - 深入 array 方法内部
+- - '##'
+  - '`__weak` 所有权修饰符'
+- - '###'
+  - 探究对象被废弃时的底层机制
+- - '####'
+  - 分配新创建的对象
+- - '####'
+  - 对象的立即废弃
+- - '####'
+  - 自动添加到自动释放池
+- - '##'
+  - '`__autoreleasing` 所有权修饰符'
+- - '##'
+  - '`__unsafe_unretained` 所有权修饰符'
+- - '###'
+  - 引用计数
+- - '###'
+  - 小结
+- - '#'
+  - 第 4 章 Blocks 入门
+- - '##'
+  - Blocks 初探
+- - '###'
+  - 匿名函数
+- - '###'
+  - 变量
+- - '###'
+  - 块的救赎
+- - '##'
+  - 块字面量语法
+- - '##'
+  - Block 类型变量
+- - '##'
+  - 捕获自动变量
+- - '###'
+  - '`__block` 说明符'
+- - '###'
+  - 被捕获的自动变量
+- - '###'
+  - 总结
+- - '#'
+  - 第 5 章：Block 的实现
+- - '##'
+  - 揭开 Block 的底层原理
+- - '###'
+  - 转换源码
+- - '###'
+  - C++ 中的 this 与 Objective-C 中的 self
+- - '###'
+  - 声明 _cself
+- - '###'
+  - __main_block_impl_0 结构体的构造函数
+- - '###'
+  - 初始化 `__main_block_impl_0` 实例
+- - '###'
+  - 回顾 `_NSConcreteStackBlock`
+- - '###'
+  - 捕获自动变量
+- - '###'
+  - 匿名函数
+- - '##'
+  - 可写变量
+- - '###'
+  - 静态变量或全局变量
+- - '###'
+  - '`__block` 说明符'
+- - '###'
+  - Block 的内存段
+- - '###'
+  - 作为 `NSConcreteGlobalBlock` 类对象的块
+- - '###'
+  - 堆上的块
+- - '###'
+  - 自动复制块
+- - '###'
+  - 手动管理 Block
+- - '####'
+  - 多次复制 Block
+- - '###'
+  - '`__block` 变量的内存段'
+- - '###'
+  - '`__forwarding`'
+- - '###'
+  - 捕获对象
+- - '###'
+  - 何时应调用“copy”方法
+- - '###'
+  - '`__block` 变量与对象'
+- - '###'
+  - Blocks 的循环引用
+- - '###'
+  - Copy/Release
+- - '###'
+  - 总结
+- - '#'
+  - 第 6 章 Grand Central Dispatch
+- - '##'
+  - Grand Central Dispatch 概览
+- - '##'
+  - 多线程编程
+- - '###'
+  - CPU 如何执行应用程序
+- - '###'
+  - 多线程编程的优缺点
+- - '###'
+  - 总结
+- - '#'
+  - 第 7 章 GCD 基础
+- - '##'
+  - 调度队列
+- - '###'
+  - 两种类型的调度队列
+- - '###'
+  - 串行调度队列
+- - '###'
+  - 并发调度队列
+- - '##'
+  - 获取调度队列
+- - '###'
+  - dispatch_queue_create
+- - '###'
+  - 主调度队列 / 全局调度队列
+- - '##'
+  - 控制调度队列
+- - '###'
+  - dispatch_set_target_queue
+- - '###'
+  - dispatch_after
+- - '###'
+  - Dispatch Group（调度组）
+- - '###'
+  - dispatch_barrier_async
+- - '###'
+  - dispatch_sync
+- - '###'
+  - dispatch_apply
+- - '###'
+  - dispatch_suspend / dispatch_resume
+- - '###'
+  - 调度信号量
+- - '###'
+  - dispatch_once
+- - '###'
+  - Dispatch I/O
+- - '###'
+  - 总结
+- - '#'
+  - 第 8 章 GCD 实现
+- - '##'
+  - 调度队列
+- - '###'
+  - 内核级实现
+- - '###'
+  - GCD 结构
+- - '###'
+  - 全局调度队列与 `pthread_workqueue`
+- - '###'
+  - 执行 Block
+- - '##'
+  - Dispatch Source
+- - '##'
+  - 使用 Dispatch Source 的示例
+- - '##'
+  - 总结
+- - '#'
+  - 附录 A：ARC、Block 与 GCD 示例
+- - '##'
+  - ASyncURLConnection.h
+- - '##'
+  - ASyncURLConnection.m
+- - '#'
+  - 附录 B：参考资料
+- - '##'
+  - 过渡至 ARC 版本说明
+- - '##'
+  - Apple 官方 ARC 编程指南
+- - '##'
+  - LLVM 文档——自动引用计数
+- - '##'
+  - 高级内存管理编程指南
+- - '##'
+  - 入门指南：构建并运行 Clang
+- - '##'
+  - objc4 版本 493.9
+- - '##'
+  - GNUstep libobjc2 版本 1.5
+- - '##'
+  - Apple 对 C 语言的扩展
+- - '##'
+  - Blocks 提案，N1451
+- - '##'
+  - 关于 Blocks 的演示文稿
+- - '##'
+  - Blocks 语言规范
+- - '##'
+  - Blocks 实现规范
+- - '##'
+  - libclosure 版本 53
+- - '##'
+  - plblocks
+- - '##'
+  - libdispatch 版本 187.5
+- - '##'
+  - Libc 版本 763.11
+- - '##'
+  - xnu 版本 1699.22.81
+- - '##'
+  - libdispatch 项目页面
+- - '##'
+  - libdispatch 移植项目
+- - '#'
+  - 索引
+- - '##'
+  - A
+- - '##'
+  - B、C、D、E、F
+- - '##'
+  - G, H, I, J, K, L
+- - '##'
+  - M, N
+- - '##'
+  - O, P, Q
+- - '##'
+  - R
+- - '##'
+  - S, T
+- - '##'
+  - U, V
+- - '##'
+  - W, X, Y, Z
+- - '#'
+  - 关于作者
+- - '#'
+  - 关于译者
+- - '#'
+  - 关于技术审校

@@ -1,0 +1,6 @@
++   [iOS 应用分发入门指南](README.md)
++   [引言](learn-ios-application-distribution_0.md)
++   [目录](learn-ios-application-distribution_1.md)
++   [智能手机格局](learn-ios-application-distribution_2.md)
++   [配置您的应用](learn-ios-application-distribution_3.md)
++   [为成功做好准备](learn-ios-application-distribution_4.md)

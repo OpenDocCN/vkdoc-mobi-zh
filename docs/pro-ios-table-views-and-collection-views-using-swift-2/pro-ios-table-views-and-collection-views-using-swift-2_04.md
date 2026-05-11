@@ -1,0 +1,103 @@
+# 第 5 章：向视图提供数据
+- `UITableView`、`UICollectionView`和委托
+- 理解委托
+- 设置委托
+- 用委托连接对象
+- 定义协议
+- 使用`UITableView`的委托方法
+- 使用`UITableViewDelegate`方法
+- 使用`UICollectionViewDelegate`方法
+- 数据源
+- `UITableView`的`dataSource`
+- 表如何获取关键信息
+- 与单元格、分区和行相关的`UITableViewDataSource`方法
+- 与标题和索引相关的`UITableViewDataSource`方法
+- 与插入、删除和重排相关的`UITableViewDataSource`方法
+- `UICollectionView`的`dataSource`
+- 集合视图如何获取关键信息
+- 我应该使用哪种配置方法？
+- 与单元格、分区和项目相关的`UICollectionViewDataSource`方法
+- 关于`dataSource`方法需要记住的事情
+- 实现`dataSource`和`delegate`协议
+- 关于`indexPaths`的一切
+- 模型-视图-控制器设计模式
+- 为什么要使用模型-视图-控制器模式？
+- MVC 与 iOS
+- MVC、`tableView`和`collectionView`
+- 改进应用结构
+- 如何拆分数据源和委托
+- 总结
+
+## 第 6 章：表单元格的整体架构
+- 理解`UITableViewCell`的解剖结构
+- 单元格的基本结构
+- 单元格的背景视图
+- 内容和辅助视图
+- 设计原型单元格
+- 本章代码
+- 在 XIB 文件中创建原型单元格
+- 在 Storyboard 中创建原型单元格
+- 通过代码创建原型单元格
+- 使用标准单元格类型
+- 使用`UITableViewCellStyleDefault`
+- 使用`UITableViewCellStyleValue1`
+- 使用`UITableViewCellStyleValue2`
+- 使用`UITableViewCellStyleSubtitle`
+- 配置默认单元格的内容
+- `textLabel`
+- `detailTextLabel`
+- `imageView`
+- `contentView`
+- 在默认单元格类型中格式化文本
+- 使用辅助视图
+- 使用`UITableViewCellAccessoryDisclosureIndicator`
+- 使用`UITableViewCellAccessoryDetailDisclosureIndicator`
+- 使用`UITableViewCellAccessoryCheckmark`
+- 使用`UITableViewCellAccessoryNone`
+- 设置辅助视图类型
+- 使用辅助视图显示单元格选择状态
+- 创建和复用单元格
+- 内存限制
+- 速度与流畅度
+- 即时创建与回收
+- 表视图的“传送带”
+- 单元格复用和缓存带来的副作用
+- 总结
+
+## 第 7 章：改善单元格外观
+- 自定义单元格
+- 我应该使用哪个函数？
+- 向单元格的`contentView`添加子视图
+- 在单元格中创建元素
+- 在 Storyboard 中以原型形式直观创建自定义单元格
+- 创建原型动态单元格
+- 使用 Interface Builder 直观创建自定义单元格
+- 直观创建单元格的步骤
+- 创建新的 XIB 文件
+- 创建单元格内容
+- 注册单元格
+- 控制单元格大小
+- 处理表中的单元格大小调整
+- 总结
+
+## 第 8 章：通过子类创建自定义单元格
+- 为什么要创建自定义单元格子类？
+- 创建自定义单元格的过程
+- 使用 XIB 创建自定义单元格
+- 设计你的单元格
+- 为自定义单元格创建类
+- 在 Interface Builder 中构建单元格
+- 创建自定义单元格的实例
+- 处理自定义单元格中的选择
+- 通过代码创建自定义单元格
+- 通过代码创建自定义单元格的过程
+- 创建自定义子类
+- 重写`layoutSubviews`函数
+- 重写`prepareForReuse`函数
+- 使用 MVVM 改进应用架构
+- 模型-视图-视图模型方法
+- MVVM 的优缺点
+- 实现 MVVM 方法
+- 将项目转换为 MVVM 方法
+- 总结
+
