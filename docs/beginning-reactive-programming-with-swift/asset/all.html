@@ -1,0 +1,5488 @@
+<p><img src="images/978-1-4842-3621-5_CoverFigure.jpg"/></p>
+<p></p>
+
+
+
+
+
+<aside class="ArticleNote ArticleNoteESMHint BookFrontmatterArticleNote">
+<p>Any source code or other supplementary material referenced by the
+author in this book is available to readers on GitHub via the book’s
+product page, located at <a href="http://www.apress.com/978-1-4842-3620-8">www.​apress.​com/​978-1-4842-3620-8</a> .
+For more detailed information, please visit <a href="http://www.apress.com/source-code">http://​www.​apress.​com/​source-code</a>
+.</p>
+</aside>
+
+ ISBN 978-1-4842-3620-8e-ISBN 978-1-4842-3621-5
+
+
+<a href="https://doi.org/10.1007/978-1-4842-3621-5">https://doi.org/10.1007/978-1-4842-3621-5</a>
+
+
+Library of Congress Control Number: 2018955902
+
+
+© Jesse Feiler 2018
+
+
+Standard Apress
+
+
+Trademarked names, logos, and images may appear in this book. Rather
+than use a trademark symbol with every occurrence of a trademarked name,
+logo, or image we use the names, logos, and images only in an editorial
+fashion and to the benefit of the trademark owner, with no intention of
+infringement of the trademark. The use in this publication of trade
+names, trademarks, service marks, and similar terms, even if they are
+not identified as such, is not to be taken as an expression of opinion
+as to whether or not they are subject to proprietary rights.
+
+
+While the advice and information in this book are believed to be true
+and accurate at the date of publication, neither the authors nor the
+editors nor the publisher can accept any legal responsibility for any
+errors or omissions that may be made. The publisher makes no warranty,
+express or implied, with respect to the material contained herein.
+
+
+Distributed to the book trade worldwide by Springer Science+Business
+Media New York, 233 Spring Street, 6th Floor, New York, NY 10013. Phone
+1-800-SPRINGER, fax (201) 348-4505, email orders-ny@springer-sbm.com, or
+visit www.springeronline.com. Apress Media, LLC is a California LLC and
+the sole member (owner) is Springer Science + Business Media Finance Inc
+(SSBM Finance Inc). SSBM Finance Inc is a Delaware corporation.
+
+
+
+
+Introduction
+
+
+<p>As technologies change, we see how basic patterns recur over time. In
+many ways, there aren’t that many new things to learn — just new
+variations and combinations of existing technologies and concepts. (See
+my book “Learn Computer Science with Swift” for more on the patterns
+that recur).</p>
+<p>As always, there are many people to thank for helping on this book.
+Most important are the people who have contributed to the technologies.
+When it comes to the many open source technologies (including ReactiveX
+and its projects), there are more and more people working on the
+technologies, and that makes it easier for everyone.</p>
+<p>Closer to home, Aaron Crabtree has provided very helpful and watchful
+comments on the manuscript. And, as always, Carole Jelen at Waterside
+Productions has helped make this book possible.</p>
+
+
+
+
+<h3 class="Heading">About the Author and About the Technical
+Reviewer</h3>
+
+
+
+
+<h3 class="Heading">About the Author</h3>
+
+
+
+
+
+<h3 class="Heading">About the Technical Reviewer</h3>
+
+
+
+
+
+
+<p></p>
+<h1>Part IBuilding Composite Apps with Swift</h1>
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">1. Building Blocks: Projects,
+Workspaces, Extensions, Delegates, and Frameworks</h1>
+
+
+<!--End Abstract-->
+
+<p>Building apps today isn’t really about writing code. You may have
+learned how to write code in school or at a bootcamp intensive workshop,
+and those experiences are valuable ways to learn about the principles of
+coding. However, when you start your first coding job, you may find that
+you’re asked to correct a typo in the title of a report that an existing
+app produces. It’s a simple job that you can divide into two parts.</p>
+<p>First, find where the typo is (a basic app can easily have many
+thousands of lines of code—Windows is estimated to have 50 million
+lines). It might not take long to find a typo in a single line of code,
+but how long does it take to find the line of code in the first
+place?</p>
+<p>Second, fix the typo.</p>
+<p>A month later, after you have finished the task of changing the title
+typo, you may find yourself actually building an app. That job, too, can
+be divided into several component parts.</p>
+<p>First, implement a user authentication process. You can do this using
+the Facebook API or using some open source code from a trusted web
+source. You just have to find the code or API and then put it into your
+app.</p>
+<p>Second, you need to implement your app’s functionality that comes
+into play after the authentication process is
+complete. Depending on what the app is, you may have to write it from
+scratch, but chances are that you’ll find yourself revising existing
+code from a similar project.</p>
+<p>Third, you may take your new app and port it to a different
+platform.</p>
+<p>Coding today is often about reading and understanding existing code
+and then reusing it in new apps and new combinations. Yes, there is a
+lot of from-scratch coding going on, but there’s also a lot of reuse of
+existing code happening in the development world.</p>
+<p>A number of factors have come together to create and support this
+world of reusable and repurposed code, which, after all, represents
+many, many hours of effort by many, many people. Reusing analysis and
+code is just as important as reusing and recycling natural resources. In
+the case of code, reuse means not reinventing the wheel. By not starting
+from scratch each time an app is created, the entire world of software
+development can move forward.</p>
+<p>
+This chapter will provide an overview of how this world of reusable code
+functions—particularly from the vantage point of iOS, tvOS, macOS, and
+watchOS. You will find an overview of the reusable code building blocks,
+along with an overview of how you can put them together using Xcode and
+other tools that are part of the Apple developer’s standard toolkit.
+There are three parts to the chapter:
+
+</p>
+
+<ul>
+<li><p><strong>Component Architecture Overview</strong> gives you an
+idea of what it’s like to build apps from components.</p></li>
+<li><p><strong>Looking at the iOS and macOS Building Blocks</strong>
+provides an overview of what those blocks are.</p></li>
+<li><p><strong>Building with the Building Blocks</strong> provides an
+overview of how to put them together.</p></li>
+</ul>
+
+
+<h2 class="Heading">Component Architecture Overview</h2>
+<p>Since the beginning of the computer  age in the 1940s, there
+has been a development backlog of projects waiting to be done. (A
+companion backlog accompanied the rise of the web.) The need for
+software seemed unstoppable. Various strategies emerged, and
+<em>components</em> were a key part of many of them, both for the web
+and for software in general.</p>
+<p>The idea was that building complete websites, programs, and apps from
+scratch was an unsustainable model.
+There had to be some way of speeding things up by reusing code that had
+already been written and debugged. The problem with this simple idea was
+that it wasn’t possible to easily reuse code—changes always needed to be
+made.</p>
+<p>One way of reusing code to speed up the development process was to
+take existing code and extract its key functions and features. These
+elements could be reused more easily than an entire code base. This was
+the beginning of component software development.</p>
+<p>
+As time passed, these reusable extracts began to be used in two
+different ways:
+
+</p>
+
+<ul>
+<li><p><strong>Use a framework or shell.</strong> In this model  , there is a framework
+into which you can plug components.</p>
+<p>The framework
+model  was
+popular in the 1990s; IBM’s Software Object Model (SOM) was one of the
+first. Microsoft entered the component software world with Object
+Linking and Embedding (OLE) and Component Object Model (COM). A
+consortium of Apple, IBM, and WordPerfect worked on OpenDoc. All of
+these were frameworks into which you could plug specialized components
+(from the user’s point of view, most were documents into which you could
+plug components).</p></li>
+<li><p><strong>Build a product from components.</strong> In this model,
+you combine a number of reusable components (off-the-shelf or written
+specifically for the project) to make a single product. There usually
+isn’t a framework or container as a shell; in some projects, there is
+indeed such an overarching container or shell, but it may be created
+specially for each project.</p></li>
+</ul>
+
+<p>Regardless of the component model you’re working with, there is a
+critical issue that crops up as soon as you start thinking about
+components: What language will you use? In today’s world, the languages
+for iOS  (and
+macOS) are Swift and Objective-C. However, one of the features of
+component architecture is that in some cases you can mix different
+languages, as you will see in the “Command-Line Integration” section
+later in this chapter.</p>
+
+
+<h2 class="Heading">Looking at the iOS and macOS Building Blocks</h2>
+<p>The building blocks in this section are all built in the Swift and
+Objective-C languages for iOS and macOS, and with APIs such as UIKit for
+iOS and AppKit for macOS, as well as their companions. This section will
+provide a brief overview of the building blocks; for more information,
+look on <code>developer.</code><code>apple.com</code>.</p>
+
+<h3 class="Heading">Extensions</h3>
+<p>Extensions in Swift let you add functionality to an existing class,
+structure, enumeration, or protocol type. You can find an example in the
+<em>Adopting Drag and Drop in a Custom View</em> sample code on <code>developer.</code><code>apple.com</code>. The drag-and-drop
+functionality is defined in protocols (see the following section
+for more on protocols and delegates) and implemented in extensions.</p>
+<p>
+In Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig1">1-1</a>, you can see an
+app that uses the code from the Adopting Drag and Drop in a Custom View
+sample. In this case, the basic class is a custom view controller (<code>PersonnelViewController</code>).
+There is an extension defined as follows:
+
+</p>
+<pre>extension PersonnelViewController: UIDragInteractionDelegate {</pre>
+<p>
+Each extension is in a file that references the base class (the class
+that is to be extended). As you can see in Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig1">1-1</a>, the names of
+those files are
+
+
+</p>
+
+<p>
+<img src="images/459488_1_En_1_Chapter/459488_1_En_1_Fig1_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_1_Chapter/459488_1_En_1_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 1-1</p>
+<p>Using extensions in a Swift class</p>
+
+
+<pre>PersonnelViewController+Drag
+PersonnelViewController+Drop</pre>
+<p>At runtime, you can reference the functions and other members of the
+extension just as you would reference elements of the class.</p>
+<p>Extensions can be added to base classes and other structures for
+which you only have the API  and not the source
+code.</p>
+
+
+<h3 class="Heading">Delegates and Protocols</h3>
+<p>
+Delegates  and protocols work
+together. In the declaration of a class or other structure, you see the
+superclass (if any) in the declaration, as in the following declaration
+for a subclass of <code>UIDocument</code> in iOS:
+
+</p>
+<pre>class MyDocument: UIDocument {</pre>
+<p>A protocol can define functions that will be implemented in any class
+that conforms to the protocol. Whereas with an extension the extensions
+are added to the base class, with a protocol the protocol defines the
+code that <em>you</em> will add to the base class.</p>
+<p>Delegates often work together with protocols so that the
+implementation of the protocol code is not placed into the base class;
+rather, it is placed in a separate file called a <em>delegate</em>. The
+specific file that implements the protocol is typically assigned to a
+field called <em>delegate</em> in the base class  .</p>
+
+
+<h3 class="Heading">Frameworks</h3>
+<p>If you work with iOS or macOS a lot, you are probably familiar with
+the basic frameworks, such as AppKit (macOS) and UIKit (iOS), along with
+smaller frameworks
+such as AddressBook. Frameworks can contain functions and properties.
+You add them to a Swift project with an <code>import</code> statement;
+with Objective-C, you can use an #import or <code>#include</code> statement.
+(In Objective-C, the <code>#import</code> directive
+imports the framework once<code>; #include</code> may import
+it several times.)</p>
+
+
+
+<h2 class="Heading">Building with the Building Blocks</h2>
+<p>You can use delegates and protocols, extensions, and frameworks
+within an Xcode project. You can use a workspace to combine several
+projects, and you can use other tools to combine multiple components.
+Both workspaces and the combinations of building blocks will be
+described in this section.</p>
+
+<h3 class="Heading">Using a Workspace </h3>
+<p>With a workspace, Xcode takes care of managing the building of
+whichever target within the workspace you want to build. Targets may
+share elements from the workspace and will use them as needed to build
+various targets (such as for iOS and watchOS with the same
+workspace).</p>
+
+
+<h3 class="Heading">Building with Combinations of Building Blocks</h3>
+<p>The building blocks from Apple (frameworks, protocols, and delegates,
+as well as extensions) often provide a neat and elegant way to extend
+and expand your code. However, there are cases in which a single feature
+requires the use of multiple building blocks—for example, a feature
+might need one very big framework to be installed, along with a dozen or
+more smaller (but related) frameworks. Protocols and delegates are now
+commonplace in many structures, and extensions, likewise, may be added
+to the mix. Thus, implementing a new feature using shared code may
+require many additions to your code base.</p>
+<p>Situations in which multiple building blocks
+need to be added to an app are common, and they can be difficult to
+manage. There are several tools available to help you manage such
+combinations. These tools use a structure that organizes the changes to
+your app so that a script or other tool can apply the changes in the
+right places and in the right order. One of the most widely used of
+those tools is CocoaPods, which is the topic of Chapter <a href="#459488_1_En_2_Chapter.xhtml">2</a>.</p>
+<p>GitHub has
+become the most widely used code-sharing tool and site today, and it is
+integrated with most package managers. Thus, the download of the latest
+GitHub version of
+the complex building blocks is done for you automatically as you run the
+package manager.</p>
+<p>Package managers like CocoaPods use their own code and scripts to
+perform the integration. To do so, they—and you—must use some
+command-line code. If you are used to macOS and the Finder, you may not
+use the command line very often. Don’t worry—the products hide most of
+that syntax from you. However, for the cases in which you do need to
+access a file or folder from the command line, the following section
+will provide some tips.</p>
+
+
+
+<h2 class="Heading">Command-Line Integration</h2>
+<p>
+Terminal, which is automatically installed as part of macOS, is the app
+that gives you access to the command line  . When you launch it,
+you will see the basic screen shown in Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig2">1-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_1_Chapter/459488_1_En_1_Fig2_HTML.jpg" style="height:22.32em" alt="../images/459488_1_En_1_Chapter/459488_1_En_1_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 1-2</p>
+<p>Use Terminal to access the command line</p>
+
+
+<p>The first line shows you the date and time of the last login. On the
+second line, you can see the name of the computer you are using. You
+then see the identifier of the user you are running, and a symbol such
+as $ marks the end of the automatically generated text. You type your
+command   after that.</p>
+
+<h3 class="Heading">Note</h3>
+<p>You can customize the formatting of lines in Terminal.</p>
+
+<p>
+In Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig3">1-3</a>, you can see the
+first command entered into Terminal. It is the list command (the code is
+<code>ls</code>).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_1_Chapter/459488_1_En_1_Fig3_HTML.jpg" style="height:22.32em" alt="../images/459488_1_En_1_Chapter/459488_1_En_1_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 1-3</p>
+<p>Enter the ls command</p>
+
+
+<p>In a command-line interface, you deal with only one line at a time.
+You cannot copy or paste into previous lines of code, but you can
+backspace on the line you’re editing. You end the line with a Return
+character, and the command is executed.</p>
+<p>
+The results of the <code>ls</code> command are shown
+in the Terminal
+  window,
+as you can see in Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig4">1-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_1_Chapter/459488_1_En_1_Fig4_HTML.jpg" style="height:22.32em" alt="../images/459488_1_En_1_Chapter/459488_1_En_1_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 1-4</p>
+<p>Results of the <code>ls</code> command in
+Terminal</p>
+
+
+<p>
+If you look at the same directory in the Finder, you’ll see the data as
+shown in Figure <a href="#459488_1_En_1_Chapter.xhtml#Fig5">1-5</a>. The fact that
+the files may be in a different order doesn’t matter. Note, too, that
+some files that are normally invisible in the Finder may show up in
+Terminal.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_1_Chapter/459488_1_En_1_Fig5_HTML.jpg" style="height:28.92em" alt="../images/459488_1_En_1_Chapter/459488_1_En_1_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 1-5</p>
+<p>Files in Finder</p>
+
+
+<p>There’s one other command that you may need to use when you’re
+working with Terminal
+ : You can
+change which directory you are in by typing <code>cd</code>. You can then type
+in the name of the directory you want to use, or you can drag and drop a
+directory from the Finder onto the line in Terminal that you have
+started by typing <code>cd</code>. The text
+representation of that directory will be placed into the line of
+Terminal code. As soon as you press Return, the directory will be
+changed.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Xcode has a variety of tools that you can use (along with Objective-C
+and Swift) to build complex apps with reusable code, saving you
+development and debugging time. This chapter has provided a brief
+overview to get you started.</p>
+<p>For more information, use your standard online resources as well as
+the discussion boards on <code>developer.</code><code>apple.com</code>. For now,
+it’s time to move on to the package managers.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">2. Using CocoaPods</h1>
+
+
+<!--End Abstract-->
+
+<p>CocoaPods is a tool for managing multiple components in an Xcode
+project. The basic overview is that you create your Xcode project as
+usual. You then run CocoaPods to place your Xcode project into a new
+workspace that it creates. Next to your project in your workspace are
+various CocoaPods with the updates you want to install.</p>
+<p>CocoaPods can download the updates as needed from a GitHub repository, so you
+don’t need to worry about doing that yourself. The CocoaPods tool keeps
+the versions of these public updates for you, but you can also create
+your own private repository if you don’t need or want to share it.</p>
+<p>You are responsible for managing a <em>podfile</em>, which identifies
+the updates to be installed. The podfile  is the link between
+your original project and the updates that you install (and which
+CocoaPods can reinstall as needed).</p>
+<p>This chapter will provide a quick overview of the CocoaPods process,
+with plenty of step-by-step illustrations. For more information, check
+out the CocoaPods site and documentation at <a href="http://cocoapods.org"> <code>cocoapods.org</code>
+</a>. For even more specific information, check out the
+Facebook and RxSwift chapters in this book; both Facebook and RxSwift
+are installed with CocoaPods.</p>
+
+<h2 class="Heading">Install CocoaPods</h2>
+<p>
+This is a one-time task for you to do on your development computer.
+Launch Terminal to get to the command line. Install CocoaPods with
+this line:
+
+</p>
+<pre>sudo gem install cocoapods</pre>
+<p>You’ll need to provide your system password. There are alternative
+ways of installing CocoaPods that you can find on the website, but this
+is the most straightforward for most people.</p>
+<p>
+Finish setup on the command line by entering
+
+</p>
+<pre>pod setup</pre>
+<p>
+You will see some status information that ends with
+
+</p>
+<pre>Setup completed</pre>
+<p>You’re ready to continue.</p>
+
+
+<h2 class="Heading">Create a Simple App (Single-View App)</h2>
+<p>
+There will be three parts to your CocoaPods project:
+
+</p>
+
+<ul>
+<li><p>You create an initial Xcode project as you usually do.</p></li>
+<li><p>You create a podfile to manage the updates and link them to your
+project.</p></li>
+<li><p>You update the podfile to install updates and new features in
+your project.</p></li>
+</ul>
+
+<p>
+Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig1">2-1</a> shows the
+creation of one of the simplest built-in projects in Xcode: a single-view app .
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig1_HTML.jpg" style="height:22.35em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 2-1</p>
+<p>Create a new project</p>
+
+
+<p>
+When it comes time to generate the project files  , you will need to
+identify the folder for them. You can create a new folder  , as you see in Figure
+<a href="#459488_1_En_2_Chapter.xhtml#Fig2">2-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig2_HTML.jpg" style="height:12.85em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 2-2</p>
+<p>Place it in a folder</p>
+
+
+<p>
+When any new project
+  is
+created from a template, test that it builds properly in Xcode with a
+device or a simulator, as you see in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig3">2-3</a>. You can use
+Product ➤ Build
+  or the
+arrow at the top left of the window. (There are other techniques
+described in the Xcode documentation and help.)
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig3_HTML.jpg" style="height:24.92em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 2-3</p>
+<p>Review the project</p>
+
+
+<p>
+Check the result on a device   or simulator  , as you see in Figure
+<a href="#459488_1_En_2_Chapter.xhtml#Fig4">2-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig4_HTML.jpg" style="height:36.58em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 2-4</p>
+<p>Run the app
+ </p>
+
+
+<p>
+Using the command line in
+Terminal ,
+change the directory to the folder you identified or created in Figure
+<a href="#459488_1_En_2_Chapter.xhtml#Fig2">2-2</a>. (Remember you
+can type <code>cd</code> and
+a trailing space and then drag the folder into the Terminal window
+instead of typing the full path name.) Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig5">2-5</a> shows a <code>cd</code> command that is
+generated in that way.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig5_HTML.jpg" style="height:19.55em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 2-5</p>
+<p>Change the command line to the project directory</p>
+
+
+<p>
+Using the list (<code>ls</code>) command, check
+that the folder you have changed to does in fact contain the <code>xcodeproj</code> file and
+the folder of source code created in the Xcode   template, as you see
+in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig6">2-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig6_HTML.jpg" style="height:19.55em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 2-6</p>
+<p>Check the directory</p>
+
+
+<p>
+Enter the <code>pod init</code> command
+  on the
+command line in the directory you see in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig6">2-6</a>. This will add a
+podfile to your
+directory ,
+as you can see in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig7">2-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig7_HTML.jpg" style="height:26.88em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 2-7</p>
+<p>Add the podfile</p>
+
+
+<p>
+You can now look at the podfile , as shown in Figure
+<a href="#459488_1_En_2_Chapter.xhtml#Fig8">2-8</a>. If you
+double-click it in the Finder, TextEdit will open automatically. You can
+also use a tool such as BBEdit.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig8_HTML.jpg" style="height:23.05em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 2-8</p>
+<p>Review the podfile</p>
+
+
+<p>Run the <code>podInstall</code>
+command   from the directory
+shown in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig5">2-5</a>.</p>
+<p>You should not need to make changes to the file now, but as your
+development continues, you will update the podfile for new components
+you may want to add. Whenever you change the podfile, you must then run
+the <code>pod install</code>
+command  .</p>
+<p>
+As you can see in the messages in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig9">2-9</a>, there are no
+dependencies to install yet. But what is important is that from now on
+you should open the workspace that has just been created rather than the
+project itself. Close Xcode   and look at the folder
+for your project. The file structure now shows a workspace and a new
+project for pods
+ , as you
+can see in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig10">2-10</a>.
+
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig10_HTML.jpg" style="height:26.88em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 2-10</p>
+<p>Your workspace window with pods is created</p>
+
+
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig9_HTML.jpg" style="height:15.28em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 2-9</p>
+<p>Install and init</p>
+
+
+<p>
+If you are used to seeing files   in the column view,
+you can change that in the Finder, in which case you should see files
+such as those shown in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig11">2-11</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig11_HTML.jpg" style="height:29.9em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 2-11</p>
+<p>Review the workspace files in column view</p>
+
+
+<p>
+Build your project again, and you’ll see the pod code and your original
+code   combined, as you can
+see in Figure <a href="#459488_1_En_2_Chapter.xhtml#Fig12">2-12</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_2_Chapter/459488_1_En_2_Fig12_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_2_Chapter/459488_1_En_2_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 2-12</p>
+<p>Build the project with the podfiles added</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>CocoaPods is a tool that is used for distributing many components and
+sets of components that are stored publicly on GitHub. This chapter has
+provided an overview of using this tool. Now, it is time to move on to
+another component that you will use frequently: JSON formats for
+files.</p>
+
+
+<p></p>
+<h1>Part IIUsing Codable Data with Swift and iOS</h1>
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">3. Reading and Writing JSON Data</h1>
+
+
+<!--End Abstract-->
+
+<p>The building blocks discussed in this book almost all provide ways of
+sharing <em>functionality</em> across apps and often across platforms,
+as is the case with Facebook, Amazon Web Services, and reactive
+programming. This part of the book is different because it focuses on
+components and building blocks that let you share <em>data</em> across
+apps and often across platforms.</p>
+<p>This chapter will focus on the specifics of JSON, which is one of the
+most widely used techniques for sharing data across apps and
+platforms.</p>
+
+<h2 class="Heading">Identifying Data That Needs to Be Shared</h2>
+<p>Apps contain data as well as functionality. You may think that a
+specific app has no data inside it (perhaps a game that users play by
+entering moves or data), but even that simple case is wrong. Every app
+contains metadata—its name, category, and description on the App Store
+as well as a record of related sales data from the App Store. Although
+that data is managed by the App Store and you as
+developer, it is still part of the app’s overall data. In addition,
+there is app-related data that you typically place on your website.</p>
+<p>The data that we usually think of as being part of an app is the data
+that is built into the app itself: the code, storyboards, and app-based
+documentation and instructions. There is also data that may be stored,
+such as logs of moves in a game, high and low scores, and other data
+that is accumulated as the user uses the app. This is the data we
+normally consider when thinking about sharing data.</p>
+<p>
+There are two types of data sharing for you to think about:
+
+</p>
+
+<ul>
+<li><p><strong>Sharing across apps.</strong> You may need to share data
+across apps . A
+simple example is a photo that you capture using the built-in Camera app
+on an iPhone. You may then share that with the Photos or Files apps so
+that you can organize your apps into albums and share them with others.
+You may export the photo from Photos in another format (perhaps GIF
+rather than JPEG) to use it in a document or website. And so the shared
+photo may wend its way through several of your apps (as well as others’
+apps, if you send the document to your friends).</p></li>
+<li><p><strong>Sharing across time.</strong> When you are playing a
+game, writing an essay, or creating a movie, you often want to take a
+break and save it so you can continue working on it another time. That
+requires you to be able to share the data across time. Remember that
+when an app is running, its data is stored in memory rather than in
+persistent storage (like a disk). Memory is a scarce resource, so it
+needs to be reused when you decide to do something other than work on
+your game, essay, or movie. The data needs to be copied to some kind of
+persistent storage so that it can be reloaded when you pick up your game
+or project later on.</p></li>
+</ul>
+
+<p>Just to keep you on your toes, a lot of data sharing is of both
+types: across apps and across time. And as a further consideration,
+remember that when you share data across apps, you may also be sharing
+it across devices (from your Camera on your iPhone to Keynote on your
+Mac and on to your colleague’s Photoshop on a PC).</p>
+
+
+<h2 class="Heading">Considering Security for Sharing Data</h2>
+<p>As people become more and more aware of the security aspects of data,
+it is important to consider the security  side of sharing it.
+This is a common trade-off between ease of use for users and protection
+against allowing bad actors to exploit that ease of use for nefarious
+purposes.</p>
+<p>One point that has become obvious is that trusting to luck is just
+not a reasonable strategy. Further, assuming that no one would be
+interested in your data is just as risky. Remember that people tend to
+reuse identifiers such as passwords so that even if you are sharing what
+you think is totally innocuous data, you may be sharing a user’s banking
+PIN or password inadvertently.</p>
+<p>Also be aware of the European Union General Data
+Protection Regulation (GDPR), which took effect on May 25, 2018.
+It governs data protection and privacy within the EU, but if your app is
+(or may in the future be) covered by the regulation, you must abide by
+the regulation.</p>
+
+
+<h2 class="Heading">The Challenges of Sharing Data</h2>
+<p>The data that your app uses when it is running is stored in memory in
+whatever format your operating system  uses. From the
+developer’s point of view, the data consists of variables, which are
+identified as types such as integers or real numbers, as well as the
+types and classes that you create in your app. When the data is moved to
+persistent storage (a disk, for example), the data is reformatted. All
+of this can happen multiple times for any given data within your app as
+it moves from memory to persistent storage.</p>
+<p>From a practical point of view, data cannot maintain its formatting
+structure as it moves from memory to device and onward. That is why we
+wind up with various types of data formats depending on the medium and
+device. To make these reformatting processes work as data is moved back
+and forth, there are several challenges to be confronted. They are
+summarized in this section; in the following section, you’ll see how
+these issues are addressed with JSON (JavaScript Object Notation, but it
+is used in many languages other than JavaScript) and other modern
+technologies.</p>
+<p>
+Here are the challenges to
+be confronted in sharing data:
+
+</p>
+
+<ul>
+<li><p>Identifying data elements</p></li>
+<li><p>Managing inconsistent data types</p></li>
+<li><p>Exploring the document and structure issues</p></li>
+</ul>
+
+
+<h3 class="Heading">Identifying Data Elements</h3>
+<p>When you talk about sharing data, you have to make it clear what
+you’re talking about. As noted in this chapter, “data” for an app can
+take many forms and can reside from time to time in many places, from a
+computer’s memory to one or more persistent stores. Each has its own
+formatting rules, but before looking at that, you have to be specific
+about the data. What is actually shared is often a subset of the app’s
+data—a log of moves in a game or the goal for a project in a
+workpaper.</p>
+<p>The sharable data elements are often identifiable in the user
+interface using ordinary non-technical terms, such as
+<em>paragraph</em>, <em>page</em>, or <em>sentence</em> for words and
+<em>image</em> for graphics. If you can find a way to translate these
+UI elements into
+data that uses standard elements, such as characters of text or the
+binary string that represents an image, then you can share the data.</p>
+<p>In general, the more basic the structure of a sharable format is, the
+easier it is to share, but there is a trade-off because the code you
+write to use sharable data that relies on basic structures may be more
+complex. Fortunately, over time processors become more and more powerful
+so there is often computing power available to do necessary pre- and
+post-processing of sharable data.</p>
+
+
+<h3 class="Heading">Managing Inconsistent Data Types</h3>
+<p>When you get beyond the basics of sharable data, you may encounter
+inconsistencies in data types . For instance, there is
+general agreement as to what an integer is (the mathematicians sorted
+this out centuries ago). However, what an integer is for a specific
+processor may be different from another processor’s integer. This can
+let you specify a value of an integer that conceptually exists (for
+mathematicians) but cannot be stored on a specific operating system or a
+specific piece of hardware. This is one of the reasons why basic data
+types are used.</p>
+
+
+<h3 class="Heading">Exploring the Document and Structure Issues</h3>
+<p>If you look at the samples of JSON code, you’ll see that they are
+very basic and that they only represent data. They do not provide any
+formatting, nor do they provide any logical structure of how a document
+might be presented. There are a number of document-based sharable
+formats, the most common of which is Extensible Markup Language
+(XML). It is more powerful when you are dealing with documents,
+but, as is always the case when the sharable data becomes more complex,
+it may be more difficult to share it across devices and platforms.</p>
+
+
+
+<h2 class="Heading">Looking at JSON</h2>
+<p>In today’s world, JSON is a common way to share data. Its elements
+are simple and are represented using characters. JSON represents data as
+<em>objects</em>. A JSON
+ object is delimited by brackets: { and }. Within an object,
+spaces and return characters don’t matter except for the special case in
+which they appear within quotes.</p>
+<p>
+Within the { and } delimiters of a JSON object, comma-separated
+name–value pairs define the elements of the JSON object. The name and
+value are both enclosed in quotes and are separated by a colon. When the
+value is a number, it is not quoted.
+
+</p>
+<pre>{
+"name": "Claude Debussy"
+}</pre>
+<p>
+The value can be an array. In that case, the
+elements of the array are enclosed in square brackets and are separated
+by commas, as in the following:
+
+</p>
+<pre>{
+"name": "Claude Debussy",
+"works": ["La Mer", "Pélleas et Mélisande", "Images"]
+}</pre>
+<p>
+Objects can be nested, as in the following:
+
+</p>
+<pre>{
+"French Composers":  [
+{
+"name": "Claude Debussy",
+"works": ["La Mer", "Pélleas et Mélisande", "Images"]
+},
+{
+"name": "Maurice Ravel",
+"works":["Boléro", "La Valse"]
+}
+]
+}</pre>
+<p>JSON  is
+readable, particularly in small sections. Because of its simplicity, it
+has no document-based structure or syntax checking. It is easy to
+generate from data structures, which is the way much (perhaps all) of
+the JSON code you will deal with is created. (Chapter <a href="#459488_1_En_5_Chapter.xhtml">5</a> will show you how to use the Swift
+<code>Codable</code>
+protocol to read and write JSON code.)</p>
+<p>
+Because JSON is so commonly used, you can read it and write it with many
+common tools. Some JSON code used for a navigation app is shown in
+Figure <a href="#459488_1_En_3_Chapter.xhtml#Fig1">3-1</a> as it appears
+when opened in
+TextEdit. The spacing is whatever has been typed in.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_3_Chapter/459488_1_En_3_Fig1_HTML.jpg" style="height:23.05em" alt="../images/459488_1_En_3_Chapter/459488_1_En_3_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 3-1</p>
+<p>JSON in TextEdit</p>
+
+
+<p>
+The same JSON file is showed in Figure <a href="#459488_1_En_3_Chapter.xhtml#Fig2">3-2</a> as opened in BBEdit. The text is
+automatically colored by BBEdit.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_3_Chapter/459488_1_En_3_Fig2_HTML.jpg" style="height:34.7em" alt="../images/459488_1_En_3_Chapter/459488_1_En_3_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 3-2</p>
+<p>JSON in BBEdit</p>
+
+
+<p>
+In Figure <a href="#459488_1_En_3_Chapter.xhtml#Fig3">3-3</a>, you can see the
+same file opened in
+Excel. Note that the content is the same, but the spacing within
+the spreadsheet is done by Excel.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_3_Chapter/459488_1_En_3_Fig3_HTML.jpg" style="height:35.02em" alt="../images/459488_1_En_3_Chapter/459488_1_En_3_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 3-3</p>
+<p>JSON in
+Excel</p>
+
+
+<p>
+Finally, in Figure <a href="#459488_1_En_3_Chapter.xhtml#Fig4">3-4</a> you can see the
+same JSON file opened in
+Xcode, which applies its own spacing and coloring.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_3_Chapter/459488_1_En_3_Fig4_HTML.jpg" style="height:34.4em" alt="../images/459488_1_En_3_Chapter/459488_1_En_3_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 3-4</p>
+<p>JSON in
+Xcode</p>
+
+
+
+
+<h2 class="Heading">Using JSON—The Basics</h2>
+<p>Despite the different appearance of the same JSON code in the
+different apps, the structure of the underlying code is the same, and it
+is easy to take the raw JSON code, which is based only on characters,
+and transfer it across any communications channel.</p>
+<p>If you are creating the JSON code yourself, it’s easy to misplace a
+quotation mark, comma, bracket, or parenthesis. Because JSON is so
+straightforward and is so widely available, you can find a multitude of
+JSON checkers and validators on the web—just use your favorite search
+engine.</p>
+<p>The components of
+JSON should be familiar to you if you are already familiar with
+Cocoa or Swift. The comma-separated lists or key–value pairs are the
+heart of the dictionaries that are used so widely in the operating
+systems.</p>
+<p>Built into Swift you will find code that easily converts dictionaries
+to JSON and vice versa. The next chapter will give you examples of that
+code. Furthermore, you’ll see how to use the built-in encoders and
+decoders (in Swift 4 and later) that perform these operations for you
+without your needing to write any additional code.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Sharing data from one app to another, one device to another, or
+across time barriers is made possible by your using sharable code and
+standards such as JSON. The power of JSON is derived from its
+simplicity: it doesn’t encode a document as a whole but rather lets you
+encode and decode basic structures such as objects (of any kind—not
+necessarily object-oriented objects), numbers, strings, and arrays.
+These processes are very fast and easy to use.</p>
+<p>The next chapter will explore the built-in tools you use with
+JSON.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">4. Using JSON Data with Swift</h1>
+
+
+<!--End Abstract-->
+
+<p>In this chapter, you will see the basics of JSON syntax. You can use
+it with many modern languages, and Swift is no exception. In fact,
+Swift’s integration with JSON is strong, powerful, and easy to use. If
+you add in Swift Playgrounds which is available on iPad and in Xcode on
+your Mac, you get a powerful cross-platform data exchange format that
+also is easy to test with a playground (so that you don’t have to write
+an app—even a stripped-down app—to explore the data, syntax, and
+code).</p>
+<p>In this chapter, you will see how to explore JSON with Swift
+Playgrounds as well as how to explore the iOS/Swift interfaces that are
+available.</p>
+
+<h3 class="Heading">Note</h3>
+<p>These features are shown using Xcode 9 and Swift 4. These include
+significant changes from previous versions of Xcode and Swift.</p>
+
+
+<h2 class="Heading">Getting Started with a JSON Swift Playground</h2>
+<p>
+The Swift Playgrounds
+app is the perfect tool to use to get acclimated to JSON. In this
+chapter, you will see how to use a playground for experimentation. To
+begin with, you can create a playground and add JSON text, such as the
+examples shown in Chapter <a href="#459488_1_En_3_Chapter.xhtml">3</a>, to it. Using Swift Playgrounds,
+create a new playground
+, as you can see in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig1">4-1</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig1_HTML.jpg" style="height:11.6em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 4-1</p>
+<p>Create a Swift playground</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>The examples in this chapter are shown using Playgrounds in Xcode on
+macOS. Xcode is the tool you use for writing code, and a project such as
+this one may be easier to work with on macOS than on iOS, but you can
+use either one.</p>
+
+<p>
+Open the project
+navigator at the left side of the window by clicking on the icon
+at the top right or by using the View ➤ Navigators ➤ Show Project
+Navigator command from the menu bar. When you open the project
+navigator, you’ll see the files inside your project, as you can see in
+Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig2">4-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig2_HTML.jpg" style="height:11.55em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 4-2</p>
+<p>Open the project navigator at the left side of the Xcode window</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>A Swift 
+Playgrounds project consists of a single file in the Finder, but that
+file is a package containing the files you see in the project navigator.
+You can open the package using Control-click in the Finder or by using
+the right button while you click on the package. Working within Swift
+Playgrounds and the Xcode project navigator is simpler and more
+direct.</p>
+
+<p>
+You can use the disclosure triangles to open the sections of the
+project. To add a file to contain your JSON  code (or any other data
+you want to use in the playground), command-click on the Resources
+section and choose New File from the contextual menu. You can click the
+file name to change it if you want. Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig3">4-3</a> shows a new file
+named <code>test.json</code>
+that has been created. There are two blank lines in it in the figure.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig3_HTML.jpg" style="height:33.95em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 4-3</p>
+<p>Create a new file
+</p>
+
+
+<p>
+You can type in the file or copy and paste code  into it (Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig4">4-4</a>). (The code in
+this chapter is downloadable as described in the Introduction.)
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig4_HTML.jpg" style="height:33.95em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 4-4</p>
+<p>Type or paste code into your file</p>
+
+
+<p>
+You now need to connect your playground  to the file.
+Physically, the file is inside the playground package, as shown in
+Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig3">4-3</a>, but you need to
+read the data. There are two lines of code that you’ll use (and reuse
+and reuse) to do this. First, specify the name of the file and where it
+is—inside the playground bundle. Here is the line of code:
+
+</p>
+<pre>let url = Bundle.main.url(forResource: "test", withExtension: "json")</pre>
+<p>Change the file name and extension name for your own file.</p>
+<p>
+Then, read the string of characters from the file using this code:
+
+</p>
+<pre>do {
+let jsonCode = try String(contentsOf: url!, encoding: .utf8)
+}
+catch {
+fatalError ("handle error properly")
+}</pre>
+<p>You can customize the variable name for the content (<code>jsonCode</code>) and the
+text for the <code>fatalError</code>
+string . Otherwise,
+you can use the code as is. (You can also change <code>fatalError</code> to another
+method of catching an error if you want to.)</p>
+<p>
+The code is shown in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig5">4-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig5_HTML.jpg" style="height:19.78em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 4-5</p>
+<p>Enter the code to read the file</p>
+
+
+<p>
+When you have entered the code, you can run  it, as you see in
+Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig6">4-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig6_HTML.jpg" style="height:19.78em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 4-6</p>
+<p>Run the code</p>
+
+
+<p>Check to make certain that you see the code  properly and don’t
+have an error. (This is the step that may catch you up until you’re used
+to creating files inside a playground.)</p>
+<p>
+If you want to show the content from the sidebar, a window appears, as
+shown in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig7">4-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig7_HTML.jpg" style="height:15.1em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 4-7</p>
+<p>Review the JSON code as it runs</p>
+
+
+
+
+<h2 class="Heading">Using the JSON Integration Tools in Swift</h2>
+<p>What you have seen so far is how to create a file inside a playground
+and how to read its contents. The reading process is the same whether
+the file is in a playground or somewhere else—perhaps even being sent
+over a network.</p>
+<p>What is more common is reading from a file and handling its contents
+not as a string but as JSON data. That is what this section will
+cover.</p>
+
+<h3 class="Heading">Integrating a Swift Array</h3>
+<p>Begin with some JSON
+ code that you can create in an editor like BBEdit or in Xcode
+(or even in TextEdit).</p>
+<p>
+You can start with a JSON array, such as the following:
+
+</p>
+<pre>[3, 69, 8, 66]</pre>
+<p>
+Note that the elements of the array are separated by commas and that the
+array is enclosed in square brackets. You can create a playground and
+then add a new file to it in the Resources section. Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig8">4-8</a> shows how this
+will play out in this chapter.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig8_HTML.jpg" style="height:13.75em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 4-8</p>
+<p>Create a JSON array in a file inside your playground bundle</p>
+
+
+<p>
+You continue by specifying the URL  for the file, as you
+have seen previously in this chapter.
+
+</p>
+<pre>let url = Bundle.main.url(forResource: "ArrayTest", with Extension: "json"</pre>
+<p>
+Next, instead of extracting the data from the file as a string, use the
+<code>JSONSerialization.json</code>
+file built into FoundationKit to retrieve it as a JSON object. Note that
+this should always be done inside a <code>do</code> block that can
+catch a failure, as you can see in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig9">4-9</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig9_HTML.jpg" style="height:34.88em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 4-9</p>
+<p>Catch a failure</p>
+
+
+<p>
+Once it has been created as a JSON  object, you can print
+it using Swift. What is most important in the code in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig9">4-9</a> is that after
+the JSON object has been created, it can be modified, as always, in
+Swift. For example, you can convert the array (in a JSON sense) to a
+Swift array of integers using
+
+</p>
+<pre>let test = jsonObject as! [Int]</pre>
+<p>You can see this in line 10 of Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig9">4-9</a>. (In practice,
+you would use <code>as?</code> to catch an error
+in the conversion.)</p>
+<p>
+Several other lines of testing and debugging are shown in the figure,
+but perhaps the most important is line 13:
+
+</p>
+<pre>print (test[2])</pre>
+<p>Line 13 creates the test variable with the typed array, as noted
+previously in this section. The reason that line 13 is so important is
+that the JSON 
+code that was probably specified as a typed-in string now is converted
+to a real object, and you can use the subscript <code>[2]</code> to access the
+data—just like any other Swift data.</p>
+
+
+<h3 class="Heading">Integrating a Swift Dictionary</h3>
+<p>
+The same basic steps apply if you want to use a JSON  array in Swift. As you
+can see in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig10">4-10</a>, you create
+the file in your playground’s bundle.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig10_HTML.jpg" style="height:12.38em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 4-10</p>
+<p>Use a dictionary with Swift and JSON</p>
+
+
+<p>Note that the brackets are curly brackets, which is the style that
+JSON uses for its objects. Square brackets (as shown in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig8">4-8</a>) are for a JSON
+array.</p>
+
+<h3 class="Heading">Note</h3>
+<p>This is the area you need to pay attention to. The rules of JSON and
+Swift are similar but not identical. For example, a Swift array has
+elements of a common type, but that is not necessarily the case in JSON.
+That is why you must always catch failures that may occur when using
+<code>JSONSerialization.json</code>.</p>
+
+<p>
+Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig11">4-11</a> shows the same
+type of testing and experimentation you saw being used for a
+JSON/Swift  array
+in Figure <a href="#459488_1_En_4_Chapter.xhtml#Fig9">4-9</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_4_Chapter/459488_1_En_4_Fig11_HTML.jpg" style="height:31.43em" alt="../images/459488_1_En_4_Chapter/459488_1_En_4_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 4-11</p>
+<p>Experiment with a JSON/Swift dictionary</p>
+
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>The ability to move data back and forth using a common syntax like
+JSON is important both within a single app and between multiple apps.
+This chapter has showed you the basics.</p>
+<p>Note that beginning with Xcode 9, the <code>Codable</code> protocol is
+provided to further enhance Swift’s JSON capabilities.</p>
+<p>You have not yet seen the basic types of building blocks that let you
+share code and data across apps and platforms. In the next chapter, you
+will begin to look at very specific uses of these building blocks by
+examining Facebook logins that you can use in iOS (and other) apps.</p>
+
+
+<p></p>
+<h1>Part IIIIntegrating Facebook Logins</h1>
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">5. Setting Up a Facebook Account with
+iOS</h1>
+
+
+<!--End Abstract-->
+
+<p>In this and the following parts of this book, you will be dealing
+with the integration of an iOS project with a separate project, such as
+a project from Facebook, Amazon Web Services, or RxSwift. The biggest
+difference between this type of integration and the integration
+discussed in the previous chapters is that now the integration is more
+complex. It’s no longer a matter of sharing data, messages, or data
+structures between apps; rather, you are getting parts of both
+components to work together. This chapter will explore the use of
+Facebook, which in some ways is the simplest form of app
+integration.</p>
+
+<h3 class="Heading">Note</h3>
+<p>It might be useful to look at least briefly at the AWS, Facebook, and
+RxSwift integrations in the following chapters. Some of the techniques
+are used across other environments. Furthermore, being able to look at
+code in different environments that does the same thing can help you
+understand the major issues involved.</p>
+
+
+<h2 class="Heading">Beginning to Explore the Facebook iOS SDK</h2>
+<p>The APIs
+discussed in this book change from time to time. In 2018, a number of
+them changed in response to the European Union’s adoption of the General
+Data Protection Regulation (GDPR)  and changes brought
+about by several highly visible breaches of privacy at many social media
+companies, including Yahoo! (3 billion user accounts compromised), eBay
+(145 million users affected), Equifax (143 million users at risk), and
+Target stores (110 million people with their credit card data stolen).
+Be very careful about relying on old technologies and code, but be
+particularly careful about relying on code that dates from mid-2018 and
+earlier. It may not reflect the changes that have been put in place in
+recent years.</p>
+<p>
+As is the case with the other APIs mentioned in this book, a good place
+to start is at the developer subsite for Facebook—<code>developers.facebook.com</code>,
+as you can see in Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig1">5-1</a>. The API itself
+is always subject to change; furthermore, news and updates are shown on
+the welcome screen, as you can see in the figure. News and updates
+frequently change.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig1_HTML.jpg" style="height:25.6em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 5-1</p>
+<p>Start to use the Facebook developer API</p>
+
+
+<p>
+Although the developer site for Facebook  changes, its basic
+structure is fairly constant. Look at the black navigation bar at the top
+of Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig2">5-2</a> to get an idea
+of how the site is organized.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig2_HTML.jpg" style="height:25.6em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 5-2</p>
+<p>Navigate through the Facebook developer site</p>
+
+
+<p>
+If you want to start working with Facebook  iOS integration, look
+for the Facebook iOS SDK. You’ll find it in the Docs menu of the
+navigation bar, as you can see in Figures <a href="#459488_1_En_5_Chapter.xhtml#Fig2">5-2</a> and <a href="#459488_1_En_5_Chapter.xhtml#Fig3">5-3</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig3_HTML.jpg" style="height:20.12em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 5-3</p>
+<p>Drill down to get to the Facebook SDK for iOS </p>
+
+
+<p>
+What you’re looking for is shown in Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig4">5-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig4_HTML.jpg" style="height:26.45em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 5-4</p>
+<p>Explore the Facebook SDKs for iOS</p>
+
+
+
+
+<h2 class="Heading">Looking at the Components of the Facebook iOS
+SDK</h2>
+<p>
+In Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig4">5-4</a> you can view the
+major SDKs  for
+Facebook/iOS. You can see them in Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig5">5-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig5_HTML.jpg" style="height:26.42em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 5-5</p>
+<p>Review the basic iOS SDK components</p>
+
+
+<p>
+As is the case with AWS
+, a lot of the iOS SDKs for Facebook are devoted to managing
+advertising and user interaction. The five primary SDKs are as follows:
+
+</p>
+
+<ul>
+<li><p><strong>Analytics.</strong> You can see information about who is
+using your Facebook app
+. This information is anonymized so that you don’t see individual
+information unless the user has specifically allowed that; however, you
+can see aggregated or anonymized data about your users. With Facebook,
+this is basically the information a Page owner can see in
+Insights.</p></li>
+<li><p><strong>Login.</strong> These are the tools that people will use
+to log in to your Facebook app .</p></li>
+<li><p><strong>Share.</strong> This SDK  manages sharing,
+liking, and messages. (This is the SDK that many Facebook app developers
+start thinking about even though its implementation will require dealing
+with other SDKs as well.)</p></li>
+<li><p><strong>App Events.</strong> This SDK   lets you see the
+events and actions taken by users in your app.</p></li>
+<li><p><strong>Ads.</strong> For many developers, this is the critical
+SDK. Share and App
+ Events are what may be most important to the users, but Ads are
+often most important to the business manager.</p></li>
+</ul>
+
+<p>
+As you drill down deeper into the iOS Facebook SDK, you can find related
+SDKs, as you can see in Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig6">5-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_5_Chapter/459488_1_En_5_Fig6_HTML.jpg" style="height:19.38em" alt="../images/459488_1_En_5_Chapter/459488_1_En_5_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 5-6</p>
+<p>See additional resources and get started</p>
+
+
+<p>The last stop on your overview may be the resources  shown in Figure <a href="#459488_1_En_5_Chapter.xhtml#Fig6">5-6</a>.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Integrating Facebook APIs with iOS requires persistent and complex
+tools so that Facebook itself, your Facebook app, and your iOS app
+function seamlessly together. In order to move forward, you’ll use the
+steps outlined in the following chapter.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">6. Managing Facebook Logins</h1>
+
+
+<!--End Abstract-->
+
+<p>The first login procedure you need to worry about is the login for
+yourself as a Facebook developer for a specific app. This chapter will
+help you navigate that login protocol. Remember that there are many
+sequences of steps you can take to achieve your desired result—access to
+the Facebook iOS API.</p>
+
+<h2 class="Heading">Beginning the Facebook SDK Login Process</h2>
+<p>
+Start by logging in to your Facebook developer account. If you are
+proceeding from the previous chapter, you can now use the Quick Start
+for iOS  button
+shown in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig1">6-1</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig1_HTML.jpg" style="height:38.93em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 6-1</p>
+<p>Start by creating a new Facebook App ID</p>
+
+
+<p>
+You need to provide your app’s name  and your contact email
+address. (Remember that to get to this dialog you need to have logged in
+to your Facebook developer account, so that information is already part
+of the app that’s being created.) Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig2">6-2</a> shows the app
+creation  step.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig2_HTML.jpg" style="height:38.93em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 6-2</p>
+<p>Name your new Facebook app and provide a contact email address</p>
+
+
+<p>
+The process  of
+creating an app has several layers of security, as you can see in Figure
+<a href="#459488_1_En_6_Chapter.xhtml#Fig3">6-3</a>. Remember that
+your iOS app (or any non-native app) will have access to significant
+Facebook  and
+personal resources, so security is tight and has been increased
+significantly since some issues arose in 2017 and early 2018.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig3_HTML.jpg" style="height:38.93em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 6-3</p>
+<p>Pass through the Facebook security process</p>
+
+
+
+
+<h2 class="Heading">Providing Basic iOS/Facebook Integration</h2>
+<p>
+As you can see in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig4">6-4</a>, you continue on
+with the Facebook for iOS SDK .
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig4_HTML.jpg" style="height:34.92em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 6-4</p>
+<p>Integrate the Facebook SDK for IOS</p>
+
+
+<p>
+The downloaded SDK 
+that you have created, as shown in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig4">6-4</a>, integrates your
+new Facebook app ID into the property list for your app. Note the code
+toward the end of section 2 of the <code>info.plist</code> , as shown in Figure
+<a href="#459488_1_En_6_Chapter.xhtml#Fig5">6-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig5_HTML.jpg" style="height:34.92em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 6-5</p>
+<p>Your Facebook ID is integrated into the info.plist file you
+download</p>
+
+
+<p>
+The code  shown in
+Listing <a href="#459488_1_En_6_Chapter.xhtml#PC1">6-1</a> is standard code
+for any iOS app.
+
+</p>
+<pre>CFBundleURLTypes
+
+
+CFBundleURLSchemes&gt;
+
+12345
+
+
+
+FacebookAppID&gt;
+12345
+FacebookDisplayName
+JFTest
+Listing 6-1
+Facebook Integration with Your App’s Property List</pre>
+<p>The Facebook ID
+ is used internally; the app display name is visible to the user.
+Remember this if you need to change the name at some point: most likely
+you need to leave the <code>FacebookAppID</code>.
+However, if you are modifying an existing Facebook app to get started
+quickly, you will need to change both <code>FacebookAppID</code> and
+<code>FacebookDisplayName</code>.</p>
+
+<h3 class="Heading">Note</h3>
+<p>It is often easier to use the quickstart Download SDK button show
+previously in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig4">6-4</a> rather than
+tweaking an existing plist.</p>
+
+
+
+<h2 class="Heading">Connecting the iOS app to your Facebook App</h2>
+<p>The plist you download has the Facebook name inserted into it so that
+the iOS app can use it appropriately. You now need to manually provide
+the iOS app bundle identifier (which uniquely identifies every iOS app)
+to Facebook.</p>
+<p>
+Beneath the code shown in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig5">6-5</a> and Listing
+<a href="#459488_1_En_6_Chapter.xhtml#PC1">6-1</a>, you’ll see a
+form, shown in Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig6">6-6</a>, where you can
+enter your bundle
+identifier.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig6_HTML.jpg" style="height:20.35em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 6-6</p>
+<p>Provide your bundle identifier from iOS to Facebook</p>
+
+
+<p>
+As a reminder, the bundle
+identifier is shown in your iOS app’s general settings at the top
+(in the Identity section; see Figure <a href="#459488_1_En_6_Chapter.xhtml#Fig7">6-7</a>).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_6_Chapter/459488_1_En_6_Fig7_HTML.jpg" style="height:35.35em" alt="../images/459488_1_En_6_Chapter/459488_1_En_6_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 6-7</p>
+<p>Use the iOS bundle
+identifier for your Facebook app</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>Always be careful about changing the bundle identifier. It is used in
+many places to keep the parts of your iOS app together.</p>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter has provided an overview of the connections from an iOS
+app to a Facebook app and vice versa. Be careful about making changes
+for their own sake. More than one developer has decided to “clean up” a
+bundle identifier at some point so that it adheres to an in-house
+standard or for some other reason. Chances are, that “clean-up” will
+cost you hours (or days) of work.</p>
+<p>At this point, you should be ready to actually try running your iOS
+app together with Facebook.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">7. Adding a Facebook Login to an iOS
+App</h1>
+
+
+<!--End Abstract-->
+
+<p>With a Facebook developer account, you can add Facebook features
+(such as logins) to your iOS app. This chapter will walk you through
+that process. It is useful for many of the Facebook tools that you may
+want to integrate with an iOS app. Furthermore, the steps used to
+integrate Facebook tools are similar in some ways to the steps you would
+use to integrate other tools, such as Amazon Web Services (AWS), which
+is the topic of the next part of this book.</p>
+<p>Also, it’s important to note that there are a number of ways to
+handle this integration.
+CocoaPods (described in Chapter <a href="#459488_1_En_2_Chapter.xhtml">2</a>) are a very common way of handling
+integration. If you look into CocoaPods, you’ll see that what you have
+is an automated tool for managing your Xcode project files along with
+having versions automatically downloaded from GitHub by CocoaPods.</p>
+<p>The heart of the integration is Xcode, its files, and its frameworks.
+Although a CocoaPods interface is available for the Facebook interface,
+this chapter will show you what happens on the source code/Xcode side of
+things. Remember that regardless of the integration technique that you
+use, the same basic structure (updating and integrating your Xcode
+project) is what has to happen.</p>
+<p>First, though, it’s the Facebook login.</p>
+
+<h2 class="Heading">Starting to Integrate the Facebook SDK with an iOS
+app</h2>
+<p>
+There are two components you need to get started:
+
+</p>
+
+<ul>
+<li><p>You need a Facebook developer account (see the previous
+chapter).</p></li>
+<li><p>You need Xcode and a basic familiarity with it.</p></li>
+</ul>
+
+<p>Although you can work offline with Xcode as you develop an app, you
+cannot work offline to create apps for Facebook or iOS, because you need
+to interact with the Facebook and iOS environments. If you have anything
+other than an ordinary Internet connection (for example, if you are
+behind a firewall that limits the sites you can visit), check out the
+basic steps to get started to make certain that you don’t need
+permission from another part of the organization.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Both the Facebook and iOS developer sites change from time to time,
+so you may have to search around to find sections that have moved.</p>
+
+<p>
+Start by creating an Xcode project to use for testing. In this chapter,
+the Single View sample app
+ that is part of Xcode will be used. Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig1">7-1</a> shows how you
+can create it.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig1_HTML.jpg" style="height:23.15em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 7-1</p>
+<p>Create a single-view app to test with Facebook</p>
+
+
+<p>
+Make a note of the app bundle identifier that is created based on the
+data you enter for the app
+. As you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig2">7-2</a>, the bundle identifier for
+this app is <code>com.champlainarts.MySingleViewApp</code>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig2_HTML.jpg" style="height:27.75em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 7-2</p>
+<p>Make a note of the bundle identifier</p>
+
+
+<p>
+As always when you create a new app from a template in Xcode, run the
+app either on a device or on a simulator to make certain that it works
+properly. Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig3">7-3</a> shows what you
+should see if you run it on the simulator for iPhone 8.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig3_HTML.jpg" style="height:37.72em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 7-3</p>
+<p>Test the app
+</p>
+
+
+<p>Yes, a successful implementation of the single-view app shows
+nothing. As you will see later in this chapter, you can easily add a
+label. All you should be concerned with at this point is that the app
+doesn’t fail or crash when you run it on Xcode .</p>
+
+
+<h2 class="Heading">Download the Facebook SDK for Swift</h2>
+<p>Log in to your developer account on <code>developers.</code><code>facebook.com</code>. You’ll
+see choices to download the Facebook SDK for iOS, Android, and PHP, as
+well as for other platforms. As of this writing, the basic iOS SDK is
+still written in Objective-C, but you can download the Swift version if
+you want (you’ll see how to do that in this section).</p>
+<p>
+The Swift version of the iOS SDK is under documentation. Once you’ve
+logged in, use the Docs menu item in the top navigation bar to get to
+the Documentation
+page, as shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig4">7-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig4_HTML.jpg" style="height:28.3em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 7-4</p>
+<p>Look in Documentation for the Facebook SDK for iOS/Swift</p>
+
+
+<p>
+You may have to scroll
+ down, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig5">7-5</a>, to find the
+Swift SDK.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig5_HTML.jpg" style="height:30.87em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 7-5</p>
+<p>The Facebook Swift SDK is available with all of the others</p>
+
+
+<p>
+Once you have located the “SDK for Swift” link, open
+it, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig6">7-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig6_HTML.jpg" style="height:30.87em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 7-6</p>
+<p>Download the Facebook SDK for Swift</p>
+
+
+<p>The frameworks 
+shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig6">7-6</a> are the heart of
+the Facebook SDK for Swift. All frameworks for iOS were originally
+written in Objective-C. Today, some of the new frameworks are written in
+Swift, but when you build a Swift-based app, it is not a problem that
+some (or all) of the frameworks are written in Swift. Thus, when you
+download the SDK for Swift, you’ll wind up with frameworks that are
+often written in Objective-C, and that doesn’t matter. When you download
+the SDK for Swift, as shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig6">7-6</a>, some of the
+frameworks have enhancements specifically for Swift, so keep these files
+safe and just add them as needed to your app.</p>
+<p>
+The download link in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig6">7-6</a> takes you to
+GitHub, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig7">7-7</a>. You can
+download the source code as <code>.zip</code> or <code>tar.gz</code>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig7_HTML.jpg" style="height:37.57em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 7-7</p>
+<p>Download the latest Facebook SDK for Swift</p>
+
+
+<p>
+The files downloaded from GitHub will vary over time both in content and
+in name. The downloaded
+files  at
+the time of this book’s writing look like Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig8">7-8</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig8_HTML.jpg" style="height:25.02em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 7-8</p>
+<p>Downloaded Facebook
+files from GitHub 
+</p>
+
+
+
+
+<h2 class="Heading">Adding Frameworks and Functionality to Your Facebook
+App</h2>
+<p>
+You can work around the issue of what file is where by using CocoaPods,
+but if you prefer to work with the actual files  themselves, one
+technique that works for many people on many projects is to look for a
+sample file or app. In this case, there’s a <code>Samples</code> folder
+containing a SwiftCatalog app. Many times (but not always!) the sample
+app will be updated for any given project before the documentation is
+updated. If that is the case, build the app. If you look at the project
+navigator, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig9">7-9</a>, you’ll note
+intermediate files such as the frameworks are all built in the sample
+app.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig9_HTML.jpg" style="height:23.22em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 7-9</p>
+<p>Build a sample to get frameworks</p>
+
+
+<p>If you drag the needed frameworks into your own app, Xcode will put
+them in the right place in your project.</p>
+<p>
+You can add new frameworks  and functionality to
+your Facebook app either at the beginning or at any time as you work
+with the app. The My Apps menu in the navigator at the top of the screen
+(seen in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig10">7-10</a>) lets you both
+add and reconfigure your app’s components.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig10_HTML.jpg" style="height:38.93em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 7-10</p>
+<p>Add and modify your Facebook app frameworks and features</p>
+
+
+<p>
+From your app 
+dashboard (Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig10">7-10</a>) you can
+choose new products (features), as shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig11">7-11</a>. This display
+shows you available products and links to specific documentation so you
+can decide what you want to work on.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig11_HTML.jpg" style="height:28.3em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 7-11</p>
+<p>Add products to your Facebook app </p>
+
+
+
+
+<h2 class="Heading">Enhancing Your App</h2>
+<p>If you have followed along with this chapter, you have produced the
+app shown previously in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig3">7-3</a>. It runs and
+displays its storyboard, which happens to be blank. In order to move
+forward, it makes sense to add something to your storyboard.</p>
+<p>
+Go to <code>main.storyboard</code> in
+your app and add a label to it, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig12">7-12</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig12_HTML.jpg" style="height:24.42em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 7-12</p>
+<p>Add a label to your app</p>
+
+
+<p>Next, add a Facebook login  button to your app. If
+you have followed the sequence shown previously in which you built the
+SwitchUserSample example, you have the Facebook Login framework in that
+app and you can drag it into your new app. Alternatively, add Facebook
+Login from the products shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig11">7-11</a> by modifying
+one of your apps (shown in My Apps in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig10">7-10</a>).</p>
+<p>Once Facebook Login is added to your app, the code to add the button
+is simple. Add it to the <code>viewDidLoad</code> method of
+your app. (If it’s built on the SingleViewController template as
+described in this chapter, the app has one view controller called <code>ViewController</code>.</p>
+<p>
+The code is shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig13">7-13</a> and in
+Listing  <a href="#459488_1_En_7_Chapter.xhtml#Par32">7-1</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig13_HTML.jpg" style="height:23.82em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 7-13</p>
+<p>Add the Facebook login button code to <code>viewDidLoad</code> </p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>The basic <code>viewDidLoad</code> method
+with a stub is already part of the SingleViewApp template.</p>
+
+<p>
+
+</p>
+<pre>import UIKit
+import FBSDKLoginKit
+class ViewController: UIViewController {
+override func viewDidLoad() {
+super.viewDidLoad()
+// Do any additional setup after loading the view,
+// typically from a nib.
+let loginButton = FBSDKLoginButton()
+loginButton.center = view.center
+view.addSubview(loginButton)
+}
+override func didReceiveMemoryWarning() {
+super.didReceiveMemoryWarning()
+// Dispose of any resources that can be recreated.
+}
+}
+Listing 7-1
+Add the Facebook Login Button</pre>
+<p>
+Rebuild your app (clean the build files first to make certain that you
+don’t have some experiments lying around). Now, when you run it, you
+should see your label and the button, as shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig14">7-14</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig14_HTML.jpg" style="height:30.9em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig14_HTML.jpg"/>
+</p>
+
+<p>Figure 7-14</p>
+<p>Try your app with the label and login button</p>
+
+
+<p>
+Remember that you didn’t just add the image of a button: you added the
+functionality of the login button, so when you run your app you’ll be
+asked for permission, as you can see in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig15">7-15</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig15_HTML.jpg" style="height:31.13em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig15_HTML.jpg"/>
+</p>
+
+<p>Figure 7-15</p>
+<p><em>Test Facebook login integration</em>  </p>
+
+
+<p>
+The login button should work now. Try it, as shown in Figure <a href="#459488_1_En_7_Chapter.xhtml#Fig16">7-16</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_7_Chapter/459488_1_En_7_Fig16_HTML.jpg" style="height:31.13em" alt="../images/459488_1_En_7_Chapter/459488_1_En_7_Fig16_HTML.jpg"/>
+</p>
+
+<p>Figure 7-16</p>
+<p>Test the Facebook login button</p>
+
+
+<p>You can also test with your own Facebook account. In addition, you
+can search <code>developers.</code><code>facebook.com</code> to get
+test accounts you can use so that you don’t create fake accounts or
+interfere with your own account.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Some developers test logging in with their own account but use the
+Facebook test accounts for adding information.</p>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This has been an overview of integrating Facebook and iOS. The
+details may change from time to time, but the overview remains basically
+the same. And, in fact, it’s the same for all components of Facebook and
+other frameworks that you may want to integrate with your app.</p>
+
+
+<p></p>
+<h1>Part IVStoring Data in Amazon Web Services</h1>
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">8. Working with Amazon Web Services
+and Cocoa</h1>
+
+
+<!--End Abstract-->
+
+<p>In Parts III – V of this book you see how to put third-party
+components together with Cocoa and its frameworks. These components can
+be concepts, standards, or open source tools such as JSON, or they can
+be specific tools, such as the login using Facebook that is described in
+Part III.</p>
+<p>In this part, a more general tool will be introduced: Amazon Web
+Services. (Coming up in Part V is RxSwift.) You will see an overview of
+how to create an AWS account for your app to use, install the
+appropriate downloads from AWS, and provide integration with your app.
+The focus of AWS integration is data management, but you can use AWS for
+other purposes as well.</p>
+
+<h2 class="Heading">Comparing Components</h2>
+<p>JSON is a tool for reading and writing structured text in a simple
+way. It is so common these days that many languages, frameworks, and
+environments (including Cocoa and Cocoa Touch) support the use of JSON
+for both reading and writing.</p>
+<p>The Facebook Login tool (described in Part III) differs from JSON in
+that it is designed for a single simple purpose: checking someone’s
+credentials. Rather than the tight integration that JSON has with Cocoa
+and Cocoa Touch, Facebook Login has no integration from the Cocoa or
+Cocoa Touch side: You simply add some methods, classes, or frameworks
+from Facebook to your app, and then a Facebook-provided class goes off
+to check the credentials and pass back a yes or no for access. (This is
+a simplification of the process.)</p>
+<p>Amazon Web Services (AWS) is a different type
+of tool with a different type of integration. It is not explicitly
+integrated with Cocoa and
+Cocoa Touch. AWS functionalities are critical to most apps, and
+they are provided in a number of different ways. They can be provided
+with code that you write for your app; code found in one of the many
+frameworks or libraries available on GitHub and elsewhere; or code and
+frameworks that are part of Cocoa and Cocoa Touch. AWS becomes the data
+manager for your app, and you interact with it constantly as your app
+runs (depending, of course, on the specific design of your app).</p>
+
+<h3 class="Heading">Note</h3>
+<p>For the remainder of this chapter, unless a distinction needs to be
+made, <em>Cocoa</em> is used to refer to both Cocoa and Cocoa Touch.</p>
+
+
+
+<h2 class="Heading">Using AWS with Cocoa</h2>
+<p>As noted, there are many ways in which you can integrate AWS with
+Cocoa and Cocoa Touch. In the simplest way, you use AWS (more
+specifically, one or more components of AWS) just as you would use the
+Facebook Login tool or even as you would use an open source tool,
+framework, or standard like JSON. In those cases, think about an iOS or
+macOS app that incorporates AWS.</p>
+<p>At the other extreme, you can use AWS (more specifically, one, more,
+or many components) as the heart of your app.</p>
+<p>In both of these scenarios, the user interface is envisioned as being
+built with Cocoa or Cocoa
+Touch. The question is, where does the implementation of the
+basic functionality of the app take place—is it in AWS or is it in
+Cocoa?</p>
+
+<h3 class="Heading">Note</h3>
+<p>It is possible to place some of your app’s functionality on the Cocoa
+side of things and other parts of the functionality in AWS. Depending on
+your environment, it may be advisable to consolidate the functionality
+on one side or the other, but that is a personal observation and not a
+suggestion.</p>
+
+<p>
+The overview found in this chapter may help you consider the
+possibilities for your app. Four points are worth considering:
+
+</p>
+
+<ul>
+<li><p>Sharing data with others</p></li>
+<li><p>Using data across platforms</p></li>
+<li><p>Playing to your strengths</p></li>
+<li><p>Playing to your users’ expectations</p></li>
+</ul>
+
+<p>Each of these points will be discussed in the following sections.</p>
+
+<h3 class="Heading">Sharing Data with Others</h3>
+<p>When you talk to people about apps, they commonly think and talk
+about entering data on their phone and letting other people (or
+themselves at other times) view and modify the data on another
+device—maybe even on a PC sitting on a desktop  half a world away.</p>
+<p>That common scenario that we all recognize is complicated to
+implement. Typically, the data is going to be stored somewhere, and that
+“somewhere” cannot be solely on the phone from which it originated,
+because it needs to be visible to people when the phone is out of range
+or even powered off.</p>
+<p>One of the most common ways of storing this persistent data is in one
+of the cloud-based 
+services , such as
+AWS, Box, Azure, Dropbox, or FileMaker (version 17 or greater). You can
+also use the web (particularly with HTML5) to store the data, but it
+must be somewhere that is reachable.</p>
+
+
+<h3 class="Heading">Using Data Across Platforms</h3>
+<p>There are many ways to store data that needs to be shared. People who
+have worked with data of all kinds and on all types of projects commonly
+agree that changing a data-management strategy is not easy, and it gets
+more complicated as more and more data becomes involved, as is the case
+with an old system. Too often, people skip over the “magic” that they
+expect to happen automatically to the data.</p>
+<p>With the exception of a project that does not store any data—and
+never will—it’s worth thinking about how data will be shared. Here are
+some of the basic considerations and suggestions for how you might
+approach the data-management issue. Planning for data-management
+strategies that will only be implemented in the future is far, far
+better than leaving it to chance (or “magic”). In other words, you don’t
+have to do it at the start, but you have to have at least one plan for
+managing data in the future, even if that plan is to revisit the issue
+in the future. Just make certain it’s a revisit and not a first visit to
+the idea of data management.</p>
+
+<h3 class="Heading">Note</h3>
+<p>This section focuses on data, but it is now possible to move some or
+more of an app’s processing to the cloud. In fact, the distinction
+between data and processing is hard to define in many cases because one
+can frequently be converted to the other.</p>
+
+<p>
+The basic data scenarios
+ and possible solutions are as follows:
+
+</p>
+
+<ul>
+<li><p>None. No data is stored and never will be.</p></li>
+<li><p>One user/device. Data is stored only for one user and one device.
+This is generally a special case for temporary data. It would apply to a
+calculator app that remembers its last total (just as calculators do).
+You can use the Cocoa <code>UserDefaults.standard</code>
+to store relatively small amounts of data on the device.</p>
+<p>“Relatively small amounts” has grown over time, but Apple’s
+documentation indicates that it depends on the device. This makes sense
+because devices get more and more storage over time. Reports of 4 GB
+being stored are found in web discussions.</p>
+<p>The data may be backed up with normal backups of the device (if they
+are turned on by the user).</p></li>
+<li><p>One user/multiple iOS devices. This scenario is easiest to
+implement with the user’s Apple ID and iCloud. There is a limit to the
+amount of space available, which depends on what iCloud data plan the
+user subscribes to and how much other data is being stored.</p>
+<p>The iCloud data is backed up automatically as part of the iCloud service.
+Nevertheless, if one of the devices is not reachable, its data may not
+be uploaded to iCloud in a timely manner, and, unless the app properly
+handles iCloud conflicts (as with user resolution of conflicts), the
+data may not be what you and the user think it should be.</p></li>
+<li><p>Multiple users/multiple iOS devices. CloudKit is a good tool for
+handling this situation. Because it relies on iCloud, backups are done
+automatically.</p></li>
+<li><p>Multiple users/multiple devices (or one user with only a non-iOS
+device). This case is usually best served with an on-demand cloud
+service such as AWS, Box, Dropbox, Google Drive, OneDrive, or similar.
+Backups are part of the service.</p>
+<p>Not all apps 
+need on-demand storage, but that is a feature available from most of the
+services mentioned here.</p></li>
+</ul>
+
+
+
+<h3 class="Heading">Playing to Your Strengths</h3>
+<p>With the availability of cloud-based computing as
+well as data, you can choose where to put each one. In the previous
+section, there were some suggestions with regard to data, but with any
+project it makes sense to make your choices not just on technical
+grounds, but also with consideration given to the skills and strengths
+of your developers, whether it is a team of 50 or just yourself.</p>
+
+
+<h3 class="Heading">Playing to Your Users’ Expectations</h3>
+<p>When it comes to users’ expectations of shared
+data, the word “overused” is not far from the mark for
+unrealistic expectations. But there’s another expectation that is just
+as dangerous: an expectation that shared data will be structured and
+shared using the latest and greatest technology from the age of
+mainframe computers and sometimes even from the age of punched cards.
+Data structures have a very long life span. In part, that is the result
+of what is sometimes called “the drag of the installed base”—the need to
+keep things running even though times and capabilities have changed.</p>
+<p>One benefit of using shared-data tools such as AWS is that you and
+your users may be confronted with technologies  and interfaces that
+may be new to you all.</p>
+
+
+
+<h2 class="Heading">Exploring AWS</h2>
+<p>After considering the issues of shared computing and shared data, it
+is time for a high-level overview of AWS. This section will provide that
+overview. In the next chapter, “Managing AWS in Cocoa,” you’ll drill
+down a bit more into AWS and how to integrate it with your apps.
+Remember that AWS is a very rich set of tools and that there is much
+more to find out than can fit in these chapters. The goal here is to
+give you an idea of what is available so you can at least make the
+decision of whether or not to delve further into AWS for your
+project.</p>
+
+<h3 class="Heading">Note</h3>
+<p>AWS  is a
+web-based technology, and that applies to its website as well as its
+technology. The screenshots you will see and the steps you will take in
+this chapter may differ; however, the general process will probably be
+the same. It’s fair to assume that some of the AWS components
+illustrated in this chapter may be enhanced, new ones may be added, and
+some may be deprecated.</p>
+
+
+<h3 class="Heading">Getting Started with AWS</h3>
+<p>
+The place to start is <code>aws.</code><code>amazon.com</code>, as you
+can see (subject to modifications over time) in Figure <a href="#459488_1_En_8_Chapter.xhtml#Fig1">8-1</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_8_Chapter/459488_1_En_8_Fig1_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_8_Chapter/459488_1_En_8_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 8-1</p>
+<p>Begin to work with AWS</p>
+
+
+<p>As a developer, your interactions with AWS are done through the
+console using the button at the top right. You’ll find other links to
+the console throughout the AWS site. You are able to browse the site
+without logging in to the console, but to actually do anything, you will
+need an account. You’ll see how to set up your account in Chapter <a href="#459488_1_En_10_Chapter.xhtml">10</a>, “Managing AWS Logins.”</p>
+<p>
+For now, explore the menu
+ at the top left, as shown in Figure <a href="#459488_1_En_8_Chapter.xhtml#Fig2">8-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_8_Chapter/459488_1_En_8_Fig2_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_8_Chapter/459488_1_En_8_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 8-2</p>
+<p>Browse developer
+resources on AWS</p>
+
+
+<p>Figure <a href="#459488_1_En_8_Chapter.xhtml#Fig2">8-2</a> gives you a
+high-level overview of resources available for developers. The
+Developers menu remains pretty constant even as AWS changes.</p>
+<p>
+The Products menu, shown in Figure <a href="#459488_1_En_8_Chapter.xhtml#Fig3">8-3</a>, changes as AWS
+adds more products and features. It’s worth exploring this menu to see
+the tools and products that you can
+integrate into your app.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_8_Chapter/459488_1_En_8_Fig3_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_8_Chapter/459488_1_En_8_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 8-3</p>
+<p>AWS products</p>
+
+
+
+
+<h3 class="Heading">Comparing Cocoa and AWS Products for Data
+Management</h3>
+<p>You can build a complete app from these AWS  products (that’s the
+idea of AWS of course). The only thing that’s missing is the user
+interface. You can provide that with web-based tools like HTML5.
+However, for the most powerful and flexible interface, Cocoa and Cocoa
+Touch are the tools we prefer.</p>
+<p>If you look at the list of products, you’ll see that they are basic
+building blocks for the back end of apps. One of the most common forms
+of integration between AWS and Cocoa is data management, which is the
+topic explored in this part of the book. The tools available for data
+management in Cocoa are focused on individuals, so shared data
+management needs to be implemented (at least at this point) with tools
+found outside of Cocoa.</p>
+<p>SQLite is built into
+Cocoa , but
+it is a personal data-management library; it doesn’t manage sharing.
+iCloud is the Apple technology that handles data sharing, but that is
+primarily focused on sharing within one AppleID. (CloudKit does provide
+some broader data sharing.)</p>
+<p>Core Data   is a powerful
+data-persistence tool that is part of Cocoa. It is not a data manager;
+rather, it was designed as a front end to any data-management tool that
+conforms to the Core Data structure. Over the years, a variety of
+data-management tools have been integrated with Core Data in various
+forms of Apple products.</p>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter has introduced a high-level view of Amazon Web Services
+(AWS) and how its tools can work with Cocoa. AWS can be used to build an
+entire app, but commonly AWS provides a back end and Cocoa provides the
+front-end interface and functionality.</p>
+<p>In the next chapter, you’ll see how to log in and begin to integrate
+AWS with an app.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">9. Managing AWS Logins</h1>
+
+
+<!--End Abstract-->
+
+<p>In Chapter <a href="#459488_1_En_8_Chapter.xhtml">8</a>, you saw the wide variety of
+services that AWS offers (refer to Figure <a href="#459488_1_En_8_Chapter.xhtml#Fig3">8-3</a> for a list of products). When
+you use products that touch so many aspects of an app and parts of
+users’ lives, security is critical. (This applies to your own apps,
+Apple’s apps and frameworks, and third-party products such as AWS.)</p>
+<p>Logging in to AWS is designed to be a secure process that
+compartmentalizes the different parts of AWS as well as the different
+parts of your apps. This is done with the login structure outlined in
+the first part of this chapter.</p>
+<p>
+Later in the chapter, you’ll find more details on how to integrate AWS
+into an app with Xcode. Because everyone works through AWS in their own
+way, you’ll encounter many options and features that will matter to you
+and others that you can put aside for later (or never). You may want to
+refer back to the following items, found in the various menus, that may
+be important as you start to integrate AWS into an app:
+
+</p>
+
+<ul>
+<li><p>Login (Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig2">9-2</a>)</p></li>
+<li><p>Mobile Hub (Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig9">9-9</a>)</p></li>
+</ul>
+
+
+<h2 class="Heading">Looking at AWS Accounts and the Root User</h2>
+<p>You get to AWS
+  at <code>aws.</code><code>amazon.com</code>. You can
+browse some of the features and documentation as described in Chapter
+<a href="#459488_1_En_8_Chapter.xhtml">8</a>, but to do anything more (such as
+using AWS in an app), you need to log in.</p>
+
+<h3 class="Heading">Note</h3>
+<p>The logins described in this chapter are developer logins that let
+you build your AWS assets. Once they are built and deployed with your
+app, users log in to your app on their own, or—in many cases—your app
+logs in without a user’s intervention.</p>
+
+<p>
+You can create a new AWS account from many locations on <code>aws.</code><code>amazon.com</code>—just look
+for the “Create a new AWS account” link (wording, of course, may change
+over time). The portal shown in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig1">9-1</a> appears.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig1_HTML.jpg" style="height:27.8em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 9-1</p>
+<p>Create a new AWS account</p>
+
+
+<p>The process of creating a new account is pretty straightforward. As
+the little info button next to the “AWS   account name” field
+will tell you, you can select an account name now and change it later.
+The identifier for your AWS account is not normally visible—your email
+address is linked to it, and that is changeable, as is the password.</p>
+<p>
+Once you have an account, you can log in as shown in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig2">9-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig2_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 9-2</p>
+<p>Log in as root user</p>
+
+
+<p>The root user
+  is just
+that—the root user for the account. As you will see, you can have other
+users associated with your account. You do that by logging in as root
+and then setting up additional access accounts. This allows you to have
+multiple accounts within your overall account without jeopardizing
+security.</p>
+
+<h3 class="Heading">Note</h3>
+<p>As is always the case with a root user or superuser, do not use that
+login for anything other than true root or superuser actions, such as
+adding or deleting other users.</p>
+
+<p>
+As you can see in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig3">9-3</a>, you can access
+your account as soon as it is even partially set up. Use the “My
+Account” drop-down menu to do so.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig3_HTML.jpg" style="height:24.58em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 9-3</p>
+<p>Access your account with the root login</p>
+
+
+<p>If you have not yet completed your signup, selecting any of the items
+in My Account   will ask you to sign in
+using the portal shown in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig3">9-3</a>.</p>
+<p>
+If you select an item that relates to AWS Identity and Access Management
+(IAM), you will see the guidance in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig4">9-4</a> directing you to
+IAM.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig4_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 9-4</p>
+<p>You are warned about using the AWS account</p>
+
+
+<p>
+If you continue to an area such as Security Credentials for the account
+(rather than settings for an IAM   user), you are allowed
+to do so, as you can see in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig5">9-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig5_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 9-5</p>
+<p>Configure settings for the account with the root login  </p>
+
+
+
+
+<h2 class="Heading">Creating Organizations</h2>
+<p>
+You can create an AWS
+ account, which has a root login (as do all AWS accounts). You
+can then add individuals to it. You can also create an organization,
+which consists of several AWS accounts. Do this from the account menu at
+the top right. It will have your account name. You have seen the account
+name (champlainarts) at the top right of Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig5">9-5</a> and again in
+Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig6">9-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig6_HTML.jpg" style="height:25.25em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 9-6</p>
+<p>Create an organization from your account menu </p>
+
+
+
+
+<h2 class="Heading">Working with IAM</h2>
+<p>
+Because it is a best practice to not use the root user login, you may
+wonder how you use AWS. The answer is to use the built-in Identity and Access Management
+(IAM) tools
+. When you are fully logged in, you’ll see a Services menu at the
+top left of the view, as shown in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig7">9-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig7_HTML.jpg" style="height:28.3em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 9-7</p>
+<p>Browse Services</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>Explore the various links in Services to find the options and your
+history. The items you will see include recently viewed items, so you
+will see different sequences of menus and their items. There is no
+single sequence of do-this/do-that that works beyond the single basic
+login routine. This chapter provides an overview, but experiment with
+the menus   as you see fit.</p>
+
+<p>
+If you select IAM, you’ll be able to check its settings, as you can see
+in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig8">9-8</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig8_HTML.jpg" style="height:25.25em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 9-8</p>
+<p>Configure IAM</p>
+
+
+<p>
+To start working with code  , choose the Mobile Hub
+service from Services (or History, if you’ve already checked it out, as
+you can see in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig9">9-9</a>).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig9_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 9-9</p>
+<p>Choose Mobile Hub
+ </p>
+
+
+
+
+<h2 class="Heading">Integrating AWS with Xcode</h2>
+<p>
+AWS Mobile Hub  is
+where you work with your code. If you have a project, you can add AWS to
+it, as you can see in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig10">9-10</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig10_HTML.jpg" style="height:28.18em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 9-10</p>
+<p>AWS Mobile Hub</p>
+
+
+<p>
+Instead of creating your own Xcode project, you can start
+from an AWS Starter Kit, as shown in Figure <a href="#459488_1_En_9_Chapter.xhtml#Fig11">9-11</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_9_Chapter/459488_1_En_9_Fig11_HTML.jpg" style="height:21.28em" alt="../images/459488_1_En_9_Chapter/459488_1_En_9_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 9-11</p>
+<p>AWS Starter Kits and Tutorials</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter has provided a summary of the parts of AWS  that matter to you as
+you start to integrate it into your app. It requires setup (such as in
+setting up an AWS account), and it requires that you have a project
+ready to have AWS added to it. You should now see how you can start to
+manage such a project in the Mobile Hub. The next chapter will show you
+how to set up a project for AWS. Once you have done that, you’re ready
+to build out your app.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">10. Beginning an AWS Project</h1>
+
+
+<!--End Abstract-->
+
+<p>One of the most common (yet simplest) ways of using Amazon Web
+Services (AWS) is for data storage. If you have created an AWS account
+as described in the previous chapter, you can follow the guidelines and
+tutorials found in this chapter to build an iOS app that is integrated
+with AWS.</p>
+<p>To start with, you’ll see how to set up the iOS app and the iOS
+project that will be integrated with AWS. After that, you’ll see the
+details of what to do. You can jump back and forth between the iOS app
+and the AWS project.</p>
+
+<h2 class="Heading">Setting Up the iOS App</h2>
+<p>Because this book builds on your knowledge of iOS and assumes that
+AWS is fairly new to you, the focus will be on the iOS project. You can
+build a project for iOS that uses AWS to easily get started; that will
+create a new iOS app for you.</p>
+<p>That step is shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig1">10-1</a>, so that’s a
+good way to get started quickly. Once you have built your first iOS/AWS
+projects, you can easily start from the AWS side and then add the iOS
+component.</p>
+
+
+<h2 class="Heading">Setting Up the iOS Project</h2>
+<p>
+Begin by signing in to the Console with the top right button on <code>aws.amazon.com</code> or
+with the “AWS Management Console” choice from the My Account drop-down
+(next to the Sign in to the Console button). Both are shown in Figure
+<a href="#459488_1_En_10_Chapter.xhtml#Fig1">10-1</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig1_HTML.jpg" style="height:29.72em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 10-1</p>
+<p>Begin to manage your AWS account</p>
+
+
+<p>
+As always, you’ll need to sign in to your AWS
+account, as you can see in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig2">10-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig2_HTML.jpg" style="height:29.72em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 10-2</p>
+<p>Sign in to your AWS account</p>
+
+
+<p>Remember that although you can sign  in to the account as
+the root user, you should use one of the other accounts you have
+created, as covered in Chapter <a href="#459488_1_En_9_Chapter.xhtml">9</a>. If you are given the option to
+sign in to the root account and you have specific accounts, sign in to a
+different account, as shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig2">10-2</a>.</p>
+<p>
+Once logged in, you can sign in to Mobile Hub, which is
+where you want to be. It may be readily available if it is a recent
+service, as you can see at the top of Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig3">10-3</a>. Otherwise,
+look for it under Mobile Services at the top of the third column of
+services in the main body of the service choices.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig3_HTML.jpg" style="height:29.72em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 10-3</p>
+<p>Choose Mobile Hub from Mobile Services or Recently visited
+services</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>Remember that the available services will change from time to time as
+AWS evolves. You also can use the recents black bar at the top of the
+view, as shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig4">10-4</a>.</p>
+
+<p>
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig4_HTML.jpg" style="height:26.75em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 10-4</p>
+<p>See your projects in AWS Mobile Hub</p>
+
+
+<p>If you choose Mobile
+Hub, you’ll see your projects listed (if you have created any),
+as shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig4">10-4</a>. You can also
+work with a starter kit or tutorial.</p>
+
+
+<h2 class="Heading">Exploring the Documentation</h2>
+<p>The concept of cloud
+computing has been around for a long time. It was first referred
+to in the heyday of “thin client” computing , which emerged in 1993
+and which some people considered to be an evolution of the “dumb”
+terminals that had been used in distributed mainframe computer systems
+since the 1950s.</p>
+<p>Although the basic architecture isn’t new, its integration with web
+and other modern technologies has provided a platform that powers much
+of the data-sharing that apps do today. AWS fits into this model very
+nicely, but there are specifics of the implementation that you need to
+understand in order to integrate AWS with your own apps.</p>
+<p>The balance of this chapter helps you move forward to implement that
+integration . The
+first step to consider in your implementation is where you can find help
+and information. The developer documentation for AWS is available
+through <code>aws.</code><code>amazon.com</code>. You can
+find a link to the PDF version of the documentation at the top right of
+many of the AWS pages. The documentation and its links may change from
+time to time, but if you choose Mobile Hub from the services shown in
+Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig3">10-3</a>, you can see
+your projects, as shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig4">10-4</a>.</p>
+<p>
+Note that when you see your projects, you will also see links to
+Support , as you
+can see at the top right of Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig4">10-4</a>. Selecting
+“Documentation” will take you to the documentation, as shown in Figure
+<a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig5_HTML.jpg" style="height:28.78em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 10-5</p>
+<p>You can download the PDF documentation</p>
+
+
+<p>
+At the top right is a button to let you download the documentation as a
+PDF file. As of this writing, the PDF document is over 400 pages long,
+so many developers choose to use the various online versions. The
+documentation is organized into four basic sections:
+
+</p>
+
+<ul>
+<li><p><em>Get Started</em> (shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a>) is just
+that—the steps you need to take to get started. They are summarized in
+this section.</p></li>
+<li><p><em>Tutorials</em> let you build apps or parts of apps to explore
+AWS. As you can see in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a>, they are
+available for iOS and Android.</p></li>
+<li><p><em>How To</em> documents let you learn how to accomplish
+specific tasks
+.</p></li>
+<li><p><em>Reference</em> is the source for information about what’s
+behind the tutorials and how-to documents.</p></li>
+</ul>
+
+<p>All of these may change over time. If you are just getting started
+with AWS, you may have the most success if you follow one of the
+tutorials. If you jump into the middle of a tutorial in the hope of
+implementing just one specific feature, you may be less than successful
+until you are more comfortable with AWS.</p>
+
+
+<h2 class="Heading">Creating a Project</h2>
+<p>From the Get Started page  shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a>, you can start
+to build a simple app that integrates AWS and iOS. These are the steps
+to take.</p>
+
+<h3 class="Heading">Note</h3>
+<p>In the AWS documentation, you will find this startup information in
+several places, including How To, Get Started, Tutorials, and Reference.
+Until you are comfortable with the entire process as described in this
+chapter, you may want to try working with one of the sequences, as there
+are subtle differences in the sequences that can make it confusing to
+switch from one to the other.</p>
+
+<p>To begin with, choose the iOS  platform as shown in
+Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a>. If you have
+not created a project (as shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig4">10-4</a>), do so now
+and choose its platform.</p>
+
+<h3 class="Heading">Setting Up the Back End</h3>
+<p>
+The next step is to set up your back end, which manages
+the integration between iOS and AWS. If you clicked Add on the screen
+shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig5">10-5</a> you should be
+ready to set up your back end, as seen in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig6">10-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig6_HTML.jpg" style="height:17.95em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 10-6</p>
+<p>Set up your back end</p>
+
+
+<p>Set up your back end by downloading Cloud Config as shown in Figure
+<a href="#459488_1_En_10_Chapter.xhtml#Fig6">10-6</a> to configure
+the cloud connection. Then, click Next.</p>
+<p>
+Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig7">10-7</a> shows a basic
+iOS Xcode app after the back end has been downloaded—either one you have
+created or a starter kit or tutorial. (The files should be in your <code>Downloads</code> folder.)
+The files in the project should be familiar to you. (By default, starter
+kits may be named something like <code>aws-mobile-ios-notes-tutorial-master</code>.)
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig7_HTML.jpg" style="height:25.47em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 10-7</p>
+<p>Download the configuration file</p>
+
+
+<p>
+Look in your <code>Downloads</code>  location for a
+downloaded file called <code>awsconfiguration.json</code>.
+From the Xcode project navigator, choose your app and then click Add
+File, as you can see in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig8">10-8</a>, to add the
+downloaded file.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig8_HTML.jpg" style="height:30.12em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 10-8</p>
+<p>Add the downloaded back end to your project</p>
+
+
+<p>
+Your project should now look like Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig9">10-9</a>, with the
+<code>awsconfiguration.json</code>
+file added. (It is easier to use the Xcode Add File command than the
+Finder  to make
+sure your project files are in the right place.)
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig9_HTML.jpg" style="height:50.32em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 10-9</p>
+<p>Use Xcode  to
+add the configuration file to your project</p>
+
+
+
+
+<h3 class="Heading">Add the Pods</h3>
+<p>
+You now need to install CocoaPods  if you haven’t
+already done so for this or another project. To do so, use Terminal and
+input the following command:
+
+</p>
+<pre>sudo gem install cocoapods</pre>
+<p>You don’t need to use a specific directory for this command.</p>
+<p>Change the directory for Terminal to your app’s folder. The simplest
+way to do this is to launch Terminal, type <code>cd</code>, and drag the
+<code>aws-mobile-ios-notes-tutorial-master</code>
+folder to complete the <code>cd</code> (change directory)
+command.</p>
+<p>
+With the directory changed, type the following command to Terminal:
+
+</p>
+<pre>pod init</pre>
+<p>
+Your podfile will be created with the appropriate pods. Whenever you
+modify your podfile, install it with the following Terminal command:
+
+</p>
+<pre>pod install -- repo-update</pre>
+<p>This will move the project into an Xcode workspace as described in
+Chapter <a href="#459488_1_En_3_Chapter.xhtml">3</a>.</p>
+<p>
+While you are in Xcode, check the General settings for your app, as
+shown in Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig10">10-10</a>. You will
+probably see errors related to the signing and provisioning profile
+settings. Change the bundle identifier and team to your own settings.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig10_HTML.jpg" style="height:24.52em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 10-10</p>
+<p>Change the settings for your app</p>
+
+
+<p>
+You should be able to build and run your app now. As you can see in
+Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig11">10-11</a>, the
+pods  will
+download necessary components. The download and build may take a few
+minutes, so be patient.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_10_Chapter/459488_1_En_10_Fig11_HTML.jpg" style="height:17.32em" alt="../images/459488_1_En_10_Chapter/459488_1_En_10_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 10-11</p>
+<p>Install CocoaPods for AWS</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>While the app is building, you may notice some error messages. Wait
+until the build is finished because they may disappear as further
+components are downloaded.</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter has showed you how to begin putting your AWS/iOS app
+together. In the next chapter, you’ll start to actually use the
+integrated app.</p>
+
+
+<p></p>
+<h1>Part VUsing RxSwift</h1>
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">11. Getting Into Code</h1>
+
+
+<!--End Abstract-->
+
+<p>There are two types of developers in the world: those who want to get
+into the code first and then learn how it’s working, and those who want
+to learn how things will work before they get into the code. Just to
+make things interesting, an individual developer may work in one mode or
+the other, switching back and forth for a sense of variety or depending
+on what issues need attention.</p>
+<p>If you feel like starting with the background information, start with
+Chapter <a href="#459488_1_En_12_Chapter.xhtml">12</a>, “Thinking Reactively,” and then
+come back to this chapter. Alternatively, keep reading this chapter to
+get yourself started with some very basic RxSwift code and then follow
+on with Chapter <a href="#459488_1_En_12_Chapter.xhtml">12</a>.</p>
+<p>
+In this chapter, you’ll find the basics of working with RxSwift:
+
+</p>
+
+<ul>
+<li><p><strong>Getting Started</strong> will show you what you need on
+the hardware and software side of things.</p></li>
+<li><p><strong>Installing RxSwift from GitHub</strong> will walk you
+through the download and installation process.</p></li>
+<li><p><strong>Using the RxSwift Playground</strong> will show you how
+to write your first RxSwift code in Swift Playgrounds.</p></li>
+</ul>
+
+
+<h3 class="Heading">Tip</h3>
+<p>If you haven’t used Swift Playgrounds before, you’ll find enough of
+the basics to use it in this book. However, you’ll find out much more in
+<em>Learn Computer Science with Swift: Computation Concepts, Programming
+Paradigms, Data Management, and Modern Component Architectures with
+Swift and Playgrounds</em> and in <em>Exploring Swift Playgrounds: The
+Fastest and Most Effective Way to Learn to Code and to Teach Others to
+Use Your Code</em>. Both are by Jesse Feiler and are published by
+Apress.</p>
+
+
+<h2 class="Heading">Getting Started</h2>
+<p>
+The minimal getting-started things to know are:
+
+</p>
+
+<ul>
+<li><p>RxSwift
+itself is an open source implementation of the reactive programming
+library for Swift. You can download it freely from GitHub (the steps to
+do so are described in this chapter).</p></li>
+<li><p>Reactive programming lets you handle asynchronous processing
+easily.</p></li>
+<li>
+To implement the paradigm, reactive
+programming
+ uses basic terms:
+
+
+<ul>
+<li><p><em>Observables</em> are items that can be observed. When they
+change, those changes are visible to components that <em>subscribe</em>
+to the observable in question.</p></li>
+<li><p><em>Observers</em> observe observables.</p></li>
+</ul>
+
+</li>
+</ul>
+
+<p>These terms and concepts will be explored further in Chapter <a href="#459488_1_En_12_Chapter.xhtml">12</a> and subsequent chapters of this
+book.</p>
+<p>One other point to know from the start is that the reactive
+programming paradigm is often referred to as <em>Rx</em>.</p>
+<p>
+With those basics, you now know enough to get started with RxSwift. You
+will need the following:
+
+</p>
+
+<ul>
+<li><p>A Mac running Xcode 9 or later. Xcode 9 is the integrated
+development environment  (IDE) for developing
+apps on iOS and macOS. It also is the tool that Apple engineers use to
+build iOS and macOS themselves. Xcode is a free download from the Mac
+App Store. Check the system requirements for Xcode: those are the
+requirements you’ll need to work with RxSwift.</p></li>
+<li><p>An Internet connection so that you can log on to GitHub. If you
+don’t have one, you can do the download from GitHub onto a portable
+computer or drive and then copy the downloaded files onto your
+Mac.</p></li>
+</ul>
+
+
+
+<h2 class="Heading">Installing RxSwift from GitHub</h2>
+<p>GitHub is the default repository for most code today, including many
+collaborative and open source projects. You can register for a GitHub
+account that is private (many companies and individuals do this), but a
+private GitHub account has most of the same features as a public
+one.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>Projects on GitHub are in source code <em>repositories</em> (often
+referred to as <em>repos</em>).</p>
+
+<p>With Xcode 9,
+GitHub and source control
+in general are integrated more tightly with Xcode than ever
+before. As a result, if you have download instructions for RxSwift that
+pre-date Xcode 9, you may be directed to use a more complicated process
+than is necessary. This book uses the Xcode 9 integration and shows you
+a very simple way of integrating RxSwift with your Xcode projects.</p>
+<p>
+Log on to <code>github.com</code> and search
+for <code>RxSwift</code>
+using the search field at the top of the window, shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig1">11-1</a>. Remember that
+GitHub is a dynamically updated archive, so the files you download may
+differ over time. Periodically, the entire GitHub site is updated, but
+the functionality remains the same.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig1_HTML.jpg" style="height:27.98em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 11-1</p>
+<p>Download RxSwift from GitHub</p>
+
+
+<p>If you have Xcode
+ installed, the Clone or download button at the right will give
+you the options to download and open it either on your desktop or as a
+ZIP file. New in Xcode 9 is the option to open it in Xcode (but to use
+this option, you must enter your GitHub account credentials in Xcode ➤
+Preferences ➤ Accounts). Choose the Xcode option. (If you don’t see it,
+make sure that Xcode is installed and running and that you have entered
+your credentials in Xcode preferences.)</p>
+<p>
+When you choose to open the code repository in Xcode, you’ll be asked
+for permission, as you can see in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig2">11-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig2_HTML.jpg" style="height:27.98em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 11-2</p>
+<p>Agree to let Xcode open the repository</p>
+
+
+<p>The RxSwift playground is part of the download. You start with it
+because the first time you run it, your downloaded files will be built
+as you follow the instructions in the following section of this book.
+Among the files that you have downloaded will be <code>Rx.xcworkspace</code>. A
+workspace can contain multiple Xcode projects, which is the case with
+this one. Make sure you open <code>Rx.xcworkspace</code> (the
+workspace) and not the project contained within it (<code>Rx.xcodeproj</code>).</p>
+<p>
+RxSwift is covered by
+the MIT license. The MIT icon just above the download buttons
+shows you that license in detail, as you can see in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig3">11-3</a>. As with all
+such licenses, review it to see what the terms are, but know that you
+have a great deal of freedom to use RxSwift.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig3_HTML.jpg" style="height:22.42em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 11-3</p>
+<p>Review the MIT license</p>
+
+
+
+
+<h2 class="Heading">Using the RxSwift Playground</h2>
+<p>
+With the download
+ completed, show the project navigator, as you can see in Figure
+<a href="#459488_1_En_11_Chapter.xhtml#Fig4">11-4</a>. You may have
+to open the <code>Rx</code>
+folder and the <code>Rx.playground</code>
+folder  within
+it. Select <code>Table_of_Contents</code>, as
+shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig4">11-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig4_HTML.jpg" style="height:32.58em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 11-4</p>
+<p>Use Rx.Playground</p>
+
+
+<p>Select <code>RxSwift-macOS</code> from
+the <code>Rx.playground</code> folder
+and build it as described in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig4">11-4</a>. You’re ready
+to go on. (Note that step 2 lets you build the playground using the
+ <code>RxSwift-macOS</code> 
+scheme. There is more information on this in the following pages.)</p>
+
+<h3 class="Heading">Looking at a Formatted Playground</h3>
+<p>
+Playgrounds support markup code, and now is
+a good time to quickly explore that. By default, you will see the markup
+in the file (as shown in Figures <a href="#459488_1_En_11_Chapter.xhtml#Fig5">11-5</a> and <a href="#459488_1_En_11_Chapter.xhtml#Fig6">11-6</a>).
+
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig6_HTML.jpg" style="height:20.08em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 11-6</p>
+<p>Switch between raw code and markup</p>
+
+
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig5_HTML.jpg" style="height:20.08em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 11-5</p>
+<p>By default, you see the playground markup</p>
+
+
+<p>If you want to look at the raw code, you can use Editor ➤ Show Raw
+Markup , as
+illustrated in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig5">11-5</a>. After you do
+that, you’ll see the raw
+code, which is shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig6">11-6</a>. Compare the
+two images to see the difference.</p>
+<p>Don’t worry about this. When you’re building your own playgrounds
+it’s useful to use markup, but you don’t have to do so. If you do want
+to explore markup for playgrounds, there is more information in the
+Markup Formatting Reference at <a href="https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_markup_formatting_ref/index.html#//apple_ref/doc/uid/TP40016497"> <code>https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_markup_formatting_ref/index.html#//apple_ref/doc/uid/TP40016497</code>
+</a>. Note that the document covers markup for Quick Help
+as well as for Swift Playgrounds, so some formatting is only available
+to one or the other.</p>
+<p>
+Follow the instructions shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig4">11-4</a>. Open the Rx
+project as shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig7">11-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig7_HTML.jpg" style="height:32.58em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 11-7</p>
+<p>Open the Rx
+targets</p>
+
+
+<p>
+Use the scheme menu at the top of the workspace window to select an
+<code>RxSwift-mac OS</code>
+destination , as
+you can see in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig8">11-8</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig8_HTML.jpg" style="height:20.18em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 11-8</p>
+<p>Select the scheme</p>
+
+
+<p>
+The playground 
+lets you experiment with live code. Don’t worry for now about what the
+syntax does; just add a <code>print</code> statement, as
+shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig9">11-9</a>. As you add new lines (even
+blank lines) to the playground, they will be numbered automatically.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig9_HTML.jpg" style="height:22.05em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 11-9</p>
+<p>Add code to the Introduction playground</p>
+
+
+
+<h3 class="Heading">Tip</h3>
+<p>You can add code to a playground whether or not markup is shown.</p>
+
+<p>
+At the bottom of the playground window you can see the <em>debug
+area</em>, which displays  output from the
+playground. (If you don’t see it, choose View ➤ Debug Area ➤ Show Debug
+Area.) As you type, the playground will track your key strokes to
+identify errors. In Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig10">11-10</a> you can see
+an error message that may appear as you are typing. Error messages like
+this will appear and disappear as you type and the playground analyzes
+your code (and possible errors).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig10_HTML.jpg" style="height:22.05em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 11-10</p>
+<p>The playground watches for errors</p>
+
+
+<p>
+You can experiment with additional code , as shown in Figure
+<a href="#459488_1_En_11_Chapter.xhtml#Fig11">11-11</a>.
+
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig12_HTML.jpg" style="height:22.05em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 11-12</p>
+<p>Explore the playground with your own code</p>
+
+
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig11_HTML.jpg" style="height:22.05em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 11-11</p>
+<p>The playground can catch errors quickly</p>
+
+
+<p>
+If you remove any code you have added, you should be back to the original playground, as
+shown in Figure <a href="#459488_1_En_11_Chapter.xhtml#Fig13">11-13</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_11_Chapter/459488_1_En_11_Fig13_HTML.jpg" style="height:20.08em" alt="../images/459488_1_En_11_Chapter/459488_1_En_11_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 11-13</p>
+<p>Revert to the original playground</p>
+
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>You should now have RxSwift installed in Xcode. You can reference it
+from a playground or from regular Swift code in your app. When you want
+to add RxSwift to another playground or Xcode project, just follow the
+same steps you have seen here.</p>
+<p>You’ll see this in action later in the book, but first it’s time to
+look at what’s happening behind the scenes in RxSwift.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">12. Thinking Reactively</h1>
+
+
+<!--End Abstract-->
+
+<p>This chapter will help you put the concept of reactive programming in
+context with other programming styles, patterns, and paradigms. In the
+simplest non-jargon description, reactive programming is
+programming that makes it possible to easily handle modern software
+projects and apps that are likely to involve multiple users working at
+the same time with the same data.</p>
+<p>Half a century ago it was possible to think of programming in the
+style of Hello World (the first program many people learned in classes).
+In Hello World, you type in a few lines of code (one to three, depending
+on formatting), and the program displays or prints the text, “Hello
+World.”</p>
+<p>
+More sophisticated programs in this vein allow users to interact with a
+Hello World
+program by typing in a word or phrase that the program will work
+with. Thus, the transcript of a sophisticated version of Hello World
+might look like this:
+
+</p>
+<pre>Good Morning. What is your name?
+Jesse
+Good Morning, Jesse</pre>
+<p>The sophistication of the program lies not only in the fact that the
+user can interact with it, but also in the fact that the program can
+determine whether to greet the user with <code>Good Morning</code>  or <code>Good Afternoon</code>.</p>
+<p>Today, we are looking at much more complex systems that involve
+multiple users who have expectations of real-time updates so that they
+can see and participate in the activities of friends and colleagues. The
+tools we used in the days when we thought that Good Morning (instead of
+Good Afternoon) was great are stressed when we need to deal with these
+more complex systems.</p>
+<p>This chapter will give you an overview of the tools that we need to
+use today (particularly those involved in RxSwift) as well as the
+terminology that is used to describe the tools and the products we are
+creating.</p>
+
+<h2 class="Heading">What Are We Developing?</h2>
+<p>In the earliest days of computers, the instructions to the computers
+were called <em>programs</em>. Groups of programs were often combined
+into <em>systems</em> in which the individual programs sometimes
+interacted and, in other cases, where they addressed issues related to
+the data involved in the programs.</p>
+<p>The earliest programs were run by computer operators and schedulers.
+During the 1970s, when time-sharing and networks became available, a
+single large mainframe computer could be used for multiple programs
+running more or less simultaneously. In this environment, the running of
+programs devolved to users who started to use <em>application
+programs</em> that were designed to be run without technical assistance
+from schedulers and programmers. (Examples of early application programs
+were spreadsheets like VisiCalc and the first word-processing
+programs.)</p>
+<p>Application
+programs 
+designed for use by users rather than by computer specialists were
+gradually referred to as <em>applications</em> to distinguish them from
+the programs that run the computers themselves, which were often called
+ <em>system programs</em>
+ .</p>
+<p>With the advent of smartphones, application programs got a further
+name simplification: <em>apps</em>. For a brief period of time, some
+people attempted to distinguish between application programs (for
+personal computers) and apps (for mobile devices), but that distinction
+never caught on (fortunately!).</p>
+
+<h3 class="Heading">Tip</h3>
+<p>There’s more information on the earliest programs in <em>History of
+Programming Languages</em>, edited by Richard L. Wexelblat, published by
+Academic Press (ISBN 978-0127450407), which covers languages up to 1980
+(that is, before C). A second volume, <em>History of Programming
+Languages II</em>, edited by Thomas J. Bergin and Richard G. Gibson, is
+published by Addison-Wesley Professional (ISBN 978-0201895025). It
+covers languages post-1980—languages including C, Smalltalk, ALGOL, and
+C++.</p>
+
+<p>Today, we are seeing the functionality of apps being packaged in new
+ways, such as extensions in Cocoa and Cocoa Touch. The technologies and
+user interfaces are evolving rapidly, but in this book, the end product
+of development is generally referred to as an app or program even though
+it may be an extension.</p>
+<p>The process of creating an app or program is referred to as
+<em>coding</em> (the original term from the early days of computers that
+has come back into fashion) or <em>programming</em>. <em>Developing</em>
+is the term often used to describe the production of an app or program
+together with its documentation, promotional or marketing materials, and
+training and sustainability tools.</p>
+
+
+<h2 class="Heading">Approaches to Programming</h2>
+<p>There are several overlapping ways of describing and categorizing
+development today. This section will provide you with a quick overview
+of some of the key concepts and terminology that are relevant to
+RxSwift. There are many books and other resources available that you can
+use for further investigation. What is important now is for you to know
+what the concepts are that you need to use and understand.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>Wikipedia is a
+great resource for more information on these topics because its
+community of updaters has a lot of members of the technology world who
+make it their business to keep the articles current .</p>
+
+<p>The reasons for such a variety of frequently overlapping
+terminologies and concepts are beyond the scope of this book. Suffice it
+to say that a combination of fast-moving development projects along with
+the need to provide detailed technical descriptions and marketing
+promotions of tools as well as end products have helped to provide what
+sometimes seems like an endless smorgasbord of jargon.</p>
+<p>
+The terms and concepts can be divided into three groups, each of which
+is described more fully later in this chapter:
+
+</p>
+
+<ul>
+<li><p><strong>Programming</strong>  <strong>paradigms</strong>
+ describe programming languages. When a user runs a program or
+app, it is unlikely that he or she will know what programming language
+it is written with, much less which paradigm(s) in that language are
+used. A specific language may use several programming
+paradigms.</p></li>
+<li><p><strong>Design patterns</strong> are ways in which recurring
+tasks needed in object-oriented programming can be
+implemented. They may be visible to the user in the performance of the
+app, but they also may be strictly internal. Because they are designed
+to be used in object-oriented programming, they can be implemented in
+any language that supports the object-oriented paradigm. A given app or
+program may use multiple design patterns (or none at all).</p></li>
+<li><p><strong>Processing configurations</strong> are the ways in which
+computers and their major components, such as processors  and memory, are
+organized and connected. Although processing configurations are
+determined by the hardware on which an app runs, operating systems often
+provide features that minimize the differences so that a single
+configuration may at different times behave in different ways. (Look at
+the Grand Central Dispatch documentation in Cocoa and Cocoa Touch for an
+example of how this can work.)</p></li>
+</ul>
+
+
+<h3 class="Heading">Programming Paradigms</h3>
+<p>The main programming paradigms that matter to you if you are going to
+use RxSwift (and many other modern tools) are three that describe the
+program’s structure and another three that describe how a program or app
+operates. (These are just the most common programming paradigms that are
+important for you in the RxSwift context.)</p>
+
+<h4 class="Heading">Structural Paradigms</h4>
+<p>The issue of programming paradigms began to be discussed in the late
+1950s and 1960s when most of today’s most commonly used languages were
+developed. It was necessary to describe them, and so these paradigms
+were identified and named. The main structural paradigms were reactions
+to the spaghetti-code
+programs 
+that were frequently written. These programs consisted of line after
+line of code in one continuous program. Control could be transferred
+from one line to another because most lines were identified with a name
+or number. The term <em>spaghetti-code</em> was used to refer to the
+jumble of lines of code that were executed in complex and often
+unpredictable sequences.</p>
+<p>
+To get rid of the spaghetti-code issues, these three concepts evolved:
+
+</p>
+
+<ul>
+<li><p><strong>Structured programming</strong> uses subprograms (logical
+collections of statements) to provide a structure for the program.
+Depending on the language, these subprograms are called methods,
+functions, or procedures. When control   is transferred, it is
+transferred from one subprogram to another rather than to a specific
+line of code.</p></li>
+<li><p><strong>Procedural</strong> programming uses subprograms. They
+often take input data in the form of <em>parameters</em> and may return
+result values. At run time, the parameters of a subprogram are replaced
+by actual values—<em>arguments</em>.</p></li>
+<li><p><strong>Object-oriented (OOP)</strong> programming  lets you describe
+objects that can encapsulate both data and functionality (or both or
+neither). Objects can contain subprograms such as functions or methods.
+Often, objects correspond to real-world concepts such as a customer, a
+place, or an idea.</p></li>
+</ul>
+
+
+
+<h4 class="Heading">Operational Paradigms</h4>
+<p>
+These paradigms describe how the commands are written.
+
+</p>
+
+<ul>
+<li><p><strong>Imperative</strong> programs   consist of
+instructions to the computer to carry out specific tasks in a specific
+order.  <em>Conditional
+statements</em>  such as <em>if</em> let you modify that order,
+but the essence of imperative programs is the imperative instructions.
+(This term is used in the same way that it is used in language.) Tools
+such as Reactive Extensions (ReactiveX) help imperative languages work
+with sequences of data that may be either synchronous or asynchronous,
+thus somewhat bridging the distinctions between the two
+techniques.</p></li>
+<li><p><strong>Declarative</strong> programs   declare what the
+results of operations should be. Whereas imperative programs specify
+what is done as well as how it should be done, declarative program
+paradigms specify only what is done: the program or operating system is
+tasked with doing it in the most appropriate manner. Declarative
+programming languages include instructions designed to make it clear
+what these end results should be.</p></li>
+<li><p><strong>Functional</strong> programs   are a subset of
+declarative programs. They require that the program components be the
+sole determinants of the results of an operation such as a procedure or
+function. In other words, global variables and environmental settings
+are not used within the functions of a functional programming
+paradigm.</p></li>
+</ul>
+
+<p>You can find a comparison of common programming paradigms on
+Wikipedia: <a href="https://en.wikipedia.org/wiki/Comparison_of_programming_paradigms"> <code>https://en.wikipedia.org/wiki/Comparison_of_programming_paradigms</code>
+</a>.</p>
+
+
+
+<h3 class="Heading">Design Patterns</h3>
+<p>Design
+patterns are patterns or routines that can be used in similar
+situations. You can find them in many places, including a pattern in a
+house for how doors and locks are configured as well as in software.
+When used in the context that includes RxSwift, the term refers to a
+book that was published in 1994 and refers to design patterns in
+object-oriented software.</p>
+
+<h3 class="Heading">Tip</h3>
+<p><em>Design Patterns: Elements of Reusable Object-Oriented
+Software</em> by Erich Gamma, Richard Helm, Ralph Johnson, and John
+Vlissides with a foreword by Grady Booch is published by Addison-Wesley
+Professional (ISBN-13 978-0201633610). The authors are often referred to
+as <em>the gang of four.</em></p>
+
+<p>
+The design
+patterns are divided into three categories:
+
+</p>
+
+<ul>
+<li><p><strong>Creational</strong> design patterns are used to create
+objects.</p></li>
+<li><p><strong>Structural</strong> design patterns are used for purposes
+such as connecting two objects.</p></li>
+<li>
+<strong>Behavioral</strong> design patterns are used to manage behavior
+and processing. ReactiveX uses the iterator and observer design
+patterns:
+
+
+<ul>
+<li><p><strong>Iterator</strong>. This pattern lets you traverse some
+structure to get the next element (the pattern lets you specify what the
+sequence is).</p></li>
+<li><p><strong>Observer</strong>. With this pattern, you define a
+one-to-many relationship between an observer (one) and observed elements
+(many or none). It is a key feature that the observed element(s) doesn’t
+know anything about the observer. An observed element <em>publishes</em>
+a change, and any observers receive a notification, but the observed
+element doesn’t need to directly notify any observers.</p></li>
+</ul>
+
+</li>
+</ul>
+
+
+
+<h3 class="Heading">Processing Configurations</h3>
+<p>The third collection of terms and concepts, processing
+configurations, is one that many developers skip over. What
+happens inside the processors is something that we take for granted.
+Simple apps such as Hello World are no longer good models for the code
+that we need to write, and the idea of a computer as a single device is
+also outdated. Almost every smartphone today runs with multiple
+cores—that is, multiple processors. Operating systems
+designed to run on such multi-core devices can perform several tasks at
+the same time.</p>
+<p>What follows is a very high-level conceptual overview of
+multiprocessing. The operating systems allow a task to run on whatever
+core is available, and it can run as if there’s only one core. To work
+around slow devices (printers, networks, and so forth), a task can be
+quickly stopped and packaged with its code and resources; that stopped
+task can then be put aside while something else executes.</p>
+<p>The ability to pick up a task and move it aside is generalized beyond
+just waiting for a slow device. If a task can run independently of other
+tasks, it can run on one core while some other task runs on the first
+core.</p>
+<p>With such use of multiple cores, the operating system and, to a
+lesser extent, the task software must be able to be split into
+independent tasks that can be run on separate cores. To get the most out
+of the available cores, it is important to keep track of what memory is
+required for each task as well as to provide a mechanism for
+synchronizing the tasks at points where they can (or cannot) share
+memory.</p>
+<p>In thinking about this in terms of ReactiveX, it’s
+necessary to distinguish between tasks or parts of tasks that can run
+independently (<em>asynchronously</em>) and those that must run in
+coordination (<em>synchronously</em>).</p>
+<p>The goal of system software designers is to make multiprocessing
+possible with as little intervention by the app developer as possible.
+It should just happen . . . in an ideal world. With the introduction of
+Grand Central Dispatch
+(GCD) in OS X 10.6 (2009) and iOS 4 (2010), existing concurrency
+code in the operating systems was rewritten to make the use of
+multi-core devices possible with little difficulty to developers. What
+is key to the successful use of GCD  is the use of queues
+of tasks. You add tasks to queues, and GCD takes over.</p>
+<p>It is important to remember that the efficient use of multiple cores
+relies on developers’ using queues properly. Fortunately, ReactiveX
+incorporates most of the core manipulation into its RxSwift objects.</p>
+<p>For now, just remember that asynchronous processing is built into
+RxSwift.</p>
+
+
+
+<h2 class="Heading">Introducing Reactive Programming</h2>
+<p>There’s a commonly repeated description of reactive programming on
+Wikipedia: “reactive programming is an asynchronous programming paradigm
+concerned with data streams and the propagation of change.” That is
+true, but it requires a substantial understanding of the background
+terms, such as <em>asynchronous programming paradigm</em>, <em>data
+stream</em>, and <em>propagation of change</em>. You have an overview of
+asynchronous
+programming
+ in the previous section. For now, consider a data stream to be
+just that—a flow of data that can be on its way to a printer,
+communication device, or other part of the app.  <em>Propagation of
+change</em>  refers to the ability of an app to respond to a
+change in its environment and pass that change on appropriately. (That’s
+exactly the meaning in English of the words—it’s not specifically a
+technical concept.)</p>
+
+
+<h2 class="Heading">Focusing on ReactiveX </h2>
+<p>The basic description of ReactiveX is concise in its documentation:
+“The Observer pattern done right.” That, too, requires some background
+knowledge, but the focus is just on one thing rather than the three in
+the previous description: the observer pattern. The fuller description
+is “ReactiveX is a combination of the best ideas from the Observer
+pattern, the Iterator pattern, and functional programming.” The website
+is at <a href="http://reactivex.io"> <code>http://reactivex.io</code>
+</a>. A further clarification is, “ReactiveX is more than
+an API; it’s an idea and a breakthrough in programming.”</p>
+
+<h3 class="Heading">Note</h3>
+<p>Observer and iterator patterns as well as functional programming are
+discussed in the previous section.</p>
+
+<p>The heart of RxSwift (and many other reactive programming projects
+such as RxJava, RxJS, Rx.Net, RxScala, and RxClojure) is the ReactiveX
+library. ReactiveX itself is a
+collection of open source projects. The ReactiveX project is also open
+source, licensed under the Creative Commons Attribution license. Code
+samples are licensed under the BSD license.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter has provided an overview of the technologies on which
+RxSwift relies. Nothing is new here or specific to RxSwift. In the
+chapters that follow, you will see code that implements these design
+patterns in RxSwift, and you will find real-life examples of their
+use.</p>
+<p>At this point, you’ve seen how to download RxSwift from GitHub and
+how to build it in Xcode. It’s time to look at the basics of the code
+you will use.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">13. Exploring the Basic RxCode</h1>
+
+
+<!--End Abstract-->
+
+<p>Having explored the basics of RxSwift in a playground (Chapter <a href="#459488_1_En_11_Chapter.xhtml">11</a>) and learned the underpinnings of
+the technology (Chapter <a href="#459488_1_En_12_Chapter.xhtml">12</a>), it’s time to look at RxSwift at
+work in an app. This chapter will show you how to take code that you can
+download from GitHub and turn it into an app.</p>
+<p>RxSwift implements reactive programming,
+and that’s what the app in this chapter will demonstrate. It starts very
+basically: The app reacts to events that the user generates. That type
+of app can be created easily using notifications within the app because
+the app generates both the event/stimulus and the reaction/response.</p>
+<p>This very simple structure is useful for exploring the structure and
+syntax of RxSwift. Once you have the basics implemented, you can move
+onto the kind of reaction that most people think of when they think of
+reactive programming—reaction to external events from outside the
+app.</p>
+<p>This chapter will show you how to put one of the sample apps built in
+Xcode into the downloaded RxSwift Xcode files. Having done that, you’ll
+have the two components you need: RxSwift and Xcode working
+together.</p>
+
+<h3 class="Heading">Note</h3>
+<p>You need Xcode installed to continue.</p>
+
+
+<h2 class="Heading">Overview of ReactiveX/RxSwift–Xcode Integration </h2>
+<p>There are several ways to integrate Xcode and ReactiveX/RxSwift.
+Which method you use depends on your experience and preferences. The
+type of app that you’re building is less important than your
+preferences. The starting point is the GitHub repository for
+ReactiveX/RxSwift. Chapter <a href="#459488_1_En_11_Chapter.xhtml">11</a> showed you how to download it and
+use the Swift playground that’s part of it. You need part of that repo
+to integrate with your own app. One of the benefits of using GitHub is that it
+changes as people use and modify the archives. As a result, the GitHub
+version you see may differ from the version described in this
+chapter.</p>
+<p>
+There are a number of techniques available in the GitHub repo for
+integration with your own app. As of this writing (in 2018), the
+integration methods are the following:
+
+</p>
+
+<ul>
+<li><p>CocoaPods
+is available at <a href="http://cocoapods.org"> <code>http://cocoapods.org/</code>
+</a>. It is designed for managing the distribution and
+dependencies of source code for Xcode projects.</p></li>
+<li><p>Carthage,
+available at <a href="https://github.com/Carthage/Carthage/releases"> <code>https://github.com/Carthage/Carthage/releases</code>
+</a>, is more closely integrated with Xcode and Swift than
+CocoaPods, and many people find it somewhat simpler to use.</p></li>
+<li><p>Swift Package
+Manager (SPM) is part of the Swift project and is available at
+<a href="https://swift.org/package-manager"> <code>https://swift.org/package-manager/</code>
+</a>. Its integration with Swift is more thorough than
+that of CocoaPods or Carthage, but it is not yet as widely used as
+CocoaPods.</p></li>
+</ul>
+
+<p>In this chapter, the process of integrating the files from GitHub
+will be described based simply on the archive files and without the use
+of CocoaPods, Carthage, or SPM . This can be a simpler
+path for beginners.</p>
+
+
+<h2 class="Heading">Start from the RxSwift  Download</h2>
+<p>
+Begin by downloading the current version of RxSwift from GitHub, as
+described in Chapter <a href="#459488_1_En_1_Chapter.xhtml">1</a>. The critical step is the download
+from GitHub into Xcode. Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig1">13-1</a> reminds you of
+this step. It is easiest to download it into a new folder. Later on, you
+can rearrange files, but to make certain that what you have downloaded
+will build and run on your Mac and your version of Xcode, keep the
+installation simple.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig1_HTML.jpg" style="height:27.98em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 13-1</p>
+<p>Download the GitHub RxSwift code directly into Xcode</p>
+
+
+<p>
+The files  you
+have downloaded will look somewhat like the files you see in Figure
+<a href="#459488_1_En_13_Chapter.xhtml#Fig2">13-2</a>. Remember that
+this archive is growing and changing all the time, but the basic
+structure is constant. Make certain that you have <code>Rs.xcodeproj</code> and
+<code>Rx.xcworkspace</code>.
+If you don’t, you have the wrong archive.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig2_HTML.jpg" style="height:32.12em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 13-2</p>
+<p>Download the
+RxSwift repository</p>
+
+
+
+
+<h2 class="Heading">Explore the Workspace and Playground</h2>
+<p>
+Now, open the workspace
+ (<code>Rx.xcworkspace</code>) with
+Xcode, as shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig3">13-3</a>. You may have
+to do some rearranging and opening or closing of groups. What you
+normally see is shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig3">13-3</a>: It’s the
+<code>Rx.playground</code>.
+Look particularly at the project navigator at the left side of the
+window.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig3_HTML.jpg" style="height:24.4em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 13-3</p>
+<p>Open the Rx.workspace and then Rx.playground</p>
+
+
+<p>
+Close the playground
+ groups so that the first item you see in <code>Package.swift</code> as you
+see in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig4">13-4</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig4_HTML.jpg" style="height:28.45em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 13-4</p>
+<p>Close the playground
+</p>
+
+
+
+
+<h2 class="Heading">Adding a Project to the RxSwift Download</h2>
+<p>Now, add a project
+ to the workspace. To keep things organized, it’s easiest at this
+point to click in the blank area at the bottom of the project navigator
+so that your new project will go there. (You can rearrange it
+later.)</p>
+<p>
+Create the project by choosing New ➤ Project to select your template, as
+shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig5">13-5</a>. For this
+basic example, the Single View App in the iOS tab is perfect.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig5_HTML.jpg" style="height:24.52em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 13-5</p>
+<p>Choose a new project template</p>
+
+
+<p>As is always the case, when you click Next you need to name your
+project  and
+locate it on disk. For simplicity, place it in the same folder that you
+used to download the RxSwift repository. Name it <code>Basic</code> to match the
+screenshots in this book. The project navigator should now look like it
+does in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig6">13-6</a>.</p>
+<p>
+Do not use Core Data, Unit Tests, or UI Tests when you create the
+project (there are checkboxes for them at the bottom of the options
+sheet, as shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig6">13-6</a>).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig6_HTML.jpg" style="height:22.53em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 13-6</p>
+<p>Set the name and options for your project</p>
+
+
+<p>
+When prompted for a location to store the new project, place it in the
+Rx workspace  and
+in whatever group you want, as you can see in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig7">13-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig7_HTML.jpg" style="height:24.52em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 13-7</p>
+<p>Place the new project into the Rx workspace and whatever group you
+want</p>
+
+
+<p>Drag the new project
+ (<code>Basic</code>,
+in this example) to the top—or bottom—of the project navigator so it’s
+easy to spot.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>If you want to create a new empty group folder for it before you add
+it, you’ll save yourself a step, but for many people that seems to be
+out of sequence.</p>
+
+<p>
+Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig8">13-8</a> shows the
+project now.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig8_HTML.jpg" style="height:24.38em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 13-8</p>
+<p>Your new project is now part of the workspace</p>
+
+
+<p>
+If you look at the files
+ on disk, you’ll see that your project is in the right place, as
+you can see in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig9">13-9</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig9_HTML.jpg" style="height:36.62em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 13-9</p>
+<p>Check that your new project files are in the right place</p>
+
+
+
+<h3 class="Heading">Note</h3>
+<p>Make certain that the files are in the right place. If they’re not in
+the folder for your project, things will work perfectly well as long as
+you don’t move the project. When you move the project elsewhere (such as
+to a MacBook) the project  may break. You can
+move the new project files separately as long as you remember to do so,
+but it’s easier to keep the whole project together.</p>
+
+
+
+<h2 class="Heading">Building Your RxSwift-enhanced Project</h2>
+<p>
+Before moving on, make certain that your project  builds and runs.
+(This is always a good idea when creating a project from a template.) As
+you can see in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig8">13-8</a>, at the top of
+the window, you can build and run the project for any installed
+simulator or for a device. When you run it on a simulator, you should
+see the result shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig10">13-10</a>. (Yes,
+Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig10">13-10</a> is what you
+should see: no error messages and nothing else. In the next section,
+you’ll see how to add a label to confirm that your app is truly
+running.)
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig10_HTML.jpg" style="height:35.68em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 13-10</p>
+<p>Your project 
+should run now</p>
+
+
+
+
+<h2 class="Heading">Modify the Project</h2>
+<p>
+The purpose of this section is to make certain that you can modify,
+build, and run the RxSwift-enhanced project you have created. Locate
+<code>main.storyboard</code>
+in the project (it’s at the top of Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig8">13-8</a>). Add a label to the window
+just as you would do with any project in Interface Builder. The
+storyboard with the label is shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig11">13-11</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig11_HTML.jpg" style="height:24.45em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 13-11</p>
+<p>Add a label to the storyboard</p>
+
+
+<p>
+Run the project again, and you should see your label in the interface,
+as shown in Figure <a href="#459488_1_En_13_Chapter.xhtml#Fig12">13-12</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_13_Chapter/459488_1_En_13_Fig12_HTML.jpg" style="height:35.68em" alt="../images/459488_1_En_13_Chapter/459488_1_En_13_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 13-12</p>
+<p>The label is
+shown in the running project</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>At this point, you should be able to download RxSwift from GitHub and
+add your own project to it. As with most projects you will create, you
+will probably start from one of the built-in Xcode templates, and that
+is what has been done.</p>
+<p>Now, it’s time to move on to a more complex project—one that you can
+use as a starting point for many of your own RxSwift projects.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">14. Build a ReactiveX/RxSwift
+App</h1>
+
+
+<!--End Abstract-->
+
+<p>In the last three chapters, you have seen the basics of RxSwift and
+reactive programming as well as how to create a very basic app using the
+ReactiveX/RxSwift repository from GitHub. This chapter will move further
+so that you can build a small app that uses basic reactive features.</p>
+<p>You will build a simple app that lets you choose an item from a list,
+as you can see in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig1">14-1</a>. This is a
+typical beginning ReactiveX app that you will find in many variations
+across the Internet. What you are looking at is a <code>UISearchBar</code> and a
+<code>UITableView</code>.
+The table view is seeded with six items in the app. You can type into
+the search bar to select one or more of the items. The app is watching
+you; if you type F, you’ll see the three forts. If you type O, you’ll
+see Oval, and if you type G, you won’t see anything, because none of the
+names starts with G. The app will be called DemoList.</p>
+<p>You can implement this without RxSwift by adding a delegate to the
+search bar so that you can keep track of what is being typed, but using
+RxSwift can be a more straightforward way of implementing the process.
+Furthermore, if you decide to move on to a more complex app in which the
+table view is automatically populated with choices that depend on
+external conditions, you’ll be ready to implement those features.</p>
+
+<h3 class="Heading">Note</h3>
+<p>The items in the list represent places in Plattsburgh, New York.</p>
+
+<p>
+An important point to note is that Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig1">14-1</a> shows DemoList
+running on an actual device (an iPod Touch, as you can see from the
+status bar).
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig1_HTML.jpg" style="height:30.87em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 14-1</p>
+<p>Build DemoList</p>
+
+
+<p>
+When you run an app on the iOS simulator, the
+status bar will show a generic carrier, as you can see in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig2">14-2</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig2_HTML.jpg" style="height:35.62em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 14-2</p>
+<p>Running on the iOS simulator</p>
+
+
+<p>The simulator is updated to be able to support many versions of iOS,
+but there remain certain features of iOS that are not identical when
+running on a device or the simulator. For example, on the simulator,
+iCloud synchronization is triggered by a menu command (Debug ➤ Trigger
+iCloud Sync), and various other aspects of the operating system function
+differently on the simulator than they do on actual devices. That is
+true of features and also of projects that are built from multiple
+files. When they are built in one environment such as Xcode, files and
+frameworks that are necessary may be available, but then are not
+available when they app is moved to an actual device. The safest way to
+avoid deployment surprises is to use a device for testing frequently
+during development. (Popular devices for this kind of testing are iPod
+Touch and iPhone SE.)</p>
+
+<h2 class="Heading">Setting Up the Project</h2>
+<p>In Chapter <a href="#459488_1_En_13_Chapter.xhtml">13</a>, you saw the basics of how to add
+an app to the downloaded repository. This chapter will present a more
+complete version that you can use repeatedly for other apps. Most
+important, it begins to use RxSwift features and syntax.</p>
+<p>
+If you follow the steps to download the GitHub repository, you’ll have
+the most current version. The files may change, and the structure may
+change as well, so if you look at the list of files on disk, it may be
+slightly different than the files you see in the figures of this book.
+Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig3">14-3</a> shows the
+GitHub repository
+downloaded in Xcode.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig3_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 14-3</p>
+<p>Downloaded ReactiveXRxSwift repository in Xcode</p>
+
+
+<p>
+You may have to open or close some of the disclosure triangles to see
+the files . What
+is most important to notice here is the playground files. They may be in
+an Rx project at the top of the list (or they may have moved). Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig3">14-3</a> shows you the
+four steps to take:
+
+</p>
+
+<ol>
+<li>
+
+<p>Open Rx.xcworkspace</p>
+
+
+ 
+</li>
+<li>
+
+<p>Build the RxSwift-macOS scheme (Product ➤ Build).</p>
+
+
+ 
+</li>
+<li>
+
+<p>Open Rx playground in the Project navigator</p>
+
+
+ 
+</li>
+<li>
+
+<p>Show the Debug area (View ➤ Debug Area ➤ Show Debug Area).</p>
+
+
+ 
+</li>
+</ol>
+
+<p>If you can’t build it as described in the four steps, there is
+probably something wrong with your download.</p>
+
+<h3 class="Heading">Note</h3>
+<p>The build process for the playground can take several minutes to
+complete. Watch the status bar at the top of the window to see the
+status of indexing, which is what will often take a while. The indexing
+status message is shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig3">14-3</a>.</p>
+
+<p>
+Once you have built the playground, you can delete the files, but it’s a
+good idea to keep the full downloaded archive in a safe place. After you
+have deleted the playground files, your project may look like Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig4">14-4</a>, in which all
+of the playground files are removed. This may be a version of RxSwift
+that you use as a starting place for various projects that don’t need
+the playground files.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig4_HTML.jpg" style="height:23.3em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 14-4</p>
+<p>GitHub repo without
+playground project</p>
+
+
+<p>The Rx project toward the bottom of the repo is the main project,
+rather than the playground that you have deleted at this point. If you
+select the Rx project and look at the targets, as shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig4">14-4</a>, you’ll see
+the components of ReactiveX.</p>
+<p>For basic work with ReactiveX, you need to compile RxCocoa and
+RxSwift for the device on which you want to run the project. You can do
+that from the schema at the top left of the window, shown in Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig4">14-4</a>.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>To save time, you can build RxSwift and RxCocoa for a generic iOS
+device, as shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig4">14-4</a>. These are
+needed to support your app.</p>
+
+<p>
+Once you have built RxCocoa and RxSwift, you can create your new app.
+This example (shown previously in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig1">14-1</a>) can be called
+DemoList. Choose File ➤ New ➤ Project and then select Single View App, as
+shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig5">14-5</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig5_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 14-5</p>
+<p>Create a new Single View App project</p>
+
+
+<p>
+Set the project options and name , as shown in Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig6">14-6</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig6_HTML.jpg" style="height:23.12em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 14-6</p>
+<p>Name the new project and set its options</p>
+
+
+<p>
+When it comes time to save your new project, you have the option of
+adding it to your existing project  , as you can see in
+Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig7">14-7</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig7_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 14-7</p>
+<p>Save your new project</p>
+
+
+<p>
+Choose the option
+ to add it to your existing project or workspace , as shown in Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig8">14-8</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig8_HTML.jpg" style="height:4.8em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 14-8</p>
+<p>Add your new project to the existing project or workspace</p>
+
+
+<p>As always when you create a new project, try to build and run it.
+Bearing in mind the issues of devices versus simulator, a good test at
+this point is to run it both on a device and in a simulator before you
+enter any code. (If you do run it, remember that the storyboard is
+blank, so seeing a blank screen is the expected behavior. You can add a
+label or image as described previously to verify your app.)</p>
+
+
+<h2 class="Heading">Add ReactiveX</h2>
+<p>So far, this is basically the process you’ve seen before for adding
+onto the downloaded repository. Now, it’s time to add ReactiveX.</p>
+
+
+<h2 class="Heading">Build RxCocoa and RxSwift</h2>
+<p>
+You will need RxCocoa and RxSwift to be built before you start. If you
+haven’t done so already, build them as shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig4">14-4</a>. Remember that
+you can use a generic iOS device for these builds. After the builds,
+they will be listed in the Products group, as you can see in Figure
+<a href="#459488_1_En_14_Chapter.xhtml#Fig9">14-9</a>. All of the
+available products will be listed. The ones that have been built will
+show in black rather than red.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig9_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 14-9</p>
+<p>Verify you have built RxSwift and RxCocoa</p>
+
+
+
+
+<h2 class="Heading">Add RxSwift and RxCocoa to Your Project</h2>
+<p>Now, drag RxSwift and RxCocoa into the Embedded Binaries section on
+the General tab of DemoList. If you drag them to Embedded Binaries, they
+will also automatically be added to Linked Frameworks and Libraries.</p>
+
+
+<h2 class="Heading">Verify the Syntax</h2>
+<p>
+The acid
+test  will
+be if you can reference the ReactiveX features in your source code, and
+then if you can run your app and use them. They will be needed in
+ViewController in the app template, so add <code>import</code> statements at
+the top of the code, as shown in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig10">14-10</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig10_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 14-10</p>
+<p>Add import statements</p>
+
+
+<p>If something has gone wrong, you’ll not be able to build your app.
+You may even get a syntax error as you
+type the <code>import</code>
+statements. If you do get errors, double-check the steps you have taken
+and keep an eye on the status bar at the top of the window to make
+certain that your indexing has completed. Be aware that as you are
+moving these files around and building the ReactiveX components, you may
+see errors that will go away as the project is fully indexed and built.
+Don’t react to syntax errors too quickly.</p>
+
+
+<h2 class="Heading">Building the Storyboard</h2>
+<p>With your template-based project under way, you can start to build
+the storyboard.
+In short, you need to create a view controller with a search bar and a
+table (refer back to Figure <a href="#459488_1_En_10_Chapter.xhtml#Fig1">10-1</a> to see the result).</p>
+<p>
+The steps for this process are the same basic Xcode and Interface
+Builder steps that you use in any project. Begin by opening the
+storyboard with your single view controller in it. Select the view
+controller and choose a translucent navigation bar for the top, as shown
+in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig11">14-11</a>.
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig11_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 14-11</p>
+<p>Use a translucent navigation bar at the top of the view
+controller</p>
+
+
+<p>Add a <code>UITableView</code>  to the view. With the
+table view selected, choose “Dynamic Prototypes” for the table view and
+specify one prototype, as you can see in Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig12">14-12</a>.</p>
+<p>
+In <code>ViewController</code>, add
+references to the search bar and table view so that they are visible to
+your code at the top of <code>ViewController</code>:
+
+
+</p>
+
+<p>
+<img src="images/459488_1_En_14_Chapter/459488_1_En_14_Fig12_HTML.jpg" style="height:24.5em" alt="../images/459488_1_En_14_Chapter/459488_1_En_14_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 14-12</p>
+<p>Use dynamic prototype cells</p>
+
+
+<pre>@IBOutlet weak var searchBar: UISearchBar!
+@IBOutlet weak var tableView: UITableView!</pre>
+<p>As is always the case with dynamic prototype cells in <code>UITableView</code>, one will
+be created for as many prototypes  as you set in the
+table view. For each one, you need to provide an identifier that will be
+used to retrieve it. In Figure <a href="#459488_1_En_14_Chapter.xhtml#Fig12">14-12</a> you see
+<code>prototypeCell</code>
+used as the name of the prototype cell in the structure view at the left
+of the layout.</p>
+
+
+<h2 class="Heading">Adding the UITableView Code and Delegate</h2>
+<p>If you are following along, all you need to do now is to implement
+<code>ViewController</code>.
+No changes in the template are needed for <code>AppDelegate, Assets.xcassets</code>
+<code>, Info.plist,</code> or <code>LaunchScreen.storyboard</code>.
+The template itself makes some entries, but you don’t change them.</p>
+<p>You need to implement a <code>DataSource</code> for your
+table view. (A <code>Delegate</code> may need to
+be implemented later on.) The <code>DataSource</code> provides
+the data to the view controller. The two key methods for the data source
+are the same as you use in any <code>UITableView</code> .</p>
+<p>
+Create two arrays in <code>ViewController</code>. <code>items</code> will be all
+possible items to be shown in the list, and <code>itemsToShow</code> will be
+the items from <code>items</code> that are shown.
+The declarations should look like this:
+
+</p>
+<pre>var itemsToShow = [String]()
+let items = ["Saranac River", "Fort Moreau", "Oval", "Fort Brown",
+"Water Pollution Control Plant", "Fort Scott"]</pre>
+<p>(The strings in <code>items</code> are up to
+you.)</p>
+<p>
+You also will need a declaration of a <code>DisposeBag</code> to manage
+your observer. This will automatically collect disposables generated in
+this object (<code>ViewController</code>), and
+when the object is deallocated and its <code>deinit</code> method is
+called, the disposables will be released.
+
+</p>
+<pre>let disposeBag = DisposeBag()</pre>
+<p>
+You will need to implement <code>viewDidLoad</code> as
+follows:
+
+</p>
+<pre>override func viewDidLoad() {
+super.viewDidLoad()
+}</pre>
+<p>Two standard <code>UITableView</code> functions
+let you specify the number of items to be shown and what they are.</p>
+<p>
+To specify the number of items to be shown, use <code>numberOfRowsInSection</code>.
+Return the count of <code>itemsToShow</code> so that
+the function looks like this:
+
+</p>
+<pre>func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+return itemsToShow.count
+}</pre>
+<p>
+You format and return the cell to be displayed. You use the identifier
+for the prototype cell you want to use, and you set its <code>textLabel</code> to the
+relevant string from <code>itemsToShow</code>:
+
+</p>
+<pre>func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt;
+UITableViewCell {
+let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell",
+for: indexPath)
+cell.textLabel?.text = itemsToShow[indexPath.row]
+return cell
+}</pre>
+<p>
+Finally, specify that <code>ViewController</code>  conforms to the <code>UITableViewDataSource</code>
+protocol by changing the declaration as follows:
+
+</p>
+<pre>class ViewController: UIViewController, UITableViewDataSource {</pre>
+<p>In Interface Builder, connect the table view to the data source.</p>
+
+
+<h2 class="Heading">Implementing the ReactiveX Search Bar</h2>
+<p>
+The final section of code implements the search bar in <code>viewDidLoad</code>. What
+matters most are the following:
+
+</p>
+
+<ul>
+<li><p>An <code>items</code>
+array (it doesn’t matter what the array types are as long as they are
+strings)</p></li>
+<li><p>An <code>itemsToShow</code> array (it
+starts as an empty <code>String</code>
+array)</p></li>
+<li><p>A <code>tableView</code> called
+<code>tableView</code></p></li>
+</ul>
+
+<p>
+This is one of features of functional programming: you don’t need to
+worry about the specific data you’re working with in many cases.
+
+</p>
+<pre>override func viewDidLoad() {
+super.viewDidLoad()
+// Do any additional setup after loading the view, typically from a nib.
+searchBar
+.rx.text
+.orEmpty
+.subscribe(onNext: { [unowned self] query in
+self.itemsToShow = self.items.filter {
+$0.hasPrefix(query)
+}
+self.tableView.reloadData()
+})
+}</pre>
+
+<h3 class="Heading">Note</h3>
+<p>You may get a warning
+ that <code>subscribe</code> is not used
+at this point: that is a warning, and you can continue for now.</p>
+
+
+
+<h2 class="Heading">Reviewing the Code</h2>
+<p>All told, your code
+ is complete now. It should look like Listing <a href="#459488_1_En_14_Chapter.xhtml#PC9">14-1</a>.</p>
+<p>
+
+</p>
+<pre>import UIKit
+import RxSwift
+import RxCocoa
+class ViewController: UIViewController, UITableViewDataSource {
+@IBOutlet weak var searchBar: UISearchBar!
+@IBOutlet weak var tableView: UITableView!
+var itemsToShow = [String]()
+let items = ["Saranac River", "Fort Moreau", "Oval", "Fort Brown",
+"Water Pollution Control Plant", "Fort Scott"]
+let disposeBag = DisposeBag()
+override func viewDidLoad() {
+super.viewDidLoad()
+// Do any additional setup after loading the view, typically from a nib.
+searchBar
+.rx.text
+.orEmpty
+.subscribe(onNext: { [unowned self] query in
+self.itemsToShow = self.items.filter {
+$0.hasPrefix(query)
+}
+self.tableView.reloadData()
+})
+}
+func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int
+{
+return itemsToShow.count
+}
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+-&gt; UITableViewCell {
+let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell",
+for: indexPath)
+cell.textLabel?.text = itemsToShow[indexPath.row]
+return cell
+}
+override func didReceiveMemoryWarning() {
+super.didReceiveMemoryWarning()
+// Dispose of any resources that can be recreated.
+}
+}
+Listing 14-1
+Complete code for the view controller</pre>
+
+
+<h2 class="Heading">Summary</h2>
+<p>You should be able to run the app now. Open the project in Xcode and
+select <code>DemoList</code>
+to run.</p>
+
+
+<p></p>
+
+
+
+<h3 class="Heading">Index</h3>
+
+
+
+<h3 class="Heading">A, B</h3>
+
+
+
+Acid test
+
+
+
+
+Amazon Web Services (AWS)
+
+
+account
+
+
+Mobile Hub
+
+
+sign in
+
+
+add pods
+
+
+back end
+
+
+with Cocoa
+
+
+cloud-based computing
+
+
+and Cocoa Touch
+
+
+data management
+
+
+sharing data
+
+
+users’ expectations
+
+
+create project
+
+
+developer resources on
+
+
+documentation for
+
+
+login process
+
+
+accounts
+
+
+creating organizations
+
+
+IAM tools
+
+
+root user
+
+
+Xcode
+
+
+products
+
+
+web-based technology
+
+
+
+
+Application programs
+
+
+
+
+App Store
+
+
+
+
+Asynchronous programming
+
+
+
+
+Authentication process
+
+
+
+
+
+<h3 class="Heading">C</h3>
+
+
+
+Carthage
+
+
+
+
+Cloud computing
+
+
+
+
+Cocoa
+
+
+AWS ( <em>see</em> Amazon Web Services (AWS))
+
+
+Core Data tool
+
+
+SQLite
+
+
+
+
+CocoaPods
+
+
+GitHub repository
+
+
+install
+
+
+integration methods
+
+
+podfile
+
+
+single-view app
+
+
+check directory
+
+
+command line
+
+
+create new folder
+
+
+create new project
+
+
+install command
+
+
+podfile
+
+
+review project
+
+
+run app
+
+
+workspace window
+
+
+Xcode project
+
+
+
+
+Command-line integration
+
+
+
+
+Conditional statements
+
+
+
+
+Core Data tool
+
+
+
+
+
+<h3 class="Heading">D</h3>
+
+
+
+Declarative programs
+
+
+
+
+
+<h3 class="Heading">E</h3>
+
+
+
+European Union General Data Protection Regulation (GDPR)
+
+
+
+
+Extensible Markup Language (XML)
+
+
+
+
+
+<h3 class="Heading">F</h3>
+
+
+
+Facebook iOS SDK
+
+
+account
+
+
+ads
+
+
+analytics
+
+
+APIs
+
+
+app events
+
+
+components
+
+
+Docs menu
+
+
+login
+
+
+navigation bar
+
+
+sharing
+
+
+login process
+
+
+adding frameworks
+
+
+adding label
+
+
+bundle identifier
+
+
+create new
+
+
+create new app ID
+
+
+info.plist file
+
+
+integration
+
+
+login button
+
+
+property list
+
+
+security process
+
+
+single-view app
+
+
+navigation bar
+
+
+for Swift
+
+
+Documentation page
+
+
+download
+
+
+GitHub
+
+
+
+
+Framework model
+
+
+
+
+Functional programs
+
+
+
+
+
+<h3 class="Heading">G</h3>
+
+
+
+GitHub
+
+
+
+
+Good Morning program
+
+
+
+
+Grand Central Dispatch (GCD)
+
+
+
+
+
+<h3 class="Heading">H</h3>
+
+
+
+Hello World program
+
+
+
+
+
+<h3 class="Heading">I</h3>
+
+
+
+iCloud service
+
+
+
+
+Identity and Access Management (IAM)
+
+
+
+
+Imperative programs
+
+
+
+
+
+<h3 class="Heading">J, K, L, M, N</h3>
+
+
+
+JavaScript Object Notation (JSON)
+
+
+array
+
+
+in BBEdit
+
+
+components of
+
+
+in Excel
+
+
+object
+
+
+Swift Playgrounds ( <em>see</em> Swift Playgrounds app)
+
+
+in TextEdit
+
+
+in Xcode
+
+
+
+
+
+<h3 class="Heading">O</h3>
+
+
+
+Object-oriented (OOP) programming
+
+
+
+
+Operating systems
+
+
+
+
+
+<h3 class="Heading">P, Q</h3>
+
+
+
+Paradigms programming
+
+
+declarative programs
+
+
+design patterns
+
+
+functional programs
+
+
+imperative programs
+
+
+processing configurations
+
+
+spaghetti-code
+
+
+
+
+Podfile
+
+
+
+
+Programming
+
+
+application programs
+
+
+asynchronous
+
+
+design patterns
+
+
+paradigms ( <em>see</em> Paradigms programming)
+
+
+processing configurations
+
+
+system programs
+
+
+
+
+Propagation of change
+
+
+
+
+
+<h3 class="Heading">R</h3>
+
+
+
+Reactive programming
+
+
+
+
+ReactiveX/RxSwift app
+
+
+add project
+
+
+coding
+
+
+DemoList
+
+
+download
+
+
+GitHub repository
+
+
+add existing project/workspace
+
+
+project name and options
+
+
+save project
+
+
+single view app
+
+
+without playground project
+
+
+in Xcode
+
+
+iOS simulator
+
+
+label
+
+
+RxCocoa and RxSwift
+
+
+storyboard
+
+
+syntax
+
+
+RxSwift-enhanced project
+
+
+search bar
+
+
+UITableView code
+
+
+workspace and playground
+
+
+Xcode integration
+
+
+
+
+Reusable code building blocks
+
+
+command-line integration
+
+
+component architecture
+
+
+iOS and macOS
+
+
+delegates
+
+
+drag-and-drop
+
+
+frameworks
+
+
+protocols
+
+
+multiple building blocks
+
+
+using workspace
+
+
+
+
+RxSwift
+
+
+formatted playground
+
+
+add new lines
+
+
+error messages
+
+
+markup code
+
+
+original playground
+
+
+raw code
+
+
+Rx targets
+
+
+select scheme
+
+
+GitHub
+
+
+open source
+
+
+reactive programming
+
+
+Rx.playground folder
+
+
+Xcode 9
+
+
+
+
+
+<h3 class="Heading">S</h3>
+
+
+
+Sharing data
+
+
+across apps and across time
+
+
+challenges
+
+
+inconsistent data types
+
+
+security for
+
+
+UI elements
+
+
+
+
+Shell model
+
+
+
+
+Single-view app
+
+
+check directory
+
+
+command line
+
+
+create new folder
+
+
+create new project
+
+
+install command
+
+
+podfile
+
+
+review project
+
+
+run app
+
+
+workspace window
+
+
+
+
+Spaghetti-code programs
+
+
+
+
+Swift Package Manager (SPM)
+
+
+
+
+Swift Playgrounds app
+
+
+create new file
+
+
+create playground
+
+
+fatalError string
+
+
+JSON integration tools
+
+
+Swift array
+
+
+Swift dictionary
+
+
+project navigator
+
+
+run code
+
+
+type/paste code
+
+
+
+
+System programs
+
+
+
+
+
+<h3 class="Heading">T</h3>
+
+
+
+Thin client computing ( <em>see</em> Cloud computing)
+
+
+
+
+
+<h3 class="Heading">U, V</h3>
+
+
+
+Unsustainable model
+
+
+
+
+
+<h3 class="Heading">W</h3>
+
+
+
+Wikipedia
+
+
+
+
+
+<h3 class="Heading">X, Y, Z</h3>
+
+
+
+Xcode 9
+
+
+
+
+
