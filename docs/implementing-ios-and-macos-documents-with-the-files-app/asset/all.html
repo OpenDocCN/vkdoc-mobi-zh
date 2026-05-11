@@ -1,0 +1,4510 @@
+<p><img src="images/978-1-4842-4492-0_CoverFigure.jpg"/></p>
+<p></p>
+
+
+
+
+
+<aside class="ArticleNote ArticleNoteESMHint BookFrontmatterArticleNote">
+<p>Any source code or other supplementary material referenced by the
+author in this book is available to readers on GitHub via the book’s
+product page, located at <a href="http://www.apress.com/978-1-4842-4491-3">www.​apress.​com/​978-1-4842-4491-3</a> .
+For more detailed information, please visit <a href="http://www.apress.com/source-code">www.​apress.​com/​source-code</a> .</p>
+</aside>
+
+ ISBN 978-1-4842-4491-3e-ISBN 978-1-4842-4492-0
+
+
+<a href="https://doi.org/10.1007/978-1-4842-4492-0">https://doi.org/10.1007/978-1-4842-4492-0</a>
+
+
+© Jesse Feiler 2019
+
+
+This work is subject to copyright. All rights are reserved by the
+Publisher, whether the whole or part of the material is concerned,
+specifically the rights of translation, reprinting, reuse of
+illustrations, recitation, broadcasting, reproduction on microfilms or
+in any other physical way, and transmission or information storage and
+retrieval, electronic adaptation, computer software, or by similar or
+dissimilar methodology now known or hereafter developed.
+
+
+Trademarked names, logos, and images may appear in this book. Rather
+than use a trademark symbol with every occurrence of a trademarked name,
+logo, or image we use the names, logos, and images only in an editorial
+fashion and to the benefit of the trademark owner, with no intention of
+infringement of the trademark. The use in this publication of trade
+names, trademarks, service marks, and similar terms, even if they are
+not identified as such, is not to be taken as an expression of opinion
+as to whether or not they are subject to proprietary rights.
+
+
+While the advice and information in this book are believed to be true
+and accurate at the date of publication, neither the authors nor the
+editors nor the publisher can accept any legal responsibility for any
+errors or omissions that may be made. The publisher makes no warranty,
+express or implied, with respect to the material contained herein.
+
+
+Distributed to the book trade worldwide by Springer Science+Business
+Media, New York, 233 Spring Street, 6th Floor, New York, NY 10013. Phone
+1-800-SPRINGER, fax (201) 348-4505, e-mail orders-ny@springer-sbm.com,
+or visit www.springeronline.com. Apress Media, LLC is a California LLC
+and the sole member (owner) is Springer Science + Business Media Finance
+Inc (SSBM Finance Inc). SSBM Finance Inc is a Delaware corporation.
+
+
+
+
+<h3 class="Heading">About the Author and About the Technical
+Reviewer</h3>
+
+
+
+
+<h3 class="Heading">About the Author</h3>
+
+
+
+
+
+<h3 class="Heading">About the Technical Reviewer</h3>
+
+
+
+
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">1. Using Documents</h1>
+
+
+<!--End Abstract-->
+
+<p>We use documents to store and organize data in the apps that we
+use.</p>
+<p>This is a simple description of how and why we use documents with
+mobile apps built with macOS and iOS. There’s much more than this simple
+description to consider when you start working with documents, and this
+chapter goes into the basic details you need to consider. You can find
+many books and articles dealing with documents, but the key points are
+described here.</p>
+
+<h2 class="Heading">Describing a Document</h2>
+<p>When you use an app, you sometimes need to store data for the app
+(that’s the basic description just mentioned). Storing data turns out to
+be far from simple
+because when we talk about storing data, we almost always mean storing
+<em>and retrieving</em> data on demand. For that store-and-retrieve
+process to be useful to developers and users, you need to be able to
+<em>identify</em> the data to be stored and retrieved, such as the
+current temperature.</p>
+<p>
+Just to make things a little more complex, you need to be able to store
+and retrieve data
+that you can identify in two different ways:
+
+</p>
+
+<ul>
+<li><p>You need to be able to identify the physical location of the data
+to be stored and retrieved.</p></li>
+<li><p>You need to be able to identify the logical characteristics of
+the data to be stored and retrieved.</p></li>
+</ul>
+
+<p>Putting this together means that you need to be able to store,
+retrieve, and identify data by its location and characteristics (such as
+a name).</p>
+
+
+<h2 class="Heading">Keeping Track of a Document and Its Data</h2>
+<p>We are accustomed to thinking of documents as static objects: once a
+document is written
+or printed, it doesn’t appear to change. You can make changes or edits
+to documents, but those changes are typically visible in one way or
+another so that the initial document is modified. In the digital world,
+changes can be continual, and thinking of a document as a static object
+is misleading, to say the least.</p>
+<p>When you use word processing tools, you can often track changes to
+documents so that instead of a static document you may have a multitude
+of changed documents. This multitude of changed documents can
+proliferate quickly not only with word processing documents but also
+with changes using tools such as Git or GitHub.</p>
+
+
+<h2 class="Heading">Structuring a Document</h2>
+<p>Documents can be structured in any way
+that the developer chooses. As you will see in Chapter <a href="#465467_1_En_2_Chapter.xhtml">2</a>, you can use structures that you
+create or common structures that are defined by others. The structure of
+a document provides a structure (or format) for the data that the
+document will contain. When you know a document’s structure, you can
+read or write its data.</p>
+<p>At least that is the idea. Document structures can change
+over time so in practice you need to know not only the structure of a
+document but the specific variation of the structure in use.</p>
+
+<h3 class="Heading">Note</h3>
+<p>The variation of a document’s structure is often referred to as a
+<em>version.</em></p>
+
+
+
+<h2 class="Heading">Handling Document Versions</h2>
+<p>A common way of handling the issue of document versions is to create a
+document structure that has at least two components: one is the version
+identifier and the second is everything else. For example, a document
+can start with the version identifier, which might be something as
+simple as a string or even an integer. In that way, your app will know
+to read a single integer or a string of X characters from the beginning
+of a document’s data. That integer or string lets your app identify the
+version; having done that, your app can read the data for that version.
+This strategy is commonly used in macOS and iOS using a <em>file
+manager</em> (described in Chapter <a href="#465467_1_En_2_Chapter.xhtml">2</a>).</p>
+
+
+<h2 class="Heading">Comparing Documents and Files</h2>
+<p>Documents store data for an app in a known location
+from which it can be retrieved (or to which it can be stored). This
+location is typically a <em>file</em>—an object that is managed by the
+operating system.
+Like documents themselves, files can also have versions. A significant
+difference between a file and a document is that in many cases, the
+operating system manages a file’s opening, closing, and storage. A
+document in many cases is inside a file.</p>
+
+<h3 class="Heading">Note</h3>
+<p>This is a simplification and generalization.</p>
+
+
+
+<h2 class="Heading">Structuring a Document and an App</h2>
+<p>Apps  that are
+based on data are easy to build or convert to document-based apps. There
+are two common ways of building such apps. In the first way, developers
+start from a data structure and add functionality to it. In the other
+way, developers start from functionality and add data to it.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>In this chapter, you saw an overview of documents, versions, and the
+differences between documents and files. From here you will move onto
+the details of documents and how to use them effectively.</p>
+<p>Today, JSON (JavaScript Object Notation) and the <code>Codable</code> protocols are
+commonly used for managing app data. Previously, a technology referred
+to as <em>coding</em> was commonly used to store and manage data that is
+internal to an app. The basic process was to convert data that is
+identified by keys to and from <code>NSData</code> objects. The
+operating systems support <code>NSData</code>, and you don’t
+have to worry about the implementation: it is fast and efficient. The
+only limitation is that not every type of data can be archived.</p>
+<p>If you are building an app that needs to manage persistent data,
+chances are that Codable is the way to go. If you are modifying an
+existing app, you may want to continue using the archiving code that
+already exists. (Using both is perfectly feasibly, but it can become a
+maintenance nightmare.)</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">2. Looking Inside a Document</h1>
+
+
+<!--End Abstract-->
+
+<p>In Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a>, you learned how to describe and
+structure a document. You now know that you, as the designer and
+developer of an app and its documents, control what data is stored,
+where and how it is stored, and how to identify and reference it.</p>
+<p>You can decide that the data will be stored as a sequence of integers
+or as a single long string, whatever matters to you and the data you
+will use. In practice, it makes sense to structure the data inside a
+document if only to be able to access it easily. This chapter shows how
+to structure the data within a document using JSON encoding. This
+structure and encoding provides an easy-to-use format for data that
+relies on Unicode strings that can represent basic types recognized by
+JSON.</p>
+
+<h2 class="Heading">Using JSON Encoding</h2>
+<p>What matters most for JSON is the fact that the
+format is text-based (as opposed, for example, to a binary or digital
+representation) and the fact that each element can be named (as opposed
+to being identified by location or sequence).</p>
+<p>A location- or sequence-based coding style lets you specify the
+format of each element in the encoding sequence. Knowing the format of
+an element means that you know how much space it will take up, and this
+will let you read or write the data using the standard read/write syntax
+in any programming language.</p>
+<p>The disadvantage of sequence- or location-based coding is that if you
+change the sequence
+of data elements or the format of a data element, you break any
+read/write code that you already have. JSON encoding relies on names of
+data elements rather than their formats or sequence. Thus, you avoid the
+frequent problem of breaking read/write code when you modify a format of
+a single data element or when you change the order of the data
+elements.</p>
+
+
+<h2 class="Heading">Introducing JSON</h2>
+<p>
+JSON starts as a text format for serialization of structured data. In
+this sense, <em>serialization</em> means converting the strings or other
+objects into a format that can be read or written. JSON starts from four
+primitive types,
+the meanings of which are common to many programming languages:
+
+</p>
+
+<ul>
+<li><p>A <em>string</em> is an ordered collection of Unicode
+characters.</p></li>
+<li><p>A <em>number</em> is just that; the most basic JSON number is a
+double.</p></li>
+<li><p>A <em>Boolean</em> is true or false.</p></li>
+<li><p>The final primitive value in JSON is <em>null</em>, an object
+that has no value.</p></li>
+</ul>
+
+<p>In JSON, these types can be combined
+into <em>objects</em>, which are unordered collections of name/value
+pairs; a JSON <em>array</em> is an ordered collection of name/value
+pairs.</p>
+
+
+<h2 class="Heading">JSON and Swift</h2>
+<p>Swift goes beyond the basic JSON types with its <code>JSONSerialization</code>
+class (part of the Foundation framework). <code>JSONSerialization</code>
+converts <code>JSON</code>
+into array and dictionary Swift data types in addition to the basic JSON
+string, number, and Bool data types.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Swift bridges Boolean and bool (C) types into Bool types. This is
+handled automatically for you.</p>
+
+
+<h3 class="Heading">Using Swift Structs</h3>
+<p>JSON is a flexible and easy-to-use notation tool. On the other hand,
+Swift is designed
+to be a powerful tool for building apps, particularly those using the
+model-view-controller
+(MVC) design pattern, which is more complex than JSON. One area
+that demonstrates this well is the Swift struct type. You may often
+declare structs in Swift that you will use throughout your app (or not
+at all). When you work strictly with JSON, it is uncommon to declare a
+struct that is not used to store data. This section explains how to
+create and use Swift structs with JSON.</p>
+<p>
+Listing <a href="#465467_1_En_2_Chapter.xhtml#PC1">2-1</a> shows how to
+create a Swift
+struct for a <code>Student</code> object or
+model (the terms are interchangeable in this section) using a
+playground.
+
+</p>
+<pre>import Foundation
+struct Student {
+var name: String
+var studentID: Int
+}
+Listing 2-1
+Swift Struct</pre>
+<p>What matters here is that the <code>Student</code> struct
+contains two var elements: <code>name</code> and <code>studentID</code>. Also worth
+noting is the fact that in this playground the Foundation framework must
+be imported because it will be used for working with JSON data. The
+other elements of the struct are standard Swift elements.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>Note that the Swift style is to capitalize names of objects such as
+structs, so the name of the <code>Student</code> struct is
+capitalized.</p>
+
+<p>
+With the struct shown in Listing <a href="#465467_1_En_2_Chapter.xhtml#PC1">2-1</a>, you can create
+an instance of the struct using code such as the following:
+
+</p>
+<pre>let student1 = Student(name: "John Appleseed", studentID: 154)</pre>
+<p>
+You can integrate JSON with Swift by using an <code>encode (to: encoder)</code>
+function to encode data along with an <code>init (from decoder:)</code>
+to do the reverse. To do this, you need to create keys to identify the
+elements that you will be coding and decoding. The first step is to
+declare coding keys
+as an <code>enum CodingKeys element,</code> as shown in Listing <a href="#465467_1_En_2_Chapter.xhtml#PC3">2-2</a>.
+
+</p>
+<pre>enum CodingKeys: String, CodingKey {
+case studentID = "studentID"
+case name
+}
+}
+Listing 2-2
+Swift Extension for Coding Keys</pre>
+<p>
+Note that they are the keys you will use to encode and decode the data
+for the <code>name</code>
+and <code>studentID</code>
+variables. With the keys established along with the variables, you can
+now create an <code>encode (to: encoder)</code> function, as shown in Listing <a href="#465467_1_En_2_Chapter.xhtml#PC4">2-3</a>. Note that this
+extension indicates that the <code>Student</code> struct
+conforms to the <code>Encodable</code> protocol.
+
+</p>
+<pre>extension Student: Encodable {
+func encode(to encoder: Encoder) throws {
+var container = encoder.container(keyedBy: CodingKeys.self)
+try container.encode(name, forKey: .name)
+try container.encode(studentID, forKey: .studentID)
+}
+}
+Listing 2-3
+Swift Extension for Encoding</pre>
+
+
+<h3 class="Heading">Encoding JSON</h3>
+<p>You’ll need a <code>JSONEncoder</code> object to
+handle encoding. Such a <code>JSONEncoder</code> object is
+often named <code>jsonEncoder</code> but you
+can use any name you want. A <code>JSONEncoder</code> object
+specifies the container for the encoded data.</p>
+<p>In Listing <a href="#465467_1_En_2_Chapter.xhtml#PC4">2-3</a>, there is only
+one function, <code>encode (to: encoder)</code>, and it uses a <code>jsonEncoder</code> object,
+the container that will contain the encoded data retrieved from the
+encoder.</p>
+<p>The heart of the <code>encode</code> <code>(to: encoder)</code>
+function consists of the three lines of code that encode the struct
+elements <code>(name and studentID)</code>.</p>
+<p>
+The first of these lines tries to encode the <code>name</code> var using the
+<code>.name</code> key:
+
+</p>
+<pre>try container.encode(name, forKey: .name)</pre>
+<p>
+The second of these lines tries to encode the <code>studentID</code> var using
+the <code>.studentID</code>
+key:
+
+</p>
+<pre>try container.encode(studentID, forKey: .studentID)</pre>
+<p>
+These lines of code appear frequently in this type of function. In case
+you are wondering how the <code>try</code> is handled, note
+that the
+
+</p>
+<pre>func encode(to encoder: Encoder)function</pre>
+<p>can throw an error.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>If you are debugging this code, set a breakpoint on the <code>try</code> statement so that
+you can see what causes a problem. Typical problems you may encounter in
+this code are typos in the key names.</p>
+
+<p>
+Once you have created a <code>jsonEncoder</code>, you can
+reference the container within it and associate it with keys that you
+have declared elsewhere in the function with this line of code:
+
+</p>
+<pre>var container = encoder.container(keyedBy: CodingKeys.self)</pre>
+
+
+<h3 class="Heading">Decoding JSON</h3>
+<p>
+Listing <a href="#465467_1_En_2_Chapter.xhtml#PC9">2-4</a> shows the reverse
+operation to decode the JSON code.
+
+</p>
+<pre>extension Student: Decodable {
+init(from decoder: Decoder) throws {
+let values = try decoder.container(keyedBy: CodingKeys.self)
+name = try values.decode(String.self, forKey: .name)
+studentID = try values.decode(Int.self, forKey: .studentID)
+}
+}
+Listing 2-4
+Extension for Decoding</pre>
+<p>Rather than an <code>encode(to: encoder:)</code>
+function, the heart of this code is <code>init(from decoder: Decoder)</code>.</p>
+<p>
+You retrieve the values from the <code>decoder</code> container
+using the coding keys, like so:
+
+</p>
+<pre>let values = try decoder.container(keyedBy: CodingKeys.self)</pre>
+<p>
+Rather than encode each variable and key, you then decode them using
+code such as the following:
+
+</p>
+<pre>name = try values.decode(String.self, forKey: .name)
+studentID = try values.decode(Int.self, forKey: .studentID)</pre>
+
+
+<h3 class="Heading">Putting the Encoding and Decoding Together</h3>
+<p>You can encode and decode the data as you wish. For the purpose of
+debugging, you can
+print out encoded data using code such as the following:</p>
+<p>
+
+</p>
+
+<p>
+<img src="images/465467_1_En_2_Chapter/465467_1_En_2_Figa_HTML.jpg" style="height:3.25em" alt="../images/465467_1_En_2_Chapter/465467_1_En_2_Figa_HTML.jpg"/>
+</p>
+
+<p>You can print out a string showing the JSON code:</p>
+<p>
+
+</p>
+
+<p>
+<img src="images/465467_1_En_2_Chapter/465467_1_En_2_Figb_HTML.jpg" style="height:0.82em" alt="../images/465467_1_En_2_Chapter/465467_1_En_2_Figb_HTML.jpg"/>
+</p>
+
+<p>You can then reverse the process to print out the decoded data, as
+you see here:</p>
+<p>
+
+</p>
+
+<p>
+<img src="images/465467_1_En_2_Chapter/465467_1_En_2_Figc_HTML.jpg" style="height:2.42em" alt="../images/465467_1_En_2_Chapter/465467_1_En_2_Figc_HTML.jpg"/>
+</p>
+
+
+<h3 class="Heading">Note</h3>
+<p>For debugging, you may want to add the code in this section to your
+app so that you can use breakpoints to verify the encoding and decoding
+of the data. Usually once it is working and the keys are correct, you
+can disable the breakpoints or even remove them.</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter showed you how to encode and decode JSON data to and
+from Swift structs. Because you will be working with named Swift
+objects, you don’t have to worry about the sequence or formatting of
+data.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">3. Matching a Document to a Document
+Format</h1>
+
+
+<!--End Abstract-->
+
+<p>
+In this chapter, you will see how to match a document as described and
+defined in your app’s code to an actual runtime document object. This is
+the heart of putting documents to work. This chapter covers the three
+basic points you need to address:
+
+</p>
+
+<ul>
+<li><p>Preparing for iCloud</p></li>
+<li><p>Setting up your document in your app</p></li>
+<li><p>Managing document types</p></li>
+</ul>
+
+
+<h2 class="Heading">Preparing for iCloud</h2>
+<p>You may wonder what iCloud has to do with
+documents, but the answer is quite simple. As you start to use more and
+more aspects of iOS and macOS, you’ll see that network connectivity and
+iCloud are no longer special cases. More and more you (and your users)
+will find that iCloud and the network are essential for your devices to
+function properly. It’s taken a long time, but it’s safe to say that we
+do have connectivity now.</p>
+<p>Not only do we have connectivity most of the time, but users and
+developers are getting more comfortable with managing that connectivity.
+Developers and users alike turn to airplane mode when it’s necessary to
+go offline for one reason or another. (This is a dramatic simplification
+from the days when it was common practice to separately adjust
+Bluetooth, data access, and other connections.)</p>
+<p>
+Because iCloud connectivity is so common
+today, many developers include it in the capability settings for apps.
+Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig1">3-1</a> shows the iCloud
+capability for a macOS app.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig1_HTML.jpg" style="height:24.52em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 3-1</p>
+<p>Setting up iCloud for a macOS app</p>
+
+
+<p>The iCloud services can be turned on or off with the checkboxes. Note
+that iCloud documents can be enabled here. It’s important to note as
+well that both CloudKit and key-value storage can be used with
+documents. You’ll learn more about key-value storage with documents in
+Chapter <a href="#465467_1_En_9_Chapter.xhtml">9</a>.</p>
+<p>
+For an iOS app, Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig2">3-2</a> shows the cloud
+capability settings.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig2_HTML.jpg" style="height:29.52em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 3-2</p>
+<p>Setting up iCloud for an iOS app</p>
+
+
+<p>Note that although there are many more
+options available for iOS apps, the section for the iCloud options is
+the same for iOS and macOS apps. For this reason, iCloud data is
+compatible with both environments.</p>
+
+
+<h2 class="Heading">Setting Up Your Document in Your App</h2>
+<p>
+There are differences in setting up and using documents in iOS and
+macOS; however, the basic settings, shown in Figures <a href="#465467_1_En_3_Chapter.xhtml#Fig3">3-3</a> and <a href="#465467_1_En_3_Chapter.xhtml#Fig4">3-4</a>, are very
+similar. Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig3">3-3</a> shows the
+document setup for an iOS app, and Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig4">3-4</a> shows the setup
+for a macOS app.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig3_HTML.jpg" style="height:24.45em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 3-3</p>
+<p>Setting up a document in iOS</p>
+
+
+<p>
+Setting up a document in macOS is fairly similar, as you can see in
+Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig4">3-4</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig4_HTML.jpg" style="height:24.52em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 3-4</p>
+<p>Setting up a document in macOS</p>
+
+
+
+
+<h2 class="Heading">Managing Document Types</h2>
+<p>An app can open many different documents depending on how you build
+the app and the documents. Each type of document (not each specific
+document) is defined as a document type in your info property list, as
+you can see in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a>.</p>
+<p>Note that a document type has a name. In Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a>, that name is
+Images; the document type name is descriptive and is used internally by
+your app.</p>
+<p>A document type can handle various types of content. Apple uses
+uniform type identifiers (UTIs ) to identify standard
+types. You can also create your own types. Using the standard types
+where possible makes your app more usable because users can read and
+write any files that conform to the supported UTIs.</p>
+<p>
+For example, Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> shows that the
+Images document type can handle any document that conforms to the <code>public.image</code> UTI
+specification. There is more on data types later in this chapter. For
+now, it is sufficient to know that the Images data type defined in this
+app (built with the Document Based App iOS project template) conforms to
+a standard image format called <code>public.image</code> which,
+in turn, conforms to the <code>public.data</code> and <code>public.content</code> UTIs.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig5_HTML.jpg" style="height:23.65em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 3-5</p>
+<p>The Images data type for iOS</p>
+
+
+<p>
+The simplest way to think about UTIs is
+
+</p>
+
+<ul>
+<li><p><strong>Document types</strong> are the types of documents your
+app can open.</p></li>
+<li><p><strong>Exported UTIs</strong> are the types of documents your
+app controls and can export (in a simple sense, they are the UTIs that
+your app writes).</p></li>
+<li><p><strong>Imported UTIs</strong> are the types of documents your
+app reads. They are controlled by other apps, which export
+them.</p></li>
+</ul>
+
+<p>Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> shows a document
+type for an iOS
+app. There are different settings for document types used in macOS. Some
+of the differences revolve around the fact that in macOS, the document
+type is used to determine what app opens that document type. In iOS,
+this is handled differently.</p>
+<p>
+Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig6">3-6</a> shows a document
+type for macOS.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig6_HTML.jpg" style="height:24.5em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 3-6</p>
+<p>Document types for
+macOS apps differ from iOS apps</p>
+
+
+
+
+<h2 class="Heading">Looking at info.plist</h2>
+<p>What you see in Figures <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> and <a href="#465467_1_En_3_Chapter.xhtml#Fig6">3-6</a> is complex. In
+the project navigator at the left of both figures, you see the project
+files. In both figures, you see Swift files as well as one or more
+storyboards, entitlements files, and assets (what you see varies by the
+project and your settings). What matters at this point is the <code>info.plist</code> file,
+which is the property list for each project. Property lists are used
+extensively in Cocoa and Cocoa Touch. They consist of specific data
+types (arrays, strings, numbers, dictionaries, numbers, dates, Boolean
+values, or NSData). Property lists are very fast and efficient ways of
+storing and retrieving data. Each app has a basic property list (called
+ <code>info.plist</code> ),
+and there may be other property lists supporting other parts of the
+app.</p>
+<p>
+A property list
+consists of key-value pairs where the keys are strings and the values
+are one of the data types mentioned in the previous paragraph. The
+beginning of the source code of a property list is shown in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig7">3-7</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig7_HTML.jpg" style="height:16.55em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 3-7</p>
+<p>Source code of a property list</p>
+
+
+<p>
+As you can see in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig7">3-7</a>, a property list
+is easy to display in XML. The formatting that you see in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig7">3-7</a> is generated by
+Xcode. Property lists can also be formatted directly from XML in tools
+such as Excel and BBEdit. A property list displayed in Xcode can be
+formatted as shown in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig8">3-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig8_HTML.jpg" style="height:24.08em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 3-8</p>
+<p>Formatted property list in Xcode</p>
+
+
+<p>Note that with formatting, the property list is a bit easier to
+read, but remember that it is still the basic XML-based property list
+shown previously in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig7">3-7</a>.</p>
+<p>
+When you look at the project navigator, you can open any of the files
+using Control-click. For property lists, you are given a choice of the
+formatting options shown in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig9">3-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig9_HTML.jpg" style="height:40.72em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 3-9</p>
+<p>Choosing a formatting option for a file in the Xcode project
+navigator</p>
+
+
+<p>
+Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig10">3-10</a> shows the
+choices under the
+Open As option.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_3_Chapter/465467_1_En_3_Fig10_HTML.jpg" style="height:6.88em" alt="../images/465467_1_En_3_Chapter/465467_1_En_3_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 3-10</p>
+<p>Viewing a property list</p>
+
+
+<p>Source code formatting of a property list is shown in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig7">3-7</a>; the property
+list format is shown in Figure <a href="#465467_1_En_3_Chapter.xhtml#Fig8">3-8</a>.</p>
+<p>If you refer back to Figures <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> and <a href="#465467_1_En_3_Chapter.xhtml#Fig6">3-6</a>, you’ll see in
+both of them a formatted property list at the top of the figure
+(remember that you can open it with a Control-click of the property list
+in the project navigator).</p>
+<p>Beneath the formatted property lists in Figures <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> and <a href="#465467_1_En_3_Chapter.xhtml#Fig6">3-6</a> is yet another
+representation of the property list: it’s simple to refer to it as a UI
+version. They are the versions shown for property types and other
+settings.</p>
+<p>What matters is that all of the formatting you see in Figures <a href="#465467_1_En_3_Chapter.xhtml#Fig5">3-5</a> and <a href="#465467_1_En_3_Chapter.xhtml#Fig6">3-6</a> is based on the
+raw property list. The different UI formats can make it easier to work
+with the documents you want to handle in macOS or iOS. However, remember
+that the underlying property list (<code>info.plist</code>) is what
+matters. It is generally easier to work with the UI-formatted versions,
+but to be absolutely certain what you are doing, it is safest to go back
+to the source code of <code>info.plist</code> to see
+exactly what is going on.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Document types are used to match a document and its contents to a
+subclass of <code>UIDocument</code> or <code>NSDocument</code>. UTIs are
+used to identify documents that may be used by various apps and
+documents. In this chapter, you also explored the structuring and
+setting up of iCloud for documents and the use of property lists with
+files and documents.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">4. Securing and Protecting Data</h1>
+
+
+<!--End Abstract-->
+
+<p>As soon as you start thinking about saving data, you should be
+thinking about the security of that data. Every step of the process from
+deciding what data to store and what rules to implement for safeguarding
+that data needs to be considered. This chapter focuses on these
+issues.</p>
+
+<h2 class="Heading">Security and Privacy Overview</h2>
+<p>As pointed out at the beginning of Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a>, we use documents to store and
+organize the data that we use in apps. There are two fundamental types
+of data that we organize into documents: data that is distributed with
+the app, and data that users create and modify. The second type, which
+is data that users create and modify, may include data distributed with
+the app.</p>
+<p>No matter what
+type of data is involved, if you are building or designing an app, you
+need to be aware of data issues that may arise. Until fairly recently,
+data issues were fairly modest in apps. Some data was clearly sensitive,
+but most data in apps required no special handling. Users and developers
+took frequent refuge behind the notion that “no one will care about our
+data.” Data such as personal identification numbers was clearly
+sensitive; developers and users often handled security for such data by
+adding a disclaimer or note in the documentation.</p>
+<p>All of this started changing as massive data breaches were reported
+in a variety of systems. Best practices for the handling of sensitive
+data (or data that <em>might</em> be or become sensitive) were
+formulated.</p>
+<p>In response to media reports and general awareness of data security,
+laws and regulations have begun to be implemented. For example, in the
+European Union
+(EU), the General
+Data Protection Regulation (GDPR) came into effect on May 25,
+2018.</p>
+<p>As new laws, regulations, and best
+practices take effect and become part of everyday operations, it
+behooves people who deal with data to understand how to implement these
+new practices in the modern data environment. This chapter provides a
+case study of a very simple use of private data and how it can be
+accidentally destroyed by simple or careless use. You can use this case
+study to guide you in your use of private data and privacy
+implementation.</p>
+
+
+<h2 class="Heading">Case Study: Using Cocoa Location Services</h2>
+<p>One of the most important privacy issues has to do with the location
+of mobile devices.
+Before mobile devices were so widespread, data privacy was mostly a
+matter of protecting information that was relatively static even if it
+was shared over the Internet. With mobile devices, however, the device
+itself can create confidential location data. This is a part of the
+necessary functioning of any device that needs to be able to locate
+itself and the infrastructure that it needs to use to make phone calls
+or otherwise do what it needs to do.</p>
+<p>It is possible to disable some or all of the location services on a
+mobile device (for example, by using airplane mode) but this limits or
+degrades performance. Apple has made location services a feature that
+can be turned on and off directly rather than disabling all
+communications. To do so, you use the Cocoa Location Services
+Framework.</p>
+<p>
+Users need to allow the use of location services on their device. Often
+this happens during installation of the operating system or setup of the
+device, but users can do it using Settings. Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig1">4-1</a> shows how a user
+can set up the privacy location settings for an app using Settings.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig1_HTML.jpg" style="height:30.83em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 4-1.</p>
+<p>The Location Services settings</p>
+
+
+<p>
+Once you have located your app in the Location
+Services section, you can choose the privacy settings you want. An app
+can ask for your permission on an as-needed basis, as you can see in
+Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig2">4-2</a>. (The text at
+the top of the alert is explained later in this chapter.)
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig2_HTML.jpg" style="height:32.48em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 4-2.</p>
+<p>Adjusting location privacy settings for an app as needed</p>
+
+
+<p>
+When using Settings, as shown in
+Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig1">4-1</a>, you can set the
+same options using the interface shown in Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig3">4-3</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig3_HTML.jpg" style="height:31.1em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 4-3.</p>
+<p>Using the same settings in the Settings app as in an alert from the
+app</p>
+
+
+<p>
+In addition to the text in Settings and an
+app alert, you must adjust your property list to support these
+interfaces. As you can see in Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig4">4-4</a>, your property
+list has places where you describe how the user’s location data will be
+used.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig4_HTML.jpg" style="height:35.62em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 4-4.</p>
+<p>Adjusting the property list for the
+privacy location settings</p>
+
+
+<p>
+It is very important to let the user know how you will use the location
+data you collect. Note that Apple reviewers ask developers to be
+specific in their description of how data will be used. It’s no longer
+sufficient to explain your use of location data with a phrase such as
+“Get the user’s location.” Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig5">4-5</a> shows an example
+of a description that is not specific enough.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig5_HTML.jpg" style="height:35.62em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 4-5.</p>
+<p>Make sure you describe how you will use the data</p>
+
+
+<p>
+If you do not provide any description, your app
+will write a message to the console, as shown in Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig6">4-6</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_4_Chapter/465467_1_En_4_Fig6_HTML.jpg" style="height:35.62em" alt="../images/465467_1_En_4_Chapter/465467_1_En_4_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 4-6.</p>
+<p>A missing description prevents the app from
+getting the location</p>
+
+
+<p>Location services provide a great example of a common problem with
+privacy and security. If a description for the use of the location data
+is not provided, a runtime message is displayed in the console, but no
+error is thrown, as you can see in Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig6">4-6</a>. You can argue
+whether this should be an error or not (as the engineers at Apple most
+likely have done), but the argument is convincing that it is
+<em>not</em> an error even though it might be a programming mistake.</p>
+<p>It is a common and usually good design to build this type of warning
+into an app. However, Figure <a href="#465467_1_En_4_Chapter.xhtml#Fig5">4-5</a> shows a common
+error. Note that the description is “This is a test.” Because no error
+is thrown, it is remarkably easy for this description of how the
+location data will be used to show up in a shipping product. If you look
+at media reviews and articles about security, you’ll see that one of the
+biggest complaints is that when an app does provide information about
+how data will be used, it may well be wrong. It is often a placeholder
+(“This is a test”) or a description from another app that has been
+brought forward by copy-and-paste.</p>
+
+
+<h2 class="Heading">Summary</h2>
+<p>Because the explanations of what data is collected and how it will be
+used are written in simple language and not code that a compiler or
+build process can flag, these descriptions are very often wrong. Now
+that they are required by regulations such as GDPR, these errors are
+more important than ever.</p>
+<p>The moral is that you should make certain that descriptions of
+security for users are correct so that users can rely on them,
+understand them, and use them.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">5. Implementing Documents on macOS:
+NSDocument</h1>
+
+
+<!--End Abstract-->
+
+<p>
+The heart of documents on macOS is the <code>NSDocument</code> class.
+Like <code>UIDocument</code>
+in iOS, it is an abstract class that you subclass for your own app.
+Three classes
+interact to provide document functionality in your app. They are the
+following:
+
+</p>
+
+<ul>
+<li><p><code>NSDocument</code> is the
+abstract class that you subclass for your app.</p></li>
+<li><p><code>NSDocumentController</code>
+is the app-specific class that manages the opening and closing of your
+document.</p></li>
+<li><p><code>NSWindowController</code> is
+the class that manages the window in which your document is
+displayed.</p></li>
+</ul>
+
+<p>There isn’t a one-to-one mapping of these classes between macOS and
+<code>NSDocument</code> and
+iOS and <code>UIDocument</code>; however,
+the similarities between <code>NSDocument</code> and <code>UIDocument</code> as well as
+the similarities between <code>NSDocumentController</code>
+and <code>UIDocumentController</code>
+are important (but they are no more than similarities).</p>
+
+<h2 class="Heading">Differences Between iOS UIDocuments and macOS
+NSDocuments</h2>
+<p>The biggest difference between iOS documents and macOS documents is that on
+macOS, the documents are part of the system environment and on iOS, they
+are part of each app’s environment. There are reasons for this (many of
+which reflect the evolution of the two operating systems), but what
+matters is this aspect of the environment in which your app runs and
+your document exists.</p>
+<p>Putting it another way, the tools that let you manage documents
+(creating and saving them, for example) are part of macOS and, on iOS
+they are part of tools such as <code>UIDocumentBrowserViewController</code>
+rather than iOS.</p>
+
+
+<h2 class="Heading">Creating a Document-Based App on macOS</h2>
+<p>
+As is usually the case, the simplest way to start building a new app is
+to use one of the built-in Xcode templates. Creating a document-based
+macOS app is no different. Start by creating a new project using the
+macOS Cocoa App template, shown in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig1">5-1</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig1_HTML.jpg" style="height:21.42em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 5-1.</p>
+<p>Creating a new Cocoa app for macOS</p>
+
+
+<p>
+As you do with an iOS project, name the macOS
+project and provide optional information, as shown in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig2">5-2</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig2_HTML.jpg" style="height:21.42em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 5-2.</p>
+<p>Information for a macOS app</p>
+
+
+<p>
+By contrast, Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig3">5-3</a> shows the
+options for an iOS app.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig3_HTML.jpg" style="height:24.45em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 5-3.</p>
+<p>Information for an iOS app</p>
+
+
+<p>There are some options for macOS projects that you won’t find for iOS
+apps. In particular, for macOS project templates, you’ll see options to
+use storyboards and documents. For iOS project templates, you have a
+template for documents, and storyboards are assumed.</p>
+<p>
+As is always the case when you create a new project from a template, try
+to run it as you see in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig4">5-4</a> at the top left
+with the right-pointing arrow. (Some projects, particularly those that
+require an iCloud account, may not run, but this one should run for
+you.)
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig4_HTML.jpg" style="height:26.32em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 5-4.</p>
+<p>Running the app</p>
+
+
+<p>
+As the project runs, it will use your Mac to run it instead of an iOS
+simulator. The basic app should show you a screen such as the one shown
+in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig5">5-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig5_HTML.jpg" style="height:11.42em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 5-5.</p>
+<p>Running your new macOS app</p>
+
+
+
+<h3 class="Heading">Adding Code to Your macOS App</h3>
+<p>It is a good idea to look inside the app that you’ve created to see
+how it works. (This will help you make changes to it as you develop your
+app.)</p>
+<p>
+The main components
+of your app when you start out from the project template are as follows:
+
+</p>
+
+<ul>
+<li><p><code>AppDelegate</code>: This is
+functionally similar to the <code>AppDelegate</code> that you
+use for iOS apps.</p></li>
+<li><p><code>ViewController</code>: This
+is a view controller (named <code>ViewController</code>) that
+works similarly to a view controller in an iOS app.</p></li>
+<li><p><code>Document</code>: This is a
+subclass of the <code>NSDocument</code>
+class.</p></li>
+</ul>
+
+<p>The following sections show you the
+code for this project.</p>
+
+
+
+<h2 class="Heading">AppDelegate</h2>
+<p>
+As you can see in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig6">5-6</a>, this is similar
+to app delegates
+in iOS apps (but it’s much shorter, in part because the operating system
+has much of the document work built into it).
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig6_HTML.jpg" style="height:23.47em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 5-6.</p>
+<p>Using AppDelegate</p>
+
+
+<p>
+The basic code that is part of the project template is shown in Listing
+<a href="#465467_1_En_5_Chapter.xhtml#PC1">5-1</a>. The comments in
+the code explain what you can add to it. The project template will run
+without any customization but you should implement the
+commented-out code or a variation of it before releasing an app even
+just for testing.
+
+</p>
+<pre>import Cocoa
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+func applicationDidFinishLaunching(_
+aNotification: Notification) {
+// Insert code here to initialize your application
+}
+func applicationWillTerminate(
+aNotification: Notification) {
+// Insert code here to tear down your application
+}
+}
+Listing 5-1
+AppDelegate Template Code</pre>
+
+
+<h2 class="Heading">ViewController</h2>
+<p>
+ <code>ViewController</code>
+ is the instance of <code>NSViewController</code> that
+will let you manage objects in the view. The basic <code>ViewController</code> is
+shown in Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig7">5-7</a> and Listing
+<a href="#465467_1_En_5_Chapter.xhtml#PC2">5-2</a>. It will be
+modified in the <code>"Document"</code> section
+later in this chapter.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig7_HTML.jpg" style="height:23.55em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 5-7.</p>
+<p>Creating the ViewController</p>
+
+
+<p>
+
+</p>
+<pre>//
+//  ViewController.swift
+//  Document2A
+//
+//
+import Cocoa
+class ViewController: NSViewController {
+override func viewDidLoad() {
+super.viewDidLoad()
+// Do any additional setup after loading the view.
+}
+override var representedObject: Any? {
+didSet {
+// Update the view, if already loaded.
+}
+}
+}
+Listing 5-2
+ViewController Code</pre>
+
+
+<h2 class="Heading">Document</h2>
+<p>
+ <code>Document</code>  is
+the subclass of <code>NSDocument</code> that
+manages the document and its data. The basic code is shown in Figure
+<a href="#465467_1_En_5_Chapter.xhtml#Fig8">5-8</a> and Listing
+<a href="#465467_1_En_5_Chapter.xhtml#PC3">5-3</a>. It is important
+to note that the document subclass <code>makeWindowControllers</code>
+method includes the code for matching the storyboard to the <code>Document</code> class.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig8_HTML.jpg" style="height:31.02em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 5-8.</p>
+<p>Managing your document</p>
+
+
+<p>
+
+</p>
+<pre>//
+//  Document.swift
+//  Document2A
+//
+//
+import Cocoa
+class Document: NSDocument {
+override init() {
+super.init()
+// Add your subclass-specific initialization here.
+}
+override class var autosavesInPlace: Bool {
+return true
+}
+override func makeWindowControllers() {
+// Returns the Storyboard that contains your
+Document window.
+let storyboard = NSStoryboard(
+name: NSStoryboard.Name("Main"), bundle: nil)
+let windowController =
+storyboard.instantiateController(
+withIdentifier:
+NSStoryboard.SceneIdentifier(
+"Document Window Controller"))
+as! NSWindowController
+self.addWindowController(windowController)
+}
+override func data(ofType typeName: String) throws -&gt; Data {
+// Insert code here to write your document to data of the
+// specified type, throwing an error in case of failure.
+// Alternatively, you could remove this method and override
+// fileWrapper(ofType:), write(to:ofType:), or
+// write(to:ofType:for:originalContentsURL:) instead.
+throw NSError(domain: NSOSStatusErrorDomain
+code: unimpErr, userInfo: nil)
+}
+override func read(from data: Data,
+ofType typeName: String) throws
+{
+// Insert code here to read your document from the
+// given data of
+// the specified type, throwing an error in case of failure.
+// Alternatively, you could remove this method and override
+// read(from:ofType:) instead.
+// If you do, you should also override isEntireFileLoaded to
+// return false if the contents are lazily loaded.
+throw NSError(domain: NSOSStatusErrorDomain,
+code: unimpErr, userInfo: nil)
+}
+}
+Listing 5-3
+Document Code</pre>
+
+
+<h2 class="Heading">Storyboard</h2>
+<p>
+Figure <a href="#465467_1_En_5_Chapter.xhtml#Fig9">5-9</a> shows how you
+can modify the storyboard in the
+template to add a text view (you do this just as you do it in iOS). In
+<code>Document</code>, you
+can use the text view to collect the data and then process it.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_5_Chapter/465467_1_En_5_Fig9_HTML.jpg" style="height:18.88em" alt="../images/465467_1_En_5_Chapter/465467_1_En_5_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 5-9.</p>
+
+
+
+
+<h2 class="Heading">Overview of macOS and iOS Development</h2>
+<p>Note that the details of managing the data in the text views differ
+between macOS and iOS. Among the
+differences are that in macOS, functions expose scrolling behaviors that
+in iOS are properties of the views.</p>
+<p>Keep in mind the history of Cocoa on macOS. In the earliest
+documentation, OpenStep and its precursor, NeXTSTEP, were designed for
+use in a world of business apps that were running on early personal
+computers. Even the earliest versions had functions for managing
+formatted tables and strings. The development path for Cocoa and Cocoa
+Touch differs in large part because the target platform for Cocoa Touch
+was at first the iPhone. Although there were (and are) business apps,
+the apps and users of iOS devices are very different from the apps and
+users of NeXTSTEP at its launch (September 18, 1989).</p>
+
+<h3 class="Heading">Note</h3>
+<p>For an interesting look at the environment in 1989, see the Timeline
+of Computer History at <a href="http://www.computerhistory.org/timeline/1989/"> <code>www.computerhistory.org/timeline/1989/</code>
+</a>.</p>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>The basic mechanism for reading and writing data is the same for
+macOS and iOS: you use objects in a storyboard to receive and send that
+data.</p>
+<p>Note that storyboards are a relatively new addition to macOS, so you
+may not find them in old code samples. Note, too, that you may find
+references to binding in old code. Although it is not deprecated, it is
+not used frequently in modern <code>macOS</code> code.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">6. Implementing Documents on iOS</h1>
+
+
+<!--End Abstract-->
+
+<p>
+There are three main issues you have to
+consider when implementing documents on iOS:
+
+</p>
+
+<ul>
+<li><p>With the advent of the iOS Files app in iOS 11, users began to
+have access to the underlying file system in iOS.</p></li>
+<li><p>The basic class for iOS documents is <code>UIDocument</code>, which is
+designed to be subclassed.</p></li>
+<li><p><code>UIDocumentBrowserViewController</code>
+is a view controller designed to implement the user interface of the
+Files iOS app.</p></li>
+</ul>
+
+<p>This chapter focuses on the first point: Files.</p>
+
+<h2 class="Heading">Using Files and the iOS File System</h2>
+<p>When the first iPhone was launched, it wasn’t an immediate success. In fact, if you
+go back and search for news articles, you’ll discover some major
+complaints about the product. One of the biggest was the absence of
+connectors (such as USB) to attach other devices to the iPhone in the
+way that users were accustomed to attaching devices to personal
+computers.</p>
+<p>The fact that the entire iPhone file system was hidden from the
+user’s view was one of the common complaints. There were reasons for the
+hidden file system architecture and, over the decade of iPhone use,
+users, developers, and analysts have come to learn the benefits (and
+sometimes, drawbacks) of this architecture.</p>
+<p>With the advent of iOS 11 in 2017, Apple released its Files app,
+which approached
+the issue of file management in a very different way from the
+architecture that people were accustomed to from the beginning of the
+personal computer era. In the basic personal computer file architecture,
+which was built on the traditional Unix file architecture, users managed
+files and folders, which could be placed almost anywhere on the device.
+The Files app takes a different approach in that files are accessible
+from specific areas that are usually related to apps. In other words,
+instead of thinking of files that can be moved anywhere on a personal
+computer’s disk, users are now encourage to think of files that can be
+moved anywhere within an app’s file space (often referred to as a
+<em>sandbox</em>).</p>
+<p>Recognizing that people are not simply using disk space on a personal
+computer, the Files app incorporates access to cloud storage services
+that go beyond a personal computer such as iCloud, Dropbox, Box, Google
+Drive, and OneDrive.</p>
+<p>
+For people who are accustomed to the legacy structure where users can
+place files where they want to, this can be a relearning experience.
+Perhaps the most important point to consider is that with the legacy
+file structure, you place files where you want to place them in relation
+to your computer’s disks and other storage locations. Using
+the iOS File System and Files, you place files in either of two general
+locations:
+
+</p>
+
+<ul>
+<li><p>You can place files in the folder for a specific app. A folder
+can be shared among several related apps. For good examples of this type
+of sharing, use the built-in Pages, Keynote, or Numbers apps and
+experiment by saving files to be shared.</p></li>
+<li><p>You can place files in a cloud storage service such as iCloud or
+Dropbox.</p></li>
+</ul>
+
+<p>Here are some details about using Files.</p>
+
+
+<h2 class="Heading">Choosing Document Storage Locations</h2>
+<p>
+Remember that file storage is primarily determined by the app a file is
+associated with. Your primary tool for choosing the storage location is by setting it
+in Settings for an app. For example, in Settings, you can see the
+various settings for installed apps on your iOS device (Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig1">6-1</a>).
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig1_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 6-1.</p>
+<p>Choosing the settings for your apps</p>
+
+
+<p>
+Find your app and then choose the storage
+location, as shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig2">6-2</a>. Your choices
+depend on what you have installed on your iOS device. If you use iCloud
+(a very common choice), you can choose to store your data there. You can
+choose to store it on a local device or you can use Dropbox, Box, or
+another service.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig2_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 6-2.</p>
+<p>Choosing a document storage location</p>
+
+
+
+
+<h2 class="Heading">Browsing Documents</h2>
+<p>When you use Files, you can choose to browse files in a
+specific location (this, of course, depends on what you have chosen for
+locations and the files that you have). It’s important to understand the
+browsing data that Files shows you, so the following images show you
+what you might see.</p>
+<p>
+If you have decided to use your iPad for storage, you might see the
+browse results shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig3">6-3</a> when you choose
+the On My iPad location.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig3_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 6-3.</p>
+<p>Browsing the On My iPad files</p>
+
+
+<p>
+If you use iCloud Drive, you may see a browse window such as the one
+shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig4">6-4</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig4_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 6-4.</p>
+<p>Browsing documents and folders on iCloud Drive</p>
+
+
+<p>
+Note that when you browse, the locations
+are at the left of the window. When you select a specific file or
+folder, you will see its container indicated either in Locations at the
+left or at the top of the right-hand list, as in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig5">6-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig5_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 6-5.</p>
+<p>Folder names at the top of the right-hand pane</p>
+
+
+
+
+<h2 class="Heading">Looking at Recent Documents</h2>
+<p>
+Using the tabs at the bottom of the window, you can switch between
+recent files and folders and ones that
+you want to browse. Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig6">6-6</a> shows recent
+files and folders.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig6_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 6-6.</p>
+<p>Recent files
+and folders</p>
+
+
+<p>
+If some of your documents have not yet been downloaded from a remote
+server, you will see the cloud icon shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig7">6-7</a>, indicating that
+they are waiting to be downloaded. If you tap a specific file, you can
+speed up its downloading process.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig7_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 6-7.</p>
+<p>Downloading files</p>
+
+
+<p>Note that in addition to indicating if a file needs to be downloaded,
+you can see its location. For example, in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig7">6-7</a>, in the lower
+right, you can see a document that is marked as On My iPad rather than
+iCloud Drive.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>Get used to working with Files and using the file location
+information and download status. Because there is often a time lag as a
+download is scheduled and processed, you will save yourself time if you
+know what files are where so that you don’t try to debug issues that are
+merely timing issues.</p>
+
+
+
+<h2 class="Heading">Viewing Files and Folders for an App</h2>
+<p>
+When you look at apps on an iOS device, you can tap and
+hold an app icon to see the files and folders that may belong to it, as
+shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig8">6-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig8_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 6-8.</p>
+<p>Tap and hold an app icon to see its files</p>
+
+
+<p>
+If necessary, a Show More button will appear at the top right, as you
+can see in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig8">6-8</a>. When you use
+Show More, a companion Show Less button appears, as you can see in
+Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig9">6-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig9_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 6-9.</p>
+<p>The Show Less option</p>
+
+
+<p>
+When you look at the apps in Files (Figure
+<a href="#465467_1_En_6_Chapter.xhtml#Fig7">6-7</a>), you will see a
+list of the files and folders, as shown in Figure <a href="#465467_1_En_6_Chapter.xhtml#Fig10">6-10</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_6_Chapter/465467_1_En_6_Fig10_HTML.jpg" style="height:22.62em" alt="../images/465467_1_En_6_Chapter/465467_1_En_6_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 6-10.</p>
+<p>A list of all files and folders for an
+app</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>Use Settings to control where you store the files and folders for an
+app, and use Files to browse files and folders as well as recents.</p>
+<p>Remember that you control where the files and folders are placed not
+by selecting locations on your personal computer but by selecting
+locations on the device you’re using or on a cloud storage function such
+as iCloud or Dropbox.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">7. Implementing Documents on iOS:
+UIDocument and UIDocumentBrowser ViewController</h1>
+
+
+<!--End Abstract-->
+
+<p>Documents are critical components of many apps and have been so from
+the beginning of the personal computer era. Many people still think of
+documents as paper-based objects, but the documents that people work
+with today on iOS and macOS are much more sophisticated than their paper
+predecessors. This chapter introduces today’s documents and their
+structures. It then explains how to use <code>UIDocumentBrowserViewController</code>
+to manage documents.</p>
+
+<h2 class="Heading">Creating a Document-Based App</h2>
+<p>
+As is often the case with the basic building blocks of the frameworks in
+Xcode, the simplest way to get started with documents for iOS is to use
+the Document Based App project template that’s built into Xcode. Begin
+by creating a new iOS project, as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig1">7-1</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig1_HTML.jpg" style="height:21.53em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 7-1.</p>
+<p>Picking the Document Based App template in Xcode</p>
+
+
+<p>
+Go through the standard options shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig2">7-2</a> to set up the
+template.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig2_HTML.jpg" style="height:21.98em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 7-2.</p>
+<p>Setting the options for the new project</p>
+
+
+<p>
+Continue with the options until you have the project template complete
+as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig3">7-3</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig3_HTML.jpg" style="height:25.17em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 7-3.</p>
+<p>Reviewing the new project</p>
+
+
+<p>When you’re finished, run the app. (This is a step you should always
+take when you create a new project from a template. Except for issues
+such as network availability, your new project template should run.)</p>
+<p>
+As you can see in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig4">7-4</a>, you can open
+the project and see the storyboard with two view controllers.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig4_HTML.jpg" style="height:18.32em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 7-4.</p>
+<p>Looking at the storyboard</p>
+
+
+<p>
+Run the project. You should see the Simulator, as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig5">7-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig5_HTML.jpg" style="height:30.95em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 7-5.</p>
+<p>Running the app</p>
+
+
+<p>
+Continue exploring your new app. Use the Browse tab to browse files in
+your app’s sandbox, as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig6">7-6</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig6_HTML.jpg" style="height:29.9em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 7-6.</p>
+<p>Exploring the Browse tab in your app</p>
+
+
+<p>There are no files there now, but there is a Create Document button.
+Try it out!</p>
+<p>Nothing happens.</p>
+<p>It’s time to move to the next section of this chapter, which looks at
+<code>UIDocument</code>.
+Among other tasks, you’ll see how to implement the Create Document
+button.</p>
+
+<h3 class="Heading">Introducing UIDocument</h3>
+<p>
+The basic document class in iOS is <code>UIDocument</code>. <code>UIDocument</code> provides
+the basic functionality of a document in these ways:
+
+</p>
+
+<ul>
+<li><p><strong>fileURL</strong> <code>: UIDocument identifies a document using a file URL so that your app can locate it for reading and writing.</code></p></li>
+<li><p><code>UIDocument manages</code> <strong>asynchronous reading and writing</strong> <code>of data on a background queue with minimal effort on your part.</code></p></li>
+<li><p><code>UIDocument also coordinates reading and writing of document files using</code>
+<strong>cloud services</strong> <code>such as iCloud.</code></p></li>
+<li><p><code>UIDocument also manages</code> <strong>conflicts and changes to versions</strong> <code>of your document.</code></p></li>
+</ul>
+
+<p>These are the basic components of <code>UIDocument</code>. In order
+to start working with documents, you can use the basic code that is
+available in the Document Based App template. The basic code in the
+project template provides functionality for <code>fileURL</code> (document
+identification) as well as the critical reading and writing features
+along with cloud services and management of conflicts and changes.</p>
+
+
+<h3 class="Heading">Working with UIDocument</h3>
+<p>The key components for working with <code>UIDocument</code>  are <code>UIDocument</code>, which
+handles reading, writing, and creating <code>UIDocuments, and UIDocumentBrowserViewController</code>, which handles the browsing and
+the user interface part of reading, writing, and creating <code>UIDocument</code>.
+Completing the basic functionality of <code>UIDocument</code> is an
+implementation of <code>UIDocumentViewController</code>.</p>
+<p>
+<code>UIDocument</code>
+takes care of a lot of document management for you including many
+critical functions such as saving documents and managing changes. You
+can study the documentation to see all of the features, but you can use
+the stripped-down functions for <code>UIDocument</code> that are
+part of the Document Based App template used in this chapter. In fact,
+the basic code from the template (shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig7">7-7</a> and Listing
+<a href="#465467_1_En_7_Chapter.xhtml#PC1">7-1</a>) is an excellent
+place to start and, for many basic apps, it may be all you need along
+with a line or two of app-specific code.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig7_HTML.jpg" style="height:21.28em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 7-7.</p>
+<p>Basic UIDocument
+functionality</p>
+
+
+<p>
+
+</p>
+<pre>//
+//  Document.swift
+//  Document1
+//
+//
+import UIKit
+class Document: UIDocument {
+override func contents(forType typeName: String) throws -&gt; Any {
+// Encode your document with an instance of NSData or NSFileWrapper
+return Data()
+}
+override func load(fromContents contents: Any, ofType typeName: String?)
+throws {
+// Load your document from contents: ofType:)
+}
+}
+Listing 7-1
+The Basic Code</pre>
+<p>The function you need to implement first <code>is contents(forType:).</code> When you have decided the format for the data
+in your document, you specify its type, and that type is used to read
+and write the document’s data. Often, the type of a document file is a
+basic Swift or Objective-C type such as <code>NSData</code>. If you use
+<code>NSData</code>, it is
+your responsibility to convert your document’s data to <code>NSData</code> or whatever
+type you are using.</p>
+<p>The companion function is <code>load(fromContents: ofType:</code>). Both of these functions let you read or write a
+general-purpose format and then convert it into data that your app
+manages.</p>
+<p>If you explore the code for <code>UIDocument</code>, you’ll
+see that it handles asynchronous reading and writing, working with cloud
+data, and managing changes all within the basic structure of the two
+functions: <code>contents(forType:)</code>and
+<code>load(fromContents: ofType:</code>)
+</p>
+
+
+
+<h2 class="Heading">Working with UIDocumentViewController</h2>
+<p>
+Once you have your document in place, you need to add a view controller
+so that you can see and manipulate content. In the Document Based App
+project template, the document controller is created as shown in Figure
+<a href="#465467_1_En_7_Chapter.xhtml#Fig8">7-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig8_HTML.jpg" style="height:21.18em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 7-8.</p>
+<p>The DocumentViewController</p>
+
+
+<p>
+The code is shown in Listing <a href="#465467_1_En_7_Chapter.xhtml#PC2">7-2</a>.
+
+</p>
+<pre>class DocumentViewController: UIViewController {
+@IBOutlet weak var documentNameLabel: UILabel!
+var document: UIDocument?
+override func viewWillAppear(_ animated: Bool) {
+super.viewWillAppear(animated)
+// Access the document
+document?.open(completionHandler: { (success) in
+if success {
+// Display the content of the document, e.g.:
+self.documentNameLabel.text
+self.document?.fileURL.lastPathComponent
+} else {
+// Make sure to handle the failed import appropriately,
+// e.g., by presenting an error message to the user.
+}
+})
+}
+@IBAction func dismissDocumentViewController() {
+dismiss(animated: true) {
+self.document?.close(completionHandler: nil)
+}
+}
+}
+Listing 7-2
+Document View Controller Code</pre>
+<p>There are two functions in the <code>DocumentViewController</code>
+class<code>: viewWillAppear((_:)</code> and <code>dismissDocumentViewController(). The first opens the document and the second closes it</code> <code>.</code></p>
+
+<h3 class="Heading">Opening the Document</h3>
+<p>
+Opening the document is a great
+example of the Swift asynchronous programming style using a completion
+handler. The code is
+
+</p>
+<pre>document?.open(completionHandler: { (success) in
+if success {
+// Display the content of the document, e.g.:
+self.documentNameLabel.text
+self.document?.fileURL.lastPathComponent
+} else {
+// Make sure to handle the failed import appropriately,
+// e.g., by presenting an error message to the user.
+}
+})</pre>
+<p><code>open</code> is
+called on the document (note that it is an optional and is unwrapped
+with ?). The completion handler is declared in the <code>open</code> function, and it
+is called upon completion of <code>open.</code> There is one
+parameter passed into the completion handler. As is common but not
+required, it is often called <code>success</code>; it is a
+Boolean that indicates if <code>open</code> has succeeded or
+not.</p>
+<p>
+The completion handler then executes this code:
+
+</p>
+<pre>if success {
+// Display the content of the document, e.g.:
+self.documentNameLabel.text
+self.document?.fileURL.lastPathComponent
+} else {
+// Make sure to handle the failed import appropriately, e.g., by
+// presenting an error message to the user.
+}</pre>
+<p>For a successful opening of the document, a label in the storyboard
+is filled with <code>lastPathComponent</code> of
+the file URL. (You can see this at the right in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig4">7-4</a>.) For most apps,
+you would actually display some content from the document in the interface.</p>
+
+<h3 class="Heading">Note</h3>
+<p>The completion handler for opening the document is a significant way
+of improving app performance. When you are dealing with documents and
+files that may be in the cloud, the delay in executing the completion
+handler (whether successful or not) can be significant. Remember this
+when you are testing your app.</p>
+
+
+
+<h3 class="Heading">Closing the Document</h3>
+<p>Closing the document uses a similar
+structure with <code>dismissDocumentViewController</code>.
+However, note that the completion handler in the app is nil. If you
+don’t need to process data that has changed, you don’t have to do
+anything except close the document.</p>
+
+
+
+<h2 class="Heading">Working with UIDocumentBrowserViewController</h2>
+<p><code>UIDocumentBrowserViewController</code>
+is the heart of the document-based app. This section provides an
+overview of what happens. There are two basic paths to follow: creating
+a document or opening an existing document. (You might want to refer
+back to Figures <a href="#465467_1_En_7_Chapter.xhtml#Fig5">7-5</a> and <a href="#465467_1_En_7_Chapter.xhtml#Fig6">7-6</a>.)</p>
+
+<h3 class="Heading">Loading the UIDocumentBrowserViewController</h3>
+<p>
+The first step in
+working with a <code>UIDocumentBrowserViewController</code>
+is to load it, as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig9">7-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig9_HTML.jpg" style="height:26.72em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 7-9.</p>
+<p>Loading UIDocumentBrowserViewController</p>
+
+
+<p>
+Note that your <code>UIDocumentBrowserViewController</code>
+subclass should also conform to the <code>UIDocumentBrowserViewControllerDelegate protocol</code>. You can see this in line 12 of Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig9">7-9</a>. For additional
+reference, here is the code:
+
+</p>
+<pre>delegate = self</pre>
+<p>You have choices for the visual style of the browser that you can set
+at this point so that they coordinate with your user interface. Other
+initializations can be handled in your <code>info.plist</code>.</p>
+
+<h3 class="Heading">Note</h3>
+<p>There is more on your <code>info.plist</code> in Chapter
+<a href="#465467_1_En_3_Chapter.xhtml">3</a>.</p>
+
+<p>
+Note that <code>viewDidLoad</code> lets you
+choose whether documents can be created with line 19:
+
+</p>
+<pre>allowsDocumentCreation = // true or false</pre>
+<p>
+After you have loaded the <code>UIDocumentBrowserViewController</code>,
+you typically implement four functions, which are shown as stubs in
+Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig9">7-9</a>, The functions
+are
+
+</p>
+
+<ul>
+<li><p><code>(documentBrowser(_:didRequestDocumentCreationWithHandler:)</code>
+for creating a new document</p></li>
+<li><p><code>(documentBrowser(_:didPickDocumentAt:)</code>
+for opening an existing document</p></li>
+<li><p>(<code>documentBrowser(_:didImportDocumentAt:toDestinationURL:)</code>
+for, after opening a document, presenting it with its content</p></li>
+<li><p><code>(documentBrowser(_:failedToImportDocumentAt:error)</code>
+to handle an error</p></li>
+</ul>
+
+
+
+<h3 class="Heading">Creating a Document</h3>
+<p>
+You can use the template to create a new
+document. As the documentation indicates, you can allow users to choose
+which of several basic documents you will use as a template. See Figure
+<a href="#465467_1_En_7_Chapter.xhtml#Fig10">7-10</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig10_HTML.jpg" style="height:21.18em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 7-10.</p>
+<p>Creating a document</p>
+
+
+<p>In many older design patterns, you would choose to create an empty
+document and then possibly modify it with data. The design pattern that
+is most often used in iOS is not to create a document but instead to
+copy an existing template document from your bundle and put the copy in
+the appropriate place for your app. This is a different work flow, but
+it becomes more efficient as you create and modify your app over
+time.</p>
+<p>
+Listing <a href="#465467_1_En_7_Chapter.xhtml#PC7">7-3</a> shows the code to
+let users choose a template from a list. The key line of code is
+
+</p>
+<pre>let newDocumentURL = Bundle.main.url(forResource: "Template",
+withExtension: DocumentBrowserViewController.documentExtension)
+importHandler(newDocumentURL, .copy)
+}</pre>
+<p>
+This takes a file called <code>Template</code> with your
+document extension from your bundle and copies it to a new location. If
+you don’t need to let users choose from among several templates, just
+use this code without the alert that lets people choose.
+
+</p>
+<pre>let title = NSLocalizedString("Choose File Template", comment: "")
+let cancelButtonTitle = NSLocalizedString("Cancel", comment: "")
+let defaultButtonTitle = NSLocalizedString("Basic (Default) ",
+comment: "Default")
+let generalButtonTitle = NSLocalizedString("Demo)", comment: "")
+let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+let newDocumentURL = Bundle.main.url(forResource: "Template",
+withExtension: DocumentBrowserViewController.documentExtension)
+importHandler(newDocumentURL, .copy)
+}
+// Create the actions.
+let cancelAction = UIAlertAction(title: cancelButtonTitle,
+style: .cancel) { action in
+importHandler(nil, .none)
+}
+let defaultButtonAction = UIAlertAction(title: defaultButtonTitle,
+style: .default) { _ in
+let newDocumentURL = Bundle.main.url(forResource: "Template",
+withExtension: DocumentBrowserViewController.documentExtension)
+importHandler(newDocumentURL, .copy)
+}
+let generalButtonAction = UIAlertAction(title: generalButtonTitle,
+style: .default) { _ in
+let newDocumentURL = Bundle.main.url(forResource: "Template2",
+withExtension: DocumentBrowserViewController.documentExtension)
+importHandler(newDocumentURL, .copy)
+}
+// Add the actions.
+alertController.addAction(cancelAction)
+alertController.addAction(defaultButtonAction)
+alertController.addAction(generalButtonAction)
+present(alertController, animated: true, completion: nil)
+Listing 7-3
+Letting Users Choose a Template</pre>
+
+
+<h3 class="Heading">Picking (Opening) a Document</h3>
+<p>
+Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig11">7-11</a> shows the code
+for opening an
+existing document.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig11_HTML.jpg" style="height:16.95em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 7-11.</p>
+<p>Opening an existing document</p>
+
+
+<p>
+The key line of code here lets you select from several existing files;
+you attempt to open the first in the list as specified here:
+
+</p>
+<pre>guard let sourceURL = documentURLs.first else { return }</pre>
+<p>
+As you can see in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig9">7-9</a>, you can specify
+if multiple files can be selected with this line of code in <code>viewDidLoad</code> for <code>DocumentBrowserViewController</code>:
+
+</p>
+<pre>allowsPicking Multiple Items = // true or false</pre>
+<p>
+Once you have picked a document, you ask the <code>DocumentBrowserViewController</code>
+to present it, as shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig12">7-12</a> .
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig12_HTML.jpg" style="height:16.95em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 7-12.</p>
+<p>Presenting a document</p>
+
+
+<p>
+Or you can use this code:
+
+</p>
+<pre>presentDocument (at:destinationURL)</pre>
+<p>
+The typical code is shown in Listing <a href="#465467_1_En_7_Chapter.xhtml#PC11">7-4</a>.
+
+</p>
+<pre>func presentDocument(at documentURL: URL) {
+let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+let documentViewController =
+storyBoard.instantiateViewController(withIdentifier:
+"DocumentViewController") as! DocumentViewController
+documentViewController.document =
+Document(fileURL: documentURL)
+present(documentViewController, animated: true,
+completion: nil)
+}
+Listing 7-4
+Presenting a Document</pre>
+<p>Note that this code brings together a document view controller, a
+storyboard, and a document. All of these components must match (this is
+a common cause of debugging issues) .</p>
+<p>
+The code is also shown in Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig13">7-13</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig13_HTML.jpg" style="height:16.95em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 7-13.</p>
+<p>Presenting a document</p>
+
+
+
+
+<h3 class="Heading">Handling Errors</h3>
+<p>
+The last part of handling document browser view controllers is to make
+certain that you handle errors properly; see Figure <a href="#465467_1_En_7_Chapter.xhtml#Fig14">7-14</a> .
+
+</p>
+
+<p>
+<img src="images/465467_1_En_7_Chapter/465467_1_En_7_Fig14_HTML.jpg" style="height:16.95em" alt="../images/465467_1_En_7_Chapter/465467_1_En_7_Fig14_HTML.jpg"/>
+</p>
+
+<p>Figure 7-14.</p>
+<p>Handling errors properly</p>
+
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter shows the processes involved in opening or creating a
+document. The most important take-away is that instead of creating
+documents from scratch, the best practice is to put a template document
+into your bundle so that opening and creating a document can both use
+the same basic code.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">8. Sharing Documents with Share
+Buttons</h1>
+
+
+<!--End Abstract-->
+
+<p>In previous chapters, you saw how to implement documents on iOS and
+macOS to save data and share it across your apps. In this chapter,
+you’ll see another way to share data using the Share button so that you
+can dynamically share data from one app to another without using a
+document to store and share the data.</p>
+<p>
+The main points covered in this chapter are
+
+</p>
+
+<ul>
+<li><p>Using Share buttons (as a user)</p></li>
+<li><p>Using Share buttons (as a developer)</p></li>
+<li><p>Managing the shared data</p></li>
+</ul>
+
+
+<h2 class="Heading">Using Share Buttons (As a User)</h2>
+<p>To share data,
+you need one app to share the data (sometimes this process is called
+<em>vending</em> the data) and another app (or several apps)  to receive the data and
+use it as the receiving app wants. Note that, just as is the case with
+documents and their types, the connection between sender and receiver
+(or vendor and receiver) is dynamic. Neither app needs to know about the
+other. The document type or sharing information lets each app function
+on its own so that you don’t need to build enormous multi-purpose apps
+that require substantial development and maintenance costs.</p>
+<p>Sharing is part of Cocoa and Cocoa Touch (and it has been since the
+beginning of the original NeXTSTEP and Rhapsody versions of the
+operating systems). In order to share data, a common format needs to be
+available to the sender and receiver. Here is an example of the basic
+structure.</p>
+
+
+<h2 class="Heading">Creating a Sharing Example</h2>
+
+<h3 class="Heading">Note</h3>
+<p>Remember that you can add apps to the simulator. Mail may not be
+configured for you. If you have a device you can use for testing, it’s
+best to use it. You can test the ShareApp by downloading it as described
+in Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a>. Look for the Chapter <a href="#465467_1_En_8_Chapter.xhtml">8</a> version.</p>
+
+<p>
+The simplest example to use for sharing data is the Master-Detail
+project template in Xcode. It’s the basis for many examples (and even
+apps in the App Store). It’s a simple app with two views. On an iPhone,
+only one view at a time is shown; on larger devices, the two views share
+the screen. Whichever you’re using, you start from an app that lets you
+tap + to enter the current date and time, as you can see in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig1">8-1</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig1_HTML.jpg" style="height:27.1em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 8-1.</p>
+<p>Creating a new timestamp record</p>
+
+
+<p>
+If you tap the timestamp created in the master view, you’ll see the
+details (a better-formatted timestamp) shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig2">8-2</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig2_HTML.jpg" style="height:28.88em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 8-2.</p>
+<p>Detail view</p>
+
+
+<p>
+In Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig3">8-3</a>, you can see an
+action button added to the navigation bar at the right. (You’ll learn
+how to implement it in this chapter). With the action button, you can
+share the data from the detail view.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig3_HTML.jpg" style="height:29.65em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 8-3.</p>
+<p>Adding an action button to share the data</p>
+
+
+<p>
+The example used here is named ShareApp. Start from the Master-Detail
+App template shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig4">8-4</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig4_HTML.jpg" style="height:23.32em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 8-4.</p>
+<p>Starting from the Master-Detail App project template</p>
+
+
+<p>
+Create your own version of the app as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig5">8-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig5_HTML.jpg" style="height:23.58em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 8-5.</p>
+<p>Building your own project</p>
+
+
+<p>
+As you can see in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig6">8-6</a>, you don’t need
+to worry about any settings at this point because the defaults will work
+for you.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig6_HTML.jpg" style="height:17.22em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 8-6.</p>
+<p>Using the default Master-Detail App
+settings</p>
+
+
+<p>
+Open the storyboard. You’ll see the two main views shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig7">8-7</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig7_HTML.jpg" style="height:21.42em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 8-7.</p>
+<p>Opening the storyboard</p>
+
+
+<p>
+Open the library at the top of the utilities pane to see the library
+objects, as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig8">8-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig8_HTML.jpg" style="height:17.35em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 8-8.</p>
+<p>Selecting a bar button item to add</p>
+
+
+<p>
+Drag a bar button item to the right of the top bar in the Detail scene,
+as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig9">8-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig9_HTML.jpg" style="height:21.38em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 8-9.</p>
+<p>Adding a bar button item</p>
+
+
+<p>
+From the attributes inspector, choose the Action button, as shown in
+Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig10">8-10</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig10_HTML.jpg" style="height:34em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 8-10.</p>
+<p>Choosing the action button</p>
+
+
+<p>
+Implement the action button by opening the storyboard with the assistant
+so that you can see the storyboard and <code>DetailViewController</code>
+at the same time, as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig11">8-11</a>. Control-drag
+from the action button in the storyboard to the code in <code>DetailViewController</code>
+and name the outlet <code>actionButton</code>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig11_HTML.jpg" style="height:27.12em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 8-11.</p>
+<p>Connecting the outlet for actionButton</p>
+
+
+<p>
+Add the code for the action, as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig12">8-12</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig12_HTML.jpg" style="height:25.4em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 8-12.</p>
+<p>Preparing the button and action</p>
+
+
+<p>Set a breakpoint in the <code>actionButtonAction</code>
+function and test that your action button now works.</p>
+<p>All that’s left to do is to implement the sharing.</p>
+
+
+<h2 class="Heading">Sharing the Data</h2>
+<p>The objective at this point is to share the timestamp data in a
+format that other apps can recognize. This is done by implementing a
+ <code>UIActivityViewController</code>
+, as you will see in this section. The activity view controller
+that you present will reflect the type of data that you have available
+to share and the possible receivers of that data. Because of this
+dynamic functioning, you can’t be certain what you should be seeing, so
+the first example in this section will use a very basic type of sharing:
+the activity view controller will share text that is included in this
+section. For most users, this text will be able to be received by
+built-in apps such as Mail, Notes, and Messenger.</p>
+<p>
+Your activity view controller will present a list of items available to
+share. For this example, you can do that with the code shown in Listing
+<a href="#465467_1_En_8_Chapter.xhtml#PC1">8-1</a>. Add this code to
+ <code>DetailViewController</code>
+.
+
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig13_HTML.jpg" style="height:38.03em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 8-13.</p>
+<p>Experimenting with an activity view controller </p>
+
+
+<pre>@IBAction func actionButtonAction(_ sender: Any) {
+let sharedItems = "Sample text"
+let activityViewController = UIActivityViewController(activityItems:
+[textToShare], applicationActivities: nil)
+// position the popover relative to this view
+activityViewController.popoverPresentationController?.sourceView = self.view
+// present the view controller
+self.present(activityViewController, animated: true,
+completion: nil)
+}
+}
+Listing 8-1
+actionButtonAction</pre>
+<p>
+In this example, you need a receiver that can handle plain text. Mail,
+Notes, and Messages can do so, but if you do not have them installed,
+your choices will be limited to Save or Copy. Otherwise, you will see an
+activity view controller, as shown in Figure <a href="#465467_1_En_8_Chapter.xhtml#Fig14">8-14</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig14_HTML.jpg" style="height:33.28em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig14_HTML.jpg"/>
+</p>
+
+<p>Figure 8-14.</p>
+<p>Using the activity view controller</p>
+
+
+<p>
+If you have installed Mail, you can send the text, as shown in Figure
+<a href="#465467_1_En_8_Chapter.xhtml#Fig15">8-15</a> .
+
+</p>
+
+<p>
+<img src="images/465467_1_En_8_Chapter/465467_1_En_8_Fig15_HTML.jpg" style="height:26.7em" alt="../images/465467_1_En_8_Chapter/465467_1_En_8_Fig15_HTML.jpg"/>
+</p>
+
+<p>Figure 8-15.</p>
+<p>You can email text from the activity view controller</p>
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>
+Experiment with various combinations of senders and receivers. The set
+of items passed to the activity view controller is a set of type <code>Any</code>. For reference,
+here is the declaration of <code>init</code> for <code>UIActivityViewController</code>:
+
+</p>
+<pre>init(activityItems: [Any], applicationActivities: [UIActivity]?)</pre>
+<p>You’ll notice that you can specify activities as an optional; there
+is more information on them in the documentation.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">9. Using User Defaults, Settings, and
+Preferences</h1>
+
+
+<!--End Abstract-->
+
+<p>Documents are the primary way of saving data for apps. You can share
+the document with various apps and users so that the data is available
+to all users, but there are other ways to store and manage data in an
+app. Documents are the workhorses because you can control how much data
+is saved and how it is saved and shared.</p>
+<p>Since the beginning of the iOS and macOS systems (and their
+predecessors) there has been another set of tools that let you store
+data. These tools are commonly used for user defaults, settings, and
+preferences. The data that they store and use is typically limited in
+size and scope. Even the terminology of these tools (user defaults,
+settings, and preferences) suggests the small size of the data involved.
+This remains true, but it is important to consider the fact that with
+the advances in technology, including data storage, user defaults,
+settings, and preferences, can in fact be a more central part of your
+app’s data strategy.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Strictly speaking, a preference is the value of a setting such as the
+color to be used for drawing a new line where the value is blue for the
+<code>lineColor</code>
+preference. Once the value of a setting is set, it persists and is used
+each time the app runs until it is changed. In this case, the preference
+may be referred to as a <em>default</em>. In iOS, the built-in Settings
+app lets users control preferences and settings.</p>
+<p>Preferences in Cocoa are stored in the Cocoa preferences system (also
+known as user defaults). If you want to make a strict distinction among
+these terms, in iOS the built-in Settings app controls these values for
+users. In Cocoa and Cocoa Touch, the user defaults system manages a
+database with the values. Some people distinguish between settings (part
+of the user interface) and user defaults (part of the Cocoa
+frameworks).</p>
+
+<p>This chapter explores the possibilities you can use today for these
+data tools.</p>
+
+<h2 class="Heading">Looking at the Data Structures</h2>
+<p>
+When you are working with documents, you can control the formatting and
+management of the data. You can use a standard document type, which may
+have associated classes (images, for example), but the data for user
+defaults, settings, and preferences is more limited. Specifically, these
+objects must all be property list elements. A property list is a
+key-value structure where the keys are strings and the values are any of
+the following simple data types:
+
+</p>
+
+<ul>
+<li><p>String</p></li>
+<li><p>Date</p></li>
+<li><p>Integer number</p></li>
+<li><p>Float number</p></li>
+<li><p>Boolean</p></li>
+</ul>
+
+<p>A property list (extension .<code>plist</code>) is designed
+for efficient serialization. The <code>PropertyListSerialization</code>
+class handles this for you. Property lists are used throughout Cocoa;
+over the years, this code has been refined and tested so that it can be
+relied on for many tasks.</p>
+<p>In addition, a <code>NSData</code> type can be
+stored in a property list. If you do this, you must handle the
+serialization and deserialization of that data to or from an object that
+you want to deal with. A very common case is converting a <code>NSData</code> type to some
+binary format, which can then be interpreted as an image or other
+complex data structure.</p>
+<p>Property lists can also include arrays and dictionaries. This means
+that you can use a property list, which itself is an array containing a
+dictionary that also declares another array as well as numbers and other
+simple objects.</p>
+<p>The other constraint to bear in mind when considering user defaults,
+settings, and preferences is that the guidance from Apple is that these
+tools should be used only for limited purposes and relatively small
+amounts of data.</p>
+<p>When thinking about storing data in this way, don’t worry too much
+about how much data can be stored as user defaults, settings, or
+preferences because that’s not really the limiting factor. If you use up
+almost all of a device’s storage in this way, you will degrade
+performance long before you run out of space.</p>
+<p>Property lists are stored as instances of the <code>PropertyListSerialization</code>
+class. As instances of this class, property lists are read and written
+in full when they are read or written. This can mean that in order to
+access a single Boolean value, you may need to read or write an entire
+property list with dozens, hundreds, or even thousands of items. You can
+focus your reading or writing by storing property list values in an
+array or dictionary, but this doesn’t really help you much. You will
+need to read the entire property list in order to get to the array or
+dictionary and only then will you be able to hone in on the value you
+want.</p>
+<p>The data that is stored as defaults, preferences, and settings can be
+anything that you want to store (provided that it is a property list and
+doesn’t take up too much space). There is a difference between these
+terms and this is a good place to start to understand them.</p>
+
+
+<h2 class="Heading">Exploring User Defaults, Preferences, and
+Settings</h2>
+<p>All of these data structures can be stored in property lists, but
+understanding how they are used can help you use them most efficiently.
+Remember that these structures are always stored in property lists,
+which means they are stored in key-value structures. For that reason,
+each user default, preference, and setting has a name (the key under
+which it is stored). There may be other data stored under that
+key—perhaps a lot of it—but each has a key.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>When you are thinking about using these tools to store your own data,
+remember that the Settings app and user defaults system manage the data.
+If you want total control over the data, how it is stored, and the user
+interface for it, you may want to use a database or document where you
+control these features.</p>
+
+
+<h3 class="Heading">Understanding User Defaults</h3>
+<p>A user default
+value is a starting value (default) for some aspect of your app. For
+example, an app that lets you store the names of students in a class may
+start by identifying students as Student 1, Student 2, and so forth. A
+new student that a user adds might be called New Student.</p>
+<p>
+In an app like this, you might want to let the users set their own
+defaults such as these:
+
+</p>
+
+<ul>
+<li><p>“Student” is the name of each item in the app and new items are
+labelled “New Student.”</p></li>
+<li><p>You could change the default value for items to be “Item” so that
+you would have “Chair” and “New Chair” as the app runs.</p></li>
+<li><p>A slightly more complex default might let a user choose between
+“New” and a number to identify a new item, as in New Chair or Chair
+3.</p></li>
+</ul>
+
+<p>Defaults like this are often exposed to the user so that they can
+choose.</p>
+
+<h3 class="Heading">Tip</h3>
+<p>In a case like this, an empty string may be the default.</p>
+
+
+
+<h3 class="Heading">Exploring Settings</h3>
+<p>There is a user defaults database that
+stores settings like this for each app. The settings values persist from
+one use of the app to the next. Furthermore, users can change settings
+directly using the built-in tool, as shown later in this chapter.</p>
+
+
+<h3 class="Heading">Using Preferences</h3>
+<p>Although there is no hard-and-fast rule, many people consider preferences to be
+settable from outside the app, possibly even at the time the app is
+installed. In addition, some preferences such as the user’s location or
+language preference are set using the operating system itself.</p>
+
+
+
+<h2 class="Heading">Preferences and Settings: A Case Study</h2>
+<p>This section uses a simple example of a setting for the name of an
+item in an app (“Chair” or “Student”). It shows how this can be
+implemented with Settings or the user defaults system rather than with a
+database or document.</p>
+<p>
+The code for this example is downloadable as described in Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a>. (It is PreferencesApp.) The major
+steps in the process of implementing
+PreferencesApp are
+
+</p>
+
+<ul>
+<li><p>Start from a built-in Xcode project template (Single View App in
+this case).</p></li>
+<li><p>Add a Settings bundle to manage the settings (“Chair” or
+“Student” in this example).</p></li>
+<li><p>Build an interface to your app for the settings.</p></li>
+<li><p>Add an interface to show the app’s settings and version. (This is
+useful for debugging any app. I use it automatically when I build any
+app.)</p></li>
+</ul>
+
+
+<h3 class="Heading">Creating the PreferencesApp</h3>
+<p>
+Because this example focuses just on settings
+and preferences, the Single View App project template is a good place to
+start (Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig1">9-1</a>).
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig1_HTML.jpg" style="height:24.08em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 9-1.</p>
+<p>Starting from the Single View App project
+template</p>
+
+
+<p>
+You can use the basic settings such as naming your app. In the options
+shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig2">9-2</a>, take a moment
+to look at the checkboxes at the bottom of the view. If you want to
+develop your own more complex preferences and other values, Core Data is
+a good tool to look into. It is implemented as a single user SQLite
+database that is built into Cocoa. If you are familiar with relational
+databases, it can be a good tool to use in implementing your own complex
+settings and preferences. When it comes to managing data in your app,
+you can use Settings and Core Data, as well as documents. In some cases,
+there are advantages to using separate data management strategies so
+that the app and its data are independent of one another.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig2_HTML.jpg" style="height:22.45em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 9-2.</p>
+<p>Setting the options for PreferencesApp</p>
+
+
+<p>
+You can use the general settings shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig3">9-3</a> for
+PreferencesApp. It’s also worth noting that PreferencesApp as
+implemented here doesn’t require any special support in your app until
+you get to the integration in the “Accessing the Settings Bundle From
+Your Code” section later in this chapter.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig3_HTML.jpg" style="height:28.25em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 9-3.</p>
+<p>You don’t need special options to use Settings</p>
+
+
+
+
+<h3 class="Heading">Adding a Settings Bundle</h3>
+<p>
+What you do need to do to implement Settings in an iOS app is add a new
+file that contains a settings bundle. You can do this in your app using
+New ➤ File, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig4">9-4</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig4_HTML.jpg" style="height:21.28em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 9-4.</p>
+<p>Adding a settings bundle to your app</p>
+
+
+
+<h3 class="Heading">Tip</h3>
+<p>When adding a settings bundle to your app, be careful to select the
+correct file. There are other settings bundles such as WatchKit Settings
+Bundle and, in the future, there are likely to be other settings
+bundles.</p>
+
+<p>
+Make certain that you add the new file to the correct target in your
+app, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig5">9-5</a>. (The group you
+place it in is important for organizing your files, but the target is
+absolutely essential.)
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig5_HTML.jpg" style="height:27.82em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 9-5.</p>
+<p>Placing the new settings bundle in the right target</p>
+
+
+<p>
+When you have added the settings bundle, you’ll see it in your project
+navigator, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig6">9-6</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig6_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 9-6.</p>
+<p>Confirming that the settings bundle has been added to the project navigator</p>
+
+
+<p>
+Note that inside the bundle is a group (<code>en.lproj</code>) containing
+some localized strings for the root of the bundle as well as a property
+list of root strings. You can use these as-is. The default values are
+shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig7">9-7</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig7_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 9-7.</p>
+<p>You can use the default settings strings as-is</p>
+
+
+<p>
+With the settings bundle added to your app, you can try it out using the
+built-in settings. Run the app in the simulator and look for Settings,
+as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig8">9-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig8_HTML.jpg" style="height:38.08em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 9-8.</p>
+<p>Using Settings in iOS</p>
+
+
+<p>
+Scroll down to find PreferencesApp, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig9">9-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig9_HTML.jpg" style="height:38.08em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 9-9.</p>
+<p>Tapping PreferencesApp in Settings</p>
+
+
+<p>
+Open <code>Root.plist</code>
+in the settings bundle. You will see the default settings shown in
+Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig10">9-10</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig10_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 9-10.</p>
+<p>Initial
+settings</p>
+
+
+<p>
+Open the Text Field item so you can see its values. Change the value of
+Default Value to Student, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig11">9-11</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig11_HTML.jpg" style="height:23.92em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 9-11.</p>
+<p>Changing the Default Value to Student</p>
+
+
+<p>
+You can take advantage of the autocapitalization style, as you can see
+in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig12">9-12</a>. This means
+that the words of the entered text will be capitalized. Experiment with
+the other Settings commands and you’ll see that you have a lot of
+features built in that you don’t have to code yourself.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig12_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 9-12.</p>
+<p>Adjusting the settings for your app</p>
+
+
+<p>Finally, test Settings in the simulator, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig13">9-13</a>. (You’ll
+notice that some items in Settings for an app are automatically added by
+iOS. The Siri &amp; Search settings are an example of this.)</p>
+
+
+<h3 class="Heading">Accessing the Settings Bundle from Your Code</h3>
+<p>
+When a user adjusts Settings, that’s only the beginning. You need to be
+able to access the Settings values in your app. This section shows how
+to do so based on Settings, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig13">9-13</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig13_HTML.jpg" style="height:24.3em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 9-13.</p>
+<p>Test
+settings</p>
+
+
+<p>
+Start by reminding yourself that the Settings in iOS accesses the
+defaults database that is built into Cocoa. That database is managed by
+the <code>UserDefaults</code> class
+object (not an instance; the class). <code>UserDefaults</code> (the
+class object) has a function that returns the shared defaults object
+with the <code>standard</code> property. As
+noted previously, each item in <code>UserDefaults</code> has a
+key, and you can access it with code such as the following:
+
+</p>
+<pre>return UserDefaults.standard.bool (forKey: "name_preference")</pre>
+<p>
+This key is the identifier key in the property list. As you can see in
+Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig14">9-14</a>, if you start
+to type the code to access a key, it is completed for you.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig14_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig14_HTML.jpg"/>
+</p>
+
+<p>Figure 9-14.</p>
+<p>Using the identifier key to access a user default property</p>
+
+
+<p>
+You can test this by adding code to <code>appDelegate application(:didFinishLaunchingWithptions:)</code>, as you can see in
+Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig15">9-15</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig15_HTML.jpg" style="height:20.85em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig15_HTML.jpg"/>
+</p>
+
+<p>Figure 9-15.</p>
+<p>Accessing a property in the user default Settings app</p>
+
+
+
+
+<h3 class="Heading">Adding a Settings Interface</h3>
+<p>
+The code shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig15">9-15</a> is executed
+only when the app launches. You can build your own interface to show a
+user defaults property whenever you want it. In a view controller of the
+main storyboard, add a button, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig16">9-16</a>. (If you are
+using the Single View App project template, as shown in this chapter,
+the view controller to use is called <code>ViewController</code>.)
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig16_HTML.jpg" style="height:15.15em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig16_HTML.jpg"/>
+</p>
+
+<p>Figure 9-16.</p>
+<p>Adding a button to the view controller</p>
+
+
+<p>
+Remember to connect the button to an action in your app, as shown in
+Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig17">9-17</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig17_HTML.jpg" style="height:22.58em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig17_HTML.jpg"/>
+</p>
+
+<p>Figure 9-17.</p>
+<p>Connecting the button to an action</p>
+
+
+<p>
+Add a breakpoint to the action so that you can check the value of the
+user default property, as shown in Figure <a href="#465467_1_En_9_Chapter.xhtml#Fig18">9-18</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_9_Chapter/465467_1_En_9_Fig18_HTML.jpg" style="height:15.37em" alt="../images/465467_1_En_9_Chapter/465467_1_En_9_Fig18_HTML.jpg"/>
+</p>
+
+<p>Figure 9-18.</p>
+<p>Using a breakpoint to check the value</p>
+
+
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter showed how to use the built-in user defaults preferences
+and/or Settings app to store values for your app. These values must be
+able to be stored in a property list and they should now be large data
+objects, but you can use them for many purposes other than building a
+large-scale data manager.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">10. Working with File Wrappers and
+Packages</h1>
+
+
+<!--End Abstract-->
+
+<p>This section lets you look at data storage tools other than
+documents. Like documents, they are all ways to persist data from your
+apps, and all of these tools, including documents, are supported on
+Cocoa and Cocoa Touch. Many of the tools (including the ones in this
+part of the book) have long histories in Cocoa and its predecessors. As
+noted, documents have evolved over time and have changed in many ways.
+The tools in this section have certainly changed over time, but the
+basic structures have remained remarkably stable so they are used in
+many legacy apps as well as in ones being developed today.</p>
+<p>All of the tools in this chapter let you combine files into
+multi-file structures that can be manipulated either as single
+structures or as their component parts.</p>
+
+<h2 class="Heading">Using Packages</h2>
+<p>From early days of Macintosh, multi-file packages have been used to
+manage files. In the first Macintosh file
+system ,
+files had two sections called <em>forks</em>.  Almost all files had a
+<em>data fork</em>, and many files also had a <em>resource fork</em>.
+The user-visible file was basically the data fork, and the resource fork contained
+elements that the data fork used. These elements were typically alerts,
+icons, and other identifiable or visible elements. Each type of element
+in a resource fork had a name, typically a four-character code such as
+<code>ALRT</code> (for
+alert), <code>DLOG</code>
+(for dialog), or <code>ICON</code>. The idea of
+using identifiable and structured elements in a container remains a
+critical part of Cocoa.</p>
+<p>The disadvantage of the resource fork was that when you copied a file
+to another platform the resource fork typically disappeared; it was the
+data fork that contained the data so it wasn’t a disaster in most cases.
+Today, Cocoa (and Cocoa Touch) use a more sophisticated way of wrapping
+data into what appears to be a single file. They are referred to as
+<em>packages</em>.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Swift packages are manifests that are used to assemble code and
+manage dependencies. A common tool is CocoaPods (<a href="http://cocoapods.org"> <code>CocoaPods.org</code>
+</a>).</p>
+
+<p>
+You can still see packages throughout Cocoa and particularly in the
+developer tools. When you create a project in Xcode, you usually create
+a folder that contains two items, shown in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig1">10-1</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig1_HTML.jpg" style="height:20.18em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 10-1</p>
+<p>An Xcode project consists of a file and a folder</p>
+
+
+<p>
+In the example shown in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig1">10-1</a>, the name of
+the project is <code>iOSDocumentApp</code>. The
+project itself is in an <code>xcodeproj</code> file, which
+contains references to the <code>iOSDocumentApp</code>
+folder. The open folder is shown in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig2">10-2</a>. Note that
+inside the folder are individual files as well as subfolders with more
+files and folders.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig2_HTML.jpg" style="height:19.2em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 10-2</p>
+<p>The project folder contains subfolders and files</p>
+
+
+<p>
+If you hold down Control while clicking a file or folder in the Finder,
+you will see the contents of that file or folder as a package. This is
+shown in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig3">10-3</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig3_HTML.jpg" style="height:21.28em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 10-3</p>
+<p>Use the Control key to look inside a file package</p>
+
+
+<p>Note that not all files or folders are packages, so the Control key
+cannot open them. However, it is important to note that your Xcode
+project is a package of files. If you move the folder away from the
+<code>xcodeproj</code> file
+that refers to it, you will break the project package.</p>
+<p>
+Inside a file package, the contents are often structured with a <code>Contents</code> folder that
+contains subfolders, as you can see in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig4">10-4</a>. Most apps
+have a <code>Contents</code>
+folder.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig4_HTML.jpg" style="height:33.52em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 10-4</p>
+<p>Files and folders can be structured within the package</p>
+
+
+
+
+<h2 class="Heading">Considering Bundles</h2>
+<p>
+If you look at build phases in an Xcode app, you’ll see a step that
+moves files into an app bundle, as shown in Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig5">10-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig5_HTML.jpg" style="height:19.42em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 10-5</p>
+<p>Apps contain bundles</p>
+
+
+<p>When you add files to an app in the project navigator, they are
+usually automatically added to the Build Phases step so that they are
+found in the app bundle, and that’s where you can retrieve them from in
+your code. By default, your app has a main bundle (<code>bundle.main</code>) with
+known contents. You can find the API at <a href="http://developer.apple.com"> <code>developer.apple.com</code>
+</a> by looking for <em>bundle</em>.</p>
+
+
+<h2 class="Heading">Using File Wrappers</h2>
+<p>
+File wrappers are somewhat similar to packages in that they may contain
+files and folders inside a single object. A file wrapper typically has
+at least one file, but it can be empty. File wrappers are most
+frequently used as the container for files and folders in a document
+that itself is a file wrapper. Figure <a href="#465467_1_En_10_Chapter.xhtml#Fig6">10-6</a> shows a file
+wrapper document.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_10_Chapter/465467_1_En_10_Fig6_HTML.jpg" style="height:22.72em" alt="../images/465467_1_En_10_Chapter/465467_1_En_10_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 10-6</p>
+<p>Declaring a file wrapper document</p>
+
+
+<p>Note that you need to set the <code>LSTypeIsPackage</code>
+property to YES so that the document appears to the user as a single
+object. The file type should conform to <code>com.apple.package</code>.</p>
+<p>You can download <code>WrapperPlaygroundDemo</code>
+as described in Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a> to see how to put a file wrapper
+document together. The process is described in the following section.
+The code is shown in Listing <a href="#465467_1_En_10_Chapter.xhtml#PC1">10-1</a>.</p>
+<p>
+The process is simple:
+
+</p>
+
+<ul>
+<li><p>Assemble the files that will be wrapped.</p></li>
+<li><p>Convert each file to the Data type (formerly NSData). There are
+utility methods in Swift to do this easily.</p></li>
+<li><p>Wrap each file in a wrapper.</p></li>
+<li><p>Create a root wrapper in the document.</p></li>
+<li><p>Add each wrapped file to the root wrapper.</p></li>
+</ul>
+
+<p>You can do these steps in any order, and there are functions that let
+you add and remove them dynamically. One common use of file wrappers is
+to wrap together several related files such as media and text. If they
+are wrapped in a file wrapper, you use the <code>contents(forType:) and load(fromContents:ofType:)</code> methods as you would for a document
+that consists of any data type such as an archive or a single image or
+text.</p>
+<p>The files in the root file wrapper are not in any given order. Most
+important for reasons of efficiency is the fact that each file wrapper
+is loaded separately so if you have a lot of files in a single object,
+you can load them on an as-needed basis (Swift and Cocoa take care of
+this for you).</p>
+<p>
+Listing <a href="#465467_1_En_10_Chapter.xhtml#PC1">10-1</a> shows the code
+to assemble a file wrapper from files named <code>testString</code> and <code>testImage</code>; they are
+each wrapped in an individual wrapper (the names are <code>stringDataWrapper</code> and
+<code>imageDataWrapper)</code>. In
+addition, there is a <code>rootDirectoryWrapper</code>.
+As noted in the code at the end of Listing <a href="#465467_1_En_10_Chapter.xhtml#PC1">10-1</a>, you can read
+or write the wrapped files using <code>contents(forType:) or load(fromContents:ofType:)</code> <code>.</code>
+
+</p>
+<pre>import UIKit
+import PlaygroundSupport
+let testString = "Now is the time"
+let testImage = UIImage(named:"mantegna.jpg")
+// convert to Data
+let imageData = testImage!.pngData()
+let stringData = testString.data (using: .utf8)
+// build directory wrapper
+let rootDirectoryWrapper = FileWrapper(directoryWithFileWrappers: [:])
+// wrap string
+let stringDataWrapper = FileWrapper(regularFileWithContents: stringData!)
+stringDataWrapper.preferredFilename = "StringWrapper"
+rootDirectoryWrapper.addFileWrapper(stringDataWrapper)
+// wrap image
+let imageDataWrapper = FileWrapper(regularFileWithContents: imageData!)
+imageDataWrapper.preferredFilename = "ImageWrapper"
+rootDirectoryWrapper.addFileWrapper(imageDataWrapper)
+print ("wrapper", rootDirectoryWrapper)
+print (rootDirectoryWrapper.fileWrappers)
+for eachWrapper in rootDirectoryWrapper.fileWrappers! {
+print (eachWrapper)
+}
+// for writing: return rootDirectoryWrapper if you are using in contents(forType:)
+// for reading: load(fromContents:ofType:)
+Listing 10-1
+Assembling a File Wrapper Document in a Playground</pre>
+
+
+<h2 class="Heading">Summary</h2>
+<p>This chapter showed how to wrap files together in bundles or file
+wrappers. There are efficiencies to using file wrappers since only
+necessary file wrappers are updated as the root file wrapper is managed.
+The overall idea of having a way to handle files separately or together
+depending on what you want to do with them is the key take-away from
+wrappers and bundles.</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">11. Using File Archives</h1>
+
+
+<!--End Abstract-->
+
+<p>In Chapter <a href="#465467_1_En_7_Chapter.xhtml">7</a>, you learned the basics of reading
+and writing document data. One common way of doing this is to convert
+your own data from whatever its structure and format is to an <code>NSData</code> object  (now a <code>Data</code> object), which
+can be read or written with a simple statement. The only catch to this
+is that you need to do the conversion from your data type to <code>Data</code>. One of the
+simplest and most used techniques is to use the built-in archiving
+technology in Cocoa.</p>
+
+<h3 class="Heading">Note</h3>
+<p>Archiving is gradually being replaced by Codable, but the transition
+is ongoing. Older code generally uses archiving as described in this
+chapter. You can find Apple’s documentation of both at <a href="https://developer.apple.com/documentation/foundation/archives_and_serialization"> <code>https://developer.apple.com/documentation/foundation/archives_and_serialization</code>
+</a>. Also, the latest version of Swift <code>NSData</code> has become
+<code>Data</code>.</p>
+
+<p>This chapter provides an overview of archiving. The example is a
+common use of archiving in which you take some data, archive it to <code>Data</code>, and then
+unarchive it to (hopefully) the original value. This is such a useful
+process that many developers leave code of this nature commented out in
+apps so that it can be monitored during debugging by simply enabling the
+code.</p>
+
+<h2 class="Heading">Using Swift Unified Logging</h2>
+<p>The archiving and debugging code in this chapter is implemented using
+the Swift Unified Logging
+System available in iOS 10, macOS 10, tvOS 10, and watch OS 3 (as
+well as later versions of these products). Unified logging is a modern
+and efficient tool that replaces previous tools such as Apple System Logger
+(ASL). It is possible to move to unified logging as you are
+working on new sections of code, so developers are gradually doing so.
+This section provides a quick overview of unified logging as an
+introduction. For more information, go to the Apple documentation at
+<a href="https://developer.apple.com/documentation/os/logging"> <code>https://developer.apple.com/documentation/os/logging</code>
+</a>.</p>
+<p>
+The heart of unified logging is a data type that contains
+information about the logged information. (This replaces previous
+iterations of logging in which parameters were passed to a function.) If
+you use unified logging, you can construct your own structure for your
+logging. The version of 11 ShareApp (downloadable as described in
+Chapter <a href="#465467_1_En_1_Chapter.xhtml">1</a>) uses a common version. It is a
+<code>struct</code> defined
+with the code shown in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC1">11-1</a>.
+
+</p>
+<pre>// Use new Swift unified logging system
+import os.log
+struct Log {
+static var general = OSLog(subsystem: "com.myapp.my_target",
+category: "info")
+}
+Listing 11-1
+Commonly used Log Structure</pre>
+<p>
+This code is shown in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig1">11-1</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig1_HTML.jpg" style="height:21.42em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig1_HTML.jpg"/>
+</p>
+
+<p>Figure 11-1.</p>
+<p>Importing os.log and defining the struct</p>
+
+
+<p>
+In the example, this code is placed at the top of <code>AppDelegate.swift</code>.
+You use the code where needed in your app, as you will see in this
+section. The invocation in a minimal version is like this code:
+
+</p>
+<pre>os_log("Row selected-%@",
+indexPath.debugDescription)</pre>
+<p>
+Beyond the bare minimum here, refer to the documentation cited
+previously for other information you can log. As a result of this code,
+here is what will be shown in the console:
+
+</p>
+<pre>2018-12-26 14:51:09.777111-0500 ShareApp[6228:697878]
+Row selected-[0, 0]</pre>
+<p>
+This causes an invocation of OSLog. Beyond the
+parameters shown here, you can add additional parameters such as the
+standard formatting for a print statement, like
+
+</p>
+<pre>("Row selected-%@",</pre>
+<p>and a string
+that is generated dynamically and formatted according to that
+command.</p>
+<p>You will see this in action later in this chapter.</p>
+
+
+<h2 class="Heading">Using Log and a Breakpoint to Archive Data</h2>
+<p>If you use archiving to encode and decode data for the <code>contents(forType:) and load (fromContents:, ofType:)</code> functions, it is useful to test that
+code with a breakpoint. Once things are tested, you can use archiving in
+the actual functions.</p>
+<p>
+Returning to ShareApp, you can
+intercept a tap in a timestamp generated in the master view controller
+and attempt to encode it. Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig2">11-2</a> reminds you of
+the master view controller in which you can add new timestamp items with
+the +.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig2_HTML.jpg" style="height:37.95em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig2_HTML.jpg"/>
+</p>
+
+<p>Figure 11-2.</p>
+<p>Adding new timestamps with +</p>
+
+
+<p>
+As noted, it is common to work with the master detail view
+controller as a starting point for many apps. In the master
+detail model, you can add functionality at either the master or detail
+level. Users are accustomed to this interface, so it makes sense not to
+add an unfamiliar variation. If you add a Share button to the master
+view controller, as shown in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig3">11-3</a>, users will
+expect to share the contents of the master view controller, which is all
+of the data.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig3_HTML.jpg" style="height:20.28em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig3_HTML.jpg"/>
+</p>
+
+<p>Figure 11-3.</p>
+<p>Sharing the master view controller data</p>
+
+
+<p>
+But what do you do if you want to share a single item? There are two
+approaches you can take. One is to put a Share button on a detail view
+controller, as you can see in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig4">11-4</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig4_HTML.jpg" style="height:20.25em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig4_HTML.jpg"/>
+</p>
+
+<p>Figure 11-4.</p>
+<p>Sharing from a detail view controller</p>
+
+
+<p>When using the master detail model, you have to remember that it is
+the master item that manages the detail items. This means that the
+control for selecting one of the detail items belongs on the master view
+controller because it is the master that will manage the selection of
+the detail item.</p>
+<p>If it is the master that will be handling selection, where do you put
+the Share button so that it is not confused with a Share button that
+selects everything? The most common solution is to simply use a tap or
+click in a detail row of the master view controller to manage selection.
+This is an efficient way to proceed (and it takes advantage of a useful
+function).</p>
+<p>The function that lets you select a single detail item from the
+master view controller is the <code>UITableViewDelegate</code>
+function  named
+<code>tableView(_:didSelectRowAt:)</code>.</p>
+<p>Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig5">11-5</a> shows how to
+override that function with a log message. (The log
+message adds <code>log</code> and <code>type</code> variables to the
+minimal code in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC1">11-1</a>).</p>
+<p>
+The code shows a console message identifying which detail item has been
+selected, as you can see in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig5">11-5</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig5_HTML.jpg" style="height:13.88em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig5_HTML.jpg"/>
+</p>
+
+<p>Figure 11-5.</p>
+<p>Log selection of a detail item</p>
+
+
+
+
+<h2 class="Heading">Selecting the Item to Archive</h2>
+<p>
+To get started with the archive, create a breakpoint so that you
+can access the selected item. You do so in the <code>tableView(_:didSelectRowAt:)</code>
+function, as shown in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC5">11-2</a>.
+
+</p>
+<pre>override func tableView(_ tableView: UITableView,
+didSelectRowAt indexPath: IndexPath) {
+//let rowDebugDescription = indexPath.debugDescription
+os_log("Row selected-%@",
+type: .info,
+indexPath.debugDescription)
+// set a breakpoint here
+let object = objects[indexPath.row] as! NSDate
+}
+Listing 11-2
+Showing the Selected Object</pre>
+<p>
+Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig6">11-6</a> shows the
+simulator and the
+data in this test.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig6_HTML.jpg" style="height:37.95em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig6_HTML.jpg"/>
+</p>
+
+<p>Figure 11-6.</p>
+<p>Data in the simulator for testing</p>
+
+
+<p>
+When the item is selected in the simulator, the breakpoint is
+triggered, as you can see in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig7">11-7</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig7_HTML.jpg" style="height:20.02em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig7_HTML.jpg"/>
+</p>
+
+<p>Figure 11-7.</p>
+<p>Make sure you have selected the right detail object</p>
+
+
+<p>This experiment requires that you correctly capture the detail item
+so make certain that you have done so. (In this sample, make sure you
+have created at least two detail items so that you can use the
+timestamps to differentiate between them.)</p>
+
+
+<h2 class="Heading">Creating the Object to Archive</h2>
+<p>ShareApp
+creates new objects in the master view controller that it then can
+display. These objects are <code>NSDate</code> objects  with the current
+timestamp. When you start thinking about archiving objects, you can
+continue with these <code>NSDate</code> objects, but
+in real life, you will probably use custom objects that you archive. For
+that reason, a new object (<code>ShareableObject</code>) can
+be created here to use in your archiving tests.  <code>SharableObject</code>
+ will actually wrap an <code>NSDate</code> object, so the
+changes to the app are relatively few. (Not only are they relatively
+few, but if you are using this app as the basis of other projects,
+you’ll repeat these modifications for each one.)</p>
+<p>
+The first step is to create the new <code>SharableObject</code> class
+which wraps an <code>NSDate</code> object, which
+can be called <code>sharableDate</code>. As
+always, create the new class in Xcode using File ➤ New ➤ File to create
+a new Cocoa Touch Class for iOS, as you can see in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig8">11-8</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig8_HTML.jpg" style="height:16.1em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig8_HTML.jpg"/>
+</p>
+
+<p>Figure 11-8.</p>
+<p>Creating a new class for ShareableObject</p>
+
+
+<p>
+Name the new class as 
+<code>SharableObject</code>
+, as shown in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig9">11-9</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig9_HTML.jpg" style="height:16.1em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig9_HTML.jpg"/>
+</p>
+
+<p>Figure 11-9.</p>
+<p>This will need to be a subclass of <em>NSObject</em></p>
+
+
+<p>
+As always, when you add a new class to a project, make certain it is in
+the right target, as shown in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig10">11-10</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig10_HTML.jpg" style="height:16.1em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig10_HTML.jpg"/>
+</p>
+
+<p>Figure 11-10.</p>
+<p>Adding the new class to the target</p>
+
+
+<p>
+Add the  <code>sharableDate</code> 
+property to <code>SharableObject</code>, as
+shown in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig11">11-11</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig11_HTML.jpg" style="height:16.1em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig11_HTML.jpg"/>
+</p>
+
+<p>Figure 11-11.</p>
+<p>Creating the class</p>
+
+
+<p>Make a few changes so that instead of creating a new <code>NSDate</code> when you add
+an object to the app, you create a new <code>ShareableObject</code>.
+Similarly, you update the interface to show the date that is inside
+<code>ShareableObject</code>.
+These are common changes that are quickly shown in the following
+section.</p>
+<p>
+In  <code>MasterViewController</code>
+, <code>insertNewObject</code> will
+have to insert a new <code>ShareableObject</code>.
+Listing <a href="#465467_1_En_11_Chapter.xhtml#PC6">11-3</a> shows the
+updated function.
+
+</p>
+<pre>@objc
+func insertNewObject(_ sender: Any) {
+//objects.insert(NSDate(), at: 0)
+objects.insert(SharableObject(), at: 0)
+let indexPath = IndexPath(row: 0, section: 0)
+tableView.insertRows(at: [indexPath], with: .automatic)
+}
+Listing 11-3
+Inserting a new ShareableObject</pre>
+<p>
+Change <code>MasterViewController</code>
+as shown in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC7">11-4</a> to show the
+description of the <code>sharableDate</code>
+object .
+
+</p>
+<pre>override func tableView(_ tableView: UITableView,
+cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+let object = objects[indexPath.row] as! SharableObject
+cell.textLabel!.text = object.sharableDate.description
+return cell
+}
+Listing 11-4
+Showing the Date</pre>
+<p>Try running the app. It should look like the original version, but if
+you set a breakpoint, you should be able to see that you’re showing the
+description of <code>sharableDate</code>.</p>
+
+
+<h2 class="Heading">Doing the Archive</h2>
+<p>Now that you have the item to archive, you can archive it and proceed
+to unarchive it to test the process. To use the archiving tools, you
+need to implement the <code>NSCoder</code> protocol  in the class to be
+archived (or unarchived). This structure means that each object encodes
+or decodes itself. You see this over and over in Cocoa apps: each object
+does its own work as much as possible. This means that when you make
+changes to the app, you minimize where the changes are made. If you want
+to go through the changes in the previous section, you’ll see that
+changing <code>NSDate</code>
+to <code>SharableObject</code>/<code>shareableDate</code> doesn’t
+require much rewriting of code.</p>
+
+<h3 class="Heading">Making the Class Conform to NSCoding</h3>
+<p>
+When you create the 
+<code>SharableObject</code>
+ class, you make it a subclass of <code>NSObject</code>, and you
+also make it conform to <code>NSCoding</code>, which does
+the archiving. By simply adding  <code>NSCoding</code>  to
+the class, you will generate some errors. Xcode  will ask if you want
+it to automatically add stubs for the missing functions, as you can see
+in Figure <a href="#465467_1_En_11_Chapter.xhtml#Fig12">11-12</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig12_HTML.jpg" style="height:16.5em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig12_HTML.jpg"/>
+</p>
+
+<p>Figure 11-12.</p>
+<p>Xcode can add stubs for NSCoding functions</p>
+
+
+<p>This will get you on your way to completing the app.</p>
+<p>
+When you tap Fix, the stubs will be added, as you can see in Figure
+<a href="#465467_1_En_11_Chapter.xhtml#Fig13">11-13</a>.
+
+</p>
+
+<p>
+<img src="images/465467_1_En_11_Chapter/465467_1_En_11_Fig13_HTML.jpg" style="height:16.5em" alt="../images/465467_1_En_11_Chapter/465467_1_En_11_Fig13_HTML.jpg"/>
+</p>
+
+<p>Figure 11-13.</p>
+<p>Letting Xcode add stubs for NSCoding</p>
+
+
+<p>
+Complete the stubs with the code shown in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC8">11-5</a>.
+
+</p>
+<pre>import UIKit
+import os.log
+class SharableObject: NSObject, NSCoding {
+var sharableDate: NSDate=NSDate()
+func encode(with aCoder: NSCoder) {
+aCoder.encode(self.sharableDate, forKey: "dateKey")
+}
+required init?(coder aDecoder: NSCoder) {
+guard (aDecoder.decodeObject(forKey: "dateKey") as? NSDate) != nil else
+{
+os_log ("Unable to decode sharableDate")
+return
+}
+sharableDate = aDecoder.decodeObject(forKey: "dateKey") as? NSDate ?? NSDate()
+}
+override init() {
+sharableDate = NSDate()
+}
+init(dateToInit: NSDate) {
+sharableDate = dateToInit
+}
+}
+Listing 11-5
+Complete sharableObject</pre>
+<p>The functions that you add all take an <code>NSCoder</code> called  <code>aCoder</code>  as a
+parameter. It is passed in so you don’t declare it. The <code>encode(with:)</code>
+function  lets
+you encode data for the archive. The typical use of this function is to
+encode one variable in the class and to give it a key name. By doing
+this, you can access each variable in the archive by a key name and you
+don’t have to worry about the order of the data in the file. In Listing
+<a href="#465467_1_En_11_Chapter.xhtml#PC8">11-5</a>, the first
+encode function encodes the <code>sharableDate</code> property
+and assigns the key <code>dateKey</code> to it.</p>
+<p>The companion function<code>, init(coder:)</code>, takes
+a <code>Decoder</code>
+object and reverses the process.</p>
+
+
+<h3 class="Heading">Implementing the Example</h3>
+<p>
+The stub code needs to be entered for most archiving processes. For the
+example, you can move beyond <code>tableView(:didSelectRowAt:)</code>
+so that you can archive and dearchive data for testing. This section is
+only for testing. The example code is shown in Listing <a href="#465467_1_En_11_Chapter.xhtml#PC9">11-6</a>.
+
+</p>
+<pre>override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+os_log("Row selected-%@",
+indexPath.debugDescription)
+let object = objects[indexPath.row] as! SharableObject
+var savedData: Data?
+do {
+let data = try NSKeyedArchiver.archivedData(withRootObject: object,
+requiringSecureCoding: false)
+try data.write(to: MasterViewController.ArchiveURL)
+savedData = data as Data // keep it around for testing later
+} catch {
+os_log ("Couldn't write file")
+}
+do {
+let debuggedUnArchive = try
+NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData! as Data)
+if let test = debuggedUnArchive as? SharableObject {
+print ("\(test.sharableDate)")
+}
+} catch {
+os_log ("Couldn't read file")
+}
+Listing 11-6
+Implement Debugginng Code in the Example</pre>
+<p>
+The heart of the archiving code is this line:
+
+</p>
+<pre>let data = try NSKeyedArchiver.archivedData(withRootObject: object,</pre>
+<p>It invokes the stubs you created to archive the class into a <code>Data</code> object  called <code>data</code>. This line of
+code takes the <code>Data</code> object and
+unarchives it into a variable <code>called test</code> in
+Listing <a href="#465467_1_En_11_Chapter.xhtml#PC9">11-6</a>.</p>
+<p>
+The process of unarchiving and archiving data that is shown here uses a
+temporary file that you can create. It is shown at the top of  <code>MasterViewController</code>
+ with these lines:
+
+</p>
+<pre>static let DocumentsDirectory = FileManager().urls(
+for:.documentDirectory,
+in: .userDomainMask).first!
+static let ArchiveURL = DocumentsDirectory.appendingPathComponent("sharableObjectURL")</pre>
+<p>Set breakpoints and experiment with the code to see how it works.
+This is the common archiving code that you will frequently use.</p>
+
+
+<h3 class="Heading">Moving Archiving into Documents</h3>
+<p>Instead of moving data to and from a file, you will frequently want
+to move it into and out of a document that can be shared with other
+users. Simply change the <code>UIDocument</code>
+functions  to do
+archiving and dearchiving. This means that <code>contents(forType:)</code>
+will use <code>NSKeyedArchiver.archivedData(withRootObject: requiringSecureCoding:)</code>  to archive the data
+to an <code>Data</code>
+object and <code>load(fromContents:, ofType)</code> will use 
+<code>NSKeyedUnarchiver.unarchiveTopLevelObjectWithData()</code>
+ to reverse the archive operation.</p>
+<p>
+For reference, Listing <a href="#465467_1_En_11_Chapter.xhtml#PC12">11-7</a> shows the
+stubs of the <code>UIDocument</code> functions
+that you will use in this way.
+
+</p>
+<pre>import UIKit
+class Document: UIDocument {
+override func contents(forType typeName: String) throws -&gt; Any {
+// Encode your document with an instance of Data or NSFileWrapper
+return Data()
+}
+override func load(fromContents contents: Any, ofType typeName: String?)
+throws {
+// Load your document from contents: ofType:)
+}
+}
+Listing 11-7
+Please Add Caption</pre>
+
+
+
+<h2 class="Heading">Summary</h2>
+<p>In this chapter, you saw how to archive and unarchive data to a file.
+You can use the same process to work with a document. Try the process as
+described in this chapter and set breakpoints as you test it. It may
+take a little while to try it out, but once you have mastered archiving
+and unarchiving, you are ready to move on to more complex documents.</p>
+
+
+<p></p>
+
+
+
+<h3 class="Heading">Index</h3>
+
+
+
+<h3 class="Heading">A</h3>
+
+
+
+App delegates
+
+
+
+
+Apple System Logger (ASL)
+
+
+
+
+Archive data
+
+
+breakpoint
+
+
+data object
+
+
+implementation
+
+
+NSCoding
+
+
+aCoder
+
+
+sharableObject
+
+
+Xcode
+
+
+object creation
+
+
+NSDate objects
+
+
+sharableDate
+
+
+SharableObject
+
+
+selected object
+
+
+simulator
+
+
+UIDocument functions
+
+
+
+
+
+<h3 class="Heading">B</h3>
+
+
+
+Bundles, app
+
+
+
+
+
+<h3 class="Heading">C</h3>
+
+
+
+Cocoa location services (case study)
+
+
+
+
+
+<h3 class="Heading">D</h3>
+
+
+
+Data fork
+
+
+
+
+Data structures
+
+
+
+
+Document-based app creation
+
+
+basic code
+
+
+browse tab
+
+
+new project reviewing
+
+
+new project setting
+
+
+picking in Xcode
+
+
+running
+
+
+storyboard
+
+
+UIDocument
+
+
+function
+
+
+introduction
+
+
+working
+
+
+
+
+Document-based macOS app
+
+
+Cocoa app creation
+
+
+components
+
+
+information
+
+
+running
+
+
+
+
+Document matching
+
+
+info.plist
+
+
+managing types
+
+
+for iOS app
+
+
+for macOS apps
+
+
+UYIs
+
+
+preparing for iCloud
+
+
+setting up in iOS
+
+
+setting up in macOS
+
+
+
+
+Documents
+
+
+<em>vs.</em> files
+
+
+on iOS
+
+
+browse files
+
+
+choosing storage location
+
+
+file system
+
+
+issues
+
+
+recent files
+
+
+viewing files
+
+
+sharing
+
+
+action button
+
+
+adding bar button
+
+
+detail view
+
+
+DetailViewController
+
+
+Master-Detail App template
+
+
+own project building
+
+
+selecting bar button
+
+
+share buttons (as a user)
+
+
+storyboard
+
+
+timestamp record creation
+
+
+UIActivityViewController
+
+
+storing and retrieving data
+
+
+structuring Apps
+
+
+track changes
+
+
+versions
+
+
+
+
+
+<h3 class="Heading">E</h3>
+
+
+
+encode(with:) function
+
+
+
+
+
+<h3 class="Heading">F</h3>
+
+
+
+File wrappers
+
+
+declaring a document
+
+
+process
+
+
+
+
+Forks
+
+
+
+
+
+<h3 class="Heading">G, H</h3>
+
+
+
+General Data Protection Regulation (GDPR)
+
+
+
+
+
+<h3 class="Heading">I</h3>
+
+
+
+info.plist
+
+
+
+
+iOS documents <em>vs.</em> macOS documents
+
+
+
+
+
+<h3 class="Heading">J, K</h3>
+
+
+
+JavaScript Object Notation (JSON )
+
+
+debugging
+
+
+decoding
+
+
+encoding
+
+
+primitive types
+
+
+
+
+
+<h3 class="Heading">L</h3>
+
+
+
+Log and breakpoint
+
+
+log message
+
+
+master detail view controller
+
+
+master view controller
+
+
+
+
+
+<h3 class="Heading">M</h3>
+
+
+
+Macintosh file system
+
+
+
+
+macOS <em>vs.</em> iOS
+
+
+
+
+Model-view-controller (MVC)
+
+
+
+
+
+<h3 class="Heading">N, O</h3>
+
+
+
+NSCoder protocol
+
+
+
+
+NSData object
+
+
+
+
+NSDocument
+
+
+classes
+
+
+document
+
+
+
+
+NSKeyedArchiver.archivedData
+
+
+
+
+NSKeyedUnarchiver.unarchiveTopLevelObjectWithData()
+
+
+
+
+
+<h3 class="Heading">P, Q</h3>
+
+
+
+Packages
+
+
+control key
+
+
+files and folders
+
+
+Macintosh file system
+
+
+project folder
+
+
+Xcode project
+
+
+
+
+PreferencesApp
+
+
+creation
+
+
+process
+
+
+setting
+
+
+special options
+
+
+tapping in Settings
+
+
+usage
+
+
+
+
+
+<h3 class="Heading">R</h3>
+
+
+
+Resource fork
+
+
+
+
+
+<h3 class="Heading">S, T</h3>
+
+
+
+Security overview
+
+
+
+
+Settings bundle
+
+
+access with code
+
+
+adding to app
+
+
+adjusting the settings
+
+
+changing the value
+
+
+initial settings
+
+
+iOS
+
+
+key to access
+
+
+placing in right target
+
+
+project navigator
+
+
+root strings
+
+
+test settings
+
+
+
+
+SharableObject
+
+
+
+
+ShareApp
+
+
+
+
+Single View App
+
+
+
+
+Storyboard
+
+
+
+
+Swift Structs
+
+
+creation
+
+
+extension for coding keys
+
+
+extension for Encoding
+
+
+MVC
+
+
+
+
+Swift unified logging system
+
+
+
+
+
+<h3 class="Heading">U</h3>
+
+
+
+UIDocumentBrowserViewController
+
+
+document creation
+
+
+document opening/picking
+
+
+document presenting
+
+
+functions
+
+
+handling errors
+
+
+loading
+
+
+
+
+UIDocumentViewController
+
+
+code
+
+
+creation
+
+
+document closing
+
+
+document opening
+
+
+
+
+UITableViewDelegate function
+
+
+
+
+Unified logging
+
+
+data type
+
+
+os.log
+
+
+
+
+User default
+
+
+
+
+
+<h3 class="Heading">V, W</h3>
+
+
+
+Vending
+
+
+
+
+ViewController
+
+
+adding a button
+
+
+breakpoint
+
+
+connecting the button
+
+
+
+
+
+<h3 class="Heading">X, Y, Z</h3>
+
+
+
+Xcode
+
+
+
+
+

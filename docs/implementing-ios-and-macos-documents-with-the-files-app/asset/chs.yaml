@@ -1,0 +1,1954 @@
+- '
+
+  ![](img/978-1-4842-4492-0_CoverFigure.jpg)
+
+
+  ISBN 978-1-4842-4491-3 e-ISBN 978-1-4842-4492-0 [`doi.org/10.1007/978-1-4842-4492-0`](https://doi.org/10.1007/978-1-4842-4492-0)
+  © Jesse Feiler 2019 本作品受版权保护。出版商保留所有权利，无论是材料的全部或部分，特别是翻译、重印、重用插图、朗诵、广播、以缩微胶卷或任何其他物理方式复制，以及电子传输或信息存储和检索、电子适配、计算机软件，或现在已知或以后开发的类似或不同的方法。本书中可能出现商标名称、标识和图像。我们并非在每次出现商标名称、标识或图像时都使用商标符号，而是仅以编辑方式使用这些名称、标识和图像，以利于商标所有者，且无意侵犯商标权。本出版物中使用的商品名称、商标、服务标志和类似术语，即使未被明确标识，也不应被视为对其是否受专有权利的影响。尽管本书中的建议和信息在出版时被认为是真实和准确的，但作者、编辑或出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本书所含内容不作任何明示或暗示的保证。本书通过
+  Springer Science+Business Media, New York, 233 Spring Street, 6th Floor, New York,
+  NY 10013 在全球图书贸易中发行。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问
+  www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是 Springer Science
+  + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。
+
+
+  ## 关于作者和技术审阅者
+
+
+  ### 关于作者
+
+
+  ### 关于技术审阅者
+
+
+  '
+- '# 1. 使用文档
+
+
+  我们在使用的 App 中通过文档来存储和组织数据。
+
+
+  这是关于如何以及为何在基于 macOS 和 iOS 构建的移动 App 中使用文档的简单描述。当你开始处理文档时，需要考虑的远不止这些简单描述，本章将深入介绍你需要考虑的基本细节。你可以找到许多关于文档的书籍和文章，但关键要点在此处进行了描述。
+
+
+  ## 描述文档
+
+
+  当你使用 App 时，有时需要为 App 存储数据（这就是刚才提到的基本描述）。存储数据远非简单，因为当我们谈论存储数据时，几乎总是指按需存储*和检索*数据。为了使这种存储-检索过程对开发者和用户有用，你需要能够*识别*要存储和检索的数据，例如当前温度。
+
+
+  为了让事情稍微复杂一点，你需要能够存储和检索可以通过两种不同方式识别的数据：
+
+
+  -   你需要能够识别要存储和检索数据的物理位置。
+
+  -   你需要能够识别要存储和检索数据的逻辑特征。
+
+
+  综合起来，这意味着你需要能够按位置和特征（例如名称）来存储、检索和识别数据。
+
+
+  ## 追踪文档及其数据
+
+
+  我们习惯于将文档视为静态对象：一旦文档被编写或打印，它似乎就不会改变。你可以对文档进行修改或编辑，但这些更改通常以某种方式可见，从而修改了初始文档。在数字世界中，更改可能是持续的，因此将文档视为静态对象至少是具有误导性的。
+
+
+  当你使用文字处理工具时，通常可以跟踪文档的更改，因此你可能拥有大量已更改的文档，而不是一个静态文档。这种大量更改的文档不仅在使用文字处理文档时会迅速激增，在使用诸如`Git`或`GitHub`等工具进行更改时也会如此。
+
+
+  ## 结构化文档
+
+
+  文档可以按照开发者选择的任何方式进行结构化。正如你将在第 2 章中看到的，你可以使用自己创建的结构或由他人定义的通用结构。文档的结构为其包含的数据提供了结构（或格式）。当你了解文档的结构时，就可以读取或写入其数据。
+
+
+  至少这是理论上的想法。文档结构可能会随时间变化，因此在实际操作中，你不仅需要了解文档的结构，还需要了解正在使用的特定版本的结构。
+
+
+  ### 注
+
+
+  文档结构的变体通常被称为*版本*。
+
+
+  ## 处理文档版本
+
+
+  处理文档版本问题的一种常见方法是创建一个至少包含两个组成部分的文档结构：一个是版本标识符，第二个是其他所有内容。例如，一个文档可以从版本标识符开始，该标识符可以简单到只是一个字符串，甚至是一个整数。这样，你的
+  App 将知道从文档数据的开头读取一个整数或一个由 X 个字符组成的字符串。这个整数或字符串让你的 App 能够识别版本；完成此操作后，你的 App 就可以读取该版本的数据。这种策略在
+  macOS 和 iOS 中通过使用*文件管理器*（在第 2 章中描述）被广泛采用。
+
+
+  ## 比较文档和文件
+
+
+  文档将 App 的数据存储在一个已知位置，数据可以从该位置检索（或存储到该位置）。这个位置通常是一个*文件*——一个由操作系统管理的对象。与文档本身一样，文件也可以有版本。文件与文档之间的一个显著区别是，在许多情况下，操作系统管理文件的打开、关闭和存储。在许多情况下，文档位于文件内部。
+
+
+  ### 注
+
+
+  这是简化和概括的说法。
+
+
+  ## 结构化文档和 App
+
+
+  基于数据的 App 很容易构建或转换为基于文档的 App。构建此类 App 有两种常见方式。第一种方式，开发者从数据结构开始，并为其添加功能。另一种方式，开发者从功能开始，并为其添加数据。
+
+
+  ## 总结
+
+
+  在本章中，你了解了文档、版本以及文档与文件之间差异的概述。接下来，你将深入了解文档的细节以及如何有效使用它们。
+
+
+  如今，JSON（JavaScript 对象表示法）和`Codable`协议通常用于管理 App 数据。以前，一种称为*编码*的技术被普遍用于存储和管理 App
+  内部的数据。基本过程是将由键标识的数据与`NSData`对象进行相互转换。操作系统支持`NSData`，你无需担心实现问题：它快速且高效。唯一的限制是并非所有类型的数据都可以进行归档。
+
+
+  如果你正在构建一个需要管理持久化数据的 App，那么`Codable`很可能是首选方法。如果你正在修改一个现有的 App，你可能希望继续使用已有的归档代码。（同时使用两者完全可行，但可能会成为维护噩梦。）
+
+
+
+
+  '
+- "# 2. 深入文档内部\n\n在第 1 章中，你已经学习了如何描述和构建文档。现在你明白，作为应用程序及其文档的设计者和开发者，你控制着哪些数据被存储、存储的位置和方式，以及如何识别和引用这些数据。\n\
+  \n你可以决定将数据存储为整数序列或单个长字符串，这完全取决于你和你要使用的数据。实际上，在文档内部对数据进行结构化是有意义的，哪怕只是为了能够轻松访问。本章展示了如何使用\
+  \ JSON 编码来组织文档内部的数据。这种结构和编码为依赖 Unicode 字符串的数据提供了一种易于使用的格式，这些字符串可以表示 JSON 所识别的基本类型。\n\
+  \n## 使用 JSON 编码\n\n对 JSON 而言，最重要的是其格式基于文本（与二进制或数字表示相反），并且每个元素都可以被命名（而不是通过位置或顺序来标识）。\n\
+  \n基于位置或顺序的编码风格允许你在编码序列中指定每个元素的格式。了解元素的格式意味着你知道它将占用多少空间，这让你可以使用任何编程语言中的标准读/写语法来读取或写入数据。\n\
+  \n基于顺序或位置的编码的缺点是，如果你更改了数据元素的顺序或数据元素的格式，就会破坏你已有的任何读/写代码。JSON 编码依赖于数据元素的名称，而不是它们的格式或顺序。因此，当你修改单个数据元素的格式或更改数据元素的顺序时，可以避免经常破坏读/写代码的问题。\n\
+  \n## 介绍 JSON\n\nJSON 最初是一种用于序列化结构化数据的文本格式。从这个意义上说，*序列化* 意味着将字符串或其他对象转换为可读或可写的格式。JSON\
+  \ 从四种基本类型开始，这些类型在许多编程语言中都有常见含义：\n\n-   *字符串* 是 Unicode 字符的有序集合。\n-   *数字* 就是数字；最基本的\
+  \ JSON 数字是双精度浮点数。\n-   *布尔值* 是 true 或 false。\n-   JSON 中的最后一个基本值是 *null*，一个没有值的对象。\n\
+  \n在 JSON 中，这些类型可以组合成 *对象*，对象是名称/值对的无序集合；JSON *数组* 是名称/值对的有序集合。\n\n## JSON 与 Swift\n\
+  \nSwift 通过其 `JSONSerialization` 类（属于 Foundation 框架的一部分）超越了基本的 JSON 类型。`JSONSerialization`\
+  \ 除了基本的 JSON 字符串、数字和布尔数据类型外，还将 JSON 转换为 Swift 数组和字典数据类型。\n\n### 注意\n\nSwift 将布尔和\
+  \ bool（C 语言）类型桥接为布尔类型。这为你自动处理。\n\n### 使用 Swift 结构体\n\nJSON 是一种灵活且易于使用的标记工具。另一方面，Swift\
+  \ 被设计为构建应用程序的强大工具，特别是那些使用模型-视图-控制器（MVC）设计模式的应用程序，其复杂程度超过了 JSON。Swift 结构体类型就是一个很好的例子。你可能会在\
+  \ Swift 中声明一些将在整个应用程序中使用（或根本不使用）的结构体。当你严格使用 JSON 时，声明一个不用于存储数据的结构体并不常见。本节将解释如何创建和将\
+  \ Swift 结构体与 JSON 一起使用。\n\n代码清单 2-1 展示了如何使用 playground 为 `Student` 对象或模型（本节中这两个术语可以互换）创建\
+  \ Swift 结构体。\n\n```\nimport Foundation\nstruct Student {\n    var name: String\n\
+  \    var studentID: Int\n}\n// 代码清单 2-1\n// Swift 结构体\n```\n\n这里重要的是 `Student` 结构体包含两个变量元素：`name`\
+  \ 和 `studentID`。同样值得注意的是，在这个 playground 中必须导入 Foundation 框架，因为它将用于处理 JSON 数据。结构体的其他元素是标准的\
+  \ Swift 元素。\n\n### 提示\n\n请注意，Swift 的风格是结构体等对象名称的首字母大写，因此 `Student` 结构体的名称是大写的。\n\
+  \n使用代码清单 2-1 中所示的结构体，你可以使用如下代码创建该结构体的实例：\n\n```\nlet student1 = Student(name: \"\
+  John Appleseed\", studentID: 154)\n```\n\n你可以通过使用 `encode(to: encoder)` 函数来编码数据，以及使用\
+  \ `init(from decoder:)` 函数来执行反向操作，从而将 JSON 与 Swift 集成。为此，你需要创建键来标识将要编码和解码的元素。第一步是声明编码键作为\
+  \ `enum CodingKeys` 元素，如代码清单 2-2 所示。\n\n```\nenum CodingKeys: String, CodingKey\
+  \ {\n    case studentID = \"studentID\"\n    case name\n}\n}\n// 代码清单 2-2\n// 编码键的\
+  \ Swift 扩展\n```\n\n请注意，这些是你将用来对 `name` 和 `studentID` 变量的数据进行编码和解码的键。在建立了键和变量之后，你现在可以创建一个\
+  \ `encode(to: encoder)` 函数，如代码清单 2-3 所示。请注意，此扩展表明 `Student` 结构体遵循 `Encodable` 协议。\n\
+  \n```\nextension Student: Encodable {\n    func encode(to encoder: Encoder) throws\
+  \ {\n        var container = encoder.container(keyedBy: CodingKeys.self)\n     \
+  \   try container.encode(name, forKey: .name)\n        try container.encode(studentID,\
+  \ forKey: .studentID)\n    }\n}\n// 代码清单 2-3\n// 编码的 Swift 扩展\n```\n\n### 编码 JSON\n\
+  \n你需要一个 `JSONEncoder` 对象来处理编码。这样的 `JSONEncoder` 对象通常命名为 `jsonEncoder`，但你可以使用任何你想要的名称。`JSONEncoder`\
+  \ 对象指定了编码数据的容器。\n\n在代码清单 2-3 中，只有一个函数 `encode(to: encoder)`，它使用了一个 `jsonEncoder`\
+  \ 对象，该对象是包含从编码器获取的编码数据的容器。\n\n`encode(to: encoder)` 函数的核心由三行编码结构体元素（`name` 和 `studentID`）的代码组成。\n\
+  \n第一行代码尝试使用 `.name` 键编码 `name` 变量：\n\n```\ntry container.encode(name, forKey: .name)\n\
+  ```\n\n第二行代码尝试使用 `.studentID` 键编码 `studentID` 变量：\n\n```\ntry container.encode(studentID,\
+  \ forKey: .studentID)\n```\n\n这几行代码经常出现在这类函数中。如果你想知道 `try` 是如何处理的，请注意 `func encode(to\
+  \ encoder: Encoder)` 函数可能会抛出错误。\n\n### 提示\n\n如果你正在调试这段代码，请在 `try` 语句处设置断点，以便查看导致问题的原因。你在此代码中可能遇到的典型问题是键名称的拼写错误。\n\
+  \n一旦你创建了一个 `jsonEncoder`，你就可以引用它内部的容器，并将其与你在此函数的其他地方声明的键关联起来，使用的代码行如下：\n\n```\n\
+  var container = encoder.container(keyedBy: CodingKeys.self)\n```\n\n\n\n### 解码 JSON\n\
+  \n清单 2-4 展示了执行反向操作以解码 JSON 代码的过程。\n\n```\nextension Student: Decodable {\ninit(from\
+  \ decoder: Decoder) throws {\nlet values = try decoder.container(keyedBy: CodingKeys.self)\n\
+  name = try values.decode(String.self, forKey: .name)\nstudentID = try values.decode(Int.self,\
+  \ forKey: .studentID)\n}\n}\n清单 2-4\n解码扩展\n```\n\n这段代码的核心是 `init(from decoder: Decoder)`\
+  \ 方法，而不是 `encode(to: encoder:)` 函数。\n\n你可以使用编码键从 `decoder` 容器中检索值，如下所示：\n\n```\n\
+  let values = try decoder.container(keyedBy: CodingKeys.self)\n```\n\n然后，你不是对每个变量和键进行编码，而是使用如下代码对其进行解码：\n\
+  \n```\nname = try values.decode(String.self, forKey: .name)\nstudentID = try values.decode(Int.self,\
+  \ forKey: .studentID)\n```\n\n### 整合编码与解码\n\n你可以根据需要随意对数据进行编码和解码。为了调试的目的，你可以使用如下代码打印出编码后的数据：\n\
+  \n![../images/465467_1_En_2_Chapter/465467_1_En_2_Figa_HTML.jpg](img/465467_1_En_2_Figa_HTML.jpg)\n\
+  \n你可以打印出一个显示 JSON 代码的字符串：\n\n![../images/465467_1_En_2_Chapter/465467_1_En_2_Figb_HTML.jpg](img/465467_1_En_2_Figb_HTML.jpg)\n\
+  \n然后，你可以反转这个过程来打印解码后的数据，如下所示：\n\n![../images/465467_1_En_2_Chapter/465467_1_En_2_Figc_HTML.jpg](img/465467_1_En_2_Figc_HTML.jpg)\n\
+  \n### 注意\n\n为了调试，你可能希望将本节中的代码添加到你的应用中，这样你就可以使用断点来验证数据的编码和解码。通常，一旦代码正常工作且键值正确，你就可以禁用甚至移除这些断点。\n\
+  \n## 总结\n\n本章向你展示了如何对 JSON 数据和 Swift 结构体之间进行编码和解码。由于你将使用命名的 Swift 对象进行处理，因此无需担心数据的顺序或格式问题。\n\
+  \n"
+- '# 3. 将文档与文档格式匹配
+
+
+  在本章中，你将学习如何将应用代码中描述和定义的文档与实际运行的文档对象进行匹配。这是让文档发挥作用的核心。本章涵盖你需要处理的三个基本点：
+
+
+  -   为 iCloud 做准备
+
+  -   在你的应用中设置文档
+
+  -   管理文档类型
+
+
+  ## 为 iCloud 做准备
+
+
+  你可能会想 iCloud 与文档有什么关系，但答案非常简单。随着你开始使用 iOS 和 macOS 的更多功能，你会发现网络连接和 iCloud 已不再是特例。你和你的用户将越来越多地发现，iCloud
+  和网络对于设备的正常运行至关重要。这花了很长时间，但现在可以肯定地说，我们确实拥有了网络连接。
+
+
+  我们不仅在大多数情况下拥有网络连接，而且用户和开发者也越来越习惯于管理这种连接。当出于某种原因需要离线时，开发者和用户都会切换到飞行模式。（这与过去需要分别调整蓝牙、数据访问和其他连接的常见做法相比，是一个巨大的简化。）
+
+
+  由于 iCloud 连接如今已非常普遍，许多开发者将其包含在应用的功能设置中。图 3-1 显示了一个 macOS 应用的 iCloud 功能。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig1_HTML.jpg](img/465467_1_En_3_Fig1_HTML.jpg)
+
+
+  图 3-1 为 macOS 应用设置 iCloud
+
+
+  iCloud 服务可以通过复选框开启或关闭。请注意，可以在此处启用 iCloud 文档。同样重要的是要注意，CloudKit 和键值存储都可以与文档一起使用。你将在第
+  9 章中了解更多关于文档与键值存储结合使用的知识。
+
+
+  对于一个 iOS 应用，图 3-2 显示了云功能设置。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig2_HTML.jpg](img/465467_1_En_3_Fig2_HTML.jpg)
+
+
+  图 3-2 为 iOS 应用设置 iCloud
+
+
+  请注意，尽管 iOS 应用有更多可用的选项，但 iCloud 选项的部分对于 iOS 和 macOS 应用来说是相同的。因此，iCloud 数据与这两个环境都兼容。
+
+
+  ## 在你的应用中设置文档
+
+
+  在 iOS 和 macOS 中设置和使用文档存在差异；然而，图 3-3 和图 3-4 所示的基本设置非常相似。图 3-3 展示了 iOS 应用的文档设置，图 3-4
+  展示了 macOS 应用的文档设置。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig3_HTML.jpg](img/465467_1_En_3_Fig3_HTML.jpg)
+
+
+  图 3-3 在 iOS 中设置文档
+
+
+  在 macOS 中设置文档非常相似，如图 3-4 所示。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig4_HTML.jpg](img/465467_1_En_3_Fig4_HTML.jpg)
+
+
+  图 3-4 在 macOS 中设置文档
+
+
+  ## 管理文档类型
+
+
+  一个应用可以打开许多不同的文档，具体取决于你构建应用和文档的方式。每种类型的文档（不是每个具体的文档）都在你的信息属性列表中定义为一个文档类型，如图 3-5 所示。
+
+
+  请注意，文档类型有一个名称。在图 3-5 中，该名称是“图像”；文档类型名称是描述性的，并由你的应用内部使用。
+
+
+  一个文档类型可以处理多种类型的内容。Apple 使用统一类型标识符 (UTI) 来标识标准类型。你也可以创建自己的类型。尽可能使用标准类型会让你的应用更易用，因为用户可以读取和写入任何符合支持的
+  UTI 标准的文件。
+
+
+  例如，图 3-5 显示，“图像”文档类型可以处理任何符合 `public.image` UTI 规范的文档。本章后面会有更多关于数据类型的内容。目前，只需知道在以此应用（使用“基于文档的
+  App iOS 项目”模板构建）中定义的“图像”数据类型符合一个名为 `public.image` 的标准图像格式，而该格式又符合 `public.data`
+  和 `public.content` 这两个 UTI。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig5_HTML.jpg](img/465467_1_En_3_Fig5_HTML.jpg)
+
+
+  图 3-5 iOS 的“图像”数据类型
+
+
+  思考 UTI 的最简单方式是：
+
+
+  -   **文档类型** 是你的应用可以打开的文档类型。
+
+  -   **导出的 UTI** 是你的应用控制并能导出的文档类型（简单来说，就是你的应用写入的 UTI）。
+
+  -   **导入的 UTI** 是你的应用读取的文档类型。它们由其他应用控制并由其导出。
+
+
+  图 3-5 显示了一个 iOS 应用的文档类型。macOS 中使用的文档类型有不同的设置。一些差异围绕这样一个事实：在 macOS 中，文档类型用于确定哪个应用打开该文档类型。在
+  iOS 中，处理方式有所不同。
+
+
+  图 3-6 显示了 macOS 的文档类型。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig6_HTML.jpg](img/465467_1_En_3_Fig6_HTML.jpg)
+
+
+  图 3-6 macOS 应用的文档类型与 iOS 应用不同
+
+
+
+
+  ## 查看 `info.plist`
+
+
+  你在图 3-5 和图 3-6 中看到的内容较为复杂。在这两幅图左侧的项目导航器中，你可以看到项目文件。两幅图中都包含 Swift 文件，以及一个或多个故事板、授权文件和资源（具体内容因项目和设置而异）。目前最要紧的是
+  `info.plist` 文件，它是每个项目的属性列表。属性列表在 Cocoa 和 Cocoa Touch 中被广泛使用，由特定的数据类型（数组、字符串、数字、字典、日期、布尔值或
+  `NSData`）构成。属性列表是一种非常快速高效的数据存储和检索方式。每个应用都有一个基本属性列表（名为 `info.plist`），此外可能还有其他属性列表用于支持应用的其他部分。
+
+
+  属性列表由键值对组成，其中键是字符串，值则是上一段中提到的某一种数据类型。属性列表源码的开头部分如图 3-7 所示。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig7_HTML.jpg](img/465467_1_En_3_Fig7_HTML.jpg)
+
+
+  图 3-7
+
+
+  属性列表的源码
+
+
+  如图 3-7 所示，属性列表很容易以 XML 格式显示。你在图 3-7 中看到的格式是由 Xcode 生成的。属性列表也可以通过在 Excel 和 BBEdit
+  等工具中直接处理 XML 来设置格式。在 Xcode 中显示的属性列表可以格式化为如图 3-8 所示。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig8_HTML.jpg](img/465467_1_En_3_Fig8_HTML.jpg)
+
+
+  图 3-8
+
+
+  Xcode 中格式化后的属性列表
+
+
+  请注意，加上格式之后，属性列表会稍微更易于阅读，但请记住，它本质上仍然是先前在图 3-7 中展示的基于 XML 的属性列表。
+
+
+  当你查看项目导航器时，可以通过 Control-单击打开任意文件。对于属性列表，你可以选择如图 3-9 所示的格式选项。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig9_HTML.jpg](img/465467_1_En_3_Fig9_HTML.jpg)
+
+
+  图 3-9
+
+
+  在 Xcode 项目导航器中选择文件的格式选项
+
+
+  图 3-10 显示了“`Open As`”选项下的具体选择。
+
+
+  ![../images/465467_1_En_3_Chapter/465467_1_En_3_Fig10_HTML.jpg](img/465467_1_En_3_Fig10_HTML.jpg)
+
+
+  图 3-10
+
+
+  查看属性列表
+
+
+  属性列表的源码格式如图 3-7 所示；而属性列表格式则如图 3-8 所示。
+
+
+  如果回头再看图 3-5 和图 3-6，你会看到这两幅图的上方都有一个格式化后的属性列表（请记住，你可以通过在项目导航器中 Control-单击该属性列表来打开它）。
+
+
+  在图 3-5 和图 3-6 中，格式化属性列表的下方是属性列表的另一种表现形式：简单来说，可以称之为 UI 版本。它们是针对属性类型和其他设置所呈现的版本。
+
+
+  关键在于，你在图 3-5 和图 3-6 中看到的所有格式，都是基于原始属性列表的。不同的 UI 格式可以让你更轻松地处理希望在 macOS 或 iOS 中使用的文档。但是，请记住，底层的属性列表（`info.plist`）才是核心。虽然使用
+  UI 格式化版本通常更方便，但要绝对确定自己的操作无误，最安全的做法还是回到 `info.plist` 的源代码，查看具体发生了什么。
+
+
+  ## 总结
+
+
+  文档类型用于将文档及其内容与 `UIDocument` 或 `NSDocument` 的子类相匹配。UTI 用于标识可能被各种应用和文档使用的文档。在本章中，你还学习了如何为文档构建和设置
+  iCloud，以及如何在文件和文档中使用属性列表。
+
+
+  '
+- '# 4. 保护数据安全
+
+
+  一旦你开始考虑保存数据，就应该同时考虑这些数据的安全性。从决定存储哪些数据，到制定保护这些数据的规则，过程中的每一步都需要仔细斟酌。本章就聚焦于这些问题。
+
+
+  ## 安全与隐私概述
+
+
+  如第 1 章开头所述，我们使用文档来存储和组织在应用中使用数据。组织到文档中的数据有两种基本类型：随应用一起分发的数据，以及用户创建和修改的数据。第二种类型，即用户创建和修改的数据，可能包含随应用分发的那部分数据。
+
+
+  无论涉及何种数据类型，如果你正在构建或设计一款应用，就必须意识到可能出现的数据问题。直到不久以前，应用中的数据问题还相对简单。有些数据明显很敏感，但大多数应用中的数据并不需要特殊处理。用户和开发者常常以“没人会在意我们的数据”这种想法来自我安慰。像个人识别号码这类数据显然很敏感；开发者与用户处理此类数据安全的方式，通常只是在文档中添加一条免责声明或说明而已。
+
+
+  这一切随着各种系统中报告的大规模数据泄露事件而开始改变。处理敏感数据（或*可能*是或可能变得敏感的数据）的最佳实践也应运而生。
+
+
+  作为对媒体报道和数据安全意识普遍提高的回应，各种法律法规开始落地实施。例如，在欧盟（EU），《通用数据保护条例》（GDPR）于 2018 年 5 月 25 日生效。
+
+
+  随着新的法律法规和最佳实践开始生效并成为日常运作的一部分，处理数据的人有必要了解如何在现代数据环境中实施这些新实践。本章通过一个案例研究，展示了非常简单的私有数据使用方式，以及如何因简单或粗心的使用而意外导致其被破坏。你可以利用这个案例研究来指导自己在私有数据使用和隐私实现方面的工作。
+
+
+
+
+  ## 案例研究：使用 Cocoa 定位服务
+
+
+  最重要的隐私问题之一与移动设备的位置有关。在移动设备普及之前，数据隐私主要关乎保护相对静态的信息，即使这些信息是通过互联网共享的。然而，有了移动设备，设备本身就可能产生机密的位置数据。这是任何需要定位自身以及用于拨打电话或执行其他必要功能的基础设施的设备的必要功能的一部分。
+
+
+  可以禁用移动设备上的部分或全部定位服务（例如，通过使用飞行模式），但这会限制或降低性能。苹果公司将定位服务设计为可以直接打开和关闭的功能，而无需禁用所有通信。为此，你需要使用
+  Cocoa 定位服务框架。
+
+
+  用户需要允许在其设备上使用定位服务。这通常发生在安装操作系统或设置设备时，但用户也可以通过“设置”来操作。图 4-1 展示了用户如何通过“设置”为某个应用配置隐私定位设置。
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig1_HTML.jpg](img/465467_1_En_4_Fig1_HTML.jpg)
+
+
+  图 4-1. 定位服务设置
+
+
+  一旦你在“定位服务”部分找到了你的应用，就可以选择你想要的隐私设置。应用可以根据需要请求你的权限，如图 4-2 所示。（弹出窗口顶部的文本将在本章后面解释。）
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig2_HTML.jpg](img/465467_1_En_4_Fig2_HTML.jpg)
+
+
+  图 4-2. 根据需要调整应用的定位隐私设置
+
+
+  当使用“设置”时，如图 4-1 所示，你可以通过图 4-3 所示的界面设置相同的选项。
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig3_HTML.jpg](img/465467_1_En_4_Fig3_HTML.jpg)
+
+
+  图 4-3. 在“设置”应用中使用与来自应用的弹出窗口相同的设置
+
+
+  除了“设置”和应用的弹出窗口中的文本外，你还必须调整你的属性列表以支持这些界面。如图 4-4 所示，你的属性列表中有一些位置，用于描述如何使用用户的位置数据。
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig4_HTML.jpg](img/465467_1_En_4_Fig4_HTML.jpg)
+
+
+  图 4-4. 调整隐私定位设置的属性列表
+
+
+  让用户知道你将如何使用收集到的位置数据非常重要。请注意，苹果的审核人员要求开发者在其对数据使用方式的描述中要具体明确。仅仅使用诸如“获取用户位置”这样的表述来解释你对位置数据的使用已经不够了。图
+  4-5 显示了一个描述不够具体的示例。
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig5_HTML.jpg](img/465467_1_En_4_Fig5_HTML.jpg)
+
+
+  图 4-5. 确保描述你将如何使用数据
+
+
+  如果你未提供任何描述，你的应用会向控制台写入一条消息，如图 4-6 所示。
+
+
+  ![../images/465467_1_En_4_Chapter/465467_1_En_4_Fig6_HTML.jpg](img/465467_1_En_4_Fig6_HTML.jpg)
+
+
+  图 4-6. 缺少描述会阻止应用获取位置
+
+
+  定位服务是隐私和安全方面常见问题的一个典型例子。如果未提供位置数据使用方式的描述，控制台会显示一条运行时消息，但不会抛出错误，如图 4-6 所示。你可以争论这是否应该算作一个错误（就像苹果的工程师们很可能已经争论过的那样），但以下论点很有说服力：即使这可能是一个编程错误，它*不是*一个错误。
+
+
+  将这种类型的警告构建到应用中是一种常见且通常良好的设计。然而，图 4-5 展示了一个常见的错误。请注意描述是“这是一个测试。”由于没有抛出错误，这种描述位置数据将如何被使用的方式极易出现在最终发布的产品中。如果你浏览关于安全的媒体评论和文章，你会发现最大的抱怨之一是，当应用确实提供了数据使用方式的信息时，这些信息很可能是错误的。它通常是一个占位符（“这是一个测试”）或通过复制粘贴从另一个应用带来的描述。
+
+
+  ## 总结
+
+
+  由于关于收集哪些数据以及如何使用这些数据的解释是用简单的语言编写的，而不是编译器或构建过程可以标记的代码，因此这些描述经常出错。现在，根据如 GDPR 等法规要求提供这些信息，这些错误比以往任何时候都更加重要。
+
+
+  关键在于，你应该确保面向用户的安全描述是正确的，以便用户能够信赖、理解并使用它们。
+
+
+  '
+- '# 在 macOS 上实现文档：NSDocument
+
+
+  macOS 上文档的核心是 `NSDocument` 类。就像 iOS 中的 `UIDocument` 一样，它是一个抽象类，你需要为你的应用创建其子类。有三个类相互协作，为你的应用提供文档功能。它们分别是：
+
+
+  *   `NSDocument` 是你为你的应用创建子类的抽象类。
+
+  *   `NSDocumentController` 是特定于应用的类，用于管理文档的打开和关闭。
+
+  *   `NSWindowController` 是管理显示文档窗口的类。
+
+
+  macOS 和 `NSDocument` 与 iOS 和 `UIDocument` 之间的这些类并非一一对应；然而，`NSDocument` 和 `UIDocument`
+  之间的相似性，以及 `NSDocumentController` 和 `UIDocumentController` 之间的相似性很重要（但也仅仅是相似罢了）。
+
+
+  ## iOS UIDocuments 与 macOS NSDocuments 的区别
+
+
+  iOS 文档和 macOS 文档之间的最大区别在于，在 macOS 上，文档是系统环境的一部分，而在 iOS 上，文档是每个应用环境的一部分。这背后有原因（其中许多原因反映了两大操作系统的演进过程），但重要的是你的应用运行和文档存在的环境这一方面。
+
+
+  换句话说，用于管理文档的工具（例如，创建和保存文档）是 macOS 的一部分，而在 iOS 上，它们是诸如 `UIDocumentBrowserViewController`
+  等工具的一部分，而不是 iOS 本身的一部分。
+
+
+
+
+  '
+- '# 在 macOS 上创建基于文档的应用
+
+
+  通常情况下，开始构建新应用的最简单方法是使用 Xcode 内置的模板之一。创建基于文档的 macOS 应用也不例外。首先，使用 macOS Cocoa App
+  模板创建一个新项目，如图 5-1 所示。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig1_HTML.jpg](img/465467_1_En_5_Fig1_HTML.jpg)
+
+
+  图 5-1. 为 macOS 创建新的 Cocoa 应用
+
+
+  与 iOS 项目一样，命名 macOS 项目并提供可选信息，如图 5-2 所示。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig2_HTML.jpg](img/465467_1_En_5_Fig2_HTML.jpg)
+
+
+  图 5-2. macOS 应用的信息
+
+
+  相比之下，图 5-3 显示了 iOS 应用的选项。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig3_HTML.jpg](img/465467_1_En_5_Fig3_HTML.jpg)
+
+
+  图 5-3. iOS 应用的信息
+
+
+  macOS 项目有一些 iOS 应用中没有的选项。特别是，对于 macOS 项目模板，你会看到使用故事板和文档的选项。而对于 iOS 项目模板，有一个文档模板，并且默认使用故事板。
+
+
+  与从模板创建新项目时的情况一样，尝试运行它，如图 5-4 左上角带右箭头所示。（某些项目，特别是需要 iCloud 账户的项目，可能无法运行，但这个项目应该可以运行。）
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig4_HTML.jpg](img/465467_1_En_5_Fig4_HTML.jpg)
+
+
+  图 5-4. 运行应用
+
+
+  项目运行时，它将使用你的 Mac 来运行，而不是使用 iOS 模拟器。基本应用应该会显示一个类似于图 5-5 所示的屏幕。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig5_HTML.jpg](img/465467_1_En_5_Fig5_HTML.jpg)
+
+
+  图 5-5. 运行你的新 macOS 应用
+
+
+  ## 向 macOS 应用添加代码
+
+
+  查看你创建的应用内部以了解其工作原理是个好主意。（这将帮助你在开发应用时对其进行修改。）
+
+
+  从项目模板开始时，应用的主要组件如下：
+
+
+  * `AppDelegate`：功能上与你在 iOS 应用中使用的 `AppDelegate` 类似。
+
+  * `ViewController`：这是一个视图控制器（名为 `ViewController`），其工作方式与 iOS 应用中的视图控制器类似。
+
+  * `Document`：这是 `NSDocument` 类的一个子类。
+
+
+  以下各节展示了此项目的代码。
+
+
+  ## AppDelegate
+
+
+  如图 5-6 所示，这与 iOS 应用中的应用代理类似（但要短得多，部分原因是操作系统内置了大部分文档处理工作）。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig6_HTML.jpg](img/465467_1_En_5_Fig6_HTML.jpg)
+
+
+  图 5-6. 使用 `AppDelegate`
+
+
+  项目模板中的基本代码如代码清单 5-1 所示。代码中的注释说明了你可以添加哪些内容。项目模板无需任何自定义即可运行，但在发布应用（即使仅用于测试）之前，你应该实现注释掉的代码或其变体。
+
+
+  ```
+
+  import Cocoa
+
+  @NSApplicationMain
+
+  class AppDelegate: NSObject, NSApplicationDelegate {
+
+  func applicationDidFinishLaunching(_ aNotification: Notification) {
+
+  // 在此处插入代码以初始化你的应用
+
+  }
+
+  func applicationWillTerminate(_ aNotification: Notification) {
+
+  // 在此处插入代码以关闭你的应用
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 5-1. `AppDelegate` 模板代码
+
+
+  ## ViewController
+
+
+  `ViewController` 是 `NSViewController` 的实例，它允许你管理视图中的对象。基本的 `ViewController` 如图 5-7
+  和代码清单 5-2 所示。它将在本章后面的 "`Document`" 部分进行修改。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig7_HTML.jpg](img/465467_1_En_5_Fig7_HTML.jpg)
+
+
+  图 5-7. 创建 `ViewController`
+
+
+  ```
+
+  //
+
+  //  ViewController.swift
+
+  //  Document2A
+
+  //
+
+  //
+
+  import Cocoa
+
+  class ViewController: NSViewController {
+
+  override func viewDidLoad() {
+
+  super.viewDidLoad()
+
+  // 在此处执行加载视图后的任何其他设置。
+
+  }
+
+  override var representedObject: Any? {
+
+  didSet {
+
+  // 如果视图已加载，则更新视图。
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 5-2. `ViewController` 代码
+
+
+  ## Document
+
+
+  `Document` 是 `NSDocument` 的子类，用于管理文档及其数据。基本代码如图 5-8 和代码清单 5-3 所示。需要注意的是，文档子类的 `makeWindowControllers`
+  方法包含了将故事板与 `Document` 类匹配的代码。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig8_HTML.jpg](img/465467_1_En_5_Fig8_HTML.jpg)
+
+
+  图 5-8. 管理你的文档
+
+
+  ```
+
+  //
+
+  //  Document.swift
+
+  //  Document2A
+
+  //
+
+  //
+
+  import Cocoa
+
+  class Document: NSDocument {
+
+  override init() {
+
+  super.init()
+
+  // 在此处添加你的子类特定初始化代码。
+
+  }
+
+  override class var autosavesInPlace: Bool {
+
+  return true
+
+  }
+
+  override func makeWindowControllers() {
+
+  // 返回包含你的文档窗口的故事板。
+
+  let storyboard = NSStoryboard(
+
+  name: NSStoryboard.Name("Main"), bundle: nil)
+
+  let windowController =
+
+  storyboard.instantiateController(
+
+  withIdentifier:
+
+  NSStoryboard.SceneIdentifier(
+
+  "Document Window Controller"))
+
+  as! NSWindowController
+
+  self.addWindowController(windowController)
+
+  }
+
+  override func data(ofType typeName: String) throws -> Data {
+
+  // 在此处插入代码，将你的文档写入指定类型的数据，
+
+  // 如果失败则抛出错误。
+
+  // 或者，你可以移除此方法并覆盖
+
+  // fileWrapper(ofType:)、write(to:ofType:) 或
+
+  // write(to:ofType:for:originalContentsURL:)。
+
+  throw NSError(domain: NSOSStatusErrorDomain,
+
+  code: unimpErr, userInfo: nil)
+
+  }
+
+  override func read(from data: Data,
+
+  ofType typeName: String) throws {
+
+  // 在此处插入代码，从给定指定类型的数据中读取你的文档，
+
+  // 如果失败则抛出错误。
+
+  // 或者，你可以移除此方法并覆盖
+
+  // read(from:ofType:)。
+
+  // 如果你这样做，还应该覆盖 isEntireFileLoaded，
+
+  // 如果内容是懒加载的，则返回 false。
+
+  throw NSError(domain: NSOSStatusErrorDomain,
+
+  code: unimpErr, userInfo: nil)
+
+  }
+
+  }
+
+  ```
+
+
+  代码清单 5-3. `Document` 代码
+
+
+  ## Storyboard
+
+
+  图 5-9 展示了如何修改模板中的故事板以添加文本视图（操作方式与在 iOS 中相同）。在 `Document` 中，你可以使用文本视图来收集数据，然后进行处理。
+
+
+  ![../images/465467_1_En_5_Chapter/465467_1_En_5_Fig9_HTML.jpg](img/465467_1_En_5_Fig9_HTML.jpg)
+
+
+  图 5-9.
+
+
+
+
+  ## macOS 与 iOS 开发概述
+
+
+  请注意，在 macOS 和 iOS 上管理文本视图中数据的细节有所不同。其中一个区别在于，在 macOS 中，函数会暴露滚动行为，而在 iOS 中这些行为是视图的属性。
+
+
+  请牢记 Cocoa 在 macOS 上的发展历史。在最早的文档中，OpenStep 及其前身 NeXTSTEP 是为在早期个人计算机上运行的商务应用世界而设计的。即使是早期版本也包含用于管理格式化表格和字符串的函数。Cocoa
+  和 Cocoa Touch 的开发路径之所以大相径庭，很大程度上是因为 Cocoa Touch 最初的目标平台是 iPhone。尽管当时（现在也）存在商务应用，但
+  iOS 设备的应用和用户与 NeXTSTEP 在 1989 年 9 月 18 日发布时的应用和用户截然不同。
+
+
+  ### 注
+
+
+  如需了解 1989 年环境的有趣回顾，请参见计算机历史时间线 [`www.computerhistory.org/timeline/1989/`](http://www.computerhistory.org/timeline/1989/)。
+
+
+  ## 总结
+
+
+  macOS 和 iOS 上读写数据的基本机制是相同的：你使用故事板中的对象来接收和发送数据。
+
+
+  请注意，故事板是 macOS 相对较新的补充，因此在旧代码示例中可能找不到它们。同样，请注意，在旧代码中可能会找到对绑定的引用。虽然它并未被弃用，但在现代 `macOS`
+  代码中并不常用。
+
+
+  '
+- '# 在 iOS 上实现文档
+
+
+  在 iOS 上实现文档时，你需要考虑三个主要问题：
+
+
+  * 随着 iOS 11 中 iOS 文件应用的问世，用户开始能够访问 iOS 的底层文件系统。
+
+  * iOS 文档的基础类是 `UIDocument`，它被设计为可以创建子类。
+
+  * `UIDocumentBrowserViewController` 是一个视图控制器，旨在实现 iOS 文件应用的用户界面。
+
+
+  本章重点讨论第一个问题：文件。
+
+
+  ## 使用文件与 iOS 文件系统
+
+
+  当第一款 iPhone 发布时，它并非立竿见影的成功。事实上，如果你回顾并搜索当时的新闻文章，会发现一些对该产品的主要抱怨。其中最大的抱怨之一是缺少连接器（例如
+  USB），无法像用户习惯将设备连接到个人电脑那样，将其他设备连接到 iPhone。
+
+
+  整个 iPhone 文件系统对用户隐藏是常见的抱怨之一。隐藏的文件系统架构自有其原因，而在 iPhone 使用的十多年间，用户、开发者和分析师逐渐了解了这种架构的优点（有时也包含缺点）。
+
+
+  随着 2017 年 iOS 11 的发布，苹果推出了其文件应用，该应用以与人们自个人电脑时代初期就习惯的架构截然不同的方式处理文件管理问题。在基于传统 Unix
+  文件架构构建的基本个人电脑文件架构中，用户可以管理文件和文件夹，这些文件和文件夹可以放置在设备的几乎任何位置。文件应用则采取了一种不同的方法，文件只能从特定区域（通常与应用相关）进行访问。换句话说，用户现在被鼓励将文件视为可以在应用文件空间（通常称为*沙盒*）内任意移动，而不是像个人电脑磁盘上那样可以随意移动。
+
+
+  考虑到人们不再仅仅使用个人电脑上的磁盘空间，文件应用整合了对超越个人电脑的云存储服务的访问，例如 iCloud、Dropbox、Box、Google Drive
+  和 OneDrive。
+
+
+  对于习惯了旧有结构（用户可以将文件放在他们想放的地方）的人来说，这可能是一次重新学习的经历。或许需要考虑的最重要一点是，在旧有文件结构中，你根据电脑磁盘和其他存储位置的关系来放置文件。而使用
+  iOS 文件系统和文件时，你可以将文件放置在两个大类位置之一：
+
+
+  * 你可以将文件放置在特定应用的文件夹中。一个文件夹可以由多个相关应用共享。关于这种共享的好例子，可以使用内置的 Pages、Keynote 或 Numbers
+  应用，并尝试保存共享文件。
+
+  * 你可以将文件放置在云存储服务中，例如 iCloud 或 Dropbox。
+
+
+  以下是关于使用文件的一些细节。
+
+
+  ## 选择文档存储位置
+
+
+  请记住，文件存储主要取决于文件关联的应用。选择存储位置的主要工具是在应用的“设置”中进行配置。例如，在“设置”中，你可以查看 iOS 设备上已安装应用的各种设置（图
+  6-1）。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig1_HTML.jpg](img/465467_1_En_6_Fig1_HTML.jpg)
+
+
+  图 6-1. 为你的应用选择设置
+
+
+  找到你的应用，然后选择存储位置，如图 6-2 所示。你的选择取决于你在 iOS 设备上安装的内容。如果你使用 iCloud（一个非常常见的选择），你可以选择将数据存储在那里。你也可以选择将其存储在本地设备上，或者使用
+  Dropbox、Box 或其他服务。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig2_HTML.jpg](img/465467_1_En_6_Fig2_HTML.jpg)
+
+
+  图 6-2. 选择文档存储位置
+
+
+  ## 浏览文档
+
+
+  当你使用文件应用时，可以选择在特定位置浏览文件（这当然取决于你为位置选择了什么以及你拥有的文件）。理解文件应用向你显示的浏览数据很重要，因此以下图片显示了你可能会看到的内容。
+
+
+  如果你决定使用 iPad 进行存储，当你选择“我的 iPad 上”位置时，可能会看到如图 6-3 所示的浏览结果。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig3_HTML.jpg](img/465467_1_En_6_Fig3_HTML.jpg)
+
+
+  图 6-3. 浏览“我的 iPad 上”的文件
+
+
+  如果你使用 iCloud 云盘，你可能会看到一个类似图 6-4 所示的浏览窗口。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig4_HTML.jpg](img/465467_1_En_6_Fig4_HTML.jpg)
+
+
+  图 6-4. 浏览 iCloud 云盘上的文档和文件夹
+
+
+  请注意，浏览时，位置位于窗口左侧。当你选择特定文件或文件夹时，你会在左侧的“位置”中或右侧列表的顶部看到其容器指示，如图 6-5 所示。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig5_HTML.jpg](img/465467_1_En_6_Fig5_HTML.jpg)
+
+
+  图 6-5. 右侧窗格顶部的文件夹名称
+
+
+
+
+  ## 查看最近文档
+
+
+  使用窗口底部的标签页，你可以在最近的文件和文件夹以及想要浏览的内容之间切换。图 6-6 展示了最近的文件和文件夹。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig6_HTML.jpg](img/465467_1_En_6_Fig6_HTML.jpg)
+
+
+  **图 6-6.** 最近的文件和文件夹
+
+
+  如果你的某些文档尚未从远程服务器下载，你会看到如图 6-7 所示的云图标，表示它们正在等待下载。如果你点按某个特定文件，可以加快其下载进程。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig7_HTML.jpg](img/465467_1_En_6_Fig7_HTML.jpg)
+
+
+  **图 6-7.** 正在下载文件
+
+
+  请注意，除了指示文件是否需要下载，你还可以看到它的位置。例如，在图 6-7 的右下角，你可以看到一个被标记为 `On My iPad` 而非 `iCloud Drive`
+  的文档。
+
+
+  ### 提示
+
+
+  习惯使用“文件”App 并利用文件位置信息和下载状态。因为下载的调度和处理通常会有时间延迟，如果你知道哪些文件在何处，就能避免花时间去调试那些仅仅是时间同步问题导致的问题，从而节省时间。
+
+
+  ## 查看某个 App 的文件和文件夹
+
+
+  当你在 iOS 设备上查看 App 时，可以长按一个应用图标来查看可能属于它的文件和文件夹，如图 6-8 所示。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig8_HTML.jpg](img/465467_1_En_6_Fig8_HTML.jpg)
+
+
+  **图 6-8.** 长按应用图标查看其文件
+
+
+  如有必要，右上角会出现一个“显示更多”按钮，如图 6-8 所示。当你使用“显示更多”时，会伴随出现一个“显示更少”按钮，如图 6-9 所示。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig9_HTML.jpg](img/465467_1_En_6_Fig9_HTML.jpg)
+
+
+  **图 6-9.** “显示更少”选项
+
+
+  当你在“文件”App 中查看应用时（图 6-7），你会看到文件和文件夹的列表，如图 6-10 所示。
+
+
+  ![../images/465467_1_En_6_Chapter/465467_1_En_6_Fig10_HTML.jpg](img/465467_1_En_6_Fig10_HTML.jpg)
+
+
+  **图 6-10.** 某个 App 的所有文件和文件夹列表
+
+
+  ## 总结
+
+
+  使用“设置”来控制你存储某个 App 文件和文件夹的位置，使用“文件”App 来浏览文件和文件夹以及最近项。
+
+
+  请记住，你不是通过选择个人电脑上的位置，而是通过选择你当前使用的设备上或云端存储功能（如 `iCloud` 或 `Dropbox`）上的位置，来控制文件和文件夹的存放位置。
+
+
+  '
+- "# 7. 在 iOS 上实现文档：UIDocument 和 UIDocumentBrowserViewController\n\n文档是许多 App 的关键组成部分，从个人电脑时代开始便是如此。许多人仍然认为文档是基于纸张的物件，但如今人们在\
+  \ iOS 和 macOS 上处理的文档，远比其纸质前辈复杂得多。本章将介绍当今的文档及其结构，然后解释如何使用 `UIDocumentBrowserViewController`\
+  \ 来管理文档。\n\n## 创建一个基于文档的 App\n\n正如 Xcode 中框架的基本构建模块通常的情况一样，在 iOS 上开始使用文档的最简单方法是使用\
+  \ Xcode 内置的“基于文档的 App”项目模板。首先创建一个新的 iOS 项目，如图 7-1 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig1_HTML.jpg](img/465467_1_En_7_Fig1_HTML.jpg)\n\
+  \n**图 7-1.** 在 Xcode 中选择“基于文档的 App”模板\n\n按照图 7-2 所示的标准选项进行设置，以完成模板配置。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig2_HTML.jpg](img/465467_1_En_7_Fig2_HTML.jpg)\n\
+  \n**图 7-2.** 为新项目设置选项\n\n继续完成选项，直到项目模板设置完毕，如图 7-3 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig3_HTML.jpg](img/465467_1_En_7_Fig3_HTML.jpg)\n\
+  \n**图 7-3.** 查看新项目\n\n完成后，运行该 App。（当你从模板创建新项目时，这是一个应始终执行的步骤。除了诸如网络可用性之类的问题外，你的新项目模板应该能够正常运行。）\n\
+  \n如图 7-4 所示，你可以打开项目，看到包含两个视图控制器的 Storyboard。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig4_HTML.jpg](img/465467_1_En_7_Fig4_HTML.jpg)\n\
+  \n**图 7-4.** 查看 Storyboard\n\n运行项目。你应该会看到模拟器，如图 7-5 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig5_HTML.jpg](img/465467_1_En_7_Fig5_HTML.jpg)\n\
+  \n**图 7-5.** 运行 App\n\n继续探索你的新 App。使用“浏览”标签页来浏览 App 沙盒中的文件，如图 7-6 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig6_HTML.jpg](img/465467_1_En_7_Fig6_HTML.jpg)\n\
+  \n**图 7-6.** 在 App 中探索“浏览”标签页\n\n目前那里没有文件，但有一个“创建文档”按钮。试试看！\n\n什么也没发生。\n\n是时候进入本章的下一节了，该节将介绍\
+  \ `UIDocument`。除其他任务外，你将了解如何实现“创建文档”按钮。\n\n### 介绍 UIDocument\n\niOS 中的基本文档类是 `UIDocument`。`UIDocument`\
+  \ 通过以下方式提供文档的基本功能：\n\n* **fileURL**：`UIDocument` 使用文件 URL 来标识文档，以便你的 App 能够定位它进行读写。\n\
+  * `UIDocument` 在后台队列上管理**异步读写**数据，而你只需付出极少的努力。\n* `UIDocument` 还使用**云服务**（例如 `iCloud`）来协调文档文件的读写。\n\
+  * `UIDocument` 还管理你文档的**冲突和版本变更**。\n\n这些是 `UIDocument` 的基本组成部分。为了开始使用文档，你可以使用“基于文档的\
+  \ App”模板中提供的基本代码。项目模板中的基本代码提供了 `fileURL`（文档标识）的功能，以及关键的读写特性、云服务以及冲突和变更的管理功能。\n\n\
+  \n\n## 使用 UIDocument\n\n使用 `UIDocument` 的关键组件包括负责读取、写入和创建文档的类 `UIDocument`，以及负责浏览和用户界面交互（即读取、写入和创建文档的界面部分）的类\
+  \ `UIDocumentBrowserViewController`。要完善 `UIDocument` 的基本功能，还需要实现 `UIDocumentViewController`。\n\
+  \n`UIDocument` 为你处理了大量文档管理工作，包括保存文档、管理变更等许多关键功能。你可以通过研究文档来了解其所有特性，但也可以使用本章基于文档的\
+  \ App 模板中包含的 `UIDocument` 精简功能。实际上，该模板的基本代码（见图 7-7 和代码清单 7-1）是一个绝佳的起点。对于许多基础应用来说，只需这些代码，再加上一两行应用特定的代码，就完全足够了。\n\
+  \n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig7_HTML.jpg](img/465467_1_En_7_Fig7_HTML.jpg)\n\
+  \n**图 7-7.** 基本的 `UIDocument` 功能\n\n```\n//\n//  Document.swift\n//  Document1\n\
+  //\n//\nimport UIKit\n\nclass Document: UIDocument {\n    override func contents(forType\
+  \ typeName: String) throws -> Any {\n        // 使用 NSData 或 NSFileWrapper 实例编码你的文档\n\
+  \        return Data()\n    }\n    override func load(fromContents contents: Any,\
+  \ ofType typeName: String?) throws {\n        // 从 contents:ofType:) 加载你的文档\n  \
+  \  }\n}\n```\n\n**代码清单 7-1** 基本代码\n\n你需要首先实现的函数是 `contents(forType:)`。当你确定文档中数据的格式后，需要指定其类型，该类型将用于读取和写入文档数据。通常，文档文件的类型是基本的\
+  \ Swift 或 Objective-C 类型，例如 `NSData`。如果你使用 `NSData`，则需要负责将文档数据转换为 `NSData` 或你正在使用的任何其他类型。\n\
+  \n其配套函数是 `load(fromContents:ofType:)`。这两个函数让你能够读取或写入通用格式的数据，然后将其转换为你的应用可以管理的数据。\n\
+  \n如果你深入研究 `UIDocument` 的代码，你会发现它在这两个函数 `contents(forType:)` 和 `load(fromContents:ofType:)`\
+  \ 的基本结构内处理了异步读写、云数据协作以及变更管理等所有功能。\n\n## 使用 UIDocumentViewController\n\n一旦你设置好了文档，就需要添加一个视图控制器，以便查看和操作内容。在基于文档的\
+  \ App 项目模板中，文档控制器是按照图 7-8 所示创建的。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig8_HTML.jpg](img/465467_1_En_7_Fig8_HTML.jpg)\n\
+  \n**图 7-8.** `DocumentViewController`\n\n相关代码如代码清单 7-2 所示。\n\n```\nclass DocumentViewController:\
+  \ UIViewController {\n    @IBOutlet weak var documentNameLabel: UILabel!\n    var\
+  \ document: UIDocument?\n\n    override func viewWillAppear(_ animated: Bool) {\n\
+  \        super.viewWillAppear(animated)\n        // 访问文档\n        document?.open(completionHandler:\
+  \ { (success) in\n            if success {\n                // 显示文档内容，例如：\n    \
+  \            self.documentNameLabel.text = self.document?.fileURL.lastPathComponent\n\
+  \            } else {\n                // 务必妥善处理导入失败的情况，\n                // 例如，向用户显示错误信息。\n\
+  \            }\n        })\n    }\n\n    @IBAction func dismissDocumentViewController()\
+  \ {\n        dismiss(animated: true) {\n            self.document?.close(completionHandler:\
+  \ nil)\n        }\n    }\n}\n```\n\n**代码清单 7-2** 文档视图控制器代码\n\n`DocumentViewController`\
+  \ 类中有两个函数：`viewWillAppear(_:)` 和 `dismissDocumentViewController()`。前者负责打开文档，后者负责关闭文档。\n\
+  \n### 打开文档\n\n打开文档是使用完成处理器的 Swift 异步编程风格的一个很好的例子。代码如下：\n\n```\ndocument?.open(completionHandler:\
+  \ { (success) in\n    if success {\n        // 显示文档内容，例如：\n        self.documentNameLabel.text\
+  \ = self.document?.fileURL.lastPathComponent\n    } else {\n        // 务必妥善处理导入失败的情况，\n\
+  \        // 例如，向用户显示错误信息。\n    }\n})\n```\n\n在文档对象上调用 `open` 方法（注意它是一个可选类型，用 `?`\
+  \ 进行解包）。完成处理器在 `open` 函数中声明，并在 `open` 操作完成时被调用。完成处理器接收一个参数。通常（但并非强制）这个参数被命名为 `success`，它是一个布尔值，用于指示\
+  \ `open` 操作是否成功。\n\n然后，完成处理器执行以下代码：\n\n```\nif success {\n    // 显示文档内容，例如：\n  \
+  \  self.documentNameLabel.text = self.document?.fileURL.lastPathComponent\n} else\
+  \ {\n    // 务必妥善处理导入失败的情况，例如，\n    // 向用户显示错误信息。\n}\n```\n\n如果文档成功打开，故事板中的一个标签会被赋予文件\
+  \ URL 的 `lastPathComponent`。（你可以在图 7-4 的右侧看到这一点）。对于大多数应用，你实际上会在界面中显示文档的一些内容。\n\n\
+  > **注意：** 打开文档的完成处理器是提升应用性能的一种重要方式。当你处理可能存储在云端的文档和文件时，执行完成处理器（无论成功与否）的延迟可能会很明显。在测试应用时请牢记这一点。\n\
+  \n### 关闭文档\n\n关闭文档使用了与 `dismissDocumentViewController` 类似的结构。然而，请注意应用中的完成处理器为 nil。如果你不需要处理已更改的数据，除了关闭文档之外，无需执行任何其他操作。\n\
+  \n## 使用 UIDocumentBrowserViewController\n\n`UIDocumentBrowserViewController` 是基于文档的应用的核心。本节将概述其工作流程。主要有两条路径：创建新文档或打开现有文档（你可能需要回看图\
+  \ 7-5 和 7-6）。\n\n### 加载 UIDocumentBrowserViewController\n\n使用 `UIDocumentBrowserViewController`\
+  \ 的第一步是加载它，如图 7-9 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig9_HTML.jpg](img/465467_1_En_7_Fig9_HTML.jpg)\n\
+  \n**图 7-9.** 加载 `UIDocumentBrowserViewController`\n\n请注意，你的 `UIDocumentBrowserViewController`\
+  \ 子类还应遵守 `UIDocumentBrowserViewControllerDelegate` 协议。你可以在图 7-9 的第 12 行看到这一点。作为额外参考，代码如下：\n\
+  \n```\ndelegate = self\n```\n\n你可以在此处设置浏览器可视样式的选项，使其与你的用户界面协调一致。其他初始化工作可以在你的 `info.plist`\
+  \ 中处理。\n\n> **注意：** 关于 `info.plist` 的更多信息，请参阅第 3 章。\n\n请注意，`viewDidLoad` 让你可以通过第\
+  \ 19 行来决定是否可以创建文档：\n\n```\nallowsDocumentCreation = // true 或 false\n```\n\n加载 `UIDocumentBrowserViewController`\
+  \ 后，你通常需要实现四个函数，这些函数在图 7-9 中显示为存根（stubs）。这些函数是：\n\n- `documentBrowser(_:didRequestDocumentCreationWithHandler:)`\
+  \ 用于创建新文档\n- `documentBrowser(_:didPickDocumentAt:)` 用于打开现有文档\n- `documentBrowser(_:didImportDocumentAt:toDestinationURL:)`\
+  \ 用于在打开文档后，显示其内容\n- `documentBrowser(_:failedToImportDocumentAt:error:)` 用于处理错误\n\
+  \n\n\n### 创建文档\n\n你可以使用模板来创建新文档。如文档所述，你可以让用户选择将几个基本文档中的哪一个作为模板。参见图 7-10。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig10_HTML.jpg](img/465467_1_En_7_Fig10_HTML.jpg)\n\
+  \n**图 7-10.** 创建文档\n\n在许多旧的设计模式中，你会选择创建一个空白文档，然后可能用数据对其进行修改。iOS 中最常用的设计模式并非创建文档，而是从你的\
+  \ bundle 中复制一个现有的模板文档，并将副本放置在你的应用的适当位置。这是一种不同的工作流程，但随着你不断创建和修改应用，它会变得更高效。\n\n清单\
+  \ 7-3 展示了让用户从列表中选择模板的代码。关键代码行是：\n\n```\nlet newDocumentURL = Bundle.main.url(forResource:\
+  \ \"Template\",\nwithExtension: DocumentBrowserViewController.documentExtension)\n\
+  importHandler(newDocumentURL, .copy)\n```\n\n这行代码从你的 bundle 中获取一个名为 `Template` 且带有你的文档扩展名的文件，并将其复制到新位置。如果你不需要让用户从多个模板中选择，只需使用此代码，而无需弹出让用户选择的警告框。\n\
+  \n```\nlet title = NSLocalizedString(\"Choose File Template\", comment: \"\")\n\
+  let cancelButtonTitle = NSLocalizedString(\"Cancel\", comment: \"\")\nlet defaultButtonTitle\
+  \ = NSLocalizedString(\"Basic (Default) \", comment: \"Default\")\nlet generalButtonTitle\
+  \ = NSLocalizedString(\"Demo)\", comment: \"\")\nlet alertController = UIAlertController(title:\
+  \ title, message: message, preferredStyle: .alert)\nlet newDocumentURL = Bundle.main.url(forResource:\
+  \ \"Template\",\nwithExtension: DocumentBrowserViewController.documentExtension)\n\
+  importHandler(newDocumentURL, .copy)\n// 创建动作。\nlet cancelAction = UIAlertAction(title:\
+  \ cancelButtonTitle,\nstyle: .cancel) { action in\nimportHandler(nil, .none)\n}\n\
+  let defaultButtonAction = UIAlertAction(title: defaultButtonTitle,\nstyle: .default)\
+  \ { _ in\nlet newDocumentURL = Bundle.main.url(forResource: \"Template\",\nwithExtension:\
+  \ DocumentBrowserViewController.documentExtension)\nimportHandler(newDocumentURL,\
+  \ .copy)\n}\nlet generalButtonAction = UIAlertAction(title: generalButtonTitle,\n\
+  style: .default) { _ in\nlet newDocumentURL = Bundle.main.url(forResource: \"Template2\"\
+  ,\nwithExtension: DocumentBrowserViewController.documentExtension)\nimportHandler(newDocumentURL,\
+  \ .copy)\n}\n// 添加动作。\nalertController.addAction(cancelAction)\nalertController.addAction(defaultButtonAction)\n\
+  alertController.addAction(generalButtonAction)\npresent(alertController, animated:\
+  \ true, completion: nil)\n**清单 7-3** 让用户选择模板\n```\n\n### 选取（打开）文档\n\n图 7-11 展示了打开现有文档的代码。\n\
+  \n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig11_HTML.jpg](img/465467_1_En_7_Fig11_HTML.jpg)\n\
+  \n**图 7-11.** 打开现有文档\n\n这里的关键代码行让你能够从多个现有文件中进行选择；你尝试打开列表中的第一个文件，如下所示：\n\n```\nguard\
+  \ let sourceURL = documentURLs.first else { return }\n```\n\n如图 7-9 所示，你可以在 `DocumentBrowserViewController`\
+  \ 的 `viewDidLoad` 中使用以下代码指定是否可以选择多个文件：\n\n```\nallowsPicking Multiple Items = //\
+  \ true 或 false\n```\n\n一旦你选取了一个文档，你请求 `DocumentBrowserViewController` 来呈现它，如图 7-12\
+  \ 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig12_HTML.jpg](img/465467_1_En_7_Fig12_HTML.jpg)\n\
+  \n**图 7-12.** 呈现文档\n\n或者你可以使用以下代码：\n\n```\npresentDocument (at:destinationURL)\n\
+  ```\n\n典型的代码如清单 7-4 所示。\n\n```\nfunc presentDocument(at documentURL: URL) {\nlet\
+  \ storyBoard = UIStoryboard(name: \"Main\", bundle: nil)\nlet documentViewController\
+  \ =\nstoryBoard.instantiateViewController(withIdentifier:\n\"DocumentViewController\"\
+  ) as! DocumentViewController\ndocumentViewController.document =\nDocument(fileURL:\
+  \ documentURL)\npresent(documentViewController, animated: true,\ncompletion: nil)\n\
+  }\n**清单 7-4** 呈现文档\n```\n\n请注意，此代码将文档视图控制器、故事板和一个文档结合在一起。所有这些组件必须匹配（这是调试问题的常见原因）。\n\
+  \n代码也如图 7-13 所示。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig13_HTML.jpg](img/465467_1_En_7_Fig13_HTML.jpg)\n\
+  \n**图 7-13.** 呈现文档\n\n### 处理错误\n\n处理文档浏览器视图控制器的最后一部分是确保正确处理错误；参见图 7-14。\n\n![../images/465467_1_En_7_Chapter/465467_1_En_7_Fig14_HTML.jpg](img/465467_1_En_7_Fig14_HTML.jpg)\n\
+  \n**图 7-14.** 正确处理错误\n\n## 本章小结\n\n本章展示了打开或创建文档所涉及的过程。最重要的收获是，最佳实践不是从头开始创建文档，而是将模板文档放入你的\
+  \ bundle 中，这样打开和创建文档都可以使用相同的基础代码。\n\n"
+- '# 8. 使用共享按钮共享文档
+
+
+  在前面的章节中，你了解了如何在 iOS 和 macOS 上实现文档以保存数据并在你的应用之间共享数据。在本章中，你将看到另一种使用共享按钮共享数据的方式，这样你就可以动态地从一个应用向另一个应用共享数据，而无需使用文档来存储和共享数据。
+
+
+  本章涵盖的主要内容有：
+
+
+  -   使用共享按钮（作为用户）
+
+  -   使用共享按钮（作为开发者）
+
+  -   管理共享数据
+
+
+  ## 使用共享按钮（作为用户）
+
+
+  要共享数据，需要一个应用来共享数据（有时这个过程称为*提供*数据）以及另一个（或多个）应用来接收数据并按接收应用的需求使用数据。请注意，就像文档及其类型的情况一样，发送者和接收者（或提供者和接收者）之间的连接是动态的。两个应用都不需要了解对方。文档类型或共享信息让每个应用能够独立运行，这样你就不需要构建需要大量开发和维护成本的大型多用途应用。
+
+
+  共享是 Cocoa 和 Cocoa Touch 的一部分（从操作系统的原始 NeXTSTEP 和 Rhapsody 版本开始就已经存在了）。为了共享数据，发送者和接收者都需要有一个通用的格式可用。以下是一个基本结构的例子。
+
+
+  ## 创建共享示例
+
+
+
+
+  ### 注意
+
+
+  请记住，你可以将应用添加到模拟器中。邮件可能尚未为你配置。如果你有一台可用于测试的设备，最好使用它。你可以按照第 1 章所述下载 `ShareApp` 来进行测试。请查找第
+  8 章的版本。
+
+
+  用于共享数据的最简单示例是 Xcode 中的主从项目模板。它是许多示例（甚至是 App Store 中的应用）的基础。这是一个带有两个视图的简单应用。在 iPhone
+  上，一次只显示一个视图；在较大的设备上，两个视图会共享屏幕。无论你使用哪种设备，你都可以从一个允许你点击 + 来输入当前日期和时间的应用开始，如图 8-1 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig1_HTML.jpg](img/465467_1_En_8_Fig1_HTML.jpg)
+
+
+  图 8-1. 创建新的时间戳记录
+
+
+  如果你点击在主视图中创建的时间戳，你将看到如图 8-2 所示的详细信息（一个格式更佳的时间戳）。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig2_HTML.jpg](img/465467_1_En_8_Fig2_HTML.jpg)
+
+
+  图 8-2. 详情视图
+
+
+  在图 8-3 中，你可以看到一个操作按钮被添加到了导航栏的右侧。（你将在本章中学习如何实现它）。通过该操作按钮，你可以从详情视图共享数据。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig3_HTML.jpg](img/465467_1_En_8_Fig3_HTML.jpg)
+
+
+  图 8-3. 添加操作按钮以共享数据
+
+
+  此处使用的示例名为 `ShareApp`。从如图 8-4 所示的主从应用模板开始。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig4_HTML.jpg](img/465467_1_En_8_Fig4_HTML.jpg)
+
+
+  图 8-4. 从主从应用项目模板开始
+
+
+  创建你自己的应用版本，如图 8-5 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig5_HTML.jpg](img/465467_1_En_8_Fig5_HTML.jpg)
+
+
+  图 8-5. 构建你自己的项目
+
+
+  如图 8-6 所示，此时你无需担心任何设置，因为默认设置即可满足你的需求。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig6_HTML.jpg](img/465467_1_En_8_Fig6_HTML.jpg)
+
+
+  图 8-6. 使用默认的主从应用设置
+
+
+  打开故事板。你将看到如图 8-7 所示的两个主视图。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig7_HTML.jpg](img/465467_1_En_8_Fig7_HTML.jpg)
+
+
+  图 8-7. 打开故事板
+
+
+  打开工具面板顶部的对象库以查看库中的对象，如图 8-8 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig8_HTML.jpg](img/465467_1_En_8_Fig8_HTML.jpg)
+
+
+  图 8-8. 选择要添加的栏按钮项
+
+
+  将一个栏按钮项拖拽到详情场景顶部栏的右侧，如图 8-9 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig9_HTML.jpg](img/465467_1_En_8_Fig9_HTML.jpg)
+
+
+  图 8-9. 添加栏按钮项
+
+
+  从属性检查器中，选择“操作”按钮，如图 8-10 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig10_HTML.jpg](img/465467_1_En_8_Fig10_HTML.jpg)
+
+
+  图 8-10. 选择操作按钮
+
+
+  通过使用辅助编辑器打开故事板来实现操作按钮，这样你就可以同时看到故事板和 `DetailViewController`，如图 8-11 所示。从故事板中的操作按钮按住
+  Control 键拖拽到 `DetailViewController` 中的代码，并将输出口命名为 `actionButton`。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig11_HTML.jpg](img/465467_1_En_8_Fig11_HTML.jpg)
+
+
+  图 8-11. 连接 `actionButton` 的输出口
+
+
+  添加操作的代码，如图 8-12 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig12_HTML.jpg](img/465467_1_En_8_Fig12_HTML.jpg)
+
+
+  图 8-12. 准备按钮和操作
+
+
+  在 `actionButtonAction` 函数中设置一个断点，并测试你的操作按钮现在是否正常工作。
+
+
+  剩下的工作就是实现共享功能了。
+
+
+  ### 共享数据
+
+
+  此处的目标是以其他应用可以识别的格式共享时间戳数据。这是通过实现 `UIActivityViewController` 来完成的，你将在此部分看到具体做法。你呈现的活动视图控制器将反映你可用于共享的数据类型以及该数据的可能接收者。由于这种动态机制，你无法确定应该看到什么，因此本节中的第一个示例将使用一种非常基本的共享类型：活动视图控制器将共享本节中包含的文本。对于大多数用户来说，此文本可以被内置应用（如邮件、备忘录和短信）接收。
+
+
+  你的活动视图控制器将呈现一个可供共享的项目列表。对于此示例，你可以使用清单 8-1 中所示的代码来实现。将此代码添加到 `DetailViewController`
+  中。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig13_HTML.jpg](img/465467_1_En_8_Fig13_HTML.jpg)
+
+
+  图 8-13. 尝试使用活动视图控制器
+
+
+  ```
+
+  @IBAction func actionButtonAction(_ sender: Any) {
+
+  let sharedItems = "示例文本"
+
+  let activityViewController = UIActivityViewController(activityItems:
+
+  [textToShare], applicationActivities: nil)
+
+  // 相对于此视图定位弹出窗口
+
+  activityViewController.popoverPresentationController?.sourceView = self.view
+
+  // 呈现视图控制器
+
+  self.present(activityViewController, animated: true,
+
+  completion: nil)
+
+  }
+
+  }
+
+  清单 8-1
+
+  actionButtonAction
+
+  ```
+
+
+  在此示例中，你需要一个能够处理纯文本的接收者。邮件、备忘录和短信可以做到这一点，但如果你没有安装它们，你的选择将仅限于“保存”或“拷贝”。否则，你将看到一个活动视图控制器，如图
+  8-14 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig14_HTML.jpg](img/465467_1_En_8_Fig14_HTML.jpg)
+
+
+  图 8-14. 使用活动视图控制器
+
+
+  如果你已经安装了邮件，你可以发送该文本，如图 8-15 所示。
+
+
+  ![../images/465467_1_En_8_Chapter/465467_1_En_8_Fig15_HTML.jpg](img/465467_1_En_8_Fig15_HTML.jpg)
+
+
+  图 8-15. 你可以通过活动视图控制器通过电子邮件发送文本
+
+
+
+
+  ## 摘要
+
+
+  尝试发送方与接收方的各种组合。传递给活动视图控制器的项目集合是一个类型为 `Any` 的集合。供参考，以下是 `UIActivityViewController`
+  中 `init` 的声明：
+
+
+  ```
+
+  init(activityItems: [Any], applicationActivities: [UIActivity]?)
+
+  ```
+
+
+  你会注意到，你可以将活动指定为可选类型；关于它们的更多信息可在文档中找到。
+
+
+  ### 注意
+
+
+  严格来说，偏好设置是某个设置的值，例如绘制新线条时使用的颜色，其中 `lineColor` 偏好的值为蓝色。一旦设置了某个设置的值，该值就会持久化，并在每次应用运行时使用，直到被更改。在这种情况下，偏好设置也可称为默认值。在
+  iOS 中，内置的“设置”应用让用户可以控制偏好设置和配置。
+
+
+  Cocoa 中的偏好设置存储在 Cocoa 偏好设置系统（也称为用户默认值系统）中。如果你想对这些术语进行严格区分，那么在 iOS 中，内置的“设置”应用为用户控制这些值。在
+  Cocoa 和 Cocoa Touch 中，用户默认值系统管理一个包含这些值的数据库。有些人区分设置（用户界面的一部分）和用户默认值（Cocoa 框架的一部分）。
+
+
+  本章探讨了当今你可以用于这些数据工具的各种可能性。
+
+
+  ## 审视数据结构
+
+
+  处理文档时，你可以控制数据的格式化和管理。你可以使用标准文档类型，该类型可能有关联的类（例如图像），但用于用户默认值、设置和偏好设置的数据则更为有限。具体来说，这些对象必须全部是属性列表元素。属性列表是一种键值结构，其中键是字符串，值是以下任何一种简单数据类型：
+
+
+  - 字符串
+
+  - 日期
+
+  - 整数
+
+  - 浮点数
+
+  - 布尔值
+
+
+  属性列表（扩展名为 `.plist`）专为高效的序列化而设计。`PropertyListSerialization` 类会为你处理此过程。属性列表在 Cocoa
+  中广泛使用；多年来，这段代码经过不断优化和测试，使其可以可靠地用于许多任务。
+
+
+  此外，`NSData` 类型可以存储在属性列表中。如果这样做，你必须处理该数据与你想要处理的对象之间的序列化和反序列化。一个非常常见的例子是将 `NSData`
+  类型转换为某种二进制格式，然后可以将其解释为图像或其他复杂的数据结构。
+
+
+  属性列表还可以包含数组和字典。这意味着你可以使用一个属性列表，该列表本身是一个包含字典的数组，而该字典又声明了另一个数组以及数字和其他简单对象。
+
+
+  在考虑用户默认值、设置和偏好设置时，需要牢记的另一个限制是，苹果公司的指导建议是，这些工具应仅用于有限的目的和相对少量的数据。
+
+
+  在考虑以这种方式存储数据时，不必过于担心可以存储多少数据作为用户默认值、设置或偏好设置，因为这并非真正的限制因素。如果你以这种方式用尽设备几乎所有的存储空间，远在你用尽空间之前，性能就会下降。
+
+
+  属性列表作为 `PropertyListSerialization` 类的实例存储。作为该类的实例，属性列表在读取或写入时会被完整地读取或写入。这可能意味着，为了访问一个单一的布尔值，你可能需要读取或写入一个包含几十、几百甚至上千个项目的完整属性列表。你可以通过将属性列表值存储在数组或字典中来集中读取或写入，但这并不能真正帮上什么大忙。你需要读取整个属性列表才能获取到数组或字典，然后才能精确定位到你想要的值。
+
+
+  存储为默认值、偏好设置和设置的数据可以是任何你想要存储的内容（前提是它是一个属性列表，并且不占用太多空间）。这些术语之间存在差异，这正是理解它们的一个很好起点。
+
+
+  ### 提示
+
+
+  当你考虑使用这些工具存储自己的数据时，请记住，“设置”应用和用户默认值系统会管理这些数据。如果你希望完全控制数据、数据的存储方式以及数据的用户界面，你可能需要使用数据库或文档，由你自行控制这些特性。
+
+
+  ## 理解用户默认值
+
+
+  用户默认值是应用某个方面的起始值（默认值）。例如，一个允许你存储班级中学生姓名的应用，可能会首先将学生标识为“学生 1”、“学生 2”，以此类推。用户添加的新学生可能被称为“新学生”。
+
+
+  在这样一个应用中，你可能希望让用户设置他们自己的默认值，例如：
+
+
+  - “学生”是应用中每个项目的名称，新项目被标记为“新学生”。
+
+  - 你可以将项目的默认值更改为“项目”，这样在应用运行时，你会看到“椅子”和“新椅子”。
+
+  - 稍微复杂一点的默认值可能允许用户在“新”和数字之间做选择，以标识新项目，例如“新椅子”或“椅子 3”。
+
+
+  像这样的默认值通常会对用户公开，以便他们可以选择。
+
+
+  ### 提示
+
+
+  在这种情况下，空字符串可能是默认值。
+
+
+  ## 探索设置
+
+
+  有一个用户默认值数据库，为每个应用存储类似这样的设置。设置值在应用的每次使用之间持久化。此外，用户可以直接使用内置工具更改设置，本章稍后会展示这一点。
+
+
+  ## 添加设置束
+
+
+  要在 iOS 应用中实现“设置”功能，你需要做的是添加一个包含设置束的新文件。你可以在你的应用中使用“新建 ➤ 文件”来完成此操作，如图 9-4 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig4_HTML.jpg](img/465467_1_En_9_Fig4_HTML.jpg)
+
+
+  图 9-4. 向应用添加设置束
+
+
+
+
+  ### 提示
+
+
+  向应用中添加设置包时，请务必选择正确的文件。其他设置包包括 WatchKit 设置包，并且未来很可能还会出现其他类型的设置包。
+
+
+  务必将新文件添加到应用中正确的目标（target）中，如图 9-5 所示。（将其放置在哪个组中对于组织文件很重要，但目标（target）设置是绝对必要的。）
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig5_HTML.jpg](img/465467_1_En_9_Fig5_HTML.jpg)
+
+
+  **图 9-5.** 将新设置包放置在正确的目标中
+
+
+  添加设置包后，您将在项目导航器中看到它，如图 9-6 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig6_HTML.jpg](img/465467_1_En_9_Fig6_HTML.jpg)
+
+
+  **图 9-6.** 确认设置包已添加到项目导航器
+
+
+  请注意，该包内包含一个组（`en.lproj`），其中包含针对包根目录的一些本地化字符串，以及一个根字符串的属性列表。您可以原样使用它们。默认值如图 9-7 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig7_HTML.jpg](img/465467_1_En_9_Fig7_HTML.jpg)
+
+
+  **图 9-7.** 您可以原样使用默认设置字符串
+
+
+  将设置包添加到应用后，您可以通过内置的“设置”应用进行尝试。在模拟器中运行应用并找到“设置”，如图 9-8 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig8_HTML.jpg](img/465467_1_En_9_Fig8_HTML.jpg)
+
+
+  **图 9-8.** 在 iOS 中使用“设置”
+
+
+  向下滚动找到“PreferencesApp”，如图 9-9 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig9_HTML.jpg](img/465467_1_En_9_Fig9_HTML.jpg)
+
+
+  **图 9-9.** 在“设置”中点击“PreferencesApp”
+
+
+  打开设置包中的`Root.plist`。您将看到如图 9-10 所示的默认设置。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig10_HTML.jpg](img/465467_1_En_9_Fig10_HTML.jpg)
+
+
+  **图 9-10.** 初始设置
+
+
+  打开“文本字段”项以查看其值。将“默认值”的值更改为“Student”，如图 9-11 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig11_HTML.jpg](img/465467_1_En_9_Fig11_HTML.jpg)
+
+
+  **图 9-11.** 将“默认值”更改为“Student”
+
+
+  您可以利用自动大写样式，如图 9-12 所示。这意味着输入的文本中的单词将首字母大写。尝试其他“设置”命令，您会发现其中内置了许多功能，无需您自己编写代码。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig12_HTML.jpg](img/465467_1_En_9_Fig12_HTML.jpg)
+
+
+  **图 9-12.** 调整您应用的设置
+
+
+  最后，在模拟器中测试“设置”，如图 9-13 所示。（您会注意到，应用中“设置”的某些项是由 iOS 自动添加的。“Siri 与搜索”设置就是一个例子。）
+
+
+  ### 从代码访问设置包
+
+
+  当用户调整“设置”时，这仅仅是个开始。您需要能够在应用中访问这些设置值。本节将展示如何基于“设置”实现这一点，如图 9-13 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig13_HTML.jpg](img/465467_1_En_9_Fig13_HTML.jpg)
+
+
+  **图 9-13.** 测试设置
+
+
+  首先请记住，iOS 中的“设置”访问的是 Cocoa 内置的默认数据库。该数据库由`UserDefaults`类对象（不是实例，是类本身）管理。`UserDefaults`（类对象）有一个函数，可以通过`standard`属性返回共享的默认对象。如前所述，`UserDefaults`中的每个项都有一个键，您可以使用如下代码进行访问：
+
+
+  ```
+
+  return UserDefaults.standard.bool (forKey: "name_preference")
+
+  ```
+
+
+  这个键是属性列表中的标识符键。如图 9-14 所示，当您开始输入访问某个键的代码时，系统会自动补全。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig14_HTML.jpg](img/465467_1_En_9_Fig14_HTML.jpg)
+
+
+  **图 9-14.** 使用标识符键访问用户默认属性
+
+
+  您可以通过在`appDelegate application(:didFinishLaunchingWithptions:)`中添加代码来测试这一点，如图 9-15
+  所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig15_HTML.jpg](img/465467_1_En_9_Fig15_HTML.jpg)
+
+
+  **图 9-15.** 在用户默认“设置”应用中访问属性
+
+
+  ### 添加设置界面
+
+
+  图 9-15 所示的代码仅在应用启动时执行。您可以构建自己的界面，以便在任何时候显示用户默认属性。在主故事板的视图控制器中，添加一个按钮，如图 9-16 所示。（如果您使用的是本章所示的“单视图应用”项目模板，则要使用的视图控制器名为`ViewController`。）
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig16_HTML.jpg](img/465467_1_En_9_Fig16_HTML.jpg)
+
+
+  **图 9-16.** 向视图控制器添加按钮
+
+
+  记得将按钮连接到应用中的操作，如图 9-17 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig17_HTML.jpg](img/465467_1_En_9_Fig17_HTML.jpg)
+
+
+  **图 9-17.** 将按钮连接到操作
+
+
+  在操作中添加断点，以便检查用户默认属性的值，如图 9-18 所示。
+
+
+  ![../images/465467_1_En_9_Chapter/465467_1_En_9_Fig18_HTML.jpg](img/465467_1_En_9_Fig18_HTML.jpg)
+
+
+  **图 9-18.** 使用断点检查值
+
+
+  ## 总结
+
+
+  本章展示了如何使用内置的用户默认偏好设置和/或“设置”应用来存储应用的值。这些值必须能够存储在属性列表中，且不应是大型数据对象，但除了构建大规模数据管理器之外，您可以将它们用于多种目的。
+
+
+  '
+- '# 10. 使用文件封装和包
+
+
+  本节让您了解除文档之外的数据存储工具。与文档一样，它们都是持久化应用数据的方式，并且所有这些工具（包括文档）在 Cocoa 和 Cocoa Touch 上都受支持。许多工具（包括本书这一部分提到的）在
+  Cocoa 及其前身中都有着悠久的历史。如前所述，文档随着时间的推移不断发展，并且在许多方面发生了变化。本节中的工具当然也随着时间的推移发生了变化，但其基本结构却出奇地稳定，因此它们既用于许多遗留应用，也用于当今正在开发的应用。本章中的所有工具都允许您将文件组合成多文件结构，这些结构既可以作为单个结构，也可以作为其组成部分进行操控。
+
+
+
+
+  ## 使用包
+
+
+  自麦金塔电脑早期起，多文件包就被用于管理文件。在最初的麦金塔文件系统中，文件包含两个称为分支的部分。几乎所有文件都有一个`data fork`（数据分支），许多文件还有一个`resource
+  fork`（资源分支）。用户可见的文件主要是数据分支，而资源分支包含数据分支所使用的元素。这些元素通常是警告、图标以及其他可识别或可见的元素。资源分支中的每种元素都有一个名称，通常是四个字符的代码，例如
+  `ALRT`（表示警告）、`DLOG`（表示对话框）或 `ICON`。在容器中使用可识别且结构化的元素这一理念，至今仍是 Cocoa 的关键组成部分。
+
+
+  资源分支的缺点在于，当您将文件复制到其他平台时，资源分支通常会消失；数据分支包含数据，因此在大多数情况下这并非灾难。如今，Cocoa（以及 Cocoa Touch）采用了一种更复杂的方式，将数据封装成一个看似单一的文件。这些被称为包。
+
+
+  ### 注意
+
+
+  Swift 包是用于组装代码和管理依赖项的清单。一个常用的工具是 CocoaPods（[`CocoaPods.org`](http://cocoapods.org)）。
+
+
+  您仍然可以随处见到包，尤其是在开发者工具中。当您在 Xcode 中创建项目时，通常会创建一个包含两个项目的文件夹，如图 10-1 所示。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig1_HTML.jpg](img/465467_1_En_10_Fig1_HTML.jpg)
+
+
+  图 10-1
+
+
+  一个 Xcode 项目包含一个文件和一个文件夹
+
+
+  在图 10-1 所示的示例中，项目名称为 `iOSDocumentApp`。项目本身位于一个 `xcodeproj` 文件中，该文件包含对 `iOSDocumentApp`
+  文件夹的引用。打开的文件夹如图 10-2 所示。请注意，该文件夹内包含单独的文件，以及包含更多文件和文件夹的子文件夹。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig2_HTML.jpg](img/465467_1_En_10_Fig2_HTML.jpg)
+
+
+  图 10-2
+
+
+  项目文件夹包含子文件夹和文件
+
+
+  如果您在 Finder 中按住 Control 键并点击某个文件或文件夹，您将看到该文件或文件夹作为包的内容。如图 10-3 所示。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig3_HTML.jpg](img/465467_1_En_10_Fig3_HTML.jpg)
+
+
+  图 10-3
+
+
+  使用 Control 键查看文件包内部
+
+
+  请注意，并非所有文件或文件夹都是包，因此 Control 键无法打开它们。然而，重要的是要了解您的 Xcode 项目是一个文件包。如果您将文件夹移开，使其与引用它的
+  `xcodeproj` 文件分离，将会破坏项目包。
+
+
+  在文件包内部，内容通常按结构组织，包含一个 `Contents` 文件夹，其中包含子文件夹，如图 10-4 所示。大多数应用程序都有一个 `Contents`
+  文件夹。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig4_HTML.jpg](img/465467_1_En_10_Fig4_HTML.jpg)
+
+
+  图 10-4
+
+
+  文件和文件夹可以在包内结构化组织
+
+
+  ## 关于 Bundle
+
+
+  如果您查看 Xcode 应用程序中的构建阶段，会看到一个将文件移入应用程序 bundle 的步骤，如图 10-5 所示。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig5_HTML.jpg](img/465467_1_En_10_Fig5_HTML.jpg)
+
+
+  图 10-5
+
+
+  应用程序包含 bundle
+
+
+  当您在项目导航器中向应用程序添加文件时，它们通常会自动添加到“构建阶段”步骤中，以便在应用程序 bundle 中找到它们，并且您可以在代码中从那里检索它们。默认情况下，您的应用程序有一个包含已知内容的主
+  bundle（`bundle.main`）。您可以在 [`developer.apple.com`](http://developer.apple.com) 上搜索
+  `bundle` 找到其 API。
+
+
+  ## 使用文件封装器
+
+
+  文件封装器与包有些相似，因为它们可以在单个对象中包含文件和文件夹。一个文件封装器通常至少包含一个文件，但也可以是空的。文件封装器最常用于作为文档中文件和文件夹的容器，而该文档本身就是一个文件封装器。图
+  10-6 展示了一个文件封装器文档。
+
+
+  ![../images/465467_1_En_10_Chapter/465467_1_En_10_Fig6_HTML.jpg](img/465467_1_En_10_Fig6_HTML.jpg)
+
+
+  图 10-6
+
+
+  声明一个文件封装器文档
+
+
+  请注意，您需要将 `LSTypeIsPackage` 属性设置为 YES，以便文档在用户看来是一个单一对象。文件类型应符合 `com.apple.package`。
+
+
+  您可以按照第 1 章所述下载 `WrapperPlaygroundDemo`，了解如何组装一个文件封装器文档。该过程将在下一节中描述。代码如代码清单 10-1
+  所示。
+
+
+  该过程很简单：
+
+
+  - 整理好将要被封装的各个文件。
+
+  - 将每个文件转换为 `Data` 类型（以前是 `NSData`）。Swift 中有实用方法可以轻松做到这一点。
+
+  - 将每个文件封装在一个封装器中。
+
+  - 在文档中创建一个根封装器。
+
+  - 将每个封装好的文件添加到根封装器中。
+
+
+  您可以按任意顺序执行这些步骤，并且有一些函数可以让您动态地添加和移除它们。文件封装器的一个常见用途是将多个相关文件（如媒体和文本）封装在一起。如果它们被封装在一个文件封装器中，您可以使用
+  `contents(forType:)` 和 `load(fromContents:ofType:)` 方法，就像处理由任何数据类型（如存档、单张图片或文本）组成的文档一样。
+
+
+  根文件封装器中的文件没有特定的顺序。出于效率考虑，最重要的一点是每个文件封装器是单独加载的，因此，如果单个对象中包含大量文件，您可以按需加载它们（Swift 和
+  Cocoa 会为您处理这一点）。
+
+
+  代码清单 10-1 展示了将名为 `testString` 和 `testImage` 的文件组装成一个文件封装器的代码；它们各自被封装在一个独立的封装器中（名称分别为
+  `stringDataWrapper` 和 `imageDataWrapper`）。此外，还有一个 `rootDirectoryWrapper`。如代码清单 10-1
+  末尾的代码注释所述，您可以使用 `contents(forType:)` 或 `load(fromContents:ofType:)` 来读取或写入被封装的这些文件。
+
+
+  ```
+
+  import UIKit
+
+  import PlaygroundSupport
+
+  let testString = "Now is the time"
+
+  let testImage = UIImage(named:"mantegna.jpg")
+
+  // 转换为 Data
+
+  let imageData = testImage!.pngData()
+
+  let stringData = testString.data (using: .utf8)
+
+  // 构建目录封装器
+
+  let rootDirectoryWrapper = FileWrapper(directoryWithFileWrappers: [:])
+
+  // 封装字符串
+
+  let stringDataWrapper = FileWrapper(regularFileWithContents: stringData!)
+
+  stringDataWrapper.preferredFilename = "StringWrapper"
+
+  rootDirectoryWrapper.addFileWrapper(stringDataWrapper)
+
+  // 封装图片
+
+  let imageDataWrapper = FileWrapper(regularFileWithContents: imageData!)
+
+  imageDataWrapper.preferredFilename = "ImageWrapper"
+
+  rootDirectoryWrapper.addFileWrapper(imageDataWrapper)
+
+  print ("封装器", rootDirectoryWrapper)
+
+  print (rootDirectoryWrapper.fileWrappers)
+
+  for eachWrapper in rootDirectoryWrapper.fileWrappers! {
+
+  print (eachWrapper)
+
+  }
+
+  // 用于写入：如果在 contents(forType:) 中使用，则返回 rootDirectoryWrapper
+
+  // 用于读取：使用 load(fromContents:ofType:)
+
+  代码清单 10-1
+
+  在 Playground 中组装文件封装器文档
+
+  ```
+
+
+
+
+  ## 摘要
+
+
+  本章展示了如何将文件打包成捆绑包或文件封装器。使用文件封装器的优势在于，当管理根文件封装器时，只需更新必要的文件封装器。根据具体需求，能够灵活选择单独或统一处理文件，这是从封装器和捆绑包中需要掌握的核心思想。
+
+
+  '
+- "# 11. 使用文件归档\n\n在第 7 章中，你学习了读取和写入文档数据的基础知识。其中一种常见做法是将你自己的数据从其结构和格式转换为`NSData`对象（现已变为`Data`对象），然后通过一条简单的语句进行读取或写入。唯一需要注意的是，你需要自行完成从数据类型到`Data`的转换。最简单且最常用的技术之一是使用\
+  \ Cocoa 内置的归档技术。\n\n### 注意\n\n归档正在逐渐被`Codable`取代，但这一过渡仍在进行中。较旧的代码通常仍使用本章所述的归档方法。你可以在\
+  \ [`https://developer.apple.com/documentation/foundation/archives_and_serialization`](https://developer.apple.com/documentation/foundation/archives_and_serialization)\
+  \ 找到 Apple 关于这两种技术的文档。此外，最新版本的 Swift 中`NSData`已变为`Data`。\n\n本章概述了归档技术。示例展示了归档的常见用途：获取一些数据，将其归档为`Data`，然后（希望）解归档回原始值。这是一个非常有用的过程，许多开发者会在应用中保留这种代码，但将其注释掉，以便在调试时只需启用代码即可进行监控。\n\
+  \n## 使用 Swift 统一日志系统\n\n本章中的归档和调试代码使用 iOS 10、macOS 10、tvOS 10 和 watch OS 3（以及这些产品的后续版本）中提供的\
+  \ Swift 统一日志系统实现。统一日志是一种现代化且高效的工具，取代了 Apple 系统日志 (ASL) 等旧工具。在编写新代码时，可以逐步迁移到统一日志，开发者目前也正在这样做。本节作为入门，快速介绍统一日志。更多信息，请访问\
+  \ Apple 文档：[`https://developer.apple.com/documentation/os/logging`](https://developer.apple.com/documentation/os/logging)。\n\
+  \n统一日志的核心是一个包含日志信息的数据类型（它取代了先前通过向函数传递参数来实现的日志记录方式）。如果你使用统一日志，你可以为日志记录构建自己的结构。第 11\
+  \ 章中的 ShareApp 示例（可按第 1 章所述下载）使用了一种常见版本。它是一个用清单 11-1 所示的代码定义的`struct`。\n\n```\n\
+  // 使用新的 Swift 统一日志系统\nimport os.log\nstruct Log {\nstatic var general = OSLog(subsystem:\
+  \ \"com.myapp.my_target\",\ncategory: \"info\")\n}\n清单 11-1\n常用的日志结构\n```\n\n此代码如图\
+  \ 11-1 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig1_HTML.jpg](img/465467_1_En_11_Fig1_HTML.jpg)\n\
+  \n图 11-1. 导入`os.log`并定义`struct`\n\n在该示例中，这段代码被放置在`AppDelegate.swift`文件的顶部。你可以在应用中需要的地方使用此代码，本节将会展示。最小版本的调用如下所示：\n\
+  \n```\nos_log(\"Row selected-%@\",\nindexPath.debugDescription)\n```\n\n除了这里展示的基本用法外，其他可记录的信息请参考前面提到的文档。执行此代码后，控制台将显示如下内容：\n\
+  \n```\n2018-12-26 14:51:09.777111-0500 ShareApp[6228:697878]\nRow selected-[0, 0]\n\
+  ```\n\n这会触发对`OSLog`的调用。除了此处显示的参数外，你还可以添加其他参数，例如`print`语句的标准格式化字符串，如\n\n```\n(\"\
+  Row selected-%@\",\n```\n\n以及一个根据该命令动态生成并格式化的字符串。\n\n你将在本章稍后部分看到其实际应用。\n\n## 使用日志和断点归档数据\n\
+  \n如果你使用归档来对`contents(forType:)`和`load(fromContents:, ofType:)`函数进行编码和解码数据，那么在断点处测试该代码会很有用。测试完成后，你便可以在实际函数中使用归档。\n\
+  \n回到 ShareApp，你可以在主视图控制器中拦截对生成的时间戳的点击，并尝试对其进行编码。图 11-2 提醒你，主视图控制器中可以通过 + 按钮添加新的时间戳项。\n\
+  \n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig2_HTML.jpg](img/465467_1_En_11_Fig2_HTML.jpg)\n\
+  \n图 11-2. 使用 + 添加新时间戳\n\n如前所述，以主从视图控制器作为许多应用的起点是很常见的。在主从模型中，你可以在主控制器或从控制器层面添加功能。用户习惯了这种界面，因此不要添加不熟悉的变体是合理的。如果你在主视图控制器上添加一个“分享”按钮，如图\
+  \ 11-3 所示，用户会期望能够分享主视图控制器的全部内容，即所有数据。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig3_HTML.jpg](img/465467_1_En_11_Fig3_HTML.jpg)\n\
+  \n图 11-3. 分享主视图控制器数据\n\n但是，如果你只想分享单个项目该怎么办？可以采用两种方法。一种方法是在从视图控制器上放置一个“分享”按钮，如图 11-4\
+  \ 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig4_HTML.jpg](img/465467_1_En_11_Fig4_HTML.jpg)\n\
+  \n图 11-4. 从从视图控制器分享\n\n使用主从模型时，你必须记住，是主控制器负责管理从控制器。这意味着，选择某个从控制器的控制权应属于主视图控制器，因为将由它来管理从控制器的选择。\n\
+  \n如果由主控制器来处理选择，那么“分享”按钮应该放在哪里，才能避免与选择所有数据的“分享”按钮混淆？最常见的解决方案是直接点击或单击主视图控制器中从控制器的某一行来管理选择。这是一种高效的方法（并且利用了一个有用的函数）。\n\
+  \n允许你从主视图控制器中选择单个从控制器项的函数是`UITableViewDelegate`协议中的`tableView(_:didSelectRowAt:)`方法。\n\
+  \n图 11-5 展示了如何通过添加日志消息来重写该函数（日志消息在清单 11-1 的基础上增加了`log`和`type`变量）。\n\n该代码会在控制台显示一条消息，标识出哪个从控制器项已被选中，如图\
+  \ 11-5 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig5_HTML.jpg](img/465467_1_En_11_Fig5_HTML.jpg)\n\
+  \n图 11-5. 记录从控制器项的选择\n\n\n\n### 选择要归档的项目\n\n要开始归档，请先创建一个断点，以便访问所选项目。在 `tableView(_:didSelectRowAt:)`\
+  \ 函数中执行此操作，如代码清单 11-2 所示。\n\n```\noverride func tableView(_ tableView: UITableView,\n\
+  didSelectRowAt indexPath: IndexPath) {\n//let rowDebugDescription = indexPath.debugDescription\n\
+  os_log(\"Row selected-%@\",\ntype: .info,\nindexPath.debugDescription)\n// set a\
+  \ breakpoint here\nlet object = objects[indexPath.row] as! NSDate\n}\n代码清单 11-2\n\
+  展示所选对象\n```\n\n图 11-6 展示了本次测试中的模拟器及其数据。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig6_HTML.jpg](img/465467_1_En_11_Fig6_HTML.jpg)\n\
+  \n图 11-6. 用于测试的模拟器数据\n\n当在模拟器中选中项目时，断点会被触发，如图 11-7 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig7_HTML.jpg](img/465467_1_En_11_Fig7_HTML.jpg)\n\
+  \n图 11-7. 确保你选中了正确的详情对象\n\n此实验要求你正确捕获详情项目，因此请务必确认已成功捕获。（在此示例中，请确保已创建至少两个详情项目，以便使用时间戳区分它们。）\n\
+  \n### 创建要归档的对象\n\n`ShareApp` 在主视图控制器中创建新对象，然后由控制器显示。这些对象是带有当前时间戳的 `NSDate` 对象。当你开始考虑归档对象时，可以继续使用这些\
+  \ `NSDate` 对象，但在实际应用中，你可能会使用自定义对象进行归档。为此，可以在这里创建一个新对象 (`ShareableObject`)，用于归档测试。`SharableObject`\
+  \ 实际上将封装一个 `NSDate` 对象，因此对应用的改动相对较少。（不仅改动较少，而且如果将此应用作为其他项目的基础，你还需要为每个项目重复这些修改。）\n\
+  \n第一步是创建新的 `SharableObject` 类，它封装一个可称为 `sharableDate` 的 `NSDate` 对象。像往常一样，在 Xcode\
+  \ 中使用 File ➤ New ➤ File 创建新类，为 iOS 创建一个新的 Cocoa Touch 类，如图 11-8 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig8_HTML.jpg](img/465467_1_En_11_Fig8_HTML.jpg)\n\
+  \n图 11-8. 为 `ShareableObject` 创建新类\n\n将新类命名为 `SharableObject`，如图 11-9 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig9_HTML.jpg](img/465467_1_En_11_Fig9_HTML.jpg)\n\
+  \n图 11-9. 该类需要是 `NSObject` 的子类\n\n与往常一样，当向项目添加新类时，请确保它位于正确的目标中，如图 11-10 所示。\n\n\
+  ![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig10_HTML.jpg](img/465467_1_En_11_Fig10_HTML.jpg)\n\
+  \n图 11-10. 将新类添加到目标中\n\n向 `SharableObject` 添加 `sharableDate` 属性，如图 11-11 所示。\n\n\
+  ![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig11_HTML.jpg](img/465467_1_En_11_Fig11_HTML.jpg)\n\
+  \n图 11-11. 创建类\n\n做一些修改，使得在向应用添加对象时，不再创建新的 `NSDate`，而是创建一个新的 `ShareableObject`。类似地，更新界面以显示\
+  \ `ShareableObject` 内部的日期。这些是常见的修改，将在下一节中快速展示。\n\n在 `MasterViewController` 中，`insertNewObject`\
+  \ 将需要插入一个新的 `ShareableObject`。代码清单 11-3 展示了更新后的函数。\n\n```\n@objc\nfunc insertNewObject(_\
+  \ sender: Any) {\n//objects.insert(NSDate(), at: 0)\nobjects.insert(SharableObject(),\
+  \ at: 0)\nlet indexPath = IndexPath(row: 0, section: 0)\ntableView.insertRows(at:\
+  \ [indexPath], with: .automatic)\n}\n代码清单 11-3\n插入新的 ShareableObject\n```\n\n按代码清单\
+  \ 11-4 所示修改 `MasterViewController`，以显示 `sharableDate` 对象的描述。\n\n```\noverride func\
+  \ tableView(_ tableView: UITableView,\ncellForRowAt indexPath: IndexPath) -> UITableViewCell\
+  \ {\nlet cell = tableView.dequeueReusableCell(withIdentifier: \"Cell\", for: indexPath)\n\
+  let object = objects[indexPath.row] as! SharableObject\ncell.textLabel!.text = object.sharableDate.description\n\
+  return cell\n}\n代码清单 11-4\n展示日期\n```\n\n尝试运行应用。它看起来应该与原始版本相同，但如果你设置一个断点，你应该能够看到展示的是\
+  \ `sharableDate` 的描述。\n\n### 执行归档\n\n现在你有了要归档的项目，就可以进行归档并接着解归档以测试流程。要使用归档工具，你需要在要归档（或解归档）的类中实现\
+  \ `NSCoder` 协议。这种结构意味着每个对象自行编码或解码。在 Cocoa 应用中你会反复看到这一点：每个对象尽可能自行完成工作。这意味着当你对应用进行修改时，可以最小化变更点。如果你回顾上一节中的修改，会发现将\
+  \ `NSDate` 改为 `SharableObject`/`shareableDate` 并不需要重写大量代码。\n\n#### 使类符合 `NSCoding`\
+  \ 协议\n\n创建 `SharableObject` 类时，将其设置为 `NSObject` 的子类，并使其符合 `NSCoding` 协议，该协议负责归档。仅仅向类添加\
+  \ `NSCoding` 就会产生一些错误。Xcode 会询问是否要自动为缺失的函数添加存根，如图 11-12 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig12_HTML.jpg](img/465467_1_En_11_Fig12_HTML.jpg)\n\
+  \n图 11-12. Xcode 可以为 `NSCoding` 函数添加存根\n\n这将帮助你顺利完成应用的开发。\n\n当你点击 Fix 时，存根将被添加，如图\
+  \ 11-13 所示。\n\n![../images/465467_1_En_11_Chapter/465467_1_En_11_Fig13_HTML.jpg](img/465467_1_En_11_Fig13_HTML.jpg)\n\
+  \n图 11-13. 让 Xcode 为 `NSCoding` 添加存根\n\n使用代码清单 11-5 中的代码补全存根。\n\n```\nimport UIKit\n\
+  import os.log\nclass SharableObject: NSObject, NSCoding {\nvar sharableDate: NSDate=NSDate()\n\
+  func encode(with aCoder: NSCoder) {\naCoder.encode(self.sharableDate, forKey: \"\
+  dateKey\")\n}\nrequired init?(coder aDecoder: NSCoder) {\nguard (aDecoder.decodeObject(forKey:\
+  \ \"dateKey\") as? NSDate) != nil else\n{\nos_log (\"Unable to decode sharableDate\"\
+  )\nreturn\n}\nsharableDate = aDecoder.decodeObject(forKey: \"dateKey\") as? NSDate\
+  \ ?? NSDate()\n}\noverride init() {\nsharableDate = NSDate()\n}\ninit(dateToInit:\
+  \ NSDate) {\nsharableDate = dateToInit\n}\n}\n代码清单 11-5\n完整的 sharableObject\n```\n\
+  \n你添加的所有函数都以一个名为 `aCoder` 的 `NSCoder` 作为参数。它是被传入的，所以你无需声明。`encode(with:)` 函数允许你为归档编码数据。该函数的典型用法是编码类中的一个变量，并为其指定一个键名。通过这种方式，你可以通过键名访问归档中的每个变量，而无需担心文件中数据的顺序。在代码清单\
+  \ 11-5 中，第一个 encode 函数编码了 `sharableDate` 属性，并为其分配了键 `dateKey`。\n\n配套函数 `init(coder:)`\
+  \ 接收一个 `Decoder` 对象，并逆转该过程。\n\n\n\n### 实现示例\n\n大多数归档过程都需要输入存根代码。在本示例中，你可以跳过`tableView(:didSelectRowAt:)`，以便能够归档和解归档数据进行测试。本节仅用于测试。示例代码如代码清单\
+  \ 11-6 所示。\n\n```\noverride func tableView(_ tableView: UITableView, didSelectRowAt\
+  \ indexPath: IndexPath) {\nos_log(\"Row selected-%@\",\nindexPath.debugDescription)\n\
+  let object = objects[indexPath.row] as! SharableObject\nvar savedData: Data?\ndo\
+  \ {\nlet data = try NSKeyedArchiver.archivedData(withRootObject: object,\nrequiringSecureCoding:\
+  \ false)\ntry data.write(to: MasterViewController.ArchiveURL)\nsavedData = data\
+  \ as Data // 保留以备后续测试\n} catch {\nos_log (\"无法写入文件\")\n}\ndo {\nlet debuggedUnArchive\
+  \ = try\nNSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData! as Data)\n\
+  if let test = debuggedUnArchive as? SharableObject {\nprint (\"\\(test.sharableDate)\"\
+  )\n}\n} catch {\nos_log (\"无法读取文件\")\n}\n代码清单 11-6\n在示例中实现调试代码\n```\n\n归档代码的核心是这一行：\n\
+  \n```\nlet data = try NSKeyedArchiver.archivedData(withRootObject: object,\n```\n\
+  \n它调用了你创建的存根，将该类归档为一个名为`data`的`Data`对象。这行代码将`Data`对象取出，并在代码清单 11-6 中将其解归档到名为`test`的变量中。\n\
+  \n此处展示的解归档和归档数据过程，使用了你可以创建的临时文件。该文件在`MasterViewController`的顶部通过以下几行代码显示：\n\n```\n\
+  static let DocumentsDirectory = FileManager().urls(\nfor:.documentDirectory,\nin:\
+  \ .userDomainMask).first!\nstatic let ArchiveURL = DocumentsDirectory.appendingPathComponent(\"\
+  sharableObjectURL\")\n```\n\n设置断点并尝试运行代码，观察其运作方式。这是你经常会用到的通用归档代码。\n\n### 将归档迁移至文档\n\
+  \n除了在文件之间来回移动数据，你通常更希望将数据移入或移出可以与其他用户共享的文档。只需修改`UIDocument`函数，使其执行归档和解归档操作即可。这意味着`contents(forType:)`将使用`NSKeyedArchiver.archivedData(withRootObject:\
+  \ requiringSecureCoding:)`将数据归档到`Data`对象中，而`load(fromContents:, ofType)`将使用`NSKeyedUnarchiver.unarchiveTopLevelObjectWithData()`来反向执行归档操作。\n\
+  \n作为参考，代码清单 11-7 展示了将按此方式使用的`UIDocument`函数的存根。\n\n```\nimport UIKit\nclass Document:\
+  \ UIDocument {\noverride func contents(forType typeName: String) throws -> Any {\n\
+  // 使用 Data 或 NSFileWrapper 实例对文档进行编码\nreturn Data()\n}\noverride func load(fromContents\
+  \ contents: Any, ofType typeName: String?)\nthrows {\n// 从 contents: ofType:) 加载文档\n\
+  }\n}\n代码清单 11-7\n请添加标题\n```\n\n## 总结\n\n在本章中，你了解了如何将数据归档和解归档到文件中。你可以使用相同的过程来处理文档。请尝试本章描述的过程，并在测试时设置断点。虽然可能需要花一些时间来尝试，但一旦掌握了归档和解归档，你就可以准备好处理更复杂的文档了。\n\
+  \n### 索引\n\n#### A\n\n- 应用委托\n- Apple 系统日志记录器 (ASL)\n- 归档数据\n- 断点数据对象实现\n- `NSCoding`\
+  \ aCoder\n- sharableObject\n- Xcode 对象创建\n- `NSDate` 对象\n- sharableDate\n- `SharableObject`\n\
+  - 选定对象模拟器\n- `UIDocument` 函数\n\n#### B\n\n- 包，应用\n\n#### C\n\n- Cocoa 位置服务（案例研究）\n\
+  \n#### D\n\n- 数据分支\n- 数据结构\n- 基于文档的应用创建\n  - 基础代码\n  - 浏览标签\n  - 新项目\n  - 审查新项目\n\
+  \  - 在 Xcode 中设置选取\n  - 运行\n  - 故事板\n  - `UIDocument` 函数介绍\n  - 工作流程\n- 基于文档的 macOS\
+  \ 应用\n  - Cocoa 应用创建\n  - 组件信息\n  - 运行\n- 文档匹配\n  - `info.plist` 管理类型\n  - 针对 iOS\
+  \ 应用\n  - 针对 macOS 应用 UYIs\n  - 准备 iCloud\n  - 在 iOS 中设置\n  - 在 macOS 中设置\n- iOS\
+  \ 上文档 *vs.* 文件\n  - 浏览文件\n  - 选择存储位置\n  - 文件系统问题\n  - 最近文件\n  - 查看文件\n- 共享操作\n \
+  \ - 添加按钮\n  - 栏按钮详细视图\n  - `DetailViewController`\n  - Master-Detail 应用模板\n  - 构建自有项目\n\
+  \  - 选择栏按钮\n  - 共享按钮（作为用户）\n  - 创建故事板时间戳记录\n  - `UIActivityViewController`\n- 存储和检索数据\n\
+  - 构造应用\n- 跟踪变更版本\n\n#### E\n\n- `encode(with:)` 函数\n\n#### F\n\n- 文件包装器\n  - 声明文档过程\n\
+  - 分支\n\n#### G, H\n\n- 通用数据保护条例 (GDPR)\n\n#### I\n\n- `info.plist`\n- iOS 文档 *vs.*\
+  \ macOS 文档\n\n#### J, K\n\n- JavaScript 对象表示法 (JSON)\n  - 调试\n  - 解码\n  - 编码原始类型\n\
+  \n#### L\n\n- 日志与断点\n- 日志消息\n- 主从视图控制器\n- 主视图控制器\n\n#### M\n\n- Macintosh 文件系统\n\
+  - macOS *vs.* iOS\n- 模型-视图-控制器 (MVC)\n\n#### N, O\n\n- `NSCoder` 协议\n- `NSData`\
+  \ 对象\n- `NSDocument` 类文档\n- `NSKeyedArchiver.archivedData`\n- `NSKeyedUnarchiver.unarchiveTopLevelObjectWithData()`\n\
+  \n#### P, Q\n\n- 包\n  - 控制键\n  - 文件和文件夹\n  - Macintosh 文件系统\n  - 项目文件夹 Xcode 项目\n\
+  - 偏好设置应用创建过程\n  - 设置特殊选项\n  - 在“设置”中使用点击\n\n#### R\n\n- 资源分支\n\n#### S, T\n\n- 安全概览\n\
+  - 设置 bundle\n  - 通过代码访问\n  - 添加到应用\n  - 调整设置\n  - 更改值\n  - 访问 iOS 键的初始设置\n  - 放置在正确目标中\n\
+  \  - 项目导航器\n  - 根字符串\n  - 测试设置\n- `SharableObject`\n- ShareApp\n- 单视图应用\n- 故事板\n\
+  - Swift 结构体\n  - 创建\n  - 编码键的扩展\n  - 编码的扩展\n  - MVC\n- Swift 统一日志系统\n\n#### U\n\n\
+  - `UIDocumentBrowserViewController`\n  - 文档创建\n  - 文档打开/选取\n  - 文档呈现函数\n  - 处理错误\n\
+  \  - 加载\n- `UIDocumentViewController`\n  - 代码创建\n  - 文档关闭\n  - 文档打开\n  - `UITableViewDelegate`\
+  \ 函数\n- 统一日志数据类型\n  - `os.log`\n- 用户默认\n\n#### V, W\n\n- 提供 ViewController\n  -\
+  \ 添加按钮\n  - 断点\n  - 连接按钮\n\n#### X, Y, Z\n\n- Xcode\n"
