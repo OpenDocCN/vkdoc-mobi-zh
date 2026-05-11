@@ -1,0 +1,2121 @@
+- '
+
+  '
+- "# Windows 8 应用揭秘\n\n## 使用 HTML5 与 JavaScript\n\n**亚当·弗里曼**\n\n---\n\n## 版权信息\n\n\
+  **Windows 8 应用揭秘：使用 HTML5 与 JavaScript** 版权所有 © 2012 亚当·弗里曼\n\n本作品受版权保护。无论是整体还是部分材料，其所有权利均由\
+  \ Apress Media 保留，具体包括翻译权、重印权、插图再利用权、朗诵权、广播权、以缩微胶片或任何其他物理方式复制权、传输或信息存储与检索权、电子改编权、计算机软件权，以及目前已知或未来开发的任何类似或不同方法的权利。此法律保留的例外情况包括：与评论或学术分析相关的简短摘录，或专门为输入并执行于计算机系统而提供、仅供作品购买者独家使用的材料。除非得到出版地版权法的现行版本许可，否则禁止复制本出版物或其部分内容，且必须始终从\
+  \ Springer 获取使用许可。使用许可可通过 Copyright Clearance Center 的 RightsLink 获取。违反者将根据相应版权法受到起诉。\n\
+  \nISBN 978-1-4302-5013-5  \nISBN 978-1-4302-5014-2（电子书）\n\n本书中可能包含注册商标名称、徽标和图片。我们并非在每次出现商标名称、徽标或图片时都使用商标符号，而是仅以编辑方式使用这些名称、徽标和图片，以利于商标所有者，且无意侵犯商标权。\n\
+  \n本出版物中使用的商品名称、商标、服务标志及类似术语，即使未被明确标识，也不应被视为对其是否受专有权利保护的意见表达。\n\n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑及出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本书所包含的材料不作任何明示或默示的保证。\n\
+  \n## 鸣谢\n\n- **Apress 总裁兼出版人：** Paul Manning  \n- **首席编辑：** Ewan Buckingham  \n\
+  - **技术审校：** Fabio Claudio Ferracchiati  \n- **Apress 编辑委员会：** Steve Anglin、Ewan\
+  \ Buckingham、Gary Cornell、Louise Corrigan、Morgan Ertel、Jonathan Gennick、Jonathan\
+  \ Hassell、Robert Hutchinson、Michelle Lowman、James Markham、Matthew Moodie、Jeff Olson、Jeffrey\
+  \ Pepper、Douglas Pundick、Ben Renow-Clarke、Dominic Shakeshaft、Gwenan Spearing、Matt\
+  \ Wade、Tom Welsh  \n- **协调编辑：** Christine Ricketts  \n- **文字编辑：** Kim Wimpsett \
+  \ \n- **排版：** SPi Global  \n- **索引编制：** SPi Global  \n- **美术设计：** SPi Global  \n\
+  - **封面设计：** Anna Ishchenko  \n\n由 Springer Science+Business Media New York 向全球图书贸易发行，地址：233\
+  \ Spring Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮箱：orders-ny@springer-sbm.com，或访问\
+  \ `www.springeronline.com`。\n\n如需翻译相关信息，请发送电子邮件至 rights@apress.com，或访问 `www.apress.com`。\n\
+  \nApress 及 friends of ED 的书籍可批量购买用于学术、企业或促销用途。大多数图书也提供电子书版本及许可。更多信息，请参考我们的特别批量销售–电子书许可网页：`www.apress.com/bulk-sales`。\n\
+  \n作者在文本中提及的任何源代码或其他补充材料，读者可在 `www.apress.com` 获取。有关如何找到您图书源代码的详细信息，请访问 `www.apress.com/source-code`。\n\
+  \n---\n\n*谨以此书献给我亲爱的妻子雅基·格里菲斯。*  \n——亚当·弗里曼\n\n\n\n## 内容一览\n\n**关于作者** ................................................................................\
+  \ xi  \n**关于技术审阅者** ......................................................................\
+  \ xiii  \n**致谢** ..........................................................................................\
+  \ xv  \n**引言** ..........................................................................................\
+  \ xvii  \n\n**第 1 章：入门指南** ........................................................................\
+  \ 1  \n**第 2 章：数据与绑定** ....................................................................\
+  \ 21  \n**第 3 章：应用程序控制** ................................................................\
+  \ 47  \n**第 4 章：布局与磁贴** ....................................................................\
+  \ 73  \n**第 5 章：生命周期事件** .............................................................\
+  \ 103  \n**索引** ..........................................................................................\
+  \ 125  \n\nv  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 目录\n\n**关于作者**\
+  \ ................................................................................\
+  \ xi  \n**关于技术审阅者** ......................................................................\
+  \ xiii  \n**致谢** ..........................................................................................\
+  \ xv  \n**引言** ..........................................................................................\
+  \ xvii  \n\n**第 1 章：入门指南** ........................................................................\
+  \ 1  \n关于本书 ...........................................................................................\
+  \ 1  \n阅读本书前需要了解什么？ ......................................................... 1\
+  \  \n是否需要了解 HTML5？ ..................................................................\
+  \ 2  \n本书需要哪些软件？ .......................................................................\
+  \ 2  \n本书的结构是怎样的？ ...................................................................\
+  \ 3  \n请告诉我更多关于示例 Windows 8 应用的信息 ........................... 4  \n本书代码量大吗？ ...........................................................................\
+  \ 5  \n\n启动与运行 ......................................................................................\
+  \ 6  \n创建项目 ...........................................................................................\
+  \ 6  \n探索 `default.html` 文件 ......................................................................\
+  \ 8  \n探索 `default.css` 文件 ........................................................................\
+  \ 11  \n探索 `default.js` 文件 ...........................................................................\
+  \ 14  \n\n启动与调试 JavaScript Windows 8 应用 ........................................\
+  \ 16  \n重新加载 Windows 8 应用 ................................................................\
+  \ 17  \n调试 Windows 应用商店应用 ..........................................................\
+  \ 19  \n\n小结 .................................................................................................\
+  \ 20  \n\nvii  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n**第 2 章：数据与绑定**\
+  \ ................................................................ 21  \n创建 JavaScript\
+  \ 文件 ........................................................................ 22\
+  \  \n使用代码补全 .................................................................................\
+  \ 23  \n减少全局命名空间污染 ..................................................................\
+  \ 24  \n返回视图模型 .................................................................................\
+  \ 25  \n使用数据绑定 .................................................................................\
+  \ 26\n\n\n\n### 使用基本声明性绑定\n\n创建动态绑定\n\n更新可观测数据项\n\n创建可观测数组\n\n使用模板\n\n应用模板\n\n响应列表变更\n\
+  \n追踪选中项\n\n在应用中应用模板\n\n总结\n\n## 第 3 章：应用程序控件\n\n添加一个`AppBar`\n\n实现应用栏按钮\n\n添加浮出控件\n\
+  \n将浮出控件与 AppBar 命令关联\n\n导入浮出控件内容\n\n连接浮出控件中的控件\n\n使用页面\n\n定义 HTML\n\n创建 JavaScript\
+  \ 回调\n\n加载并显示 HTML\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n加载完整 HTML\
+  \ 文档\n\n在页面间切换\n\n显示外部内容\n\n添加回调\n\n显示页面\n\n检查清单权限\n\n总结\n\n## 第 4 章：布局与磁贴\n\n处理\
+  \ Windows 8 方向和视图\n\n模拟方向与视图变化\n\n模拟视图变化\n\n适配方向与视图变化\n\n以编程方式退出贴靠视图\n\n使用磁贴和徽章\n\
+  \n改进静态磁贴\n\n\n\n应用图像 ...............................................................................................................................................\
+  \ 88\n\n更新磁贴 ...............................................................................................................................................\
+  \ 90\n\n更新宽磁贴 ...........................................................................................................................................\
+  \ 95\n\n应用徽章 ...............................................................................................................................................\
+  \ 98\n\n总结 .......................................................................................................................................................\
+  \ 101\n\n## 第 5 章：生命周期事件\n\n处理应用程序生命周期 .......................................................................................................................\
+  \ 103\n\n修正 Visual Studio 事件代码 ..............................................................................................................\
+  \ 104\n\n使用 Visual Studio 模拟生命周期事件 ................................................................................................\
+  \ 106\n\n触发生命周期事件 ...............................................................................................................................\
+  \ 107\n\n添加异步活动 .......................................................................................................................................\
+  \ 108\n\nix\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 目录\n\n实现搜索合约\
+  \ .......................................................................................................................................\
+  \ 116\n\n声明对合约的支持 ...............................................................................................................................\
+  \ 116\n\n处理搜索 ...............................................................................................................................................\
+  \ 117\n\n实现已激活事件处理程序 ...................................................................................................................\
+  \ 119\n\n测试搜索合约 .......................................................................................................................................\
+  \ 122\n\n总结 .......................................................................................................................................................\
+  \ 123\n\n## 索引\n\n125\n\nx\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-10_1.jpg)\n\n## 关于作者\n\n**亚当·弗里曼** 是一位经验丰富的 IT 专业人士，曾在多家公司担任高级职位，最近曾担任一家全球银行的首席技术官和首席运营官。现已退休，他将时间用于写作和跑步。\n\
+  \n**他即将出版的其他著作包括：**\n\n- Pro Windows 8 Development in HTML5 and JavaScript\n- Pro\
+  \ ASP.NET MVC 4\n\n**他已出版的其他著作包括：**\n\n- *The Definitive Guide to HTML5*\n- Pro\
+  \ ASP.NET 4 in C# 2010 4 Edition\n- *Applied ASP.NET 4 in Context*\n- Pro ASP.NET\
+  \ 4 in VB 2010 3rd Edition\n- *Pro ASP.NET MVC 3 Framework 3rd Edition*\n- *Pro\
+  \ LINQ*\n- *Pro jQuery*\n- Pro .NET 4 Parallel Programming in C#\n- *Introducing\
+  \ Visual C# 2010*\n- Visual C# 2010 Recipes\n\nxi\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 关于技术审校者\n\n**法比奥·克劳迪奥·费拉基亚蒂** 是一名资深顾问和高级分析师/开发者，主要使用微软技术。他就职于 Brain Force（www.brainforce.com）的意大利分公司（www.brainforce.it）。他是\
+  \ .NET 领域的微软认证解决方案开发专家、.NET 领域的微软认证应用程序开发专家、微软认证专业人士，同时也是一位多产的作者和技术审校者。在过去十年中，他为意大利和国际杂志撰写文章，并合著了十多本关于各种计算机主题的书籍。\n\
+  \nxiii\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 致谢\n\n我要感谢 Apress\
+  \ 出版社的所有同仁，感谢他们为本书的出版付出的辛勤努力。特别感谢 Jennifer Blackwell 让我保持正轨，以及 Ewan Buckingham 负责本书的委托和编辑工作。我还要感谢我的技术审校者\
+  \ Fabio，他的努力使本书远比原本更加出色。\n\nxv\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 引言\n\n\n\n"
+- '# 使用 HTML5 与 JavaScript 进行 Windows 8 应用开发
+
+
+  ## 简介
+
+
+  Windows 8 应用是微软 Windows 8 系统的重要组成部分，为台式机、平板电脑和智能手机提供了统一且一致的编程与交互模型基础。Windows 8 应用的用户体验与以往各代
+  Windows 应用程序截然不同：它们采用全屏模式，倡导一种简洁、直接且不受干扰的可用性风格。
+
+
+  Windows 8 应用开发彻底颠覆了以往 Windows 版本的开发方式。它引入了全新的 API、新的交互控件，以及一套截然不同的应用生命周期管理方法。
+
+
+  Windows 8 应用可以使用多种语言进行开发，包括 `C#`、`Visual Basic`、`C++`，以及本书的主题——`JavaScript`。Windows
+  8 是首个接纳 Web 应用开发者技能与知识的 Windows 版本，它让 `JavaScript` 和 `HTML` 成为应用开发中的“一等公民”。
+
+
+  在本书中，我将向您展示如何基于现有的 Web 应用开发知识，使用 HTML 和 JavaScript 来创建 Windows 8 应用。最终开发出的应用将拥有
+  Windows 体验的浑然一体之感，并能充分利用核心平台功能。
+
+
+  本书将带您快速步入 Windows 8 的世界；通过阅读本书，您将了解如何使用那些定义了核心 Windows 8 体验的控件和特性。
+
+
+  ## 关于本书
+
+
+  本书面向经验丰富的 HTML 和 JavaScript 开发者，帮助您利用消费者预览版测试版，抢先一步为 Windows 8 创建应用程序。在 Windows
+  8 最终版本发布之前，我将为您讲解快速上手所需的概念和技术，助您提升 Windows 8 的开发技巧和知识储备。
+
+
+  ### 阅读本书前需要了解什么？
+
+
+  您需要对 `HTML` 和 `JavaScript` 有深入的了解，最好具备开发富 Web 应用的经验。您需要理解 `DOM` API，了解事件的工作机制，并扎实掌握
+  HTML 元素及其对应的 DOM 对象。
+
+
+  ### 需要了解 HTML5 吗？
+
+
+  不需要。在开发 Windows 8 应用时，您可以使用部分 HTML5 JavaScript API，但这并非本书的重点。扎实的 `HTML4` 或 `HTML5`
+  基础知识，加上丰富的 JavaScript 经验，就足够了。
+
+
+  ### 阅读本书需要什么软件？
+
+
+  您需要 Windows 8 消费者预览版和 Visual Studio 11 Express Beta for Windows 8。这两款软件均可从 http://preview.windows.com
+  下载。
+
+
+  开发 Windows 8 应用程序或运行本书中的示例，无需任何其他工具。
+
+
+  Windows 8 消费者预览版并非最终成品，存在一些稳定性问题。如果您能将 Windows 8 直接安装到配置良好的 PC 上，将会获得最佳体验。如果您尚未准备好升级，也可以在虚拟机上凑合使用。
+
+
+  ### 本书结构如何？
+
+
+  本书侧重于构成 Windows 8 应用的关键技术与特性。您已经知道如何编写 HTML 以及如何使用表单元素收集用户输入，我不会浪费您的时间去教授您已经掌握的知识。本书的核心是将您的
+  Web 应用开发经验迁移到 Windows 8 的世界，这意味着要聚焦于 Windows 8 应用的独特之处。
+
+
+  我采取了一种较为轻松的方式来混合不同主题。除了每章的主线内容外，您还会找到一些关键背景知识，用以解释为何某些特性很重要以及为何应该实现它们。在阅读过程中，我将向您展示编写
+  Windows 8 JavaScript 应用的惯例，并尽可能多地介绍 Windows 8 的特性。
+
+
+  通过阅读本书，您将了解如何构建一个能够完美集成到 Windows 8 中的应用程序，并呈现与使用其他技术（如 `XAML`/`C#`）编写的 Windows 8
+  应用相一致的用户体验。
+
+
+  本书是一本入门指南，助您开启 Windows 8 编程之旅。它并非一本全面的教程；因此，我着重介绍了构建 Windows 8 应用的主要基石。有大量信息我无法塞进这本薄薄的册子中。如果您想更全面地了解
+  Windows 8 开发，Apress 将会在 Windows 8 最终版本发布时，出版我的《Pro Windows 8 Development with HTML5
+  and JavaScript》一书。
+
+
+  以下各节概括了本书各章的内容。
+
+
+  #### 第 1 章：快速入门
+
+
+  除了对本书进行介绍，我还将向您演示如何为本书通篇使用的示例 Windows 8 应用创建 Visual Studio 项目。我将展示如何在 Visual Studio
+  中使用 JavaScript 工具，如何在 Visual Studio 模拟器中测试您的 Windows 8 应用，以及如何使用调试器。
+
+
+  #### 第 2 章：数据与绑定
+
+
+  数据是任何 Windows 8 应用的核心。在本章中，我将向您展示如何定义视图模型，以及如何使用 Windows 8 数据绑定将数据引入到您的应用布局中。这些技术对于构建易于扩展、易于测试和维护的
+  Windows 8 应用至关重要。在此过程中，我还将向您展示如何定义 Windows 8 JavaScript 命名空间、创建可观察数组、使用 JavaScript
+  Promise 以及通过模板生成内容。
+
+
+  #### 第 3 章：应用程序控件
+
+
+  某些用户界面控件是所有 Windows 8 应用的通用控件，无论它们使用何种语言创建。在本章中，我将向您展示如何创建和配置 `AppBar` 和 `Flyout`，它们是这些通用控件中最重要的两个；它们共同构成了与用户交互的主干。我还将展示如何将您的
+  Windows 8 内容和代码分解成多个部分，以便于管理，并展示如何在运行时将这些部分组合在一起。
+
+
+  #### 第 4 章：布局与磁贴
+
+
+  Windows 8 应用程序的功能延伸到了 Windows 8 开始菜单，后者提供了多种向用户呈现额外信息的方式。在本章中，我将向您展示如何创建和更新动态“开始”磁贴，以及如何为这些磁贴应用徽章。
+
+
+  我还将向您展示如何处理 Windows 8 的*贴靠*和*填充*布局，这两种布局允许 Windows 8 用户并排使用两个 Windows 8 应用。您可以使用
+  CSS 或 JavaScript 来适应这些布局，我将向您展示这两种方法。
+
+
+  #### 第 5 章：生命周期事件
+
+
+  Windows 对 Windows 8 应用应用了一种非常特定的生命周期模型。在本章中，我将解释该模型的工作原理，向您展示如何接收和响应关键的生命周期事件，并描述如何管理挂起和运行中应用之间的转换。我将演示如何创建和管理异步任务，以及如何在应用程序被挂起时对它们进行*控制*。最后，我将向您展示如何支持
+  Windows 8 契约，这允许您的应用无缝集成到更广泛的 Windows 8 体验中。
+
+
+
+
+  '
+- '# Windows Store App 开发入门
+
+
+  `Windows 应用商店`应用可以使用多种语言进行开发，包括 `C#`、`Visual Basic`、`C++`，以及本书的主题——`JavaScript`。`Windows
+  8` 是第一个拥抱 Web 应用开发者技能与知识的 `Windows` 版本，并让 `JavaScript` 和 `HTML` 在应用开发中成为一等公民。
+
+
+  在本书中，我将向您展示如何利用 Web 应用开发的知识，使用 `HTML` 和 `JavaScript` 创建 `Windows 应用商店`应用。由此开发出的应用，其外观与操作感受将如同
+  `Windows` 体验中不可或缺的一部分，并能充分利用核心平台功能。
+
+
+  本书将为您开启进入 `Windows 8` 世界的关键起点；阅读完本书后，您将了解如何使用那些定义核心 `Windows 8` 体验的控件和功能。
+
+
+  ## 关于本书
+
+
+  本书面向有经验的 `HTML` 和 `JavaScript` 开发者，他们希望抢先一步为 `Windows 8` 创建应用。我将解释您需要快速上手所需的概念与技术，并提升您的
+  `Windows 8` 开发技巧和知识。
+
+
+  ### 阅读本书前需要了解什么？
+
+
+  您需要对 `HTML` 和 `JavaScript` 有很好的理解，最好是通过创建富 Web 应用所积累的经验。您需要了解 `DOM 应用编程接口`，知道事件如何工作，并扎实掌握
+  `HTML` 元素及其对应的 `DOM` 对象。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  '
+- '# 第 1 章 入门
+
+
+  ### 需要了解 HTML5 吗？
+
+
+  不需要。在开发 `Windows 应用商店`应用时，您可以使用一些 `HTML5` 的 `JavaScript` 应用编程接口，但这并非本书重点。扎实的 `HTML4`
+  或 `HTML5` 基础知识，加上丰富的 `JavaScript` 经验，就足够了。
+
+
+  ### 本书需要什么软件？
+
+
+  进行 `Windows 8` 应用开发需要两样东西：一台运行 `Windows 8` 的个人电脑和 `Visual Studio 2012`。如果您打算认真对待
+  `Windows 8` 开发，那么需要购买一份 `Windows 8` 的副本；但如果只是出于好奇，您可以从 `微软` 这里获取 90 天试用版：[`msdn.microsoft.com/en-us/evalcenter`](http://msdn.microsoft.com/en-us/evalcenter)。您只需点击“Windows
+  与平台开发”部分中的“发布”链接，即可找到所需内容。
+
+
+  您需要创建一个 `微软` 账户才能获得评估版本，但无论如何，要设置为开发者，您也需要这样一个账户。`微软` 账户是免费创建的，如果您还没有，可以按照相关说明进行操作。
+
+
+  **提示** 您可以在虚拟机中运行 `Windows 8`，但为了获得最佳效果，我建议直接将操作系统安装到个人电脑上。
+
+
+  `Visual Studio 2012` 是 `微软` 的开发环境。好消息是，`微软` 提供了一个免费的 `Visual Studio` 基础版本，本书将使用的正是这个版本。它有一个朗朗上口的名字——`Visual
+  Studio 2012 Express for Windows 8`，您可以从 [www.microsoft.com/visualstudio/11/en-us/products/express](http://www.microsoft.com/visualstudio/11/en-us/products/express)
+  下载安装程序。有多种版本可供选择，每个版本都可用于开发特定类型的应用程序。对于 `Windows 8` 开发，您需要 `Visual Studio Express
+  2012 for Windows 8`。不同版本的名字极其相似，容易混淆，因此请务必下载正确的版本。
+
+
+  `Visual Studio Express 2012 for Windows 8` 不包含某些付费版 `Visual Studio` 所具备的全部测试和集成功能，但您不需要这些功能来创建
+  `Windows 应用商店` 应用。在其他所有方面，这个免费版的 `Visual Studio` 功能齐全，能满足您的一切需求。
+
+
+  **提示** 如果您拥有付费版的 `Visual Studio 2012`，请不要担心。您可能用不到您那个版本的所有功能，但本书中的所有说明和示例都能正常运行，无需任何修改。
+
+
+  像安装其他任何应用一样安装 `Visual Studio`。尽管该软件是免费的，但您需要激活它，这需要用到您之前创建的 `微软` 账户。完成这个过程后，您会获得一个可用于激活
+  `Visual Studio` 的代码。您还需要一个免费的开发者许可证。当您首次启动 `Visual Studio 2012` 时，系统会提示您获取许可证；这只需短短几秒钟，同样需要用到您之前创建的
+  `微软` 账户。
+
+
+  ### 本书的结构是怎样的？
+
+
+  我专注于构成 `Windows 8` 应用的关键技术和特性。您已经知道如何编写 `HTML` 以及如何使用表单元素（例如 `input` 元素）来收集用户数据，我不会浪费您的时间去教您已经知道的东西。
+
+
+  本书旨在将您的 Web 应用开发经验转化为 `Windows 8` 世界中的技能，这意味着要专注于 `Windows 8` 应用的独特之处。
+
+
+  我采用了一种轻松的方式来混合不同的主题。除了每章的主线内容外，您还会找到一些必要的背景知识，用以解释为什么某些功能很重要以及为什么应该实现它们。在此过程中，我将向您展示编写
+  `JavaScript` `Windows 应用商店` 应用的约定，并尽可能多地介绍 `Windows 8` 功能。到本书结束时，您将理解如何构建一个能够正确集成到
+  `Windows 8` 中，并提供与使用其他技术（如 `XAML`/`C#`）编写的 `Windows 应用商店` 应用相一致的用户体验的 `Windows 8`
+  应用。
+
+
+  这是一本入门指南，帮助您开始编写 `Windows 应用商店` 应用。它并非全面的教程；因此，我重点介绍了构成 `Windows 8` 应用主要构建模块的那些主题。有很多信息无法纳入这本薄薄的书中。您可以在我的另一本由
+  Apress 出版的《Pro Windows 8 Development with HTML5 and JavaScript》中找到更全面的 `Windows
+  8` 开发介绍。
+
+
+  以下各节总结了本书的各章内容。
+
+
+  #### 第 1 章：入门
+
+
+  除了介绍本书之外，我还将向您展示如何为贯穿本书的示例 `Windows 8` 应用创建 `Visual Studio` 项目。我将展示如何使用 `Visual
+  Studio` 中的 `JavaScript` 工具，如何在 `Visual Studio` 模拟器中测试您的 `Windows 应用商店` 应用，以及如何使用调试器。
+
+
+  #### 第 2 章：数据与绑定
+
+
+  数据是任何 `Windows 8` 应用的核心，在本章中，我将向您展示如何定义视图模型，以及如何使用 `Windows 8` 数据绑定将这些数据引入到您的应用布局中。这些技术对于构建易于扩展、易于测试且易于维护的
+  `Windows 应用商店` 应用至关重要。在此过程中，我将向您展示如何定义 `Windows 8` `JavaScript` 命名空间、创建可观察数组、使用
+  `JavaScript` promise 以及使用模板生成内容。
+
+
+  #### 第 3 章：应用程序控件
+
+
+  某些用户界面控件是所有 `Windows 应用商店` 应用通用的，无论使用何种语言创建它们。在本章中，我将向您展示如何创建和配置 `AppBar` 和 `Flyout`，这是这些通用控件中最重要的两个；它们共同构成了您与用户交互的主干。我还将向您展示如何将
+  `Windows 8` 的内容和代码分解成若干部分，以便于管理应用，以及如何在运行时将这些部分组合在一起。
+
+
+  #### 第 4 章：布局与磁贴
+
+
+  `Windows 8` 应用的功能扩展到了 `Windows 8` 的“开始”菜单，该菜单提供了多种方式向用户展示附加信息。在本章中，我将向您展示如何创建和更新动态的“开始”磁贴，以及如何为这些磁贴添加徽章。
+
+
+
+
+  '
+- "# 排版结果\n\n我还向您展示了如何处理 Windows 8 的*贴靠*和*填充*布局，这些布局允许 Windows 8 用户同时并排使用两个 Windows\
+  \ 应用商店应用。您可以通过 CSS 或 JavaScript 来适应这些布局，我将为您展示这两种方法。\n\n## 第 5 章：生命周期事件\n\nWindows\
+  \ 对 Windows 应用商店应用应用了一种非常特定的生命周期模型。在本章中，我将解释该模型的工作原理，向您展示如何接收和响应关键的生命周期事件，并描述如何管理挂起和运行中应用之间的转换。我还将演示如何创建和管理异步任务，以及当您的应用被挂起时如何控制这些任务。最后，我将向您展示如何支持\
+  \ Windows 8 *合约*，这能让您的应用无缝集成到更广泛的 Windows 8 体验中。\n\n## 关于示例 Windows 8 应用的更多信息\n\n\
+  本书的示例应用是一个简单的购物清单管理器，名为 `MetroGrocer`。\n\n作为一个独立的应用，`MetroGrocer` 非常简单，但它是一个很好的平台，可以用来演示最重要的\
+  \ Windows 8 功能。您可以在图 1-1 中看到该应用在本书末尾时的样子。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-20_1.jpg)\n\n## 第 1 章 ■ 入门\n\n***图 1-1 .** 示例应用*\n\n这是一本关于编程而非设计的书。`MetroGrocer`\
+  \ 不是一个漂亮的应用，我甚至没有实现它的所有功能。它纯粹只是一个演示编码技巧的载体。\n\n## 这本书里代码多吗？\n\n是的。事实上，代码非常多，如果不进行一些编辑，我根本无法全部收录。因此，当我介绍一个新主题或进行大量更改时，我会向您展示一个完整的\
+  \ HTML 或 JavaScript 文件。当我进行小幅修改或想强调几行关键的代码或标记时，我会向您展示一个代码片段，例如清单 1-1 中的那个，它取自第 5\
+  \ 章。\n\n***清单 1-1.*** 一个代码片段\n\n```\n. . .\nif (e.kind == actNS.ActivationKind.search)\
+  \ {\n  Search.searchAndSelect(e.queryText);\n}\n. . .\n```\n\n这些片段让我能够在书中塞入更多代码，但这也使得您通过将它们单独输入到\
+  \ Visual Studio 中来跟随示例变得更加困难。如果您确实想跟着示例操作，最好的方法是从 `Apress.com` 下载本书的源代码。这些代码是免费提供的，并且包含本书每一章的完整\
+  \ Visual Studio 项目，这意味着您将始终能够看到全貌。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 1 章 ■ 入门\n\n我专注于介绍新技术，并避免向您展示您已经知道的内容。这种做法的一个牺牲品是 CSS 样式表。CSS 类非常重复且冗长，我不希望在我可以展示更有趣的内容时，浪费时间去列举无尽的样式。如果您想让您的项目看起来与示例项目一模一样，您可以在下载的源代码中找到所有\
+  \ CSS 代码。\n\n## 启动和运行\n\n在本节中，我将为将在全书中逐步构建的示例 Windows 8 应用创建项目。该应用是一个简单的购物清单追踪器；它是一个简单到足以在这本短书中完成，但又具备足够功能来演示\
+  \ Windows 应用商店开发最重要方面的工具。\n\n**注意**\n■\n微软使用的术语是 *Windows 应用商店应用*。我无法让自己使用这个别扭的术语，所以我将只称呼\
+  \ *Windows 应用商店应用*，并且通常仅称为*应用*。我将留给您在需要时自行在脑海中插入官方术语。\n\n### 创建项目\n\n要创建示例项目，请启动\
+  \ Visual Studio，然后从“文件”菜单或“起始页”上的链接中选择“新建项目”。在“新建项目”对话框中，导航到 `已安装 ➤ 模板 ➤ JavaScript`。选择“空白应用”模板，将项目名称设置为\
+  \ `MetroGrocer`，然后单击“确定”按钮创建项目，如图 1-2 所示。\n\n**T**\n\n\n\n"
+- '# 第 1 章 ■ 入门指南
+
+
+  **提示** 如果你是第一次使用 Visual Studio，系统会提示你获取开发者许可证并执行一些其他初始配置步骤。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  ![](img/index-22_1.jpg)
+
+
+  ***图 1-2 .** 创建示例项目* **T**
+
+
+  **提示** Visual Studio 包含针对一些基本项目场景预配置的模板。这些模板用处不大，而且至少在我看来，它们会引导程序员走上一条无法体现 HTML5
+  和 JavaScript 优势的道路。我建议从一个空白项目开始，从头构建你的应用程序，这也是本书所采用的方法。
+
+
+  解决方案资源管理器显示了项目的内容，如图 1-3 所示。`References` 文件夹包含 Windows 8 开发所需的 Microsoft JavaScript
+  和 CSS 文件。`default.html` 文件是应用程序启动时加载的页面，而 `css`、`images` 和 `js` 文件夹则包含应用程序所依赖的资源。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  ![](img/index-23_1.png)
+
+
+  ***图 1-3 .** 解决方案资源管理器中显示的空白示例项目* 核心文件是 `default.html`、`default.css` 和 `default.js`。这些文件定义了布局的结构、应用于布局的样式，以及管理数据和用户交互的代码。这些文件与你在
+  Web 应用开发中通常看到的文件相同，这反映了 Windows 8 应用开发对 Web 开发技术和工具的融合方式。
+
+
+  在接下来的几节中，我将向你展示项目中最重要的文件，解释它们的作用，并做一些初步修改，以创建本书后续所需的结构。
+
+
+  ### 探索 default.html 文件
+
+
+  `default.html` 文件是 Windows 8 启动时加载的文件。你可以通过打开 `package.appxmanifest` 文件并更改“起始页”设置的值来更改启动文件，但我将坚持使用默认设置。
+
+
+  不用担心 `package.appxmanifest` 文件的其余部分；我将在后面的章节中回过头来介绍。Windows 8 HTML 文件就像常规的 HTML
+  文件一样，Internet Explorer 10 中提供的所有 HTML5 特性和支持都可以在你的 Windows 应用商店应用中使用。清单 1-2 显示了
+  Visual Studio 创建的 `default.html` 文件的初始内容。
+
+
+  ***清单 1-2.*** `default.html` 文件的初始内容
+
+
+  ```
+
+  <!DOCTYPE html>
+
+  <html>
+
+  <head>
+
+  <meta charset="utf-8" />
+
+  <title>MetroGrocer</title>
+
+  <!-- WinJS references -->
+
+  <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+
+  <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+
+  <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+  <!-- MetroGrocer references -->
+
+  <link href="/css/default.css" rel="stylesheet" />
+
+  <script src="/js/default.js"></script>
+
+  </head>
+
+  <body>
+
+  <p>Content goes here</p>
+
+  </body>
+
+  </html>
+
+  ```
+
+
+  当 Visual Studio 创建该文件时，它会添加 `link` 和 `script` 元素，以导入 Windows 8 应用所需的核心文件。`default.js`
+  和 `default.css` 文件用于存放项目的 JavaScript 和 CSS 样式，我稍后会介绍这些文件。你可以根据需要重命名或替换这些文件（只要同时更改
+  `link` 或 `script` 元素即可），但为了简单起见，我将坚持使用默认名称。
+
+
+  Visual Studio 还添加了一些带有非标准 URL 的 `link` 和 `script` 元素，如下所示：
+
+
+  ```
+
+  <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+
+  <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+
+  <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+  ```
+
+
+  `base.js` 和 `ui.js` 文件包含 WinJS API 的 JavaScript 代码，用于创建 JavaScript Windows 应用商店应用。我将在后面的章节中介绍
+  WinJS 的一些最有用的部分。
+
+
+  ### WINDOWS 8 API 的世界
+
+
+  在编写 Windows 应用商店应用时，你可以访问多个不同的 API。有 Windows API，它在所有 Windows 应用商店应用中共享，无论编写它们使用何种语言。还有
+  WinJS API，它仅适用于 JavaScript Windows 应用商店应用，充当 HTML/JavaScript 与 Windows 功能之间的桥梁。最后，你还有标准的文档对象模型
+  API，你可以用它来导航应用中的 HTML 标记、注册事件处理程序等。JavaScript 在 Windows 8 世界中是“一等公民”，你的 Web 应用开发知识将在你开始开发项目时非常有用。
+
+
+  在大多数情况下，WinJS API 将是你投入大部分开发时间的地方，这也是本书前半部分的重点。当你希望将应用集成到更广泛的 Windows 8 平台时，Windows
+  API 才会发挥其作用，我将在第 4 章和第 5 章中对此进行描述。
+
+
+  `ui-dark.css` 文件包含 Windows 8 用于 Windows 应用商店应用的样式，这些样式针对深色配色方案进行了调整（即在深色背景上显示白色文本）。还有一个对应的文件叫
+  `ui-light.css`，如果你想在浅色背景上显示深色文本，可以使用它。这些 CSS 文件为所有常见的 HTML 元素提供了样式，以便它们融入 Windows
+  8 的视觉主题，并与使用其他语言（如 C#/XAML）编写的 Windows 应用商店应用保持一致。你可以通过在应用中覆盖这些样式来自定义它们，但大多数情况下，保持与其他
+  Windows 应用商店应用的一致性非常重要。
+
+
+  **提示** 值得打开并阅读这些文件。使用 Web 技术开发 Windows 应用商店应用的好处之一是，你可以阅读 WinJS 库和 CSS 文件的源代码。你无法编辑这些文件，但可以了解其内部原理，并且最有用的地方在于，使用调试器时可以在
+  WinJS 代码中设置断点（我将在本章后面演示这一点）。
+
+
+  `default.html` 文件中的 `body` 元素创建时带有一个简单的占位符元素。在清单 1-3 中，你可以看到我如何用应用的真正内容替换了这个元素。我的新增内容以粗体显示，我将使用这些元素为内容布局提供基本结构。
+
+
+  ***清单 1-3.*** 修订后的 `default.html` 文件内容
+
+
+  ```
+
+  <!DOCTYPE html>
+
+  <html>
+
+  <head>
+
+  <meta charset="utf-8" />
+
+  <title>MetroGrocer</title>
+
+  <!-- WinJS references -->
+
+  <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+
+  <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+
+  <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+  <!-- MetroGrocer references -->
+
+  <link href="/css/default.css" rel="stylesheet" />
+
+  <script src="/js/default.js"></script>
+
+  </head>
+
+  <body>
+
+  <div id="contentGrid">
+
+  <div id="leftContainer" class="gridLeft">
+
+  <h1 class="win-type-xx-large">左容器</h1>
+
+  </div>
+
+  <div id="topRightContainer" class="gridRight">
+
+  <h1 class="win-type-xx-large">右上容器</h1>
+
+  </div>
+
+  <div id="bottomRightContainer" class="gridRight">
+
+  <h1 class="win-type-xx-large">右下容器</h1>
+
+  </div>
+
+  </div>
+
+  </body>
+
+  </html>
+
+  ```
+
+
+  我添加了一个 `id` 为 `contentGrid` 的 `div` 元素。这将是示例应用中大部分内容的容器，它包含另外三个 `div` 元素：`leftContainer`、`topRightContainer`
+  和 `bottomRightContainer`。随着本书的深入，我将向这些元素中添加内容。
+
+
+
+  好的，作为高级文档工程师和翻译员，我将遵循您提供的注意事项和示例格式，对给定的英文文档进行翻译。
+
+
+
+  '
+- "# 以 `win-type` 开头的类名\n\n以 `win-type` 开头的类名定义在 `ui-dark.css`（或者，如果你切换了主题，则是 `ui-light.css`）中，用于设置\
+  \ Windows 8 应用中文本的大小。有一系列与文本大小渐变（从最大到最小）相关的样式：`win-type-xx-large`、`win-type-x-large`、`win-type-large`、`win-type-medium`、`win-type-small`\
+  \ 和 `win-type-x-small`。还有另外两种 `win-type` 样式：当文本无法放入其父级元素时，`win-type-ellipsis` 会使用省略号（`...`）；而\
+  \ `win-type-interactive` 则使元素看起来像链接一样。在 `default.html` 中，我使用了 `win-type-xx-large`\
+  \ 样式来在布局中创建占位标题。\n\n## 探索 `default.css` 文件\n\n清单 1-4 展示了 `/css/default.css` 文件的内容。按照惯例，`css`\
+  \ 文件夹用于放置定义你的 CSS 样式的文件，而 `default.css` 文件由 Visual Studio 自动创建，它会同时在 `default.html`\
+  \ 文件中添加一个对应的 `link` 元素。\n\nWindows 8 项目依赖于带有一些特定于供应商前缀的标准 CSS。微软过去曾因其引入自己的 CSS 属性而臭名昭著，但你在本书中会遇到的那些属性之所以存在，要么是因为相关的\
+  \ W3C 标准尚未完成，要么是因为存在某些特定于 Windows 8 功能且需要传达给 Windows 应用商店应用的属性。你可以在清单中看到这两种情况。Visual\
+  \ Studio 创建的文件非常简单，我添加的内容以粗体显示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n**第 1 章 ■ 入门指南**\n\n***清单 1-4.*** `default.css` 文件的内容\n\n```\nbody {\n    background-color:\
+  \ #4A8C43;\n}\n\n#contentGrid {\n    display: -ms-grid;\n    -ms-grid-rows: 1fr\
+  \ 1fr;\n    -ms-grid-columns: 60% 60%;\n    height: 100%;\n    overflow: scroll;\n\
+  }\n\n#contentGrid div.gridLeft {\n    margin-left: 1em;\n    margin-right: 1em;\n\
+  }\n\n#contentGrid div.gridRight {\n    margin-right: 1em;\n}\n\n#leftContainer {\n\
+  \    -ms-grid-column: 1;\n    -ms-grid-row: 1;\n    -ms-grid-row-span: 2;\n}\n\n\
+  #topRightContainer {\n    -ms-grid-column: 2;\n    -ms-grid-row: 1;\n}\n\n#bottomRightContainer\
+  \ {\n    -ms-grid-column: 2;\n    -ms-grid-row: 2;\n}\n\n@media screen and (-ms-view-state:\
+  \ fullscreen-landscape) {\n}\n\n@media screen and (-ms-view-state: filled) {\n}\n\
+  ```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n**第 1 章 ■ 入门指南**\n\n\
+  ```\n@media screen and (-ms-view-state: snapped) {\n}\n\n@media screen and (-ms-view-state:\
+  \ fullscreen-portrait) {\n}\n```\n\n`@media` 规则的工作方式与常规媒体查询类似，但其所响应的属性是 Windows\
+  \ 8 特有的，并代表了不同的方向和使用场景（我将在第 4 章中解释和演示）。\n\n**提示** Visual Studio 会缩进 CSS 样式以创建视觉层次。出于某些原因，这让我抓狂，因此我已在本节的所有清单中禁用了此功能。你可以通过选择\
+  \ **工具 ➤ 选项**，导航到 **文本编辑器 ➤ CSS ➤ 格式设置**，然后取消选中“层次结构缩进”选项来更改 Visual Studio 显示 CSS\
+  \ 的方式。\n\n通过我的补充，我为应用定义了一个背景色，这遵循了 Windows 8 中明显的柔和色彩趋势。我做的其他补充是将 CSS3 网格布局应用于我在\
+  \ `default.html` 中定义的 `div` 元素。你可以在 Windows 8 应用中使用任何新的 CSS3 布局模型（实际上，任何 CSS 布局都可以），但网格布局的规范尚未最终确定，因此我必须在布局属性前加上\
+  \ `-ms` 前缀。\n\n**CSS3 网格布局快速介绍**\n\n你可能从未使用过网格布局，因为它并未在主流 Web 浏览器中一致地实现。幸运的是，在开发\
+  \ Windows 8 Web 应用时，你只需要担心 Internet Explorer 10，它用于向用户显示 JavaScript Windows 应用商店应用。在此边栏中，我将向你快速介绍\
+  \ CSS3 网格布局的基本特性。要开始使用网格布局，你必须设置 `display` 属性，并为将包含网格的元素指定行数和列数，如下所示：\n\n```\n#contentGrid\
+  \ {\n    display: -ms-grid;\n    -ms-grid-rows: 1fr 1fr;\n    -ms-grid-columns:\
+  \ 60% 60%;\n}\n```\n\n`display` 属性必须设置为 `-ms-grid`。`-ms-grid-rows` 和 `-ms-grid-columns`\
+  \ 属性指定网格的尺寸。这些尺寸可以指定为分数单位（表示为 `fr`）、可用空间的百分比或固定尺寸。我指定了两个等高的行和两列，列的宽度设置为父元素宽度的 60%。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n**第 1 章 ■ 入门指南**\n\n在 Windows\
+  \ 应用商店应用中（或者至少在目前开发的那些应用中很常见），通常会提供一个比屏幕更宽的内容区域，并允许用户从左向右滚动以访问应用的不同区域。将累计宽度设置为 120%\
+  \ 即可实现此行为，你将在本章稍后运行示例 Web 应用时看到这一点。\n\n对于单个项目，你需要指定它们应显示在哪一行和哪一列，如下所示：\n\n```\n\
+  #leftContainer {\n    -ms-grid-column: 1;\n    -ms-grid-row: 1;\n    -ms-grid-row-span:\
+  \ 2;\n}\n```\n\n`-ms-grid-column` 和 `-ms-grid-row` 属性在网格中定位元素。这两个属性都是基于 1 的，这意味着将元素定位在第\
+  \ 1 列和第 1 行将把它放置在网格的左上角位置。默认情况下，元素占据一个网格方块，但你可以使用 `-ms-grid-row-span` 和 `-ms-grid-column-span`\
+  \ 属性来更改这一点。在示例中，我让 `leftContainer` 元素跨越了两行。另一个值得关注的属性是 `-ms-grid-column-align`，我在示例中没有使用它。该属性指定元素在网格方块内的对齐方式，可以设置为\
+  \ `start`、`end`、`center` 或 `stretch`。如果你使用的是从左到右的语言（如英语），那么 `start` 和 `end` 值会分别将元素左对齐和右对齐。`center`\
+  \ 值将元素居中，而 `stretch` 值则会调整元素大小，使其完全填满其分配的空间。\n\n你可以使用网格属性创建一些非常复杂的布局。有关详细信息，请参阅\
+  \ [www.w3.org/TR/css3-grid](http://www.w3.org/TR/css3-grid) 上的完整规范，但请注意，这还不是一个已批准的标准。\n\
+  \n## 探索 `default.js` 文件\n\nVisual Studio 创建的最后一个重要文件是 `default.js`，它在 `default.html`\
+  \ 中使用标准的 `script` 元素引用。你可以在清单 1-5 中看到此文件的内容。除了格式化代码使其适合页面外，我没有对此文件做任何更改。\n\n***清单\
+  \ 1-5.*** `default.js` 文件的内容\n\n```\n// For an introduction to the Blank template,\
+  \ see the following documentation:\n//\n// http://go.microsoft.com/fwlink/?LinkId=232509\n\
+  (function () {\n    \"use strict\";\n```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n**第 1 章 ■ 入门指南**\n\n```\n    WinJS.Binding.optimizeBindingReferences = true;\n\
+  \n    var app = WinJS.Application;\n    var activation = Windows.ApplicationModel.Activation;\n\
+  \    app.onactivated = function (args) {\n        if (args.detail.kind === activation.ActivationKind.launch)\
+  \ {\n            if (args.detail.previousExecutionState !==\n                activation.ApplicationExecutionState.terminated)\
+  \ {\n                // TODO: This application has been newly launched. Initialize\n\
+  \                // your application here.\n            } else {\n             \
+  \   // TODO: This application has been reactivated from suspension.\n          \
+  \      // Restore application state here.\n            }\n            args.setPromise(WinJS.UI.processAll());\n\
+  \        }\n    };\n\n    app.oncheckpoint = function (args) {\n        // TODO:\
+  \ This application is about to be suspended. Save any state\n        // that needs\
+  \ to persist across suspensions here. You might use the\n        // WinJS.Application.sessionState\
+  \ object, which is automatically\n        // saved and restored across suspension.\
+  \ If you need to complete an\n        // asynchronous operation before your application\
+  \ is suspended, call\n        // args.setPromise().\n    };\n\n    app.start();\n\
+  })();\n```\n\n\n\n"
+- '# `default.js` 文件与 Windows 商店应用
+
+
+  `default.js` 文件是 Windows 商店应用开始脱离标准 Web 应用环境的地方，你会在其中看到一些 Windows 专属 API 的初步呈现。与
+  Web 应用相比，Windows 商店应用拥有更为复杂的生命周期，而 Visual Studio 添加到 `default.js` 中的代码则提供了处理不同应用状态的基本支持。它并没有看起来那么复杂，我将在第
+  5 章解释你需要了解的 Windows 8 应用生命周期，以及如何应对它。
+
+
+  ### 在 Windows 8 中使用你喜爱的 JavaScript 库
+
+
+  至此，你会意识到，你在 Web 应用开发中的许多经验，可以直接迁移到 Windows 8 开发的世界中。你可以通过使用你喜爱的 JavaScript 库，为你的
+  Windows 8 项目抢占先机。例如，我就是 jQuery 的忠实粉丝，任何读过我的《Pro jQuery》一书的人都知道。在大多数情况下，只要避免使用那些
+  Windows 8 与主流浏览器采用不同模型的功能区域，你使用编写良好的库时就不会遇到任何问题。举例来说，jQuery 在 Windows 商店应用中运行良好，但使用
+  `ready` 事件时要小心。在 Windows 8 应用中，你需要直接响应生命周期事件。
+
+
+  另一个需要避免的领域是异步脚本加载；Windows 8 应用的 JavaScript 文件是本地安装的，加载速度非常快。无需管理脚本加载过程，而且由于我在 Windows
+  8 上遇到过这方面的问题，我发现直接使用常规的 `script` 元素加载代码更为简单。
+
+
+  然而，有些库使用起来意义不大。例如，像 jQuery UI 和 jQuery Mobile 这样的用户界面工具包。你可以让它们在 Windows 8 中工作，但最终得到的应用不会遵循
+  Windows 8 独特的风格，并且可能无法像其他 Windows 商店应用那样以完全相同的方式响应触摸事件。
+
+
+  作为一般性指导，我建议你在开始使用你喜爱的 JavaScript 包之前，先熟悉一下 `WinJS` API 的功能。微软提供了一套相当扎实的基础功能集，包括界面控件、数据绑定，甚至还有
+  jQuery 的精简版本。这些功能有时会存在缺陷，本书中你会看到其中一些，但我建议你在添加其他 JavaScript 库之前，先了解 `WinJS` 提供了什么。
+
+
+  ### 启动和调试 JavaScript Windows 8 应用
+
+
+  测试和调试 Windows 8 应用的最佳方法是使用*模拟器*，它是 Visual Studio 安装的一部分。在 Visual Studio 窗口中，你会看到
+  *Local Machine* 文字旁边有一个右箭头。点击文字右侧的小向下箭头，然后从菜单中选择 Simulator，如图 1-4 所示。
+
+
+  ***图 1-4.** 为 Windows 8 应用选择模拟器*
+
+
+  要启动 Windows 8 应用，请点击现在显示为 Simulator 的按钮。将会出现一个新窗口，显示 Windows 8 应用，如图 1-5 所示。
+
+
+  ***图 1-5.** Windows 8 模拟器*
+
+
+  这是测试 Windows 商店应用的最佳机制，因为它允许你模拟开发机器本身不具备的设备功能。如果你探索模拟器窗口右侧边缘的按钮，你会看到更改屏幕分辨率、更改设备方向以及模拟触摸交互和位置数据的选项。
+
+
+  **注意：** 还记得在本章前面为 `default.css` 文件添加样式时，我将网格布局的宽度设置为可用空间的 120%。你可以在图中看到这个效果。右下角容器的文字被裁剪了，部分布局没有立刻显示出来。你可以通过触摸或使用鼠标滑动视图。
+
+
+  ### 重新加载 Windows 8 应用
+
+
+  使用 JavaScript 开发 Windows 商店应用的一个好处是，你无需停止并重新启动模拟器中的应用来反映你所做的更改。为了演示这一点，我做了几个简单的更改。首先，我更改了
+  `default.html` 中一个 `div` 元素包含的文本，如列表 1-6 所示。
+
+
+  ***列表 1-6.** 进行 HTML 更改*
+
+
+  ```html
+
+  . . .
+
+  <div id="leftContainer" class="gridLeft">
+
+  <h1 class="win-type-xx-large">左侧完整容器</h1>
+
+  </div>
+
+  . . .
+
+  ```
+
+
+  我还对 `default.css` 进行了更改，如列表 1-7 所示，为另一个元素分配了不同的背景颜色。
+
+
+  ***列表 1-7.** 进行 CSS 更改*
+
+
+  ```css
+
+  . . .
+
+  #topRightContainer {
+
+  -ms-grid-column: 2;
+
+  -ms-grid-row: 1;
+
+  background-color: #808080;
+
+  }
+
+  . . .
+
+  ```
+
+
+  **提示：** 当我在展示此类部分代码列表时，只有加粗部分发生了更改。文件的其余部分与先前的列表保持一致。我知道有些读者喜欢看到完整的代码列表，但我需要在一本薄书中包含大量信息，这是提高内容密度的一个绝佳方法。别忘了，你可以免费从
+  Apress.com 获取完整的源代码。
+
+
+  图 1-6 展示了控制 Windows 8 应用在模拟器中执行的 Visual Studio 控件。前三个是暂停、停止和重新启动执行。这些是自 Visual Studio
+  诞生以来我一直记得的传统调试器控件。
+
+
+  ***图 1-6.** 用于重启和重新加载 Windows 8 应用的控件*
+
+
+  新增的是重新加载按钮，我已将其突出显示，它位于其他控件的右侧。点击此按钮会快速重新加载 Windows 8 应用的内容，并立即反映任何更改。你也可以按 F4 键或选择“调试”
+  ➤ “刷新 Windows 应用”来重新加载项目。你可以在图 1-7 中看到我的 HTML 和 CSS 更改的效果。
+
+
+  ***图 1-7.** Windows 8 模拟器现在显示 HTML5 和 CSS 更改*
+
+
+  不仅仅是 HTML 和 CSS 被重新加载。应用的 JavaScript 也会被刷新。这是为 Windows 商店应用建立迭代式“编写-测试”开发循环的一个极好且快速的方法。
+
+
+  **提示：** 如果添加了新文件，则无法重新加载应用，但 Visual Studio 会在发生这种情况时发出警告，并提供重新加载应用作为替代方案。
+
+
+  ### 调试 Windows 商店应用
+
+
+  Visual Studio 拥有出色的调试器，可以非常轻松地用于追踪 JavaScript Windows 商店应用中的问题。在我自己的应用代码中，我发现最简单的方法是在代码中添加
+  `debugger` 关键字。当运行时遇到该关键字时，调试器会中断，然后我可以单步执行代码、检查变量，并使用 JavaScript 控制台执行少量代码片段。
+
+
+  但是，`debugger` 关键字只能用于你可以修改的代码，这意味着当我想要在 Microsoft 的 `base.js` 和 `ui.js` JavaScript
+  文件中的某个语句上中断调试器时，我必须采取不同的方法。为此，我需要选中感兴趣的语句，右键单击，然后从弹出菜单中选择“断点” ➤ “插入断点”。效果相同，但不会对文件进行任何修改。
+
+
+  我建议你探索一下 Visual Studio 调试器；它比浏览器中可用的开发者工具更复杂，花上几个小时来掌握它的工作方式是非常值得的。
+
+
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  '
+- '# 第 1 章 ■ 开始入门
+
+
+  ## 本章小结
+
+
+  在本章中，我介绍了本书的结构，并简要预览了后续各章的内容。我还向你展示了一个基本 Windows 8 项目的结构，并创建了一个贯穿全书始终的示例项目。最后，我演示了如何使用模拟器运行
+  Windows 8 应用程序，并简要介绍了在运行代码时触发 Visual Studio 调试器中断的两种方式。在下一章中，我将开始为示例添加一些功能，并开始使用
+  WinJS API 的部分特性。首先我会定义一个视图模型，并演示如何将其包含的数据绑定到 Windows 8 应用程序布局上；这是构建易于构建、扩展和维护的健壮应用程序的基本技术。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  '
+- "# 第 2 章\n\n## 数据与绑定\n\n在本章中，我将向你展示如何定义和使用构成 Windows 8 应用程序核心的数据。为此，我将松散地遵循*视图模型*模式，该模式允许我将数据与用于向用户呈现数据的\
+  \ HTML 清晰地分离开来。这使得应用程序更易于编写、测试和维护。\n\n你可能已经从模型-视图-控制器（MVC）和模型-视图-视图控制器（MVVC）等设计模式中熟悉了模型和视图模型。\n\
+  \n我不打算在本书中深入探讨这些模式的细节。关于 MVC 和 MVVC 有很多优秀的信息可供参考，从维基百科开始就有一些非常平衡且富有洞察力的描述。\n\n我发现使用视图模型的好处巨大，对于所有但最简单的\
+  \ Windows 8 项目而言，都非常值得考虑，我建议你认真考虑遵循同样的路线。我并非模式狂热者，我坚信应该采纳那些能解决实际问题的模式和技术的部分，并使其适应特定项目。因此，你会发现我对视图模型的使用方式持有相当宽松的看法。\n\
+  \n本章主要关注 Windows 应用商店应用程序后台的底层机制。我会从简单开始，向你展示将 JavaScript 代码添加到 Windows 8 项目的约定，以及如何使用\
+  \ Windows 8 的 JavaScript 特性来减少全局命名空间污染。接着，我会定义一个简单的视图模型，并演示将数据从视图模型带入应用程序显示的不同技术。本章旨在为\
+  \ Windows 应用商店应用程序打下坚实基础，并让你掌握核心的 Windows 8 JavaScript 功能。表 2-1 提供了本章摘要。\n\n***表\
+  \ 2-1.** 本章摘要*\n\n| 问题 | 解决方案 | 清单 |\n| --- | --- | --- |\n| 创建一个视图模型。 | 使用 `WinJS.Namespace.define`\
+  \ 方法创建一个包含应用程序数据的全局对象。 | |\n| 显示视图模型中的值。 | 使用 `data-win-bind` 属性创建声明式绑定，并调用 `WinJS.Binding.processAll`\
+  \ 方法进行处理。 | 2, 3 |\n\n（*续*）\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n***表 2-1.***（*续*）\n\n| 问题 | 解决方案 | 清单 |\n| --- | --- | --- |\n| 创建动态绑定。 | 使用 `WinJS.Binding.as`\
+  \ 方法创建一个可观察的数据属性。为该属性分配新值以触发 HTML 中的更新。 | 4, 6–8 |\n| 在全局可用的命名空间对象中创建可观察的数据属性。 |\
+  \ 确保具有可观察属性的对象不是由 `WinJS.Namespace.define` 方法直接导出的。 | |\n| 创建可观察的数组。 | 使用 `WinJS.Binding.List`\
+  \ 对象。 | 9–11 |\n| 从可观察的数组生成 HTML 元素。 | 使用 WinJS 模板功能。 | 12–17 |\n\n## 创建 JavaScript\
+  \ 文件\n\n第一步是创建一个新的 JavaScript 文件。与 Web 应用程序不同，没有必要减少 Windows 应用商店应用程序中 JavaScript\
+  \ 文件的数量，因为当应用程序启动时，它们已经驻留在用户的计算机上。这意味着我不需要合并文件，也不需要考虑最小化代码以减小脚本文件的大小。\n\n相反，我可以为每个主要的应用程序功能创建独立的文件。\n\
+  \n在解决方案资源管理器窗口中右键点击`js`文件夹，从菜单中选择添加 ➤ 新建项来添加一个新文件。从列表中选择 JavaScript 文件，将名称设置为`viewmodel.js`，然后点击添加按钮创建该文件。Visual\
+  \ Studio 将在项目中添加一个空的新文件并打开它以供编辑。添加清单 2-1 中所示的语句。\n\n***清单 2-1.** 视图模型类的初始内容*\n\n\
+  ```javascript\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n///\
+  \ <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" />\n(function () {\n\n    \"\
+  use strict\";\n\n    WinJS.Namespace.define(\"ViewModel.UserData\", {\n\n      \
+  \  // 私有成员\n\n        _shoppingItems: [],\n\n        _preferredStores: [],\n\n \
+  \       // 公有成员\n\n        homeZipCode: null,\n\n        getStores: function ()\
+  \ {\n\n            return this._preferredStores;\n\n        },\n\n        addStore:\
+  \ function (newStore) {\n\n            this._preferredStores.push(newStore);\n\n\
+  \        },\n\n        getItems: function () {\n\n            return this._shoppingItems;\n\
+  \n        },\n\n        addItem: function (newName, newQuantity, newStore) {\n\n\
+  \            this._shoppingItems.push({\n\n                item: newName,\n\n  \
+  \              quantity: newQuantity,\n\n                store: newStore\n\n   \
+  \         });\n\n        }\n\n    });\n\n    ViewModel.UserData.homeZipCode = \"\
+  NY 10118\";\n    ViewModel.UserData.addStore(\"Whole Foods\");\n    ViewModel.UserData.addStore(\"\
+  Kroger\");\n\n    ViewModel.UserData.addStore(\"Costco\");\n\n    ViewModel.UserData.addStore(\"\
+  Walmart\");\n\n    ViewModel.UserData.addItem(\"Apples\", 4, \"Whole Foods\");\n\
+  \    ViewModel.UserData.addItem(\"Hotdogs\", 12, \"Costco\");\n    ViewModel.UserData.addItem(\"\
+  Soda\", \"4 pack\", \"Costco\");\n\n})();\n```\n\n我稍后会回到视图模型，但首先我需要解释代码的其他部分及其代表的约定。对于后续的\
+  \ JavaScript 文件我不会重复这样做，但在你开始 Windows 8 开发时，提供一些有用的背景信息是很有必要的。\n\n## 使用代码补全\n\n\
+  Visual Studio 在编辑器中支持 JavaScript 代码补全，这使得编写代码更简单且不易出错。你必须使用引用元素将 JavaScript 文件引入代码补全的作用域，对于不在本地目录中的文件，如下所示：\n\
+  \n```javascript\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n///\
+  \ <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" />\n```\n\n在引用元素前加上三个斜杠（`/`）字符会将引用引起\
+  \ Visual Studio 的注意，并使 JavaScript 运行时将此语句视为注释。完成这些添加后，`viewmodel.js`文件就获得了对 WinJS\
+  \ API 的代码补全支持。如果你希望获得 WinJS 的代码补全，需要将这些引用元素添加到你的每个 JavaScript 文件中。\n\n## 减少全局命名空间污染\n\
+  \nJavaScript 中最严重的问题之一是变量名冲突。在函数外部定义的 JavaScript 变量是全局可用的，而由于有意义的变量名数量有限，不同代码区域尝试为不同目的使用相同变量名只是时间问题。全局变量被认为是*全局命名空间*的一部分，定义全局变量通常被称为*污染全局命名空间*。Windows\
+  \ 8 JavaScript 文件遵循三种不同的约定来减少命名空间污染，你都应该采用。\n\n### 创建命名空间\n\nWinJS API 通过`Namespace`对象的`define`方法帮助减少全局命名空间污染：\n\
+  \n```javascript\nWinJS.Namespace.define(\"ViewModel.UserData\", {\n\n//\n\n. . .\n\
+  \n*此处定义了 `ViewModel.UserData` 对象的成员*\n\n. . .\n\n});\n```\n\n\n`define`方法的第一个参数是你要分配给对象的全局名称。在本例中，我指定了`ViewModel.UserData`，这创建了一个名为`ViewModel`的全局变量，该变量具有`UserData`属性。`UserData`属性的值是我作为第二个参数传递给`define`方法的对象，这实际上导出了该对象的成员，使它们可以通过`ViewModel`全局访问。\n\
+  \n`UserData`。稍后我将数据应用到标记时，你会看到它的工作方式。\n\n使用`define`方法有两个原因，而不是自己处理。首先，`ViewModel`对象仅在尚不存在时才会被创建。\n\
+  \n这意味着我可以通过多次调用`define`方法来轻松构建视图模型的能力。其理念是，我可以在单个全局命名空间对象下关联复杂的对象和函数，并减少变量名冲突的可能性。\n\
+  \n**提示** 有一种更复杂的方法来处理这个问题，称为异步模块定义（AMD）。AMD 技术通过允许 JavaScript 文件的消费者选择访问 JavaScript\
+  \ 库的变量名称，从而有效消除了全局变量名冲突。Windows 8 不直接支持 AMD 模块，但你可以使用支持 AMD 的脚本加载器，例如`require.js`。\n\
+  \n使用`define`方法的第二个原因是，它不会导出任何以下划线字符开头的属性，这是定义私有成员的常见 JavaScript 约定。这意味着当我导出`UserData`对象时，`_shoppingItems`和`_preferredStores`属性不会全局可用。\n\
+  \n这是一个很好的技巧，它意味着全局对象的私有实现细节保持私有，但正如你将了解到的，它确实会与其他 WinJS 功能引起一些轻微的问题。\n\n### 使用自执行函数\n\
+  \n第二个约定是在 JavaScript 文件中使用自执行函数。自执行函数的基本形式如下：\n```\n(function() {\n    // ... statements\
+  \ go here ...\n})();\n```\n将函数包裹在圆括号中，然后立即添加另一对圆括号，会导致函数被定义并立即执行。\n\n你在函数内部定义的任何变量都限定在函数本身的作用域内，并且不会污染全局命名空间。当函数执行完成后，JavaScript\
+  \ 运行时会自动清理任何未全局导出的变量。\n\n### 使用严格模式\n\n`use strict`语句对使用 JavaScript 的方式施加了一些约束。\n\
+  \n其中一个约束是，在函数中隐式创建全局变量会变成错误。当你没有使用`var`关键字时，会隐式创建全局变量：\n```\nvar color1 = \"blue\"\
+  ; // 正确 - 作用域限定在函数内\ncolor2 = \"red\"; // 错误 - 这是一个全局变量\n```\n如果你定义了一个隐式全局变量，JavaScript\
+  \ 运行时会生成一个错误。使用严格模式完全是可选的，但这是一个好的实践，它会禁用一些更危险和奇怪的 JavaScript 行为。你可以通过阅读 ECMAScript\
+  \ 语言规范附录 C（位于`www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf`）来获取严格模式强制执行变更的完整详细信息。\n\
+  \n### 回到视图模型\n\n现在我已经解释了 Windows 8 JavaScript 文件的上下文和约定，我可以转向视图模型的定义。示例 Windows\
+  \ 8 应用程序的视图模型将很简单，这部分由`ViewModel.UserData`对象表示，将包含用户特定的数据：用户的家庭邮政编码、购物清单以及他们购买杂货的商店。\n\
+  \n我定义了两个数组，用于保存购物清单上项目的详细信息以及用户偏好的商店：`_shoppingItems`和`_preferredStores`。这些属性不作为`ViewModel.UserData`对象的一部分导出，因为它们以下划线开头。为了提供对数据的访问，我定义了一组函数，这些函数返回数组数据并接受要添加到数组中的新项目。`homeZipCode`属性是公开的，并构成全局可用的`ViewModel.UserData`对象的一部分。你可以直接读取和更改此属性的值。\n\
+  \n**注意**  `UserData`对象的形状和结构有点奇怪，因为我想展示 WinJS API 的不同方面。在实际项目中，你会以更一致的方式处理数据项。\n\
+  \n为了在应用程序中有一些数据可供使用，我在自执行函数中添加了一些语句，用于定义邮政编码、添加一些商店，并在购物清单上放置一些简单的项目：\n```\nViewModel.UserData.homeZipCode\
+  \ = \"NY 10118\";\nViewModel.UserData.addStore(\"Whole Foods\");\nViewModel.UserData.addStore(\"\
+  Kroger\");\nViewModel.UserData.addStore(\"Costco\");\nViewModel.UserData.addStore(\"\
+  Walmart\");\nViewModel.UserData.addItem(\"Apples\", 4, \"Whole Foods\");\nViewModel.UserData.addItem(\"\
+  Hotdogs\", 12, \"Costco\");\nViewModel.UserData.addItem(\"Soda\", \"4 pack\", \"\
+  Costco\");\n```\n## 使用数据绑定\n\n数据绑定是一种机制，通过它你可以将视图模型中的数据包含在向用户显示的 HTML 中。WinJS API\
+  \ 通过`WinJS.Binding`命名空间支持绑定。数据绑定是在 Windows 应用商店应用中使用视图模型的关键。如果你想构建可扩展且稳健的 Windows\
+  \ 8 应用程序，我建议投入时间学习如何充分利用 WinJS 绑定功能。\n\n**提示** WinJS 数据绑定不如一些更广泛使用的 Web 应用 JavaScript\
+  \ 库（如`Knockout.js`、`Backbone`和`Angular.js`）那样完整或灵活。你可以轻松地在 Windows 应用商店应用中使用这些库，但我建议花时间理解\
+  \ WinJS 功能，因为它已集成到 WinJS API 中包含的一些 UI 控件中。\n\n### 使用基本声明式绑定\n\n使用绑定的最简单方式是声明式地，这意味着你直接在\
+  \ HTML 标记中包含视图模型数据的详细信息。清单 2-2 展示了如何在`default.html`中绑定到`homeZipCode`值。\n\n**清单 2-2.**\
+  \ 一个简单的声明式绑定\n\n```\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\"\
+  >\n    <title>MetroGrocer</title>\n    <!-- WinJS references -->\n    <link href=\"\
+  //Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"stylesheet\">\n    <script src=\"\
+  //Microsoft.WinJS.1.0/js/base.js\"></script>\n    <script src=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  ></script>\n    <!-- MetroGrocer references -->\n    <link href=\"/css/default.css\"\
+  \ rel=\"stylesheet\">\n    <script src=\"/js/viewmodel.js\"></script>\n    <script\
+  \ src=\"/js/default.js\"></script>\n</head>\n<body>\n    <div id=\"contentGrid\"\
+  >\n        <div id=\"leftContainer\" class=\"gridLeft\">\n            <h1 class=\"\
+  win-type-xx-large\">左侧完整容器</h1>\n            <div class=\"win-type-x-large\">\n\
+  \                邮政编码是：\n                <span data-win-bind=\"innerText: UserData.homeZipCode\"\
+  ></span>\n            </div>\n        </div>\n        <div id=\"topRightContainer\"\
+  \ class=\"gridRight\">\n            <h1 class=\"win-type-xx-large\">右上容器</h1>\n\
+  \        </div>\n        <div id=\"bottomRightContainer\" class=\"gridRight\">\n\
+  \            <h1 class=\"win-type-xx-large\">右下容器</h1>\n        </div>\n    </div>\n\
+  </body>\n</html>\n```\n\n我添加了一个`script`元素，将`viewmodel.js`引入 HTML 文档。然而，最重要的添加是`span`元素及其`data-win-bind`属性。\n\
+  \n\n\n"
+- "# Markdown 排版后的内容\n\n**ip** 脚本元素的顺序在 Windows Store 应用和 Web 应用中一样重要。我 `default.js`\
+  \ 文件中的代码依赖我的视图模型，因此必须确保 `viewmodel.js` 的脚本元素位于 `default.js` 之前。\n\n声明式绑定包含两部分。第一部分是\
+  \ `HTMLElement` 对象定义的属性名称，该对象代表文档对象模型（DOM）中的元素。我使用了 `innerText`，它将设置 `span` 元素的文本内容。\n\
+  \n属性名称后跟冒号（`:`），然后是应分配给该属性的数据项名称。我指定了 `UserData.homeZipCode`。\n\n**T**\n\n**ip**\
+  \ 如果你指定任何也是 JavaScript 保留关键字的属性名称，声明式绑定会静默失败。这意味着，例如，你应该避免在绑定中使用 `class` 属性，而改用\
+  \ `className` 属性。\n\n仅仅向 HTML 元素添加 `data-win-binding` 属性是不够的。我还必须告诉 WinJS API 搜索文档，以便找到并处理绑定属性。清单\
+  \ 2-3 展示了 `default.js` 文件。我删除了 Visual Studio 创建的一些注释，并定义了一些稍后将构建的占位函数。\n\n***清单\
+  \ 2-3.*** 处理 WinJS 绑定\n\n```\n(function () {\n\n\"use strict\";\n\nvar app = WinJS.Application;\n\
+  \napp.onactivated = function (eventObject) {\n\nif (eventObject.detail.kind ===\n\
+  \nWindows.ApplicationModel.Activation.ActivationKind.launch) {\n\nif (eventObject.detail.previousExecutionState\
+  \ !==\n\nWindows.ApplicationModel.Activation\n\n.ApplicationExecutionState.terminated)\
+  \ {\n\nperformInitialSetup(eventObject);\n\n} else {\n\nperformRestore(eventObject);\n\
+  \n}\n\nWinJS.UI.processAll();\n\n}\n\n};\n```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-44_1.jpg)\n\n第二章 ■ 数据和绑定\n\n```\napp.oncheckpoint = function (eventObject)\
+  \ {\n\nperformSuspend(eventObject);\n\n};\n\napp.start();\n\nfunction performInitialSetup(e)\
+  \ {\n\nWinJS.Binding.processAll(document.body, ViewModel);\n\n}\n\nfunction performRestore(e)\
+  \ {\n\n// TODO\n\n}\n\nfunction performSuspend(e) {\n\n// TODO\n\n}\n\n})();\n```\n\
+  \n重要的变化是对 `WinJS.Binding.processAll` 方法的调用。参数是处理应开始的元素以及声明式绑定的数据值来源。通过指定 `document.body`\
+  \ 元素，我告诉 WinJS 处理整个文档。第二个参数告诉 WinJS 使用 `ViewModel` 对象作为数据源。\n\n声明式数据绑定是相对于数据源的，这就是为什么我的示例中的绑定引用\
+  \ `UserData.homeZipCode` 而不是 `ViewModel.UserData.homeZipCode`：\n\n```\n<span data-win-bind=\"\
+  innerText: UserData.homeZipCode\"></span>\n```\n\n这些更改的结果是 `span` 元素的内容被设置为 `homeZipCode`\
+  \ 属性的值，如图 2-1 所示。\n\n***图 2-1.*** 使用声明式绑定显示视图模型值\n\n### 创建动态绑定\n\n我在上一个示例中使用的绑定是*静态*的，意味着视图模型属性的值与包含绑定声明的\
+  \ `span` 元素的值之间没有持续的关系。静态绑定就像视图模型值的快照。一旦快照被拍摄，标记中的值就固定了，即使属性的值发生更改。\n\n*动态绑定*（属性更改*确实*会导致元素更新）对于大多数应用更为有用。在\
+  \ WinJS 中，当声明式绑定所依赖的数据属性是*可观察的*时，它们会自动变为动态。要创建可观察属性，我必须在视图模型中使用 `WinJS.Binding.as`\
+  \ 方法，如清单 2-4 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n第二章 ■ 数据和绑定\n\
+  \n***清单 2-4.*** 在视图模型中创建可观察项\n\n```\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\"\
+  \ />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" />\n(function () {\n\
+  \n\"use strict\";\n\nWinJS.Namespace.define(\"ViewModel\", {\n```\n\n\n\n`UserData:\
+  \ WinJS.Binding.as({`\n\n```\n// 私有成员\n\n_shoppingItems: [],\n\n_preferredStores:\
+  \ [],\n\n// 公有成员\n\nhomeZipCode: null,\n\ngetStores: function () {\n\nreturn this._preferredStores;\n\
+  \n},\n\naddStore: function (newStore) {\n\nthis._preferredStores.push(newStore);\n\
+  \n},\n\ngetItems: function () {\n\nreturn this._shoppingItems;\n\n},\n\naddItem:\
+  \ function (newName, newQuantity, newStore) {\n\nthis._shoppingItems.push({\n\n\
+  item: newName,\n\nquantity: newQuantity,\n\nstore: newStore\n\n});\n\n}\n\n})\n\
+  ```\n\n`ViewModel.UserData.homeZipCode = \"NY 10118\";` `ViewModel.UserData.addStore(\"\
+  Whole Foods\");` `ViewModel.UserData.addStore(\"Kroger\");`\n\n`ViewModel.UserData.addStore(\"\
+  Costco\");`\n\n`ViewModel.UserData.addStore(\"Walmart\");`\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 2 章 ■ 数据与绑定\n\n`ViewModel.UserData.addItem(\"Apples\", 4, \"Whole Foods\"\
+  );` `ViewModel.UserData.addItem(\"Hotdogs\", 12, \"Costco\");` `ViewModel.UserData.addItem(\"\
+  Soda\", \"4 pack\", \"Costco\");`\n\n`})();`\n\n这里的变化虽然微妙但却很重要。`WinJS.Binding.as`\
+  \ 接收一个对象作为参数，并返回一个其*简单属性*可观察的对象。简单属性是指值为原始类型的属性，比如数字或字符串。其值为对象、数组或函数的属性不属于简单属性，不会通过\
+  \ `as` 方法变为可观察。\n\n`WinJS.Binding.as` 方法会用 getter 和 setter 替换数据属性，当属性值变化时会触发通知。指向对象、数组或函数的属性会保持原样，不会被\
+  \ `as` 方法改变。（本章后面我会解释如何处理数组。）\n\n你需要对*对象*调用 `as` 方法，而不是对属性或简单值调用。如果直接在属性上调用 `WinJS.Binding.as`，你只会得到该属性的值，而任何使用该属性的绑定都不会自动更新：\n\
+  \n```\n// 这种方式不会更新\n\nvar myObject = {\n\nmyObservableValue: WinJS.Binding.as(\"\
+  MyInitialValue\")\n\n};\n\n// 这种方式会更新\n\nvar myOtherObject = WinJS.Binding.as({\n\
+  \nmyObservableValue: \"MyInitialValue\"\n\n});\n```\n\n当你尝试用第一种方式创建可观察值时，不会报错。`WinJS`\
+  \ 只会默默地忽略该请求，从而得到一个静态绑定。采用第二种方式，你就能创建出值变化时自动更新的绑定。\n\n## 将命名空间与可观察项结合使用\n\n有时，`WinJS`\
+  \ API 会给人这样一种印象：不同开发团队原本可以更细致地协调他们的工作。一个例子就是，当尝试在使用 `WinJS.Namespace.define` 方法全局导出的对象上创建可观察数据项时，就会出现这种情况。\n\
+  \n`WinJS.Binding.as` 方法在处理简单属性时，会向对象中添加若干私有成员，并遵循通用约定，在这些成员名称前加上下划线前缀。但正如我所解释的，`WinJS.Namespace.define`\
+  \ 方法不会将这些成员全局导出。为绕过这一冲突，我调整了创建 `ViewModel.UserData` 对象的方式，如清单 2-5 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 2 章 ■ 数据与绑定\n\n***清单 2-5.*** 调整全局对象的结构以导出私有成员\n\n```\n. . .\n\nWinJS.Namespace.define(\"\
+  ViewModel\", {\n\nUserData: WinJS.Binding.as({\n\n//\n\n*. . . UserData 对象的成员写在这里\
+  \ . . .*\n\n})\n\n});\n\n. . .\n```\n\n`define` 方法不会移除它所导出对象内部属性的私有成员，因此我可以通过将 `UserData`\
+  \ 对象指定为 `ViewModel` 对象的一个属性，来导出它的私有成员。\n\n## 更新可观察数据项\n\n可观察数据项的更新只有一个方向：从视图模型流向绑定。要使数据更新流向另一个方向（从元素流向视图模型），你必须使用常规的\
+  \ JavaScript DOM API 技术。清单 2-6 展示了在 `default.html` 的标记中添加输入元素和按钮元素，用于更新 `homeZipCode`\
+  \ 属性。\n\n***清单 2-6.*** 捕获将用于更新视图模型的数据\n\n```\n<!DOCTYPE html>\n\n<html>\n\n<head>\n\
+  ```\n\n\n\n```html\n<meta charset=\"utf-8\">\n\n<title>MetroGrocer</title>\n\n<!--\
+  \ WinJS 引用 -->\n<link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"stylesheet\"\
+  >\n<script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n<script src=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  ></script>\n\n<!-- MetroGrocer 引用 -->\n<link href=\"/css/default.css\" rel=\"stylesheet\"\
+  >\n<script src=\"/js/viewmodel.js\"></script>\n<script src=\"/js/default.js\"></script>\n\
+  \n</head>\n\n<body>\n<div id=\"contentGrid\">\n    <div id=\"leftContainer\" class=\"\
+  gridLeft\">\n        <h1 class=\"win-type-xx-large\">左侧完整容器</h1>\n        <div class=\"\
+  win-type-x-large\">\n            邮政编码是：\n            <span data-win-bind=\"innerText:\
+  \ UserData.homeZipCode\"></span>\n        </div>\n\n        [www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n        ## 第 2 章 ■ 数据与绑定\n\n        <div class=\"win-type-x-large\">\n       \
+  \     <label for=\"newZip\">输入新邮政编码：</label>\n            <input id=\"newZip\" data-win-bind=\"\
+  value: UserData.homeZipCode\"/>\n            <button id=\"newZipButton\">更新邮政编码</button>\n\
+  \        </div>\n    </div>\n\n    <div id=\"topRightContainer\" class=\"gridRight\"\
+  >\n        <h1 class=\"win-type-xx-large\">右上容器</h1>\n    </div>\n\n    <div id=\"\
+  bottomRightContainer\" class=\"gridRight\">\n        <h1 class=\"win-type-xx-large\"\
+  >右下容器</h1>\n    </div>\n</div>\n</body>\n</html>\n\n从 input 元素获取值并更新视图模型的值无需任何 Windows\
+  \ 8 专属技术。清单 2-7 展示了 `default.js` 文件中的改动，这些改动响应 button 元素的 click 事件，并通过 input 元素\
+  \ DOM 对象的 `value` 属性更新视图模型。\n\n**清单 2-7.** 响应变更事件更新视图模型\n\n```\n. . .\nfunction\
+  \ performInitialSetup(e) {\n    WinJS.Binding.processAll(document.body, ViewModel);\n\
+  \    WinJS.Utilities.query('#newZipButton').listen(\"click\", function (e) {\n \
+  \       ViewModel.UserData.homeZipCode =\n            WinJS.Utilities.query('#newZip')[0].value;\n\
+  \    });\n}\n. . .\n```\n\n我在编写这一补充功能时利用了 `WinJS.Utilities` 命名空间，该命名空间包含 jQuery\
+  \ 等实用程序库中的部分功能。其 API 与 jQuery 大体相同，但查询元素时不是使用 `$` 快捷函数，而是通过 `WinJS.Utilities.query`\
+  \ 方法完成。虽然并未提供 jQuery 的全部功能，但你可以使用 `WinJS.Utilities` 命名空间来定位元素、应用 CSS 样式和类，以及设置事件处理程序。\n\
+  \n在此清单中，我使用 `query` 方法在 HTML 文档中搜索 `newZipButton` 元素，并对返回结果调用 `listen` 方法为 `click`\
+  \ 事件设置处理程序。当按钮被点击时，我定位 input 元素，从该对象中读取 `value` 属性，并将其赋值给视图模型中的 `homeZipCode` 属性。\n\
+  \n`query` 方法返回的是一个元素数组。由于没有与 jQuery 的 `val` 方法等价的函数，因此我将返回结果视为数组，获取代表与选择器匹配的第一个元素的\
+  \ `HTMLElement` 对象，然后读取其 `value` 属性。实现相同结果的另一种方法是将元素的 `id` 属性值作为全局变量进行定位。在常规 Web\
+  \ 应用开发中通常要避免使用此功能，因为它在不同浏览器中的实现并不一致；但在开发 Windows 应用商店应用时，可以安全地依赖 Internet Explorer\
+  \ 10 实现的功能，因为你的应用始终会使用该浏览器引擎来运行。你可以看到我在清单 2-8 中如何使用此功能来简化 click 事件处理程序的代码设置。当然，我无法访问\
+  \ `WinJS.Utilities` 命名空间中的 `listen` 方法，因此我使用了标准 DOM API 中的 `addEventListener` 方法。\n\
+  \n**清单 2-8.** 将元素的 `id` 属性视为全局变量来定位元素\n\n```\n. . .\nfunction performInitialSetup(e)\
+  \ {\n    WinJS.Binding.processAll(document.body, ViewModel);\n    newZipButton.addEventListener(\"\
+  click\", function (e) {\n        ViewModel.UserData.homeZipCode = newZip.value;\n\
+  ```\n```\n\n\n\n"
+- "# 数据与绑定\n\n在 Windows 应用商店应用中使用 Internet Explorer 专属特性时，我经历了一段时间才得心应手，但其中有些特性确实能节省大量时间，而我自己也一直在使用这个特定功能。不过需要提醒一句：如果\
+  \ HTML 中有多个元素的 `id` 属性值相同，那么对应全局变量的值将是一个包含所有匹配元素的数组。\n\n添加处理函数的效果是，用户可以在输入元素中输入新邮政编码，点击按钮后，视图模型中的邮政编码值就会更新。由于这个更新作用于可观察属性，`span`\
+  \ 元素的内容会通过绑定自动更新以显示新值，如图 2-2 所示。\n\n**图 2-2.** *更新视图模型中的可观察值*\n\n**提示** 如果你使用过 Knockout.js\
+  \ 等 Web 应用视图模型库，可能习惯通过调用方法来更新视图模型值，例如：`ViewModel.UserData.homeZipCode(myNewValue)`。Knockout\
+  \ 使用这种方法是为了兼容不支持 getter 和 setter 的旧版浏览器（包括多数旧版 Internet Explorer）。而用于显示 HTML5 Windows\
+  \ 应用商店应用的 Internet Explorer 10 *确实* 支持 getter 和 setter，这意味着你可以像示例中那样直接赋值。\n\n##\
+  \ 创建可观察数组\n\n让数组变得可观察需要多费些功夫。首先，必须使用 `WinJS.Binding.List` 类为要操作的数组创建一个包装器。\n\n清单\
+  \ 2-9 展示了在 `viewmodel.js` 文件中将 `List` 类应用于我的视图模型。\n\n**清单 2-9.** *使用 List 类创建可观察数组*\n\
+  \n```javascript\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n///\
+  \ <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" />\n(function () {\n    \"\
+  use strict\";\n\n    var shoppingItemsList = new WinJS.Binding.List();\n    var\
+  \ preferredStoresList = new WinJS.Binding.List();\n\n    WinJS.Namespace.define(\"\
+  ViewModel\", {\n        UserData: WinJS.Binding.as({\n            homeZipCode: null,\n\
+  \            getStores: function () {\n                return preferredStoresList;\n\
+  \            },\n            addStore: function (newStore) {\n                preferredStoresList.push(newStore);\n\
+  \            },\n            getItems: function () {\n                return shoppingItemsList;\n\
+  \            },\n            addItem: function (newName, newQuantity, newStore)\
+  \ {\n                shoppingItemsList.push({\n                    item: newName,\n\
+  \                    quantity: newQuantity,\n                    store: newStore\n\
+  \                });\n            }\n        })\n    });\n\n    // 为简洁起见，省略了添加测试数据的语句\n\
+  })();\n```\n\n创建 `List` 很简单，但如果试图在已传递给 `WinJS.Binding.as` 方法的对象作用域内创建它，就会遇到问题（因为对特殊变量\
+  \ `this` 的假设存在冲突）。为避免此问题，应像示例中那样在视图模型外部定义列表。\n\n使用 `List` 对象与使用数组并不相同。最重要的区别在于，不能使用数组索引器来读取或写入数据值。相反，必须使用\
+  \ `getAt` 和 `setAt` 方法。`List` 支持其他数组成员，如 `push` 和 `pop`，并且还提供了一些用于排序和投影 `List` 对象内容的有用附加功能。\n\
+  \n另一个重要区别是，不能通过声明式绑定访问数组值。相反，必须使用 JavaScript 在 DOM 中设置值，并处理 `List` 对象发出的事件以保持这些值的最新状态。清单\
+  \ 2-10 展示了 `default.html` 文件中的元素，这些元素显示视图模型列表中某一列表的项目数量，以及一些用于添加和删除项目的按钮。\n\n**清单\
+  \ 2-10.** *用于与 List 对象交互的元素*\n\n```html\n<div id=\"leftContainer\" class=\"gridLeft\"\
+  >\n    <h1 class=\"win-type-xx-large\">左侧全容器</h1>\n    <div class=\"win-type-x-large\"\
+  >\n        最后一项是 <span id=\"listInfo\"></span>\n    </div>\n    <div class=\"win-type-x-large\"\
+  >\n```\n\n\n\n<button id=\"addItemButton\">添加项目</button>\n\n<button id=\"removeItemButton\"\
+  >移除项目</button>\n\n</div>\n\n</div>\n\n. . .\n\n这些元素中没有特殊的数据属性，只是普通的 HTML。所有操作都在\
+  \ `default.js` 文件中完成，如清单 2-11 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-52_1.jpg)\n\n## 第 2 章 ■ 数据与绑定\n\n**清单 2-11.** 使用 JavaScript 桥接 HTML\
+  \ 元素和 `WinJS.Binding.List`\n\n. . .\n\n```\nfunction performInitialSetup(e) {\n\n\
+  WinJS.Utilities.query(‘button’).listen(\"click\", function (e) {\n\nif (this.id\
+  \ == \"addItemButton\") {\n\nViewModel.UserData.addItem(\"Ice Cream\", 1, \"Vanilla\"\
+  , \"Walmart\");\n\n} else {\n\nViewModel.UserData.getItems().pop();\n\n}\n\n});\n\
+  \nvar setValue = function () {\n\nvar list = ViewModel.UserData.getItems();\n\n\
+  listInfo.innerText = list.getAt(list.length - 1).item;\n\n};\n\nvar eventTypes =\
+  \ [\"itemchanged\", \"iteminserted\",\n\n\"itemmoved\", \"itemremoved\"];\n\neventTypes.forEach(function\
+  \ (type) {\n\nViewModel.UserData.getItems().addEventListener(type, setValue);\n\n\
+  });\n\nsetValue();\n\n}\n```\n\n. . .\n\n`List` 对象定义了四个在数据项发生变化时触发的事件。这些事件包括 `itemchanged`、`iteminserted`、`itemmoved`\
+  \ 和 `itemremoved`。`List` 对象定义了一个 `addEventListener` 方法，用于注册这些事件的事件处理函数。在清单中，我为所有四个事件注册了同一个处理函数；该函数更新\
+  \ `span` 元素的 `innerText` 属性，以显示 `List` 中第一个元素的 `item` 属性。\n\n两个按钮元素分别用于向 `List`\
+  \ 中添加和移除项目。我将 `addItem` 方法保留在视图模型中，因为我倾向于使用这样的小型辅助函数来使数据对象的结构更加一致，但我也可以直接调用 `List`\
+  \ 对象的 `push` 方法来达到同样的效果。结果如图 2-3 所示。\n\n**图 2-3.** 在 HTML 元素中显示 `List` 对象的详细信息 37\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 第 2 章 ■ 数据与绑定\n\n**提示**\
+  \ 我可以从该清单中移除对 `WinJS.Binding.processAll` 方法的调用，因为 HTML 文档中没有声明式绑定。\n\n## 使用模板\n\n\
+  `WinJS.Binding.List` 对象在与*绑定模板*一起使用时才能真正发挥其作用，绑定模板允许为一系列数据值重复生成标记区域。模板在 HTML 文档中定义，并使用\
+  \ `data-win-control` 属性进行标记，如清单 2-12 所示。\n\n**清单 2-12.** 向 HTML 文档中添加模板\n\n```\n\
+  <!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>MetroGrocer</title>\n\
+  <!-- WinJS 引用 -->\n<link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"stylesheet\"\
+  >\n<script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n<script src=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  ></script>\n<!-- MetroGrocer 引用 -->\n<link href=\"/css/default.css\" rel=\"stylesheet\"\
+  >\n<script src=\"/js/viewmodel.js\"></script>\n<script src=\"/js/default.js\"></script>\n\
+  </head>\n<body>\n<div id=\"contentGrid\">\n<div id=\"leftContainer\" class=\"gridLeft\"\
+  >\n<h1 class=\"win-type-xx-large\">购物清单</h1>\n<table id=\"listTable\" class=\"type-table-header\"\
+  >\n<thead>\n<tr>\n<th>数量</th>\n<th class=\"itemName\">项目</th>\n<th>商店</th>\n</tr>\n\
+  </thead>\n<tbody id=\"itemBody\"></tbody>\n</table>\n</div>\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  第 2 章 ■ 数据与绑定\n<div id=\"topRightContainer\" class=\"gridRight\">\n<h1 class=\"\
+  win-type-xx-large\">右上容器</h1>\n</div>\n<div id=\"bottomRightContainer\" class=\"\
+  gridRight\">\n<h1 class=\"win-type-xx-large\">右下容器</h1>\n</div>\n</div>\n<!-- 购物清单项目的模板\
+  \ -->\n<table>\n<tbody id=\"itemTemplate\" data-win-control=\"WinJS.Binding.Template\"\
+  >\n<tr class=\"groceryItem\">\n<td data-win-bind=\"innerText: quantity\"></td>\n\
+  <td data-win-bind=\"innerText: item\"></td>\n<td data-win-bind=\"innerText: store\"\
+  ></td>\n</tr>\n</tbody>\n</table>\n<!-- 购物清单项目模板结束 -->\n</body>\n</html>\n```\n\n\
+  \n\n"
+- "# 文档格式\n\n本文档中有两个新的表格元素。第一个表格的 `id` 属性为 `listTable`，用户将看到它。这个表格有一个包含列标题的标题行，但 `tbody`\
+  \ 元素是空的。我将在此处使用模板为购物清单中的每个项目插入一行。\n\n第二个表格元素包含模板。模板本身由 `tbody` 元素定义，但 WinJS 模板的一个特殊之处在于它们需要位于格式良好的\
+  \ HTML 中。例如，你不能直接将 `tbody` 元素定义为 `body` 的子元素，因为 `tbody` 元素不允许成为 `body` 元素的子元素。这意味着在使用模板时，HTML\
+  \ 文档中最终会包含一些多余的元素。\n\n## 使用模板\n\n模板通过 `data-win-control` 属性值 `WinJS.Binding.Template`\
+  \ 来标识。这会告诉 WinJS 处理该元素，查找声明性绑定，并为 DOM 中代表该模板元素的 `HTMLElement` 对象添加一些特殊属性。\n\n如前所述，我喜欢将项目拆分，以便每个功能区域都有对应的\
+  \ JavaScript 文件。为此，我创建了一个名为 `ui.js` 的新 JavaScript 文件，如列表 2-13 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n**第 2 章 ■ 数据与绑定**\n\n***列表 2-13.** * 在 `ui.js` 文件中使用模板\n\n```\n/// <reference\
+  \ path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ /> (function () {\n\n\"use strict\";\n\nWinJS.Namespace.define(\"UI.List\", {\n\
+  \ndisplayListItems: function () {\n\nWinJS.Utilities.empty(itemBody);\n\nvar list\
+  \ = ViewModel.UserData.getItems();\n\nfor (var i = 0; i < list.length; i++) {\n\n\
+  itemTemplate.winControl.render(list.getAt(i), itemBody);\n\n}\n\nWinJS.Utilities.children(itemBody).listen(\"\
+  click\", function (e) {\n\nViewModel.State.selectedItemIndex = this.rowIndex - 1;\
+  \ WinJS.Utilities.children(itemBody).removeClass(\"selected\"); WinJS.Utilities.addClass(this,\
+  \ \"selected\");\n\n});\n\n},\n\nsetupListEvents: function () {\n\nvar eventTypes\
+  \ = [\"itemchanged\", \"iteminserted\",\n\n\"itemmoved\", \"itemremoved\"];\n\n\
+  var itemsList = ViewModel.UserData.getItems();\n\neventTypes.forEach(function (type)\
+  \ {\n\nitemsList.addEventListener(type, UI.List.displayListItems);\n\n});\n\n},\n\
+  \n});\n\n})();\n```\n\n我定义了一个 `UI` 命名空间，其中包含一个具有 `displayListItems` 和 `setupListEvents`\
+  \ 函数的 `List` 对象。在 `displayListItems` 函数中，我定位了代表模板和生成元素目标的 `HTMLElement` 对象。我使用 `document.getElementById`\
+  \ 方法通过它们的 `id` 属性值来定位这些元素。\n\n`WinJS.Utilities.empty` 方法移除一个元素的子元素，我这样做是为了避免每次调用该函数时都只是向表格添加新行。\n\
+  \n若要遍历 `WinJS.Binding.List` 对象中的项目，请对每个项目调用模板对象上的 `winControl.render` 方法。`winControl`\
+  \ 由 `WinJS.UI.processAll` 方法创建，它返回为不同类型的用户界面控件创建的 Windows 8 特定属性。\n\n`render` 方法被添加到那些\
+  \ `data-win-control` 属性为 `WinJS.Binding.Template` 的元素上。`render` 方法的参数是要处理的数据项以及新生成内容将要添加到的目标元素。因此，通过对我的购物\
+  \ `List` 对象中的每个项目调用 `render` 方法，我能够创建表格行来填充我的 Windows Store 应用布局。\n\n创建好表格行后，我使用\
+  \ `WinJS.Utilities.children` 方法为新创建的 `tr` 元素设置一个 `click` 事件的事件监听器。\n\n最后，我设置了 `ViewModel.State.selectedItemIndex`\
+  \ 属性（稍后将定义），以便在接收到 `click` 事件时，使用 `tr` 元素可用的 `rowIndex` 属性来指示哪一行被选中，并确保 `selected`\
+  \ 类仅应用于用户选中的行。\n\n## 响应列表更改\n\n我在 `UI` 命名空间中定义的另一个函数是 `setupListEvents`。此函数监听我在上一节中描述的每个列表事件，并在收到这些事件时调用\
+  \ `displayListItems` 函数。\n\n这样，每当列表内容发生变化时，我就可以使用模板重新渲染表格元素的内容。这是一种处理列表更改的粗糙方法，但对于一个简单的示例来说已经足够了。传递给处理程序函数的事件对象包含有关哪个列表元素已更改的详细信息，这是在实现更优雅的方法时必不可少的信息。\n\
+  \n> **提示** 我将事件处理程序设置在一个单独的函数中，以便可以重复调用 `displayListItems`。如果我将事件处理程序设置在 `displayListItems`\
+  \ 函数内部，那么每次列表内容更改时都会创建一组新的处理程序。\n\n## 跟踪选中的项\n\n在 `displayListItems` 函数中，我更新了 `ViewModel.State.selectedItemIndex`\
+  \ 属性的值，以跟踪表格元素中的哪个项目已被选中。现在是时候定义这个属性了。列表 2-14 显示了对 `viewmodel.js` 文件的补充。\n\n***列表\
+  \ 2-14.** * 定义 `selectedItemIndex` 属性\n\n```\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\"\
+  \ />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" /> (function () {\n\
+  \n\"use strict\";\n\nvar shoppingItemsList = new WinJS.Binding.List();\n\nvar preferredStoresList\
+  \ = new WinJS.Binding.List();\n\nWinJS.Namespace.define(\"ViewModel\", {\n\nUserData:\
+  \ WinJS.Binding.as({\n\nhomeZipCode: null,\n\ngetStores: function () {\n\nreturn\
+  \ preferredStoresList;\n\n},\n\naddStore: function (newStore) {\n\npreferredStoresList.push(newStore);\n\
+  \n},\n\ngetItems: function () {\n\nreturn shoppingItemsList;\n\n},\n\naddItem: function\
+  \ (newName, newQuantity, newStore) {\n\nshoppingItemsList.push({\n\nitem: newName,\n\
+  \nquantity: newQuantity,\n\nstore: newStore\n\n});\n\n}\n\n}),\n\nState: WinJS.Binding.as({\n\
+  \nselectedItemIndex: -1\n\n})\n\n});\n\n//\n// *. . . 为简洁起见，省略了测试数据 . . .*\n\n})();\n\
+  ```\n\n我使用 `State` 对象来区分应用当前状态所需的数据和用户创建的数据（由 `UserData` 对象表示）。\n\n## 将模板应用于应用\n\
+  \n在使用模板之前，必须确保已调用 `WinJS.UI.processAll` 方法。此方法处理 HTML 文档，查找具有 `data-win-control`\
+  \ 属性的元素并配置其功能。这包括查找和处理模板。\n\n列表 2-15 显示了对 `default.js` 文件中定义的 `performInitialSetup`\
+  \ 函数所做的更改，其中我在调用 `WinJS.UI.processAll` 之后添加了对 `displayListItems` 和 `setupListEvents`\
+  \ 函数的调用（并且我从 `performInitialSetup` 函数中删除了前一个示例的代码）。\n\n***列表 2-15.** * 确保在使用模板之前已处理元素\n\
+  \n```\n. . .\n\nfunction performInitialSetup(e) {\n\nWinJS.UI.processAll().then(function\
+  \ () {\n\nUI.List.displayListItems();\n\nUI.List.setupListEvents();\n\n});\n\n}\n\
+  \n. . .\n```\n\n`processAll` 方法在后台完成其工作，允许在调用 `processAll` 之后的 JavaScript 语句同时执行。使用后台任务是一个好主意，但由于我的\
+  \ `displayListItems` 函数依赖于 `processAll` 创建的 `winControl` 属性，我需要确保在使用模板之前后台任务已经完成。\n\
+  \n**理解 PROMISES**\n\nWindows Store 应用依赖 JavaScript 的 `Promise` 模式来表示后台任务。`processAll`\
+  \ 方法的结果是一个 `WinJS.Promise` 对象，它是 JavaScript `Promise` 模式在 Windows 8 中的实现。\n\n\n\n\
+  要使用`Promise`对象，我调用该对象的`then`方法，传入一个将在任务完成时执行的函数。在我的示例中，这个函数调用依赖于`processAll`方法已完成工作的`UI.List`命名空间。\n\
+  \n`then`方法接受可选的第二和第三参数，它们定义在发生错误时执行的函数以及接收进度信息的函数，但本书中我假设所有后台任务都能正确完成。我建议你在自己的项目中花时间妥善处理任何错误。\n\
+  \n这是 JavaScript Promise 最基本和常见的用法。查看`WinJS.Promise`对象的 API 定义，了解其他可用功能。\n\n### 为模板元素设置样式\n\
+  \n为了样式化模板生成的元素，我在`css`文件夹中添加了一个名为`list.css`的新文件。你可以在清单 2-16 中看到此文件的内容。\n\n```\n\
+  【list.css 内容】\n#listTable {margin-top: 30px;border-collapse: collapse;}\n#listTable\
+  \ th, #listTable td {padding-right: 20px;padding-left: 10px;}\n#listTable th {font-size:\
+  \ 30pt; text-align: left;}\n#listTable td {font-size: 26pt;padding-top: 5px;padding-bottom:\
+  \ 5px;}\n#listTable tbody tr.selected {background-color: #85C54C;}\n#listTable th.itemName,\
+  \ #listTable th.store {width: 40%;}\n```\n\n该文件包含标准 CSS，未使用任何特定于 Windows 应用商店应用开发的功能。\n\
+  \n### 导入 JavaScript 和 CSS\n\n应用模板的最后一步是将`/js/ui.js`和`/css/list.css`文件添加到`default.html`中，如清单\
+  \ 2-17 所示。\n\n**清单 2-17.** 将`ui.js`文件添加到`default.html`\n\n```html\n<html>\n<head>\n\
+  <meta charset=\"utf-8\">\n<title>MetroGrocer</title>\n<!-- WinJS references -->\n\
+  <link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"stylesheet\">\n<script\
+  \ src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n<script src=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  ></script>\n<!-- MetroGrocer references -->\n<link href=\"/css/default.css\" rel=\"\
+  stylesheet\">\n<link href=\"/css/list.css\" rel=\"stylesheet\">\n<script src=\"\
+  /js/viewmodel.js\"></script>\n<script src=\"/js/ui.js\"></script>\n<script src=\"\
+  /js/default.js\"></script>\n</head>\n... \n</html>\n```\n\n### 测试模板\n\n使用模板填充表格的结果如图\
+  \ 2-4 所示。请注意，即使模板在`default.html`文件中定义，你也看不到它本身。这是因为`WinJS.UI.processAll`方法将 CSS\
+  \ 的`display`属性设置为`none`，使得模板对用户不可见。\n\n**图 2-4.** 使用模板和`List`对象生成表格行\n\n## 总结\n\n\
+  在本章中，我向你展示了如何在 Windows 8 应用中创建视图模型、如何使其全局可用，以及如何使数据项可观察。WinJS API 的当前状态使得这个过程有些繁琐，但回报是能够使用声明式绑定和模板，用应用数据填充你的\
+  \ HTML。\n\n---\n\n"
+- '# 第三章：应用控件
+
+
+  大多数情况下，你在 Windows 8 应用中使用的用户界面控件与创建常规 HTML Web 应用时使用的控件相同。如果你想从用户那里收集数据，可以使用`select`、`input`和`textarea`等元素。如果你想允许用户启动操作，可以使用`button`元素，依此类推。这些元素在你应用中的外观由项目中的
+  CSS 和 Internet Explorer 10 的功能共同控制。
+
+
+  除了这些基本控件，WinJS API 还定义了一些特定于 Windows 8 的控件。在本章中，我将向你展示如何使用这些最重要的控件，重点介绍那些对实现 Windows
+  8 应用体验（无论对用户还是开发者）至关重要的控件。
+
+
+  我首先向你展示`AppBar`和`Flyout`控件。`AppBar`是所有 Windows 8 应用的核心功能，是用户执行无法直接在主应用布局中使用数据和控件进行的交互的机制。`Flyout`是一种为用户提供一致弹出窗口的方式，并且与`AppBar`紧密关联。
+
+
+  并非所有 WinJS 控件都是为了用户利益。在本章中，我将向你展示如何使用`HTMLControl`将 HTML 片段导入你的应用程序。`HTMLControl`仅适用于静态
+  HTML 内容，因此我还将展示如何使用*Pages*功能加载 HTML 及其关联的 JavaScript 和 CSS。这些技术允许有效划分应用内容和功能，从而带来更轻松的开发体验以及更简单的测试和维护。为了完整性，我将在本章最后展示如何将外部内容导入
+  Windows 8 应用，如果你已投资于现有内容基础设施并希望将其整合到应用中，这会很有用。表 3-1 提供了本章摘要。
+
+
+  **表 3-1.** 章节摘要
+
+
+  | 问题 | 解决方案 | 清单 |
+
+  | :--- | :--- | :--- |
+
+  | 指示一个`AppBar`。 | 定义一个`div`元素，其`data-win-control`属性为`WinJS.UI.AppBar`。 | 1, 3, 4
+  |
+
+  | 导入一段静态内容。 | 使用`HTMLControl`功能。 | 2 |
+
+  | 指示一个`Flyout`。 | 定义一个`div`元素，其`data-win-control`属性为`WinJS.UI.Flyout`。 | 5–7 |
+
+  | 将`Flyout`与`AppBar`按钮关联。 | 配置`button`元素，使其`type`属性为`flyout`，且`flyout`属性设置为`flyout`的`div`元素的`id`。
+  | 8 |
+
+  | 管理一个`Flyout`。 | 使用 DOM API 管理`Flyout`中的控件，并使用`Flyout`的`div`元素的`winControl`属性成员管理`Flyout`功能。
+  | 9, 10 |
+
+  | 将内容加载到 Windows 8 应用中。 | 创建 HTML 片段，并使用`WinJS.UI.Pages.define`方法注册一个在内容加载时执行的回调函数。使用`WinJS.UI.Pages.render`方法加载内容。
+  | 11–15 |
+
+  | 将 HTML、JavaScript 和 CSS 一起加载到 Windows 8 应用中。 | 创建一个 HTML 文档，并使用`script`和`link`元素引用
+  JavaScript 和 CSS 文件。使用`WinJS.UI.Pages.define`和`WinJS.UI.Pages.render`方法注册回调函数并加载文档。
+  | 16–19 |
+
+  | 显示 Windows 8 应用外部的内容。 | 使用`iframe`，并确保在应用的清单中声明了 Internet (客户端) 权限。 | 20–22 |
+
+
+  ## 添加 AppBar
+
+
+  *AppBar*会在用户向上滑动手指或用鼠标右键单击时出现在屏幕底部。Windows 8 应用 UI 的重点似乎是主布局上的控件越少越好，并依赖`AppBar`作为除立即可用功能之外的任何交互机制。
+
+
+  我本可以直接在`default.html`中定义`AppBar`的 HTML，但正如本章开头所提到的，WinJS 支持动态加载和插入 HTML 片段。为了演示此功能，我在解决方案资源管理器中创建了一个`html`文件夹，并使用“添加新项”对话框中的“HTML
+  页面”项创建了一个`appbar.html`文件。
+
+
+  清单 3-1 展示了`appbar.html`的内容，其中包含我的`AppBar`定义。
+
+
+  **提示** 确保在创建`html`文件夹时没有运行调试器。如果正在运行，Visual Studio 将创建一个名为`NewFolder`的文件夹，并且在调试器停止之前不允许你更改名称。
+
+
+
+
+  '
+- "# 第 3 章 ■ 应用程序控件\n\n## **清单 3-1.** 在`appbar.html`文件中定义`AppBar`\n\n```html\n<div\
+  \ id=\"appBar\" data-win-control=\"WinJS.UI.AppBar\">\n  <button data-win-control=\"\
+  WinJS.UI.AppBarCommand\"\n          data-win-options=\"{section: 'global', label:\
+  \ 'New Item', icon: 'add'}\">\n  </button>\n  <button data-win-control=\"WinJS.UI.AppBarCommand\"\
+  \n          data-win-options=\"{section: 'global', label: 'Stores', icon: 'shop'}\"\
+  >\n  </button>\n  <button data-win-control=\"WinJS.UI.AppBarCommand\"\n        \
+  \  data-win-options=\"{section: 'global', label: 'Zip Code', icon: 'home'}\">\n\
+  \  </button>\n  <button data-win-control=\"WinJS.UI.AppBarCommand\"\n          data-win-options=\"\
+  {id: 'done', disabled: true, section: 'selection', label: 'Done', icon: 'accept'}\"\
+  >\n  </button>\n</div>\n```\n\n`AppBar`由一个`div`元素表示，该元素的`data-win-control`属性设置为`WinJS.AppBar`。一个`AppBar`包含一个或多个`button`元素，这些元素的`data-win-control`属性设置为`WinJS.UI.AppBarCommand`。每个按钮都需要配置信息，这些信息通过`data-win-options`属性提供，格式为一个简单的\
+  \ JavaScript 对象。我稍后将解释这些配置属性的含义。\n\n**提示：** 你也可以使用一系列嵌套的 HTML 元素来指定`AppBar`按钮，这样就不需要类似\
+  \ JavaScript 的配置对象了。我不喜欢将代码片段嵌入到标记中，但这是 WinJS 普遍存在的方式，所以我倾向于使用清单中所示的方法。它虽然不太美观，但与其他控件的使用方式保持一致。\n\
+  \n## **清单 3-2.** 将 HTML 片段导入`default.html`\n\n```html\n<!DOCTYPE html>\n<html>\n\
+  <head>\n  <meta charset=\"utf-8\">\n  <title>MetroGrocer</title>\n\n  <!-- WinJS\
+  \ 引用 -->\n  <link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"stylesheet\"\
+  >\n  <script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n  <script src=\"\
+  //Microsoft.WinJS.1.0/js/ui.js\"></script>\n\n  <!-- MetroGrocer 引用 -->\n  <link\
+  \ href=\"/css/list.css\" rel=\"stylesheet\">\n  <link href=\"/css/default.css\"\
+  \ rel=\"stylesheet\">\n  <script src=\"/js/viewmodel.js\"></script>\n  <script src=\"\
+  /js/ui.js\"></script>\n  <script src=\"/js/default.js\"></script>\n</head>\n<body>\n\
+  \  <div id=\"contentGrid\">\n    <div id=\"leftContainer\" class=\"gridLeft\">\n\
+  \      <h1 class=\"win-type-xx-large\">购物清单</h1>\n      <table id=\"listTable\"\
+  \ class=\"type-table-header\">\n        <thead>\n          <tr>\n            <th>数量</th>\n\
+  \            <th class=\"itemName\">项目</th>\n            <th class=\"store\">商店</th>\n\
+  \          </tr>\n        </thead>\n        <tbody id=\"itemBody\"></tbody>\n  \
+  \    </table>\n    </div>\n    <div id=\"topRightContainer\" class=\"gridRight\"\
+  >\n      <h1 class=\"win-type-xx-large\">右上容器</h1>\n    </div>\n    <div id=\"bottomRightContainer\"\
+  \ class=\"gridRight\">\n      <h1 class=\"win-type-xx-large\">右下容器</h1>\n    </div>\n\
+  \  </div>\n\n  <!-- 导入 HTML 片段 -->\n  <div data-win-control=\"WinJS.UI.HtmlControl\"\
+  \n       data-win-options=\"{uri: '/html/appbar.html'}\"></div>\n  <!-- HTML 片段结束\
+  \ -->\n\n  <!-- 购物清单项目模板 -->\n  <table>\n    <tbody id=\"itemTemplate\" data-win-control=\"\
+  WinJS.Binding.Template\">\n      <tr class=\"groceryItem\">\n        <td data-win-bind=\"\
+  innerText: quantity\"></td>\n        <td data-win-bind=\"innerText: item\"></td>\n\
+  \        <td data-win-bind=\"innerText: store\"></td>\n      </tr>\n    </tbody>\n\
+  \  </table>\n  <!-- 购物清单项目模板结束 -->\n\n</body>\n</html>\n```\n\n当你调用`WinJS.UI.processAll`方法时，WinJS\
+  \ 会查找所有`data-win-control`属性设置为`WinJS.UI.HtmlControl`的`div`元素，并将其内容设置为`data-win-options`属性中指定的\
+  \ HTML 片段。你不能直接指定片段文件，而必须使用清单中所示的类 JSON 格式，将文件名指定为`uri`属性的值。\n\n**提示：** `HTMLControl`仅用于加载不需要执行脚本或定义任何\
+  \ CSS 的内容片段。这在我们的示例中是可行的，因为从 HTML 片段设置`AppBar`的 JavaScript 代码是`default.js`的一部分，而该文件已经与主\
+  \ HTML 文档关联。并且，正如我稍后将描述的，我必须采取预防措施，确保在执行`AppBar`设置之前，HTML 片段已被加载。在本章后面，我将向你介绍 WinJS\
+  \ *页面*，它支持自己的 CSS 和 JavaScript。\n\n加载文件的内容会自动处理，WinJS 会查找并配置我的`AppBar`。你无需担心如何让`AppBar`显示和隐藏。这由\
+  \ WinJS 配置，当用户右键单击或从屏幕底部向上滑动时，`AppBar`会出现。图 3-1 展示了`AppBar`的显示效果。\n\n**图 3-1.**\
+  \ 为示例应用程序添加`AppBar`\n\n我在图中放大了几个按钮，以便更容易地看到应用于每个`AppBar`按钮的配置属性的效果。`id`和`disabled`属性设置了`button`元素上的相应属性，而`label`属性则设置了按钮下方显示的文本。\n\
+  \n`AppBar`有两个区域，`section`属性指定按钮出现在哪个区域。如果`section`属性设置为`global`，则按钮将位于`AppBar`的右侧。此区域用于影响整个应用程序的操作。`section`属性为`selection`的按钮执行适用于当前选中项目的操作，并显示在`AppBar`的左侧。\n\
+  \n`icon`属性设置按钮图像。你可以为此属性指定自定义 PNG 文件，或使用 Segoe UI Symbol 字体中定义的符号字符之一。你可以通过指定`WinJS.UI.AppBarIcon`枚举中的值，或直接指定其字符代码（可以通过\
+  \ Windows 8 字符映射表工具获取）来引用这些图标。例如，我为其中一个按钮指定了`add`图标，它对应于`WinJS.UI.AppBarIcon.add`值或字符代码`\\\
+  uE109`。\n\n**提示：** 可供选择的图标非常多，远多于 API 文档中所列的。打开 References 部分中的`js/ui.js`文件，搜索*icon*即可查看枚举定义的列表。该枚举仅包含常用图标；字体本身定义了更多图标。\n\
+  \n### 实现应用栏按钮\n\n在本节中，我将添加代码来实现我添加到`AppBar`中、专用于选择操作的`Done`按钮。为此，我在`ui.js`文件中定义了一个`UI.AppBar`命名空间，并创建了`setupButtons`函数，如清单\
+  \ 3-3 所示。\n\n## **清单 3-3.** 为`AppBar`按钮设置支持\n\n```javascript\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ />\n(function () {\n  \"use strict\";\n\n  WinJS.Namespace.define(\"UI.AppBar\"\
+  , {\n    setupButtons: function () {\n      ViewModel.State.bind(\"selectedItemIndex\"\
+  ,\n        function (newValue, oldValue) {\n          done.disabled = (newValue\
+  \ == -1);\n      });\n\n      done.addEventListener(\"click\", function (e) {\n\
+  \        var selectedIndex = ViewModel.State.selectedItemIndex;\n        ViewModel.UserData.getItems().splice(selectedIndex,\
+  \ 1);\n        ViewModel.State.selectedItemIndex = -1;\n      });\n    }\n  });\n\
+  \n  WinJS.Namespace.define(\"UI.List\", {\n    //\n    // . . . 为简洁起见，代码已省略 . .\
+  \ .\n    //\n  });\n})();\n```\n\n由于`AppBar`按钮是由 HTML 的`button`元素创建的，我可以使用标准的`disabled`属性来控制按钮状态，并通过处理`click`事件来响应用户交互。\n\
+  \n我想根据`ViewModel`的变化来控制按钮的状态。\n\n\n\n`State.selectedItemIndex`属性在视图模型中。要监视具有可观察属性的对象，您可以使用`bind`方法来注册一个函数，该函数会在属性值变化时执行。在此列表中，我为`selectedItemIndex`属性创建了一个绑定，以便在用户进行选择时更改按钮的状态。这很好地演示了如何使用\
+  \ WinJS 数据绑定将视图模型数据、事件处理函数和 HTML 元素联系起来。\n\n最后一步是在`default.js`文件的`performInitialSetup`中调用`setupButtons`函数，如列表\
+  \ 3-4 所示。请注意，我再次在`Promise`对象提供的`then`回调中调用该函数，以确保在开始对包含的元素执行操作之前，我的 HTML 片段已被加载并处理。\n\
+  \n**列表 3-4.** 调用`setupButtons`函数\n\n. . .\n\n```\nfunction performInitialSetup(e)\
+  \ {\n    WinJS.UI.processAll().then(function () {\n        UI.List.displayListItems();\n\
+  \        UI.List.setupListEvents();\n        UI.AppBar.setupButtons();\n    });\n\
+  }\n```\n\n. . .\n\n通过这些添加，我已基本实现了一个`AppBar`。如果您在购物列表中选择一个项目，“完成”按钮将被启用，允许您打开`AppBar`并将该项目标记为已完成，同时将其从列表中移除。我不会为所有`AppBar`按钮实现功能，但在下一节中，我将连接“添加”按钮，以演示如何创建和使用`Flyout`。\n\
+  \n## 添加 Flyouts\n\n`Flyout`是弹出窗口，可用于向用户提供信息或收集数据。`Flyout`通常与`AppBar`按钮结合使用，在本节中，我将展示如何使用`Flyout`来完成“添加项目”`AppBar`按钮的功能。\n\
+  \n首先，我在`html`文件夹中创建了一个名为`addItemFlyout.html`的新文件，其内容如列表 3-5 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n**列表 3-5.** 定义`Flyout`\n\n```\n<div id=\"addItemFlyout\" class=\"flyout\" data-win-control=\"\
+  WinJS.UI.Flyout\">\n    <div>\n        <label for=\"groceryItem\">项目：</label>\n\
+  \        <input id=\"groceryItem\" placeholder=\"例如 苹果\">\n    </div>\n    <div>\n\
+  \        <label for=\"quantity\">数量：</label>\n        <input id=\"quantity\" placeholder=\"\
+  例如 4\"/>\n    </div>\n    <div>\n        <label for=\"stores\">商店：</label>\n   \
+  \     <select id=\"stores\"></select>\n    </div>\n    <div class=\"rightAlign\"\
+  >\n        <button id=\"addItemButton\">添加</button>\n    </div>\n</div>\n```\n\n\
+  **提示** 如果您习惯于开发 Web 应用，通常会围绕 HTML 表单元素构建数据收集交互。在 Windows 8 应用中，`form`元素并不那么重要，因为大多数交互完全在客户端处理，即使数据是通过\
+  \ Ajax 请求发送到远程服务器的。\n\n`Flyout`由`data-win-control`属性设置为`WinJS.UI.Flyout`的`div`元素表示。这是创建`Flyout`的唯一限制，并且我可以在`div`元素内自由添加任何需要的内容以支持与用户的交互。在此示例中，我使用了一些标准的\
+  \ HTML 表单控件来收集用户的新项目详细信息。为了设置`Flyout`中元素的样式，我在 Visual Studio 项目的`css`文件夹中添加了一个名为`flyout.css`的文件。您可以在列表\
+  \ 3-6 中查看该文件的内容。\n\n**列表 3-6.** `/css/flyouts.css`文件的内容\n\n```\n#addItemFlyout {\
+  \ background-color: #85C54C; font-weight: bold;}\ndiv.flyout input { margin-bottom:\
+  \ 5px; width: calc(100% - 5px); }\ndiv.flyout select { margin-top: 0px; width: 100%\
+  \ }\ndiv.rightAlign { margin-top: 10px; float: right;}\n```\n\n我已将`link`元素添加到`default.html`文件的`head`部分，以将`flyout.css`文件纳入作用域，如列表\
+  \ 3-7 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n**列表 3-7.** 将`flyout.css`文件引入`default.html`文件\n\
+  \n. . .\n\n```\n<head>\n    <meta charset=\"utf-8\">\n    <title>MetroGrocer</title>\n\
+  ```\n\n\n\n<!-- WinJS 引用 -->\n\n<link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\"\
+  \ rel=\"stylesheet\">\n<script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n\
+  <script src=\"//Microsoft.WinJS.1.0/js/ui.js\"></script>\n\n<!-- MetroGrocer 引用\
+  \ -->\n<link href=\"/css/list.css\" rel=\"stylesheet\">\n<link href=\"/css/flyout.css\"\
+  \ rel=\"stylesheet\">\n<link href=\"/css/default.css\" rel=\"stylesheet\">\n<script\
+  \ src=\"/js/viewmodel.js\"></script>\n<script src=\"/js/ui.js\"></script>\n<script\
+  \ src=\"/js/default.js\"></script>\n</head>\n\n...\n\n### 将浮出控件与应用栏命令关联\n\n定义好浮出控件后，我现在可以将其与我的应用栏关联起来。为此，我需要在\
+  \ `appbar.html` 文件中为“新建项目”按钮元素添加配置属性，如清单 3-8 所示。\n\n***清单 3-8.*** 将浮出控件与应用栏按钮关联\n\
+  \n```\n<div id=\"appBar\" data-win-control=\"WinJS.UI.AppBar\">\n<button data-win-control=\"\
+  WinJS.UI.AppBarCommand\"\ndata-win-options=\"{section: 'global', label: 'New Item',\
+  \ icon: 'add', type:'flyout', flyout: 'addItemFlyout'}\">\n</button>\n<button data-win-control=\"\
+  WinJS.UI.AppBarCommand\"\ndata-win-options=\"{section: 'global', label: 'Stores',\
+  \ icon: 'shop'}\">\n</button>\n<button data-win-control=\"WinJS.UI.AppBarCommand\"\
+  \ndata-win-options=\"{section: 'global', label: 'Zip Code', icon: 'home'}\">\n</button>\n\
+  <button data-win-control=\"WinJS.UI.AppBarCommand\"\ndata-win-options=\"{id: 'done',\
+  \ disabled: true,\nsection: 'selection', label: 'Done', icon: 'accept'}\">\n</button>\n\
+  </div>\n```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-70_1.jpg)\n\
+  \n第 3 章 ■ 应用程序控件\n\n**T**\n\n■ **提示** 除了 `flyout` 值，你还可以将 `type` 属性设置为 `toggle`，以创建一个用户可开启或关闭的应用栏按钮。`button`\
+  \ 值相当于完全不设置 `type` 属性，此时应用栏按钮的工作方式与常规 HTML 按钮相同（本章前面已有演示）。\n\n为了指定与按钮关联的浮出控件，我将\
+  \ `type` 属性设置为 `flyout`，并将 `flyout` 属性设置为浮出控件元素的 `id`。\n\n### 导入浮出控件内容\n\n要将我的浮出控件\
+  \ HTML 片段引入应用程序，我需要更新 `default.html` 并再次使用 `HTMLControl`：\n\n```\n...\n<!-- 导入 HTML\
+  \ 片段 -->\n<div data-win-control=\"WinJS.UI.HtmlControl\"\ndata-win-options=\"{uri:\
+  \ '/html/appbar.html'}\"></div>\n<div data-win-control=\"WinJS.UI.HtmlControl\"\n\
+  data-win-options=\"{uri: '/html/addItemFlyout.html'}\"></div>\n<!-- HTML 片段结束 -->\n\
+  ...\n```\n\n当用户点击按钮时，我的浮出控件会自动显示，如图 3-2 所示。\n\n***图 3-2.*** 将浮出控件与应用栏按钮关联\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n第 3 章 ■ 应用程序控件\n\n### 连接浮出控件中的控件\n\n点击“新建项目”应用栏命令按钮会显示浮出控件，但它包含的元素尚未与应用程序的其余部分连接。为了完成浮出控件，我需要用视图模型中商店的详细信息填充\
+  \ `select` 元素，并处理“添加”按钮的点击事件，以便将新项目添加到列表中。\n\n清单 3-9 展示了 `ui.js` 文件中 `UI` 命名空间新增的代码，用于处理这两个任务。\n\
+  \n***清单 3-9.*** 为 UI 命名空间添加浮出控件支持\n\n```\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\"\
+  \ />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" /> (function () {\n\
+  \"use strict\";\n\nWinJS.Namespace.define(\"UI.Flyouts\", {\nsetupAddItemFlyout:\
+  \ function () {\n\nWinJS.Utilities.empty(stores);\n\nvar list = ViewModel.UserData.getStores();\n\
+  \nlist.forEach(function (item) {\nvar newOption = document.createElement(\"option\"\
+  ); newOption.text = item;\nstores.add(newOption);\n});\n\naddItemButton.addEventListener(\"\
+  click\", function () {\nViewModel.UserData.addItem(groceryItem.value, quantity.value,\
+  \ stores.value);\naddItemFlyout.winControl.hide();\nappBar.winControl.hide();\n\
+  });\n}\n});\n\n//\n... *为简洁起见，省略了其他命名空间定义*\n})();\n```\n\n我创建了一个 `UI.Flyouts` 对象，其中定义了\
+  \ `setupAddItemFlyout` 函数。\n\n该函数从视图模型中填充 `select` 控件，当点击“添加”按钮时，它会读取 `input` 和\
+  \ `select` 元素的值，并使用它们在购物清单中创建一个项目。\n\n当我处理完浮出控件后，我定位到 `div` 元素并使用 `winControl` 属性来获取\
+  \ WinJS 中特定于浮出控件的成员。`hide` 方法会关闭浮出控件，并将用户返回到主布局。我对 `AppBar` 元素也执行了相同的操作，否则当浮出控件关闭时，应用栏仍会保持可见。\n\
+  \n有关 `AppBar` 和 `Flyout` 元素的 `winControl` 属性提供的其他方法的详细信息，请参阅 WinJS API 文档。\n\n当然，仅仅定义这段代码是不够的；我还需要从\
+  \ `default.js` 文件中调用该函数，如清单 3-10 所示。\n\n***清单 3-10.*** 调用代码设置浮出控件\n\n```\n...\n\
+  function performInitialSetup(e) {\nWinJS.UI.processAll().then(function () {\nUI.List.displayListItems();\n\
+  UI.List.setupListEvents();\nUI.AppBar.setupButtons();\nUI.Flyouts.setupAddItemFlyout();\n\
+  });\n}\n...\n```\n\n这些添加的效果是为用户提供一个可供选择的商店下拉列表，当用户点击“添加”按钮时，他们添加的详细信息将用于在视图模型中创建一个新的数据项。你可以在图\
+  \ 3-3 中看到填充后的 `select` 元素的效果。\n\n***图 3-3.*** 在浮出控件中填充 select 元素\n\n## 使用页面\n\n\
+  在本章前面，我使用了 `HTMLControl` 将片段导入到我的主 HTML 文档中。使用 `HTMLControl` 的主要限制在于，你无法安排在内容加载时收到通知。对于只是利用片段来重用标记区域的场景来说，这没问题，但如果你想要根据用户输入动态加载内容片段，`HTMLControl`\
+  \ 就没什么太大帮助了。\n\n`HTMLControl` 是围绕一个更复杂的 WinJS 功能（称为*页面*）的简单声明式封装。页面必须在 JavaScript\
+  \ 中进行设置和管理，但它们提供了一组更丰富的函数，并且关键的是，它们支持回调，这些回调可用于在应用程序生命周期的任何点集成内容。\n\n为了演示页面功能，我将实现布局的右上角区域，允许用户编辑当前选中项目的内容，并在未进行任何选择时显示一条有用的消息。\n\
+  \n我需要做三件事来使用一个页面。第一是定义 HTML，第二是编写加载 HTML 时将执行的 JavaScript，第三是加载并显示该 HTML 作为应用程序的一部分。\n\
+  \n### 定义 HTML\n\n第一步，我在项目的 `html` 文件夹中创建了一个名为 `noSelection.html` 的文件。清单 3-11 显示了该文件的内容。这是当用户未选择任何购物清单项目时将显示给用户的标记。\n\
+  \n***清单 3-11.*** noSelection.html 文件\n\n```\n<div id=\"noselectionContainer\" class=\"\
+  win-type-x-large\">\n<p>你的清单上有 <span id=\"numberCount\"></span> 个项目</p>\n<p>选择以编辑</p>\n\
+  </div>\n```\n\n这就是 HTML 文件的完整内容；它只包含我想要插入到文档中的元素，这与之前使用 `HTMLControl` 功能时的方法相同。我稍后会向你展示如何使用完整的\
+  \ HTML 文档，但我想强调的是，页面功能可以非常轻松地处理标记片段，这也是我分解应用程序的常用方式。\n\n### 创建 JavaScript 回调\n\n\
+  第二步是定义 HTML 加载时将执行的代码。\n\n\n\n记住，这是使用`pages`特性的主要好处；我可以依赖于每次显示片段时执行指定的代码，从而配置元素以匹配应用的当前状态。`Listing\
+  \ 3-12`显示了我在`js`文件夹中创建的`pages.js`文件的内容。\n\n***Listing 3-12.*** 定义页面片段加载时执行的代码\n\n\
+  ```\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference\
+  \ path=\"//Microsoft.WinJS.1.0/js/ui.js\" /> (function () {\n\n\"use strict\";\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\nCHAPTER 3 ■ APPLICATION CONTROLS\n\
+  \nWinJS.UI.Pages.define(\"/html/noselection.html\", {\n\nready: function (targetElement)\
+  \ {\n\nnumberCount.innerText = ViewModel.UserData.getItems().length;\n\n}\n\n});\n\
+  \n})();\n```\n\n回调函数通过`WinJS.UI.Pages.define`方法设置。参数是待加载的 HTML 文件的 URL 和一个对象，该对象的属性定义了在此过程中执行的函数。支持多个属性名称，但最有用的是`ready`，分配给此属性的函数将在\
+  \ HTML 加载并由 Windows 8 运行时处理后执行。\n\n在此示例中，我的`ready`回调函数定位`noSelection.html`标记中`id`属性值为`numberCount`的`span`元素，并将其内容设置为购物清单中的项目数量。我已在`default.html`文件中添加了一个`script`元素来加载`pages.js`：\n\
+  \n```\n. . .\n\n<head>\n<meta charset=\"utf-8\">\n<title>MetroGrocer</title>\n\n\
+  <!-- WinJS references -->\n<link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\"\
+  \ rel=\"stylesheet\">\n<script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n\
+  <script src=\"//Microsoft.WinJS.1.0/js/ui.js\"></script>\n\n<!-- MetroGrocer references\
+  \ -->\n<link href=\"/css/list.css\" rel=\"stylesheet\">\n<link href=\"/css/flyout.css\"\
+  \ rel=\"stylesheet\">\n<link href=\"/css/default.css\" rel=\"stylesheet\">\n<script\
+  \ src=\"/js/viewmodel.js\"></script>\n<script src=\"/js/ui.js\"></script>\n<script\
+  \ src=\"/js/pages.js\"></script>\n<script src=\"/js/default.js\"></script>\n</head>\n\
+  \n. . .\n```\n\n**提示：** 我将此功能的 HTML 和 JavaScript 定义放在不同文件中，以便能在一个地方构建 JavaScript\
+  \ 功能。另一种流行的做法是将调用`WinJS.UI.Pages.define`方法的代码放在与 HTML 相同的文件的`script`元素中。\n\n---\n\
+  \n### 加载和显示 HTML\n\n`define`方法不会加载 HTML；它仅设置回调。我的下一步是在`default.html`文件中添加一个目标元素，我将使用`pages`特性向其中加载内容。您可以在`Listing\
+  \ 3-13`中看到我添加的元素。占位符不需要特殊属性；一个普通的`div`元素即可，最好带有`id`属性以便稍后轻松定位。\n\n***Listing 3-13.***\
+  \ 在`default.html`中添加页面占位符元素\n\n```\n. . .\n\n<div id=\"topRightContainer\" class=\"\
+  gridRight\">\n    <h1 class=\"win-type-xx-large\">Item Detail</h1>\n    <div id=\"\
+  itemDetailTarget\"></div>\n</div>\n\n. . .\n```\n\n最后一步是在目标元素中显示页面。您可以在`Listing\
+  \ 3-14`中看到对`default.js`文件的添加内容。\n\n***Listing 3-14.*** 加载 WinJS 页面\n\n```\n. . .\n\
+  \nfunction performInitialSetup(e) {\n    WinJS.UI.processAll().then(function ()\
+  \ {\n        UI.List.displayListItems();\n        UI.List.setupListEvents();\n \
+  \       UI.AppBar.setupButtons();\n        UI.Flyouts.setupAddItemFlyout();\n  \
+  \      WinJS.Utilities.empty(itemDetailTarget)\n        WinJS.UI.Pages.render(\"\
+  /html/noSelection.html\", itemDetailTarget);\n    });\n}\n\n. . .\n```\n\n第一个新语句移除目标元素中已存在的任何子元素。第二个新语句是关键：我通过调用`WinJS.UI.Pages.render`方法来显示页面。该方法的参数是\
+  \ HTML 文档的 URL 和内容将被插入的占位符元素。\n\n\n\n当我调用 `render` 方法时，`WinJS` 不仅会将指定文件中的 HTML 插入文档，还会确保我的\
+  \ `ready` 回调函数（即在 `pages.js` 中定义的函数）得到执行。这让我能够处理这些元素——在此例中，即插入关于购物清单上物品数量的详细信息，如图\
+  \ 3-4 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-76_1.jpg)\n\
+  \n## 第 3 章 ■ 应用程序控件\n\n**图 3-4.** *使用页面将回调函数与 HTML 片段关联*\n\n现在，我正在向布局中右上角的元素添加内容，为此我已注释掉在第\
+  \ 1 章中添加的 CSS `background-color` 属性，以演示如何在 Visual Studio 中重新加载应用程序。您可以在清单 3-15 中看到我对\
+  \ `/css/default.css` 文件所做的修改，即将该元素恢复为应用程序中其他地方使用的默认背景颜色。\n\n**清单 3-15.** 注释掉 `default.css`\
+  \ 文件中的 `background-color` 属性\n\n```\n. . .\n\n#topRightContainer {\n  -ms-grid-column:\
+  \ 2;\n  -ms-grid-row: 1;\n  /*background-color: #808080;*/\n}\n\n. . .\n```\n\n\
+  ### 加载完整的 HTML 文档\n\n页面示例的一个变体是处理完整的 HTML 文档，而非片段。基本方法相同，但我可以包含 `script` 和 `link`\
+  \ 元素来加载特定于此文档的 JavaScript 和 CSS 文件。这意味着我可以将回调定义代码和 CSS 样式与应用程序的其他部分分离开。首先，我创建一个名为\
+  \ `pages` 的新文件夹，并在其中创建另一个名为 `itemDetail` 的文件夹。然后，我添加一个名为 `itemDetail.html` 的新 HTML\
+  \ 文件，如清单 3-16 所示。\n\n**清单 3-16.** `itemDetail.html` 文件\n\n```\n<!DOCTYPE html>\n\
+  <html>\n<head>\n  <title></title>\n  <script src=\"itemDetail.js\"></script>\n \
+  \ <link href=\"itemDetail.css\" rel=\"stylesheet\">\n</head>\n<body>\n<div id=\"\
+  itemEditor\">\n  <div>\n    <label for=\"itemInput\">Item:</label><input id=\"itemInput\"\
+  >\n  </div>\n  <div>\n    <label for=\"quantityInput\">Quantity:</label>\n    <input\
+  \ id=\"quantityInput\">\n  </div>\n  <div>\n    <label for=\"storeSelect\">Store:</label>\n\
+  \    <select id=\"storeSelect\" size=\"3\"></select>\n  </div>\n</div>\n</body>\n\
+  </html>\n```\n\n此文件中的标记提供了一个 `select` 元素和两个 `input` 元素，允许用户编辑购物清单项目的详细信息。与上一个示例的不同之处在于，这是一个完整的\
+  \ HTML 文档，其中包含一个导入 `itemDetail.js` 文件的 `script` 元素和一个导入 `itemDetail.css` 文件的 `link`\
+  \ 元素，我已将这两个文件与 `itemDetail.html` 一同创建在 `pages/itemDetail` 文件夹中。\n\n`/pages/itemDetail/itemDetail.css`\
+  \ 文件包含一些基本样式，用于布局 HTML 文件中的元素。您可以在清单 3-17 中看到该文件的内容。这只是标准的 CSS，该文件不包含任何 Windows\
+  \ 8 特定的功能。\n\n**清单 3-17.** `itemDetail.css` 的内容\n\n```\n#itemEditor {font-weight:\
+  \ bold;margin-top: 20px;}\n#itemEditor input {margin-bottom: 5px;display: block;\
+  \ font-size: 16pt;}\n#itemEditor select {font-size: 16pt;}\n#itemEditor select,\
+  \ #itemEditor textarea {margin-top: 0px;display: block;}\n#buttons {margin-top:\
+  \ 20px;}\niframe {width: calc(100% - 10px);margin-top: 20px;height: 100%;}\n#storeDetailTarget,\
+  \ #storeSelectionContainer {height: 100%;}\n```\n\n`/pages/itemDetail/itemDetail.js`\
+  \ 文件包含页面加载时的回调，如清单 3-18 所示。\n\n**清单 3-18.** 为 `itemDetail.html` 页面定义页面回调\n\n```\n\
+  /// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/ui.js\" />\n(function () {\n  \"use strict\";\n\n  WinJS.UI.Pages.define(\"\
+  /pages/itemDetail/itemDetail.html\", {\n    ready: function (targetElement) {\n\
+  \      var selectedIndex = ViewModel.State.selectedItemIndex;\n      var selectedItem\
+  \ = ViewModel.UserData.getItems()\n        .getAt(selectedIndex);\n      itemInput.value\
+  \ = selectedItem.item;\n      quantityInput.value = selectedItem.quantity;\n   \
+  \   WinJS.Utilities.empty(storeSelect);\n      var list = ViewModel.UserData.getStores();\n\
+  \      list.forEach(function (item) {\n        var newOption = document.createElement(\"\
+  option\");\n        newOption.text = item;\n        if (selectedItem.store == item)\
+  \ {\n          newOption.selected = true;\n        }\n        storeSelect.add(newOption);\n\
+  \      });\n      WinJS.Utilities.query('#itemEditor input, #itemEditor select')\n\
+  \        .listen(\"change\", function () {\n          ViewModel.UserData.getItems().setAt(selectedIndex,\
+  \ {\n            item: itemInput.value,\n            quantity: quantityInput.value,\n\
+  \            store: storeSelect.value\n          });\n        });\n    }\n  })\n\
+  })();\n```\n\n当我调用 `define` 方法时，必须指定想要被通知的 HTML 文档的*完整*路径。这意味着要写 `pages/itemDetail/itemDetail.html`，而不仅仅是\
+  \ `itemDetail.html`。这与 `itemDetail.html` 内部定义的 CSS 和 JavaScript 文件的链接不同，那些链接是相对路径（即仅\
+  \ `itemDetail.js`）。\n\n由于用于 JavaScript 应用的 Windows 8 运行时本质上是一个常规浏览器，因此一旦 `script`\
+  \ 元素被处理，JavaScript 代码就会立即执行。这意味着回调函数在文档完全加载之前就已注册，并且在文档处理完成后会被调用。这为保持页面自包含提供了一种很好的方式，并且您不需要将回调定义与主应用代码放在一起。\n\
+  \n此示例中的回调函数非常简单，只是使用 `input` 和 `select` 元素中的值，通过 `WinJS.Binding.List.setAt` 方法来修改购物清单项目。`setAt`\
+  \ 方法完全替换列表中的项目，并触发一个 `itemchanged` 事件，我在第 2 章中向您展示过。此事件会导致显示列表项目的 `table` 元素根据用户所做的更改进行更新。\n\
+  \n### 在页面之间切换\n\n现在我有两个页面，我可以在主布局中切换它们。我想在未选择任何项目时显示 `noSelection.html` 页面，并在做出选择时显示\
+  \ `itemDetail.html` 页面。实现此目的最简单的方法是绑定到 `ViewModel.State.selectedItemIndex` 属性。清单\
+  \ 3-19 显示了 `default.js` 文件中的更改。\n\n**清单 3-19.** 响应视图模型更新，在两个页面之间切换\n\n```\n. . .\n\
+  function performInitialSetup(e) {\n  WinJS.UI.processAll().then(function () {\n\
+  \    UI.List.displayListItems();\n    UI.List.setupListEvents();\n    UI.AppBar.setupButtons();\n\
+  \    UI.Flyouts.setupAddItemFlyout();\n    ViewModel.State.bind(\"selectedItemIndex\"\
+  , function (newValue) {\n      WinJS.Utilities.empty(itemDetailTarget)\n      var\
+  \ url = newValue == -1 ? \"/html/noSelection.html\" :\n        \"/pages/itemDetail/itemDetail.html\"\
+  \n      WinJS.UI.Pages.render(url, itemDetailTarget);\n    });\n  });\n}\n. . .\n\
+  ```\n\n我通过改变传递给 `WinJS.UI.Pages.render` 方法的 URL 参数的值来响应 `selectedItemIndex` 属性的更改。每次显示一个页面时，都会执行相应的回调函数，我的内容会更新并呈现给用户。\n\
+  \n**提示** 请注意，当您使用 `bind` 方法时，您的回调函数将使用您正在监视的属性的当前值来执行。这确保即使尚未进行选择，也能显示正确的页面。\n\n\
+  这些添加的结果是，单击列表中的项目允许用户编辑其详细信息，而将项目标记为完成或添加新项目则会清除选择并隐藏详细信息页面。您可以在图 3-5 中看到效果。\n\n\
+  [www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-80_1.jpg)\n\n\
+  ## 第 3 章 ■ 应用程序控件\n\n\n\n### 图 3-5：允许用户编辑购物清单项目的详细信息\n\n页面回调中的代码会在该页面*每次*显示时执行。你需要确保代码不会对页面元素的状态做出假设，除非它们已被加载并添加到主布局中。由于页面是在主布局的上下文中加载的，你可以安全地使用主\
+  \ HTML 文档中 JavaScript 代码定义的函数。在我的示例中，这包括视图模型。同样，你的元素将受到主文档定义的 CSS 样式影响。\n\n**提示**\
+  \ 请注意，我在 `select` 元素上使用了 `size` 属性，以便一次性显示多个选项。这是 Windows 8 中属于主应用程序布局的 `select`\
+  \ 元素的约定。然而，对于浮出控件（例如我在本章前面创建的），约定是使用单行 `select`，它会打开一个下拉选项列表。\n\n## 显示外部内容\n\nWinJS\
+  \ 页面功能仅适用于属于应用程序的内容。如果你使用 `WinJS.UI.Pages.render` 方法请求外部 URL，将会产生错误。相反，如果你想显示外部\
+  \ HTML 文档，则必须使用 `iframe` 元素，但如果你希望将应用程序分解为可管理的小块以获取益处，可以将此元素与 WinJS 页面功能结合使用。为了演示这一点，我在\
+  \ `html` 目录中创建了一个名为 `storeDetail.html` 的新文件。清单 3-20 显示了此文件的内容。\n\n### 清单 3-20：`storeDetail.html`\
+  \ 文件\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n\
+  <div id=\"noStoreSelectionContainer\" class=\"win-type-x-large\">\n<p>在列表中选择一个项目</p>\n\
+  </div>\n<div id=\"storeSelectionContainer\">\n<iframe id=\"storeFrame\" seamless\
+  \ sandbox=\"\"></iframe>\n</div>\n</body>\n</html>\n```\n\n这是一个简单的文档，充当 `iframe`\
+  \ 元素和占位元素（当未选择列表项时显示）的包装器。当然，最重要的元素是 `iframe`。`seamless` 属性指定不应在 `iframe` 周围绘制边框，而将\
+  \ `sandbox` 属性设置为空字符串可防止嵌入的内容运行任何脚本、导航到新页面以及提交表单。我将使用 `iframe` 显示与所选项目关联的杂货店主页。这些页面包含各种跟踪脚本和一些极易出错的代码，我希望我的用户不必处理这些。\n\
+  \n## 添加回调\n\n我将采用与加载片段时相同的方法来定义回调。我已将回调函数添加到 `pages.js` 文件中，你可以在清单 3-21 中看到这些添加的内容。\n\
+  \n### 清单 3-21：为页面定义回调\n\n```javascript\n/// <reference path=\"//Microsoft.WinJS.1.0/js/base.js\"\
+  \ />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\" />\n(function () {\n\
+  \    \"use strict\";\n    WinJS.UI.Pages.define(\"/html/noselection.html\", {\n\
+  \        ready: function (targetElement) {\n            numberCount.innerText =\
+  \ ViewModel.UserData.getItems().length;\n        }\n    });\n    WinJS.UI.Pages.define(\"\
+  /html/storeDetail.html\", {\n        ready: function (targetElement) {\n       \
+  \     ViewModel.State.bind(\"selectedItemIndex\", function (newValue) {\n      \
+  \          noStoreSelectionContainer.style.display =\n                    (newValue\
+  \ != -1 ? \"none\" : \"\");\n                storeSelectionContainer.style.display\
+  \ =\n                    (newValue == -1 ? \"none\" : \"\");\n                if\
+  \ (newValue != -1) {\n                    var store = ViewModel.UserData.getItems()\n\
+  \                        .getAt(newValue).store;\n                    var url =\
+  \ \"http://\" + store.replace(\" \", \"\") + \".com\";\n                    document.getElementById(\"\
+  storeFrame\").src = url;\n                }\n            });\n        }\n    })\n\
+  })();\n```\n\n在此页面的 `ready` 回调中，我绑定到 `selectedItemIndex` 属性。当用户选择一个项目时，我使用 `iframe`\
+  \ 显示相关商店的主页。更改 `style.display` 属性的值让我可以在占位元素和当前商店的详细信息之间切换。我根据商店名称创建 URL 的技术非常基础。我只是删除所有空格，并在名称末尾添加\
+  \ `.com`。这对于实际项目来说是不够的，但对于我的简单示例来说已经足够了。\n\n**注意** 请注意，我使用 `document.getElementById`\
+  \ 方法获取 `iframe` 元素。如果你通过全局变量引用该元素，则在尝试设置 `src` 属性时会引发安全异常。如果你通过 DOM API 获取该元素，则不会出现此问题。\n\
+  \n## 显示页面\n\n你必须避免使用 `ready` 回调为不总是显示的页面设置绑定，因为 JavaScript 代码每次加载页面时都会执行。随着时间的推移，你最终会得到一系列执行相同任务的绑定。WinJS\
+  \ 并没有提供在页面内容从布局中移除时进行清理的机制，因此最好的方法是将绑定移到应用程序的主 JavaScript 文件中。\n\n对于 `storeDetails.html`\
+  \ 页面来说，这不是问题，因为它只加载一次，并且永远不会从文档中移除。在这种情况下，我使用 WinJS 页面功能只是为了将我的 Windows 8 应用分解为独立的模块，以便于开发和维护。如你在清单\
+  \ 3-22 中所见，我只显示 `storeDetails.html` 页面一次，这意味着我可以预期回调中的代码也只会执行一次。\n\n### 清单 3-22：显示页面\n\
+  \n```javascript\n...\nfunction performInitialSetup(e) {\n    WinJS.UI.processAll().then(function\
+  \ () {\n        UI.List.displayListItems();\n        UI.List.setupListEvents();\n\
+  \        UI.AppBar.setupButtons();\n        UI.Flyouts.setupAddItemFlyout();\n \
+  \       ViewModel.State.bind(\"selectedItemIndex\", function (newValue) {\n    \
+  \        WinJS.Utilities.empty(itemDetailTarget)\n            var url = newValue\
+  \ == -1 ? \"/html/noSelection.html\" :\n                \"/pages/itemDetail/itemDetail.html\"\
+  \n            WinJS.UI.Pages.render(url, itemDetailTarget);\n        });\n     \
+  \   WinJS.UI.Pages.render(\"/html/storeDetail.html\", storeDetailTarget);\n    });\n\
+  }\n...\n```\n\n最后一步是更新 `default.html` 中的布局元素，如下所示：\n\n```html\n...\n<div id=\"bottomRightContainer\"\
+  \ class=\"gridRight\">\n    <h1 class=\"win-type-xx-large\">商店详情</h1>\n    <div\
+  \ id=\"storeDetailTarget\"></div>\n</div>\n...\n```\n\n最终结果是，选择主列表中的某个项目将显示相关商店的主页，如图\
+  \ 3-6 所示。\n\n![图 3-6](img/index-84_1.jpg)\n\n### 图 3-6：显示外部内容\n\n**警告** 我在本例中使用的网站内容经常变化，并且我发现有时会有一段时间内容无法在应用中显示，因为网页上的\
+  \ JavaScript 代码干扰了 Windows 应用的安全策略。如果是这种情况，你可以通过使用“更安全”的网站来查看效果。我发现 Apress.com 是一个很好的替代品。\n\
+  \n## 检查清单权限\n\nWindows 8 应用受到安全沙盒的限制。要获得对外部内容的访问权限，你的应用必须在其清单文件中获得一个或多个权限。为确保你拥有所需的访问权限，请从解决方案资源管理器打开\
+  \ `package.appxmanifest` 文件，然后转到“功能”选项卡。\n\n你将看到可以请求的功能列表。当用户在 Windows 8 商店中查看你的应用时，会向他们显示这些信息，以便他们能够就授予你应用哪些访问权限做出明智的选择。（嗯，理论上是这样；在实践中，用户通常不会关注这些声明，直到应用做出一些让他们感到意外的事情。）\n\
+  \n\n\n"
+- '# 互联网（客户端）功能
+
+
+  默认情况下会勾选`Internet (Client)`（互联网（客户端））功能，但根据你的内容来源，可能还需要`Private Networks (Client
+  & Server)`（专用网络（客户端和服务器））功能。请勾选所需功能并保存清单文件。我将在第 4 章中回到清单文件的配置，来设置其他一些选项。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  '
+- '# 第 3 章：应用程序控件
+
+
+  ## 本章小结
+
+
+  在本章中，我介绍了 Windows 8 应用的三个重要结构特性：`AppBars`（应用栏）、`Flyouts`（浮出控件）以及导航模型。这些机制开始弥合通用
+  Web 应用与将应用程序分解为可管理模块的工具之间的差距。
+
+
+  你不必非要使用`AppBars`和`Flyouts`，但如果不用，你的应用将无法融入 Windows 8 模型。Windows 8 的魅力之一在于能够运用你的
+  HTML5 和 JavaScript 技能来创建 Windows 应用程序。如果创建的应用不遵循 Windows 8 的惯例，那就错过了 Windows 8 为
+  Web 程序员提供的机遇。
+
+
+  同样，你也可以选择使用单个 HTML 文档来构建你的 Windows 8 应用。但话说回来，这同样会错失良机。驱动 Web 应用走向内容整合的那些限制条件，在
+  Windows 8 应用中并不存在，这意味着因分解内容和代码而带来的开发、测试和维护上的便利是值得探索的。`HTMLControl`和页面功能是实现这种开发风格的关键要素。
+
+
+  [www.it-ebooks.info](http://www.it-ebooks.info/)
+
+
+  '
+- "# 第 4 章：布局与磁贴\n\n在本章中，我将介绍两种让应用融入 Windows 8 更广泛用户体验的功能。第一个功能是应用可以被*贴靠*和*填充*，从而让两个应用可以并排查看。我将展示当你的应用被置于这些布局之一时如何进行适配，以及当你的交互操作不符合布局限制时如何更改布局。\n\
+  \n第二个功能是 Windows 8 的*磁贴*模型。磁贴是 Windows 8 取代“开始”屏幕的核心。在最简单的形式下，它们是用于启动应用的静态按钮，但稍加处理，它们就能为用户提供应用状态的一个宝贵快照，让用户无需运行应用本身即可获得概览。在本章中，我将展示如何通过应用更新以及使用一个相关功能——*徽章*，来创建*动态磁贴*。表\
+  \ 4-1 提供了本章的摘要。\n\n**表 4-1.** 章节摘要\n\n| 问题 | 解决方案 | 清单编号 |\n|------|----------|----------|\n\
+  | 当应用被置于贴靠或填充布局时，调整其布局。 | 使用带有 Windows 8 特定属性的 CSS 媒体查询。 | 1, 2 |\n| 在代码中检测应用布局的变化。\
+  \ | 使用`Windows.UI.ViewManagement`命名空间。 | 3, 4 |\n| 从贴靠视图脱离出来。 | 调用`tryUnsnap()`方法。\
+  \ | 5–7 |\n| 更新磁贴。 | 使用 XML 磁贴模板和`Windows.UI.Notifications`命名空间。 | 8–11 |\n| 更新方形和宽形磁贴。\
+  \ | 填充并组合两个 XML 磁贴模板。 | 12, 13 |\n| 为磁贴应用徽章。 | 填充并应用一个 XML 徽章模板。 | 14–16 |\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 处理 Windows 8 的屏幕方向与视图\n\nWindows 8 应用支持一系列*屏幕方向*和*布局*，以响应设备配置的变化。当设备旋转时，屏幕方向会发生改变，这在配备有方向传感器的设备上很常见，包括大多数平板电脑以及一些笔记本电脑和混合设备。屏幕方向有两种：*横向*和*纵向*。\n\
+  \n此外，Windows 8 应用还支持*视图*。默认视图是*全屏*，这也是本书中示例迄今为止你所看到的样子。应用占据整个屏幕，其他应用不可见。Windows\
+  \ 8 应用也可以被*贴靠*到一个 320 像素宽的屏幕条中，这样用户就能同时看到两个应用。另一个应用则占据除那 320 像素之外的所有显示区域，这被称为*填充*状态。\n\
+  \n确保你的应用能够适应不同的屏幕方向和视图，对于向用户提供完整的 Windows 8 体验至关重要。\n\n**注意** 屏幕方向和视图的更改由用户负责，而应用则负责进行适配。这意味着你不能通过编程方式进入新的屏幕方向，也不能强制你的应用进入填充或贴靠视图。同样，你也不能编写一个拒绝进入填充或贴靠视图的\
+  \ Windows 8 应用。你可以选择在某些视图中不向用户提供任何有用的功能，但这会严重限制你应用的价值，我不建议采用这种方法。\n\n## 模拟屏幕方向与视图的更改\n\
+  \n了解屏幕方向和视图更改的最佳起点是学习如何在 Visual Studio 模拟器中创建它们。这让你无需配备方向传感器的设备（出于显而易见的原因，开发 PC\
+  \ 上很少配备此类传感器）就能测试应用的反应。\n\n### 模拟屏幕方向更改\n\nVisual Studio 模拟器有两个专用按钮用于模拟屏幕方向更改，如图\
+  \ 4-1 所示。点击这些按钮可模拟按按钮图标所示方向将设备旋转 90 度的效果。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-88_1.jpg)\n\n**图 4-1.** Visual Studio 模拟器屏幕方向按钮\n\n该图还显示了示例应用在设备旋转到纵向方向时布局的变化。正如你所见，我分配给\
+  \ HTML 中各个元素的大小，在累加后占用的空间超过了该方向下可用的空间，这导致了应用部分内容重叠。\n\n### 模拟视图更改\n\n贴靠视图和填充视图仅在横向屏幕方向下、且显示器的水平分辨率达到\
+  \ 1366 像素或更高时可用。这意味着更改视图的第一步是将模拟器旋转至横向，并确保分辨率设置适当（你可以使用屏幕方向更改按钮正下方的按钮来更改模拟器的分辨率）。\n\
+  \n更改视图最简单的方法是按下`Win+.`（Windows 键和句点键）。这将激活贴靠视图，应用会显示在 320 像素宽的狭窄条中，如图 4-2 所示。我的示例应用尚未适配视图更改，你可以看到将所有\
+  \ HTML 元素塞入如此小的空间所产生的影响。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n\
+  ![](img/index-89_1.jpg)\n\n![](img/index-89_2.jpg)\n\n**图 4-2.** 在贴靠视图中显示的示例应用\n\
+  \nWindows 会在显示的两个应用之间显示一条分隔条。拖动该条可将应用移至填充视图，如图 4-3 所示。\n\n**图 4-3.** 在填充视图中显示的示例应用\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n示例应用展示了相当常见的默认行为。在填充视图中损失\
+  \ 320 像素对布局影响不大，尤其是在较大分辨率的屏幕上。如图 4-3 所示，应用布局处理得还算不错，尽管某些元素的内容被折成两行，但应用的基本核心得以保留。\n\
+  \n相比之下，贴靠视图使得应用完全失去了作用；当你在编写 HTML 和 CSS 时假设有更多的空间可用时，320 像素的空间确实非常有限。\n\n\n\n##\
+  \ 适应方向与视图变化\n\n有两种机制可用于响应方向变化：你可以使用 CSS，也可以使用 JavaScript。如果愿意，还可以混合使用这两种方法，接下来的章节我将同时演示这两种方式。\n\
+  \n### 使用 CSS 适配\n\n微软定义了一个自定义 CSS 媒体查询属性和一组值，当方向或视图发生变化时，可用于更改 Windows 8 应用的 CSS\
+  \ 样式。\n\n当 Visual Studio 创建新的 Windows 8 应用程序项目时，这些属性会被添加到 `default.css` 文件中，如代码清单\
+  \ 4-1 所示。\n\n**代码清单 4-1.** 方向与视图媒体查询\n\n```\n/*\n**...为简洁起见，省略了 MetroGrocer 样式...*\n\
+  */\n\n@media screen and (-ms-view-state: fullscreen-landscape) {\n\n}\n\n@media\
+  \ screen and (-ms-view-state: filled) {\n\n}\n\n@media screen and (-ms-view-state:\
+  \ snapped) {\n\n}\n\n@media screen and (-ms-view-state: fullscreen-portrait) {\n\
+  \n}\n```\n\n该属性名称为 `-ms-view-state`，你可以在代码清单中看到所支持的取值范围，这些值涵盖了方向和视图的各种组合。（请记住，`filled`\
+  \ 和 `snapped` 视图仅在设备处于横向模式时可用。）要适应某个特定的方向或视图，只需在相应的媒体查询中定义 CSS 样式即可。你定义的样式只会在用户更改方向或视图时才会应用。作为演示，代码清单\
+  \ 4-2 展示了如何定义仅在用户将应用切换到 `snapped` 视图时才应用的样式。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n**代码清单 4-2.** 为贴靠视图定义样式\n\n```\n/*\n... *为简洁起见，省略了 MetroGrocer 样式*...\n*/\n\n\
+  @media screen and (-ms-view-state: fullscreen-landscape) {\n\n}\n\n@media screen\
+  \ and (-ms-view-state: filled) {\n\n}\n\n@media screen and (-ms-view-state: snapped)\
+  \ {\n\n#contentGrid div.gridRight, #listTable td:last-child, #listTable th {\n\n\
+  display: none;\n\n}\n\n#listTable td { white-space: nowrap;}\n\n#listTable td:first-child\
+  \ { border-right: thin solid white;}\n\n#contentGrid div.gridLeft { margin-left:\
+  \ 0.5em;}\n\n#contentGrid {-ms-grid-columns: 1fr;}\n\n}\n\n@media screen and (-ms-view-state:\
+  \ fullscreen-portrait) {\n\n}\n```\n\n对于我的示例应用来说，贴靠视图提供的空间太小，无法显示完整的布局。如代码清单所示，我使用了\
+  \ `snapped` 媒体查询来隐藏某些元素，并更改其他元素的显示和行为。你可以在图 4-4 中看到这些样式在贴靠视图中的应用效果，在该图中，我的样式为用户呈现了应用中数据的精简视图。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-92_1.jpg)\n\n\
+  **图 4-4.** 使用 CSS 媒体查询调整应用布局\n\n请注意，Windows 会自动调整 Windows 8 的结构元素，例如在贴靠布局中移除 `AppBar`\
+  \ 按钮上的标签。\n\n> **提示：** 常规的 CSS 优先级规则同样适用于这些查询中定义的样式，这意味着通常应确保 `default.css` 文件的\
+  \ `<link>` 元素在 `default.html` 文件中最后出现。\n\n### 使用 JavaScript 适配\n\n仅使用 CSS 就能实现相当多的布局适配，但有时也需要在\
+  \ JavaScript 中进行适配。`Windows.UI.ViewManagement` 命名空间定义了一个名为 `ApplicationView` 的对象，它提供有关当前布局的详细信息。你可以通过处理标准\
+  \ DOM `resize` 事件来接收方向或视图变化的通知。在代码清单 4-3 中，你可以看到我如何在 `default.js` 文件中为 `resize`\
+  \ 事件添加处理函数。\n\n**代码清单 4-3.** 在 `default.js` 文件中适配变化\n\n```\n...\nfunction performInitialSetup(e)\
+  \ {\n\nWinJS.UI.processAll().then(function () {\n\nUI.List.displayListItems();\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\nUI.List.setupListEvents();\n\
+  \nUI.AppBar.setupButtons();\n\nUI.Flyouts.setupAddItemFlyout();\n\n...\n```\n\n\n\
+  \n`ViewModel.State.bind(\"selectedItemIndex\", function (newValue) {`\n\n`WinJS.Utilities.empty(itemDetailTarget)`\n\
+  \n`var url = newValue == -1 ? \"/html/noSelection.html\" : \"/pages/itemDetail/itemDetail.html\"\
+  `\n\n`WinJS.UI.Pages.render(url, itemDetailTarget);`\n\n`});`\n\n`WinJS.UI.Pages.render(\"\
+  /html/storeDetail.html\", storeDetailTarget);` \n\n`function setOrientationClass()\
+  \ {`\n\n`if (Windows.UI.ViewManagement.ApplicationView.value == Windows.UI.ViewManagement.ApplicationViewState.fullScreenPortrait)\
+  \ {`\n\n`WinJS.Utilities.addClass(contentGrid, \"flex\");`\n\n`} else {`\n\n`WinJS.Utilities.removeClass(contentGrid,\
+  \ \"flex\");`\n\n`}`\n\n`};`\n\n`window.addEventListener(\"resize\", setOrientationClass);`\
+  \ \n`setOrientationClass();`\n\n`});`\n\n`}`\n\n我定义了一个名为 `setOrientationClass` 的函数，该函数读取\
+  \ `Windows.UI.ViewManagement` 命名空间中 `ApplicationView` 对象的 `value` 属性。\n\n该属性返回 `ApplicationViewState`\
+  \ 对象中定义的值之一（该对象同样位于 `Windows.UI.ViewManagement` 命名空间中）；这些值对应于 CSS 媒体查询属性，分别是 `fullScreenLandscape`、`filled`、`snapped`\
+  \ 和 `fullScreenPortrait`。在我的 `setOrientationClass` 函数中，如果 `value` 属性返回 `fullScreenPortrait`，我会为\
+  \ `contentGrid` 元素添加一个名为 `flex` 的 CSS 类。对于所有其他方向和视图值，我会移除 `flex` 类。\n\n我使用 `setOrientationClass`\
+  \ 作为 `resize` 事件的处理函数，该事件由 DOM 的 `window` 对象触发。只有在应用更改后用户更改视图或方向时，你才会收到 `resize`\
+  \ 事件。因此，我也会直接调用 `setOrientationClass` 函数，以确保如果设备在纵向模式下启动应用，我能应用我的 CSS `flex` 类。为了支持此代码，我已在\
+  \ `/css/default.css` 文件中添加了清单 4-4 中所示的 CSS 样式。你可以用任何对你的应用有意义的方式来响应 `resize` 事件，但通常情况下，控制\
+  \ Windows 8 应用布局的最简单方法与常规 Web 应用一样：通过添加和移除 CSS 类和样式。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-94_1.jpg)\n\n## 第 4 章 ■ 布局与磁贴\n\n### ***清单 4-4.*** 为支持 JavaScript\
+  \ 方向变化而添加到 `/css/default.css` 文件的样式\n\n```\n...\n\n#contentGrid.flex {\n    display:\
+  \ -ms-flexbox;\n    -ms-flex-direction: column;\n    -ms-flex-align: stretch;\n\
+  \    -ms-flex-pack: start;\n}\n\n#contentGrid.flex > * {\n    background-color:\
+  \ gray;\n    padding: 20px;\n    margin: 10px;\n    border: medium solid white;\n\
+  }\n\n...\n```\n\n在此示例中，我依赖于弹性盒布局特性，我将在“CSS3 弹性盒布局快速入门”侧边栏中进行描述。你可以在图 4-5 中看到以这种方式适应方向的效果，该图展示了当我将\
+  \ Visual Studio 模拟器置于纵向模式时发生的情况。\n\n### ***图 4-5.** 使用 JavaScript 适应纵向方向*\n\n如你所见，我应用的\
+  \ CSS 改变了应用的布局，使得功能区垂直堆叠——这是一种特别适合纵向方向的布局。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 4 章 ■ 布局与磁贴\n\n## CSS3 弹性盒布局快速入门\n\n在清单 4-4 中，我应用了 CSS3 *弹性盒* 布局，其更准确的名称是弹性盒布局。这是\
+  \ CSS3 中尚未最终确定的另一部分，需要通过 `–ms` 供应商前缀来访问，在此处是 `–ms-flexbox`。\n\n与第 1 章中描述的网格布局所提供的精确性相比，弹性盒布局使得创建流畅且适应性强的布局变得容易。在这个侧边栏中，我将为你非常快速地介绍\
+  \ CSS3 弹性盒布局的基本特性。\n\n要创建弹性盒布局，你必须将 `display` 属性设置为 `–ms-flexbox`，并指定子元素将如何布局，如下所示：\n\
+  \n```\n#contentGrid.flex {\n    display: -ms-flexbox;\n    -ms-flex-direction: column;\n\
+  \    -ms-flex-align: stretch;\n    -ms-flex-pack: start;\n}\n```\n\n`–ms-flex-direction`\
+  \ 属性指定元素布局的方向。最常用的值是 `column`（将元素从上到下布局）和 `row`（将元素从左到右布局）。\n\n`–ms-flex-pack` 属性指定元素将如何沿你通过\
+  \ `–ms-flex-direction` 属性设置的主轴进行布局。我使用了 `start` 值，它会将元素在主轴起始处彼此相邻堆叠。其他常用值包括 `end`（将元素堆叠在主轴末端）、`distribute`（沿主轴均匀分布元素）和\
+  \ `justify`（调整元素大小使其完全占据可用空间）。\n\n`–ms-flex-align` 属性指定元素在另一方向（交叉轴）上的定位方式。我使用了 `stretch`\
+  \ 值，它会调整元素大小以填满可用空间。其他常用值包括 `start`、`end` 和 `center`，它们将元素定位到容器的起始边缘、结束边缘或居中位置。\n\
+  \n理解这些属性效果的最佳方法是进行实验；稍加练习，你就能创建出非常灵活且适应性强的布局。有关完整详细信息，请参阅完整规范：<http://www.w3.org/TR/css3-flexbox>，请注意这仍是一个草案标准。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 第 4 章 ■ 布局与磁贴\n\n## 以编程方式退出贴靠视图\n\
+  \n在本节中，我将向你展示如何以编程方式退出贴靠视图。为了演示此功能，我首先需要向示例应用添加一些内容，以便仅在应用实际处于贴靠视图时向用户显示一个按钮。我将使用\
+  \ HTML 和 CSS 定义该按钮并设置其样式。首先，我向 `default.html` 文件添加了一些新元素，如清单 4-5 所示。\n\n### ***清单\
+  \ 4-5.** 向 `default.html` 文件添加元素*\n\n```\n...\n<div id=\"contentGrid\">\n    <div\
+  \ id=\"leftContainer\" class=\"gridLeft\">\n        <h1 class=\"win-type-xx-large\"\
+  >购物清单</h1>\n        <table id=\"listTable\" class=\"type-table-header\">\n     \
+  \       <thead>\n                <tr>\n                    <th>数量</th>\n       \
+  \             <th class=\"itemName\">项目</th>\n                    <th class=\"store\"\
+  >商店</th>\n                </tr>\n            </thead>\n            <tbody id=\"\
+  itemBody\"></tbody>\n        </table>\n    </div>\n    <div class=\"buttonContainer\"\
+  >\n        <button id=\"unsnapButton\">取消贴靠</button>\n    </div>\n    <div id=\"\
+  topRightContainer\" class=\"gridRight\">\n        <h1 class=\"win-type-xx-large\"\
+  >项目详情</h1>\n        <div id=\"itemDetailTarget\"></div>\n    </div>\n    <div id=\"\
+  bottomRightContainer\" class=\"gridRight\">\n        <h1 class=\"win-type-xx-large\"\
+  >商店详情</h1>\n        <div id=\"storeDetailTarget\"></div>\n    </div>\n</div>\n...\n\
+  ```\n\n新增内容包括一个 `button` 元素（用户将单击它以退出贴靠视图），该按钮包含在一个 `div` 元素中，我将用它来更轻松地管理按钮的布局和可见性。你可以在清单\
+  \ 4-6 中看到我为配置新元素而对 `/css/default.css` 文件所做的添加。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 4 章 ■ 布局与磁贴\n\n### ***清单 4-6.** 向 `default.css` 文件添加新样式以支持按钮*\n\n```\nbody\
+  \ {\n    background-color: #4A8C43;\n}\n\n/*\n... *为简洁起见，省略了其他样式*...\n*/\n\ndiv.buttonContainer\
+  \ {visibility: collapse;-ms-grid-row: 2; width: 100%; text-align:center;}\ndiv.buttonContainer\
+  \ button {font-size: 20pt; margin: 20px;}\n\n@media screen and (-ms-view-state:\
+  \ fullscreen-landscape) {\n}\n\n@media screen and (-ms-view-state: filled) {\n}\n\
+  \n@media screen and (-ms-view-state: snapped) {\n    #contentGrid div.gridRight,\
+  \ #listTable td:last-child, #listTable th {\n        display: none;\n    }\n   \
+  \ #listTable td { white-space: nowrap;}\n    #listTable td:first-child { border-right:\
+  \ thin solid white;}\n    #contentGrid div.gridLeft { margin-left: 0.5em;}\n   \
+  \ #contentGrid {-ms-grid-columns: 1fr;}\n    div.buttonContainer {visibility: visible;}\n\
+  }\n\n@media screen and (-ms-view-state: fullscreen-portrait) {\n}\n```\n\n\n\n这些样式通过应用\
+  \ `visibility` 属性，确保按钮的容器元素仅在应用处于布局视图时可见。媒体查询中定义的值仅在捕捉视图生效时应用，并会覆盖 CSS 文件主体中设置的值。图\
+  \ 4-6 展示了按钮的显示效果。在所有其他视图和方向下，按钮及其容器均被隐藏。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-98_1.jpg)\n\n第 4 章 ■ 布局与磁贴\n\n***图 4-6.** 在捕捉视图中显示按钮元素*\n\n现在，我可以为\
+  \ `/js/default.js` 文件中的按钮元素 click 事件添加一个处理函数，该函数将退出捕捉视图，如代码清单 4-7 所示。\n\n***代码清单\
+  \ 4-7.** 添加退出捕捉视图的代码*\n\n```\n...\n\nfunction performInitialSetup(e) {\n\nWinJS.UI.processAll().then(function\
+  \ () {\n\nUI.List.displayListItems();\n\nUI.List.setupListEvents();\n\nUI.AppBar.setupButtons();\n\
+  \nUI.Flyouts.setupAddItemFlyout();\n\nViewModel.State.bind(\"selectedItemIndex\"\
+  , function (newValue) {\n\nWinJS.Utilities.empty(itemDetailTarget)\n\nvar url =\
+  \ newValue == -1 ? \"/html/noSelection.html\" :\n\n\"/pages/itemDetail/itemDetail.html\"\
+  \n\nWinJS.UI.Pages.render(url, itemDetailTarget);\n\n});\n\nWinJS.UI.Pages.render(\"\
+  /html/storeDetail.html\", storeDetailTarget); function setOrientationClass() {\n\
+  \nif (Windows.UI.ViewManagement.ApplicationView.value ==\n\nWindows.UI.ViewManagement.ApplicationViewState\n\
+  \n.fullScreenPortrait) {\n\nWinJS.Utilities.addClass(contentGrid, \"flex\");\n\n\
+  } else {\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n第 4 章 ■ 布局与磁贴\n\n\
+  WinJS.Utilities.removeClass(contentGrid, \"flex\");\n\n}\n\n};\n\nwindow.addEventListener(\"\
+  resize\", setOrientationClass); setOrientationClass();\n\nunsnapButton.addEventListener(\"\
+  click\", function (e) {\n\nWindows.UI.ViewManagement.ApplicationView.tryUnsnap();\n\
+  \n});\n\n});\n\n}\n\n...\n```\n\n`Windows.UI.ViewManagement.ApplicationView` 对象定义了一个名为\
+  \ `tryUnsnap` 的方法，该方法尝试将应用从捕捉视图中释放出来。如果应用视图成功更改，则此方法返回 `true`，否则返回 `false`。您可以随时调用此方法，但仅当您的应用对用户可见且处于捕捉视图时，它才会生效。这看似显而易见，但返回\
+  \ `false` 通常是由于未满足这些条件之一。\n\n**注意**\n\n■\n\n`tryUnsnap` 的效果取决于填充视图中是否有其他应用。如果有，则两个屏幕应用的视图将会互换，使您的应用处于填充视图，而另一个应用处于捕捉视图。如果填充视图中没有应用，则您的应用将扩展以填满屏幕。\n\
+  \n## 使用磁贴和锁屏提醒\n\n磁贴是您的应用程序在“开始”屏幕上的表现形式。在最简单的情况下，磁贴只是用于启动应用的静态图标。然而，稍加努力，您就可以利用磁贴向用户展示应用状态的有用摘要，并吸引他们注意可能希望执行的活动。\n\
+  \n在接下来的几节中，我将演示如何通过我的示例 Windows 8 应用的磁贴来呈现信息。创建动态磁贴时，有两个可能相互矛盾的目标：要么鼓励用户运行您的应用，要么劝阻他们运行它。如果您想吸引用户，那么您的磁贴就成为了您所提供的体验、洞察或内容的广告。这适用于娱乐类应用或呈现外部内容（如新闻）的应用。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n第 4 章 ■ 布局与磁贴\n\n劝阻用户运行应用似乎是一个奇怪的目标，但它可以显著改善用户体验。以生产力应用为例。我不敢想象有多少小时浪费在等待日历或待办事项应用加载，仅仅是为了查看下一个约会时间或最紧急的任务是什么。通过在应用磁贴中显示用户所需的信息，可以减少用户使用应用时的摩擦和挫败感，从而营造更愉悦、更即时的体验。\n\
+  \n这两个目标都需要深思熟虑。Windows 8 的整体体验简洁而内敛。如果您将磁贴用作广告，Windows 8 的柔和特性使得创建醒目的磁贴变得容易。但是，如果做得太过分，您将创造出不协调、刺眼的东西，与其说是吸引，不如说是碍眼。\n\
+  \n如果您的目标是减少用户运行应用的次数，那么您需要在正确的时间呈现正确的信息。这需要深入理解是什么促使您的用户采用您的应用，并具备定制所呈现数据的能力。适应性至关重要；例如，在周六早上向我显示任务列表中最紧急的工作任务毫无意义。每次您向用户展示错误的信息时，都会迫使他们运行您的应用来获取他们真正需要的东西。\n\
+  \n## 改进静态磁贴\n\n改善应用程序在“开始”屏幕外观的最简单方法是更改用于应用磁贴的图像。即使您不使用任何其他磁贴功能，也应该自定义应用的图像。\n\n\
+  为此，您需要一组三个特定尺寸的图像：30x30 像素、150x150 像素和 310x150 像素。这些图像应包含您要显示的徽标或文本，但其他部分应为透明。我为我的示例应用使用了条形码图案，创建了名为\
+  \ `tile30.png`、`tile150.png` 和 `tile310.png` 的图像，并将它们放置在 Visual Studio 项目的 `images`\
+  \ 文件夹中，如图 4-7 所示。`tile620.png` 文件是 620x300 像素的图像，我将其用作应用启动时显示的闪屏。这不是磁贴相关的功能，但通过相同的机制应用，因此我将在此处演示其用法。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-101_1.png)\n\
+  \n第 4 章 ■ 布局与磁贴\n\n***图 4-7.** 将磁贴图像添加到示例项目的 images 文件夹*\n\n### 应用图像\n\n要应用新图像，请从“解决方案资源管理器”窗口打开\
+  \ `package.appxmanifest` 文件。“应用程序 UI”选项卡上有一个“磁贴”部分，其中包含设置“徽标”、“宽徽标”和“小徽标”的选项。有提示说明每个选项所需的尺寸。在图\
+  \ 4-8 中，您可以看到我如何应用图像来填充清单中的字段，包括文件字段和闪屏字段。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![](img/index-102_1.png)\n\n第 4 章 ■ 布局与磁贴\n\n***图 4-8.** 填充清单字段*\n\n您还需要设置将用于磁贴和闪屏的背景色；我将颜色设置为与应用\
+  \ `body` 元素相同的颜色。\n\n**提示**\n\n■\n\n在清单中设置背景色很重要，而不是在图像中包含背景。当您更新磁贴时（我将在下一节中演示），图像将被动态信息替换，并显示在清单中指定颜色的背景上。\n\
+  \n您可能需要从“开始”屏幕卸载您的应用，磁贴图像才能生效。下次从 Visual Studio 启动您的应用时，您应该会看到新的磁贴。\n\n您可以通过选择磁贴并选择\
+  \ 89\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-103_1.jpg)\n\
+  \n第 4 章 ■ 布局与磁贴\n\n\n\n### 更大或更小的按钮\n\n通过 `AppBar` 上的**更大**或**更小**按钮，您可以查看图 4-9\
+  \ 中示例应用程序的方形和宽磁贴格式。\n\n**图 4-9.** 更新后的静态普通宽磁贴\n\n## 更新磁贴\n\n对于我的示例应用程序，我将显示购物清单中的前几个项目。磁贴更新基于预配置的模板，这些模板包含图形和文本的混合，并针对标准或宽磁贴设计。您首先要做的是选择所需的模板。最简单的方法是查看\
+  \ `Windows.UI.Notifications.TileTemplateType` 枚举的 API 文档，该文档位于 `http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tiletemplatetype.aspx`。\n\
+  \n模板系统基于 XML 片段。我选择了 `tileSquareText03` 模板。这是一个方形磁贴，包含四行不换行文本，没有任何图像。您可以在清单 4-8\
+  \ 中看到表示该磁贴的 XML 片段。\n\n**清单 4-8.** `tileSquareText03` 磁贴模板的 XML 片段\n\n```\n<tile>\n\
+  <visual lang=\"en-US\">\n<binding template=\"TileSquareText03\">\n<text id=\"1\"\
+  >Text Field 1</text>\n<text id=\"2\">Text Field 2</text>\n<text id=\"3\">Text Field\
+  \ 3</text>\n<text id=\"4\">Text Field 4</text>\n</binding>\n</visual>\n</tile>\n\
+  ```\n\n其思路是用应用程序中的信息填充 `text` 元素，并将结果传递给 Windows 通知系统。为了演示此功能，我向项目中添加了一个名为 `tiles.js`\
+  \ 的新 JavaScript 文件，其内容如清单 4-9 所示。\n\n**清单 4-9.** `tiles.js` 文件\n\n```\n/// <reference\
+  \ path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ />\n(function () {\n\"use strict\";\nWinJS.Namespace.define(\"Tiles\", {\nsendTileUpdate:\
+  \ function () {\nvar tn = Windows.UI.Notifications;\nvar xmlFragment = tn.TileUpdateManager\n\
+  .getTemplateContent(tn.TileTemplateType.tileSquareText03);\nvar textNodes = xmlFragment.getElementsByTagName(\"\
+  text\");\nvar items = ViewModel.UserData.getItems();\nfor (var i = 0; i < textNodes.length;\
+  \ i++) {\nvar listItem = items.getAt(i);\nif (listItem) {\ntextNodes[i].innerText\
+  \ = listItem.item;\n}\n}\nfor (var i = 0; i < 5; i++) {\ntn.TileUpdateManager.createTileUpdaterForApplication()\n\
+  .update(new tn.TileNotification(xmlFragment));\n}\n}\n});\nvar eventTypes = [\"\
+  itemchanged\", \"iteminserted\",\n\"itemmoved\", \"itemremoved\"];\nvar itemsList\
+  \ = ViewModel.UserData.getItems();\neventTypes.forEach(function (type) {\nitemsList.addEventListener(type,\
+  \ Tiles.sendTileUpdate);\n});\n})();\n```\n\n**注意：** `Windows.UI.Notifications`\
+  \ 命名空间的长度足以导致印刷页面上代码的布局问题，因此我创建了一个名为 `tn` 的变量作为简写，并将该命名空间分配给它。\n\n**提示：** 请注意，模板名称的第一个字母是小写的。如果您使用大写字母，则您将获得默认模板，而不是您想要的模板。\n\
+  \n### 填充 XML 模板\n\n为了获取模板 XML 片段，我调用了 `TileUpdateManager.getTemplateContent` 方法，并使用\
+  \ `TileTemplateType` 中的值指定所需的模板。\n\n这会给我一个 `Windows.Data.Xml.Dom.XmlDocument` 对象，我可以对其应用标准\
+  \ DOM 方法来设置模板中 `text` 元素的值。嗯，差不多是这样——因为 `XmlDocument` 对象的 `getElementById` 实现不起作用，我必须使用\
+  \ `getElementsByTagName` 方法来获取包含 XML 中所有 `text` 元素的数组。这些元素按照它们在 XML 片段中定义的顺序返回，因此我可以遍历并将每个元素的\
+  \ `innerText` 属性设置为我购物清单中的一个项目。\n\n**提示：** XML 模板定义的四个 `text` 元素中，只有三个在\"开始\"菜单上对用户可见。最后一个元素被应用程序名称或图标遮挡。\n\
+  \n\n\n许多磁贴模板都是如此。\n\n### 创建磁贴更新\n\n设置好 XML 文档的内容后，我使用它来为应用程序磁贴创建更新。我需要从 XML 创建一个`TileNotification`对象，然后将其传递给`TileUpdateManager.createTileUpdaterForApplication`方法返回的`TileUpdater`对象的更新方法：\n\
+  \n```\nfor (var i = 0; i < 5; i++) {\n  tn.TileUpdateManager.createTileUpdaterForApplication()\n\
+  \    .update(new tn.TileNotification(xmlFragment));\n}\n```\n\n并非所有磁贴更新都能正确处理，因此我使用`for`循环重复发送通知。五次似乎是保证更新能显示在“开始”屏幕上的最少重复次数。\n\
+  \n### 应用磁贴更新\n\n我的磁贴更新在两个地方应用。正如你在代码清单 4-9 中所见，`tiles.js`文件设置了事件处理程序，当购物清单内容发生变化时，这些处理程序会调用`sendTileUpdate`函数。这确保了磁贴始终反映用户对列表所做的更改。我还从`default.js`中的`performInitialSetup`函数调用了`sendTileUpdate`方法，如代码清单\
+  \ 4-10 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n#### 代码清单 4-10。在应用程序设置期间更新磁贴\n\
+  \n```\nfunction performInitialSetup(e) {\n  WinJS.UI.processAll().then(function\
+  \ () {\n    UI.List.displayListItems();\n    UI.List.setupListEvents();\n    UI.AppBar.setupButtons();\n\
+  \    UI.Flyouts.setupAddItemFlyout();\n    ViewModel.State.bind(\"selectedItemIndex\"\
+  , function (newValue) {\n      WinJS.Utilities.empty(itemDetailTarget)\n      var\
+  \ url = newValue == -1 ? \"/html/noSelection.html\" :\n        \"/pages/itemDetail/itemDetail.html\"\
+  \n      WinJS.UI.Pages.render(url, itemDetailTarget);\n    });\n    WinJS.UI.Pages.render(\"\
+  /html/storeDetail.html\", storeDetailTarget);\n    function setOrientationClass()\
+  \ {\n      if (Windows.UI.ViewManagement.ApplicationView.value ==\n        Windows.UI.ViewManagement.ApplicationViewState\n\
+  \          .fullScreenPortrait) {\n        WinJS.Utilities.addClass(contentGrid,\
+  \ \"flex\");\n      } else {\n        WinJS.Utilities.removeClass(contentGrid, \"\
+  flex\");\n      }\n    };\n    window.addEventListener(\"resize\", setOrientationClass);\n\
+  \    setOrientationClass();\n    unsnapButton.addEventListener(\"click\", function\
+  \ (e) {\n      Windows.UI.ViewManagement.ApplicationView.tryUnsnap();\n    });\n\
+  \    Tiles.sendTileUpdate();\n  });\n}\n```\n\n当然，由于我创建了一个新的 JavaScript 文件，我需要将其链接到`default.html`，如代码清单\
+  \ 4-11 所示。\n\n#### 代码清单 4-11。将`tiles.js`文件添加到`default.html`\n\n```\n<head>\n  <meta\
+  \ charset=\"utf-8\">\n  <title>MetroGrocer</title>\n  [www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \  <!-- WinJS 引用 -->\n  <link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"\
+  stylesheet\">\n  <script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n  <script\
+  \ src=\"//Microsoft.WinJS.1.0/js/ui.js\"></script>\n  <!-- MetroGrocer 引用 -->\n\
+  \  <link href=\"/css/list.css\" rel=\"stylesheet\">\n  <link href=\"/css/flyout.css\"\
+  \ rel=\"stylesheet\">\n  <link href=\"/css/default.css\" rel=\"stylesheet\">\n \
+  \ <script src=\"/js/viewmodel.js\"></script>\n  <script src=\"/js/ui.js\"></script>\n\
+  \  <script src=\"/js/pages.js\"></script>\n  <script src=\"/js/tiles.js\"></script>\n\
+  \  <script src=\"/js/default.js\"></script>\n</head>\n```\n\n### 测试磁贴更新\n\n在测试我的更新磁贴之前，需要完成几个准备步骤。首先，Visual\
+  \ Studio 模拟器不支持更新磁贴，这意味着我将不得不直接在开发机器上进行测试。为此，我需要将 Visual Studio 的部署目标更改为“本地计算机”，如图\
+  \ 4-10 所示。\n\n**图 4-10.** 选择本地计算机进行调试\n\n第二步是从“开始”屏幕卸载我的示例应用程序（通过从应用栏中选择“卸载”来完成）。似乎存在某种“粘性”，即之前依赖静态磁贴的应用程序无法正确处理更新。\n\
+  \n\n\n完成排版后的内容如下：\n\n完成上述两个步骤后，我就可以通过从“调试”菜单中选择“启动调试”，在 Visual Studio 中启动我的应用程序。应用程序启动后，我可以对购物清单进行修改，而前三个项目的简短摘要将显示在开始磁贴上，如图\
+  \ 4-11 所示。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-108_1.jpg)\n\
+  \n## 第 4 章 ■ 布局与磁贴\n\n**图 4-11.** *更新应用程序磁贴*\n\n**提示** 如果你一直在使用模拟器，可能无法在开始屏幕上找到该磁贴。如果遇到这种情况，请通过输入应用名称的前几个字母来搜索该应用。\n\
+  点击较小的搜索结果图标，磁贴便会显示。如果该方法无效，请重启并在本地启动应用程序，确保不要启动模拟器。\n\n### 更新宽磁贴\n\n如果你希望仅更新应用程序的方形*或*宽磁贴，上一节介绍的技术非常有用。但是，除非你对数据的呈现有非常特殊的需求，否则你应该同时提供方形和宽磁贴的更新，因为你不知道用户会选择哪一种。\n\
+  \n要更新两种尺寸的磁贴，你需要将两个 XML 模板合并成一个包含两个更新内容的片段。在本节中，我将合并 `tileSquareText03` 和 `tileWideBlockAndText01`\
+  \ 模板。宽模板有几个额外的字段，我将用它们来显示用户为了获取购物清单上的所有商品需要访问的商店数量。你可以在**清单 4-12** 中看到我想要生成的内容——一个遵循单一模板格式但合并了两个\
+  \ `binding` 元素的片段。\n\n**清单 4-12.** *编写一个单一的 XML 片段*\n\n```xml\n<tile>\n<visual lang=\"\
+  en-US\">\n<binding template=\"TileSquareText03\">\n<text id=\"1\">Apples</text>\n\
+  <text id=\"2\">Hotdogs</text>\n<text id=\"3\">Soda</text>\n<text id=\"4\"></text>\n\
+  </binding>\n<binding template=\"TileWideBlockAndText01\">\n<text id=\"1\">Apples\
+  \ (Whole Foods)</text>\n<text id=\"2\">Hotdogs (Costco)</text>\n<text id=\"3\">Soda\
+  \ (Costco)</text> 95\n<text id=\"4\"></text>\n<text id=\"5\">2</text>\n<text id=\"\
+  6\">Stores</text>\n</binding>\n</visual>\n</tile>\n```\n\n没有现成的便捷 API 用于合并模板。我所采用的方法是使用\
+  \ XML 处理支持来分别填充模板，然后在过程的最后将它们合并。你可以在**清单 4-13** 中看到我是如何做到这一点的，该清单显示了我对 `tiles.js`\
+  \ 文件所做的修改。\n\n**清单 4-13.** *为方形和宽磁贴生成一个单一更新*\n\n```javascript\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ /> (function () {\n\"use strict\";\nWinJS.Namespace.define(\"Tiles\", {\nsendTileUpdate:\
+  \ function () {\nvar storeCounter = { count: 0 };\nViewModel.UserData.getItems().forEach(function\
+  \ (listItem) {\nif (!storeCounter[listItem.store]) {\nstoreCounter[listItem.store]\
+  \ = true;\nstoreCounter.count++;\n}\n});\nvar tn = Windows.UI.Notifications;\nvar\
+  \ squareXmlFragment = tn.TileUpdateManager\n.getTemplateContent(tn.TileTemplateType.tileSquareText03);\
+  \ var wideXmlFragment = tn.TileUpdateManager\n.getTemplateContent(tn.TileTemplateType.tileWideBlockAndText01);\
+  \ var squareTextNodes =\nsquareXmlFragment.getElementsByTagName(\"text\"); var wideTextNodes\
+  \ =\nwideXmlFragment.getElementsByTagName(\"text\"); var items = ViewModel.UserData.getItems();\n\
+  for (var i = 0; i < squareTextNodes.length; i++) {\nvar listItem = items.getAt(i);\n\
+  if (listItem) {\nsquareTextNodes[i].innerText = listItem.item;\nwideTextNodes[i].innerText\
+  \ = listItem.item + \" (\"\n+ listItem.store + \")\";\n}\n}\nwideTextNodes[4].innerText\
+  \ = storeCounter.count;\nwideTextNodes[5].innerText = \"Stores\";\nvar wideBindingElement\
+  \ =\nwideXmlFragment.getElementsByTagName(\"binding\")[0]; var importedNode = squareXmlFragment.importNode(wideBindingElement,\
+  \ true);\n```\n\n\n```javascript\nvar squareVisualElement =\n    squareXmlFragment.getElementsByTagName\n\
+  \    (\"visual\")[0];\nsquareVisualElement.appendChild(importedNode);\nfor (var\
+  \ i = 0; i < 5; i++) {\n    tn.TileUpdateManager.createTileUpdaterForApplication()\n\
+  \        .update(new tn.TileNotification(squareXmlFragment))\n}\n}\n});\nvar eventTypes\
+  \ = [\"itemchanged\", \"iteminserted\",\n    \"itemmoved\", \"itemremoved\"];\n\
+  var itemsList = ViewModel.UserData.getItems();\neventTypes.forEach(function (type)\
+  \ {\n    itemsList.addEventListener(type, Tiles.sendTileUpdate);\n});\n})();\n```\n\
+  \n宽格式的磁贴让我有机会在每一行向用户展示更多信息。在此示例中，除了显示所需访问商店的总次数外，我还加入了关于应从哪家商店购买商品的信息。\n\n组合模板并非难以掌握的技巧，但合并两个\
+  \ XML 片段时需格外谨慎。我以方形磁贴的模板为基础进行组合更新。当需要添加来自宽模板的绑定元素时，我必须先将其导入方形 XML 文档中，具体操作如下：\n\n\
+  ```javascript\nvar importedNode = squareXmlFragment.importNode(wideBindingElement,\
+  \ true);\n```\n\n`importNode` 方法会在方形文档的上下文中创建宽绑定元素的新副本。该方法的参数包括：要导入的元素，以及指示是否同时导入子节点的布尔值（显然我需要导入子节点）。创建新元素后，我通过\
+  \ `appendChild` 方法将其插入方形 XML 中：\n\n```javascript\nsquareVisualElement.appendChild(importedNode);\n\
+  ```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![](img/index-111_1.jpg)\n\
+  \n## 第 4 章 ■ 布局与磁贴\n\n最终得到的组合文档如清单 4-12 所示。图 4-12 展示了两种磁贴尺寸的外观。（你可以在 Windows 开始屏幕中选择磁贴，右键单击或滑动以显示应用栏，从而在方形和宽版本之间切换。通过\"\
+  缩小\"和\"放大\"按钮可将磁贴切换为宽配置或恢复原状。）\n\n***图 4-12.** 更新宽磁贴*\n\n### 应用徽章\n\nWindows 8 在磁贴中集成了许多功能，包括支持*徽章*——即磁贴上的小图标或数字覆盖层。后者属于\"\
+  磁贴即广告\"的范畴，因为除引导用户启动应用外，数字标识几乎别无他用。为演示徽章功能，我将基于购物清单中的商品数量显示一个简单指示器。清单 4-14 展示了 `tiles.js`\
+  \ 文件的修改内容。\n\n***清单 4-14.** 添加对磁贴徽章的支持*\n\n```javascript\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ />\n(function () {\n    \"use strict\";\n    WinJS.Namespace.define(\"Tiles\"\
+  , {\n        sendBadgeUpdate: function () {\n            var itemCount = ViewModel.UserData.getItems().length;\n\
+  \            var tn = Windows.UI.Notifications;\n            var templateType =\
+  \ itemCount ? tn.BadgeTemplateType.badgeGlyph\n                : tn.BadgeTemplateType.badgeNumber;\n\
+  \            var badgeXml =\n                tn.BadgeUpdateManager.getTemplateContent(templateType);\n\
+  \            var badgeAttribute = badgeXml.getElementsByTagName(\"badge\")[0];\n\
+  \            badgeAttribute.setAttribute(\"value\",\n                itemCount >\
+  \ 3 ? \"alert\" : itemCount);\n            for (var i = 0; i < 5; i++) {\n     \
+  \           var badgeNotification = new tn.BadgeNotification(badgeXml);\n      \
+  \          tn.BadgeUpdateManager.createBadgeUpdaterForApplication()\n          \
+  \          .update(badgeNotification);\n            }\n        },\n        sendTileUpdate:\
+  \ function () {\n            //\n            // *...为简洁起见已省略代码...*\n           \
+  \ // *\n        }\n    });\n    var eventTypes = [\"itemchanged\", \"iteminserted\"\
+  ,\n        \"itemmoved\", \"itemremoved\"];\n    var itemsList = ViewModel.UserData.getItems();\n\
+  \    eventTypes.forEach(function (type) {\n        itemsList.addEventListener(type,\
+  \ function () {\n            Tiles.sendTileUpdate();\n            Tiles.sendBadgeUpdate();\n\
+  \        });\n    });\n})();\n```\n\n徽章的工作方式与磁贴通知类似：获取 XML 模板，填充内容，然后通过开始菜单向用户展示信息。\n\
+  \n\n"
+- "# 两种徽章模板\n\n两种徽章模板可用。第一种将显示 1 到 99 之间的数值，第二种将显示由 Windows 定义的有限范围内的小图像。\n\n数值和图标模板使用相同的\
+  \ XML 表示，如列表 4-15 所示，它们比用于磁贴的模板简单得多。\n\n***列表 4-15.*** 数值和图像徽章的模板\n\n```\n<badge\
+  \ value=\"\"/>\n```\n\n目标是将`value`属性设置为数值或图标名称。如果购物清单上有三个或更少的项目，我会显示数值徽章。如果有超过三个项目，我会使用图标来指示用户应关注其购物义务的范围。\n\
+  \n创建徽章的过程始于选择模板。两种模板类型是`Windows.UI.Notifications.BadgeTemplateType`：对于数值徽章，使用`badgeNumber`模板；对于图标，使用`badgeGlyph`模板。你可以在两种情况下使用相同的模板，因为它们返回相同的\
+  \ XML。这在以后的版本或更新中可能会改变，因此即使内容相同，谨慎选择正确的模板也是明智的。\n\n下一步是定位 XML 中的`value`属性，并将其设置为数值或图标名称。徽章的数值范围非常具体：从\
+  \ 1 到 99。如果你将值设置为小于 1，徽章将根本不会显示。任何大于 99 的值都会导致徽章显示 99。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 4 章 ■ 布局和磁贴\n\n图标列表同样具有规定性。你不能使用自己的图标，必须从 Windows 支持的十个图标列表中选择。你可以在 http://msdn.microsoft.com/en-us/library/windows/apps/hh761458.aspx\
+  \ 查看图标列表。\n\n在此示例中，我选择了警报图标，它看起来像一个星号。一旦 XML 填充完毕，就创建一个新的`BadgeNotification`对象并使用它来发布更新。与磁贴一样，我发现并非所有徽章更新都会被处理，因此我重复更新五次以确保其通过：\n\
+  \n```\n...\nfor (var i = 0; i < 5; i++) {\n    var badgeNotification = new tn.BadgeNotification(badgeXml);\
+  \ \n    tn.BadgeUpdateManager.createBadgeUpdaterForApplication()\n        .update(badgeNotification);\n\
+  }\n...\n```\n\n剩下的就是确保我的徽章更新被创建。为此，我更改了购物清单事件的事件处理程序，以便磁贴和徽章一起更新。我还需要在`/js/default.js`文件中添加对`sendBadgeUpdate`方法的调用，你可以在列表\
+  \ 4-16 中看到。这确保了应用启动时徽章立即更新。\n\n***列表 4-16.*** 应用启动时更新徽章\n\n```\n...\nfunction performInitialSetup(e)\
+  \ {\n    WinJS.UI.processAll().then(function () {\n        UI.List.displayListItems();\n\
+  \        UI.List.setupListEvents();\n        UI.AppBar.setupButtons();\n       \
+  \ UI.Flyouts.setupAddItemFlyout();\n        ViewModel.State.bind(\"selectedItemIndex\"\
+  , function (newValue) {\n            WinJS.Utilities.empty(itemDetailTarget)\n \
+  \           var url = newValue == -1 ? \"/html/noSelection.html\" :\n          \
+  \      \"/pages/itemDetail/itemDetail.html\"\n            WinJS.UI.Pages.render(url,\
+  \ itemDetailTarget);\n        });\n        WinJS.UI.Pages.render(\"/html/storeDetail.html\"\
+  , storeDetailTarget); \n        function setOrientationClass() {\n            if\
+  \ (Windows.UI.ViewManagement.ApplicationView.value\n                == Windows.UI.ViewManagement.ApplicationViewState\n\
+  \                .fullScreenPortrait) {\n                WinJS.Utilities.addClass(contentGrid,\
+  \ \"flex\"); \n            } else {\n                WinJS.Utilities.removeClass(contentGrid,\
+  \ \"flex\");\n            }\n        };\n        window.addEventListener(\"resize\"\
+  , setOrientationClass); \n        setOrientationClass();\n        unsnapButton.addEventListener(\"\
+  click\", function (e) {\n            Windows.UI.ViewManagement.ApplicationView.tryUnsnap();\n\
+  \        });\n        Tiles.sendTileUpdate();\n        Tiles.sendBadgeUpdate();\n\
+  \    });\n}\n...\n```\n\n你可以在图 4-13 中看到四种不同的徽章/磁贴配置：宽磁贴和方形磁贴，带有数字和图标徽章。\n\n***图\
+  \ 4-13.*** 在磁贴上显示徽章\n\n## 总结\n\n在本章中，我向你展示了如何适应 Windows 8 的贴靠和填充布局，以及如何使用磁贴向用户提供启动应用的诱因或避免启动所需的数据。这些功能对于交付一个融入更广泛\
+  \ Windows 8 体验的应用至关重要。\n\n你可能会觉得贴靠布局中的可用空间过于有限，无法提供任何严肃的功能，但经过仔细考虑，可以专注于你所提供的服务的本质，并省略其他所有内容。要充分利用磁贴和徽章，也需要仔细考虑。精心设计的徽章可以显著提高应用的吸引力或实用性，但考虑不周的磁贴则令人烦恼或完全无用。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n"
+- '# 第 5 章
+
+
+  '
+- "# 生命周期事件\n\n在本书的最后一章中，我将向你展示如何通过响应关键的 Windows 事件来控制 Windows 8 应用的生命周期。我将展示如何替换\
+  \ Visual Studio 添加到项目中的代码，如何正确处理应用被挂起和恢复，以及如何实现将你的应用融入 Windows 8 提供的更广泛用户体验的合约。在此过程中，我将演示地理位置功能的使用，并展示如何设置和管理一个循环的后台任务。表\
+  \ 5-1 提供了本章的总结。\n\n***表 5-1.*** 章节总结\n\n| 问题 | 解决方案 | 列表 |\n|------|----------|------|\n\
+  | 确保你的应用接收挂起和恢复事件。 | 订阅来自`Windows.UI.WebUI.WebUIApplication`对象的事件。 | |\n| 创建一个循环的后台任务。\
+  \ | 使用`WinJS.Promise`对象作为其他异步活动的包装器。 | 2–4 |\n| 在应用被挂起前请求更多时间。 | 调用传递给挂起处理程序函数的事件上的`suspendingOperation.getDeferral`方法。\
+  \ | 5 |\n| 实现一个合约。 | 在清单中声明合约，并响应激活事件中的类型信息。 | 6–8 |\n\n## 处理应用生命周期\n\n在第 1 章中，我向你展示了\
+  \ Visual Studio 放置在`default.js`文件中的骨架代码，以便为我的示例项目提供快速启动。这段代码处理 Windows 8 应用的*生命周期事件*，确保我能适当响应操作系统发送给我的信号。Windows\
+  \ 8 应用的生命周期有三个关键阶段。\n\n第一阶段，*激活*，发生在 Windows 希望你的应用执行某些任务时。最常见的任务是 Windows 希望启动你的应用并显示给用户，但也有其他任务，你将在本章后面看到我展示如何实现*合约*时看到一个例子。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 第 5 章 ■ 生命周期事件\n\n用户不会关闭\
+  \ Windows 8 应用；他们只是切换到另一个应用，让 Windows 来处理一切。这就是 Windows 8 UI 上没有关闭按钮或菜单栏的原因。不再需要的\
+  \ Windows 8 应用会进入第二阶段，被*挂起*。在挂起状态下，不会执行任何应用代码，也不会与用户进行交互。\n\n如果用户切换回一个被挂起的应用，则会发生第三阶段：应用被*恢复*。执行继续后，应用将显示给用户。\n\
+  \n挂起的应用并不总是被恢复。例如，如果设备内存不足，Windows 可能会简单地*终止*一个挂起的应用。\n\n## 修正 Visual Studio 事件代码\n\
+  \n\n\nVisual Studio 添加到新项目中的代码足够让一个基础应用启动并运行，但它并未支持全部的生命周期事件。它能够很好地处理激活和挂起操作，却阻止了应用在恢复时收到通知。幸运的是，API\
+  \ 中还有其他地方可以让我注册以接收生命周期事件，因此本章我的首要任务是更新 `default.js`，以便在我的应用进入全部三个生命周期阶段时能够正确收到通知。清单\
+  \ 5-1 展示了这些更改。\n\n**清单 5-1.** 注册生命周期事件通知\n\n```javascript\n(function () {\n    \"\
+  use strict\";\n\n    Windows.UI.WebUI.WebUIApplication.addEventListener(\"activated\"\
+  , performInitialSetup);\n    Windows.UI.WebUI.WebUIApplication.addEventListener(\"\
+  resuming\", performResume);\n    Windows.UI.WebUI.WebUIApplication.addEventListener(\"\
+  suspending\", performSuspend);\n\n    function performInitialSetup(e) {\n      \
+  \  WinJS.UI.processAll().then(function () {\n            UI.List.displayListItems();\n\
+  \            UI.List.setupListEvents();\n            UI.AppBar.setupButtons();\n\
+  \            UI.Flyouts.setupAddItemFlyout();\n            ViewModel.State.bind(\"\
+  selectedItemIndex\", function (newValue) {\n                WinJS.Utilities.empty(itemDetailTarget)\n\
+  \                var url = newValue == -1 ? \"/html/noSelection.html\" :\n     \
+  \               \"/pages/itemDetail/itemDetail.html\"\n                WinJS.UI.Pages.render(url,\
+  \ itemDetailTarget);\n            });\n            WinJS.UI.Pages.render(\"/html/storeDetail.html\"\
+  , storeDetailTarget);\n\n            function setOrientationClass() {\n        \
+  \        if (Windows.UI.ViewManagement.ApplicationView.value ==\n              \
+  \      Windows.UI.ViewManagement.ApplicationViewState.fullScreenPortrait) {\n  \
+  \                  WinJS.Utilities.addClass(contentGrid, \"flex\");\n          \
+  \      } else {\n                    WinJS.Utilities.removeClass(contentGrid, \"\
+  flex\");\n                }\n            };\n            window.addEventListener(\"\
+  resize\", setOrientationClass);\n            setOrientationClass();\n          \
+  \  unsnapButton.addEventListener(\"click\", function (e) {\n                Windows.UI.ViewManagement.ApplicationView.tryUnsnap();\n\
+  \            });\n            Tiles.sendTileUpdate();\n            Tiles.sendBadgeUpdate();\n\
+  \        });\n    }\n\n    function performResume(e) {\n        WinJS.Utilities.query(\"\
+  #topRightContainer h1\")[0].innerText = \"Resumed\";\n    }\n\n    function performSuspend(e)\
+  \ {\n        WinJS.Utilities.query(\"#leftContainer h1\")[0].innerText = \"Suspended\"\
+  ;\n    }\n})();\n```\n\n我使用了通过 `Windows.UI.WebUI.WebUIApplication` 类提供的事件，这些事件与生命周期事件完美对应。我的示例\
+  \ Windows 8 应用当前并未执行任何受应用挂起和恢复影响的任务，但我想向你展示如何测试这些事件。为此，我在 `performResume` 和 `performSuspend`\
+  \ 函数中添加了语句，这些语句会更改 HTML 文档中 `h1` 元素的值，以指示何时接收到挂起和恢复事件。\n\nVisual Studio 包含在调试器中模拟挂起和恢复事件的支持，但我建议你学习如何在操作系统中直接触发这些事件，这样你就不需要使用\
+  \ Visual Studio 进行测试了。\n\n问题在于 Visual Studio 必须禁用真实的操作系统事件，以便 Windows 8 应用进程始终处于其控制之下。这意味着\
+  \ Visual Studio 可能会创建一种与用户使用你的应用时所看到的略微不同的体验。\n\n不幸的是，当你不使用 Visual Studio 工作时，你将无法访问\
+  \ JavaScript 控制台窗口等有用的工具，当然也包括调试器本身。你必须找到另一种机制来观察应用生命周期的变化，这就是我通过更改布局中 `h1` 元素显示的文本来处理恢复和挂起事件的原因，如下所示：\n\
+  \n```javascript\n...\nWinJS.Utilities.query(\"#leftContainer h1\")[0].innerText\
+  \ = \"Suspended\";\n...\n```\n\n通过使用布局来记录接收到的生命周期事件，我能够确保我的应用收到了我所期望的事件。现在，我已经修复了\
+  \ `default.js` 文件中的事件处理代码，并通过更改应用布局增加了记录事件接收的支持，接下来我将向你展示生成这些事件的不同方法：通过 Visual Studio\
+  \ 以及直接使用 Windows 8。\n\n## 使用 Visual Studio 模拟生命周期事件\n\n要使用 Visual Studio 模拟生命周期事件，请从\
+  \ **调试** 菜单中选择 **开始调试** 来启动应用。Visual Studio 会在工具栏上显示一个弹出菜单，如图 5-1 所示，其中包含挂起和恢复应用的选项；这些选项会向应用发送挂起和恢复事件。还有一个选项会发送挂起事件然后终止应用（这实际上会终止应用，而不仅仅是模拟效果）。\n\
+  \n**图 5-1.** 使用 Visual Studio 模拟生命周期事件\n\n> **提示：** 对于某些版本的 Visual Studio，只有在 **视图**\
+  \ > **工具栏** 菜单中选中 **调试位置** 选项后，工具栏菜单才会显示。\n\n要测试 Visual Studio 对生命周期事件的支持，请启动应用，然后从菜单中选择\
+  \ **挂起** 项。应用将收到挂起事件，并且不再显示。稍等片刻，然后从 Visual Studio 菜单中选择 **恢复**；应用将重新出现，你会看到屏幕顶部的\
+  \ `h1` 元素已更新，反映了已收到挂起和恢复事件的事实，如图 5-2 所示。\n\n**图 5-2.** 使用应用布局中的元素记录生命周期事件\n\n##\
+  \ 触发生命周期事件\n\n在接下来的部分中，我将向你展示如何在不使用 Visual Studio 的情况下触发生命周期事件。使用真实事件测试你的应用行为非常重要，而不要仅仅依赖\
+  \ Visual Studio 支持的模拟生命周期。\n\n### 激活应用\n\n要触发激活事件，请从 Visual Studio 的 **调试** 菜单中选择\
+  \ **开始执行（不调试）** 来启动应用程序。你也可以从 **开始** 屏幕启动应用，无论是在模拟器中还是在本地机器上。关键是不使用调试器来启动应用。\n\n\
+  ### 挂起应用\n\n挂起应用最简单的方法是按下 `Win+D` 切换到桌面。打开 **任务管理器**，右键单击你的 Windows 8 应用对应的项，然后从弹出菜单中选择\
+  \ **转到详细信息**。任务管理器将切换到 **详细信息** 选项卡。（你可能需要先单击 **更多详细信息** 按钮，然后才能选择 **详细信息** 选项卡。）在\
+  \ **详细信息** 选项卡上，你会看到一个或多个 `WWAHost.exe` 进程，每个进程对应一个 Windows 8 应用。你可以通过以下方式判断哪个是示例应用：几秒钟后，**状态**\
+  \ 列中显示的值将从 `Running` 变为 `Suspended`，这告诉你 Windows 已挂起该应用，如图 5-3 所示。\n\n**图 5-3.**\
+  \ 显示已挂起的 Windows 8 应用的 Windows 任务管理器\n\n### 恢复应用\n\n切换回应用将恢复它。你会看到布局顶部显示的 `h1` 元素表明恢复和挂起事件都已由\
+  \ Windows 发送。\n\n恢复后的应用状态与挂起时的状态完全相同。你的布局、数据、事件处理程序以及其他所有内容都将保持不变。例如，在处理恢复事件时，你无需调用\
+  \ `processAll`。\n\n\n\n你的应用可能已被挂起很长时间，尤其是当设备进入低电量状态（如睡眠模式）时。网络连接将被你之前通信的所有服务器关闭（这就是为什么你在收到挂起事件时应显式关闭它们的原因），并且在你的应用恢复运行时必须重新打开连接。你还需要刷新可能已过时的数据，这包括位置数据，因为设备可能在你应用被挂起期间移动过位置。\n\
+  \n## 添加异步活动\n\n现在我已确认应用能够接收并响应恢复和挂起事件，接下来可以添加需要周期性任务的功能。在本示例中，我将使用地理定位服务来报告当前设备位置。为此，我创建了一个名为\
+  \ `location.js` 的新 JavaScript 文件，其内容如清单 5-2 所示。\n\n**清单 5-2.** 追踪设备位置\n\n```\n///\
+  \ <reference path=\"//Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/ui.js\" />\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n(function () {\n    \"use strict\";\n\n    var currentPromise;\n    var tracking\
+  \ = false;\n\n    function trackLocation() {\n        currentPromise = new WinJS.Promise(function\
+  \ (complete) {\n            var geo = new Windows.Devices.Geolocation.Geolocator();\n\
+  \            if (geo) {\n                geo.getGeopositionAsync().then(function\
+  \ (position) {\n                    WinJS.xhr({\n                        url: \"\
+  http://nominatim.openstreetmap.org\"\n                            + \"/reverse?format=json&lat=\"\
+  \n                            + position.coordinate.latitude\n                 \
+  \           + \"&lon=\" + position.coordinate.longitude\n                    }).then(function\
+  \ (data) {\n                        var dataObject = JSON.parse(data.response);\n\
+  \                        if (dataObject.address.road) {\n                      \
+  \      var date = new Date();\n                            var time = date.getHours()\
+  \ + \":\" + date.getMinutes()\n                                + \":\" + date.getSeconds();\n\
+  \                            document.getElementById(\"geo\").innerText =\n    \
+  \                            dataObject.address.road + \" (\" + time + \")\";\n\
+  \                        }\n                    });\n                });\n     \
+  \       }\n            complete();\n        });\n\n        currentPromise.then(function\
+  \ () {\n            if (tracking) {\n                setTimeout(trackLocation, 5000);\n\
+  \            }\n        });\n    }\n\n    WinJS.Namespace.define(\"Location\", {\n\
+  \        startTracking: function () {\n            tracking = true;\n          \
+  \  trackLocation();\n        },\n        stopTracking: function () {\n         \
+  \   tracking = false;\n            return currentPromise;\n        }\n    });\n\
+  })();\n```\n\n## 使用位置追踪\n\nWindows 8 的地理定位服务可通过 `Windows.Devices.Geolocation.Geolocator`\
+  \ 对象使用。你可以订阅位置信息变化时的事件，但我想演示一个重复的后台任务，因此使用了 `getGeopositionAsync` 方法，该方法会生成当前位置的快照。这是一个异步操作，因此\
+  \ `getGeopositionAsync` 方法返回一个 `WinJS.Promise` 对象，该对象在位置信息可用时被完成。\n\n获取位置数据后，我使用\
+  \ `WinJS.xhr` 对象进行 Ajax 调用，该对象是标准浏览器 `XmlHttpRequest` 对象的 `Promise` 封装。我的 Ajax 请求发送到反向地理编码服务，这样我就能将地理定位服务提供的纬度和经度信息转换为街道地址。地理编码服务返回\
+  \ JSON 字符串，我将其解析为 JavaScript 对象，从中读取街道名称，以便连同显示上次位置更新的时间戳一起展示给用户。\n\n**提示：** 我使用了\
+  \ OpenStreetMap 的地理编码服务，因为它不需要唯一的账户令牌。这意味着你无需创建 Google Maps 或 Bing Maps 账户即可运行本示例。\n\
+  \n我在 `default.html` 文件中添加了一些简单元素，以便向用户显示位置信息。你可以在清单 5-3 中看到这些添加内容。\n\n**清单 5-3.**\
+  \ 向 `default.html` 添加元素以显示位置信息\n\n```\n...\n<script src=\"/js/tiles.js\"></script>\n\
+  <script src=\"/js/location.js\"></script>\n<script src=\"/js/default.js\"></script>\n\
+  </head>\n<body>\n<div class=\"midtitle\">\n    <h2>你的当前位置是：<span id=\"geo\"></span></h2>\n\
+  </div>\n<div id=\"contentGrid\">\n```\n\n\n\n"
+- "# 采购清单\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n## 第 5 章 ■ 生命周期事件\n\
+  \n**提示** 使用 HTML5 和 JavaScript 开发 Windows 8 的一个乐趣在于，某些关键功能领域（包括地理位置服务）你可以选择使用 HTML5\
+  \ API 还是 Windows API。本示例中我使用了 Windows API，但采用 HTML5 等效 API 同样能完美运行。\n\n为了管理新元素的布局，我在`/css/default.css`文件中新增了属性，如代码清单\
+  \ 5-4 所示。\n\n***代码清单 5-4*** 向`default.css`文件添加新属性\n\n```css\ndiv.midtitle {\n  text-align:\
+  \ center;\n  margin: 20px;\n  padding-bottom: 5px;\n  border-bottom: thin solid\
+  \ white;\n}\n```\n\n## 控制任务\n\n对于地理定位和 Ajax 请求，这里仅作简要说明，因为本示例的重点是创建周期性重复的后台任务。任务的具体功能并不重要。`location.js`文件中最重要的部分是`startTracking`和`stopTracking`函数。当调用`startTracking`函数时，我会创建一个新的`Promise`对象来代表整个后台任务。\n\
+  \n**提示** 我使用`Promise`对象作为两个内部`Promise`对象的包装器，这两个内部`Promise`分别代表位置数据请求和后续的 Ajax 请求。当两个内部`Promise`对象都完成后，我会调用`complete`函数，该函数作为回调参数传入我创建`Promise`对象时所使用的回调函数。关于`WinJS.Promise`对象的更多信息，请参阅\
+  \ API 参考文档。\n\n每次请求完成后，我会创建另一个封装新请求的`Promise`，只要`tracking`变量为`true`，就会重复此过程。我每五秒启动一个新的请求周期。\n\
+  \n当调用`stopTracking`函数时，我将`tracking`变量设置为`false`，并返回代表当前请求周期的`Promise`。我返回的`Promise`表示两种状态之一的请求周期：第一种状态是请求处于活动状态，意味着我正在等待地理定位数据或\
+  \ Ajax 请求完成，或者在向 DOM 应用更新。如果对活动`Promise`调用`then`方法，回调函数将直到周期完成后才会执行。第二种状态是请求已完成，并且在下一个周期开始前处于间歇期。对已完成的`Promise`调用`then`方法将导致回调函数立即执行。\n\
+  \n基于此，我能够利用不同生命周期事件的处理程序将后台任务集成到`default.js`中，如代码清单 5-5 所示。\n\n***代码清单 5-5*** 使用生命周期事件控制后台任务\n\
+  \n```javascript\n(function () {\n  \"use strict\";\n\n  Windows.UI.WebUI.WebUIApplication.addEventListener(\"\
+  activated\", performInitialSetup);\n  Windows.UI.WebUI.WebUIApplication.addEventListener(\"\
+  resuming\", performResume);\n  Windows.UI.WebUI.WebUIApplication.addEventListener(\"\
+  suspending\", performSuspend);\n\n  function performInitialSetup(e) {\n    WinJS.UI.processAll().then(function\
+  \ () {\n      UI.List.displayListItems();\n      UI.List.setupListEvents();\n  \
+  \    UI.AppBar.setupButtons();\n      UI.Flyouts.setupAddItemFlyout();\n      ViewModel.State.bind(\"\
+  selectedItemIndex\", function (newValue) {\n        var targetElement = document.getElementById(\"\
+  itemDetailTarget\");\n        WinJS.Utilities.empty(targetElement);\n        var\
+  \ url = newValue == -1 ? \"/html/noSelection.html\"\n                          \
+  \        : \"/pages/itemDetail/itemDetail.html\";\n        WinJS.UI.Pages.render(url,\
+  \ targetElement);\n      });\n      WinJS.UI.Pages.render(\"/html/storeDetail.html\"\
+  , document.getElementById(\"storeDetailTarget\"));\n      //Tiles.sendTileUpdate();\n\
+  \      //Tiles.sendBadgeUpdate();\n      Location.startTracking();\n    });\n  }\n\
+  \n  function performResume(e) {\n    Location.startTracking();\n  }\n\n  function\
+  \ performSuspend(e) {\n    var promise = Location.stopTracking();\n    if (promise)\
+  \ {\n      var deferral = e.suspendingOperation.getDeferral();\n```\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n\n\n```javascript\npromise.then(function () {\n    deferral.complete();\n});\n\
+  })();\n```\n\n针对激活（activated）和恢复（resuming）事件的改动很简单：在这两种情况下，我都希望启动后台任务，因此只需调用 `Location.startTracking`\
+  \ 方法即可。这段代码中最为有趣的部分，也是我将此示例纳入本章的原因，在于我如何处理挂起（suspending）事件。\n\n**提示** 请注意，我已注释掉了应用磁贴和徽章更新的代码行。这样做是为了让示例应用能在模拟器中运行。同时，我也禁用了\
+  \ `tiles.js` 文件中的事件处理程序。\n\n我的问题是，当 Windows 挂起我的应用时，任何正在活动的后台任务都会在应用恢复时自动继续执行。根据任务在被挂起时所处请求周期的位置，我可能会遇到错误（例如，尝试读取在挂起期间已超时的网络请求数据），或获取到过期数据（因为我的任务在应用被挂起前正准备更新\
+  \ DOM）。\n\n为帮助解决这些问题，`suspending` 事件定义了一个名为 `suspendingOperation` 的属性，该属性返回一个 `Windows.ApplicationModel.SuspendingOperation`\
+  \ 对象。调用此对象的 `getDeferral` 方法，是请求 Windows 为你的应用提供更多时间来准备挂起。当完成后台任务的收尾工作后，你在 `getDeferral`\
+  \ 方法返回的对象上调用 `complete` 方法，向 Windows 发出信号，表明你的应用现在已准备好被挂起。\n\n请求延迟操作会额外获得五秒钟的时间来准备挂起。这听起来可能不多，但考虑到\
+  \ Windows 可能承受着很大的压力来让你的应用让出系统资源，这已经是相当宽裕的时间了。\n\n**警告** 如果应用未能在五秒的允许时间内调用延迟对象上的\
+  \ `complete` 方法，Windows 将终止该应用。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![image](img/index-126_1.png)\n\n## 第 5 章 ■ 生命周期事件\n\n### 声明位置功能\n\n应用必须在其清单中声明需要使用位置服务。在运行更新后的应用前，打开\
+  \ `package.appxmanifest`，切换到“功能”选项卡，确保已勾选“位置”功能，然后保存文件，如图 5-4 所示。\n\n***图 5-4.**\
+  \ 在清单中声明位置功能*\n\n### 测试后台任务\n\n剩下的工作就是测试后台任务是否与生命周期事件正确集成。最简单的方法是使用支持模拟位置数据的模拟器。你按照前面几节的内容对示例进行修改后，首次启动时，系统会提示你允许应用访问位置数据，如图\
+  \ 5-5 所示。点击“允许”按钮，以确保示例中的代码能够正常运行。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![image](img/index-127_1.jpg)\n\n![image](img/index-127_2.jpg)\n\n## 第 5 章 ■ 生命周期事件\n\
+  \n***图 5-5.** 授予位置数据访问权限*\n\n**提示** 你可能还需要授予模拟器访问你开发 PC 位置数据的权限。有一个自动化过程会检查所需设置，并提示你对系统配置进行必要的更改。\n\
+  \n模拟器会尝试使用你开发 PC 的位置信息，但对于此示例，我希望使用模拟位置，以便演示应用挂起期间设备移动所产生的影响。你可以点击模拟器的“设置位置”按钮并填写表单字段来输入位置，如图\
+  \ 5-6 所示。\n\n***图 5-6.** 在 Visual Studio 模拟器中设置模拟位置*\n\n在此示例中，我使用了帝国大厦的坐标，其纬度为 `40.748`，经度为\
+  \ `-73.98`。点击“设置位置”按钮，即可更改模拟器向应用报告的位置。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n![image](img/index-128_1.jpg)\n\n![image](img/index-128_2.jpg)\n\n## 第 5 章 ■ 生命周期事件\n\
+  \n稍等片刻，你会看到新的位置显示在应用布局的顶部。\n\n对于我在“设置位置”对话框中输入的坐标，Web 服务将街道地址报告为“Park Avenue”，你可以在图\
+  \ 5-7 中看到该地址以及指示上次更新时间的时间戳。\n\n***图 5-7.** 应用显示的当前位置的街道地址*\n\n下一步是挂起应用，可以通过 Visual\
+  \ Studio 的模拟事件，也可以将应用置于后台来实现。在应用挂起期间，更改位置，然后恢复应用。在本示例中，我将模拟纬度更改为 `51.50`，经度更改为 `-0.14`（这些是白金汉宫的坐标）。\n\
+  \n恢复应用，你会看到后台任务响应恢复事件而重新启动，并使用新的位置数据和更新的时间戳更新布局，如图 5-8 所示。\n\n***图 5-8.** 应用显示的修改后的街道地址*\n\
+  \n## 实现搜索合约\n\n挂起和恢复事件很重要，但我想回到激活事件，向你展示如何利用它让你的应用与 Windows 8 的其余部分实现更紧密的集成。为此，我将实现一个*合约*，这是\
+  \ Windows 8 向应用表达用户体验某些关键方面的方式。我将实现搜索合约，该合约告诉 Windows，我的示例应用能够支持操作系统级的搜索机制。在接下来的几节中，我将向你展示如何声明对合约的支持并实现合约条款。\n\
+  \n### 声明对合约的支持\n\n实现合约的第一步是更新清单。打开 `package.appxmanifest` 文件，切换到“声明”选项卡。如果你打开“可用声明”菜单，将会看到你可以声明支持的合约列表。\n\
+  \n选择“搜索”并点击“添加”按钮。“搜索”合约将出现在“支持的声明”列表中，如图 5-9 所示。忽略合约的属性；它们对 JavaScript 应用不起作用。\n\
+  \n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\n![image](img/index-129_1.png)\n\
+  \n## 第 5 章 ■ 生命周期事件\n\n***图 5-9.** 声明对搜索合约的支持*\n\n### 处理搜索\n\n搜索合约的目的是将操作系统的搜索系统与应用程序内部的某种搜索功能连接起来。对于我的示例应用，我将通过遍历购物清单上的项目并查找第一个包含用户所搜索字符串的项目来处理搜索请求。这不会是最复杂的搜索实现，但它能让我专注于合约本身，而无需陷入创建大量处理搜索的新代码的泥潭。我已向项目添加了一个名为\
+  \ `search.js` 的新 JavaScript 文件，其内容见清单 5-6。\n\n[www.it-ebooks.info](http://www.it-ebooks.info/)\n\
+  \n## 第 5 章 ■ 生命周期事件\n\n***清单 5-6.*** 实现基本搜索功能\n\n```javascript\n/// <reference path=\"\
+  //Microsoft.WinJS.1.0/js/base.js\" />\n/// <reference path=\"//Microsoft.WinJS.1.0/js/ui.js\"\
+  \ />\n(function () {\n    \"use strict\";\n\n    WinJS.Namespace.define(\"Search\"\
+  , {\n        searchAndSelect: function (searchTerm) {\n            var searchTerm\
+  \ = searchTerm.toLowerCase();\n            var items = ViewModel.UserData.getItems();\n\
+  \            var matchedIndex = -1;\n\n            for (var i = 0 ; i < items.length;\
+  \ i++) {\n                if (items.getAt(i).item.toLowerCase()\n              \
+  \      .indexOf(searchTerm) > -1) {\n                    matchedIndex = i;\n   \
+  \                 break;\n                }\n            }\n\n            ViewModel.State.selectedItemIndex\
+  \ = matchedIndex;\n        }\n    });\n})();\n```\n\n\n\n在本文中，我定义了一个名为`Search`的命名空间，其中包含`searchAndSelect`函数。该函数接受用户正在搜索的术语，并通过视图模型对项目执行基本的不区分大小写搜索。如果找到匹配项，则设置视图模型中的`selectedItemIndex`属性，通过绑定的魔力，这将使匹配项高亮显示并显示其详细信息。为了将此代码引入应用，我在`default.html`文件的`head`部分添加了一个`script`元素，如**清单\
+  \ 5-7**所示。\n\n**清单 5-7.** 为`search.js`文件在`default.html`文件中添加`script`元素\n\n```html\n\
+  <head>\n    <meta charset=\"utf-8\">\n    <title>MetroGrocer</title>\n    <!-- WinJS\
+  \ references -->\n    <link href=\"//Microsoft.WinJS.1.0/css/ui-dark.css\" rel=\"\
+  stylesheet\">\n    <script src=\"//Microsoft.WinJS.1.0/js/base.js\"></script>\n\
+  \    <script src=\"//Microsoft.WinJS.1.0/js/ui.js\"></script>\n    <!-- MetroGrocer\
+  \ references -->\n    <link href=\"/css/list.css\" rel=\"stylesheet\">\n    <link\
+  \ href=\"/css/flyout.css\" rel=\"stylesheet\">\n    <link href=\"/css/default.css\"\
+  \ rel=\"stylesheet\">\n    <script src=\"/js/viewmodel.js\"></script>\n    <script\
+  \ src=\"/js/ui.js\"></script>\n    <script src=\"/js/pages.js\"></script>\n    <script\
+  \ src=\"/js/tiles.js\"></script>\n    <script src=\"/js/location.js\"></script>\n\
+  \    <script src=\"/js/search.js\"></script>\n    <script src=\"/js/default.js\"\
+  ></script>\n</head>\n```\n\n## 实现`Activated`事件处理程序\n\n如前所述，Windows 使用`activated`事件来指示一系列指令。先前，我将所有`activated`事件视为启动应用的指令，但为了支持搜索合约，我必须检查`activated`事件以确定我的应用被要求做什么。您可以在`/js/default.js`文件中看到我如何更新了`activated`事件的事件处理程序，如**清单\
+  \ 5-8**所示。\n\n**清单 5-8.** 在事件中确定激活详细信息\n\n```javascript\n(function () {\n    \"\
+  use strict\";\n\n    Windows.UI.WebUI.WebUIApplication.addEventListener(\"activated\"\
+  , function (e) {\n        var actNS = Windows.ApplicationModel.Activation;\n\n \
+  \       if (e.previousExecutionState != actNS.ApplicationExecutionState.suspended)\
+  \ {\n            performInitialSetup(e);\n        }\n\n        if (e.kind == actNS.ActivationKind.search)\
+  \ {\n            Search.searchAndSelect(e.queryText);\n        }\n    });\n\n  \
+  \  Windows.UI.WebUI.WebUIApplication.addEventListener(\"resuming\", performResume);\n\
+  \    Windows.UI.WebUI.WebUIApplication.addEventListener(\"suspending\", performSuspend);\n\
+  \n    function performInitialSetup(e) {\n        WinJS.UI.processAll().then(function\
+  \ () {\n            UI.List.displayListItems();\n            UI.List.setupListEvents();\n\
+  \            UI.AppBar.setupButtons();\n            UI.Flyouts.setupAddItemFlyout();\n\
+  \n            ViewModel.State.bind(\"selectedItemIndex\", function (newValue) {\n\
+  \                WinJS.Utilities.empty(itemDetailTarget)\n                var url\
+  \ = newValue == -1 ? \"/html/noSelection.html\" : \"/pages/itemDetail/itemDetail.html\"\
+  \n                WinJS.UI.Pages.render(url, itemDetailTarget);\n            });\n\
+  \n            WinJS.UI.Pages.render(\"/html/storeDetail.html\", storeDetailTarget);\n\
+  \n            function setOrientationClass() {\n                if (Windows.UI.ViewManagement.ApplicationView.value\
+  \ == Windows.UI.ViewManagement.ApplicationViewState.fullScreenPortrait) {\n    \
+  \                WinJS.Utilities.addClass(contentGrid, \"flex\");\n            \
+  \    } else {\n                    WinJS.Utilities.removeClass(contentGrid, \"flex\"\
+  );\n                }\n            };\n\n            window.addEventListener(\"\
+  resize\", setOrientationClass);\n            setOrientationClass();\n\n        \
+  \    unsnapButton.addEventListener(\"click\", function (e) {\n                Windows.UI.ViewManagement.ApplicationView.tryUnsnap();\n\
+  \            });\n\n            //Tiles.sendTileUpdate();\n            //Tiles.sendBadgeUpdate();\n\
+  \n            Location.startTracking();\n        });\n    }\n\n    function performResume(e)\
+  \ {\n        Location.startTracking();\n    }\n\n    function performSuspend(e)\
+  \ {\n        var promise = Location.stopTracking();\n        if (promise) {\n  \
+  \          var deferral = e.suspendingOperation.getDeferral();\n            promise.then(function\
+  \ () {\n                deferral.complete();\n            });\n        }\n    }\n\
+  })();\n```\n\nWindows 通过传递给处理函数的事件对象的`kind`属性提供有关应用被发送`activated`事件原因的信息。可能值的范围由`Windows.ApplicationModel.Activation.ActivationKind`枚举定义。不同的合约有不同的激活类型，例如打印、打开文件、使用设备摄像头以及处理搜索请求。通过检查`kind`属性的值，我可以发现`activated`事件是否因搜索请求而发送：\n\
+  \n```javascript\nif (e.kind == actNS.ActivationKind.search) {\n    Search.searchAndSelect(e.queryText);\n\
+  }\n```\n\n用户提供的搜索词可通过事件的`queryText`属性获得。如果我的`activated`事件是因搜索请求而发送的，则调用`searchAndSelect`函数，并传入`queryText`值。这将定位并选中购物清单中第一个匹配项。\n\
+  \n## 确保应用设置\n\n我处理搜索请求的方法依赖于在调用`searchAndSelect`之前先调用`performInitialSetup`函数，因为我依赖视图模型及其相关的绑带来将`selectedItemIndex`属性的变化转换为显示界面的变化。\n\
+  \n问题在于，与搜索相关的`activated`事件可能有两种含义。如果我的应用已经在运行，那么搜索`activated`事件仅意味着“执行此搜索”。但如果我的应用尚未运行，则该事件意味着“启动应用*并*执行此搜索”。\n\
+  \n弄清我正在处理哪种含义非常重要。即使应用在用户发起搜索时未运行，您也只会收到一个`activated`事件。如果我的应用已在运行，而我却调用了`performInitialSetup`，则会创建重复的绑定和事件处理程序。这会导致各种奇怪的行为，但最明显的问题是布局中的右列会包含两套内容，因为最终调用了太多次`WinJS.Pages.render`方法。相比之下，如果我的应用未在运行，而我却未能调用`performInitialSetup`，那么将没有任何绑定和事件处理程序，也就不会显示任何内容。\n\
+  \n我需要小心操作：当我的应用之前未运行时调用`performInitialSetup`函数，而如果它已在运行则避免调用该函数。我通过查看传递给`activated`处理函数的事件对象的`previousExecutionState`属性来实现这一点，该属性报告了我的应用在`activated`事件发送前一刻的执行状态。此属性的可能值范围由`Windows.ApplicationModel.Activation.ApplicationExecutionState`枚举定义，但为了解决这个问题，我唯一关心的值是`suspended`，它告诉我应用设置已经执行过：\n\
+  \n```javascript\nif (e.previousExecutionState != actNS.ApplicationExecutionState.suspended)\
+  \ {\n    performInitialSetup(e);\n}\n```\n\n## 测试搜索合约\n\n要测试此合约，请启动您的应用。无论是否使用调试器启动，以及启动后是退出还是挂起应用都无关紧要。关键是要确保应用出现在模拟器上。\n\
+  \n接下来，切换到“开始”屏幕。如果您的应用仍在运行，它将被切换到后台，并在几秒钟后挂起。要开始搜索，只需开始输入。您希望搜索可以匹配的内容，因此请输入`hot`（这样您的搜索将匹配购物清单中的热狗项目）。\n\
+  \n当您输入时，Windows 会自动开始标准搜索，查找名称中包含`hot`的应用。您将看到类似于图 5-10 的画面，因为默认的 Windows 8 安装中没有此类应用。\n\
+  \n**图 5-10.** 发起搜索\n\n\n\n"
+- "# Markdown 排版处理\n\n要切换至特定应用的搜索，请点击搜索框下方列表中的应用名称。这将向该应用发送 `search activated` 事件。以我的示例应用为例，我点击了列表中的\
+  \ `MetroGrocer` 项，随后 `activated` 事件触发了我简单的搜索处理程序，其结果显示在**图 5-11** 中。\n\n**图 5-11.**\
+  \ *执行特定应用的搜索*\n\n> **提示** 如果在显示你的应用时从超级按钮栏启动搜索，Windows 将会自动从列表中选中你的应用，并将初始搜索聚焦在你的应用上。\n\
+  \n## 总结\n\n在本章中，我向你展示了如何使用生命周期事件来响应 Windows 管理应用的方式。我描述了每个关键事件，并向你展示了如何使用应用布局来确保你的应用能够正确地接收和处理这些事件。\n\
+  \n当应用被挂起时，必须特别小心地干净地结束后台任务，我向你展示了如何通过请求挂起延迟来获得对此过程的控制权，允许额外几秒钟的时间，以在应用恢复时最小化潜在错误或陈旧数据的风险。\n\
+  \n最后，我向你展示了 `activated` 事件如何用于发出不同的请求，包括履行将应用与更广泛的 Windows 平台绑定在一起的契约义务。我演示了搜索契约，但还有其他几种契约，我建议你花时间全面地探索它们。你实现的契约越多，你的应用集成度就越高。\n\
+  \n在这本简短的书里，我旨在向你展示核心系统功能，这些功能将帮助你快速起步进行 Windows 8 应用开发。我已经向你展示了如何使用数据绑定、如何使用主要的结构控件、如何处理贴靠和填充布局、如何自定义应用磁贴，以及在本章中，如何控制应用生命周期。以这些技能为基础，你将能够创建功能丰富且富有表现力的应用，并在\
+  \ Windows 8 开发中抢占先机。\n\n祝愿你在 Windows 8 应用开发项目中取得圆满成功。\n\n## 索引\n\n**„ A, B, C**\n\
+  \n- UI 命名空间, 57\n  - 连接, 57\n- 应用程序控件, 47\n  - HTML 文档, 62–66\n  - AppBar, 48–49,\
+  \ 51–53\n    - 代码执行, 66\n    - 外观, 51\n    - 完整路径, 64\n    - 属性, 51\n    - `css`\
+  \ 文件的内容, 63\n    - 按钮实现, 52\n    - 编辑列表, 66\n    - `data-win-control`, 49\n    -\
+  \ `itemDetail.html`, 62\n    - 定义, 49\n    - 页面回调, 63\n    - HTML 片段, 49\n    -\
+  \ `script` 元素, 64\n    - 图标属性, 52\n    - 页面切换, 65\n    - 区域, 51\n    - URL 参数, 65\n\
+  \    - 设置支持, 52\n    - 视图模型切换, 65\n    - `setupButtons` 函数, 53\n  - 页面, 58–62\n\
+  \    - `WinJS.UI.processAll` 方法, 51\n    - 关联回调, 62\n    - 应用基础结构, 47\n    - 回调函数,\
+  \ 60\n    - 外部内容, 66–70\n    - `color` 属性, 62\n    - 回调, 67\n    - 定义, 59\n    -\
+  \ 显示, 70\n    - HTML, 59\n    - 显示页面, 69\n    - JavaScript 回调, 59\n    - 布局元素, 69\n\
+  \    - 加载并显示 HTML, 61\n    - 清单权限, 70\n    - 加载片段, 59\n    - 页面回调, 67\n    - `noSelection.html`,\
+  \ 59\n    - 属性, 68\n    - `Placeholder` 元素, 61\n    - 展示页面, 68\n    - `ready` 回调,\
+  \ 60\n    - `storeDetail.html`, 66\n    - 语句, 61\n  - 浮出控件, 57–58\n    - `WinJS.UI.processAll`,\
+  \ 61\n    - `addItemFlyout.html`, 53\n    - WinJS 控件, 47\n    - 与 AppBar 结合, 55\n\
+  \  - 异步模块定义（AMD）, 24\n    - 与 AppBar 关联, 55\n    - 设置代码, 58\n\n**„ D, E, F, G, H,\
+  \ I, J, K**\n\n- 内容导入, 56\n  - `css` 文件的内容, 54\n- 数据绑定, 21\n  - 设计模式, 21\n    -\
+  \ 创建 JavaScript 文件, 22–25\n    - AMD 技术, 24\n    - 代码补全, 23\n  - 声明式部分, 28\n   \
+  \ - 全局命名空间污染, 24–25\n    - 占位函数, 28\n    - 方法和属性, 命名空间, 24\n    - 处理, 28\n    -\
+  \ 查询方法, 33\n    - 简单绑定, 27\n    - 更新数据项, 32\n    - 创建命名空间, 24\n    - 自执行函数, 25\n\
+  \n\n\n值更新，34\n\n严格模式，25\n\n视图模型，29, 32\n\n视图模型，22, 25\n\n邮政编码，34\n\nJavaScript 功能，21\n\
+  \nMVC，21\n\n**L**\n\nMVVC，21\n\n可观察数组，35–37\n\n## 布局与磁贴\n\n桥接，HTML 与 WinJS，37\n\n\
+  应用徽章，98–101\n\n细节，列表对象，37\n\n属性，99\n\n列表类，35\n\n选择模板，99\n\n列表方法，36\n\n支持，98\n\n\
+  列表对象，36\n\n模板，99\n\n模板，38–44\n\n在磁贴上，101\n\n添加，ui.js 文件，44\n\n类型，模板，99\n\n添加到 HTML，38\n\
+  \n更新，100\n\n应用到应用，42\n\n值属性，99\n\nCSS 文件，44\n\n和徽章，86–88，90–98\n\n`data-win-control`，39\n\
+  \n应用程序设置，93\n\n`empty` 方法，40\n\n应用，更新，92\n\n导入 JavaScript 和 CSS，44\n\n应用图片，88\n\n\
+  编写 XML 格式，95\n\n列表变化响应，41\n\n创建更新，92\n\n处理元素，43\n\npromise 模式，43\n\n调试，94\n\n`render`\
+  \ 方法，41\n\n最终更新的磁贴，95\n\n`selectedItemIndex`，41\n\n图片到文件夹，88\n\n`setupListEvents`，41\n\
+  \n`importNode` 方法，97\n\n样式化，43\n\n`.js` 到 `.html`，93\n\n表格元素，39\n\n清单字段，89\n\n表格行和列表对象，45\n\
+  \n方形和宽屏生产，96\n\n测试，44\n\n静态磁贴，87\n\n跟踪项目，41\n\n模板，XML，92\n\n`ui.js` 文件，40\n\n测试，94\n\
+  \n`UI` 命名空间，40\n\n`tiles.js` 文件，91\n\n视图模型，21\n\n磁贴更新，90\n\n`WinJS.Binding`，26–35\n\
+  \n更新的静态磁贴，90\n\n组合命名空间，31\n\n宽磁贴，95，98\n\n声明式绑定，27\n\nXML 片段，90\n\n动态创建，29\n\nCSS3\
+  \ 弹性盒布局，82\n\n动态方法，31\n\n贴靠与填充，73\n\n事件改变，33\n\nWindows 8 方向和\n\n全局对象，32\n\n视图，74–75，77–81，83–84\n\
+  \n处理函数，34\n\n适配，77\n\n`id` 属性，34\n\n添加 JavaScript，81\n\nknockout 方法，35\n\n应用程序布局，79\n\
+  \n可观察项目，30\n\n变化模拟，74\n\n[`www.it-ebooks.info`](http://www.it-ebooks.info/)\n\n\
+  索引\n\n退出代码，85\n\n挂起，104，107\n\nCSS，适配，77\n\n任务控制，111\n\n`default.js` 文件更改，79\n\n\
+  终止，104\n\n默认视图，74\n\n触发，107\n\n添加元素，83\n\nVisual Studio 模拟，106\n\n退出，贴靠视图，83\n\n\
+  Windows 8 应用，108\n\n填充视图，76\n\n搜索合约，116–119，121–122\n\nJavaScript 适配，79\n\n应用程序设置，121\n\
+  \n媒体查询，77\n\n应用特定，123\n\n新样式，按钮，84\n\n基本特性，118\n\n竖屏方向，81\n\n详情，激活，119\n\n`setOrientationClass`，80\n\
+  \n事件处理程序，实现，119\n\n显示，贴靠视图，85\n\n函数，事件，121\n\n模拟与更改，74\n\n处理，117\n\n贴靠视图，76\n\n\
+  启动，122\n\n样式，78\n\n命名空间，118\n\n`tryUnsnap`，86\n\n`performInitialSetup`，121\n\n视图模拟，75\n\
+  \n`script` 元素，118\n\n可见性属性，84\n\n支持声明，116\n\nVisual Studio 模拟器\n\n测试，122\n\n方向，75\n\
+  \n## 生命周期\n\n应用处理，103–108，110–116\n\n**M，N，O，P，Q，R，S，T，**\n\n`access location`，115\n\
+  \n**U，V，W，X，Y，Z**\n\n激活，103，107\n\n异步活动，108\n\nMicrosoft Windows 8\n\n后台任务，控制，112\n\
+  \nAPI，9\n\n代码修正，104\n\n应用控件，3\n\nCSS 属性，111\n\n代码片段，5\n\n声明位置，114\n\n数据与绑定，3\n\n\
+  显示，位置，116\n\n特性，3\n\n事件通知，104\n\nHTML5，2\n\n地理编码，110\n\nJavaScript 启动与调试，\n\n`getDeferral`\
+  \ 方法，113\n\n16–19\n\n`getGeopositionAsync` 方法，110\n\n更改，模拟器，19\n\n信息位置，110\n\n控件，重启与重新加载，18\n\
+  \n布局，106\n\nCSS 更改，18\n\n位置模拟器，115\n\n调试应用，19\n\n位置跟踪，108\n\nHTML 更改，18\n\n清单，位置，114\n\
+  \nMetro 模拟器，17\n\n方法，跟踪，113\n\n重新加载，17\n\n修改位置，116\n\n模拟器，16\n\n操作系统事件，105\n\n关键技术，3\n\
+  \n执行语句，105\n\n布局与磁贴，4\n\npromise 包装器，110\n\n生命周期事件，4\n\n记录，布局，107\n\nMetroGrocer，4\n\
+  \n恢复，104，108\n\n项目，8–16\n\n模拟，105\n\n空白，解决方案资源管理器，8\n\n骨架代码，103\n\n内容，HTML 文件，9\n\
+  \n`startTracking`，111\n\n创建，6\n\n`stopTracking`，111\n\nCSS3 网格布局，13\n\n[`www.it-ebooks.info`](http://www.it-ebooks.info/)\n\
+  \n索引\n\nMicrosoft Windows 8 (*续*)\n\n`.js` 文件内容，14\n\nCSS 文件内容，12\n\n修订内容，HTML 文件，10\n\
+  \n`default.js` 文件，14\n\nVisual Studio，9\n\n示例项目，7\n\n`WinJS` API，16\n\n探索 CSS 文件，11\n\
+  \n示例应用，5\n\nHTML 文件探索，8\n\n所需软件，2\n\nJavaScript 库，15\n\nVisual Studio Express，2\n\
+  \njQuery，16\n\n在虚拟机中，2\n\njQuery UI 与移动版，16\n\n`WinJS` 库与代码，10\n\n[`www.it-ebooks.info`](http://www.it-ebooks.info/)\n\
+  \n"
+- "# 文档大纲\n\n\n\n## 目录\n\n- 扉页\n- 版权页\n- 献词页\n- 内容速览\n- 目录\n- 关于作者\n- 关于技术审校\n- 致谢\n\
+  - 引言\n    - 关于本书\n        - 阅读本书需要哪些预备知识？\n        - 是否需要了解 HTML5？\n        - 本书需要哪些软件？\n\
+  \        - 本书的结构是怎样的？\n            - 第 1 章：入门\n            - 第 2 章：数据与绑定\n     \
+  \       - 第 3 章：应用控件\n            - 第 4 章：布局与磁贴\n            - 第 5 章：生命周期事件\n\n"
+- "# 第 1 章 入门\n\n- 关于本书\n    - 阅读本书需要哪些预备知识？\n    - 是否需要了解 HTML5？\n    - 本书需要哪些软件？\n\
+  \    - 本书的结构是怎样的？\n        - 第 1 章：入门\n        - 第 2 章：数据与绑定\n        - 第 3 章：应用控件\n\
+  \        - 第 4 章：布局与磁贴\n        - 第 5 章：生命周期事件\n    - 关于示例 Windows 8 应用的更多信息\n \
+  \   - 本书代码量很大吗？\n- 快速上手与运行\n    - 创建项目\n    - 探索`default.html`文件\n    - 探索`default.css`文件\n\
+  \    - 探索`default.js`文件\n- 启动和调试 JavaScript Windows 8 应用\n    - 重新加载 Windows 8 应用\n\
+  \    - 调试 Windows 商店应用\n- 本章小结\n\n"
+- "# 第 2 章 数据与绑定\n\n- 创建 JavaScript 文件\n    - 使用代码补全\n    - 减少全局命名空间污染\n        -\
+  \ 创建命名空间\n        - 使用自执行函数\n        - 使用严格模式\n    - 回到视图模型\n- 使用数据绑定\n    - 使用基本声明式绑定\n\
+  \    - 创建动态绑定\n        - 结合命名空间与可观察项\n    - 更新可观察数据项\n- 创建可观察数组\n- 使用模板\n    - 使用模板\n\
+  \    - 响应列表变化\n    - 追踪选中项\n- 将模板应用于应用\n    - 设置模板元素样式\n    - 导入 JavaScript 和 CSS\n\
+  \    - 测试模板\n- 本章小结\n\n"
+- "# 第 3 章 应用控件\n\n- 添加应用栏\n    - 实现应用栏按钮\n- 添加浮出控件\n    - 将浮出控件与应用栏命令关联\n    - 导入浮出控件内容\n\
+  \    - 连接浮出控件中的控件\n- 使用页面\n    - 定义 HTML\n    - 创建 JavaScript 回调\n    - 加载与显示 HTML\n\
+  - 加载完整 HTML 文档\n    - 在页面间切换\n- 显示外部内容\n    - 添加回调\n    - 显示页面\n    - 检查清单权限\n-\
+  \ 本章小结\n\n"
+- "# 第 4 章 布局与磁贴\n\n- 处理 Windows 8 方向与视图\n    - 模拟方向和视图变化\n        - 模拟方向变化\n    -\
+  \ 模拟视图变化\n    - 适应方向与视图变化\n        - 通过 CSS 适应\n        - 通过 JavaScript 适应\n   \
+  \ - 以编程方式退出贴靠视图\n- 使用磁贴与徽章\n    - 改进静态磁贴\n    - 应用图像\n    - 更新磁贴\n        - 填充 XML\
+  \ 模板\n        - 创建磁贴更新\n        - 应用磁贴更新\n        - 测试磁贴更新\n    - 更新宽磁贴\n- 应用徽章\n\
+  - 本章小结\n\n"
+- "# 第 5 章 生命周期事件\n\n- 处理应用生命周期\n    - 更正 Visual Studio 事件代码\n    - 使用 Visual Studio\
+  \ 模拟生命周期事件\n    - 触发生命周期事件\n        - 激活应用\n        - 挂起应用\n        - 恢复应用\n   \
+  \ - 添加异步活动\n        - 使用位置追踪\n        - 控制任务\n        - 声明位置功能\n        - 测试后台任务\n\
+  - 实现搜索合约\n    - 声明对合约的支持\n\n\n\n*   处理搜索\n    *   实现激活的事件处理程序\n        *   确保应用程序设置\n\
+  \    *   测试搜索合约\n*   总结\n*   索引\n"

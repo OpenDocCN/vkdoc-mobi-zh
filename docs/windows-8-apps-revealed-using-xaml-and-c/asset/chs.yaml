@@ -1,0 +1,1555 @@
+- '
+
+  '
+- "# Windows 8 应用揭秘\n\n使用 XAML 和 C#\n\nAdam Freeman\n\n**Apress 出版社**\n\n**Windows\
+  \ 8 应用揭秘：使用 XAML 和 C#**\n\n版权所有 © 2012 由 Adam Freeman 持有\n\n本作品受版权保护。Apress 出版社保留所有权利，无论是全部还是部分材料，具体包括翻译权、转载权、插图复用权、朗诵权、广播权、以缩微胶片或任何其他物理方式复制权、传输或信息存储与检索权、电子改编权、计算机软件权，或使用目前已知或未来开发的其他类似或不类似的方法。法律保留的例外情况包括与评论或学术分析相关的简短摘录，或专门为在计算机系统上输入和执行而提供的材料，仅供作品购买者独享。未经出版社所在地现行版权法许可，不得复制本出版物或其部分内容，且使用许可必须始终从\
+  \ Springer 获取。使用许可可通过版权清算中心的 `RightsLink` 获取。违反者将依据相应版权法受到起诉。\n\nISBN-13（平装）：978-1-4302-5034-0\n\
+  \nISBN-13（电子版）：978-1-4302-5035-7\n\n本书中可能出现的商标名称、标识和图片。我们不随意使用商标符号，而是仅以编辑方式使用这些名称、标识和图片，以惠及商标所有者，且无意侵犯商标权。\n\
+  \n本出版物中使用商品名、商标、服务标志和类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的看法表达。\n\n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本材料内容不作任何明示或默示的保证。\n\
+  \nApress 总裁兼出版人：Paul Manning\n\n首席编辑：Ewan Buckingham\n\n技术审阅：Fabio Claudio Ferracchiati\n\
+  \nApress 编辑委员会：Steve Anglin, Ewan Buckingham, Gary Cornell, Louise Corrigan, Morgan\
+  \ Ertel, Jonathan Gennick, Jonathan Hassell, Robert Hutchinson, Michelle Lowman,\
+  \ James Markham, Matthew Moodie, Jeff Olson, Jeffrey Pepper, Douglas Pundick, Ben\
+  \ Renow-Clarke, Dominic Shakeshaft, Gwenan Spearing, Matt Wade, Tom Welsh\n\n协调编辑：Mark\
+  \ Powers\n\n文字编辑：Kim Wimpsett\n\n排版：SPi Global\n\n索引编制：SPi Global\n\n美术设计：SPi Global\n\
+  \n封面设计：Anna Ishchenko\n\n全球图书贸易分销由 Springer Science+Business Media New York 负责，地址：233\
+  \ Spring Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问\
+  \ `www.springeronline.com`。\n\n如需翻译信息，请发送电子邮件至 `rights@apress.com`，或访问 `www.apress.com`。\n\
+  \nApress 及 friends of ED 图书可批量购买用于学术、企业或推广用途。大多数图书也提供电子版和许可证。更多信息，请参考我们的特殊批量销售–电子书许可网页：`www.apress.com/bulk-sales`。\n\
+  \n作者在本文中引用的任何源代码或其他补充材料，读者可在 `www.apress.com/9781430250340` 获取。关于如何找到图书源代码的详细信息，请访问\
+  \ `www.apress.com/source-code`。\n\n*谨以此书献给我亲爱的妻子 Jacqui Griffyth。*\n\n—Adam Freeman\n\
+  \n## 内容概览\n\n- 关于作者\n- 关于技术审阅者\n\n\n\n## 目录\n\n关于作者  \n关于技术评审  \n致谢\n\n![images](img/sq1.jpg)\
+  \ 第 1 章：入门指南  \n关于本书  \n阅读本书前需要了解什么？  \n本书需要哪些软件？  \n本书的结构是怎样的？  \n关于示例 Windows\
+  \ 应用的更多信息  \n本书代码量很大吗？  \n启动与运行  \n创建项目  \n探索`App.xaml`文件  \n探索`MainPage.xaml`文件\
+  \  \n探索`StandardStyles.xaml`文件  \n探索`Package.appxmanifest`文件  \n极简 XAML 概述  \n使用\
+  \ Visual Studio 设计图面  \n在 XAML 中配置控件  \n在代码中配置控件  \n运行和调试 Windows 应用  \n在模拟器中运行\
+  \ Windows 应用  \n总结\n\n![images](img/sq1.jpg) 第 2 章：数据、绑定与页面  \n添加视图模型  \n添加主布局 \
+  \ \n编写代码  \n添加资源字典  \n编写 XAML  \n运行应用  \n将其他页面插入布局  \n动态插入页面至布局  \n在页面间切换  \n实现嵌入式页面\
+  \  \n总结\n\n![images](img/sq1.jpg) 第 3 章：应用栏、浮出控件与导航  \n添加应用栏  \n声明应用栏  \n适配预定义的应用栏按钮\
+  \  \n创建自定义应用栏按钮样式  \n实现应用栏按钮操作  \n创建浮出控件  \n创建用户控件  \n编写用户控件代码  \n将浮出控件添加到应用  \n\
+  创建更复杂的浮出控件  \n在 Windows 应用内导航  \n创建包装器  \n创建其他视图  \n测试导航  \n总结\n\n![images](img/sq1.jpg)\
+  \ 第 4 章：视图与磁贴  \n支持视图  \n在代码中响应视图变化\n\n\n\n## 目录\n\n响应 XAML 中的视图变更\n\n退出对齐视图\n\n\
+  使用磁贴和锁屏提醒\n\n改进静态磁贴\n\n创建动态磁贴\n\n更新宽磁贴\n\n应用锁屏提醒\n\n总结\n\n![images](img/sq1.jpg)\
+  \ 第 5 章：应用生命周期与合约\n\n处理应用生命周期\n\n修正 Visual Studio 事件代码\n\n模拟生命周期事件\n\n测试生命周期事件\n\
+  \n添加后台活动\n\n扩展视图模型\n\n显示位置数据\n\n声明应用功能\n\n控制后台任务\n\n实现合约\n\n声明对合约的支持\n\n实现搜索功能\n\
+  \n响应搜索生命周期事件\n\n测试搜索合约\n\n总结\n\n索引\n\n## 关于作者\n\n![image](img/9781430250340_unFig-01.jpg)\n\
+  \n**亚当·弗里曼**是一位经验丰富的 IT 专业人士，曾在多家公司担任高级职务，最近一次是在一家全球银行担任首席技术官和首席运营官。现已退休，他致力于写作和跑步。\n\
+  \n**他即将出版的其他著作包括：**\n\n- Pro Windows 8 Development in HTML5 and JavaScript\n- Pro\
+  \ ASP.NET MVC 4\n\n**他的其他著作包括：**\n\n- *The Definitive Guide to HTML5* — *Pro ASP.NET\
+  \ 4 in C# 2010 4th Edition*\n- *Applied ASP.NET 4 in Context* — *Pro ASP.NET 4 in\
+  \ VB 2010 3rd Edition*\n- *Pro ASP.NET MVC 3 Framework 3rd Edition* — *Pro LINQ*\n\
+  - *Pro jQuery* — *Pro .NET 4 Parallel Programming in C#*\n- *Introducing Visual\
+  \ C# 2010* — *Visual C# 2010 Recipes*\n\n## 关于技术审校\n\n**法比奥·克劳迪奥·费拉基亚蒂** 是一位资深顾问和高级分析师/开发者，专注于微软技术。他就职于\
+  \ Brain Force（`www.brainforce.com`）的意大利分公司（`www.brainforce.it`）。他是微软认证解决方案开发专家（.NET）、微软认证应用程序开发专家（.NET）、微软认证专家，同时也是多产的技术作者和审校者。在过去十年中，他为意大利及国际杂志撰稿，并合著了十多本关于各种计算机主题的书籍。\n\
+  \n## 致谢\n\n我要感谢 Apress 出版社的每一位成员，感谢他们为本书的出版付出的辛勤努力。特别感谢 Mark Powers 让我保持正轨，以及 Ewan\
+  \ Buckingham 对本书的委托和编辑。我还要感谢我的技术审校法比奥，他的努力使本书比原本好了很多。\n\n### 第 1 章：入门\n\n![image](img/frontdot.jpg)\n\
+  \nWindows 应用商店应用是 Microsoft Windows 8 的重要补充，为桌面、平板电脑和智能手机提供了一个统一且一致的编程和交互模型基石。应用的用户体验与以往各代\
+  \ Windows 应用截然不同：Windows 应用商店应用采用全屏显示，并推崇一种简洁、直接、无干扰的风格。\n\nWindows 应用商店应用完全不同于以往版本的\
+  \ Windows。它拥有全新的 API、新的交互控件，以及管理应用生命周期的截然不同的方法。\n\nWindows 应用商店应用可以使用多种语言进行开发，包括\
+  \ JavaScript、Visual Basic、C++，以及本书主题 —— C#。Windows 8 在现有基础之上，让开发者能够利用他们已有的 C# 和\
+  \ XAML 经验来构建丰富的应用，并集成到更广泛的 Windows 平台中。本书将为您开启 Windows 应用商店应用世界的关键入门之旅；阅读本书后，您将理解如何使用定义核心\
+  \ Windows 应用商店应用体验的控件和功能。\n\n![image](img/sq.jpg) **注意** —— 微软使用了 *Windows Store\
+  \ App* 这个术语，我觉得它有些别扭，因此无法在整本书中使用它。取而代之，我将使用 *Windows 应用*，并且经常简称为 *应用*。我会让您自行在脑海中根据需要插入官方的微软名称。\n\
+  \n## 关于本书\n\n本书面向希望抢先一步为 Windows 8 创建应用的资深 C# 开发者。我将解释您需要快速上手并提升应用开发技术和知识所需的概念和技巧。\n\
+  \n## 阅读本书前需要了解什么？\n\n您需要对 C# 有良好的理解，并且理想情况下，还需要了解 XAML。如果您曾从事 WPF 或 Silverlight\
+  \ 项目，那么您将拥有足够的 XAML 知识来构建 Windows 应用。如果您之前没有接触过 XAML，也不必担心；您可以边学边用，并且我将在本章稍后部分提供一个非常简短的概述帮助您入门。在用到主要\
+  \ XAML 概念时，我会进行说明。\n\n## 阅读本书需要什么软件？\n\n开发 Windows 应用需要两样东西：一台运行 Windows 8 的 PC\
+  \ 和 Visual Studio 2012。如果您认真对待 Windows 应用开发，则需要购买一份 Windows 8 副本；但如果您只是出于好奇，可以从微软获得\
+  \ 90 天试用版，地址为 `http://msdn.microsoft.com/en-us/evalcenter`。点击“Windows 与平台开发”部分中的“发布”链接，即可找到所需内容。\n\
+  \n您需要创建一个微软账户才能获取评估版，但无论如何，您都需要一个账户才能注册为开发者。微软账户是免费创建的，如果您还没有账户，请按照相关说明进行操作。\n\n\
+  ![image](img/sq.jpg) **提示** —— 您可以在虚拟机中运行 Windows 8，但为了获得最佳效果，我建议将操作系统直接安装到 PC 上。\n\
+  \nVisual Studio 2012 是微软的开发环境。好消息是，微软免费提供一款基础版本的 Visual Studio，我在本书中使用的正是这个版本。它有一个朗朗上口的名字：Visual\
+  \ Studio 2012 Express for Windows 8，您可以从 `www.microsoft.com/visualstudio/11/en-us/products/express`\
+  \ 下载安装程序。提供了多种版本，每种版本可用于开发特定类型的应用程序。对于应用开发，您需要 Visual Studio Express 2012 for Windows\
+  \ 8。不同版本的名称非常相似，容易混淆，请务必下载正确的版本。\n\n免费版本不具备某些付费版本 Visual Studio 中包含的所有测试和集成功能，但您不需要这些功能来创建\
+  \ Windows 应用。在其他方面，免费版本的 Visual Studio 功能齐全，能满足您的所有需求。\n\n![image](img/sq.jpg) **提示**\
+  \ —— 如果您拥有付费版本的 Visual Studio 2012，不用担心。您不会用到该版本的所有功能，但本书中的所有说明和示例都能毫无问题地运行，也无需修改。\n\
+  \n\n\n### 安装 Visual Studio\n\n像安装其他任何应用程序一样安装 `Visual Studio`。虽然该软件是免费的，但您需要激活它，这需要用到您之前创建的\
+  \ `Microsoft` 账户。完成激活流程后，您会得到一个可用于激活 `Visual Studio` 的代码。您还需要一个开发者许可证，这也是免费的。首次启动\
+  \ `Visual Studio 2012` 时，系统会提示您获取许可证；这个过程只需一秒钟，并且同样需要您之前创建的 `Microsoft` 账户。\n\n\
+  ![image](img/sq.jpg) **注意**  尽管 `Visual Studio` 和 `Microsoft` 账户是免费的，但如果您想将应用发布到\
+  \ `Windows Store`，则需要付费。`Microsoft` 目前对个人用户每年收费 49 美元，对公司用户每年收费 99 美元，但如果您订阅了 `MSDN`\
+  \ 等 `Microsoft` 软件包，或许可以免费发布。\n\n## 本书结构是怎样的？\n\n我专注于构建 `Windows` 应用的关键技术和特性。您已经知道如何编写\
+  \ `C#`，我不会浪费时间教您已经掌握的内容。本书旨在将您的 `C#` 和 `XAML` 开发经验迁移到 `Windows` 应用世界，这意味着要专注于那些使\
+  \ `Windows` 应用与众不同且特别的部分。\n\n我采用了一种较为宽松的方式来混合各个主题。除了每章的主题之外，您还会找到一些必要的背景信息，用以解释某些功能为何重要以及为何应该实现它们。阅读完本书后，您将了解如何构建一个能正确集成到\
+  \ `Windows 8` 中，并且能呈现出与使用其他语言（如 `C++` 或 `JavaScript`）编写的应用相一致的用户体验的 `Windows` 应用。\n\
+  \n这是一本让您开始为 `Windows 8` 开发应用的入门书。它并非全面的教程；因此，我将重点放在了构成应用主要构建模块的那些主题上。还有很多信息我无法塞进这本薄薄的书里。如果您想更全面地了解\
+  \ `Windows` 应用开发，`Apress` 已经出版了 Jesse Liberty 的 *Pro Windows 8 Development with\
+  \ XAML and C#*。此外，如果您想使用更多面向 Web 的技术来构建应用，`Apress` 将会出版我的 *Pro Windows 8 Development\
+  \ with HTML5* 和 `JavaScript` 两本书。\n\n以下各节总结了本书的章节内容。\n\n### 第 1 章：入门\n\n也就是本章。除了介绍本书之外，我还向您展示如何为本书通篇使用的示例应用创建\
+  \ `Visual Studio` 项目。我简要概述了 `XAML`，带您鸟瞰了应用开发项目中的重要文件，向您展示了如何在 `Visual Studio` 模拟器中运行应用，并解释了如何使用调试器。\n\
+  \n"
+- "# 第 2 章：数据、绑定和页面\n\n数据是任何 `Windows` 应用的核心，在本章中，我将向您展示如何定义视图模型以及如何使用数据绑定将数据引入您的应用布局。这些技术对于构建易于扩展、易于测试和易于维护的应用至关重要。在此过程中，我将向您展示如何使用页面将您的应用分解成可管理的\
+  \ `XAML` 和 `C#` 代码块。\n\n### 第 3 章：应用栏、浮出控件和导航栏\n\n某些用户界面控件是所有 `Windows` 应用共有的，无论使用哪种语言创建它们。在本章中，我将向您展示如何创建和配置\
+  \ `AppBars`（应用栏）、`Flyouts`（浮出控件）和 `NavBars`（导航栏），它们是这些通用控件中最重要的；它们共同构成了与用户交互的骨干。\n\
+  \n### 第 4 章：布局和磁贴\n\n`Windows` 应用的功能延伸到了 `Windows 8` 开始屏幕，它提供了多种方式向用户呈现附加信息。在本章中，我将向您展示如何创建和更新动态开始磁贴，以及如何为这些磁贴应用*徽章*。\n\
+  \n我还将向您展示如何处理*贴靠*和*填充*布局，这些布局允许 `Windows 8` 用户并排使用两个 `Windows` 应用。您可以使用纯 `C#` 代码或代码与\
+  \ `XAML` 混合的方式来适应这些布局。我将向您展示这两种方法。\n\n### 第 5 章：应用生命周期和协定\n\n`Windows` 对应用应用了一个非常特定的生命周期模型。在本章中，我将解释该模型的工作原理，向您展示如何接收和响应大多数生命周期事件，并解释如何管理*挂起*和*运行中*应用之间的转换。我将演示如何创建和管理异步任务，以及当您的应用被挂起时如何控制它们。最后，我将向您展示如何支持协定，这允许您的应用无缝集成到更广泛的\
+  \ `Windows 8` 体验中。\n\n## 关于示例 Windows 应用的更多信息\n\n本书的示例应用是一个简单的购物清单管理器，名为 `GrocerApp`。作为一个独立的应用，`GrocerApp`\
+  \ 相当乏味，但它是演示最重要应用功能的绝佳平台。在图 1-1 中，您可以看到本书结束时应用的外观。\n\n![9781430250340_Fig01-01.jpg](img/9781430250340_Fig01-01.jpg)\n\
+  \n图 1-1。 示例应用\n\n这是一本关于编程而非设计的书。`GrocerApp` 不是一个漂亮的应用程序，我甚至没有实现它的所有功能。它纯粹是一个演示编码技术的工具。\n\
+  \n## 本书代码多吗？\n\n是的。事实上，代码非常多，如果不做删减，我无法将它们全部放入书中。因此，当我介绍一个新主题或进行大量更改时，我会向您展示一个完整的\
+  \ `C#` 或 `XAML` 文件。当我进行小的更改或想强调几行关键代码或标记时，我会向您展示一个代码片段并突出显示重要的更改。您可以在代码清单 1-1 中看到它的样子，该代码摘自第\
+  \ 5 章。\n\n***代码清单 1-1.***  一个代码片段\n\n```\n...\nprotected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n    viewModel = (ViewModel)e.Parameter;\n\n    ItemDetailFrame.Navigate(typeof(NoItemSelected));\n\
+  \    viewModel.PropertyChanged += (sender, args) => {\n        if (args.PropertyName\
+  \ == \"SelectedItemIndex\") {\n            groceryList.SelectedIndex = viewModel.SelectedItemIndex;\n\
+  \            if (viewModel.SelectedItemIndex == −1) {\n                ItemDetailFrame.Navigate(typeof(NoItemSelected));\n\
+  \                AppBarDoneButton.IsEnabled = false;\n            } else {\n   \
+  \             ItemDetailFrame.Navigate(typeof(ItemDetail), viewModel);\n       \
+  \         AppBarDoneButton.IsEnabled = true;\n            }\n        }\n    };\n\
+  }\n...\n```\n\n这些片段让我能够将更多代码塞进这本薄薄的书里，但它们使得在 `Visual Studio` 中跟随示例变得更加困难。如果您确实想跟随示例，最好的方法是从\
+  \ `Apress.com` 下载本书的源代码。这些代码是免费提供的，并且包含本书每一章的完整 `Visual Studio` 项目。\n\n## 启动与运行\n\
+  \n在本节中，我将为示例应用创建项目，并向您展示 `Visual Studio` 生成的每个项目元素。我将逐步分解此过程，以便您可以跟着操作。如果您愿意，也可以从\
+  \ `Apress.com` 下载现成的项目。\n\n### 创建项目\n\n要创建示例项目，请启动 `Visual Studio` 并选择 `文件` ![image](img/arrow.jpg)\
+  \ `新建项目`。在`新建项目`对话框中，从屏幕左侧的`模板`部分选择 `Visual C#`，然后从可用的项目模板中选择`空白应用`，如图 1-2 所示。\n\
+  \n![9781430250340_Fig01-02.jpg](img/9781430250340_Fig01-02.jpg)\n\n图 1-2。 创建示例项目\n\
+  \n\n好的，作为高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例格式，完成以下翻译任务。\n\n\n将项目名称设置为 `GrocerApp`，然后点击“确定”按钮创建项目。Visual\
+  \ Studio 将会创建项目并用一些初始文件填充它。\n\n![image](img/sq.jpg) **提示** Visual Studio 为 C# Windows\
+  \ 应用提供了一些基本模板。我不喜欢这些模板，我认为它们在 XAML 和 C# 代码之间取得了一种奇怪的平衡。因此，我将使用“空白应用”模板，该模板创建的项目只包含应用开发所需的最基本元素。\n\
+  \n图 1-3 展示了 Visual Studio 解决方案资源管理器中显示的新项目内容。在接下来的章节中，我将描述项目中最重要的文件。\n\n![9781430250340_Fig01-03.jpg](img/9781430250340_Fig01-03.jpg)\n\
+  \n图 1-3. 使用“空白应用”模板创建的 Visual Studio 项目的内容\n\n![image](img/sq.jpg) **提示** 如果这些文件的用途或内容不立即显而易见，请不要担心。在我构建示例应用的过程中，我会解释您需要了解的一切。在这个阶段，我只想让您感受一下\
+  \ Visual Studio 应用项目是如何组合在一起的，以及哪些是重要的文件。\n\nWindows 应用使用的是 .NET Framework 库的精简版。您可以通过双击解决方案资源管理器\
+  \ `引用` 部分的 `.Net for Windows Store apps` 条目来查看哪些命名空间可用。\n\n## 探索 App.xaml 文件\n\n\
+  `App.xaml` 文件及其代码隐藏文件 `App.xaml.cs` 用于启动 Windows 应用。XAML 文件的主要用途是将 `Common` 文件夹中的\
+  \ `StandardStyles.xaml` 与应用关联起来，如清单 1-2 所示。\n\n***清单 1-2.*** App.xaml 文件\n\n```xml\n\
+  <Application\n    x:Class=\"GrocerApp.App\"\n    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local=\"\
+  using:GrocerApp\">\n\n<Application.Resources>\n        <ResourceDictionary>\n  \
+  \          <ResourceDictionary.MergedDictionaries>\n\n<!--\n                   \
+  \ Styles that define common aspects of the platform look\n                     \
+  \   and feel\n                    Required by Visual Studio project and item templates\n\
+  \                 -->\n                <ResourceDictionary Source=\"Common/StandardStyles.xaml\"\
+  />\n            </ResourceDictionary.MergedDictionaries>\n\n</ResourceDictionary>\n\
+  \    </Application.Resources>\n</Application>\n```\n\n我稍后会讨论 `StandardStyles.xaml`\
+  \ 文件，在本章后面，我将更新 `App.xaml` 以引用我自己的资源字典。代码隐藏文件更有趣，如清单 1-3 所示。（为简洁起见，我删除了 Visual Studio\
+  \ 添加到该文件中的一些注释。）\n\n***清单 1-3.*** App.xaml.cs 文件\n\n```csharp\nusing System;\nusing\
+  \ System.Collections.Generic;\nusing System.IO;\nusing System.Linq;\nusing Windows.ApplicationModel;\n\
+  using Windows.ApplicationModel.Activation;\nusing Windows.Foundation;\nusing Windows.Foundation.Collections;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Controls.Primitives;\n\
+  using Windows.UI.Xaml.Data;\nusing Windows.UI.Xaml.Input;\nusing Windows.UI.Xaml.Media;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp {\n\nsealed partial class\
+  \ App : Application {\n\npublic App() {\n            this.InitializeComponent();\n\
+  \            this.Suspending += OnSuspending;\n        }\n\nprotected override void\
+  \ OnLaunched(LaunchActivatedEventArgs args) {\n            Frame rootFrame = Window.Current.Content\
+  \ as Frame;\n\nif (rootFrame == null) {\n                // Create a Frame to act\
+  \ as the navigation context\n                // and navigate to the first page\n\
+  \                rootFrame = new Frame();\n                if (args.PreviousExecutionState\
+  \ ==\n                    ApplicationExecutionState.Terminated)\n{\n           \
+  \         //TODO: Load state from previously suspended application\n           \
+  \     }\n\n// Place the frame in the current Window\n                Window.Current.Content\
+  \ = rootFrame;\n            }\n\nif (rootFrame.Content == null) {\n\nif (!rootFrame.Navigate(typeof(MainPage),\
+  \ args.Arguments)) {\n                    throw new Exception(\"Failed to create\
+  \ initial page\");\n                }\n            }\n            // Ensure the\
+  \ current window is active\n            Window.Current.Activate();\n        }\n\n\
+  private void OnSuspending(object sender, SuspendingEventArgs e) {\n            var\
+  \ deferral = e.SuspendingOperation.GetDeferral();\n            //TODO: Save application\
+  \ state and stop any background activity\n            deferral.Complete();\n   \
+  \     }\n    }\n}\n```\n\nWindows 应用有一个非常特定的生命周期模型，该模型通过 `App.xaml.cs` 文件表达。理解并掌握这个模型至关重要，我将在第\
+  \ 5 章中解释。目前，您只需要知道 `OnLaunched` 方法在应用启动时被调用，并且会加载 `MainPage` 类的新实例作为应用的主界面。\n\n\
+  ![image](img/sq.jpg) **提示** 为简洁起见，我已从这些文件中删除了大部分注释，并移除了该类中代码未使用的命名空间引用。\n\n## 探索\
+  \ MainPage.xaml 文件\n\n页面是 Windows 应用的基本构建块。当您使用“空白应用”模板创建项目时，Visual Studio 会创建一个空白页面，并将其命名为\
+  \ `MainPage.xaml`。清单 1-4 显示了 `MainPage.xaml` 文件的内容，其中只包含足够显示……嗯，一个空白页面的 XAML。\n\n\
+  ***清单 1-4.*** MainPage.xaml 文件的内容\n\n```xml\n<Page\n    x:Class=\"GrocerApp.MainPage\"\
+  \n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation  \"\n \
+  \   xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml  \"\n    xmlns:local=\"\
+  using:GrocerApp\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \  \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \  \"\n    mc:Ignorable=\"d\">\n\n<Grid Background=\"{StaticResource ApplicationPageBackgroundThemeBrush}\"\
+  >\n\n</Grid>\n</Page>\n```\n\n如果您以前使用过 XAML，您会认出 `Grid` 控件。Windows 应用 UI 控件的工作方式通常与\
+  \ WPF 或 Silverlight 中的相同，但数量较少，并且某些高级布局和数据绑定功能不可用。我将在第 2 章开始构建示例项目时创建一个更有用的 `Page`\
+  \ 布局。如果您有 XAML 经验，`MainPage.xaml` 的代码隐藏文件也会看起来很熟悉，如清单 1-5 所示。\n\n![image](img/sq.jpg)\
+  \ **提示** 暂时不要担心 XAML 和代码隐藏文件；我将在本章后面提供一个快速概述。\n\n***清单 1-5.*** MainPage.xaml.cs\
+  \ 文件的内容\n\n```csharp\nusing System;\nusing System.Collections.Generic;\nusing System.IO;\n\
+  using System.Linq;\nusing Windows.Foundation;\nusing Windows.Foundation.Collections;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Controls.Primitives;\n\
+  using Windows.UI.Xaml.Data;\nusing Windows.UI.Xaml.Input;\nusing Windows.UI.Xaml.Media;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp {\n    public sealed partial\
+  \ class MainPage : Page {\n        public MainPage() {\n            this.InitializeComponent();\n\
+  \        }\n\nprotected override void OnNavigatedTo(NavigationEventArgs e) {\n \
+  \       }\n    }\n}\n```\n\n\n\n## 探索 `StandardStyles.xaml` 文件\n\n`Common` 文件夹包含\
+  \ Visual Studio 项目模板使用的文件。当使用空白应用模板时，该文件夹中唯一的文件是 `StandardStyles.xaml`，即 `App.xaml`\
+  \ 文件中引用的资源字典文件（如代码清单 1-2 所示）。`StandardStyles.xaml` 文件包含一些样式和模板，可帮助您更轻松地创建外观与更广泛的\
+  \ Windows 应用外观和感觉保持一致的应用。我不会列出完整的文件，因为它包含大量内容，但代码清单 1-6 显示了一个与文本相关的样式示例。\n\n***代码清单\
+  \ 1-6.*** 来自 `StandardStyles.xaml` 文件的一个样式\n\n```\n...\n<Style x:Key=\"HeaderTextStyle\"\
+  \ TargetType=\"TextBlock\"\n        BasedOn=\"{StaticResource BaselineTextStyle}\"\
+  >\n    <Setter Property=\"FontSize\" Value=\"56\"/>\n    <Setter Property=\"FontWeight\"\
+  \ Value=\"Light\"/>\n    <Setter Property=\"LineHeight\" Value=\"40\"/>\n    <Setter\
+  \ Property=\"RenderTransform\">\n        <Setter.Value>\n            <TranslateTransform\
+  \ X=\"-2\" Y=\"8\"/>\n        </Setter.Value>\n    </Setter>\n</Style>\n...\n```\n\
+  \n![image](img/sq.jpg) **警告**：不要编辑 `Common` 文件夹中的文件。我将在第 2 章中向您展示如何创建和引用自定义资源字典。\n\
+  \n## 探索 `Package.appxmanifest` 文件\n\n最后一个值得一提的文件是*清单*，名为 `Package.appxmanifest`。这是一个\
+  \ XML 文件，用于向 Windows 提供有关您的应用的信息。您可以将其作为原始 XML 文件进行编辑，但 Visual Studio 提供了一个更好的基于属性的编辑器。我将在后面的章节中再次回到这个文件，以配置一些应用设置。\n\
+  \n## 极简 XAML 概述\n\n如果您以前从未使用过 XAML，请不要担心。创建 Windows 应用的学习曲线会稍陡一些，但您也有优势，即不会期待其他\
+  \ XAML 应用程序类型中那些在 Windows 应用开发中不存在的功能。\n\n其核心在于，XAML 以声明方式创建用户界面，而不是通过代码。因此，如果我想要向项目添加几个按钮控件，我会在\
+  \ XAML 文件中添加一些标记，如代码清单 1-7 所示。\n\n***代码清单 1-7.*** 向 XAML 文档添加控件\n\n```\n<Page\n\
+  \    x:Class=\"GrocerApp.MainPage\"\n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation\
+  \  \"\n    xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \  \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \  \"\n    mc:Ignorable=\"d\">\n\n<Grid Background=\"{StaticResource ApplicationPageBackgroundThemeBrush}\"\
+  >\n        <StackPanel HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\"\
+  >\n            <Button x:Name=\"FirstButton\" HorizontalAlignment=\"Center\"\n \
+  \                   Click=\"ButtonClick\">Click Me!</Button>\n            <Button\
+  \ Style=\"{StaticResource TextButtonStyle}\"\n                    HorizontalAlignment=\"\
+  Center\"\n                    Click=\"ButtonClick\">Or Click Me!</Button>\n    \
+  \    </StackPanel>\n    </Grid>\n</Page>\n```\n\nXAML 元素中的标记名称指定将添加到布局中的控件。我向项目中添加了一个\
+  \ `StackPanel` 和两个 `Button` 控件。`StackPanel` 是一个简单的容器，有助于为布局增加结构；它将其子控件沿水平或垂直线（即*堆叠*）定位。`Button`\
+  \ 控件正是您所期望的那样：一个在用户点击时触发事件的按钮。\n\nXML 的层次结构性质被转化为 UI 控件的层次结构。通过将 `Button` 元素放置在\
+  \ `StackPanel` 内部，我指定了 `StackPanel` 负责 `Button` 元素的布局。\n\n## 使用 Visual Studio 设计图面\n\
+  \n您可以在 Windows 应用项目中完全使用 C# 完成所有操作，而完全不使用 XAML。但采用 XAML 有一些令人信服的理由。主要优势在于 Visual\
+  \ Studio 中对 XAML 的设计支持相当不错，并且在大多数情况下，会实时向您展示 XAML 文件更改的效果。如图 1-4 所示，Visual Studio\
+  \ 在其 XAML 设计图面上反映了 `StackPanel` 和 `Button` 元素的添加。这与运行应用并不完全相同，但它是一个大致忠实的表示，并且此功能对于在\
+  \ C# 中创建的界面是不可用的。（按钮非常小，所以我在图中放大了它们以便于查看）。\n\n![9781430250340_Fig01-04.jpg](img/9781430250340_Fig01-04.jpg)\n\
+  \n图 1-4。Visual Studio 在其设计图面上反映 XAML 文件的内容\n\n尽管 XAML 往往比较冗长，但 Visual Studio 做了大量工作来简化其创建和编辑；它具有一些出色的自动补全功能，可为标记名称、属性和值提供建议。您还可以通过将控件从工具箱直接拖放到设计图面上，并使用“属性”窗口进行配置来设计界面。如果这两种方法都不适合您，还有支持在\
+  \ Blend for Visual Studio 中为应用创建 XAML 的功能，该工具已作为 Visual Studio 设置的一部分安装在您的机器上。我倾向于直接在代码编辑器中编写\
+  \ XAML，但话说回来，我是一个顽固的老派程序员，一直不太信任可视化设计工具，尽管近年来它们已经变得相当不错。您可能没那么抗拒变化，应该尝试不同的 UI 开发风格，看看哪种适合您。出于本书的目的，我将直接向您展示对\
+  \ XAML 的更改。\n\n## 在 XAML 中配置控件\n\n您通过设置相应 XAML 元素的属性来配置 Windows 应用 UI 控件。例如，我希望\
+  \ `StackPanel` 居中其子控件。为此，我设置了 `HorizontalAlignment` 和 `VerticalAlignment` 属性的值，如下所示：\n\
+  \n```\n...\n<StackPanel HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\"\
+  \ >\n...\n```\n\n## 应用样式\n\n属性也用于将样式应用于 UI 控件。例如，我应用了微软在 `StandardStyles.xaml` 文件中定义的\
+  \ `TextButtonStyle`：\n\n```\n...\n<Button Style=\"{StaticResource TextButtonStyle}\"\
+  \ HorizontalAlignment=\"Center\"\nClick=\"ButtonClick\">Or Click Me!</Button>\n\
+  ...\n```\n\n在 XAML 中定义和引用样式有不同的方法。我使用了 `StaticResource` 来指定我想要的样式，但也有从各种来源获取样式信息的选项。在本书中，我将保持简单，尽可能坚持基础，重点关注特定于\
+  \ Windows 应用的功能。\n\n## 指定事件处理程序\n\n要为事件指定处理方法，您只需使用与所需事件对应的元素属性即可，如下所示：\n\n```\n\
+  ...\n<Button x:Name=\"FirstButton\" HorizontalAlignment=\"Center\"\n    Click=\"\
+  ButtonClick\" >Click Me!</Button>\n...\n```\n\n我已经指定 `click` 事件（在用户点击按钮时触发）将由 `ButtonClick`\
+  \ 方法处理。当您应用事件属性时，Visual Studio 会为您创建一个事件处理方法；我将在下一节向您展示此关系的另一面。\n\n## 在代码中配置控件\n\
+  \nXAML 依赖于一些巧妙的编译器技巧和一个称为*分部*类的 C# 功能。XAML 文件中的标记被转换并与代码隐藏文件合并，以创建一个单独的 .NET 类。这乍一看可能有点奇怪，但它确实允许一种良好的混合模型，您可以在\
+  \ XAML、代码隐藏 C# 类或两者中定义和配置控件。\n\n\n\n\n展示这种关系的最简单方法是向你展示我在 XAML 文件中为 `Button` 元素指定的事件处理程序的实现。\n\
+  \n清单 1-8 展示了 `MainPage.xaml.cs` 文件，即 `MainPage.xaml` 的后台代码文件。\n\n**清单 1-8.**  MainPage.xaml.cs\
+  \ 文件\n\n```\nusing System;\nusing System.Collections.Generic;\nusing System.IO;\n\
+  using System.Linq;\nusing Windows.Foundation;\nusing Windows.Foundation.Collections;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Controls.Primitives;\n\
+  using Windows.UI.Xaml.Data;\nusing Windows.UI.Xaml.Input;\nusing Windows.UI.Xaml.Media;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp {\n    public sealed partial\
+  \ class MainPage : Page {\n        public MainPage() {\n            this.InitializeComponent();\n\
+  \        }\n\nprotected override void OnNavigatedTo(NavigationEventArgs e) {\n \
+  \       }\n\nprivate void ButtonClick(object sender, RoutedEventArgs e) {\n    \
+  \        System.Diagnostics.Debug.WriteLine(\"Button Clicked: \"\n             \
+  \   + ((Button)e.OriginalSource).Content);\n        }\n    }\n}\n```\n\n我可以在 XAML\
+  \ 文件中不加任何限定地引用 `ButtonClick` 方法，这是因为由 XAML 文件生成的代码与后台代码文件中的 C# 代码合并，形成了一个单独的类。结果是，当应用程序布局中的某个\
+  \ `Button` 元素被点击时，我的 C# `ButtonClick` 方法将被调用。\n\n![image](img/sq.jpg) **提示**   Windows\
+  \ 应用程序没有可用的控制台，因此如果你想输出消息来帮助了解应用程序中发生了什么，请使用静态的 `System.Diagnostcs.Debug.WriteLine`\
+  \ 方法。这些消息会显示在 Visual Studio 的输出窗口中，但前提是你需要从 Visual Studio 调试菜单中选择“启动调试”来启动应用程序。\n\
+  \n这种关系是双向的。请注意，XAML 文件中的某些元素具有 `x:Name` 属性，如下所示：\n\n```\n...\n<Button x:Name=\"\
+  FirstButton\" HorizontalAlignment=\"Center\"\n    Click=\"ButtonClick\">Click Me!</Button>\n\
+  ...\n```\n\n当你为此属性指定一个值时，编译器会创建一个变量，其值是由 XAML 元素创建的 UI 控件。这意味着你可以通过 C# 代码来补充控件的\
+  \ XAML 配置，或者以编程方式更改元素的配置。清单 1-9 展示了如何在 `MainPage.xaml.cs` 后台代码文件中定义的 `ButtonClick`\
+  \ 方法中，更改名为 `FirstButton` 的按钮的配置。\n\n**清单 1-9.**  在 MainPage.xaml.cs 文件中响应事件时以代码方式配置控件\n\
+  \n```\n...\nprivate void ButtonClick(object sender, RoutedEventArgs e) {\n\nFirstButton.Content\
+  \ = \"Pressed\";\n    FirstButton.FontSize = 50;\n\nSystem.Diagnostics.Debug.WriteLine(\"\
+  Button Clicked: \"\n        + ((Button)e.OriginalSource).Content);\n}\n...\n```\n\
+  \n我不需要以任何方式限定控件名称。在这个示例中，我更改了按钮的内容和字体大小。由于这些新语句位于 `Click` 事件处理函数中，点击任一按钮都会导致 `FirstButton`\
+  \ 的配置发生变化。这就是目前你需要了解的关于 XAML 的全部内容。总结如下：\n\n-   XAML 被转换为代码，并与后台代码文件的内容合并，形成一个单独的\
+  \ .NET 类。\n-   你可以在 XAML 中或在代码中配置 UI 控件。\n-   使用 XAML 可以让你利用 Visual Studio 的设计工具，这些工具非常出色。\n\
+  \n一开始，XAML 可能会让你觉得冗长且难以阅读，但你很快就会习惯它。我发现使用 XAML 比单纯使用 C# 代码要容易得多，尽管我承认，在决定如此之前，我也花了相当长的时间来学习\
+  \ XAML。\n\n## 运行和调试 Windows 应用程序\n\n现在，我们已经有了一个非常简单的 Windows 应用程序，是时候专注于如何运行和调试它了。Visual\
+  \ Studio 提供了三种运行应用程序的方式：在本地计算机上、在模拟器上或在远程计算机上。\n\n本地计算机的问题是，开发 PC 的配置很少与用户设备相同。除非你的应用程序针对的是拥有类似规格平台的用户，否则在本地计算机上进行测试并不能让你对应用程序的表现有一个代表性的了解。\n\
+  \n在远程计算机上进行测试是最好的方法，但前提是你有一系列具有不同能力的机器来进行测试。我有一台便宜的 Dell Duo 笔记本电脑，它带有触摸屏和一些硬件传感器，对测试很有用，但建立一个稳定的、合适的测试机器集群很快就会变得昂贵。\n\
+  \n最佳的折衷方案是 Visual Studio 模拟器，它能真实地呈现 Windows 应用程序的体验，并允许你更改所模拟设备的能力（包括更改屏幕尺寸）、模拟触摸事件以及生成合成的地理位置数据。\n\
+  \n要选择模拟器，请找到 Visual Studio 工具栏上当前显示“本地计算机”的按钮，然后单击其右侧的小向下箭头。从弹出菜单中选择“模拟器”，如图 1-5\
+  \ 所示。\n\n![9781430250340_Fig01-05.jpg](img/9781430250340_Fig01-05.jpg)\n\n图 1-5.\
+  \  选择 Visual Studio 模拟器来测试应用程序\n\n### 在模拟器中运行 Windows 应用程序\n\n要启动示例应用程序，请单击工具栏按钮（此时将显示“模拟器”），或从调试菜单中选择“启动调试”。Visual\
+  \ Studio 将启动模拟器，并生成和部署应用程序，如图 1-6 所示。\n\n![9781430250340_Fig01-06.jpg](img/9781430250340_Fig01-06.jpg)\n\
+  \n图 1-6.  使用 Visual Studio 模拟器\n\n你可以使用模拟器右侧的按钮来更改屏幕尺寸和方向、在鼠标和触摸输入之间切换，以及合成地理位置数据。目前查看的内容不多，因为示例应用程序非常简单。\n\
+  \n点击应用程序布局上的任意一个按钮，以触发事件处理程序方法并更改按钮的配置。图 1-7 显示了结果。\n\n![9781430250340_Fig01-07.jpg](img/9781430250340_Fig01-07.jpg)\n\
+  \n图 1-7.  在示例应用程序中点击任一按钮的结果\n\n你还会在输出窗口中看到一条消息，类似于下面这样：\n\n| `Button Clicked: Pressed`\
+  \ |\n\n默认情况下，输出窗口可能不会显示。你可以通过在 Visual Studio 中选择“调试” ![image](img/arrow.jpg) “窗口”菜单中的“输出”项来打开它。\n\
+  \n由于应用程序正在调试器中运行，任何异常都会导致调试器中断，从而允许你像常规 C# 项目一样单步执行代码。你可以通过在源代码中设置断点来强制调试器中断；除了使用模拟器之外，运行和调试\
+  \ Windows 应用程序都使用标准的 Visual Studio 功能。\n\n## 总结\n\n在本章中，我概述了本书，并介绍了使用 XAML 和 C#\
+  \ 编写的 Windows 应用程序的基础知识。我提供了一个关于 XAML 非常基础的概述，并向你展示了如何应用它来创建一个简单的示例应用程序。在下一章中，我将开始构建应用程序，以添加主要的结构组件，从视图模型开始。\n\
+  \n## 第 2 章\n\n![image](img/frontdot.jpg)\n\n## 数据、绑定和页面\n\n在本章中，我将向你展示如何定义和使用构成\
+  \ Windows 应用程序核心的数据。为此，我将大致遵循*视图模型*模式，该模式允许我清晰地将数据与负责显示这些数据和处理用户交互的应用程序部分分离开来。\n\
+  \n\n\n\n### 添加 View Model\n\n你可能已经从模型-视图-控制器（MVC）和模型-视图-视图控制器（MVVC）等设计模式中熟悉了`view\
+  \ model`。我不打算在这本书中详细讨论这些模式的细节。关于 MVC 和 MVVC 有很多好的资料，可以从维基百科开始，那里有一些平衡且深刻的描述。\n\n\
+  我发现使用`view model`的好处是巨大的，对于除了最简单的应用项目之外的所有项目，都非常值得考虑，并且我强烈建议你认真考虑遵循同样的路径。我不是一个模式狂热者，我坚信应该采纳那些能解决实际问题的模式和技术部分，并使其适应特定的项目。为此，你会发现我对`view\
+  \ model`应该如何使用的看法是开放的。\n\n本章重点介绍应用中的幕后管道，创建一个基础，我可以在其上构建来演示不同的特性。我循序渐进地开始，定义一个简单的`view\
+  \ model`，并演示不同的技术，通过数据绑定将数据从`view model`带入应用显示。然后，我将向你展示如何将应用分解为多个页面，并将这些页面引入主布局，更改所使用的页面以反映应用的状态。表\
+  \ 2-1 提供了本章的总结。\n\n表 2-1. 章节总结\n\n| 问题 | 解决方案 | 列表 |\n| --- | --- | --- |\n| 创建一个可观察类。\
+  \ | 实现`INotifyPropertyChanged`接口。 | 1 |\n| 创建一个可观察集合。 | 使用`ObservableCollection`类。\
+  \ | 2 |\n| 更改应用启动时加载的页面。 | 更改`App.xaml.cs`中`OnLaunched`方法指定的类型。 | 3 |\n| 设置数据绑定值的源。\
+  \ | 使用`DataContext`属性。 | 4 |\n| 创建可重用的样式和模板。 | 创建一个资源字典。 | 5, 6 |\n| 将 UI 控件绑定到\
+  \ view model。 | 使用`Binding`关键字。 | 7 |\n| 向应用布局添加另一个页面。 | 向主布局添加一个`Frame`，并使用`Navigate`方法指定要显示的页面。\
+  \ | 8–10 |\n| 动态地将页面插入应用布局。 | 使用`Frame.Navigate`方法，可以选择将上下文对象传递给嵌入的页面。 | 11–14 |\n\
+  \n### 添加 View Model\n\n一个好的 Windows 应用的核心是*view model*，使用它可以使应用数据与呈现给用户的方式保持分离。`View\
+  \ model`是创建易于随时间增强和维护的应用的基本基础。将特定 UI 控件中包含的数据视为权威数据可能很诱人，但很快你就会达到无法管理数据位置和更新方式的地步。\n\
+  \n首先，我在 Visual Studio 项目中创建了一个名为`Data`的新文件夹，并创建了两个新的类文件。第一个定义了`GroceryItem`类，它表示购物清单上的单个项目。你可以在列表\
+  \ 2-1 中看到`GroceryItem.cs`的内容。\n\n***列表 2-1.** `GroceryItem`类*\n\n```\nusing System.ComponentModel;\n\
+  \nnamespace GrocerApp.Data {\n\npublic class GroceryItem : INotifyPropertyChanged\
+  \ {\n        private string name, store;\n        private int quantity;\n\npublic\
+  \ string Name {\n            get { return name; }\n            set { name = value;\
+  \ NotifyPropertyChanged(\"Name\"); }\n        }\n\npublic int Quantity {\n     \
+  \       get { return quantity; }\n            set { quantity = value; NotifyPropertyChanged(\"\
+  Quantity\"); }\n        }\n\npublic string Store {\n            get { return store;\
+  \ }\n            set { store = value; NotifyPropertyChanged(\"Store\"); }\n    \
+  \    }\n\npublic event PropertyChangedEventHandler PropertyChanged;\n        private\
+  \ void NotifyPropertyChanged(string propName) {\n            if (PropertyChanged\
+  \ != null) {\n                PropertyChanged(this, new PropertyChangedEventArgs(propName));\n\
+  \            }\n        }\n    }\n}\n```\n\n这个类定义了要购买物品的名称、数量以及应从哪个商店购买的属性。这个类唯一值得注意的方面是它是*可观察的*。Windows\
+  \ 应用 UI 控件的一个不错特性是它们支持数据绑定，这意味着当它们正在显示的可观察数据发生更改时，它们会自动更新。\n\n你实现`System.ComponentModel.INotifyPropertyChanged`接口以使类可观察，并在任何可观察属性被修改时触发由接口指定的`PropertyChangedEventHandler`。\n\
+  \n我在`Data`命名空间中添加的另一个类是`ViewModel`，它包含在`ViewModel.cs`中。这个类包含用户数据和应用状态，你可以在列表 2-2\
+  \ 中看到该类的定义。\n\n***列表 2-2.** `ViewModel`类*\n\n```\nusing System.Collections.Generic;\n\
+  using System.Collections.ObjectModel;\nusing System.ComponentModel;\n\nnamespace\
+  \ GrocerApp.Data {\n\npublic class ViewModel : INotifyPropertyChanged {\n      \
+  \  private ObservableCollection <GroceryItem> groceryList;\n        private List\
+  \ <string> storeList;\n        private int selectedItemIndex;\n        private string\
+  \ homeZipCode;\n\npublic ViewModel() {\n            groceryList = new ObservableCollection\
+  \ <GroceryItem> ();\n            storeList = new List <string> ();\n           \
+  \ selectedItemIndex = -1;\n            homeZipCode = \"NY 10118\";\n        }\n\n\
+  public string HomeZipCode {\n            get { return homeZipCode; }\n         \
+  \   set { homeZipCode = value; NotifyPropertyChanged(\"HomeZipCode\"); }\n     \
+  \   }\n\npublic int SelectedItemIndex {\n            get { return selectedItemIndex;\
+  \ }\n            set {\n                selectedItemIndex = value;             \
+  \    NotifyPropertyChanged(\"SelectedItemIndex\");\n            }\n        }\n\n\
+  public ObservableCollection <GroceryItem> GroceryList {\n            get {\n   \
+  \             return groceryList;\n            }\n        }\n\npublic List <string>\
+  \ StoreList {\n            get {\n                return storeList;\n          \
+  \  }\n        }\n\npublic event PropertyChangedEventHandler PropertyChanged;\n \
+  \       private void NotifyPropertyChanged(string propName) {\n            if (PropertyChanged\
+  \ != null) {\n                PropertyChanged(this, new PropertyChangedEventArgs(propName));\n\
+  \            }\n        }\n    }\n}\n```\n\n这个简单`view model`最重要的部分是代表购物清单的`GroceryItem`对象集合。我希望该列表是可观察的，这样对列表的更改会自动更新到应用\
+  \ UI 中。为此，我使用了来自`System.Collections.ObjectModel`命名空间的`ObservableCollection`。这个类实现了集合的基本功能，并在列表项被添加、移除或替换时发出事件。`ObservableCollection`类在其包含的某个对象的数据值被修改时不会发出事件，但是通过创建可观察的`GroceryList`对象的可观察集合，我确保对购物清单的*任何*更改都会导致\
+  \ UI 中的更新。\n\n`ViewModel`类也实现了`INotifyPropertyChanged`，因为 view model 中有两个可观察属性。第一个是`HomeZipCode`，它是用户数据，我将在第\
+  \ 3 章演示如何创建*flyouts*时使用它。第二个可观察属性`SelectedItemIndex`是应用状态的一部分，用于跟踪用户选择了购物清单中的哪个项目（如果有的话）。\n\
+  \n\n\n这是一个非常简单的视图模型，正如我所提到的，我在项目中构建视图模型时采取了灵活的方式。尽管如此，它包含了演示如何使用数据绑定自动更新应用程序 UI\
+  \ 控件所需的所有要素。\n\n### 添加主布局\n\n现在我已经定义了视图模型，就可以开始构建 UI 了。第一步是添加应用程序的主页面。我理解为什么 Visual\
+  \ Studio 会生成一个名为`MainPage`的页面，但我想向你展示我通常如何构建项目，因此我将向项目添加一个新页面。\n\n![image](img/sq.jpg)\
+  \ **提示** 我不会再使用`MainPage.xaml`，你可以将其从项目中删除。\n\n我喜欢使用大量的项目结构，因此我向项目添加了一个名为`Pages`的新文件夹。我通过右键单击`Pages`文件夹，从弹出菜单中选择添加![image](img/arrow.jpg)新项，并选择空白页面模板，添加了一个名为`ListPage.xaml`的新空白页面。Visual\
+  \ Studio 会创建 XAML 文件和代码后置文件`ListPage.xaml.cs`。\n\n![image](img/sq.jpg) **提示** 如果你是使用\
+  \ XAML 构建应用程序的新手，那么重要的是要理解，你通常不会按照我描述示例应用程序的顺序来工作。相反，XAML 方法支持一种更迭代的风格，你可以在其中使用\
+  \ XAML 声明一些控件，添加一些代码来支持它们，并可能定义一些样式来减少标记中的重复。这比我在这里展示的要自然得多，但在书中很难捕捉到基于 XAML 的开发中来回反复的特性。\n\
+  \n我希望将`ListPage.xaml`设置为应用程序启动时加载的页面，这需要更新`App.xaml.cs`，如下面的列表 2-3 所示。\n\n***列表\
+  \ 2-3.** 更新`App.xaml.cs`以使用`ListPage`*\n\n```csharp\nusing System;\nusing Windows.ApplicationModel;\n\
+  using Windows.ApplicationModel.Activation;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  \nnamespace GrocerApp {\n\n    sealed partial class App : Application {\n\n    \
+  \    public App() {\n            this.InitializeComponent();\n            this.Suspendin\
+  \ += OnSuspending;\n        }\n\n        protected override void OnLaunched(LaunchActivatedEventArgs\
+  \ args) {\n            Frame rootFrame = Window.Current.Content as Frame;\n\n  \
+  \          if (rootFrame == null) {\n                rootFrame = new Frame();\n\n\
+  \                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)\
+  \ {\n                    //TODO: 从先前挂起的应用程序加载状态\n                }\n\n         \
+  \       // 将框架放置在当前窗口中\n                Window.Current.Content = rootFrame;\n  \
+  \          }\n\n            if (rootFrame.Content == null) {\n\n               \
+  \ if (!rootFrame.Navigate(typeof(Pages.ListPage), args.Arguments)) {\n         \
+  \           throw new Exception(\"创建初始页面失败\");\n                }\n            }\n\
+  \            // 确保当前窗口处于活动状态\n            Window.Current.Activate();\n        }\n\
+  \n        private void OnSuspending(object sender, SuspendingEventArgs e) {\n  \
+  \          var deferral = e.SuspendingOperation.GetDeferral();\n            //TODO:\
+  \ 保存应用程序状态并停止任何后台活动\n            deferral.Complete();\n        }\n    }\n}\n```\n\
+  \n暂时不用担心这个类的其余部分。我将在第 5 章中解释如何响应 Windows 应用程序的生命周期时再回到这个话题。\n\n## 编写代码\n\n对我来说，解释如何创建示例应用程序最简单的方式是，以与你在项目中通常创建顺序相反的顺序来呈现内容。为此，我将从`ListPage.xaml.cs`代码后置文件开始。你可以在下面的列表\
+  \ 2-4 中看到此文件的内容，包括我对 Visual Studio 默认内容所做的添加。\n\n***列表 2-4.** `ListPage.xaml.cs`文件*\n\
+  \n\n\n```csharp\nusing GrocerApp.Data;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Navigation;\n\
+  \nnamespace GrocerApp.Pages {\n\npublic sealed partial class ListPage : Page {\n\
+  \        ViewModel viewModel;\n\npublic ListPage() {\n\nviewModel=new ViewModel();\n\
+  \nviewModel.StoreList.Add(\"Whole Foods\");\n            viewModel.StoreList.Add(\"\
+  Kroger\");\n            viewModel.StoreList.Add(\"Costco\");\n            viewModel.StoreList.Add(\"\
+  Walmart\");\n\nviewModel.GroceryList.Add(new GroceryItem {\n                Name=\"\
+  Apples\",\n                Quantity=4, Store=\"Whole Foods\"\n            });\n\
+  \            viewModel.GroceryList.Add(new GroceryItem {\n                Name=\"\
+  Hotdogs\",\n                Quantity=12, Store=\"Costco\"\n            });\n   \
+  \         viewModel.GroceryList.Add(new GroceryItem {\n                Name=\"Soda\"\
+  ,\n                Quantity=2, Store=\"Costco\"\n            });\n            viewModel.GroceryList.Add(new\
+  \ GroceryItem {\n                Name=\"Eggs\",\n                Quantity=12, Store=\"\
+  Kroger\"\n            });\n\nthis.InitializeComponent();\n\nthis.DataContext=viewModel;\n\
+  \        }\n\nprotected override void OnNavigatedTo(NavigationEventArgs e) {\n \
+  \       }\n\nprivate void ListSelectionChanged(object sender,             SelectionChangedEventArgs\
+  \ e) {\n            viewModel.SelectedItemIndex=groceryList.SelectedIndex;\n   \
+  \     }\n    }\n}\n```\n\n![image](img/sq.jpg) **注意**   如果在此时编译应用，将会出现错误，因为我引用了尚未添加的`groceryList`控件。请等到“运行应用”部分；届时所有内容才会就位。\n\
+  \n`ListPage`类的构造函数会创建一个新的`ViewModel`对象，并用一些示例数据填充它。该类中最有趣的语句如下：\n\n```\nthis.DataContext\
+  \ = viewModel;\n```\n\nWindows 应用 UI 控件的核心是支持*数据绑定*，通过它我可以将视图模型中的内容显示在 UI 控件中。为此，我必须指定数据的来源。`DataContext`属性指定了\
+  \ UI 控件及其所有子控件的绑定数据来源。我可以使用`this`关键字为整个布局设置`DataContext`，因为`ListPage`类由代码隐藏文件的内容与\
+  \ XAML 内容合并而成，这意味着`this`指向包含所有 XAML 声明的控件的`Page`对象。\n\n我做的最后一项添加是定义一个方法，用于处理`ListView`控件的`SelectionChanged`事件。这种控件将用于显示购物清单中的项目。当我定义\
+  \ XAML 时，我会安排当用户选择其中某一项时调用此方法。该方法根据`ListView`控件的`SelectedIndex`属性，在视图模型中设置`SelectedItemIndex`属性。由于`SelectedItemIndex`属性是可观察的，当用户进行选择时，应用的其他部分可以收到通知。\n\
+  \n### 添加资源字典\n\n在第 1 章中，我解释了 Visual Studio 创建的`StandardStyles.xaml`文件定义了一些 Windows\
+  \ 应用中使用的 XAML 样式和模板。像这样定义样式是个好主意，因为这意味着你可以在一个地方应用更改，而不必追踪所有直接对 UI 控件应用颜色或字体设置的地方。我的示例项目需要一些标准样式和模板。为此，我创建了一个名为`Resources`的新文件夹，并使用资源字典项模板创建了一个名为`GrocerResourceDictionary.xaml`的新文件。你可以在清单\
+  \ 2-5 中看到此文件的内容。\n\n![image](img/sq.jpg) **提示**   正如我在第 1 章中解释的，Microsoft 禁止向`StandardStyles.xaml`添加样式。如果你想创建自定义样式，必须创建自己的资源字典。\n\
+  \n***清单 2-5.**  定义资源字典*\n\n```\n<ResourceDictionary\n    xmlns = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x = \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local\
+  \ = \"using:GrocerApp.Resources\">\n    <ResourceDictionary.MergedDictionaries>\n\
+  \        <ResourceDictionary Source = \"/Common/StandardStyles.xaml\" />\n    </ResourceDictionary.MergedDictionaries>\n\
+  \n<SolidColorBrush x:Key = \"AppBackgroundColor\" Color = \"#3E790A\"/>\n\n<Style\
+  \ x:Key = \"GroceryListItem\" TargetType = \"TextBlock\"\n           BasedOn = \"\
+  {StaticResource BasicTextStyle}\" >\n        <Setter Property = \"FontSize\" Value\
+  \ = \"45\"/>\n        <Setter Property = \"FontWeight\" Value = \"Light\"/>\n  \
+  \      <Setter Property = \"Margin\" Value = \"10, 0\"/>\n        <Setter Property\
+  \ = \"VerticalAlignment\" Value = \"Center\"/>\n    </Style>\n\n<DataTemplate x:Key\
+  \ = \"GroceryListItemTemplate\">\n        <StackPanel Orientation = \"Horizontal\"\
+  >\n            <TextBlock Text = \"{Binding Quantity}\"\n                      \
+  \ Style = \"{StaticResource GroceryListItem}\" Width = \"50\"/>\n            <TextBlock\
+  \ Text = \"{Binding Name}\"\n                       Style = \"{StaticResource GroceryListItem}\"\
+  \  Width = \"200\"/>\n            <TextBlock Text = \"{Binding Store}\"\n      \
+  \                 Style = \"{StaticResource GroceryListItem}\"  Width = \"300\"\
+  />\n        </StackPanel>\n    </DataTemplate>\n</ResourceDictionary>\n```\n\n本书不会深入探讨样式和模板的细节，但我会解释这个文件中的内容，以便为后续的清单提供一些上下文。最简单的声明如下：\n\
+  \n```\n...\n<SolidColorBrush x:Key = \"AppBackgroundColor\" Color = \"#3E790A\"\
+  />\n...\n```\n\n应用默认的配色方案是白底黑字，我想进行更改。更改的第一步是定义一种不同的颜色，这正是此元素所做的，它将一种绿色与键`AppBackgroundColor`关联起来。稍后当我创建\
+  \ XAML 布局时，你将看到我使用此键来应用该颜色。\n\n下一个声明是关于样式的，它包含多个属性的值：\n\n```\n...\n<Style x:Key\
+  \ = \"GroceryListItem\" TargetType = \"TextBlock\"\n    BasedOn = \"{StaticResource\
+  \ BasicTextStyle}\" >\n    <Setter Property = \"FontSize\" Value = \"45\"/>\n  \
+  \  <Setter Property = \"FontWeight\" Value = \"Light\"/>\n    <Setter Property =\
+  \ \"Margin\" Value = \"10, 0\"/>\n    <Setter Property = \"VerticalAlignment\" Value\
+  \ = \"Center\"/>\n</Style>\n...\n```\n\n这个名为`GroceryListItem`的样式定义了多个属性的值：`FontSize`、`FontWeight`等。但请注意，在声明样式时，我使用了`BasedOn`属性。这允许我继承另一个样式中定义的所有值。在此例中，我继承了\
+  \ Microsoft 在`StandardStyles.xaml`文件中定义的`BasicTextStyle`样式。在派生此类新样式之前，我必须先将其他资源字典文件纳入作用域，这通过以下声明实现：\n\
+  \n```\n<ResourceDictionary.MergedDictionaries>\n    <ResourceDictionary Source =\
+  \ \" /Common/StandardStyles.xaml \" />\n</ResourceDictionary.MergedDictionaries>\n\
+  ```\n\n你可以通过这种方式导入任意数量的文件，但导入操作必须在从文件内容派生样式之前进行。\n\n最后一个声明是关于数据模板的，通过它我可以定义一个元素层次结构，该层次结构将用于表示数据源中的每个项。如你所猜，我的数据来源将是视图模型中的杂货项目集合。集合中的每个项都将由一个包含三个`TextBlock`控件的`StackPanel`表示。请注意标记为粗体的两个属性：\n\
+  \n\n\n```\n...\n<DataTemplate x:Key = \"GroceryListItemTemplate\">\n    <StackPanel\
+  \ Orientation = \"Horizontal\">\n        <TextBlock Text = \"{Binding Quantity}\"\
+  \n            Style = \"{StaticResource GroceryListItem}\" Width = \"50\"/>\n        <TextBlock\
+  \ Text = \"{Binding Name}\"\n            Style = \"{StaticResource GroceryListItem}\"\
+  \  Width = \"200\"/>\n        <TextBlock Text = \"{Binding Store}\"\n            Style\
+  \ = \"{StaticResource GroceryListItem}\"  Width = \"300\"/>\n    </StackPanel>\n\
+  </DataTemplate>\n...\n```\n\n`Text` 属性的值很重要。`Binding` 关键字告知运行时，我希望从控件的 `DataContext`\
+  \ 中获取 `Text` 属性的值。在上一节中，我已将视图模型指定为此数据的来源，而指定 `Quantity` 则告知运行时，我希望使用模板正在显示的对象中的\
+  \ `Quantity` 属性。通过在代码隐藏文件中设置 `DataContext` 属性，我定义了宏观方向（“使用我的视图模型作为绑定数据的源”），而 `Binding`\
+  \ 关键字则让我指定具体细节（“显示这个特定属性的值”）。稍后，在主 XAML 文件中，我将能够将两者连接起来，使运行时知道应使用视图模型的哪部分来获取各个属性的值。\n\
+  \n我标注的另一个属性虽然不太引人注目，但同样有用。对于 `Style` 属性，我指定了一个名为 `GroceryList` 项的 `StaticResource`。`StaticResource`\
+  \ 关键字告知运行时，我正在查找的资源已经定义完毕。我使用了刚才指定的 `GroceryListItem` 样式。这样做的好处是，我可以在一处更改三个 `TextBlock`\
+  \ 控件的外观，并且可以轻松地为那些希望具有相似外观的控件派生新的样式。最后一步是将自定义资源字典添加到 `App.xaml` 中，使其在应用中可用，具体操作如清单\
+  \ 2-6 所示。\n\n**清单 2-6.** 将自定义资源字典添加到 `App.xaml` 文件\n\n```\n<Application\n    x:Class\
+  \ = \"GrocerApp.App\"\n    xmlns = \" http://schemas.microsoft.com/winfx/2006/xaml/presentation\
+  \ \"\n    xmlns:x = \" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local\
+  \ = \"using:GrocerApp\">\n    <Application.Resources>\n        <ResourceDictionary>\n\
+              <ResourceDictionary.MergedDictionaries>\n               <!--\n                    定义平台外观和感受通用方面的样式\n\
+                      Visual Studio 项目和项模板所需\n                -->\n                <ResourceDictionary\
+  \ Source = \"Common/StandardStyles.xaml\"/>\n                <ResourceDictionary\
+  \ Source = \"Resources/GrocerResourceDictionary.xaml\"/>\n            </ResourceDictionary.MergedDictionaries>\n\
+          </ResourceDictionary>\n    </Application.Resources>\n</Application>\n```\n\
+  \n## 编写 XAML\n\n现在，代码隐藏文件和资源字典都已就位，我可以转向 XAML 来声明构成应用布局的控件。清单 2-7 显示了 `ListPage.xaml`\
+  \ 文件的内容。\n\n**清单 2-7.** `ListPage.xaml` 文件\n\n```\n<Page\n    x:Class = \"GrocerApp.Pages.ListPage\"\
+  \n    xmlns = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x\
+  \ = \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local = \"using:GrocerApp.Pages\"\
+  \n    xmlns:d = \"http://schemas.microsoft.com/expression/blend/2008\"\n    xmlns:mc\
+  \ = \"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n    mc:Ignorable\
+  \ = \"d\">\n    <Grid Background = \"{StaticResourceAppBackgroundColor}\">\n        <Grid.RowDefinitions>\n\
+              <RowDefinition/>\n            <RowDefinition/>\n        </Grid.RowDefinitions>\n\
+          <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n            <ColumnDefinition/>\n\
+          </Grid.ColumnDefinitions>\n        <StackPanel Grid.RowSpan = \"2\">\n            <TextBlock\
+  \ Style = \"{StaticResource HeaderTextStyle}\" Margin = \"10\"\n                      \
+  \ Text = \"购物清单\"/>\n            <ListView x:Name = \"groceryList\" Grid.RowSpan\
+  \ = \"2\"\n                ItemsSource = \"{Binding GroceryList}\"\n                ItemTemplate\
+  \ = \"{StaticResource GroceryListItemTemplate}\"\n                SelectionChanged\
+  \ = \"ListSelectionChanged\" />\n        </StackPanel>\n        <StackPanel Orientation\
+  \ = \"Vertical\" Grid.Column = \"1\">\n            <TextBlock Style = \"{StaticResource\
+  \ HeaderTextStyle}\" Margin = \"10\"\n                       Text = \"商品详情\"/>\n\
+          </StackPanel>\n        <StackPanel Orientation = \"Vertical\" Grid.Column\
+  \ = \"1\" Grid.Row = \"1\">\n            <TextBlock Style = \"{StaticResource HeaderTextStyle}\"\
+  \ Margin = \"10\"\n                       Text = \"店铺详情\"/>\n        </StackPanel>\n\
+      </Grid>\n</Page>\n```\n\n可以看到，我将 `Grid` 控件的 `Background` 属性设置为了资源字典中指定的颜色。此外，我还配置了\
+  \ Visual Studio 定义的 `Grid` 控件，并使用 `Grid.RowDefinitions` 和 `Grid.ColumnDefinitions`\
+  \ 元素将其划分为两个等宽的列，每列各有两行等高。\n\n对于布局的左侧，我添加了一个 `StackPanel`，并将其配置为跨两行并填充布局的左半部分：\n\n\
+  ```\n...\n<StackPanel Grid.RowSpan = \"2\" >\n...\n```\n\n此 `StackPanel` 包含一个用于显示标题的\
+  \ `TextBlock`，以及一个稍后我将详细说明的 `ListView`。对于屏幕的右侧，我添加了两个 `StackPanel`，每行一个。我通过 `Grid.Row`\
+  \ 和 `Grid.Column` 属性指定了每个控件所属的行和列。这些属性使用从零开始的索引，而未设置这些属性的控件则默认放在第一行第一列。在图 2-1 中，你可以看到该布局在\
+  \ Visual Studio 设计图面上的显示效果。\n\n![9781430250340_Fig02-01.jpg](img/9781430250340_Fig02-01.jpg)\n\
+  \n**图 2-1.** 显示在 Visual Studio 设计图面上的 XAML 布局静态部分\n\n设计图面无法显示动态生成的内容，这就是图中看不到视图模型数据的原因。动态内容将在\
+  \ `ListView` 控件中显示。顾名思义，`ListView` 以列表形式显示一组项。有三个 XAML 属性规定了具体实现方式：\n\n```\n...\n\
+  <ListView x:Name = \"groceryList\" Grid.RowSpan = \"2\"\n    ItemsSource = \"{Binding\
+  \ GroceryList}\"\n    ItemTemplate = \"{StaticResource GroceryListItemTemplate}\"\
+  \n    SelectionChanged = \"ListSelectionChanged\"/>\n...\n```\n\n我使用这些属性来弥合宏观层面的\
+  \ `DataContext` 属性与模板中微观层面的属性之间的差距。`ItemSource` 属性告知 `ListView` 控件应从何处获取其必须显示的项集。值为\
+  \ `GroceryList` 的 `Binding` 关键字告知 `ListView`，它应显示我在代码隐藏文件中设置的 `DataContext` 对象的\
+  \ `GroceryList` 属性的内容。\n\n\n\n`ItemTemplate`属性告诉`ListView`如何显示`ItemSource`中的每个项目。关键字`StaticResource`和值`GroceryListItemTemplate`意味着将使用我在资源字典中指定的数据模板，这会为`ViewModel.GroceryList`集合中的每个项目生成一个包含三个`TextBlock`元素的新`StackPanel`。\n\
+  \n最后一个属性与我在代码隐藏文件中定义的事件处理方法相关联，该方法处理`ListView`控件发出的`SelectionChanged`事件。\n\n![image](img/sq.jpg)\
+  \ **提示** 你可以通过 Visual Studio 属性窗口或查阅 Microsoft API 文档来获取控件定义的事件列表。创建具有正确参数的处理方法的最简单方法是让\
+  \ XAML 编辑器在自动完成过程中为你创建它们。\n\n## 运行应用程序\n\nVisual Studio 设计图面只能显示布局中静态的部分。查看动态内容的唯一方法是运行应用程序。因此，要想看到\
+  \ XAML 和 C#如何协同工作，请从 Visual Studio 的调试菜单中选择“开始调试”。Visual Studio 将生成项目并将应用程序推送到模拟器。你可以在图\
+  \ 2-2 中看到结果。\n\n![9781430250340_Fig02-02.jpg](img/9781430250340_Fig02-02.jpg)\n\n\
+  图 2-2. 在模拟器中运行示例应用程序\n\n你可以看到数据绑定如何将视图模型中的项目添加到`ListView`控件，以及我如何在资源字典中定义的模板被用来格式化它们。\n\
+  \nWindows 应用 UI 控件有很多内置行为。例如，当鼠标移动到项目上时，项目会以较浅的阴影显示（你可以在图 2-2 中看到），当用户单击选择项目时，则会以不同的阴影显示。控件使用的所有样式都可以更改，但为简单起见，我将坚持使用默认设置。\n\
+  \n## 将其他页面插入布局\n\n你不必将所有控件和代码放在一个 XAML 文件及其代码隐藏文件中。为了使项目更易于管理，你可以创建多个页面并将它们整合到你的应用程序中。作为简单的演示，我在`Pages`项目文件夹中创建了一个名为`NoItemSelected.xaml`的新`Blank\
+  \ Page`。清单 2-8 显示了此文件的内容，我对默认内容的添加部分以粗体显示。\n\n![image](img/sq.jpg) **提示** 在 Visual\
+  \ Studio 允许你向项目添加新项之前，你必须先停止调试器。\n\n***清单 2-8.** `NoItemSelected.xaml`文件*\n\n```\n\
+  <Page\n    x:Class = \"GrocerApp.Pages.NoItemSelected\"\n    xmlns = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x = \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local\
+  \ = \"using:GrocerApp.Pages\"\n    xmlns:d = \"http://schemas.microsoft.com/expression/blend/2008\"\
+  \n    xmlns:mc = \"http://schemas.openxmlformats.org/markup-compatibility/2006\"\
+  \n    mc:Ignorable = \"d\">\n    <Grid Background = \"{StaticResourceAppBackgroundColor}\"\
+  >\n        <TextBlock Style = \"{StaticResource HeaderTextStyle}\"\n                  \
+  \ FontSize = \"30\" Text = \"No Item Selected\"/>\n    </Grid>\n</Page>\n```\n\n\
+  这是一个非常简单的页面，简单到你通常不需要创建这样的页面，因为它只显示一些静态文本。但它有助于演示一个重要的应用程序功能，使我能够将应用程序分解为可管理的部分。将页面添加到我的主应用程序布局的关键是`Frame`控件，我已将其添加到`ListPage.xaml`布局中，如清单\
+  \ 2-9 所示。\n\n***清单 2-9.** 向应用程序布局添加`Frame`控件*\n\n```\n<Page\n    x:Class = \"GrocerApp.Pages.ListPage\"\
+  \n    xmlns = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x\
+  \ = \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local = \"using:GrocerApp.Pages\"\
+  \n    xmlns:d = \"http://schemas.microsoft.com/expression/blend/2008\"\n    xmlns:mc\
+  \ = \"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n    mc:Ignorable\
+  \ = \"d\">\n    <Grid Background = \"{StaticResource AppBackgroundColor}\">\n        <Grid.RowDefinitions>\n\
+              <RowDefinition/>\n            <RowDefinition/>\n        </Grid.RowDefinitions>\n\
+          <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n            <ColumnDefinition/>\n\
+          </Grid.ColumnDefinitions>\n        <StackPanel Grid.RowSpan = \"2\">\n            <TextBlock\
+  \ Style = \"{StaticResource HeaderTextStyle}\" Margin = \"10\"\n                      \
+  \ Text = \"Grocery List\"/>\n            <ListView x:Name = \"groceryList\" Grid.RowSpan\
+  \ = \"2\"\n                ItemsSource = \"{Binding GroceryList}\"\n                ItemTemplate\
+  \ = \"{StaticResource GroceryListItemTemplate}\"\n                SelectionChanged\
+  \ = \"ListSelectionChanged\" />\n        </StackPanel>\n        <StackPanel Orientation\
+  \ = \"Vertical\" Grid.Column = \"1\">\n            <TextBlock Style = \"{StaticResource\
+  \ HeaderTextStyle}\" Margin = \"10\"\n                       Text = \"Item Detail\"\
+  />\n            <Frame x:Name = \"ItemDetailFrame\"/>\n        </StackPanel>\n        <StackPanel\
+  \ Orientation = \"Vertical\" Grid.Column = \"1\" Grid.Row = \"1\">\n            <TextBlock\
+  \ Style = \"{StaticResource HeaderTextStyle}\" Margin = \"10\"\n                      \
+  \ Text = \"Store Detail\"/>\n        </StackPanel>\n    </Grid>\n</Page>\n```\n\n\
+  `Frame`是`Page`的占位符，我在`ListPage.xaml.cs`代码隐藏文件中使用`Navigate`方法告诉`Frame`我希望它显示哪个页面，如清单\
+  \ 2-10 所示。\n\n***清单 2-10.** 在`ListPage.xaml.cs`文件中指定`Frame`显示的页面*\n\n```\nusing\
+  \ GrocerApp.Data;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Navigation;\n\
+  namespace GrocerApp.Pages {\n    public sealed partial class ListPage : Page {\n\
+          ViewModel viewModel;\n        public ListPage() {\n            viewModel\
+  \ = new ViewModel();\n            // ... test data removed for brevity\n            this.InitializeComponent();\n\
+              this.DataContext = viewModel;\n            ItemDetailFrame.Navigate(typeof(NoItemSelected));\n\
+          }\n        protected override void OnNavigatedTo(NavigationEventArgs e)\
+  \ {\n        }\n        private void ListSelectionChanged(object sender,            \
+  \ SelectionChangedEventArgs e) {\n            viewModel.SelectedItemIndex = groceryList.SelectedIndex;\n\
+          }\n    }\n}\n```\n\n`Navigate`方法的参数是一个`System.Type`，表示你想要加载的`Page`类，获取`System.Type`最简单的方法是使用`typeof`关键字。`Navigate`方法实例化`Page`对象（请记住，XAML\
+  \ 和代码隐藏文件被组合起来以创建`Page`的单个子类），结果被插入到布局中，如图 2-3 所示。\n\n![9781430250340_Fig02-03.jpg](img/9781430250340_Fig02-03.jpg)\n\
+  \n图 2-3. 将另一个页面插入布局\n\n## 动态地将页面插入布局\n\n你还可以使用`Frame`根据应用程序的状态动态地将不同的页面插入布局。为了演示这一点，我在`Pages`文件夹中创建了一个名为`ItemDetail.xaml`的新`Blank\
+  \ Page`，其内容如清单 2-11 所示。（此文件依赖于我自定义字典中的样式；你可以在本章的源代码下载中查看我是如何定义它们的。）\n\n***清单 2-11.**\
+  \ `ItemDetail.xaml`页面*\n\n\n\n```xml\n<Page\n    x:Class = \"GrocerApp.Pages.ItemDetail\"\
+  \n    xmlns = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x\
+  \ = \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local = \"using:GrocerApp.Pages\"\
+  \n    xmlns:d = \"http://schemas.microsoft.com/expression/blend/2008\"\n    xmlns:mc\
+  \ = \"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n    mc:Ignorable\
+  \ = \"d\">\n    <Grid Background = \"{StaticResourceAppBackgroundColor}\">\n        <Grid.RowDefinitions>\n\
+              <RowDefinition Height = \"Auto\" />\n            <RowDefinition Height\
+  \ = \"Auto\"/>\n            <RowDefinition Height = \"Auto\"/>\n        </Grid.RowDefinitions>\n\
+          <Grid.ColumnDefinitions>\n            <ColumnDefinition Width = \"Auto\"\
+  />\n            <ColumnDefinition Width = \"*\"/>\n        </Grid.ColumnDefinitions>\n\
+  \n<TextBlock Text = \"名称：\" Style = \"{StaticResource ItemDetailText}\" />\n        <TextBlock\
+  \ Text = \"数量：\" Style = \"{StaticResource ItemDetailText}\"\n                  \
+  \ Grid.Row = \"1\"/>\n        <TextBlock Text = \"商店：\" Style = \"{StaticResource\
+  \ ItemDetailText}\"\n                   Grid.Row = \"2\"/>\n\n<TextBox x:Name =\
+  \ \"ItemDetailName\"\n                 Style = \"{StaticResource ItemDetailTextBox}\"\
+  \n                 TextChanged = \"HandleItemChange\"\n                 Grid.Column\
+  \ = \"1\"/>\n\n<TextBox x:Name = \"ItemDetailQuantity\"\n                 Style\
+  \ = \"{StaticResource ItemDetailTextBox}\"\n                 TextChanged = \"HandleItemChange\"\
+  \n                 Grid.Row = \"1\" Grid.Column = \"1\"/>\n\n<ComboBox x:Name =\
+  \ \"ItemDetailStore\"\n                  Style = \"{StaticResource ItemDetailStore}\"\
+  \n                  Grid.Column = \"1\" Grid.Row = \"2\"\n                  ItemsSource\
+  \ = \"{Binding StoreList}\"\n                  SelectionChanged = \"HandleItemChange\"\
+  \n                  DisplayMemberPath = \"\" />\n    </Grid>\n</Page>\n```\n\n此\
+  \ `Page` 的布局基于一个网格，包含文本标签和输入控件，允许用户编辑购物清单上某个项目的详细信息。稍后我将在代码隐藏文件中设置这些详情。\n\n![image](img/sq.jpg)**提示**\
+  \ 我使用 `ComboBox` 控件向用户显示商店列表，并直接从视图模型中填充数据。我设置了 `ItemSource` 属性，使控件绑定到视图模型中的 `StoreList`\
+  \ 属性，但 `ComboBox` 控件需要被告知应显示其操作对象集合中的哪个属性。由于我的商店列表只是一个字符串数组，我必须通过将 `DisplayMemberPath`\
+  \ 属性设置为空字符串来解决这个问题。\n\n我需要在 `Resources/GrocerResourceDictionary.xaml` 文件中定义一些新样式，如清单\
+  \ 2-12 所示。\n\n***清单 2-12.*** *向资源字典添加样式*\n\n```\n<ResourceDictionary\n    xmlns\
+  \ = \"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x =\
+  \ \"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local = \"using:GrocerApp.Resources\"\
+  >\n    <ResourceDictionary.MergedDictionaries>\n        <ResourceDictionary Source\
+  \ = \"/Common/StandardStyles.xaml\" />\n    </ResourceDictionary.MergedDictionaries>\n\
+      <!-- ...为简洁起见，省略了之前的样式...-->\n    <Style x:Key = \"ItemDetailText\" TargetType\
+  \ = \"TextBlock\"\n           BasedOn = \"{StaticResource GroceryListItem}\" >\n\
+          <Setter Property = \"FontSize\" Value = \"35\"/>\n        <Setter Property\
+  \ = \"HorizontalAlignment\" Value = \"Right\"/>\n    </Style>\n\n<Style x:Key =\
+  \ \"ItemDetailTextBox\" TargetType = \"TextBox\" >\n        <Setter Property = \"\
+  FontSize\" Value = \"30\"/>\n        <Setter Property = \"Margin\" Value = \"10\"\
+  />\n    </Style>\n\n<Style x:Key = \"ItemDetailStore\" TargetType = \"ComboBox\"\
+  >\n        <Setter Property = \"Foreground\" Value = \"Black\"/>\n        <Setter\
+  \ Property = \"Height\" Value = \"55\"/>\n        <Setter Property = \"FontSize\"\
+  \ Value = \"30\"/>\n        <Setter Property = \"VerticalAlignment\" Value = \"\
+  Top\"/>\n        <Setter Property = \"Margin\" Value = \"10\"/>\n    </Style>\n\
+  </ResourceDictionary>\n```\n\n## 在页面之间切换\n\n现在我有两个页面，可以根据应用状态的变化在它们之间切换。当用户未从 `ListView`\
+  \ 中选择项目时，我将显示 `NoItemSelected` 页面；当用户做出选择时，则显示 `ItemDetail` 页面。清单 2-13 展示了 `ListPage.xaml.cs`\
+  \ 文件中实现此功能的添加内容。\n\n***清单 2-13.** 根据应用状态显示页面*\n\n```\n...\npublic ListPage() {\n\
+      viewModel = new ViewModel();\n    // ...为简洁起见，删除了测试数据\n    this.InitializeComponent();\n\
+      this.DataContext = viewModel;\n    ItemDetailFrame.Navigate(typeof(NoItemSelected));\n\
+  \nviewModel.PropertyChanged + = (sender, args) = >{\n        if (args.PropertyName\
+  \ == \"SelectedItemIndex\") {\n            if (viewModel.SelectedItemIndex == -1)\
+  \ {\n                ItemDetailFrame.Navigate(typeof(NoItemSelected));\n            }\
+  \ else {\n                ItemDetailFrame.Navigate(typeof(ItemDetail), viewModel);\n\
+              }\n        }\n    };\n}\n...\n```\n\n我仍然默认显示 `NoItemSelected` 页面，因为这反映了应用的初始状态。应用首次启动时，用户尚未做出选择。\n\
+  \n添加的代码为视图模型定义的 `PropertyChanged` 事件注册了一个处理程序。这与 XAML 控件数据绑定功能使用的事件相同，通过直接注册处理程序，我能够在代码隐藏文件中响应视图模型中的属性更改。处理此事件时接收到的事件参数通过\
+  \ `PropertyName` 属性告知我哪个属性发生了更改。如果 `SelectedItemIndex` 属性发生了更改，则使用 `Frame.Navigate`\
+  \ 方法显示 `NoItemSelected` 或 `ItemDetail` 页面。\n\n请注意，在显示 `ItemDetail` 页面时，我将视图模型对象作为参数传递给\
+  \ `Navigate` 方法：\n\n```\nItemDetailFrame.Navigate(typeof(ItemDetail), viewModel);\n\
+  ```\n\n此参数是将上下文传递给正在显示的页面的方式。我将在下一节中展示如何使用此对象。\n\n## 实现嵌入页面\n\n当然，仅为 `ItemDetail`\
+  \ 页面定义 XAML 是不够的。我还需要编写代码来显示所选项目的详细信息，并允许用户进行更改。清单 2-14 展示了 `ItemDetail.xaml.cs`\
+  \ 代码隐藏文件，这正是实现此功能的代码。\n\n***清单 2-14.** ItemDetail.xaml.cs 代码隐藏文件*\n\n```\nusing\
+  \ GrocerApp.Data;\nusing System;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\nnamespace GrocerApp.Pages {\n    public sealed\
+  \ partial class ItemDetail : Page {\n        private ViewModel viewModel;\n        public\
+  \ ItemDetail() {\n            this.InitializeComponent();\n        }\n        protected\
+  \ override void OnNavigatedTo(NavigationEventArgs e) {\n\nviewModel=e.Parameter\
+  \ as ViewModel;\n            this.DataContext=viewModel;\n```\n\n\n\n```csharp\n\
+  viewModel.PropertyChanged += (sender, eventArgs) =>\n{\n    if (eventArgs.PropertyName\
+  \ == \"SelectedItemIndex\")\n    {\n        if (viewModel.SelectedItemIndex == -1)\n\
+  \        {\n            SetItemDetail(null);\n        }\n        else\n        {\n\
+  \            SetItemDetail(viewModel.GroceryList[viewModel.SelectedItemIndex]);\n\
+  \        }\n    }\n};\nSetItemDetail(viewModel.GroceryList[viewModel.SelectedItemIndex]);\n\
+  \nprivate void SetItemDetail(GroceryItem item)\n{\n    ItemDetailName.Text = (item\
+  \ == null) ? \"\" : item.Name;\n    ItemDetailQuantity.Text = (item == null) ? \"\
+  \" : item.Quantity.ToString();\n    if (item != null)\n    {\n        ItemDetailStore.SelectedItem\
+  \ = item.Store;\n    }\n    else\n    {\n        ItemDetailStore.SelectedIndex =\
+  \ -1;\n    }\n}\n\nprivate void HandleItemChange(object sender, RoutedEventArgs\
+  \ e)\n{\n    if (viewModel.SelectedItemIndex > -1)\n    {\n        GroceryItem selectedItem\
+  \ = viewModel.GroceryList[viewModel.SelectedItemIndex];\n        if (sender == ItemDetailName)\n\
+  \        {\n            selectedItem.Name = ItemDetailName.Text;\n        }\n  \
+  \      else if (sender == ItemDetailQuantity)\n        {\n            int intVal;\n\
+  \            bool parsed = Int32.TryParse(ItemDetailQuantity.Text, out intVal);\n\
+  \            if (parsed)\n            {\n                selectedItem.Quantity =\
+  \ intVal;\n            }\n        }\n        else if (sender == ItemDetailStore)\n\
+  \        {\n            string store = (String)((ComboBox)sender).SelectedItem;\n\
+  \            if (store != null)\n            {\n                viewModel.GroceryList[viewModel.SelectedItemIndex].Store\
+  \ = store;\n            }\n        }\n    }\n}\n```\n\n`SetItemDetail` 方法用于设置 UI\
+  \ 控件的内容，以显示所选购物清单项目的详细信息；而 `HandleItemChange` 方法则在用户更改某个控件内容时更新该项目。\n\n该代码段中值得关注的部分是\
+  \ `OnNavigatedTo` 方法（已在代码段中加粗标记）。当显示 `ItemDetail` 页面时，调用此方法，通过事件参数的 `Parameter`\
+  \ 属性可以获取传递给 `Frame.Navigate` 方法的对象。您可以在图 2-4 的布局中看到 `ItemDetail` 页面。\n\n![9781430250340_Fig02-04.jpg](img/9781430250340_Fig02-04.jpg)\n\
+  \n图 2-4 显示 ItemDetail 页面\n\n通过这种方式传递视图模型对象，我能够确保所有页面使用相同的数据，同时将应用分解为可管理的部分。\n\n\
+  ## 总结\n\n在本章中，我向您展示了如何在 Windows 应用中创建视图模型并使其可观察，以便使用数据绑定使应用布局与视图模型数据保持同步。这是创建健壮且易于维护的应用的基本技术。我还展示了如何通过创建页面将应用分解为可管理的块，以及如何使用\
+  \ `Frame` 将这些页面作为主布局的一部分显示。在下一章中，我将向您展示如何创建 Windows 应用最重要的控件：AppBar、NavBar 和浮出控件。\n\
+  \n"
+- "# 第三章\n\n![image](img/frontdot.jpg)\n\n## AppBars、浮出控件和导航\n\n在本章中，我将向您展示如何创建和使用\
+  \ Windows 应用用户体验中必不可少的用户交互。应用程序栏（AppBar）和导航栏（NavBar）提供了用户与内容和功能交互以及在应用内导航的方式。我还将展示如何创建浮出控件，这些弹出窗口通常用于响应用户与\
+  \ AppBar 的交互来捕获用户信息。表 3-1 提供了本章的总结。\n\n表 3-1 章节总结\n\n| 问题 | 解决方案 | 代码清单 |\n| ---\
+  \ | --- | --- |\n| 添加 AppBar | 在 XAML 的 `Page.BottomAppBar` 属性中声明一个 `AppBar` 控件\
+  \ | 1 |\n| 向 AppBar 添加按钮 | 使用预定义样式或自定义样式格式化的 `Button` 控件 | 2-5 |\n| 添加浮出控件 | 声明一个\
+  \ `Popup` 控件，并将 `IsLightDismissEnabled` 属性设置为 `True` | 6, 8 |\n| 显示浮出控件 | 将 `Popup`\
+  \ 相对于导致其显示的 AppBar `Button` 进行定位 | 9-11 |\n| 轻松访问浮出控件的视图模型 | 使用 `DataContext` 属性\
+  \ | 12-15 |\n| 添加 NavBar | 创建一个包装器 `Page`，在 XAML 的 `Page.TopAppBar` 属性中声明一个 `AppBar`\
+  \ 元素 | 16, 18 |\n| 在应用内导航 | 在包装器 `Page` 中添加一个 `Frame` 控件，并在点击 NavBar 按钮时使用 `Navigate`\
+  \ 方法显示其他 `Page` 控件 | 19 |\n\n## 添加上下文菜单（AppBar）\n\n*AppBar* 出现在屏幕底部，当用户向上滑动或右键单击鼠标时显示。Windows\
+  \ 8 应用 UI 的重点是主布局中尽量少用多余的控件，而依赖 AppBar 作为交互机制，这些交互不是关于立即可用的功能，而是与当前显示的布局*相关*的。在本节中，我将向您展示如何定义和填充\
+  \ AppBar。\n\n![image](img/sq.jpg) **提示** 屏幕顶部有一个类似的控件，称为导航栏（NavBar），用于在应用的不同部分之间导航。我将在本章后面向您展示如何创建和使用\
+  \ NavBar。\n\n### 声明 AppBar\n\n创建 AppBar 最简单的方法是在 XAML 文件中声明它。代码清单 3-1 展示了示例项目中 `ListPage.xaml`\
+  \ 文件的添加内容。\n\n***代码清单 3-1** 定义 AppBar*\n\n```xml\n<Page\n    x:Class=\"GrocerApp.Pages.ListPage\"\
+  \n    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x=\"\
+  http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local=\"using:GrocerApp.Pages\"\
+  \n    xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\n    xmlns:mc=\"\
+  http://schemas.openxmlformats.org/markup-compatibility/2006\"\n    mc:Ignorable=\"\
+  d\">\n\n    <Grid Background=\"{StaticResource AppBackgroundColor}\">\n\n      \
+  \  <Grid.RowDefinitions>\n            <RowDefinition/>\n            <RowDefinition/>\n\
+  \        </Grid.RowDefinitions>\n        <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n\
+  \            <ColumnDefinition/>\n        </Grid.ColumnDefinitions>\n\n        <StackPanel\
+  \ Grid.RowSpan=\"2\">\n\n            <TextBlock Style=\"{StaticResource HeaderTextStyle}\"\
+  \ Margin=\"10\"\n                       Text=\"Grocery List\"/>\n            <ListView\
+  \ x:Name=\"groceryList\" Grid.RowSpan=\"2\"\n                ItemsSource=\"{Binding\
+  \ GroceryList}\"\n                ItemTemplate=\"{StaticResource GroceryListItemTemplate}\"\
+  \n                SelectionChanged=\"ListSelectionChanged\" />\n        </StackPanel>\n\
+  \n        <StackPanel Orientation=\"Vertical\" Grid.Column=\"1\">\n            <TextBlock\
+  \ Style=\"{StaticResource HeaderTextStyle}\" Margin=\"10\"\n                   \
+  \    Text=\"Item Detail\"/>\n            <Frame x:Name=\"ItemDetailFrame\"/>\n \
+  \       </StackPanel>\n```\n\n\n\n<StackPanel Orientation=\"Vertical\" Grid.Column=\"\
+  1\" Grid.Row=\"1\">\n    <TextBlock Style=\"{StaticResource HeaderTextStyle}\" Margin=\"\
+  10\"\n               Text=\"商店详情\"/>\n</StackPanel>\n\n<Page.BottomAppBar>\n   \
+  \ <AppBar>\n        <Grid>\n            <Grid.ColumnDefinitions>\n             \
+  \   <ColumnDefinition />\n                <ColumnDefinition />\n            </Grid.ColumnDefinitions>\n\
+  \n            <StackPanel Orientation=\"Horizontal\" Grid.Column=\"0\"\n       \
+  \                 HorizontalAlignment=\"Left\">\n                <Button x:Name=\"\
+  AppBarDoneButton\"\n                        Style=\"{StaticResource DoneAppBarButtonStyle}\"\
+  \n                        IsEnabled=\"false\"\n                        Click=\"\
+  AppBarButtonClick\"/>\n            </StackPanel>\n\n            <StackPanel Orientation=\"\
+  Horizontal\" Grid.Column=\"1\"\n                        HorizontalAlignment=\"Right\"\
+  >\n                <Button x:Name=\"AppBarAddButton\"\n                        Style=\"\
+  {StaticResource AddAppBarButtonStyle}\"\n                        AutomationProperties.Name=\"\
+  新建项目\"\n                        Click=\"AppBarButtonClick\"/>\n                <Button\
+  \ x:Name=\"AppBarStoresButton\"\n                        Style=\"{StaticResource\
+  \ StoresAppBarButton}\"\n                        Click=\"AppBarButtonClick\"/>\n\
+  \                <Button x:Name=\"AppBarZipButton\"\n                        Style=\"\
+  {StaticResource HomeAppBarButtonStyle}\"\n                        AutomationProperties.Name=\"\
+  邮政编码\"\n                        Click=\"AppBarButtonClick\"/>\n            </StackPanel>\n\
+  \        </Grid>\n    </AppBar>\n</Page.BottomAppBar>\n\n要创建 `AppBar`，我必须在 `Page.BottomAppBar`\
+  \ 属性中声明一个 `AppBar` 控件，如清单所示。这样便会创建 `AppBar` 及其内容，并将它们分配给包含页面的 `BottomAppBar` 属性。\n\
+  \n![image](img/sq.jpg) **提示** 可以通过在 `Page.TopAppBar` 属性中声明一个 `AppBar` 控件来创建导航栏。\n\
+  \n`AppBar` 控件包含按钮，按照惯例，与当前选中项相关的按钮显示在 `AppBar` 左侧，而应用全局按钮显示在右侧。为遵循此惯例，我在 `AppBar`\
+  \ 控件中添加了一个 `Grid`。该 `Grid` 有一行两列，每列包含一个 `StackPanel`。\n\n向 `AppBar` 添加按钮有两种方式：可以选择并调整\
+  \ `StandardStyles.xaml` 中已定义的按钮，也可以创建自己的按钮。清单中同时使用了这两种方法，我将在后续章节中进行说明。\n\n## 调整预定义的\
+  \ AppBar 按钮\n\n`/Common/StandardStyles.xaml` 文件中的大部分内容是 `AppBar` 中 `Button` 控件的样式，该文件会在创建\
+  \ Visual Studio 项目时自动添加，如清单 3-2 所示。\n\n![image](img/sq.jpg) **注意** `StandardStyles.xaml`\
+  \ 文件中包含大量此类按钮样式，并且默认情况下它们被注释掉了。这意味着你需要取消注释需要使用的样式。在本章中，你需要搜索 `HomeAppBarButtonStyle`\
+  \ 和 `AddAppBarButtonStyle` 并取消注释；否则，在示例应用中将无法使用它们。\n\n**清单 3-2.** *添加 AppBar 按钮的样式*\n\
+  \n```\n<Style x:Key=\"AddAppBarButtonStyle\" TargetType=\"ButtonBase\"\n       \
+  \ BasedOn=\"{StaticResource AppBarButtonStyle}\">\n    <Setter Property=\"AutomationProperties.AutomationId\"\
+  \ Value=\"AddAppBarButton\"/>\n    <Setter Property=\"AutomationProperties.Name\"\
+  \ Value=\"Add\"/>\n    <Setter Property=\"Content\" Value=\"\"/>\n</Style>\n```\n\
+  \n所有预定义的 `Button` 样式都派生自 `AppBarButtonStyle`，该样式定义了 `AppBar` 按钮的基本特征。在下一节创建自己的按钮时，我将使用此样式。\n\
+  \n区分各个按钮的两个属性是 `AutomationProperties.Name` 和 `Content`。`AutomationProperties.Name`\
+  \ 属性指定按钮下方显示的文本，而 `Content` 属性指定将使用的图标。此属性的值是 Segoe UI Symbol 字体中的字符代码。你可以使用 Windows\
+  \ 8 附带的字符映射表工具查看此字体定义的图标；值 `E109` 对应一个加号。\n\n清单中显示的样式并不完全符合我的需求。我喜欢这个图标，但我想更改文本。为了在\
+  \ `ListPage.xaml` 文件中调整按钮以满足我的需求，我只需使用预定义样式并覆盖我想要更改的部分，如清单 3-3 所示。\n\n**清单 3-3.**\
+  \ *在 ListPage.xaml 文件中调整预定义的 AppBar 按钮*\n\n```\n<Button x:Name=\"AppBarAddButton\"\
+  \n    Style=\"{StaticResource AddAppBarButtonStyle}\"\n    AutomationProperties.Name=\"\
+  新建项目\"\n    Click=\"AppBarButtonClick\"/>\n```\n\n## 创建自定义 AppBar 按钮样式\n\n另一种方法是为你的\
+  \ `AppBar` 按钮定义自己的样式。清单 3-4 展示了我为此目的添加到资源文件 `/Resources/GrocerResourceDictionary.xaml`\
+  \ 中的一个样式。\n\n**清单 3-4.** *定义自定义 AppBar 按钮样式*\n\n```\n<Style x:Key=\"StoresAppBarButton\"\
+  \ TargetType=\"Button\"\n        BasedOn=\"{StaticResource AppBarButtonStyle}\"\
+  >\n    <Setter Property=\"AutomationProperties.Name\" Value=\"商店\"/>\n    <Setter\
+  \ Property=\"Content\" Value=\"\"/>\n</Style>\n\n<Style x:Key=\"DoneAppBarButtonStyle\"\
+  \ TargetType=\"Button\"\n        BasedOn=\"{StaticResource AppBarButtonStyle}\"\
+  >\n    <Setter Property=\"AutomationProperties.Name\" Value=\"完成\"/>\n    <Setter\
+  \ Property=\"Content\" Value=\"\"/>\n</Style>\n```\n\n我基于 `AppBarButtonStyle` 创建了这些样式，因此获得了\
+  \ `AppBar` 按钮的基本外观和感觉，并设置了 `AutomationProperties.Name` 和 `Content` 属性的值。你可以更进一步，重新定义底层样式的某些核心特征，但这可能会偏离用户期望的标准\
+  \ Windows 8 应用外观和体验。\n\n## 实现 AppBar 按钮操作\n\n目前，`AppBar` 上的 `Button` 控件不执行任何操作。为了解决这个问题，我将实现“完成”按钮，以便你了解其实现方式。\n\
+  \n当用户从杂货项目列表中进行选择时，我将激活此 `Button`。当用户单击该按钮时，我将从列表中移除当前选中的项目，从而允许用户指示他们已购买了某个项目。清单\
+  \ 3-5 显示了 `ListPage.xaml.cs` 代码后置文件中的更改。\n\n**清单 3-5.** *实现“完成”AppBar 按钮*\n\n```\n\
+  using GrocerApp.Data;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class ListPage : Page {\n    ViewModel viewModel;\n\n    public ListPage()\
+  \ {\n        viewModel = new ViewModel();\n\n        // ...测试数据已删除以保持简洁\n\n    \
+  \    this.InitializeComponent();\n        this.DataContext = viewModel;\n\n    \
+  \    ItemDetailFrame.Navigate(typeof(NoItemSelected));\n\n        viewModel.PropertyChanged\
+  \ += (sender, args) => {\n            if (args.PropertyName == \"SelectedItemIndex\"\
+  ) {\n                if (viewModel.SelectedItemIndex == -1) {\n                \
+  \    ItemDetailFrame.Navigate(typeof(NoItemSelected));\n                    AppBarDoneButton.IsEnabled\
+  \ = false;\n                } else {\n                    ItemDetailFrame.Navigate(typeof(ItemDetail),\
+  \ viewModel);\n                    AppBarDoneButton.IsEnabled = true;\n        \
+  \        }\n            }\n        };\n    }\n\n    protected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n    }\n}\n```\n\n\n\n```csharp\nprivate void ListSelectionChanged(object\
+  \ sender, SelectionChangedEventArgs e) {\n    viewModel.SelectedItemIndex = groceryList.SelectedIndex;\n\
+  }\n\nprivate void AppBarButtonClick(object sender, RoutedEventArgs e) {\n    if\
+  \ (e.OriginalSource == AppBarDoneButton\n            && viewModel.SelectedItemIndex\
+  \ > -1) {\n        viewModel.GroceryList.RemoveAt(viewModel.SelectedItemIndex);\n\
+  \        viewModel.SelectedItemIndex = -1;\n    }\n}\n```\n\n此清单中有两点值得注意。第一点在于，对于简单任务而言，为`AppBar`上的`Button`实现操作只需响应`Click`事件即可。\n\
+  \n第二点是，你可以开始看到视图模型在代码中显现的优势。我在`AppBarButtonClick`方法中的代码无需将`Frame`的内容切换到`NoItemSelected`页面，也无需在项目完成时禁用“完成”按钮。我只需更新视图模型，应用的其他部分便会自动适应这些变化，为用户呈现正确的布局和整体体验。\n\
+  \n你可以在图 3-1 中看到添加`AppBar`及其`Button`控件后的效果。如果想亲自体验`AppBar`，可以启动示例应用，从屏幕顶部或底部滑动，或者使用鼠标右键单击。该图展示了“完成”按钮的两种状态，你可以通过从列表中选择一个项目来重现这些状态。\n\
+  \n![9781430250340_Fig03-01.jpg](img/9781430250340_Fig03-01.jpg)\n\n图 3-1 向示例应用添加`AppBar`\n\
+  \n## 创建 Flyout\n\n“完成”`AppBar`按钮关联了一个简单操作，该操作可直接在与`Click`事件关联的事件处理代码中执行。然而，大多数`AppBar`按钮需要某种额外的用户交互，这通常通过使用*flyout*来实现。\n\
+  \nFlyout 是一个弹出窗口，显示在被点击的`AppBar`按钮附近，当用户点击或触摸屏幕上的其他位置时，它会自动关闭。针对 JavaScript 版 Windows\
+  \ 8 应用，有现成的`Flyout`控件，但若要用 XAML 和 C# 实现相同的效果，则需要使用`Popup`并编写精心的定位代码。\n\n### 创建用户控件\n\
+  \nXAML 文件可能会变得冗长且难以管理。我喜欢将 flyout 定义为*用户控件*，它们类似于 XAML 元素的片段加一个代码隐藏文件。（此处我跳过了一些\
+  \ XAML 细节，但当你阅读本章节时就会明白我的意思。）我在示例项目中创建了一个名为`Flyouts`的文件夹，并使用`UserControl`模板创建了一个名为`HomeZipCodeFlyout.xaml`的新项，其内容见清单\
+  \ 3-6。\n\n**清单 3-6** `HomeZipCodeFlyout.xaml`文件\n\n```\n<UserControl\n    x:Class=\"\
+  GrocerApp.Flyouts.HomeZipCodeFlyout\"\n    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local=\"\
+  using:GrocerApp.Flyouts\"\n    xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\
+  \n    xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n\
+  \    mc:Ignorable=\"d\"\n    d:DesignHeight=\"300\"\n    d:DesignWidth=\"400\">\n\
+  \n    <Popup x:Name=\"HomeZipCodePopup\"\n           IsLightDismissEnabled=\"True\"\
+  \ Width=\"350\" Height=\"130\">\n        <StackPanel Background=\"Black\">\n   \
+  \         <Border Background=\"#85C54C\" BorderThickness=\"4\">\n              \
+  \  <StackPanel>\n                    <StackPanel Orientation=\"Horizontal\" Margin=\"\
+  10\">\n                        <TextBlock Style=\"{StaticResource PopupTextStyle}\"\
+  \n                                   Text=\"家庭邮编：\"\n                          \
+  \         VerticalAlignment=\"Center\"\n                                   Margin=\"\
+  0,0,10,0\" />\n                        <TextBox Height=\"40\" Width=\"150\" FontSize=\"\
+  20\"\n                                 Text=\"{Binding Path=HomeZipCode,\n     \
+  \                                 Mode=TwoWay}\" />\n                    </StackPanel>\n\
+  \                    <Button Click=\"OKButtonClick\"\n                         \
+  \   HorizontalAlignment=\"Center\"\n                            Margin=\"10\">确定</Button>\n\
+  \                </StackPanel>\n            </Border>\n        </StackPanel>\n \
+  \   </Popup>\n</UserControl>\n```\n\n文件名已经指明，这个 flyout 将允许用户更改视图模型中`HomeZipCode`属性的值。在本示例中，该属性除了提供一些有用的示例机会外，本身不执行任何操作。\n\
+  \n用户控件的工作方式类似于模板。在`UserControl`元素内部，你定义代表你想要创建的控件的 XAML 元素。创建 flyout 时必须使用`Popup`控件，但其中放置的内容则由你自行决定。清单中我的布局包含一个`TextBox`，用于收集用户输入的新值；一个`Button`，以便用户告知已输入新值；以及一些用于提供上下文和结构的周围元素。\n\
+  \n你必须为`Popup`元素设置三个重要属性，我在清单中均以粗体标出。`IsLightDismissEnabled`属性指定当用户点击或触摸`Popup`之外的任何位置时，弹出窗口是否会被关闭；当将`Popup`用作\
+  \ flyout 时，必须将此属性设置为`True`，因为这是 flyout 用户体验的关键部分。\n\n必须设置`Width`和`Height`属性，使`Popup`的大小恰好能容纳其内容。在定位`Popup`时，我需要这些属性的显式值，稍后将进行演示。\n\
+  \n![image](img/sq.jpg) **注意** 如果你使用我的定位代码（稍后会介绍）来管理 flyout，那么*必须*提供显式且准确的`Width`和`Height`值。如果省略这些值或提供不准确的尺寸，flyout\
+  \ 将无法正确定位。\n\n你会看到我在清单中引用了`PopupTextStyle`样式。我在`/Resources/GrocerResourceDictionary`文件中定义了该样式以及本章需要的其他一些样式，如清单\
+  \ 3-7 所示。\n\n**清单 3-7** 为 Flyout 定义自定义样式\n\n```\n<ResourceDictionary\n    xmlns=\"\
+  http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\
+  \n    xmlns:local=\"using:GrocerApp.Resources\">\n\n    <ResourceDictionary.MergedDictionaries>\n\
+  \        <ResourceDictionary Source=\"/Common/StandardStyles.xaml\" />\n    </ResourceDictionary.MergedDictionaries>\n\
+  \n    <!-- ...为简洁起见，省略了其他样式... -->\n\n    <Style x:Key=\"PopupTextStyle\" TargetType=\"\
+  TextBlock\"\n           BasedOn=\"{StaticResource BasicTextStyle}\">\n        <Setter\
+  \ Property=\"FontSize\" Value=\"22\" />\n    </Style>\n\n    <Style x:Key=\"AddItemText\"\
+  \ TargetType=\"TextBlock\"\n           BasedOn=\"{StaticResource GroceryListItem}\"\
+  >\n        <Setter Property=\"FontSize\" Value=\"22\"/>\n        <Setter Property=\"\
+  HorizontalAlignment\" Value=\"Right\"/>\n        <Setter Property=\"VerticalAlignment\"\
+  \ Value=\"Center\"/>\n    </Style>\n```\n\n\n\n<Style x:Key=\"AddItemTextBox\" TargetType=\"\
+  TextBox\"\n    BasedOn=\"{StaticResource ItemDetailTextBox}\">\n    <Setter Property=\"\
+  FontSize\" Value=\"22\"/>\n</Style>\n\n<Style x:Key=\"AddItemStore\" TargetType=\"\
+  ComboBox\"\n    BasedOn=\"{StaticResource ItemDetailStore}\">\n    <Setter Property=\"\
+  FontSize\" Value=\"22\"/>\n</Style>\n\n</ResourceDictionary>\n\n## 编写用户控件代码\n\n\
+  尽管用户控件呈现的是 XAML 片段，但它们仍然包含代码隐藏文件。清单 3-8 展示了 `HomeZipCodeFlyout.xaml.cs` 文件的内容。\n\
+  \n**清单 3-8. `HomeZipCodeFlyout.xaml.cs` 文件**\n\n```\nusing Windows.UI.Xaml;\nusing\
+  \ Windows.UI.Xaml.Controls;\n\nnamespace GrocerApp.Flyouts {\n    public sealed\
+  \ partial class HomeZipCodeFlyout : UserControl {\n\n        public HomeZipCodeFlyout()\
+  \ {\n            this.InitializeComponent();\n        }\n\n        public void Show(Page\
+  \ page, AppBar appbar, Button button) {\n            HomeZipCodePopup.IsOpen = true;\n\
+  \            FlyoutHelper.ShowRelativeToAppBar(HomeZipCodePopup, page, appbar, button);\n\
+  \        }\n\n        private void OKButtonClick(object sender, RoutedEventArgs\
+  \ e) {\n            HomeZipCodePopup.IsOpen = false;\n        }\n    }\n}\n```\n\
+  \n我需要为弹出窗口解决的主要问题是定位 `Popup`。对于响应 `AppBar` 按钮而出现的弹出窗口，其惯例是将 `Popup` 显示在点击的 `Button`\
+  \ 元素的正上方。\n\n## 定位 Popup 控件\n\nWindows 应用控件没有提供简单的方法来计算布局中元素的相对位置，因此需要使用一些间接技术。清单\
+  \ 3-9 展示了 `FlyoutHelper` 类的内容，该类定义了静态的 `ShowRelativeToAppBar` 方法，我将其添加到了 `Flyouts`\
+  \ 文件夹中。此方法负责将 `Popup` 正确定位到 `AppBar` 按钮的相对位置，但要做到这一点，它需要 `Popup` 控件、包含 `AppBar`\
+  \ 的 `Page`、`AppBar` 控件以及被点击的 `Button`。这并非理想方案，但这是我所找到的能够可靠定位弹出窗口的唯一方法。\n\n**清单 3-9.\
+  \ 将 `Popup` 控件相对于 `AppBar` 按钮进行定位**\n\n```\nusing System;\nusing Windows.Foundation;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Controls.Primitives;\n\
+  \nnamespace GrocerApp.Flyouts {\n    class FlyoutHelper {\n\n        public static\
+  \ void ShowRelativeToAppBar(Popup popup, Page page,\n                AppBar appbar,\
+  \ Button button) {\n\n            Func<UIElement, UIElement, Point> getOffset =\n\
+  \                delegate(UIElement control1, UIElement control2) {\n          \
+  \          return control1.TransformToVisual(control2)\n                       \
+  \ .TransformPoint(new Point(0, 0));\n                };\n\n            Point popupOffset\
+  \ = getOffset(popup, page);\n\n            Point buttonOffset = getOffset(button,\
+  \ page);\n            popup.HorizontalOffset = buttonOffset.X - popupOffset.X\n\
+  \                - (popup.ActualWidth / 2) + (button.ActualWidth / 2);\n       \
+  \     popup.VerticalOffset = getOffset(appbar, page).Y\n                - popupOffset.Y\
+  \ - popup.ActualHeight;\n\n            if (popupOffset.X + popup.HorizontalOffset\n\
+  \                    + popup.ActualWidth > page.ActualWidth) {\n\n             \
+  \   popup.HorizontalOffset = page.ActualWidth\n                    - popupOffset.X\
+  \ - popup.ActualWidth;\n            }\n            else if (popup.HorizontalOffset\
+  \ + popupOffset.X < 0) {\n                popup.HorizontalOffset = -popupOffset.X;\n\
+  \            }\n        }\n\n    }\n}\n```\n\n这段代码将 `Popup` 定位在它所关联的 `AppBar` 按钮的正上方，并且如果这会导致\
+  \ `Popup` 消失在屏幕的左边缘或右边缘之外，则会重新定位。我不会深入探讨这段代码的细节，因为它相当复杂。相反，我建议你直接使用这段代码，仅在遇到问题时才深入研究。如果你遇到问题，最可能的原因是你没有为\
+  \ `Popup` 设置 `Width` 和 `Height` 属性。\n\n## 显示和隐藏 Popup 控件\n\n我的 `HomeZipCodeFlyout`\
+  \ 类负责的另一项功能是显示和隐藏 `Popup`。为了让代码更简洁，我的弹出窗口工作方式采用了一些技巧。如果你回头查看清单 3-6 中的 XAML，你会看到我为数据绑定指定了一个\
+  \ `Mode`，如下所示：\n\n```\n...\n<TextBox Height=\"40\" Width=\"150\" Text=\" {Binding\
+  \ Path=HomeZipCode,\n    Mode=TwoWay} \" />\n...\n```\n\n数据绑定默认是单向的，这意味着视图模型中的更改会更新控件。我指定了双向绑定，这意味着，除此之外，用户在\
+  \ `TextBox` 控件中输入的值将用于更新相应的视图模型属性。\n\n**提示** 请注意，我无需设置 `DataContext` 即可使绑定生效。用户控件将被添加到主\
+  \ XAML 布局中，这意味着它会从顶层的 `Page` 对象继承 `DataContext` 的值。\n\n这使我能够通过简单地隐藏 `Popup` 来处理\
+  \ OK 按钮的点击事件；我无需担心从 `TextBox` 获取值并显式更新视图模型。这种方法的缺点是，在弹出窗口被关闭之前，视图模型可能会被更新多次，如果你的应用在其他地方监听受影响属性的更改，这可能会引发问题。对于\
+  \ `HomeZipCode` 属性来说这不是问题，并且我想向你展示这种技术，它可以是一种非常简洁的处理用户输入的方法。\n\n## 向应用添加 Flyout\n\
+  \n我费心创建用户控件的原因是，我希望尽可能保持主布局 XAML 的专注性。不过，我仍然需要将用户控件添加到 XAML 中。你可以在清单 3-10 中看到我是如何做到这一点的，该清单展示了我对\
+  \ `ListPage.xaml` 文件所做的更改。\n\n**清单 3-10. 向 `ListPage` XAML 添加 Flyout 控件**\n\n```\n\
+  <Page\n    x:Class=\"GrocerApp.Pages.ListPage\"\n    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:flyouts=\"using:GrocerApp.Flyouts\"\n    xmlns:d=\"\
+  http://schemas.microsoft.com/expression/blend/2008\"\n    xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"\
+  \n    mc:Ignorable=\"d\">\n\n    <Grid Background=\"{StaticResource AppBackgroundColor}\"\
+  >\n\n        <Grid.RowDefinitions>\n            <RowDefinition/>\n            <RowDefinition/>\n\
+  \        </Grid.RowDefinitions>\n        <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n\
+  \            <ColumnDefinition/>\n        </Grid.ColumnDefinitions>\n\n        <StackPanel\
+  \ Grid.RowSpan=\"2\">\n            // ...为简洁起见，内容已移除\n        </StackPanel>\n\n\
+  \        <StackPanel Orientation=\"Vertical\" Grid.Column=\"1\">\n            //\
+  \ ...为简洁起见，内容已移除\n        </StackPanel>\n\n        <StackPanel Orientation=\"Vertical\"\
+  \ Grid.Column=\"1\" Grid.Row=\"1\">\n            // ...为简洁起见，内容已移除\n        </StackPanel>\n\
+  \n        <flyouts:HomeZipCodeFlyout x:Name=\"HomeZipFlyout\"/>\n    </Grid>\n\n\
+  \    <Page.BottomAppBar>\n        // ...为简洁起见，内容已移除\n    </Page.BottomAppBar>\n\
+  </Page>\n```\n\n我必须定义一个新的 XAML 命名空间，以便能够在 `Flyouts` 文件夹中使用用户控件，因此我向 XAML 添加了以下一行：\n\
+  \n```\nxmlns: flyouts =\"using: GrocerApp.Flyouts\"\n```\n\n重要部分是我在 `xmlns` 部分之后分配的名称，在本例中是\
+  \ `flyouts`。在声明用户控件时，我必须使用相同的名称，如下所示：\n\n```\n< flyouts :HomeZipCodeFlyout x:Name=\"\
+  HomeZipFlyout\"/>\n```\n\n\n\n注意，声明浮出控件必须放在`Grid`*内部*；即使它不立即显示，浮出控件用户控件也必须声明为主应用布局的一部分，而`Page`控件只能包含常规的子元素（这就是为什么`AppBar`控件必须声明在`Page.BottomAppBar`属性内部）。\n\
+  \n**显示浮出控件**\n\n剩下的工作就是挂接浮出控件，以便用户在点击`AppBar`按钮时显示它。清单 3-11 展示了为`ListPage.xaml.cs`文件添加的代码，以实现此功能。\n\
+  \n***清单 3-11。** 响应 `AppBar` 按钮点击事件显示浮出控件*\n\n```\n...\nprivate void AppBarButtonClick(object\
+  \ sender, RoutedEventArgs e) {\n    if (e.OriginalSource == AppBarDoneButton\n            &&\
+  \ viewModel.SelectedItemIndex > -1) {\n\nviewModel.GroceryList.RemoveAt(viewModel.SelectedItemIndex);\n\
+          viewModel.SelectedItemIndex = -1;\n\n} else if (e.OriginalSource == AppBarZipButton)\
+  \ {\n        HomeZipFlyout.Show(this, this.BottomAppBar, (Button)e.OriginalSource);\n\
+      }\n}\n...\n```\n\n我调用了在用户控件中定义的`Show`方法，并传入需要正确定位`Popup`的控件集合。您可以在图 3-2 中看到结果。\n\
+  \n![9781430250340_Fig03-02.jpg](img/9781430250340_Fig03-02.jpg)\n\n图 3-2。在相关的 `AppBar`\
+  \ 按钮旁边显示一个浮出控件\n\n**创建更复杂的浮出控件**\n\n现在我已经演示了基础知识，可以构建一个允许用户向购物清单添加新项目的浮出控件了。此浮出控件的不同之处在于，它不能依赖双向绑定技巧来处理视图模型。这并非特别复杂的技术；我只是想向您展示这两种方法，以便您可以根据项目需求选择合适的一种。我向您展示的浮出控件示例越多，您在创建自己的浮出控件时就会感到越轻松。\n\
+  \n首先，我使用`UserControl`模板在`Flyouts`项目文件夹中创建了`AddItemFlyout.xaml`文件。然后，我遵循相同的基本方法，在`Popup`中布局内容，如清单\
+  \ 3-12 所示。\n\n***清单 3-12。** 添加项目浮出控件的 XAML*\n\n```\n<UserControl\n    x:Class=\"\
+  GrocerApp.Flyouts.AddItemFlyout\"\n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation\
+  \ \"\n    xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp.Flyouts\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \ \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \ \"\n    mc:Ignorable=\"d\"\n    d:DesignHeight=\"300\"\n    d:DesignWidth=\"400\"\
+  >\n\n<Popup x:Name=\"AddItemPopup\" IsLightDismissEnabled=\"True\" Width=\"435\"\
+  \ Height=\"265\" >\n        <StackPanel Background=\"Black\">\n            <Border\
+  \ Background=\"#85C54C\" BorderThickness=\"4\">\n                <Grid Margin=\"\
+  10\">\n                    <Grid.RowDefinitions>\n                        <RowDefinition/>\n\
+                          <RowDefinition/>\n                        <RowDefinition/>\n\
+                          <RowDefinition/>\n                    </Grid.RowDefinitions>\n\
+                      <Grid.ColumnDefinitions>\n                        <ColumnDefinition\
+  \ Width=\"Auto\"/>\n                        <ColumnDefinition Width=\"300\"/>\n\
+                      </Grid.ColumnDefinitions>\n\n<TextBlock Text=\"名称:\" Style=\"\
+  {StaticResource AddItemText}\"  />\n                    <TextBlock Text=\"数量:\"\
+  \ Grid.Row=\"1\"\n                               Style=\"{StaticResource AddItemText}\"\
+  \ />\n                    <TextBlock Text=\"商店:\" Grid.Row=\"2\"\n                              \
+  \ Style=\"{StaticResource AddItemText}\" />\n\n<TextBox x:Name=\"ItemName\" Grid.Column=\"\
+  1\"\n                             Style=\"{StaticResource AddItemTextBox}\" />\n\
+                      <TextBox x:Name=\"ItemQuantity\" Grid.Row=\"1\" Grid.\n                            \
+  \ Column=\"1\"\n                             Style=\"{StaticResource AddItemTextBox}\"\
+  \ />\n                    <ComboBox x:Name=\"ItemStore\" Grid.Column=\"1\" Grid.\n\
+                               Row=\"2\"\n                              Style=\"{StaticResource\
+  \ AddItemStore}\"\n                              ItemsSource=\"{Binding StoreList}\"\
+  \n                              DisplayMemberPath=\"\" />\n                    <StackPanel\
+  \ Orientation=\"Horizontal\" Grid.Row=\"3\"\n                                HorizontalAlignment=\"\
+  Center\"\n                                Grid.ColumnSpan=\"2\">\n                        <Button\
+  \ Click=\"AddButtonClick\">添加项目</Button>\n                    </StackPanel>\n                </Grid>\n\
+              </Border>\n        </StackPanel>\n    </Popup>\n</UserControl>\n```\n\
+  \n`Popup`的布局与我在第 2 章中创建的`ItemDetail`页面的布局非常相似。可以将`Frame`控件（以及`Page`）嵌入到浮出控件的`Popup`中，但调整样式和修改代码隐藏行为所需的工作量，往往使得简单地复制元素更具吸引力。对于简单的项目，我很乐意这样做，尽管我隐约觉得将来某个时候会重新审视这个项目，以消除重复并正确地实现它。\n\
+  \n**编写代码**\n\n我希望您关注此浮出控件的代码部分，如清单 3-13 所示。\n\n***清单 3-13。** `AddItemFlyout.xaml.cs`\
+  \ 文件*\n\n```\nusing System;\nusing GrocerApp.Data;\nusing Windows.UI.Xaml;\nusing\
+  \ Windows.UI.Xaml.Controls;\n\nnamespace GrocerApp.Flyouts {\n    public sealed\
+  \ partial class AddItemFlyout : UserControl {\n\npublic AddItemFlyout() {\n            this.InitializeComponent();\n\
+          }\n\npublic void Show(Page page, AppBar appbar, Button button) {\n            AddItemPopup.IsOpen\
+  \ = true;\n            FlyoutHelper.ShowRelativeToAppBar(AddItemPopup, page, appbar,\
+  \ button);\n        }\n\nprivate void AddButtonClick(object sender, RoutedEventArgs\
+  \ e) {\n\n((ViewModel)DataContext) .GroceryList.Add(new GroceryItem {\n                Name\
+  \ = ItemName.Text,\n                Quantity = Int32.Parse(ItemQuantity.Text),\n\
+                  Store = ItemStore.SelectedItem.ToString()\n            });\n\nAddItemPopup.IsOpen\
+  \ = false;\n        }\n    }\n}\n```\n\n我需要获取视图模型对象，以便向其中添加新项目。有几种方法可以实现，但最简单的方法是读取`DataContext`属性的值，如清单所示。需要特别注意，因为我假定此属性的值将是我的`ViewModel`对象，该对象是在`ListPage`类（在`ListPage.xaml.cs`文件中）的构造函数中设置的。正如我之前提到的，`DataContext`属性是继承的，这意味着为`Page`对象设置的对象可以从我的`UserControl`中检索到，但前提是布局层次结构中的中间控件没有被分配另一个对象到其`DataContext`属性。\n\
+  \n一旦我有了`ViewModel`对象，向`GroceryList`集合添加一个新的`GroceryItem`就是一个简单的操作。由于该集合是可观察的，添加操作将自动反映在应用的其他部分。\n\
+  \n**向应用添加浮出控件**\n\n剩下的工作就是按照与前一个浮出控件相同的模式，将新的浮出控件添加到`ListPage`布局和代码中。清单 3-14 展示了浮出控件的\
+  \ XAML 声明。\n\n***清单 3-14。** 在 XAML 中声明添加项目浮出控件*\n\n```\n...\n<flyouts:HomeZipCodeFlyout\
+  \ x:Name=\"HomeZipFlyout\"/>\n<flyouts:AddItemFlyout x:Name=\"AddItemFlyout\"/>\n\
+  ...\n```\n\n\n\n清单 3-15 展示了在`ListPage`类的`AppBarButtonClick`中添加的代码，该代码在点击“添加项目”AppBar\
+  \ 按钮时显示浮出控件。\n\n**清单 3-15.** 响应 AppBar 按钮显示浮出控件\n\n```\n...\nprivate void AppBarButtonClick(object\
+  \ sender, RoutedEventArgs e) {\n    if (e.OriginalSource == AppBarDoneButton\n \
+  \           && viewModel.SelectedItemIndex > -1) {\n\nviewModel.GroceryList.RemoveAt(viewModel.SelectedItemIndex);\n\
+  \        viewModel.SelectedItemIndex = -1;\n\n} else if (e.OriginalSource == AppBarZipButton)\
+  \ {\n        HomeZipFlyout.Show(this, this.BottomAppBar, (Button)e.OriginalSource);\n\
+  \    } else if (e.OriginalSource == AppBarAddButton) {\n        AddItemFlyout.Show(this,\
+  \ this.BottomAppBar, (Button)e.OriginalSource);\n    }\n}\n...\n```\n\n你可以在图 3-3\
+  \ 中看到浮出控件的外观。与 AppBar 关联的浮出控件`Popup`所采用的“轻触关闭”样式，意味着同一时间只会显示一个浮出控件。\n\n![9781430250340_Fig03-03.jpg](img/9781430250340_Fig03-03.jpg)\n\
+  \n图 3-3. “添加项目”浮出控件\n\n## 在 Windows 应用内导航\n\n如果你的应用包含多个不同的功能部分，那么你需要提供一个导航栏（`NavBar`），以便用户能够在这些部分之间轻松切换。提供一致导航的最简单方法是重构应用，使功能区域呈现在一个包装页面的`Frame`控件中。\n\
+  \n### 创建包装器\n\n我在`Pages`文件夹中创建了`MainPage.xaml`文件作为包装器。你可以从清单 3-16 中看到这个文件的内容，它是使用`Blank\
+  \ Page`模板创建的。\n\n**清单 3-16.** `MainPage.xaml`文件\n\n```\n<Page\n    x:Class=\"GrocerApp.Pages.MainPage\"\
+  \n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation \"\n  \
+  \  xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \ \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \ \"\n    mc:Ignorable=\"d\">\n\n<Page.TopAppBar>\n        <AppBar>\n          \
+  \  <StackPanel Orientation=\"Horizontal\"             HorizontalAlignment=\"Center\"\
+  >\n                <Button x:Name=\"ListViewButton\"\n                    Style=\"\
+  {StaticResource AppBarButtonStyle}\"\n                    AutomationProperties.Name=\"\
+  List View\"\n                    Content=\"\" Click=\"NavBarButtonPress\"/>\n\n\
+  <Button x:Name=\"DetailViewButton\"\n                    Style=\"{StaticResource\
+  \ AppBarButtonStyle}\"\n                    AutomationProperties.Name=\"Detail View\"\
+  \n                    Content=\"\" Click=\"NavBarButtonPress\"/>\n            </StackPanel>\n\
+  \        </AppBar>\n    </Page.TopAppBar>\n\n<Grid Background=\"{StaticResource\
+  \ ApplicationPageBackgroundThemeBrush}\">\n        <Frame x:Name=\"MainFrame\" />\n\
+  \    </Grid>\n</Page> \n```\n\n为了添加导航栏，我在`Page.TopAppBar`属性中声明了一个`AppBar`控件。导航栏的机制与（底部）AppBar\
+  \ 相同，并且我添加了两个`Button`控件来支持在应用包含的两个视图之间导航。\n\n除了导航栏之外，`MainPage`的布局还包含一个`Frame`，我将用它来显示不同的视图。\n\
+  \n支持此布局的代码非常简单，如清单 3-17 所示。我通过导航到相应的`Page`并更改按钮的`IsChecked`属性来响应任一`Button`控件的点击。另外，我在此类中创建了`ViewModel`对象，以便在整个应用中只有一个实例。该对象通过`Frame.Navigate`方法传递给各个页面。\n\
+  \n**清单 3-17.** `MainPage.xaml.cs`\n\n```\nusing System;\nusing GrocerApp.Data;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Controls.Primitives;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class MainPage : Page {\n        private ViewModel viewModel;\n\npublic\
+  \ MainPage() {\n            this.InitializeComponent();\n\nviewModel = new ViewModel();\n\
+  \nviewModel.StoreList.Add(\"Whole Foods\");\n            viewModel.StoreList.Add(\"\
+  Kroger\");\n            viewModel.StoreList.Add(\"Costco\");\n            viewModel.StoreList.Add(\"\
+  Walmart\");\n\nviewModel.GroceryList.Add(new GroceryItem {\n                Name\
+  \ = \"Apples\",\n                Quantity = 4, Store = \"Whole Foods\"\n       \
+  \     });\n            viewModel.GroceryList.Add(new GroceryItem {\n           \
+  \     Name = \"Hotdogs\",\n                Quantity = 12, Store = \"Costco\"\n \
+  \           });\n            viewModel.GroceryList.Add(new GroceryItem {\n     \
+  \           Name = \"Soda\",\n                Quantity = 2, Store = \"Costco\"\n\
+  \            });\n            viewModel.GroceryList.Add(new GroceryItem {\n    \
+  \            Name = \"Eggs\",\n                Quantity = 12, Store = \"Kroger\"\
+  \n            });\n\nthis.DataContext = viewModel;\n\nMainFrame.Navigate(typeof(ListPage),\
+  \ viewModel);\n        }\n\nprotected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n        }\n\nprivate void NavBarButtonPress(object sender, RoutedEventArgs\
+  \ e) {\n            Boolean isListView = (Button)sender == ListViewButton;\n   \
+  \         MainFrame.Navigate(isListView ? typeof(ListPage)\n                : typeof(DetailPage),\
+  \ viewModel);\n        }\n    }\n} \n```\n\n我在构造函数中导航到应用的默认视图，即前面示例中一直使用的`ListPage`。\n\
+  \n![image](img/sq.jpg) **提示** `ListPage`已被重构，以便视图模型从`OnNavigatedTo`方法的参数中获取。这些更改非常简单，因此我不在此列出，但你可以在本书附带的源代码下载中看到修改后的类，该下载文件可从`Apress.com`获取。\n\
+  \n我需要更新`App.xaml.cs`文件，将包装器视图投入使用，如清单 3-18 所示。\n\n**清单 3-18.** 将`MainPage`设为示例应用的默认页面\n\
+  \n```\n...\nif (rootFrame.Content == null) {\n\nif (!rootFrame.Navigate(typeof(\
+  \ Pages.MainPage ), args.Arguments)) {\n        throw new Exception(\"Failed to\
+  \ create initial page\");\n    }\n}\n...\n```\n\n### 创建另一个视图\n\n我需要使用`Blank Page`模板向应用程序添加另一个页面。我在`Pages`项目文件夹中创建了一个名为`DetailPage.xaml`的占位页面；其布局如清单\
+  \ 3-19 所示。\n\n**清单 3-19.** `DetailPage.xaml`文件\n\n```\n<Page\n    x:Class=\"GrocerApp.Pages.DetailPage\"\
+  \n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation \"\n  \
+  \  xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \ \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \ \"\n    mc:Ignorable=\"d\">\n\n<Grid Background=\"{StaticResource ApplicationPageBackgroundThemeBrush}\"\
+  >\n        <StackPanel VerticalAlignment=\"Center\" HorizontalAlignment=\"Center\"\
+  >\n            <TextBlock Style=\"{StaticResource HeaderTextStyle}\" Text=\"Detail\n\
+  \                View\"/>\n        </StackPanel>\n    </Grid>\n</Page>\n```\n\n\
+  这个页面不包含任何功能；它只是为了演示如何在应用内处理导航而存在。\n\n### 测试导航\n\n剩下的就是测试导航了。如果你启动示例应用并调出 AppBar，你会看到导航栏也会自动出现，如图\
+  \ 3-4 所示。\n\n![9781430250340_Fig03-04.jpg](img/9781430250340_Fig03-04.jpg)\n\n\n\
+  \n图 3-4. 页面特定的`NavBar`与`AppBar`一同显示\n\n点击`NavBar`中的`Detail View`按钮，你将看到另一种视图，如图\
+  \ 3-5 所示。\n\n![9781430250340_Fig03-05.jpg](img/9781430250340_Fig03-05.jpg)\n\n图\
+  \ 3-5. 在应用中显示另一个内容视图\n\n这是一个很棒的功能，页面特定的`AppBar`与全应用范围的导航控件无缝集成。你可以通过在包装页面中声明一个`AppBar`，为整个应用实现统一的`AppBar`。如果这样做，你就需要负责确保根据需要从`AppBar`中添加或移除按钮。\n\
+  \n## 本章小结\n\n在本章中，我向你展示了如何创建`AppBar`、`NavBar`和浮出控件，它们是构成 Windows 8 应用用户体验的关键部分。实现这些交互对于让你的应用与更广泛的用户体验保持一致非常重要，我建议你花些时间确保所显示的控件始终与用户当前面对的内容和视图相关。在下一章中，我将介绍一些让你的应用能够集成到\
+  \ Windows 系统中的功能：*磁贴*和*徽章*。\n\n"
+- "# 第 4 章\n\n![image](img/frontdot.jpg)\n\n## 视图与磁贴\n\n在本章中，我将介绍两种让应用能够融入 Windows\
+  \ 8 所提供的更广泛用户体验的功能。第一个功能是应用可以*贴靠*和*填充*，从而让两个应用并排显示。我将展示当你的应用被置于这些布局之一时如何进行调整，以及当你的交互操作不适合视图限制时如何更改布局。\n\
+  \n第二个功能是*磁贴*模型。磁贴是 Windows 8 取代“开始”菜单的核心。简单来说，它们是用于启动应用的静态按钮，但稍加处理，它们就能为用户提供应用状态的宝贵快照，让用户无需运行应用即可大致了解情况。在本章中，我将展示如何通过应用更新以及使用相关功能*徽章*来创建动态磁贴。表\
+  \ 4-1 提供了本章的总结。\n\n表 4-1. 本章总结\n\n| 问题 | 解决方案 | 代码清单 |\n| --- | --- | --- |\n| 当应用被置于贴靠或填充视图时，调整其布局。\
+  \ | 通过修改控件的布局来处理`ViewStateChanged`事件。 | 1–3 |\n| 使用 XAML 声明视图变化所需的调整。 | 使用`VisualStateManage`。\
+  \ | 4, 5 |\n| 退出贴靠视图。 | 使用`TryUnsnap`方法。 | 6, 7 |\n| 为应用创建动态磁贴。 | 修改 XML 模板的内容，并使用`Windows.UI.Notification`命名空间中的类。\
+  \ | 8–10 |\n| 更新方形和宽形磁贴。 | 为两个模板准备更新并将它们合并在一起。 | 11, 12 |\n| 为磁贴应用徽章 | 填充并应用一个 XML\
+  \ 徽章模板 | 13, 14 |\n\n## 支持视图\n\n到目前为止，我的应用一直假设它可以独占整个显示屏。然而，应用可以通过鼠标手势进行排列，使其处于*贴靠*或*填充*状态。贴靠的应用会占据屏幕左边缘或右边缘一个\
+  \ 320 像素的条带。填充的应用则与贴靠的应用并排显示，占据除 320 像素条带之外的整个屏幕。为了演示不同的视图，我在`DetailPage.xaml`文件中添加了一些内容，如代码清单\
+  \ 4-1 所示。（这是我在上一章中添加的用于演示导航的文件，但之前除了显示一条简单消息外，它没有任何其他功能。）\n\n**代码清单 4-1.** 向`DetailPage.xaml`文件添加内容\n\
+  \n```\n<Page\n    x:Class=\"GrocerApp.Pages.DetailPage\"\n    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\
+  \n    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\
+  \n    xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"\n\
+  \    mc:Ignorable=\"d\">\n\n<Grid x:Name=\"GridLayout\" Background=\"#71C524\">\n\
+  \        <Grid.RowDefinitions>\n            <RowDefinition/>\n            <RowDefinition/>\n\
+  \        </Grid.RowDefinitions>\n        <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n\
+  \            <ColumnDefinition/>\n        </Grid.ColumnDefinitions>\n\n<StackPanel\
+  \ x:Name=\"TopLeft\" Background=\"#3E790A\">\n            <TextBlock x:Name=\"TopLeftText\"\
+  \n                       Style=\"{StaticResource DetailViewLabelStyle}\"\n     \
+  \                  Text=\"左上\"/>\n        </StackPanel>\n\n<StackPanel x:Name=\"\
+  TopRight\" Background=\"#70a524\" Grid.Column=\"1\"\n                    Grid.Row=\"\
+  0\">\n            <TextBlock x:Name=\"TopRightText\"\n                       Style=\"\
+  {StaticResource DetailViewLabelStyle}\"\n                       Text=\"右上\"/>\n\
+  \        </StackPanel>\n\n<StackPanel x:Name=\"BottomLeft\" Background=\"#1E3905\"\
+  \ Grid.Row=\"1\">\n            <TextBlock x:Name=\"BottomLeftText\"\n          \
+  \             Style=\"{StaticResource DetailViewLabelStyle}\"\n                \
+  \       Text=\"左下\"/>\n        </StackPanel>\n\n<StackPanel x:Name=\"BottomRight\"\
+  \ Background=\"#45860B\" Grid.\n                    Column=\"1\" Grid.Row=\"1\"\
+  >\n            <TextBlock x:Name=\"BottomRightText\"\n                       Style=\"\
+  {StaticResource DetailViewLabelStyle}\"\n                       Text=\"右下\"/>\n\
+  \        </StackPanel>\n    </Grid>\n</Page>\n```\n\n我在`/Resources/GrocerResourceDictionary.xaml`文件中为这个页面定义了一个名为`DetailViewLabelStyle`的新样式，如代码清单\
+  \ 4-2 所示。\n\n**代码清单 4-2.** 添加`DetailViewLabelStyle`样式\n\n```\n. . .\n<Style x:Key=\"\
+  DetailViewLabelStyle\" TargetType=\"TextBlock\"\n        BasedOn=\"{StaticResource\
+  \ HeaderTextStyle}\">\n    <Setter Property=\"FontSize\" Value=\"50\"/>\n    <Setter\
+  \ Property=\"Margin\" Value=\"10\"/>\n    <Setter Property=\"HorizontalAlignment\"\
+  \ Value=\"Left\"/>\n</Style>\n. . .\n```\n\n这个布局创建了一个简单的彩色网格。你可以通过启动应用，并使用我在上一章中添加的`NavBar`，点击`Detail\
+  \ View`按钮进行导航，来查看这个新内容。\n\n图 4-1 显示了应用处于填充和贴靠视图下的状态。剩余空间部分是一个用于报告其自身视图的简单应用。我将其用于测试，并已包含在本书的源代码下载包中，你可以从\
+  \ Apress.com 获取。\n\n![9781430250340_Fig04-01.jpg](img/9781430250340_Fig04-01.jpg)\n\
+  \n图 4-1. 示例应用在填充视图和贴靠视图下的显示\n\n![image](img/sq.jpg) **注意：** 应用仅在横向视图下才能贴靠，并且只有当显示屏的水平分辨率为\
+  \ 1366 像素或更高时，Windows 8 才支持贴靠功能。如果你想尝试贴靠操作，必须确保在模拟器中选择了正确的方向和分辨率。\n\n为容纳贴靠应用而损失\
+  \ 320 像素，对大多数应用来说不会造成太大干扰。问题开始出现是当你的应用从填充视图移动到贴靠视图时，你可以在图的右侧看到这一点。显然，应用需要适应新的视图，在接下来的章节中，我将向你展示可用于实现这一点的不同机制。\n\
+  \n![image](img/sq.jpg) **提示：** 你可以按`Win+.`（Windows 键和句点键）来切换应用的不同视图。每次按下这些键，应用将循环进入一个新视图。\n\
+  \n### 在代码中响应视图变化\n\n\n\n您可以通过 `Page.SizeChanged` 事件来监视视图中发生的变化。通过处理此事件，您可以利用 `Windows.UI.ViewManagement.ApplicationView.Value`\
+  \ 属性确定当前视图，并根据需要重新配置您的应用。清单 4-3 展示了 `DetailPage` 页面的代码，其中添加了处理此事件的相关代码。\n\n**清单\
+  \ 4-3.** *在 `DetailPage` 的代码隐藏类中控制视图*\n\n```\nusing Windows.UI.ViewManagement;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Navigation;\n\
+  \nnamespace GrocerApp.Pages {\n    public sealed partial class DetailPage : Page\
+  \ {\n\n        public DetailPage() {\n            this.InitializeComponent();\n\
+  \            SizeChanged += DetailPage_SizeChanged;\n        }\n\n        void DetailPage_SizeChanged(object\
+  \ sender, SizeChangedEventArgs e) {\n            if (ApplicationView.Value == ApplicationViewState.Snapped)\
+  \ {\n                GridLayout.ColumnDefinitions[0].Width\n                   \
+  \ = new GridLength(0);\n            } else {\n                GridLayout.ColumnDefinitions[0].Width\n\
+  \                    = new GridLength(1, GridUnitType.Star);\n            }    \
+  \         \n        }\n\n        protected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n        }\n    }\n}\n```\n\n`ApplicationView.Value` 属性从 `ApplicationViewState`\
+  \ 枚举中返回一个值，用于描述当前视图。此枚举包含的值有 `Snapped`、`Filled`、`FullScreenPortrait` 和 `FullScreenLandscape`；最后两个值允许您在应用全屏显示时区分横向和纵向模式。\n\
+  \n在我的示例中，`DetailPage_SizeChanged` 方法判断当前正在使用的视图类型，并相应地调整应用布局。如果应用以贴靠视图显示，那么我将网格中第一列的宽度设为零。当应用恢复到全屏视图时，您的应用状态不会被自动重置，因此您还必须定义代码来处理其他事件状态。在这种情况下，对于除贴靠视图外的任何其他视图，我都会重置该列的宽度。（处理列的语法有些笨拙，但您应该能明白其意。）您可以在图\
+  \ 4-2 中看到贴靠视图下的变化。\n\n![9781430250340_Fig04-02.jpg](img/9781430250340_Fig04-02.jpg)\n\
+  \n**图 4-2.** *适应贴靠视图的限制*\n\n我没有将所有内容都塞进一个小窗口，而是仅显示了应用的一部分。对于贴靠应用能够使用的相对较小的屏幕空间，最明智的处理方式是展示精简后的功能。您会惊讶于能在这么小的空间里塞进多少内容，但这与拥有完整的全屏访问权限毕竟不同。\n\
+  \n## 在 XAML 中响应视图更改\n\n您可以使用 XAML 来规划要对应用进行的更改。XAML 中用于此操作的语法冗长、难以阅读且处理起来更困难——以至于我强烈建议您坚持使用代码方式。但为完整起见，清单\
+  \ 4-4 展示了如何使用 XAML 指定我想要的更改。\n\n![image](img/sq.jpg) **注意** 此 XAML 所使用的 `VisualStateManager`\
+  \ 功能是标准的 WPF 和 Silverlight 功能。它具有许多特性，我无法在本书中对其予以充分关注。我的建议是采用基于代码的方法，但如果您是真正的 XAML\
+  \ 爱好者，可以查阅 WPF 或 Silverlight 文档，以了解有关可用元素的更多详细信息。\n\n**清单 4-4.** *在 XAML 中定义视图更改*\n\
+  \n```\n<Page\n    x:Class=\"GrocerApp.Pages.DetailPage\"\n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation\
+  \ \"\n    xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \ \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \ \"\n    mc:Ignorable=\"d\">\n\n    <Grid x:Name=\"GridLayout\" Background=\"#71C524\"\
+  >\n\n        <VisualStateManager.VisualStateGroups>\n            <VisualStateGroup\
+  \ x:Name=\"OrientationStates\">\n                <VisualState x:Name=\"Snapped\"\
+  >\n                    <Storyboard>\n                        <ObjectAnimationUsingKeyFrames\n\
+  \                                Storyboard.TargetProperty=\"Grid.\n           \
+  \                     ColumnDefinitions[0].Width\"\n                           \
+  \     Storyboard.TargetName=\"GridLayout\">\n                            <DiscreteObjectKeyFrame\
+  \ KeyTime=\"0\">\n                                <DiscreteObjectKeyFrame.Value>\n\
+  \                                    <GridLength>0</GridLength>\n              \
+  \                  </DiscreteObjectKeyFrame.Value>\n                           \
+  \ </DiscreteObjectKeyFrame>\n                        </ObjectAnimationUsingKeyFrames>\n\
+  \                    </Storyboard>\n                </VisualState>\n\n         \
+  \       <VisualState x:Name=\"Others\">\n                    <Storyboard>\n    \
+  \                    <ObjectAnimationUsingKeyFrames\n                          \
+  \      Storyboard.TargetProperty=\"Grid.\n                                ColumnDefinitions[0].Width\"\
+  \n                                Storyboard.TargetName=\"GridLayout\">\n      \
+  \                      <DiscreteObjectKeyFrame KeyTime=\"0\">\n                \
+  \                <DiscreteObjectKeyFrame.Value>\n                              \
+  \      <GridLength>*</GridLength>\n                                </DiscreteObjectKeyFrame.Value>\n\
+  \                            </DiscreteObjectKeyFrame>\n                       \
+  \ </ObjectAnimationUsingKeyFrames>\n                    </Storyboard>\n        \
+  \        </VisualState>\n            </VisualStateGroup>\n        </VisualStateManager.VisualStateGroups>\n\
+  \n        <Grid.RowDefinitions>\n            <RowDefinition/>\n            <RowDefinition/>\n\
+  \        </Grid.RowDefinitions>\n        <Grid.ColumnDefinitions>\n            <ColumnDefinition/>\n\
+  \            <ColumnDefinition/>\n        </Grid.ColumnDefinitions>\n\n        //\
+  \ ...为简洁起见，省略了 StackPanel 元素...\n    </Grid>\n</Page>\n```\n\n在此清单中，我声明了两个 `VisualState`\
+  \ 元素。第一个 `Snapped` 将第一列的宽度设置为零像素。当应用处于贴靠状态时，我将进入此状态。第二个称为 `Others`，用于恢复列的宽度。当应用未处于贴靠状态时，我将进入此状态。您可以看到我所指出的冗长之处：我用了\
+  \ 31 行 XAML 来替换 8 行代码。\n\n而且，我仍然需要处理 `SizeChanged` 事件，以便能够进入我定义的 XAML 状态。清单 4-5\
+  \ 展示了代码隐藏文件所需的更改。\n\n**清单 4-5.** *响应 `SizeChanged` 事件调用 `VisualStateManager`*\n\n\
+  ```\nusing Windows.UI.ViewManagement;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n    public sealed\
+  \ partial class DetailPage : Page {\n\n        public DetailPage() {\n         \
+  \   this.InitializeComponent();\n            SizeChanged += DetailPage_SizeChanged;\n\
+  \        }\n\n        void DetailPage_SizeChanged(object sender, SizeChangedEventArgs\
+  \ e) {\n            //if (ApplicationView.Value == ApplicationViewState.Snapped)\
+  \ {\n            //    GridLayout.ColumnDefinitions[0].Width\n            //   \
+  \     = new GridLength(0);\n            //} else {\n            //    GridLayout.ColumnDefinitions[0].Width\n\
+  \            //        = new GridLength(1, GridUnitType.Star);\n            //}\n\
+  \n            string stateName = ApplicationView.Value ==\n                ApplicationViewState.Snapped\
+  \ ? \"Snapped\" : \"Others\";\n            VisualStateManager.GoToState(this, stateName,\
+  \ false);\n        }\n\n        protected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n        }\n    }\n}\n```\n\n\n\n我调用静态方法`VisualStateManager.GoToState`在 XAML\
+  \ 定义的状态之间切换。该方法的参数是当前`Page`对象、要进入的状态名称以及是否显示中间状态。最后一个参数应设置为`true`，因为 Windows 提供了视图切换动画。\n\
+  \n**脱离贴靠视图**\n\n如果你在贴靠视图中向用户提供精简功能，当用户以特定方式与你的应用交互时，你可能需要恢复到更宽的视图。为了演示这一点，我在`DetailPage`页面的布局中添加了一个`Button`，如清单\
+  \ 4-6 所示。\n\n***清单 4-6。** 向布局中添加按钮*\n\n```\n. . .\n<StackPanel x:Name=\"TopRight\"\
+  \ Background=\"#70a524\" Grid.Column=\"1\"\n     Grid.Row=\"0\">\n    <TextBlock\
+  \ x:Name=\"TopRightText\"\n                Style=\"{StaticResource DetailViewLabelStyle}\"\
+  \n                Text=\"Top-Right\"/>\n    <Button Click=\"HandleButtonClick\"\
+  >Unsnap</Button>\n</StackPanel>\n. . .\n```\n\n清单 4-7 显示了`Click`事件的处理程序，该处理程序使用`TryUnsnap`方法取消应用的贴靠状态。\n\
+  \n***清单 4-7。** 取消应用贴靠*\n\n```\nusing Windows.UI.ViewManagement;\nusing Windows.UI.Xaml;\n\
+  using Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Navigation;\n\nnamespace\
+  \ GrocerApp.Pages {\n    public sealed partial class DetailPage : Page {\n\npublic\
+  \ DetailPage() {\n            this.InitializeComponent();\n\nSizeChanged += DetailPage_SizeChanged;\n\
+          }\n\nvoid DetailPage_SizeChanged(object sender, SizeChangedEventArgs e)\
+  \ {\n            //if (ApplicationView.Value == ApplicationViewState.Snapped) {\n\
+              //    GridLayout.ColumnDefinitions[0].Width\n            //        =\
+  \ new GridLength(0);\n            //} else {\n            //    GridLayout.ColumnDefinitions[0].Width\n\
+              //        = new GridLength(1, GridUnitType.Star);\n            //}\n\
+  \nstring stateName = ApplicationView.Value ==\n                ApplicationViewState.Snapped\
+  \ ? \"Snapped\" : \"Others\";\n            VisualStateManager.GoToState(this, stateName,\
+  \ false);\n\n}\n\nprivate void HandleButtonClick(object sender, RoutedEventArgs\
+  \ e) {\n            Windows.UI.ViewManagement.ApplicationView.TryUnsnap();\n        }\n\
+  \nprotected override void OnNavigatedTo(NavigationEventArgs e) {\n        }\n    }\n\
+  }\n```\n\n`TryUnsnap`方法将更改视图，但仅响应于用户交互。例如，如果应用处于后台，则无法更改视图。\n\n**使用磁贴和徽章**\n\n磁贴是应用在“开始”屏幕上的表示。最简单的形式是，磁贴是启动应用的静态图标。然而，只需稍加努力，你就可以利用磁贴向用户呈现应用状态的有用摘要，并吸引他们注意可能想要执行的操作。\n\
+  \n在接下来的小节中，我将演示如何通过示例应用的磁贴呈现信息。在创建动态磁贴时，存在两个可能相互冲突的目标：要么是鼓励用户运行你的应用，要么是劝阻他们不要运行它。如果你试图吸引用户，那么你的磁贴就成为你对体验、洞察或内容的一个广告。这适用于娱乐应用或呈现外部内容（如新闻）的应用。\n\
+  \n劝阻用户运行应用可能看起来像是一个奇怪的目标，但它可以显著改善用户体验。以生产力应用为例。我简直不敢想象为了查看下一个约会或最紧急的任务，我浪费了多少时间等待日历或待办事项应用加载。你可以通过在应用磁贴中显示用户需要的信息，来减少用户在使用应用时遇到的摩擦和挫败感，并创造更令人愉悦和即时的体验。\n\
+  \n这两个目标都需要仔细思考。整个 Windows 8 的体验是扁平、简单且柔和的。如果你将磁贴用作广告，Windows 的这种柔和特性使得创建脱颖而出的磁贴变得容易。然而，如果做得太过分，你会创造出不协调、刺眼的东西，与其说是吸引力，不如说是视觉污染。\n\
+  \n如果你的目标是减少用户需要运行应用的次数，那么你需要在正确的时间呈现正确的信息。这需要充分理解是什么驱动用户采用你的应用，并且具备定制所呈现数据的能力。适应性至关重要；例如，在周六早上向我显示任务列表中最紧急的工作事项是毫无意义的。每次你向用户呈现错误的信息时，都会迫使他们运行应用来获取他们真正需要的东西。\n\
+  \n![image](img/sq.jpg) **提示** 应用只能在运行时更新其磁贴。在第 5 章中，我将详细介绍应用生命周期，你会了解到当用户切换到另一个应用时，应用会进入挂起状态。这意味着你无法在后台提供更新。Windows\
+  \ 8 支持一种推送模型，可以从云端发送 XML 更新，但这需要设置服务器基础架构来支持你的应用。\n\n**改进静态磁贴**\n\n改善应用在“开始”屏幕外观的最简单方法是更改用于应用磁贴的图像。即使你不使用任何其他磁贴功能，也应该为应用自定义图像。\n\
+  \n为此，你将需要一组三个特定尺寸的图像：30×30 像素、150×150 像素和 310×150 像素。这些图像应包含你想要显示的徽标或文本，但其他部分应为透明。我为示例应用使用了条形码主题，创建了名为`tile30.png`、`tile150.png`和`tile310.png`的图像，并将它们放置在\
+  \ Visual Studio 项目的`Assets`文件夹中。\n\n要应用新图像，请从“解决方案资源管理器”中打开`Package.appxmanifest`文件。在“应用程序\
+  \ UI”选项卡上有一个“磁贴”部分，其中包含设置徽标、宽徽标和小徽标的选项。有提示说明每个选项所需的尺寸。你还必须设置将用于磁贴的背景颜色；我将其设置为与应用背景相同的颜色（十六进制\
+  \ RGB 值`#3E790A`），如图 4-3 所示。\n\n![9781430250340_Fig04-03.jpg](img/9781430250340_Fig04-03.jpg)\n\
+  \n图 4-3。 在应用清单中应用图像\n\n![image](img/sq.jpg) **提示** 在清单中设置背景颜色很重要，而不是在图像中包含背景。当你更新磁贴时（我将在下一节中演示），图像将被替换为基于清单中指定颜色背景的动态信息。\n\
+  \n你可能需要从“开始”屏幕卸载应用，磁贴图像才能生效。下次从 Visual Studio 启动应用时，你应该会看到新的静态磁贴；你可以通过选择磁贴、右键单击并从应用栏中选择“更大”或“更小”按钮，在标准和宽视图之间切换。你可以在图\
+  \ 4-4 中看到示例应用的方形和宽磁贴格式。\n\n![9781430250340_Fig04-04.jpg](img/9781430250340_Fig04-04.jpg)\n\
+  \n图 4-4。 更新后的静态宽磁贴\n\n请注意，单词`GrocerApp`显示在磁贴底部。此文本被指定为“应用程序 UI”选项卡中“短名称”选项的值。“显示名称”的“所有徽标”选项意味着它同时应用于常规磁贴和宽磁贴。\n\
+  \n\n\n![image](img/sq.jpg) **提示** 你也可以替换应用加载时向用户显示的启动画面。在“应用程序 UI”选项卡底部有一个“启动画面”区域，你可以在其中指定要显示的图像及其背景颜色。用于启动画面的图像尺寸必须为\
+  \ 630 × 300 像素。\n\n## 创建动态磁贴\n\n动态磁贴可向用户提供应用的相关信息。在我的示例应用中，我将显示购物清单中的前几个项目。磁贴更新基于预配置的模板，这些模板包含图形和文本的混合内容，并针对标准磁贴或宽磁贴进行了设计。你首先必须选择所需的模板。最简单的方法是查看\
+  \ `Windows.UI.Notifications.TileTemplateType` 枚举的 API 文档，该文档位于 [`msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tiletemplatetype.aspx`](http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tiletemplatetype.aspx)。模板系统基于\
+  \ XML 片段，你可以在 API 文档中查看每个模板的 XML 结构。我选择了 `TileSquareText03` 模板。此模板适用于方形磁贴，包含四行不换行文本，且没有任何图像。你可以在代码清单\
+  \ 4-8 中查看表示该磁贴的 XML 片段。\n\n**代码清单 4-8.** TileSquareText03 磁贴模板的 XML 片段\n\n```\n\
+  <tile>\n  <visual lang=\"en-US\">\n    <binding template=\"TileSquareText03\">\n\
+  \      <text id=\"1\">Text Field 1</text>\n      <text id=\"2\">Text Field 2</text>\n\
+  \      <text id=\"3\">Text Field 3</text>\n      <text id=\"4\">Text Field 4</text>\n\
+  \    </binding>\n  </visual>\n</tile>\n```\n\n其思路是用应用中的信息填充 `text` 元素，并将结果传递给 Windows\
+  \ 通知系统。我打算在 `MainPage` 类中设置磁贴更新，但这意味着需要重构我的应用，以便在该类中创建 `ViewModel` 对象，而不是在 `ListPage`\
+  \ 类中创建。代码清单 4-9 显示了为支持视图模型和更新磁贴而在 `MainPage` 类中所需的更改。\n\n**代码清单 4-9.** 重构 MainPage\
+  \ 类\n\n```\nusing GrocerApp.Data;\nusing System;\nusing Windows.Data.Xml.Dom;\n\
+  using Windows.UI.Notifications;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class MainPage : Page {\n        private ViewModel viewModel;\n\npublic\
+  \ MainPage() {\n            this.InitializeComponent();\n\nviewModel = new ViewModel();\n\
+  \n// ...为简洁起见，测试数据已移除...\n\nthis.DataContext = viewModel;\n\nMainFrame.Navigate(typeof(ListPage),\
+  \ viewModel);\n\nviewModel.GroceryList.CollectionChanged += (sender, args) => {\n\
+  \                UpdateTile();\n            };\n\nUpdateTile();\n        }\n\nprivate\
+  \ void UpdateTile() {\n\nXmlDocument tileXml = TileUpdateManager.\n            \
+  \    GetTemplateContent(TileTemplateType.TileSquareText03);\n\nXmlNodeList textNodes\
+  \ =\n                tileXml.GetElementsByTagName(\"text\");\n\nfor (int i = 0;\
+  \ i < textNodes.Length &&\n                    i < viewModel.GroceryList.Count;\
+  \ i++) {\n                textNodes[i].InnerText = viewModel.GroceryList[i].Name;\n\
+  \            }\n\nfor (int i = 0; i < 5; i++) {\n                TileUpdateManager.CreateTileUpdaterForApplication()\n\
+  \                    .Update(new TileNotification(tileXml));\n            }\n  \
+  \      }\n\nprotected override void OnNavigatedTo(NavigationEventArgs e) {\n   \
+  \     }\n\nprivate void NavBarButtonPress(object sender, RoutedEventArgs e) {\n\
+  \            Boolean isListView = (Button)sender == ListViewButton;\n          \
+  \  MainFrame.Navigate(isListView ? typeof(ListPage)\n                : typeof(DetailPage),\
+  \ viewModel);\n\n}\n    }\n} \n```\n\n我还需要更新 `ListPage.xaml.cs` 文件，以便使用从 `MainPage`\
+  \ 类传递的视图模型对象，如代码清单 4-10 所示。\n\n**代码清单 4-10.** 更新 ListPage.xaml.cs 文件中的 ListPage\
+  \ 类\n\n```\nusing GrocerApp.Data;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class ListPage : Page {\n        ViewModel viewModel;\n\npublic ListPage()\
+  \ {\n            this.InitializeComponent();\n        }\n\nprotected override void\
+  \ OnNavigatedTo(NavigationEventArgs e) {\n            viewModel = (ViewModel)e.Parameter;\n\
+  \nItemDetailFrame.Navigate(typeof(NoItemSelected));\n            viewModel.PropertyChanged\
+  \ += (sender, args) => {\n                if (args.PropertyName == \"SelectedItemIndex\"\
+  ) {\n                    if (viewModel.SelectedItemIndex == -1) {\n            \
+  \            ItemDetailFrame.Navigate(typeof(NoItemSelected));\n               \
+  \         AppBarDoneButton.IsEnabled = false;\n                    } else {\n  \
+  \                      ItemDetailFrame.Navigate(typeof(ItemDetail),            \
+  \            viewModel);\n                        AppBarDoneButton.IsEnabled = true;\n\
+  \                    }\n                }\n            };\n        }\n\nprivate\
+  \ void ListSelectionChanged(object sender,                SelectionChangedEventArgs\
+  \ e) {\n            viewModel.SelectedItemIndex = groceryList.SelectedIndex;\n \
+  \       }\n\nprivate void AppBarButtonClick(object sender, RoutedEventArgs e) {\n\
+  \            if (e.OriginalSource == AppBarDoneButton\n                    && viewModel.SelectedItemIndex\
+  \ > -1) {\n\nviewModel.GroceryList.RemoveAt(viewModel.SelectedItemIndex);\n    \
+  \            viewModel.SelectedItemIndex = -1;\n\n} else if (e.OriginalSource ==\
+  \ AppBarZipButton) {\n                    HomeZipFlyout.Show(this, this.BottomAppBar,\
+  \                     (Button)e.OriginalSource);\n            } else if (e.OriginalSource\
+  \ == AppBarAddButton) {\n                AddItemFlyout.Show(this, this.BottomAppBar,\
+  \                     (Button)e.OriginalSource);\n            }\n\n}\n    }\n}\n\
+  ```\n\n这几行代码中包含了很多内容，因此我将在后续部分中进行详细说明。\n\n## 填充 XML 模板\n\n要获取模板 XML 片段，我调用 `TileUpdateManager.GetTemplateContent`\
+  \ 方法，并使用 `TileTemplateType` 枚举中的值指定所需的模板。这会给我一个 `Windows.Data.Xml.Dom.XmlDocument`\
+  \ 对象，我可以对其应用标准的 DOM 方法来设置模板中 `text` 元素的值。嗯，差不多是这样——因为 `XmlDocument` 对象实现的 `GetElementById`\
+  \ 不起作用，所以我必须使用 `GetElementsByTagName` 方法来获取一个包含 XML 中所有 `text` 元素的数组：\n\n```\n...\n\
+  XmlNodeList textNodes = tileXml.GetElementsByTagName(\"text\");\n...\n```\n\n`text`\
+  \ 节点按照它们在 XML 片段中定义的顺序返回，这意味着我可以遍历它们，并将每个元素的 `innerText` 属性设置为我的购物清单项目之一：\n\n```\n\
+  ...\nfor (int i = 0; i < textNodes.Length && i < viewModel.GroceryList.Count; i++)\
+  \ {\n    textNodes[i].InnerText = viewModel.GroceryList[i].Name;\n}\n...\n```\n\n\
+  ![image](img/sq.jpg) **提示** XML 模板定义的四个文本元素中，用户在“开始”屏幕上只能看到三个。最后一个元素会被应用名称或图标遮挡。许多磁贴模板都有这个特点。\n\
+  \n## 应用磁贴更新\n\n设置好 XML 文档的内容后，我使用它来为应用磁贴创建更新。我需要从 XML 创建一个 `TileNotification` 对象，然后将其传递给从静态方法\
+  \ `TileUpdateManager.CreateTileUpdaterForApplication` 返回的 `TileUpdater` 对象的 `Update`\
+  \ 方法。\n\n\n\n```csharp\n. . .\nfor (int i = 0; i < 5; i++) {\n    TileUpdateManager.CreateTileUpdaterForApplication()\n\
+          .Update(new TileNotification(tileXml));\n}\n. . .\n```\n\n在 Windows 8 中，并非所有磁贴更新都能正确处理，这就是我使用\
+  \ `for` 循环重复发送通知的原因。五次似乎是保证更新能显示在“开始”屏幕上的最小重复次数。\n\n## 调用磁贴更新方法\n\n我在两种情况下调用我的 `UpdateTile`\
+  \ 方法。第一种情况是直接从构造函数中调用，这确保了应用启动时磁贴能反映视图模型中的当前数据。第二种情况是集合内容发生变化时：\n\n```csharp\n.\
+  \ . .\nviewModel.GroceryList.CollectionChanged += (sender, args) => {\n    UpdateTile();\n\
+  };\n. . .\n```\n\n当从杂货清单项目集合中添加、替换或移除项目时，会触发 `CollectionChanged` 事件。但当修改单个 `GroceryList`\
+  \ 对象的属性时，*不会*触发该事件。要实现这一点，我需要在集合中的每个对象上添加处理程序。本章没有专门的应用技巧来展示如何做到这一点，因此我仅聚焦于磁贴的更改。\n\
+  \n## 测试磁贴更新\n\n在测试更新磁贴之前，需要完成几个准备步骤。首先，Visual Studio 模拟器不支持更新磁贴，这意味着我将直接在开发机器上进行测试。为此，我需要将\
+  \ Visual Studio 的部署目标更改为本地计算机，如图 4-5 所示。\n\n![9781430250340_Fig04-05.jpg](img/9781430250340_Fig04-05.jpg)\n\
+  \n图 4-5.  选择本地计算机进行调试\n\n第二步是从“开始”屏幕卸载我的示例应用（通过从 AppBar 中选择“卸载”来完成）。之前依赖静态磁贴的应用似乎存在某种“粘性”，导致它们无法正确处理更新。\n\
+  \n完成这两个步骤后，我现在可以从 Visual Studio 的“调试”菜单中选择“开始调试”来启动应用。当应用启动后，我可以对杂货清单进行更改，前三个项目的简明摘要将显示在“开始”磁贴上，如图\
+  \ 4-6 所示。\n\n![9781430250340_Fig04-06.jpg](img/9781430250340_Fig04-06.jpg)\n\n图\
+  \ 4-6.  更新应用磁贴\n\n要让更新磁贴最初显示出来可能比较困难。以下是一些我发现可能有帮助的方法：\n\n*   关闭模拟器\n*   重新启动 Visual\
+  \ Studio\n*   从“开始”屏幕卸载另一个（不相关的）应用\n*   使用“开始”屏幕搜索 `GrocerApp` 应用\n*   在“开始”屏幕周围移动一些其他磁贴\n\
+  *   重启\n\n起初让磁贴显示出来可能会让人沮丧，但一旦显示，一切都会按预期工作，并且后续对应用的更新很少会让磁贴再次消失。当用户从 Windows 应用商店安装应用时，这些问题不会发生；正是从静态文件切换到动态文件导致了这些问题。\n\
+  \n## 更新宽磁贴\n\n如果你希望为应用更新方形*或*宽磁贴，上一节向你展示的技术很有用。但是，除非你的数据有非常特定的展示需求，否则你应该同时为方形和宽磁贴提供更新，因为你不知道用户会选择哪一种。\n\
+  \n要同时更新两种磁贴尺寸，你需要组合两个 XML 模板，创建一个包含两个更新的单一片段。在本节中，我将组合 `TileSquareText03` 和 `TileWideBlockAndText01`\
+  \ 模板。宽模板有几个额外的字段，我将用它们来显示用户购买杂货清单上所有商品需要访问的商店数量。你可以在清单 4-11 中看到我打算生成的内容：一个遵循与单个模板相同格式但组合了两个\
+  \ `binding` 元素的片段。\n\n***清单 4-11.**  组合单个 XML 片段*\n\n```xml\n<tile>\n    <visual\
+  \ lang=\"en-US\">\n        <binding template=\"TileSquareText03\">\n            <text\
+  \ id=\"1\">苹果</text>\n            <text id=\"2\">热狗</text>\n            <text id=\"\
+  3\">汽水</text>\n            <text id=\"4\"></text>\n        </binding>\n        <binding\
+  \ template=\"TileWideBlockAndText01\">\n            <text id=\"1\">苹果（全食超市）</text>\n\
+              <text id=\"2\">热狗（好事多）</text>\n            <text id=\"3\">汽水（好事多）</text>\n\
+              <text id=\"4\"></text>\n            <text id=\"5\">2</text>\n            <text\
+  \ id=\"6\">家商店</text>\n        </binding>\n     </visual>\n</tile>\n```\n\n没有方便的\
+  \ API 用于组合模板。我采用的方法是使用 XML 处理支持分别填充模板，然后在流程结束时将它们组合起来，你可以在清单 4-12 中看到这一点。\n\n***清单\
+  \ 4-12.**  为方形和宽磁贴生成单一更新*\n\n```csharp\n. . .\nprivate void UpdateTile() {\n\nint\
+  \ storeCount = 0;\n    List<string> storeNames = new List<string>();\n\nfor (int\
+  \ i = 0; i < viewModel.GroceryList.Count; i++) {\n        if (!storeNames.Contains(viewModel.GroceryList[i].Store))\
+  \ {\n            storeCount++;\n            storeNames.Add(viewModel.GroceryList[i].Store);\n\
+          }\n    }\n\nXmlDocument narrowTileXml = TileUpdateManager\n        .GetTemplateContent(TileTemplateType.TileSquareText03);\n\
+      XmlDocument wideTileXml = TileUpdateManager\n        .GetTemplateContent(TileTemplateType.TileWideBlockAndText01);\n\
+  \nXmlNodeList narrowTextNodes = narrowTileXml.GetElementsByTagName(\"text\");\n\
+      XmlNodeList wideTextNodes = wideTileXml.GetElementsByTagName(\"text\");\n\n\
+  for (int i = 0; i < narrowTextNodes.Length\n        && i < viewModel.GroceryList.Count;\
+  \ i++) {\n\nGroceryItem item = viewModel.GroceryList[i];\n        narrowTextNodes[i].InnerText\
+  \ = item.Name;\n        wideTextNodes[i].InnerText = String.Format(\"{0} ({1})\"\
+  , item.Name,             item.Store);\n    }\n\nwideTextNodes[4].InnerText = storeCount.ToString();\n\
+      wideTextNodes[5].InnerText = \"家商店\";\n\nvar wideBindingElement = wideTileXml.GetElementsByTagName(\"\
+  binding\")[0];\n    var importedNode = narrowTileXml.ImportNode(wideBindingElement,\
+  \ true);\n    narrowTileXml.GetElementsByTagName(\"visual\")[0]        .AppendChild(importedNode);\n\
+      for (int i = 0; i < 5; i++) {\n        TileUpdateManager.CreateTileUpdaterForApplication()\n\
+              .Update(new TileNotification(narrowTileXml));\n    }\n}\n. . .\n```\n\
+  \n宽格式的磁贴让我有机会在每行向用户展示更多信息；在此例中，除了所需的商店总数之外，我还包含了关于每个商品应从哪家商店购买的信息。\n\n组合模板并非难以掌握的技巧，但在尝试合并两个\
+  \ XML 片段时需要小心。我使用方形磁贴的模板作为组合更新的基础。当我从宽模板添加 `binding` 元素时，必须首先将其导入到方形 XML 文档中，如下所示：\n\
+  \n```csharp\nvar importedNode = narrowTileXml. ImportNode (wideBindingElement, true);\n\
+  ```\n\n\n\n### `ImportNode` 方法\n\n`ImportNode` 方法会在方形文档的上下文中，为我现有的宽 `binding` 元素创建一个新的副本。该方法的参数是我要导入的元素，以及一个\
+  \ `bool` 值，用于指示是否同时导入子节点（显然，我需要这样做）。创建好这个新元素后，我使用 `AppendChild` 方法将其插入到方形 XML 中：\n\
+  \n```\nnarrowTileXml.GetElementsByTagName(\"visual\")[0].AppendChild(importedNode);\n\
+  ```\n\n最终结果就是我之前在清单 4-11 中展示的合并文档。你可以在图 4-7 中看到宽磁贴的外观。（你可以通过选择磁贴并使用“开始”屏幕应用栏，在方形和宽版本之间切换。）\n\
+  \n![9781430250340_Fig04-07.jpg](img/9781430250340_Fig04-07.jpg)\n\n图 4-7 更新宽磁贴\n\
+  \n## 应用徽章\n\nWindows 8 在磁贴中集成了许多功能，包括对*徽章*的支持，徽章是磁贴上的小型图标或数字覆盖层。后者属于“磁贴即广告”的范畴，因为在极少数情况下，数字表示除了促使用户启动应用外，别无他用。\n\
+  \n![image](img/sq.jpg) **提示** 尽管我展示了磁贴和徽章同时使用，但你也可以直接将徽章应用于静态磁贴。\n\n为了演示徽章，我将根据杂货清单中的项目数量来显示一个简单的指示器。清单\
+  \ 4-13 展示了添加到 `MainPage` 类的代码。\n\n**清单 4-13 添加对磁贴徽章的支持**\n\n```\nusing GrocerApp.Data;\n\
+  using System;\nusing Windows.Data.Xml.Dom;\nusing Windows.UI.Notifications;\nusing\
+  \ Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\nusing Windows.UI.Xaml.Navigation;\n\
+  using System.Collections.Generic;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class MainPage : Page {\n    private ViewModel viewModel;\n\n    public\
+  \ MainPage() {\n        this.InitializeComponent();\n        viewModel = new ViewModel();\n\
+  \n        // ...为简洁起见，已移除测试数据...\n        this.DataContext = viewModel;\n      \
+  \  MainFrame.Navigate(typeof(ListPage), viewModel);\n\n        viewModel.GroceryList.CollectionChanged\
+  \ += (sender, args) => {\n            UpdateTile();\n            UpdateBadge();\n\
+  \        };\n\n        UpdateTile();\n        UpdateBadge();\n    }\n\n    private\
+  \ void UpdateBadge() {\n        int itemCount = viewModel.GroceryList.Count;\n \
+  \       BadgeTemplateType templateType = itemCount > 3\n            ? BadgeTemplateType.BadgeGlyph\
+  \ : BadgeTemplateType.BadgeNumber;\n\n        XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(templateType);\n\
+  \        ((XmlElement)badgeXml.GetElementsByTagName(\"badge\")[0]).SetAttribute(\"\
+  value\",\n            (itemCount > 3) ? \"alert\" : itemCount.ToString());\n\n \
+  \       for (int i = 0; i < 5; i++) {\n            BadgeUpdateManager.CreateBadgeUpdaterForApplication()\n\
+  \                .Update(new BadgeNotification(badgeXml));\n        }\n    }\n\n\
+  \    private void UpdateTile() {\n        // ...为简洁起见，已移除代码...\n    }\n\n    protected\
+  \ override void OnNavigatedTo(NavigationEventArgs e) {\n    }\n\n    private void\
+  \ NavBarButtonPress(object sender, RoutedEventArgs e) {\n        Boolean isListView\
+  \ = (Button)sender == ListViewButton;\n        MainFrame.Navigate(isListView ? typeof(ListPage)\n\
+  \            : typeof(DetailPage), viewModel);\n    }\n}\n}\n```\n\n徽章的工作方式类似于磁贴通知。你获取一个\
+  \ XML 模板，填充内容，然后通过“开始”屏幕向用户展示一些信息。有两种类型的徽章模板可用：第一种是数字模板，它会显示 1 到 99 之间的数值；第二种是字形模板，它会显示来自\
+  \ Windows 定义的一小组小图像。\n\n数字模板和字形模板是相同的，并且如清单 4-14 所示，它们比我用于磁贴的模板要简单得多。\n\n**清单 4-14\
+  \ 数字和图像徽章的模板**\n\n```\n<badge value=\"\"/>\n```\n\n目标是设置 `value` 属性，其值可以是一个数值或一个字形的名称。如果杂货清单上的物品数量小于等于三个，我会显示一个数字徽章。如果物品数量超过三个，那么我会使用一个图标来提示用户应该关注其购物清单的庞大了。\n\
+  \n创建徽章的过程从选择模板开始。两种模板类型都属于 `Windows.UI.Notifications.BadgeTemplateType`；对于数字徽章，使用\
+  \ `BadgeNumber` 模板；对于图标，使用 `BadgeGlyph` 模板。在这两种情况下，你可以使用相同的模板，因为它们返回相同的 XML。这可能在未来的版本中发生变化，因此即使内容相同，明智的做法是选择正确的模板。\n\
+  \n下一步是在 XML 中找到 `value` 属性，并为其分配一个数值或图标的名称。徽章的数字范围非常具体：从 1 到 99。如果设置的值小于 1，则徽章根本不会显示。任何大于\
+  \ 99 的值都会导致徽章显示为 99。\n\n图标列表同样是指定的。你不能使用自己的图标，而必须从 Windows 支持的十个图标中选择。有关图标列表，请参阅\
+  \ `goo.gl/YoYee`。在此示例中，我选择了 `alert` 图标，它看起来像一个星号。填充好 XML 后，创建一个新的 `BadgeNotification`\
+  \ 对象并使用它来发布更新。与磁贴一样，我发现并非所有徽章更新都会被处理，因此我会重复更新五次以确保成功：\n\n```\n. . .\nfor (int i\
+  \ = 0; i < 5; i++) {\n    BadgeUpdateManager.CreateBadgeUpdaterForApplication()\n\
+  \        .Update(new BadgeNotification(badgeXml));\n}\n. . .\n```\n\n剩下要做的就是确保创建了徽章更新。为此，我更改了杂货清单事件的事件处理程序，以便磁贴和徽章同时更新。你可以在图\
+  \ 4-8 中看到四种不同的徽章/磁贴配置：宽磁贴和方形磁贴，分别带有数字徽章和图标徽章。\n\n![9781430250340_Fig04-08.jpg](img/9781430250340_Fig04-08.jpg)\n\
+  \n图 4-8 在磁贴上显示徽章\n\n## 总结\n\n在本章中，我向你展示了如何适应贴靠视图和填充视图，以及如何使用磁贴为用户提供启动应用的诱因或他们所需的数据以避免启动应用。这些功能对于交付一个能与更广泛的\
+  \ Windows 8 体验融为一体的应用至关重要。\n\n你可能会觉得贴靠布局中可用的空间过于有限，无法提供任何重要的功能，但通过仔细考量，聚焦于你所提供服务的本质并省略其他一切是可能的。如果所有方法都失败了，你可以呈现一个仅包含摘要信息的应用界面，并显式地跳出该布局。\n\
+  \n要从磁贴和徽章中获得最大收益，也需要仔细考量。精心设计的徽章可以显著提升应用的吸引力或实用性，而考虑不周的磁贴则令人厌烦或毫无用处。\n\n"
+- '# 第 5 章
+
+
+  ![image](img/frontdot.jpg)
+
+
+  '
+- '# 应用生命周期与合约
+
+
+
+
+  '
+- "# 本章内容\n\n作为本书的最后一章，我将向你展示如何通过响应关键的 Windows 事件来控制应用生命周期。我将向你展示如何修复 Visual Studio\
+  \ 添加到项目中的代码，如何正确处理应用的挂起与恢复，以及如何实现契约，让你的应用融入 Windows 8 提供的更广泛用户体验中。在此过程中，我将演示地理位置功能的使用，并展示如何设置和管理重复执行的异步任务。表\
+  \ 5-1 提供了本章的总结。\n\n表 5-1. 本章总结\n\n| 问题 | 解决方案 | 清单编号 |\n| --- | --- | --- |\n| 确保你的应用接收生命周期事件。\
+  \ | 处理 `Application` 类中定义的 `Suspending` 和 `Resuming` 事件。 | 1–2 |\n| 确保应用挂起时后台任务能够干净地终止。\
+  \ | 请求延迟，并利用这五秒的宽限期为挂起做准备。 | 3-6 |\n| 实现一个契约。 | 在你的代码中添加功能实现，并重写 `Application` 方法，以便在契约被调用时接收生命周期事件。\
+  \ | 7–9 |\n\n## 处理应用生命周期\n\n在第 1 章中，我向你展示了 Visual Studio 放置在 `App.xaml.cs` 文件中的骨架代码，以便快速启动我的示例项目。这段代码处理\
+  \ Windows 应用生命周期事件，确保我能够对操作系统发送给我的信号做出适当的响应。Windows 应用的生命周期有三个关键阶段。\n\n第一阶段是**激活**，发生在你的应用启动时。Windows\
+  \ 运行时将加载并处理你的内容，并在一切准备就绪时发出信号。例如，正是在激活阶段，我生成了示例应用的动态内容。\n\n用户通常不会关闭 Windows 应用；他们只是切换到另一个应用，让\
+  \ Windows 来处理后续事宜。这就是为什么 Windows 应用的用户界面上没有关闭按钮或菜单栏。一个不再需要的应用会被转入第二阶段，即**挂起**。当应用挂起时，不会执行任何代码，也不会与用户发生任何交互。\n\
+  \n如果用户切换回一个已挂起的应用，那么第三阶段就会发生：**恢复**应用。应用会显示给用户，并且应用代码的执行会恢复。挂起的应用并不总是会被恢复；例如，如果设备内存不足，Windows\
+  \ 可能直接终止一个挂起的应用。\n\n## 修正 Visual Studio 事件代码\n\n我需要做的第一个更改是从 `MainPage.xaml.cs`\
+  \ 代码隐藏文件中移除视图模型。一直以来，我逐步移动视图模型，以展示它在 Windows 应用中的核心作用。在本章中，我将向你展示一些功能，这些功能要求视图模型作为生命周期的一部分被创建。你可以在清单\
+  \ 5-1 中看到简化后的 `MainPage.xaml.cs` 文件。\n\n**清单 5-1.** 从 `MainPage.xaml.cs` 文件中移除视图模型实例化\n\
+  \n```\nusing GrocerApp.Data;\nusing System;\nusing Windows.Data.Xml.Dom;\nusing\
+  \ Windows.UI.Notifications;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  using Windows.UI.Xaml.Navigation;\n\nnamespace GrocerApp.Pages {\n\npublic sealed\
+  \ partial class MainPage : Page {\n        private ViewModel viewModel;\n\npublic\
+  \ MainPage() {\n            this.InitializeComponent();\n        }\n\nprivate void\
+  \ UpdateBadge() {\n            // . . .为简洁起见，省略了语句。. . .\n        }\n\nprivate void\
+  \ UpdateTile() {\n            // . . .为简洁起见，省略了语句。. . .\n        }\n\nprotected\
+  \ override void OnNavigatedTo(NavigationEventArgs e) {\n            viewModel =\
+  \ (ViewModel)e.Parameter;\n            this.DataContext = viewModel;\n\nMainFrame.Navigate(typeof(ListPage),\
+  \ viewModel);\n\nviewModel.GroceryList.CollectionChanged += (sender, args) => {\n\
+  \                UpdateTile();\n                UpdateBadge();\n            };\n\
+  \nUpdateTile();\n            UpdateBadge();\n        }\n\nprivate void NavBarButtonPress(object\
+  \ sender, RoutedEventArgs e) {\n            Boolean isListView = (Button)sender\
+  \ == ListViewButton;\n            MainFrame.Navigate(isListView ? typeof(ListPage)\n\
+  \                : typeof(DetailPage), viewModel);\n\n}\n    }\n}\n```\n\n现在，我可以转向\
+  \ `App.xaml.cs` 文件，并在模板代码的基础上构建，以响应应用生命周期的变化。不幸的是，Visual Studio 添加到项目中的用于处理生命周期事件的代码并不奏效。它可以很好地处理激活和挂起，但无法在应用被恢复时通知应用。幸运的是，解决方案非常简单，你可以在清单\
+  \ 5-2 中看到需要对 `App.xaml.cs` 进行的更改。\n\n**清单 5-2.** 处理生命周期通知事件\n\n```\nusing GrocerApp.Data;\n\
+  using System;\nusing Windows.ApplicationModel;\nusing Windows.ApplicationModel.Activation;\n\
+  using Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\nnamespace GrocerApp {\n\
+  \nsealed partial class App : Application {\n        private ViewModel viewModel;\n\
+  \npublic App() {\n            this.InitializeComponent();\n\nviewModel = new ViewModel();\n\
+  \nviewModel.StoreList.Add(\"Whole Foods\");\n            viewModel.StoreList.Add(\"\
+  Kroger\");\n            viewModel.StoreList.Add(\"Costco\");\n            viewModel.StoreList.Add(\"\
+  Walmart\");\n\nviewModel.GroceryList.Add(new GroceryItem {\n                Name\
+  \ = \"Apples\",\n                Quantity = 4, Store = \"Whole Foods\"\n       \
+  \     });\n            viewModel.GroceryList.Add(new GroceryItem {\n           \
+  \     Name = \"Hotdogs\",\n                Quantity = 12, Store = \"Costco\"\n \
+  \           });\n            viewModel.GroceryList.Add(new GroceryItem {\n     \
+  \           Name = \"Soda\",\n                Quantity = 2, Store = \"Costco\"\n\
+  \            });\n            viewModel.GroceryList.Add(new GroceryItem {\n    \
+  \            Name = \"Eggs\",\n                Quantity = 12, Store = \"Kroger\"\
+  \n            });\n\nthis.Suspending += OnSuspending;\n            this.Resuming\
+  \ += OnResuming;\n        }\n\nprotected override void OnLaunched(LaunchActivatedEventArgs\
+  \ args) {\n            Frame rootFrame = Window.Current.Content as Frame;\n\nif\
+  \ (rootFrame == null) {\n                rootFrame = new Frame();\n            \
+  \    if (args.PreviousExecutionState == ApplicationExecutionState.\n           \
+  \      Terminated)\n                {\n                    //TODO: 从先前挂起的应用程序加载状态\n\
+  \                }\n                Window.Current.Content = rootFrame;\n      \
+  \      }\n\nif (rootFrame.Content == null) {\n\nif (!rootFrame.Navigate(typeof(Pages.MainPage),\
+  \ viewModel)) {\n                    throw new Exception(\"无法创建初始页面\");\n      \
+  \          }\n            }\n            Window.Current.Activate();\n        }\n\
+  \nprivate void OnResuming(object sender, object e) {\n            viewModel.GroceryList[1].Name\
+  \ = \"Resume\";\n        }\n\nprivate void OnSuspending(object sender, SuspendingEventArgs\
+  \ e) {\n            var deferral = e.SuspendingOperation.GetDeferral();\n      \
+  \      viewModel.GroceryList[0].Name = \"Suspend\";\n            deferral.Complete();\n\
+  \        }\n    }\n}\n```\n\n我已高亮显示最重要的更改，即注册 `Suspending` 和 `Resuming` 事件，并向这些事件的处理方法中添加了语句。Visual\
+  \ Studio 在创建类时包含了一个用于处理 `Suspending` 事件的处理程序，但我必须添加 `Resuming` 处理程序才能收到事件通知。我移除了\
+  \ `OnLaunched` 方法中的代码，这些代码试图（但未能）判断应用何时被恢复。\n\n\n\n"
+- "# 我的应用目前没有执行任何会受到应用挂起和恢复影响的任务，但我想向您展示如何测试这些事件\n\n为此，我通过更改视图模型中 `GroceryList` 集合前两个项目的\
+  \ `Name` 属性来响应 `Suspending` 和 `Resuming` 事件，以指示何时收到这些事件。\n\n## 模拟生命周期事件\n\n模拟生命周期事件最简单的方法是使用\
+  \ Visual Studio。当您使用调试器启动应用时，Visual Studio 会在工具栏上显示一个菜单，允许您将生命周期事件发送到应用，我在图 5-1\
+  \ 中高亮显示了该菜单。\n\n![9781430250340_Fig05-01.jpg](img/9781430250340_Fig05-01.jpg)\n\n\
+  图 5-1。向应用发送生命周期事件的 Visual Studio 按钮\n\n如果您选择菜单项来挂起然后恢复应用，您将看到视图模型数据的变化，如图 5-2 所示。（直到您恢复应用后，您才会看到这些变化；一旦应用被挂起，将不再处理任何\
+  \ UI 更新。）\n\n![9781430250340_Fig05-02.jpg](img/9781430250340_Fig05-02.jpg)\n\n图\
+  \ 5-2。指示已收到生命周期事件\n\n## 测试生命周期事件\n\n模拟生命周期事件的问题在于，您得到的结果与事件自然发生时并不完全相同。要模拟实际情况，您需要在不使用调试器的情况下启动应用，这正是通过视图模型指示已收到事件非常有用的原因。创建触发事件的条件需要一些特定操作，我将在以下部分逐步说明。\n\
+  \n### 激活应用\n\n要触发 `activated` 事件，请从 Visual Studio 的 **调试** 菜单中选择 **启动但不调试** 来启动应用。您也可以从\
+  \ **开始** 屏幕启动应用，无论是在模拟器中还是在本地机器上。关键点在于不要使用调试器启动应用。\n\n### 挂起应用\n\n挂起应用最简单的方法是按下\
+  \ `Win+D` 切换到桌面。打开 **任务管理器**，右键单击您的应用对应的项目，然后从弹出菜单中选择 **转到详细信息**。**任务管理器** 将切换到\
+  \ **详细信息** 选项卡，并选中 `WWAHost.exe` 进程，该进程负责运行应用。几秒钟后，**状态** 列中显示的值将从 **正在运行** 变为 **已挂起**，这告诉您\
+  \ Windows 已挂起该应用。应用将已收到 `Suspending` 事件（但在应用恢复之前，您不会看到相关证据）。\n\n### 恢复应用\n\n切换回应用将恢复它。您将看到视图模型项目显示已收到事件。恢复后的应用状态与挂起时的状态完全相同。您的布局、数据、事件处理程序以及其他所有内容都将保持不变。\n\
+  \n您的应用可能已被挂起较长时间，尤其是当设备进入低功耗状态（如睡眠状态）时。网络连接将被您之前通信的任何服务器关闭（因此，当您收到 `Suspending`\
+  \ 事件时，应显式关闭它们），并且在应用恢复时必须重新打开。您还需要刷新可能已过时的数据；这包括位置数据，因为在应用挂起期间设备可能已被移动。\n\n> **提示**\
+  \ Windows 允许用户通过按下 `Alt+F4` 终止应用。没有有用的警告事件让您有机会整理您的数据和操作。相反，Windows 只会终止您的应用进程。\n\
+  \n## 添加后台活动\n\n既然我已确认我的应用能够接收并响应 `Resuming` 和 `Suspending` 事件，我可以添加一些需要定期后台任务的功能。在本例中，我将使用地理定位服务来报告当前设备位置。首先，我在\
+  \ `Data` 项目文件夹中创建了一个名为 `Location.cs` 的新类文件。该文件的内容如清单 5-3 所示。\n\n**清单 5-3.** `Location.cs`\
+  \ 文件\n\n```\nusing System;\nusing System.Net.Http;\nusing System.Threading.Tasks;\n\
+  using Windows.Data.Json;\nusing Windows.Devices.Geolocation;\n\nnamespace GrocerApp.Data\
+  \ {\n    class Location {\n\n        public static async Task<string> TrackLocation()\
+  \ {\n            Geolocator geoloc = new Geolocator();\n            Geoposition\
+  \ position = await geoloc.GetGeopositionAsync();\n\n            HttpClient httpClient\
+  \ = new HttpClient();\n            httpClient.BaseAddress = new Uri(\"http://nominatim.openstreetmap.org\"\
+  );\n            HttpResponseMessage httpResult = await httpClient.GetAsync(\n  \
+  \              String.Format(\"reverse?format=json&lat={0}&lon={1}\",\n        \
+  \        position.Coordinate.Latitude, position.Coordinate.Longitude));\n\n    \
+  \        JsonObject jsonObject = JsonObject\n                .Parse(await httpResult.Content.ReadAsStringAsync());\n\
+  \n            return jsonObject.GetNamedObject(\"address\")\n                .GetNamedString(\"\
+  road\") + DateTime.Now.ToString(\"' ('HH:mm:ss')'\");\n        }\n    }\n}\n```\n\
+  \n此类使用 Windows 8 的地理定位功能来获取设备位置。此功能通过 `Windows.Devices.Geolocation` 命名空间中的 `Geolocator`\
+  \ 类公开，`GetGeopositionAsync` 方法获取位置的单个快照（而非通过事件提供位置更新，这是 `Geolocator` 类支持的另一种方法）。\n\
+  \n> **注意** 新的 C# `await` 关键字表明我已进入并行/异步编程领域。这是一个高级示例，使用任务并行库 (TPL) 来创建和管理后台任务。我不会在这本小书中深入介绍\
+  \ TPL 和 .NET 并行编程的细节。如果您想了解更详细信息，我建议您参考我的 *Pro .NET 4 Parallel Programming in C#*\
+  \ 一书，其中提供了完整的详细信息。`await` 关键字是 C# 4.5 的新增功能，意思是“等待此异步任务完成。”\n\n一旦获取了设备位置，我会向反向地理编码服务发出\
+  \ HTTP 请求，这使我能够将地理定位服务中的纬度和经度信息转换为街道地址。地理编码服务返回一个 JSON 字符串，我将其解析为 C# 对象，以便读取街道信息。`TrackLocation`\
+  \ 方法的结果是一个字符串，其中列出了设备所在街道的名称以及指示位置更新时间的时间戳。\n\n> **提示** 我使用了 `OpenStreetMap` 地理编码服务，因为它不需要唯一的帐户令牌。这意味着您无需创建\
+  \ Google Maps 或 Bing Maps 开发人员帐户即可运行此示例。\n\n## 扩展视图模型\n\n我将扩展视图模型，使其能够跟踪 `TrackLocation`\
+  \ 方法生成的位置数据。这将使我能够使用数据绑定向用户显示数据。清单 5-4 显示了我对 `ViewModel` 类所做的添加。\n\n**清单 5-4.**\
+  \ 更新视图模型以捕获位置数据\n\n```\nusing System.Collections.Generic;\nusing System.Collections.ObjectModel;\n\
+  using System.ComponentModel;\n\n\n```csharp\nnamespace GrocerApp.Data {\n    public\
+  \ class ViewModel : INotifyPropertyChanged {\n        private ObservableCollection<GroceryItem>\
+  \ groceryList;\n        private List<string> storeList;\n        private int selectedItemIndex;\n\
+  \        private string homeZipCode;\n        private string location;\n\n     \
+  \   public ViewModel() {\n            groceryList = new ObservableCollection<GroceryItem>();\n\
+  \            storeList = new List<string>();\n            selectedItemIndex = -1;\n\
+  \            homeZipCode = \"NY 10118\";\n            location = \"Unknown\";\n\
+  \        }\n\n        public string Location {\n            get { return location;\
+  \ }\n            set { location = value; NotifyPropertyChanged(\"Location\"); }\n\
+  \        }\n\n        // ...为简洁起见，省略了其他属性...\n\n        public event PropertyChangedEventHandler\
+  \ PropertyChanged;\n        private void NotifyPropertyChanged(string propName)\
+  \ {\n            if (PropertyChanged != null) {\n                PropertyChanged(this,\
+  \ new PropertyChangedEventArgs(propName));\n            }\n        }\n    }\n}\n\
+  ```\n\n## 显示位置数据\n\n我已更新`MainPage.xaml`文件，添加了向用户显示位置数据的控件。数据绑定确保使用视图模型中的当前信息，这意味着无需修改代码隐藏文件。清单\
+  \ 5-5 展示了新增的控件。\n\n**清单 5-5 在 XAML 文件中添加控件以显示位置数据**\n\n```xml\n<Page\n    x:Class=\"\
+  GrocerApp.Pages.MainPage\"\n    xmlns=\" http://schemas.microsoft.com/winfx/2006/xaml/presentation\
+  \ \"\n    xmlns:x=\" http://schemas.microsoft.com/winfx/2006/xaml \"\n    xmlns:local=\"\
+  using:GrocerApp.Pages\"\n    xmlns:d=\" http://schemas.microsoft.com/expression/blend/2008\
+  \ \"\n    xmlns:mc=\" http://schemas.openxmlformats.org/markup-compatibility/2006\
+  \ \"\n    mc:Ignorable=\"d\">\n\n    <Page.TopAppBar>\n        <AppBar>\n      \
+  \      <StackPanel Orientation=\"Horizontal\" HorizontalAlignment=\"Center\">\n\
+  \                <Button x:Name=\"ListViewButton\"\n                    Style=\"\
+  {StaticResource AppBarButtonStyle}\"\n                    AutomationProperties.Name=\"\
+  List View\"\n                    Content=\"\" Click=\"NavBarButtonPress\"/>\n\n\
+  \                <Button x:Name=\"DetailViewButton\"\n                    Style=\"\
+  {StaticResource AppBarButtonStyle}\"\n                    AutomationProperties.Name=\"\
+  Detail View\"\n                    Content=\"\" Click=\"NavBarButtonPress\"/>\n\
+  \            </StackPanel>\n        </AppBar>\n    </Page.TopAppBar>\n\n    <Grid\
+  \ Background=\"{StaticResource AppBackgroundColor}\">\n        <Grid.RowDefinitions>\n\
+  \            <RowDefinition Height=\"Auto\"/>\n            <RowDefinition Height=\"\
+  *\"/>\n        </Grid.RowDefinitions>\n\n        <StackPanel Orientation=\"Horizontal\"\
+  \ HorizontalAlignment=\"Center\" >\n            <TextBlock FontSize=\"30\" Text=\"\
+  Your location is:\" Margin=\"0,0,10,0\" />\n            <TextBlock FontSize=\"30\"\
+  \ Text=\"{Binding Path=Location}\" />\n        </StackPanel>\n\n        <Frame x:Name=\"\
+  MainFrame\" Grid.Row=\"1\" />\n    </Grid>\n</Page>\n```\n\n## 声明应用功能\n\n应用必须在其清单中声明访问位置服务的需求。在运行更新后的应用之前，请打开`package.appxmanifest`，切换到“功能”选项卡，确保已勾选“位置”功能（如图\
+  \ 5-3 所示），然后保存文件。你的应用还需要“Internet（客户端）”功能，但 Visual Studio 创建项目时默认已声明该功能。\n\n![9781430250340_Fig05-03.jpg](img/9781430250340_Fig05-03.jpg)\n\
+  \n图 5-3 在清单中启用功能\n\n## 控制后台任务\n\n所有基础工作就绪后，我可以转向后台任务的管理以及与生命周期事件的集成——毕竟这些才是本例的核心。清单\
+  \ 5-6 展示了我对`App.xaml.cs`文件所做的更改。\n\n![image](img/sq.jpg) **注意** 再次强调，这是一个高级示例。如果你不熟悉\
+  \ .NET 并行编程模型，请跳转到下一节，我将演示如何在应用中实现 Windows 协定。\n\n**清单 5-6 为后台任务更新 App.xaml.cs 文件**\n\
+  \n```csharp\nusing GrocerApp.Data;\nusing System;\nusing System.Threading;\nusing\
+  \ System.Threading.Tasks;\nusing Windows.ApplicationModel;\nusing Windows.ApplicationModel.Activation;\n\
+  using Windows.UI.Core;\nusing Windows.UI.Xaml;\nusing Windows.UI.Xaml.Controls;\n\
+  \nnamespace GrocerApp {\n\n    sealed partial class App : Application {\n      \
+  \  private ViewModel viewModel;\n        private Task locationTask;\n        private\
+  \ CancellationTokenSource locationTokenSource;\n\n        public App() {\n     \
+  \       this.InitializeComponent();\n\n            viewModel = new ViewModel();\n\
+  \n            // ...为简洁起见，删除了测试数据...\n\n            this.Suspending += OnSuspending;\n\
+  \            this.Resuming += OnResuming;\n        }\n\n        protected override\
+  \ void OnLaunched(LaunchActivatedEventArgs args) {\n            Frame rootFrame\
+  \ = Window.Current.Content as Frame;\n\n            if (rootFrame == null) {\n \
+  \               rootFrame = new Frame();\n                Window.Current.Content\
+  \ = rootFrame;\n            }\n\n            if (rootFrame.Content == null) {\n\n\
+  \                if (!rootFrame.Navigate(typeof(Pages.MainPage), viewModel)) {\n\
+  \                    throw new Exception(\"创建初始页面失败\");\n                }\n   \
+  \         }\n            Window.Current.Activate();\n            StartLocationTracking(rootFrame);\n\
+  \        }\n\n        private void OnResuming(object sender, object e) {\n     \
+  \       viewModel.Location = \"Unknown\";\n            StartLocationTracking(Window.Current.Content\
+  \ as Frame);\n        }\n\n        private void OnSuspending(object sender, SuspendingEventArgs\
+  \ e) {\n            StopLocationTracking();\n            SuspendingDeferral deferral\
+  \ = e.SuspendingOperation.GetDeferral();\n            locationTask.Wait();\n   \
+  \         deferral.Complete();\n        }\n\n        private void StartLocationTracking(Frame\
+  \ frame) {\n            locationTokenSource = new CancellationTokenSource();\n \
+  \           CancellationToken token = locationTokenSource.Token;\n\n           \
+  \ locationTask = new Task(async () => {\n                while (!token.IsCancellationRequested)\
+  \ {\n                    await frame.Dispatcher.RunAsync(CoreDispatcherPriority.\n\
+  \                    Normal,\n                        async () => {\n          \
+  \                  viewModel.Location = await Location.\n                      \
+  \      TrackLocation();\n                        });\n                    token.WaitHandle.WaitOne(5000);\n\
+  \                }\n            });\n            locationTask.Start();\n       \
+  \ }\n\n        private void StopLocationTracking() {\n            locationTokenSource.Cancel();\n\
+  \        }\n    }\n}\n```\n\n对此类的更改代表了两种不同的活动。第一种是以后台任务的形式追踪用户位置，包含在`StartLocationTracking`和`StopLocationTracking`方法中。我希望你将这两个方法视为黑盒，因为我无法深入探讨我所依赖的\
+  \ TPL 概念和特性。关键信息是：`StartLocationTracking`方法启动一个后台活动，每五秒报告一次位置；而`StopLocationTracking`方法则取消该任务。\n\
+  \n我*真正*想讨论的是如何将这个后台任务与生命周期事件集成。响应应用启动或`Resuming`事件很简单；只需调用`StartLocationTracking`方法即可。\n\
+  \n对于`Suspending`事件，我希望确保后台任务在应用挂起前已完成。如果不采取这一步，我就面临两种风险：要么在应用恢复时显示过期数据，要么因尝试读取网络请求（该请求可能已在应用挂起期间被服务器关闭）而导致错误。\n\
+  \n\n# 为了解决这个问题，`SuspendingEventArgs.SuspendingOperation.GetDeferral` 方法会告知 Windows\
+  \ 运行时：我尚未准备好让应用被挂起，还需要一些额外时间。这为我提供了一个短暂的时间窗口来完成任务的等待。`GetDeferral` 方法返回一个 `SuspendingDeferral`\
+  \ 对象，当应用准备好被挂起时，我会调用它的 `Complete` 方法。\n\n请求延迟执行可以为准备挂起状态争取额外的五秒钟时间。这听起来似乎不多，但考虑到\
+  \ Windows 可能正承受巨大压力，需要让您的应用让出系统资源，这已经显得相当慷慨了。\n\n## 分发 UI 更新\n\n清单 5-6 中另一个值得注意的方面是：\n\
+  \n```\n. . .\nawait frame.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,\n    async\
+  \ () => {\n        viewModel.Location = await Location.TrackLocation();\n});\n.\
+  \ . .\n```\n\nWindows 只允许通过指定的线程来更新 UI 控件；该线程正是用于实例化应用的线程。如果我在后台任务中更新视图模型，由此触发的事件最终会导致错误的线程尝试更新数据绑定并向用户显示位置信息。这将会引发一个异常，并显示如下详细消息：\n\
+  \n```\nThe application called an interface that was marshalled for a different thread\n\
+  ```\n\n我需要确保使用 `Dispatcher` 在正确的线程上推送更新。然而，我的 `App` 类所派生的 `Application` 类中并没有可用的\
+  \ `Dispatcher` 属性。为了解决这个问题，我使用了在 `OnLaunched` 方法中创建的 `Frame` 控件中的 `Dispatcher`。\n\
+  \n## 测试后台任务\n\n剩下的工作就是测试后台任务是否与生命周期事件正确配合。最简单的方法是使用模拟器，它支持模拟位置数据。\n\n首先，在模拟器中定义一个位置（模拟器窗口右侧的某个按钮可以打开“设置位置”对话框，您可以在其中输入位置）。\n\
+  \n指定位置后，启动应用，请务必在不使用调试器的情况下启动。几秒钟后，您将看到应用窗口顶部显示的位置信息，如图 5-4 所示。\n\n![image](img/sq.jpg)\
+  \ **提示** 我在本示例中使用了帝国大厦的坐标。如果您也想这样做，请使用“设置位置”对话框，指定纬度值 40.748 和经度值 -73.98。\n\n![9781430250340_Fig05-04.jpg](img/9781430250340_Fig05-04.jpg)\n\
+  \n图 5-4. 向用户显示位置信息\n\n切换到桌面，使用任务管理器监控应用，直到其被挂起。在应用挂起期间，使用模拟器的“设置位置”对话框更改位置。\n\n\
+  恢复示例应用。`Resuming` 事件将重新启动后台任务，确保显示最新数据。\n\n![image](img/sq.jpg) **提示** 您可能需要授予模拟器和应用访问您位置数据的权限。系统会自动检查所需设置并提示您对系统配置进行必要的更改。\n\
+  \n## 实现协定\n\n`Suspending` 和 `Resuming` 并非唯一的生命周期事件。还有其他事件，这些事件被 Windows 用作*协定*体系的一部分，这些协定能让您的应用与操作系统的其他部分更紧密地集成。在本节中，我将演示*搜索*协定，它告诉\
+  \ Windows 我的应用愿意并且能够使用平台范围的搜索功能。\n\n### 声明对协定的支持\n\n实现协定的第一步是更新清单文件。打开 `Package.appxmanifest`\
+  \ 文件并切换到“声明”选项卡。如果打开“可用声明”菜单，您将看到可以声明支持的协定列表。选择“搜索”并点击“添加”按钮。“搜索”协定将出现在“支持的声明”列表中，如图\
+  \ 5-5 所示。\n\n![9781430250340_Fig05-05.jpg](img/9781430250340_Fig05-05.jpg)\n\n图\
+  \ 5-5. 声明对搜索协定的支持\n\n忽略该协定中的 `Properties` 部分；这些设置允许您将搜索协定下的义务委托给另一个应用，不过我不会这么做。\n\
+  \n### 实现搜索功能\n\n搜索协定的目的是将操作系统搜索系统与您应用中的某种搜索功能连接起来。以我的示例应用为例，我将通过遍历购物清单上的项目，并选择第一个包含用户正在搜索的字符串的项目来处理搜索请求。这不会是最复杂的搜索实现，但它能让我专注于协定本身，而不会被创建大量新代码来处理搜索所困扰。我在\
+  \ `ViewModel` 类中添加了一个名为 `SearchAndSelect` 的方法，如清单 5-7 所示。\n\n***清单 5-7.** 向视图模型添加搜索支持*\n\
+  \n```\nusing System.Collections.Generic;\nusing System.Collections.ObjectModel;\n\
+  using System.ComponentModel;\n\nnamespace GrocerApp.Data {\n    public class ViewModel\
+  \ : INotifyPropertyChanged {\n        private ObservableCollection<GroceryItem>\
+  \ groceryList;\n        private List<string> storeList;\n        private int selectedItemIndex;\n\
+          private string homeZipCode;\n        private string location;\n\npublic\
+  \ ViewModel() {\n            groceryList = new ObservableCollection<GroceryItem>();\n\
+              storeList = new List<string>();\n            selectedItemIndex = -1;\n\
+              homeZipCode = \"NY 10118\";\n            location = \"Unknown\";\n        }\n\
+  \npublic void SearchAndSelect(string searchTerm) {\n            int selIndex = -1;\n\
+              for (int i = 0; i < GroceryList.Count; i++) {\n                if (GroceryList[i].Name.ToLower().Contains(searchTerm.\n\
+                  ToLower())) {\n                    selIndex = i;\n                    break;\n\
+                  }\n            }\n            SelectedItemIndex = selIndex;\n        }\n\
+  \n// ...为简洁起见，省略了属性...\n\npublic event PropertyChangedEventHandler PropertyChanged;\n\
+          private void NotifyPropertyChanged(string propName) {\n            if (PropertyChanged\
+  \ != null) {\n                 PropertyChanged(this, new PropertyChangedEventArgs(propName));\n\
+              }\n        }\n    }\n}\n```\n\n此方法将接收用户正在搜索的字符串。它会查找购物清单中的项目，并将选中项设置为找到的第一个匹配项，如果未找到匹配项，则设置为\
+  \ `-1`。由于 `SelectedItemIndex` 属性是可观察的，这意味着搜索某个项目将选中它，并在应用布局中显示其详细信息。\n\n我希望 `ListPage`\
+  \ 中的 `ListView` 控件能够选中匹配的项目，因此我对 `ListPage.xaml.cs` 代码隐藏类做了一个小改动，如清单 5-8 所示。\n\n\
+  ***清单 5-8.** 确保正确显示选中项*\n\n```\n. . .\nprotected override void OnNavigatedTo(NavigationEventArgs\
+  \ e) {\n\nviewModel = (ViewModel)e.Parameter;\n```\n\n\n\n`ItemDetailFrame.Navigate(typeof(NoItemSelected));<br>    viewModel.PropertyChanged\
+  \ += (sender, args) => {<br>        if (args.PropertyName == \"SelectedItemIndex\"\
+  ) {<br>            groceryList.SelectedIndex = viewModel.SelectedItemIndex;<br>            if\
+  \ (viewModel.SelectedItemIndex == -1) {<br>                ItemDetailFrame.Navigate(typeof(NoItemSelected));<br>                AppBarDoneButton.IsEnabled\
+  \ = false;<br>            } else {<br>                ItemDetailFrame.Navigate(typeof(ItemDetail),\
+  \ viewModel);<br>                AppBarDoneButton.IsEnabled = true;<br>            }<br>        }<br>    };<br>}`\n\
+  \n## 响应搜索生命周期事件\n\n`Application` 类通过为每个协定提供可重写的方法，使得实现协定变得非常容易。清单 5-9 展示了我对 `OnSearchActivated`\
+  \ 方法的实现，当用户通过搜索指定我的应用作为目标时，就会调用该方法。\n\n***清单 5-9.** 响应搜索*\n\n```\nusing GrocerApp.Data;\n\
+  using System;\nusing System.Threading;\nusing System.Threading.Tasks;\nusing Windows.ApplicationModel;\n\
+  using Windows.ApplicationModel.Activation;\nusing Windows.UI.Core;\nusing Windows.UI.Xaml;\n\
+  using Windows.UI.Xaml.Controls;\n\nnamespace GrocerApp {\n\nsealed partial class\
+  \ App : Application {\n        private ViewModel viewModel;\n        private Task\
+  \ locationTask;\n        private CancellationTokenSource locationTokenSource;\n\n\
+  public App() {\n            this.InitializeComponent();\n\nviewModel = new ViewModel();\n\
+  \n// ...为简洁起见，省略测试数据...\n            this.Suspending += OnSuspending;\n        \
+  \    this.Resuming += OnResuming;\n        }\n\nprotected override void OnLaunched(LaunchActivatedEventArgs\
+  \ args) {\n            Frame rootFrame = Window.Current.Content as Frame;\n\nif\
+  \ (rootFrame == null) {\n                rootFrame = new Frame();\n            \
+  \    Window.Current.Content = rootFrame;\n            }\n\nif (rootFrame.Content\
+  \ == null) {\n\nif (!rootFrame.Navigate(typeof(Pages.MainPage), viewModel)) {\n\
+  \                    throw new Exception(\"无法创建初始页面\");\n                }\n   \
+  \         }\n            Window.Current.Activate();\n            StartLocationTracking(rootFrame);\n\
+  \        }\n\nprotected override void OnSearchActivated(SearchActivatedEventArgs\
+  \ args) {\n            viewModel.SearchAndSelect(args.QueryText);\n        }\n\n\
+  private void OnResuming(object sender, object e) {\n            // ...为简洁起见，省略语句...\n\
+  \        }\n\nprivate void OnSuspending(object sender, SuspendingEventArgs e) {\n\
+  \            // ...为简洁起见，省略语句...\n        }\n\nprivate void StartLocationTracking(Frame\
+  \ frame) {\n            // ...为简洁起见，省略语句...\n        }\n\nprivate void StopLocationTracking()\
+  \ {\n            locationTokenSource.Cancel();\n        }\n    }\n}\n```\n\n这便满足了搜索协定的全部要求；通过重写\
+  \ `OnSearchActivated` 方法，我使 Windows 能够代表用户搜索我的应用。\n\n### 测试搜索协定\n\n要测试该协定，请启动示例应用。无论是否使用调试器启动都可以。调出超级按钮栏并选择搜索图标。示例应用将自动被选为搜索目标。要开始搜索，只需开始输入。\n\
+  \n当您点击文本框右侧的搜索按钮时，Windows 将调用搜索协定并将查询字符串传递给示例应用。您需要搜索能够匹配的内容，因此请输入 `hot`（这样您的搜索将匹配购物清单中的热狗项目）并点击按钮。您将看到类似图\
+  \ 5-6 的内容。\n\n![9781430250340_Fig05-06.jpg](img/9781430250340_Fig05-06.jpg)\n\n\
+  图 5-6。使用协定搜索应用\n\n我确实很喜欢这种协定方式。这是一个非常简单的搜索协定实现，但您可以看到仅用几行代码就能如此轻松地集成到 Windows 中。您可以在我所做的基础上更进一步，完全自定义应用处理和响应搜索的方式。\n\
+  \n## 总结\n\n在本章中，我向您展示了如何使用生命周期事件来响应 Windows 管理应用的方式。我描述了关键事件，并向您展示了如何响应这些事件，以确保您的应用能够正确接收和处理它们。\n\
+  \n当应用被挂起时，必须特别注意干净利落地结束后台任务，我向您展示了如何通过请求挂起推迟来控制此过程，从而争取额外的几秒钟时间，以最大程度地降低应用恢复时出现潜在错误或陈旧数据的风险。\n\
+  \n最后，我向您展示了生命周期事件如何使您能够履行将应用绑定到更广泛的 Windows 平台的协定，以及满足这些协定指定的要求是多么容易。我向您展示了搜索协定，但还有其他几个协定，我建议您花时间全面探索它们。您实现的协定越多，您的应用与\
+  \ Windows 的其他部分以及其他集成应用的集成度就越高。\n\n在这本书中，我旨在向您展示能够加速您应用开发的核心系统功能。我向您展示了如何使用数据绑定、如何使用主要的结构控件、如何处理贴靠和填充布局、如何自定义应用磁贴，以及在本章中，如何控制应用生命周期。以这些技能为基础，您将能够创建丰富且富有表现力的应用，并在\
+  \ Windows 8 开发中抢占先机。祝您在应用开发项目中取得圆满成功。\n\n# 索引\n\n![images](img/square1.jpg) A\n\n\
+  - 添加项目浮出控件\n- AppBarButtonClick 方法\n- 应用程序栏 (AppBar)\n    - 添加\n    - 按钮样式\n   \
+  \ - 字符映射表工具\n    - 自定义创建\n    - 实现\n    - ListPage.xaml 文件\n    - StackPanel\n \
+  \   - 向上轻扫手势\n    - XAML 文件\n    - 弹出窗口\n- 应用生命周期事件\n    - 后台活动\n    - App.xaml.cs\
+  \ 文件\n    - Geolocator 类\n    - GetDeferral 方法\n    - Location.cs 文件\n    - 位置数据\n\
+  \    - 清单\n    - 恢复和挂起\n    - 恢复事件\n    - StopLocationTracking 方法\n    - 挂起事件\n\
+  \    - 测试\n    - TrackLocation 方法\n    - 用户界面更新\n    - ViewModel 类\n    - 地理定位功能\n\
+  \        - 模拟\n        - 测试\n    - Visual Studio 事件代码\n    - Windows 应用\n- App.xaml.cs\
+  \ 文件\n- AutomationProperties.Name 属性\n\n![images](img/square1.jpg) B\n\n- BottomAppBar\
+  \ 属性\n- ButtonClick 方法\n\n\n\n# 索引\n\n- `C`\n  - `点击事件处理函数`\n  - `合同`\n  - `应用程序类`\n\
+  \  - `声明`\n  - `定义`\n  - `搜索功能`\n  - `测试`\n\n- `D`\n  - `数据绑定与页面`\n  - `动态插入`\n\
+  \  - `ComboBox 控件`\n    - `实现`\n    - `ItemDetail.xaml 文件`\n    - `资源字典`\n    -\
+  \ `切换`\n    - `功能`\n    - `插入`\n  - `Frame 控件`\n  - `ListPage.xaml.cs 文件`\n  - `Navigate\
+  \ 方法`\n  - `NoItemSelected.xaml`\n    - `主布局`\n  - `AppBackgroundColor`\n  - `App.xaml.cs`\n\
+  \  - `App.xaml 文件`\n    - `构造函数`\n    - `数据源`\n    - `声明`\n    - `定义`\n    - `设计图面`\n\
+  \    - `Grid 控件`\n    - `GroceryListItem`\n    - `ItemTemplate 属性`\n    - `ListPage.xaml.cs\
+  \ 文件`\n    - `ListPage.xaml 文件`\n    - `微观级属性`\n    - `资源字典`\n    - `SelectedIndex\
+  \ 属性`\n    - `StaticResource`\n    - `Style 属性`\n    - `Text 属性`\n    - `Windows\
+  \ 应用`\n    - `XAML`\n  - `MVC`\n  - `MVVC`\n  - `模拟器`\n  - `视图模型`\n    - `类实现`\n\
+  \    - `定义`\n    - `GroceryItem 类`\n    - `INotifyPropertyChanged`\n    - `ObservableCollection\
+  \ 类`\n    - `可观察属性`\n    - `Windows 应用 UI 控件`\n  - `DataContext 属性`\n  - `DetailPage_SizeChanged\
+  \ 方法`\n  - `DisplayMemberPath 属性`\n\n- `E`\n  - `事件处理方法`\n\n- `F`\n  - `浮出控件`\n\
+  \    - `AddItemFlyout.xaml.cs 文件`\n    - `AddItemFlyout.xaml 文件`\n    - `应用栏按钮`\n\
+  \    - `DataContext 属性`\n    - `声明`\n    - `Frame 控件`\n    - `JavaScript Windows\
+  \ 8`\n    - `ListPage.xaml.cs 文件`\n    - `ListPage.xaml 文件`\n    - `弹出控件`\n    -\
+  \ `位置`\n    - `显示与隐藏`\n    - `用户控件`\n  - `自定义样式`\n    - `定义`\n\n\n\n\n-   `HomeZipCodeFlyout.xaml`\n\
+  -   `HomeZipCodeFlyout.xaml.cs` 文件\n-   `Popup` 控件\n-   `Width` 和 `Height` 属性\n\
+  -   XAML 元素\n-   `ViewModel` 对象\n-   `Frame.Navigate` 方法\n-   `Frame.Navigate` 模型\n\
+  -   `GetDeferral` 方法\n-   `GetGeopositionAsync` 方法\n-   `GrocerApp`\n-   `HandleItemChange`\
+  \ 方法\n-   `HomeZipCode`\n-   `HomeZipCodeFlyout` 类\n-   `HomeZipCodeFlyout.xaml`\
+  \ 文件\n-   `HomeZipCode` 属性\n-   `IsChecked` 属性\n-   `IsLightDismissEnabled` 属性\n\
+  -   横屏与竖屏模式\n-   `MainPage` 类\n-   Microsoft Windows 8\n-   AppBars、Flyouts 和 NavBars\n\
+  -   代码片段\n-   数据、绑定和页面\n-   特性\n-   `GrocerApp`\n-   关键技术\n-   布局与磁贴\n-   生命周期与合约\n\
+  -   项目元素\n-   `App.xaml.cs` 文件\n-   `App.xaml` 文件\n-   内容\n-   创建\n-   `MainPage.xaml`\
+  \ 文件\n-   `Package.appxmanifest`\n-   `StandardStyles.xaml` 文件\n-   运行与调试\n-   断点\n\
+  -   按钮\n-   本地计算机\n-   远程计算机\n-   Visual Studio 模拟器\n-   所需软件\n-   Visual Studio\
+  \ 2012\n-   WPF/Silverlight 项目\n-   XAML 概述\n-   Button 元素\n-   C# 类\n-   配置\n-\
+  \   事件处理方法\n-   特性\n-   `MainPage.xaml.cs` 文件\n-   .NET 类\n-   分部类\n-   `StackPanel`\n\
+  -   样式\n-   Visual Studio 设计图面\n-   模型-视图-控制器 (MVC)\n-   模型-视图-视图控制器 (MVVC)\n- \
+  \  `Navigate` 方法\n-   导航栏 (NavBar)\n-   `DetailPage.xaml` 文件\n-   测试\n-   包装器\n\
+  -   `App.xaml.cs` 文件\n-   `MainPage.xaml.cs` 文件\n-   `MainPage.xaml` 文件\n-   机制\n\
+  -   `ViewModel` 对象\n-   `ObservableCollection` 类\n-   `OnLaunched` 方法\n-   `OnNavigatedTo`\
+  \ 方法\n-   `OnSearchActivated` 方法\n-   `Package.appxmanifest` 文件\n-   `Page.BottomAppBar`\
+  \ 属性\n-   `Page.TopAppBar` 属性\n-   `PopupTextStyle` 样式\n-   `Resources/GrocerResourceDictionary.xaml`\
+  \ 文件\n-   `SelectedItemIndex`\n-   `SetItemDetail` 方法\n-   `ShowRelativeToAppBar`\
+  \ 方法\n-   贴靠与填充功能\n-   `StandardStyles.xaml` 文件\n-   `StartLocationTracking` 方法\n\
+  -   静态宽磁贴\n-   `StopLocationTracking` 方法\n-   `SuspendingEventArgs.SuspendingOperation.GetDeferral`\
+  \ 方法\n-   `System.Diagnostcs.Debug.WriteLine` 方法\n-   磁贴模型\n-   磁贴与锁屏提醒\n-   创建\n\
+  -   API 文档\n-   `ListPage` 类\n-   本地计算机\n-   `MainPage` 类\n-   粘性\n-   `UpdateTile`\
+  \ 方法\n-   XML 片段\n-   XML 模板\n-   动态创建\n-   摩擦与挫折\n-   `MainPage` 类\n-   数字与图像锁屏提醒\n\
+  -   静态图标\n-   静态改进\n-   宽形与方形\n-   `TrackLocation` 方法\n-   `TryUnsnap` 方法\n-   视图\n\
+  -   代码更改\n-   `DetailPage.xaml` 文件\n-   `DetailViewLabelStyle`\n-   贴靠或填充的应用\n-\
+  \   `TryUnsnap` 方法\n-   XAML 更改\n-   Visual Studio 事件代码\n-   XAML 语法\n\n"

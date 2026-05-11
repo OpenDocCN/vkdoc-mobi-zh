@@ -1,0 +1,1291 @@
+- "\n![](img/A978-1-4302-6488-0_CoverFigure_HTML.jpg)\n\n![A978-1-4302-6488-0_CoverFigure_HTML.jpg](img/A978-1-4302-6488-0_CoverFigure_HTML.jpg)\
+  \  \n马修·坎贝尔  \n《Objective-C 快速语法参考》  \n10.1007/978-1-4302-6488-0  \n© Apress 2013\n\
+  \n马修·坎贝尔《Objective-C 快速语法参考》\n\n![A978-1-4302-6488-0_BookFrontmatter_Figa_HTML.png](img/A978-1-4302-6488-0_BookFrontmatter_Figa_HTML.png)\n\
+  \nISBN 978-1-4302-6487-3  \n电子版 ISBN 978-1-4302-6488-0  \n© Apress 2013\n\n《Objective-C\
+  \ 快速语法参考》\n\n总裁兼出版人：保罗·曼宁  \n主编：史蒂夫·安格林  \n技术审校：查尔斯·克鲁兹  \n编辑委员会：史蒂夫·安格林、马克·贝克纳、尤恩·白金汉、加里·康奈尔、路易丝·科里根、乔纳森·根尼克、詹姆斯·德沃尔夫、乔纳森·哈塞尔、罗伯特·哈钦森、米歇尔·洛曼、詹姆斯·马卡姆、马修·穆迪、杰夫·奥尔森、杰弗里·佩珀、道格拉斯·庞迪克、本·雷诺-克拉克、多米尼克·沙克沙夫特、格温南·斯皮林、史蒂夫·韦斯、汤姆·韦尔什\
+  \  \n协调编辑：阿纳米卡·潘乔  \n文字编辑：玛丽·贝尔  \n排版：SPI Global  \n索引编制：SPI Global  \n插画：SPI Global\
+  \  \n封面设计：安娜·伊什琴科\n\n本书通过 Springer Science+Business Media New York 向全球图书贸易发行，地址：233\
+  \ Spring Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮箱：`orders-ny@springer-sbm.com`，或访问\
+  \ [`www.springeronline.com`](http://www.springeronline.com/)。Apress Media, LLC 是加利福尼亚州的有限责任公司，其唯一成员（所有者）是\
+  \ Springer Science + Business Media Finance Inc（SSBM Finance Inc）。SSBM Finance Inc\
+  \ 是特拉华州的一家公司。\n\n如需了解翻译事宜，请发送电子邮件至 `rights@apress.com`，或访问 [`www.apress.com`](http://www.apress.com/)。Apress\
+  \ 及 friends of ED 的书籍可批量购买用于学术、企业或促销用途。大多数图书也提供电子版及许可证。更多信息，请参考我们的特殊批量销售–电子书许可网页：\
+  \ [`www.apress.com/bulk-sales`](http://www.apress.com/bulk-sales)。\n\n作者在本书中提及的任何源代码或其他补充材料，读者均可通过\
+  \ [`www.apress.com`](http://www.apress.com/) 获取。关于如何查找您图书源代码的详细信息，请访问 [`www.apress.com/source-code/`](http://www.apress.com/source-code/)。\n\
+  \n本作品受版权保护。出版者保留所有权利，无论全部或部分材料，特别是翻译权、重印权、插图复用权、朗诵权、广播权、缩微胶片复制权或其他任何物理形式的复制权，以及信息存储与检索、电子改编、计算机软件或目前已知或未来开发的类似或不同方法论的传输权。法律保留豁免的情况仅限于与评论或学术分析相关的简短摘录，或专为输入并运行于计算机系统而提供的材料，且仅供购买者个人使用。未经出版者所在地现行版权法许可，不得复制本出版物或其部分内容，且使用许可必须始终从\
+  \ Springer 获取。许可可通过 RightsLink 在 Copyright Clearance Center 获取。违反行为将按相应版权法予以起诉。本书中可能出现的商标名称、标识和图像，我们不以商标符号标注每次出现，而是仅以编辑方式使用这些名称、标识和图像，以维护商标所有者的利益，并无意侵犯商标权。本书中使用的商品名、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的任何意见表达。\n\
+  \n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑及出版者对可能存在的任何错误或遗漏不承担法律责任。出版者对本书所含内容不作任何明示或暗示的保证。\n\
+  \n献给我的女儿凯拉\n\n"
+- "# 关于作者\n\n![A978-1-4302-6488-0_BookFrontmatter_Fig1_HTML.jpg](img/A978-1-4302-6488-0_BookFrontmatter_Fig1_HTML.jpg)\
+  \  \n马修·坎贝尔是一名专业软件开发人员、企业家、作者和培训师。他就职于 Mobile App Mastery，这是他于 2008 年创立的一家基于网络的软件开发培训公司。在创建\
+  \ Mobile App Mastery 之前，马修学习了心理学，曾担任心理健康顾问，并在普林斯顿的教育考试服务中心担任数据分析师，支持心理测量研究。他创作的书籍和培训课程旨在消除阻碍开发者精通技艺的障碍。\n\
+  \n"
+- "# 关于技术审校\n\n![A978-1-4302-6488-0_BookFrontmatter_Fig2_HTML.jpg](img/A978-1-4302-6488-0_BookFrontmatter_Fig2_HTML.jpg)\
+  \  \n查尔斯·克鲁兹是一名面向 iOS、Android 和 Windows Phone 平台的移动应用开发人员。他毕业于斯坦福大学，获得工程学学士和硕士学位。他住在南加州，并与妻子共同经营一家摄影业务（[`www.facebook.com/BellaLenteStudios`](http://www.facebook.com/BellaLenteStudios)）。在不从事技术工作时，他在一支原创金属乐队担任主音吉他手（[`www.taintedsociety.com`](http://www.taintedsociety.com/)）。可以通过\
+  \ `codingandpicking@gmail.com` 或在 Twitter 上通过 `@CodingNPicking` 联系查尔斯。\n\n"
+- '# 引言
+
+
+  Objective-C 是一种工具，可用于为 Mac、iPhone 和 iPad 创建出色的应用程序。这种独特的编程语言源于 C 编程语言。Objective-C
+  是增加了面向对象编程特性的 C 语言。
+
+
+  如今，学习编程就是学习如何塑造我们的世界。Objective-C 程序员处于一个独特的位置，可以创建全球人们在日常生活中都能使用的移动应用程序。
+
+
+  使用 Objective-C 是一种愉悦的体验。当其他编程语言有时显得笨拙时，Objective-C 会以优雅的方式展示其力量和影响范围。在其他编程语言中看似棘手的问题，在
+  Objective-C 中会迎刃而解。
+
+
+  本书的核心在于，毫不赘述地阐明 Objective-C 能够做什么。当您知道想要做什么，但只需要了解 Objective-C 的实现方式时，请使用本书获取帮助。
+
+
+
+  '
+- "# 目录\n\n第 1 章：Hello World 1  \nXcode 1  \n创建新项目 2  \nHello World 3  \n代码注释 5  \n\
+  构建并运行 6  \n获取更多信息 6\n\n第 2 章：构建并运行 7  \n编译 7  \n构建 7  \n构建并运行 8\n\n第 3 章：变量 11 \
+  \ \n变量定义 11  \n数据类型 11  \n声明变量 12  \n赋值 12  \n整数类型 12  \n布尔类型 13  \n浮点类型 13  \n\
+  作用域 14\n\n第 4 章：运算符 15  \n运算符定义 15  \n算术运算符 15  \n赋值运算符 16  \n自增与自减运算符 16  \n关系运算符\
+  \ 17  \n逻辑运算符 17\n\n第 5 章：对象 19  \n对象定义 19  \nNSObject 类 19  \n对象声明 19  \n对象构造器\
+  \ 19  \n对象格式说明符 20  \n消息 21\n\n第 6 章：字符串 23  \nNSString 23  \nNSMutableString 24\
+  \  \n插入字符串 24  \n删除字符串 24  \n查找与替换 25\n\n第 7 章：数字 27  \nNSNumber 27  \n转换为基本数据类型\
+  \ 27  \n格式化数字 28  \n将字符串转换为数字 28\n\n第 8 章：数组 29  \nNSArray 29  \n引用对象 29  \n枚举 30\
+  \  \nNSMutableArray 30\n\n第 9 章：字典 33  \nNSDictionary 33  \n引用对象 33  \n枚举 33  \n\
+  NSMutableDictionary 34\n\n第 10 章：For 循环 35  \nFor 循环定义 35  \nFor 循环与数组 36\n\n第 11\
+  \ 章：While 循环 37  \nWhile 循环定义 37  \nWhile 循环与数组 38\n\n第 12 章：Do While 循环 39  \n\
+  Do While 循环定义 39  \nDo While 循环与数组 40\n\n第 13 章：For-Each 循环 41  \nFor-Each 循环定义\
+  \ 41  \n将 For 循环用于 NSDictionary 42\n\n第 14 章：If 语句 43  \nIf 语句定义 43  \nElse 关键字\
+  \ 43  \nIf 语句与变量 44\n\n第 15 章：Switch 语句 45  \nSwitch 语句定义 45  \nSwitch 关键字 45  \n\
+  Case 关键字 45  \nbreak 关键字 46  \n完整的 Switch 语句 46  \nDefault 分支 47\n\n第 16 章：定义类 49\
+  \  \n类 49  \n类接口 49  \n属性前置声明 50  \n方法前置声明 51  \n实现类 52  \n实现方法 52  \n私有属性与方法 53\n\
+  \n第 17 章：类方法 57  \n类方法定义 57  \n编写类方法 57\n\n第 18 章：继承 59  \n创建子类 59  \n扩展类 60  \n\
+  重写方法 60  \n实例变量可见性 61\n\n第 19 章：类别 65  \n类别定义 65  \n类别示例 65\n\n第 20 章：块 69  \n块定义\
+  \ 69  \n定义块 69  \n赋值块 70  \n使用块 70  \n拷贝作用域变量 70  \n将块作为属性 71\n\n第 21 章：键值编码 73\
+  \  \n键值编码定义 73  \n设置属性值 73  \n检索属性值 73\n\n第 22 章：键值观察 75  \n键值观察定义 75  \n项目与任务对象图\
+  \ 75  \n实现键值观察 77  \n添加观察者 78  \n观察值变化 78  \n注销观察者 79  \n测试观察者 80\n\n第 23 章：协议 81\
+  \  \n协议概述 81  \n定义协议 81  \n采纳协议 82  \n实现协议方法 83\n\n第 24 章：委托 85  \n委托定义 85  \n定义委托协议\
+  \ 85  \n委托引用 86  \n向委托发送消息 87  \n指派委托 87\n\n第 25 章：单例 89  \n单例定义 89  \n单例接口 89 \
+  \ \n单例实现 89  \n引用单例 90\n\n第 26 章：错误处理 91  \n错误处理定义 91  \nNSError 91  \nTry/Catch\
+  \ 语句 92\n\n第 27 章：后台处理 95  \n后台处理定义 95\n\n第 28 章：对象归档 97  \n对象归档定义 97  \nNSCoding\
+  \ 97  \n使用归档器 100\n\n第 29 章：Web 服务 101  \nWeb 服务定义 101  \nBitly 示例 101  \n构造请求字符串\
+  \ 102  \n创建会话与 URL 102  \n发送并接收响应 102\n\n索引 105\n\n"
+- "# 内容一览\n\n第 1 章：Hello World 1  \n第 2 章：构建并运行 7  \n第 3 章：变量 11  \n第 4 章：运算符 15 \
+  \ \n第 5 章：对象 19  \n第 6 章：字符串 23  \n第 7 章：数字 27  \n第 8 章：数组 29  \n第 9 章：字典 33  \n\
+  第 10 章：For 循环 35  \n第 11 章：While 循环 37  \n第 12 章：Do While 循环 39  \n第 13 章：For-Each\
+  \ 循环 41  \n第 14 章：If 语句 43  \n第 15 章：Switch 语句 45  \n第 16 章：定义类 49  \n第 17 章：类方法\
+  \ 57  \n第 18 章：继承 59  \n第 19 章：类别 65  \n第 20 章：块 69  \n第 21 章：键值编码 73  \n第 22 章：键值观察\
+  \ 75  \n第 23 章：协议 81  \n第 24 章：委托 85  \n第 25 章：单例 89  \n第 26 章：错误处理 91  \n第 27 章：后台处理\
+  \ 95  \n第 28 章：对象归档 97  \n第 29 章：Web 服务 101  \n索引 105\n\n\n\n"
+- "# 1. Hello World\n\n**摘要**\n\n`Objective-C` 是一种扩展了 `C` 语言的编程语言，新增了面向对象编程能力。这意味着大多数经典的\
+  \ `C` 编程流程在 `Objective-C` 程序中都会用到。为了阅读本书，你需要对 `C` 语言的编程方式有所了解。\n\n## Xcode\n\n`Objective-C`\
+  \ 是一种扩展了 `C` 语言的编程语言，新增了面向对象编程能力。这意味着大多数经典的 `C` 编程流程在 `Objective-C` 程序中都会用到。为了阅读本书，你需要对\
+  \ `C` 语言的编程方式有所了解。\n\n在编写任何 `Objective-C` 代码之前，你需要准备好合适的工具。对于 `Objective-C` 来说，这个工具就是\
+  \ `Xcode`。`Xcode` 将是你的主要代码编辑器和集成开发环境（`IDE`）。\n\n**注意**\n\n`Xcode` 需要 `Mac` 系统。你无法在基于\
+  \ `Windows` 或 `Linux` 的计算机上安装 `Xcode`。\n\n要安装 `Xcode`，请通过选择 Mac 的菜单栏，然后选择 ʿ ➤ App\
+  \ Store，进入 `Mac App Store`。使用 `App Store` 的搜索功能，在沙漏旁边的文本框中输入 `Xcode` 来定位它。按下回车键搜索\
+  \ `Xcode`。你将看到一个应用列表，而 `Xcode` 应该是列表中的第一个应用。点击 `Xcode` 图标旁边写着 `free` 的按钮来安装 `Xcode`。在\
+  \ `App Store` 中搜索 `Xcode` 后，你应该会看到如图 1-1 所示的界面。\n\n![A978-1-4302-6488-0_1_Fig1_HTML.jpg](img/A978-1-4302-6488-0_1_Fig1_HTML.jpg)\n\
+  \n**图 1-1.** 从 App Store 下载 Xcode\n\n## 创建新项目\n\n通过进入你的 `Applications` 文件夹并点击 `Xcode`\
+  \ 应用来打开 `Xcode`。你将看到一个欢迎屏幕，其中包含文字“`Create a new Xcode project`”（见图 1-2）。点击文字“`Create\
+  \ a new Xcode project`”开始操作。\n\n![A978-1-4302-6488-0_1_Fig2_HTML.jpg](img/A978-1-4302-6488-0_1_Fig2_HTML.jpg)\n\
+  \n**图 1-2.** Xcode 欢迎屏幕\n\n接下来出现的屏幕会列出为 `iOS` 和 `Mac` 创建应用的选项。在本书中，你将使用 Mac 的`Command\
+  \ Line Tool`应用，因此请选择 `OSX` ➤ `Application` ➤ `Command Line Tool` 进行设置。\n\n当下一屏出现时，只需给你的新项目命名，选择类型\
+  \ `Foundation`，其他设置保持不变，然后点击 `Next`。\n\n然后选择一个文件夹来保存 Mac 上的 Xcode 项目。完成此操作后，Xcode\
+  \ 屏幕将会出现。Xcode 屏幕左侧会包含一个文件列表，中间是代码编辑器（见图 1-3）。\n\n![A978-1-4302-6488-0_1_Fig3_HTML.jpg](img/A978-1-4302-6488-0_1_Fig3_HTML.jpg)\n\
+  \n**图 1-3.** 代码编辑器和项目导航器\n\n## Hello World\n\n用代码编写 `Hello World` 是我们想要确认项目设置正确时常做的事情。`Xcode`\
+  \ 让这变得非常简单，因为新的 `Command Line Tool` 项目已经自带了 `Hello World` 代码。\n\n你只需要使用 `Project\
+  \ Navigator`（Xcode 屏幕左侧的组件）来找到名为 `main.m` 的文件。点击 `main.m` 在代码编辑器中打开该文件（图 1-4）。\n\
+  \n![A978-1-4302-6488-0_1_Fig4_HTML.jpg](img/A978-1-4302-6488-0_1_Fig4_HTML.jpg)\n\
+  \n**图 1-4.** 编辑 main.m\n\n当你这样做时，会看到类似如下的代码：\n\n```\n#import <Foundation/Foundation.h>\n\
+  \nint main(int argc, const char * argv[]){\n\n    @autoreleasepool {\n\n       \
+  \ // insert code here...\n\n        NSLog(@\"Hello, World!\");\n\n    }\n\n    return\
+  \ 0;\n\n}\n```\n\n上述大部分代码用于设置应用程序，从 `#import` 语句开始。该语句导入了运行 `Objective-C` 程序所需的代码，也就是\
+  \ `Foundation`。\n\n代码的下一部分是一个名为 `main` 的函数，它包含了所有程序代码，并在程序完成时返回整数 `0`。\n\n在 `main`\
+  \ 函数内部，你会看到一个 `Objective-C` 自动释放池。自动释放池用于支持 `Objective-C` 的内存管理系统。自动释放池使用 `@autoreleasepool`\
+  \ 关键字声明。\n\n在这些代码的中间，你可以看到 `Hello World` 代码，它看起来像这样：\n\n```\nNSLog(@\"Hello, World!\"\
+  );\n```\n\n这里的第一部分是函数 `NSLog`。`NSLog` 用于向控制台日志写入消息。Xcode 的控制台日志位于 Xcode 屏幕的底部（图\
+  \ 1-5），它会显示错误信息以及你通过 `NSLog` 发送的消息。\n\n![A978-1-4302-6488-0_1_Fig5_HTML.jpg](img/A978-1-4302-6488-0_1_Fig5_HTML.jpg)\n\
+  \n**图 1-5.** 控制台屏幕中的 Hello World 输出\n\n**注意**\n\n默认情况下，控制台日志与调试器一起隐藏在屏幕底部。要看到这两个组件，你必须通过点击\
+  \ Xcode 屏幕右上角的 `Hide or Show Debug Area` 切换按钮来取消隐藏底部屏幕。该按钮位于一组三个按钮的中间。\n\n字符串 `Hello\
+  \ World` 被引号 (`\"\"`) 和 `Objective-C` 转义字符 `@` 括起来。`@` 字符在 `Objective-C` 中用于让编译器知道某些关键字或代码具有特殊的\
+  \ `Objective-C` 属性。当 `@` 出现在双引号字符串之前时，例如 `@\"Hello, World!\"`，意味着该字符串是一个 `Objective-C`\
+  \ 的 `NSString` 对象。\n\n## 代码注释\n\nXcode 还贴心地为你在该项目中插入了另一行代码。这行代码是代码注释的一个好例子，它以两个特殊字符\
+  \ `//` 开头。以下是代码注释的样子：\n\n```\n// insert code here...\n```\n\n代码注释用于帮助记录你的代码，它提供了一种向程序中插入文本的方式，而这些文本不会被编译到可运行的程序中。\n\
+  \n### 构建并运行\n\n要测试代码，请点击 Xcode 屏幕左上角的 `Run` 按钮。查看图 1-6 了解要点击哪个按钮。\n\n![A978-1-4302-6488-0_1_Fig6_HTML.jpg](img/A978-1-4302-6488-0_1_Fig6_HTML.jpg)\n\
+  \n**图 1-6.** 构建并运行 Hello World 代码\n\n当你点击 `Run` 按钮时，Xcode 将编译 Xcode 项目中的代码，然后运行该程序。你一直在处理的这个程序将打印出\
+  \ `Hello World` 这几个字。你可以在图 1-6 中看到用圆圈标记的输出。\n\n## 获取更多信息\n\n本书是 `Objective-C` 的快速参考指南，我重点介绍了那些我认为对大多数人最有用的代码和模式。然而，这意味着我无法在本书中包含所有内容。\n\
+  \n获取关于 `Objective-C` 以及你可以用 `Objective-C` 创建的 Mac 和 iOS 应用的完整信息的最佳地点是 `Apple Developer`\
+  \ 网站。你可以使用网页浏览器访问 [`http://developer.apple.com/resources`](http://developer.apple.com/resources)\
+  \ 来进入 `Apple Developer` 网站。\n\n该网站包含指南、源代码和代码文档。与本书主题最相关的网站部分是 `Foundation` 框架的代码文档。你可以使用网站的搜索功能查找特定的类，比如\
+  \ `NSObject`，或者搜索 `Foundation` 或 `Objective-C` 这个词。\n\n"
+- "# 2. 构建并运行\n\n**摘要**\n\n`Objective-C` 代码需要被转换成可以在 iOS 设备或 Mac 上运行的机器码。这个过程称为编译，`Xcode`\
+  \ 使用 `LLVM` 编译器来生成机器码。用于创建新项目的 `Xcode` 模板（就像你在第 1 章中所做的那样）会包含编译器所需为你设置好的设置。\n\n\n\
+  \n## 编译\n\nObjective-C 代码需要转换成能在 iOS 设备或 Mac 上运行的机器码。这个过程称为编译，Xcode 使用 LLVM 编译器来生成机器码。就像你在第\
+  \ 1 章中所做的那样，用于创建新项目的 Xcode 模板已经为你配置好了编译器所需的所有设置。\n\n## 构建\n\n编译代码通常只是创建应用程序过程的一部分。要分发到\
+  \ Mac 和 iPhone 用户手中的应用程序，除了编译后的代码外，还需要其他资源。这包括图片、电影、音乐和数据库等内容。\n\n这些资源，连同应用程序目录结构，都被打包到一个名为\
+  \ **Bundle** 的特殊文件中。你将使用 Xcode 编译源代码，然后将所有内容打包到应用程序所需的 bundle 中。这个过程在 Xcode 中被称为**构建**。\n\
+  \n如果你查看 Xcode 菜单栏中的“产品”菜单项（图 2-1），你会看到用于构建程序的选项。通常，你只需使用 Xcode 的“构建并运行”功能来编译和测试代码。\n\
+  \n![A978-1-4302-6488-0_2_Fig1_HTML.jpg](img/A978-1-4302-6488-0_2_Fig1_HTML.jpg)\n\
+  \n图 2-1. 产品构建选项\n\n### 构建并运行\n\n使用位于 Xcode 屏幕左上角的“构建并运行”按钮（见图 2-2）（这是一个看起来像播放按钮的箭头）来构建你的应用程序。\n\
+  \n![A978-1-4302-6488-0_2_Fig2_HTML.jpg](img/A978-1-4302-6488-0_2_Fig2_HTML.jpg)\n\
+  \n图 2-2. 构建并运行按钮\n\nXcode 不仅会构建你的应用程序，还会执行代码。如果你为当前程序点击“构建并运行”按钮，你应该会在控制台日志中看到以下文本（也显示在图\
+  \ 2-3 中）：\n\n```\n2014-01-12 06:22:48.382\nCh01_source_code[13018:303] Hello, World!\n\
+  Program ended with exit code: 0\n```\n\n![A978-1-4302-6488-0_2_Fig3_HTML.jpg](img/A978-1-4302-6488-0_2_Fig3_HTML.jpg)\n\
+  \n图 2-3. 控制台日志的“Hello World”输出\n\n你的输出可能不会与我的完全一致，但你应该在屏幕上看到“Hello World!”字样和项目的名称。\n\
+  \n> **注意**  \n> 虽然大多数应用程序会得到一个包含编译后机器码的 bundle，但我用于演示本书代码的应用程序并不需要这个。如果你找到编译后的代码文件，你只会发现一个可以用\
+  \ Mac 终端应用运行的 Unix 可执行文件。\n\n"
+- "# 3. 变量\n\n**摘要**  \nObjective-C 将信息存储在变量中。这些变量分为两种类型：基本类型和复合类型。基本变量存储单条信息，例如一个数字或一个字符。复合变量存储一组信息，例如三个相关的数字和一个字符。\n\
+  \n## 变量定义\n\nObjective-C 将信息存储在变量中。这些变量分为两种类型：基本类型和复合类型。基本变量存储单条信息，例如一个数字或一个字符。复合变量存储一组信息，例如三个相关的数字和一个字符。\n\
+  \n### 数据类型\n\n表 3-1 显示了你在 Objective-C 中会看到的最常见的基本数据类型。\n\n**表 3-1.** Objective-C\
+  \ 数据类型\n\n| 数据类型 | 格式说明符 | 描述 |\n| --- | --- | --- |\n| `NSInteger` | `%li` | 有符号整数\
+  \ |\n| `NSUInteger` | `%lu` | 无符号整数 |\n| `BOOL` | `%i` | 布尔值 (YES/NO) |\n| `CGFloat`\
+  \ | `%f` | 浮点数 |\n\n> **注意**  \n> Objective-C 程序除了可以使用表 3-1 中列出的 Objective-C 数据类型外，还可以使用\
+  \ C 语言的数据类型，如 `int`、`long`、`float`、`double` 和 `char`。这是因为 Objective-C 基于 C 编程语言，因此除了我们在这里讨论的\
+  \ Objective-C 语法外，它还继承了 C 语言的所有功能。\n\n### 声明变量\n\n在 Objective-C 中声明变量时，需要先指定数据类型，然后是变量名。使用变量之前必须先声明。变量名应该有意义，但你可以随意命名变量。\n\
+  \n以下是在 Objective-C 中声明一个整数的方法：\n\n```\nNSUInteger numberOfPeople;\n```\n\n### 赋值\n\
+  \n你可以使用赋值运算符（`=`）给变量赋值，如下所示：\n\n```\nnumberOfPeople = 100;\n```\n\n一旦赋值完成，你就可以通过引用变量名来检索和使用该值。\n\
+  \n```\nNSLog(@\"The number of people is %lu\", numberOfPeople);\n```\n\n> **注意**\
+  \  \n> 你可能已经注意到 `NSLog` 语句中需要 `%lu` 符号。这个符号被称为格式说明符，`NSLog` 会将其用作占位符，在字符串后面的逗号分隔列表中插入值。关于你必须用于\
+  \ Objective-C 数据类型的格式说明符列表，请参见表 3-1。\n\n如果你愿意，也可以在同一行声明变量并赋值。\n\n```\nNSUInteger\
+  \ numberOfGroups = 20;\n```\n\n### 整数类型\n\n整数是整数数字，因此任何不需要小数点的数字都是整数。在 Objective-C\
+  \ 中，整数使用数据类型 `NSInteger` 和 `NSUInteger` 来表示。\n\n`NSUInteger` 是无符号整数，这意味着它们只能是正数。`NSUInteger`\
+  \ 可以取的最大值取决于编译 Objective-C 代码的系统。如果你为 64 位 Mac 编译，最大值为 18,446,744,073,709,551,615。\n\
+  \n对于 iPhone 5 及以下的 32 位平台，最大值是 4,294,967,295。你可以使用 `NSUIntegerMax` 常量自行检查这些数字。\n\
+  \n```\nNSLog(@\"NSUIntegerMax is %lu\", NSUIntegerMax);\n```\n\n`NSInteger` 是有符号整数，这意味着它们可以是正数或负数。`NSInteger`\
+  \ 的最大值是 `NSUInteger` 值的一半，因为 `NSInteger` 必须同时支持正数和负数。\n\n因此，如果你需要处理巨大的数字，可能需要坚持使用\
+  \ `NSUInteger`，但如果你需要同时处理正数和负数，则需要使用 `NSInteger`。你可以使用 `NSIntegerMin` 和 `NSIntegerMax`\
+  \ 常量检查你系统上 `NSInteger` 的最小值和最大值。\n\n```\nNSLog(@\"NSIntegerMin is %li\", NSIntegerMin);\n\
+  NSLog(@\"NSIntegerMax is %li\", NSIntegerMax);\n```\n\n### 布尔类型\n\n当值可以为真或假时，会使用布尔数据类型。在\
+  \ Objective-C 中，此数据类型声明为 `BOOL` 类型。`BOOL` 类型的值要么是 `YES`，要么是 `NO`。\n\n```\nBOOL success\
+  \ = YES;\n```\n\n由于 Objective-C 将 `BOOL` 值存储为 `1`（代表 `YES`）和 `0`（代表 `NO`），因此你必须使用\
+  \ `%i` 格式说明符来打印 `BOOL` 值。`%i` 是另一个用于整数的格式说明符。\n\n```\nNSLog(@\"success is %i\",\
+  \ success);\n```\n\n上面的 `NSLog` 语句对于 `YES` 会打印出 `1`，对于 `NO` 会打印出 `0`，但有些人更喜欢在日志中看到\
+  \ `YES` 或 `NO` 字符串。你可以使用以下替代语句来实现这一点：\n\n```\nNSLog(@\"success: %@\", success ?\
+  \ @\"YES\" : @\"NO\");\n```\n\n这里变量 `success` 被替换为一个需要求值的语句。该语句将根据变量 `success` 的值返回字符串\
+  \ `YES` 或字符串 `NO`。如果 `success` 为零，则返回语句中最后位置的内容；如果 `success` 是任何其他值，则返回第一个位置的内容。三元运算符（`?`）告诉编译器对语句进行求值。\n\
+  \n\n\n### 浮点类型\n\n在 Objective-C 中，浮点类型使用 `CGFloat` 数据类型来表示。当需要在数字中包含小数位时，就会用到 `CGFloat`。例如，如果要表示一个百分比，可以这样写：\n\
+  \n`CGFloat percent = 33.34;`\n\n在 32 位系统中，`CGFloat` 类型的最大值可通过 `FLT_MAX` 获取。而在 64\
+  \ 位系统中，则必须使用 `DBL_MAX`。\n\n### 作用域\n\n与大多数源自 C 语言的编程语言类似，Objective-C 变量的作用域由花括号\
+  \ `{ }` 的位置决定。当用 `{ }` 将代码行括起来时，就定义了一个代码块。放置在代码块内部的变量只能在该代码块内部使用，这被称为作用域。\n\n例如，我们来看之前的一个例子：声明了一个名为\
+  \ `numberOfPeople` 的无符号整数，给该变量赋值，然后将其值打印到日志中。\n\n`NSInteger numberOfPeople;`\n\n\
+  `numberOfPeople = 100;`\n\n`NSLog(@\"The number of people is %li\", numberOfPeople);`\n\
+  \n这段代码运行得非常好，因为变量 `numberOfPeople` 在你需要它的整个过程中都保持在其作用域内。但是，如果你用花括号将前两行代码括在它们自己的区域内，那么在赋值时变量可以正常工作，但在尝试将值输出到日志时就会失败。如果你试图在花括号定义的作用域之外将\
+  \ `numberOfPeople` 输出到日志，程序将无法编译。\n\n```\n{\n    NSInteger numberOfPeople;\n   \
+  \ numberOfPeople = 100;\n}\nNSLog(@\"The number of people is %li\", numberOfPeople);\n\
+  ```\n\n作用域用于为函数、循环、方法、if 语句和 switch 语句定义代码块。所有这些内容都将在本书后面讨论。\n\n"
+- '# 4. 运算符
+
+
+  **摘要**
+
+
+  运算符用于对值执行操作。你可以使用运算符进行算术、赋值、逻辑和关系运算。
+
+
+  ## 运算符定义
+
+
+  运算符用于对值执行操作。你可以使用运算符进行算术、赋值、逻辑和关系运算。
+
+
+  ### 算术运算符
+
+
+  算术运算符用于对值执行数学运算。你可以使用算术运算符进行加、减、乘、除和取模（除法运算的余数）运算。表 4-1 列出了 Objective-C 的算术运算符。
+
+
+  **表 4-1.** 算术运算符
+
+
+  | 运算符 | 含义 |
+
+  | --- | --- |
+
+  | + | 加法 |
+
+  | - | 减法 |
+
+  | * | 乘法 |
+
+  | / | 除法 |
+
+  | % | 取模 |
+
+
+  一个运算看起来就像一个数学问题。
+
+
+  `1.0 + 2.0 – 3.0 * 4.0 / 5.0;`
+
+
+  上面这行代码的结果不会有太大作用，因为结果没有被存储或在函数中使用。你可以立即在函数中使用运算结果，例如：
+
+
+  `NSLog(@"1.0 + 2.0 – 3.0 * 4.0 / 5.0 = %f", 1.0 + 2.0 - 3.0 * 4.0 / 5.0);`
+
+
+  你也可以使用赋值运算符将结果存储到变量中，以便以后使用。
+
+
+  `CGFloat t2 = 1.0 + 2.0 - 3.0 * 4.0 / 5.0;`
+
+
+  你可能注意到上面的运算中使用了浮点数。表达式中的每个数字都带有小数点和零，并且 `t2` 变量的数据类型是 `CGFloat`。这是有意为之，因为我认为该运算的结果会是一个小数，需要浮点变量才能正确表示。
+
+
+  > **注意：** 在执行算术运算时，使用正确的数据类型至关重要，编译器会默认任何不带小数点的数字都是整数。仅涉及整数的运算会返回整数，这意味着结果会被四舍五入。这很容易导致计算中出现意外结果。
+
+
+  #### 运算符优先级
+
+
+  运算符按从左到右的顺序求值。乘法、除法和取模运算符的优先级高于加法和减法运算符。如果你想改变运算符的求值顺序，可以将表达式的一部分括在括号中。这样做会改变表达式的结果，如下所示：
+
+
+  ```
+
+  NSLog(@"%f", 1.0 + 2.0 - 3.0 * 4.0 / 5.0);   // 0.600000
+
+  NSLog(@"%f", 1.0 + (2.0 - 3.0 * 4.0) / 5.0); // -1.000000
+
+  NSLog(@"%f", (1.0 + 2.0 - 3.0 * 4.0) / 5.0); // -1.800000
+
+  ```
+
+
+  ### 赋值运算符
+
+
+  赋值运算符（`=`）用于给变量赋值。你可以使用赋值运算符将一个值或一个运算的结果赋给一个变量。
+
+
+  ```
+
+  NSUInteger t2 = 100;
+
+  NSUInteger t3 = 10 * 10;
+
+  ```
+
+
+  ### 递增和递减运算符
+
+
+  你可以将加法/减法运算符与赋值运算符结合使用，作为一种快捷方式。在变量名后面加上 `++`，该变量的值就会增加 1 并自动重新赋值。
+
+
+  `t2++;`
+
+
+  上面这行代码会将 `t2` 加 `1`，使 `t2` 的值等于 `101`。以下是完成相同操作的更繁琐的方式：
+
+
+  `t2 = t2 + 1;`
+
+
+  你也可以通过在变量名后面加上递减运算符（`--`）来减小 `t2` 的值。
+
+
+  `t2--;`
+
+
+  ### 关系运算符
+
+
+  关系运算符用于评估两个值之间的关系。使用关系运算符时，结果将是 `BOOL` 数据类型。你可以评估两个值是相同还是不同。可用关系运算符列表见表 4-2。
+
+
+  **表 4-2.** 关系运算符
+
+
+  | 运算符 | 含义 |
+
+  | --- | --- |
+
+  | == | 等于 |
+
+  | != | 不等于 |
+
+  | > | 大于 |
+
+  | < | 小于 |
+
+  | >= | 大于或等于 |
+
+  | <= | 小于或等于 |
+
+
+  以下是使用关系运算符的示例：
+
+
+  ```
+
+  BOOL t4 = 5 < 4;
+
+  NSLog(@"t4 = %@", t4 ? @"YES" : @"NO"); // NO
+
+  ```
+
+
+  这个例子看起来很简单，但当变量的值预先未知时，评估关系运算符就非常重要了。关系运算符也用在 if 语句中，而 if 语句是一个关键的编程工具。if 语句将在后面介绍。
+
+
+  ### 逻辑运算符
+
+
+  逻辑运算符用于评估实体之间多于一个的关系。这些运算符与关系运算符一起使用，它们也返回 `BOOL` 结果。
+
+
+  可用逻辑运算符列表见表 4-3。
+
+
+  **表 4-3.** 逻辑运算符
+
+
+  | 运算符 | 含义 |
+
+  | --- | --- |
+
+  | && | 与 |
+
+  | \|\| | 或 |
+
+  | ! | 非（反转结果） |
+
+
+  以下是使用逻辑运算符的示例：
+
+
+  ```
+
+  BOOL t5 = YES && NO;          // NO
+
+  BOOL t6 = YES && YES;         // YES
+
+  BOOL t7 = YES || NO;          // YES
+
+  BOOL t8 = NO || NO;           // NO
+
+  BOOL t9 = !YES;               // NO
+
+  ```
+
+
+  '
+- "# 5. 对象\n\n**摘要**\n\nObjective-C 对象是同时包含行为和属性的实体。行为通过方法编码，而属性通过属性编码。对象还可以包含私有实例变量。当需要存储数据但又无需共享时，会使用私有实例变量。\n\
+  \n## 对象定义\n\nObjective-C 对象是同时包含行为和属性的实体。行为通过方法编码，而属性通过属性编码。对象还可以包含私有实例变量。当需要存储数据但又无需共享时，会使用私有实例变量。\n\
+  \n### NSObject 类\n\n`NSObject` 是 Objective-C 中的根类。类是一种定义，它包含了使对象的方法和属性正常工作所需的所有代码。`NSObject`\
+  \ 被称为根类，因为它包含了使对象在 Objective-C 中工作所需的所有代码，并且所有其他类都继承自 `NSObject` 类。\n\n\n\n### 对象声明\n\
+  \n类被用作一种数据类型。数据类型用于声明变量，而每种数据类型都可以有多个变量。类则用于声明对象，一个类可以拥有多个对象。\n\n以下是声明一个 `NSObject`\
+  \ 对象的方法：\n\n`NSObject object;`\n\n### 对象构造函数\n\n虽然数据类型的变量可以直接赋值，但对象需要借助名为构造函数的函数。构造函数为对象分配内存资源，并执行对象正常运行所需的任何初始化设置。通常情况下，你会看到构造函数被拆分为两个函数：`alloc`\
+  \ 和 `init`。\n\n`object = [[NSObject alloc] init];`\n\n`init` 函数的名称有时会不同，但它通常以字母\
+  \ `init` 开头。例如，这是一个指向我网站的 `NSURL` 对象的构造函数：\n\n`NSURL *url = [[NSURL alloc] initWithString:@\"\
+  https://mobileappmastery.com\"];`\n\n请注意，这里使用的是 `initWithString:` 而不是 `init`。除了遵循惯例之外，构造函数的命名并没有强制性的规则。\n\
+  \n尽管 `alloc` 和 `init` 的组合模式最为常见，但你也会看到使用其他函数名称或 `new` 关键字来创建对象。\n\n`NSDate *today\
+  \ = [NSDate date];`\n\n`NSObject *object2 = [NSObject new];`\n\n虽然 `new` 构造函数不常见，但\
+  \ `new` 关键字可以用来替代 `alloc` 和 `init`。除了 `new`、`alloc` 和 `init` 之外的其他构造函数，则用于创建临时对象。上面的\
+  \ `date` 对象就是一个临时使用的示例，因为你通常只是想获取一个时间戳后继续执行其他操作，没有理由长时间维护这样一个对象。\n\n**注意**  \n像示例中的\
+  \ `date` 对象这样的临时对象，在未使用 ARC 进行内存管理的项目中更为常见。ARC（自动引用计数）是一种管理每个对象内存需求的系统。使用 ARC 构建的项目，在需要特定功能时会使用诸如上述\
+  \ `date` 对象之类的临时对象，但无需长时间维护该对象。\n\n### 对象格式说明符\n\n当你使用 `NSLog` 打印输出数据类型值时，必须使用格式说明符，例如\
+  \ `%lu`、`%li`、`%f` 或 `%i`。该值会被替换到 `NSLog` 字符串中，让你能够观察变量的值。对象也可以这样做。\n\n`NSObject`\
+  \ 对象以及所有继承自 `NSObject` 的对象都使用 `%@` 格式说明符。从 `NSLog` 获得的输出取决于对象的类型。如果你像这样打印输出上文示例中的对象：\n\
+  \n`NSLog(@\"object = %@\", object);`\n\n你将获得包含对象详细信息（包括类名和内存地址）的输出。\n\n`object =\
+  \ <NSObject: 0x10010a0c0>`\n\n其他对象会返回更具体的信息；返回的内容取决于对象的类型。如果你对 `url` 这个 `NSURL`\
+  \ 对象尝试同样的操作：\n\n`NSLog(@\"website = %@\", url);`\n\n控制台将显示网站的 URL。\n\n`website =\
+  \ https://mobileappmastery.com`\n\n### 消息\n\n当你希望对象执行某个操作时，可以向该对象发送一条消息。发送消息会指示对象执行其类中与消息相对应的方法。\n\
+  \n例如，你可以通过向 `NSFileManager` 对象发送一条消息来删除共享目录中的文件。\n\n`NSFileManager *fileManager\
+  \ = [NSFileManager defaultManager];`\n\n`[fileManager removeItemAtPath:@\"/Users/Shared/studyreport.txt\"\
+  \ error:nil];`\n\n上面第一行代码声明了一个名为 `fileManager` 的 `NSFileManager` 对象。在第二行代码中，你可以看到发送消息的示例。消息是\
+  \ `removeItemAtPath:error:`，你通过写出这个消息并包含参数（此处为要删除的项目和一个可选的错误对象）来发送它。所有这些内容都包含在方括号\
+  \ `[ ]` 内，并以分号结尾。\n\n如果你查看 `NSFileManager` 头文件中的类定义，会发现此方法的声明：\n\n```\n- (BOOL)removeItemAtPath:(NSString\
+  \ *)path error:(NSError **)error;\n```\n\n这个方法返回一个 `BOOL` 值，但此处未使用该返回值。\n\n"
+- "# 6. 字符串\n\n**摘要**  \n`NSString` 是 Objective-C 中用于处理字符串的类。`NSString` 管理构成字符串的字符列表。`NSString`\
+  \ 对象是不可变的，这意味着一旦你创建了一个 `NSString` 对象，就无法更改它。\n\n## NSString\n\n`NSString` 是 Objective-C\
+  \ 中用于处理字符串的类。`NSString` 管理构成字符串的字符列表。`NSString` 对象是不可变的，这意味着一旦你创建了一个 `NSString`\
+  \ 对象，就无法更改它。\n\n`NSString` 对象可以使用多种不同的构造函数进行创建，但最常见的创建方式是使用 `@` 符号后跟引号。实际上，在第 1\
+  \ 章的 Hello World 示例中你已经见过这种方式。\n\n`NSLog(@\"Hello, World!\");`\n\n那个参数就是一个 `NSString`\
+  \ 对象，尽管不太容易看出来，因为这里无需显式声明 `NSString`。更常见的是这样创建 `NSString` 对象：\n\n`NSString *firstName\
+  \ = @\"Matthew\";`\n\n`NSString *lastName = @\"Campbell\";`\n\n这是另一个 `NSString`\
+  \ 构造函数 `stringWithFormat:`，当需要使用其他变量和对象来组成新字符串时，它经常被使用：\n\n`NSString *n = [NSString\
+  \ stringWithFormat:@\"%@ %@\", firstName, lastName];`\n\n而构造函数 `stringWithContentsOfFile:encoding:error:`\
+  \ 则用于根据文件内容创建一个新的 `NSString` 对象。\n\n`NSString *fileName = @\"/Users/Shared/report.txt\"\
+  ;`\n\n```\nNSString *fileContents = [NSString stringWithContentsOfFile:fileName\n\
+  \                                  encoding:NSStringEncodingConversionAllowLossy\n\
+  \                                  error:nil];\n```\n\n## NSMutableString\n\n有时，你希望在程序执行过程中能够向字符串添加或删除字符。例如，你可能需要维护用户在程序中所作更改的日志，并且不希望每次更改时都创建新的字符串。这种情况就需要使用\
+  \ `NSMutableString`。\n\n你可以使用相同的构造函数来创建 `NSMutableString` 对象，但使用 `@\"\"` 将对象直接赋值为字符串的快捷方式除外。要创建一个简单的\
+  \ `NSMutableString`，请使用 `stringWithString:` 构造函数。\n\n`NSMutableString *alpha = [NSMutableString\
+  \ stringWithString:@\"A\"];`\n\n\n\n### 插入字符串\n\n你可以在可变字符串构成字符列表的任意位置插入字符串。只需确保指定的插入点在字符列表的范围内即可。如果你的字符串只有\
+  \ 10 个字符长，就不要尝试在位置 20 插入字符串。你可以通过向字符串发送 `length` 消息来获取字符串的长度。\n\n要插入字符串，你需要同时指定要插入的字符串和起始位置。以下是将\
+  \ `B` 插入到可变字符串 `alpha` 中的方法：\n\n```\n[alpha insertString:@\"B\"\n            atIndex:[alpha\
+  \ length]];\n```\n\n这里你发送了 `insertString:atIndex:` 消息。第一个参数是 `@\"B\"`，即你想要添加到可变字符串\
+  \ `A` 中的字符串。`atIndex:` 参数是 `alpha` 字符串的长度，因为你想要将 `B` 追加到 `A` 字符串的末尾，以生成 `@\"AB\"\
+  `。\n\n如果你只是想追加一个字符串，还有一种更简单的方法。你可以发送 `appendString:` 消息，该方法只需要字符串参数。由于假定该字符串会被追加到可变字符串的末尾，因此不需要指定插入点。\n\
+  \n```\n[alpha appendString:@\"C\"];\n```\n\n### 删除字符串\n\n就像你可以向可变字符串添加字符串一样，你也可以移除可变字符串的部分内容。在删除字符串时，你需要同时指定起点和长度。有一个名为\
+  \ `NSRange` 的复合类型可以帮助你完成此操作。`NSRange` 有两个关联变量：`location` 和 `length`。在向可变字符串发送 `deleteCharactersInRange:`\
+  \ 消息之前，你需要先创建一个这种复合类型的实例。\n\n```\nNSRange range;\nrange.location = 1;\nrange.length\
+  \ = 1;\n[alpha deleteCharactersInRange:range];\n```\n\n这段代码将从你在前面步骤中创建的 `ABC` 字符串中删除\
+  \ `B`。\n\n**注意：** 当你使用 `NSRange` 时，应牢记字符串是以字母列表形式存储的，其索引从 0 开始。\n\n### 查找与替换\n\n\
+  任何使用过文字处理软件的人都知道查找与替换功能有多么方便。你只需向程序提供要替换的文本以及替换后的文本即可。`NSMutableString` 也具备此功能。\n\
+  \n要对可变字符串执行查找与替换操作，你需要定义一个范围，并提供你要查找的字符串以及用于替换它的字符串。你还可以指定搜索选项。\n\n```\nrange.location\
+  \ = 0;\nrange.length = 2;\n[alpha replaceOccurrencesOfString:@\"AC\"\n         \
+  \              withString:@\"ABCDEFGHI\"\n                          options:NSLiteralSearch\n\
+  \                            range:range];\n```\n\n这里你首先做的是重用 `NSRange` 类型的 `range`\
+  \ 变量，以指定要检查的字符串部分。你将从开头开始，搜索整个字符串的长度。\n\n接下来，你定义要替换的字符串 `@\"AC\"`，以及用作替换的字符串 `@\"\
+  ABCDEFGHI\"`。\n\n在选项中，你设置了 `NSLiteralSearch` 选项。这意味着该方法将要求你的字符串完全匹配。你也可以指定 `NSCaseInsensitiveSearch`\
+  \ 来忽略大小写，以及 `NSRegularExpressionSearch`，它允许你使用正则表达式。\n\n**注意：** 正则表达式是一种用于在字符串中搜索模式的工具。它们被广泛应用于许多编程语言中。对正则表达式的完整解释超出了本书的范围，但如果你经常处理字符串，它值得深入研究。\n\
+  \n最后一个参数是你在发送消息之前设置好的 `range` 变量。\n\n"
+- '# 7. 数字
+
+
+  **摘要：** `NSNumber` 是 Objective-C 中用于处理数字的类。`NSNumber` 提供了一种将浮点数和整数值转换为面向对象数字对象的方法。虽然你不能在表达式中使用
+  `NSNumber` 对象，但当需要复杂格式化时，`NSNumber` 对象会非常有用。
+
+
+  ## NSNumber
+
+
+  `NSNumber` 是 Objective-C 中用于处理数字的类。`NSNumber` 提供了一种将浮点数和整数值转换为面向对象数字对象的方法。虽然你不能在表达式中使用
+  `NSNumber` 对象，但当需要复杂格式化时，`NSNumber` 对象会非常有用。
+
+
+  `NSNumber` 对象可以通过多种不同的构造器创建，但最常见的创建 `NSNumber` 对象的方式是使用 `@` 符号后跟一个数字。
+
+
+  ```
+
+  NSNumber *num1 = @1;
+
+  NSNumber *num2 = @2.25;
+
+  ```
+
+
+  有时你可能希望使用与特定方式存储的数字相匹配的特殊构造器。
+
+
+  ```
+
+  NSNumber *num3 = [NSNumber numberWithInteger:3];
+
+  NSNumber *num4 = [NSNumber numberWithFloat:4.44];
+
+  ```
+
+
+  ### 转换为原始数据类型
+
+
+  `NSNumber` 对象不能用于表达式中，但 `NSNumber` 有一些内置函数，可以以原始数据类型的形式返回该对象。你必须在表达式中使用这些函数之前，先使用它们来转换数字。
+
+
+  ```
+
+  CGFloat result = [num1 floatValue] + [num2 floatValue];
+
+  ```
+
+
+  上面使用的函数是 `floatValue`，但还有更多如 `intValue` 和 `doubleValue` 等函数，它们与 C 语言编程中的 `int` 和
+  `double` 等原始数据类型相匹配。`stringValue` 是另一个函数，它会将数字格式化为字符串返回，这在生成报告时非常有用。
+
+
+  ### 格式化数字
+
+
+  当你需要为报表和演示文稿中的显示格式化数字时，`NSNumber` 变得非常有用。与 `NSNumberFormatter` 类一起使用时，你可以将数字输出为本地化货币格式、科学记数法格式，甚至可以输出为拼写格式。
+
+
+  为此，你必须先创建一个新的数字格式化器，然后设置你想要使用的格式化样式。
+
+
+  ```
+
+  NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+
+  formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+
+  ```
+
+
+  然后，你可以发送 `stringFromNumber:` 消息来获取格式化后的数字。以下是在 `NSLog` 的上下文中向控制台写入消息的示例：
+
+
+  ```
+
+  NSLog(@"Formatted num2 = %@", [formatter stringFromNumber:num2]);
+
+  ```
+
+
+  由于我在美国设置，这将在我的计算机上输出 `$2.25`。你的输出将根据你的 Mac 或 iOS 设备上设置的区域设置而有所不同。
+
+
+  ### 将字符串转换为数字
+
+
+  你也可以将字符串转换为数字。如果你有一个以字符串形式表示的数字，你可以使用数字格式化器将该字符串转换为 `NSNumber` 对象。
+
+
+  只需将数字格式化器的样式更改为存储该数字时所用的样式。然后使用 `NSNumberFormatter numberFromString:` 消息创建一个新的 `NSNumber`
+  对象。以下是将字符串 “two point two five” 转换为数字 `2.25` 的方法：
+
+
+  ```
+
+  formatter.numberStyle = NSNumberFormatterSpellOutStyle;
+
+  NSNumber *num5 = [formatter numberFromString:@"two point two five"];
+
+  ```
+
+
+  '
+- "# 8. 数组\n\n**摘要：** `NSArray` 是一个用于在列表中组织对象的类。`NSArray` 可以维护对象的索引、搜索对象以及枚举遍历列表。枚举是逐个遍历列表中的每个项目并对每个项目执行操作的过程。\n\
+  \n\n\n## NSArray\n\n`NSArray` 是一个用于以列表形式组织对象的类。`NSArray` 可以维护对象的索引、搜索对象以及遍历列表。枚举就是逐个遍历列表中的元素，并对每个元素执行操作的过程。\n\
+  \n要创建数组，你需要使用逗号分隔的对象列表，将其括在方括号中，并以 `@` 符号开头。\n\n```\nNSArray *numbers = @[@-2, @-1,\
+  \ @0, @1, @2];\n```\n\n```\nNSArray *letters = @[@\"A\", @\"B\", @\"C\", @\"D\"\
+  , @\"E\", @\"F\"];\n```\n\n`NSArray` 对象 `numbers` 包含一个 `NSNumber` 对象列表，而 `letters`\
+  \ 则包含一个字符串列表。任何对象都可以放入 `NSArray` 对象中，但不能放入诸如 `NSInteger` 这样的基本类型。\n\n### 引用对象\n\n\
+  将对象放入数组，是为了以后能方便地获取对这些对象的引用。获取这些引用的一般方法是向数组发送 `objectAtIndex:` 消息。以下是如何从 numbers\
+  \ 数组的第二个位置获取数字对象引用的示例：\n\n```\nNSNumber *num = [numbers objectAtIndex:1];\n```\n\
+  \n如果你知道想要列表中的最后一个对象，可以使用 `lastObject` 来返回列表中的最后一个对象。\n\n> **注意**：Objective-C 中的数组索引从\
+  \ 0 开始。\n\n```\nNSNumber *lastNum = [numbers lastObject];\n```\n\n有时你可能已经拥有待查询对象的引用，但想要找出该对象在数组中的位置所对应的索引号。你可以使用\
+  \ `indexOfObject:` 来获取此信息。\n\n```\nNSUInteger index = [numbers indexOfObject:num];\n\
+  ```\n\n### 枚举\n\n枚举就是逐个遍历列表中的元素。通常，你会对每个元素执行某种操作，例如将对象的内容写入日志或修改对象的属性。\n\n代码块（Blocks），即匿名函数，用于对数组执行枚举操作。代码块是不绑定到对象上的函数。你可以在封闭代码行的大括号内定义一个代码块。代码块可以像对象一样被处理，这意味着你可以将代码块传递给枚举方法，就像传递变量或对象一样。\n\
+  \n> **注意**：代码块本身值得单独讲解，它们不仅用于数组。关于如何使用代码块的更多细节将在第 20 章中介绍。\n\n假设你想遍历数字数组，并打印出每个数字的平方值。你可以使用\
+  \ `NSArray enumerateObjectsUsingBlock:` 方法遍历列表。该方法会为你提供一个当前对象的引用，你可以利用它来执行这个简单的操作。\n\
+  \n```\n[numbers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)\
+  \ {\n    NSLog(@\"obj ^ 2= %f\", [obj floatValue] * [obj floatValue]);\n}];\n```\n\
+  \n冒号后面的所有代码都是代码块代码。这个代码块以 `^` 符号开头。然后你会看到一个逗号分隔的参数列表，后面跟着大括号。大括号内的代码就是代码块，而括号中声明的参数是代码块可以引用的变量。\n\
+  \n## NSMutableArray\n\n很多时候，当程序执行代码时，你需要能够向数组中添加和删除项目。你可能正在维护一个操作项列表或视频游戏角色列表。当需要这样做时，你可以使用\
+  \ `NSMutableArray`。\n\n`NSMutableArray` 能做 `NSArray` 能做的所有事情，只是它额外提供了更改数组内容的能力。你可以添加和删除项目，并对可变数组中的对象执行其他类型的操作。\n\
+  \n不过，你不能在此处使用创建数组的快捷方式，`NSMutableArray` 要求你使用构造方法，如下所示：\n\n```\nNSMutableArray *mArray\
+  \ = [NSMutableArray arrayWithArray:@[@-2, @-1, @0]];\n```\n\n上面使用的构造方法是 `arrayWithArray:`，你只需将一个\
+  \ `NSArray` 对象传递给这个构造方法即可开始。\n\n要向可变数组添加对象，请使用 `addObject:` 消息。\n\n```\n[mArray\
+  \ addObject:@1];\n```\n\n要删除对象，你必须使用 `removeObject:` 消息，并传递一个指向要删除对象的引用。\n\n```\n\
+  [mArray removeObject:@1];\n```\n\n如果你想交换两个对象的位置，可以使用 `exchangeObjectAtIndex:withObjectAtIndex:`\
+  \ 方法。\n\n```\n[mArray exchangeObjectAtIndex:0 withObjectAtIndex:1];\n```\n\n这将把位置\
+  \ 0 上的内容与位置 1 上的内容互换。\n\n还有许多其他变体方法可供你使用。你可以删除所有项目、将项目数组添加到可变数组中，或者在数组的特定起始点插入项目或项目数组。\n\
+  \n"
+- "# 9. 字典\n\n**摘要**：`NSDictionary` 是一个用于通过键和值以列表形式组织对象的类。`NSDictionary` 可以维护对象的索引，并让你在拥有正确键的情况下检索对象。通常，键是一个\
+  \ `NSString` 对象，而值则是你正在索引的任何类型的对象。\n\n## NSDictionary\n\n`NSDictionary` 是一个用于通过键和值以列表形式组织对象的类。`NSDictionary`\
+  \ 可以维护对象的索引，并让你在拥有正确键的情况下检索对象。通常，键是一个 `NSString` 对象，而值则是你正在索引的任何类型的对象。\n\n要创建字典，你需要使用逗号分隔的键值对列表，将其括在大括号中，并以\
+  \ `@` 符号开头。\n\n```\nNSDictionary *d1 = @{@\"one\": @1, @\"two\": @2, @\"three\"\
+  : @3};\n```\n\n这将创建一个 `NSNumber` 对象的字典，你可以使用它们的字符串键进行引用。因此，键字符串 `@\"one\"` 可用于检索\
+  \ `NSNumber` 对象 `1`。\n\n### 引用对象\n\n将对象放入字典，是为了能基于键高效地获取对这些对象的引用。获取这些引用的一般方法是向字典发送\
+  \ `objectForKey:` 消息。以下是如何获取由键 `@\"one\"` 引用的数字的示例：\n\n```\nNSNumber *n1 = [d1 objectForKey:@\"\
+  one\"];\n```\n\n### 枚举\n\n枚举就是逐个遍历列表中的元素。通常，你会对每个元素执行某种操作，例如将对象的内容写入日志或修改对象的属性。\n\
+  \n你可以用几乎与数组相同的方式枚举字典。但你会获得字典中每个键以及每个对象的引用。\n\n```\n[d1 enumerateKeysAndObjectsUsingBlock:^(id\
+  \ key, id obj, BOOL *stop) {\n    NSLog(@\"key = %@, value = %@\", key, obj);\n\
+  }];\n```\n\n与第 8 章中讨论的数组枚举过程一样，代码块声明以 `^` 字符开头，代码块代码包含在大括号 `{ }` 中。\n\n以下是使用此消息将生成的输出：\n\
+  \n```\nkey = one, value = 1\nkey = two, value = 2\nkey = three, value = 3\n```\n\
+  \n\n\n## NSMutableDictionary\n\n`NSDictionary` 是一个不可变对象，因此一旦你创建了一个 `NSDictionary`\
+  \ 对象，就无法向字典中添加或删除条目。如果你需要向字典中添加或删除条目，则必须使用 `NSMutableDictionary` 类。\n\n不过，这里不能使用数组创建的快捷方式，`NSMutableDictionary`\
+  \ 要求你使用构造器，像这样：\n\n```\nNSMutableDictionary *md1 = [[NSMutableDictionary alloc]\
+  \ init];\n```\n\n最简单的做法是遵循 `alloc` 和 `init` 模式来创建一个空字典，然后你就可以向其中添加对象。当你准备向字典中添加对象时，你需要一个键（key）和要添加的值（value）。这两个参数将被提供给\
+  \ `setObject: forKey:` 方法。\n\n```\n[md1 setObject:@4 forKey:@\"four\"];\n```\n\n\
+  若要移除一个对象，发送 `removeObjectForKey:` 消息并提供相应的键。\n\n```\n[md1 removeObjectForKey:@\"\
+  four\"];\n```\n\n你可以通过发送 `removeAllObjects` 消息来移除可变字典中的所有对象。\n\n```\n[md1 removeAllObjects];\n\
+  ```\n\n"
+- "# 10. For 循环\n\n## 摘要\n\n当你想多次重复执行相似类型的任务时，会用到循环。`For` 循环用于当你事先知道要重复执行相似代码行的次数时。下面是一个\
+  \ `for` 循环示例，它将向控制台窗口写入 10 次：\n\n## For 循环详解\n\n当你想多次重复执行相似类型的任务时，会用到循环。`For` 循环用于当你事先知道要重复执行相似代码行的次数时。下面是一个\
+  \ `for` 循环示例，它将向控制台窗口写入 10 次：\n\n```\nfor (int i=0; i<10; i++) {\n    NSLog(@\"\
+  i = %i\", i);\n}\n```\n\n这个 `for` 循环将产生如下输出：\n\n```\ni = 0\ni = 1\ni = 2\ni = 3\n\
+  i = 4\ni = 5\ni = 6\ni = 7\ni = 8\ni = 9\n```\n\n让我们更仔细地看一下这个循环的各个部分。首先是 `for` 关键字，它告诉编译器你正在编写一个\
+  \ for 循环。\n\n接着，在括号内有一系列代码行：`(int i=0; i<10; i++)`。这些代码行指定了起始条件（`int i=0;`）、结束条件（`i<10`）和增量指令（`i++`）。这意味着循环将重复\
+  \ 10 次，从 0 开始，只要变量 `i` 小于 10，每次循环执行时 `i` 就增加 1。\n\n最后，有一个由花括号 `{ }` 定义的代码块。包含在这些花括号中的代码将在每次循环时执行。在上面的例子中，代码块只有一行代码：`NSLog(@\"\
+  i = %i\", i);`。请注意，变量 `i`（有时称为计数器变量）在作用域内，你可以在代码块中使用 `i`。\n\n### For 循环与数组\n\n通常情况下，你会使用\
+  \ `for` 循环来遍历一个列表，并对列表中的每个对象执行某些操作。假设你有一个名为 `list` 的数组，其中包含五个范围从 -2.0 到 2.0 的 `NSNumber`\
+  \ 对象。\n\n```\nNSArray *list = @[@-2.0, @-1.0, @0.0, @1.0, @2.0];\n```\n\n假设你想构建一个字符串，其中包含\
+  \ `list` 中的所有值，但要用单词拼写出来。例如，你想要一个字符串 `minus two, minus one, etc`。你需要使用 `NSNumberFormatter`\
+  \ 和一个 `NSMutableString`，这些都在关于数字和字符串的章节中介绍过。\n\n为了设置好这一切，让我们在进入 `for` 循环之前，先获取数字格式化器、可变字符串和数组。\n\
+  \n```\nNSArray *list = @[@-2.0, @-1.0, @0.0, @1.0, @2.0];\nNSMutableString *report\
+  \ = [[NSMutableString alloc] init];\nNSNumberFormatter *formatter = [[NSNumberFormatter\
+  \ alloc] init];\nformatter.numberStyle = NSNumberFormatterSpellOutStyle;\n```\n\n\
+  请注意，这里指定了 `NSNumberFormatterSpellOutStyle`，这样数字格式化器就能给出每个数字对象拼写出来的值。\n\n由于你希望 `for`\
+  \ 循环遍历数组列表中的每个数字，你需要找出 `list` 中包含多少个对象。`NSArray` 对象有一个 `count` 属性，你可以用它来获取数组中包含的对象数量，并且你可以直接在\
+  \ `for` 循环中使用这个值。\n\n```\nfor (int i=0; i<list.count; i++) {\n    NSNumber *num\
+  \ = [list objectAtIndex:i];\n    NSString *spelledOutNum = [formatter stringFromNumber:num];\n\
+  \    [report appendString:spelledOutNum];\n    [report appendString:@\", \"];\n\
+  }\n```\n\n上面所做的就是遍历列表中的每个对象，并获取列表中与当前 `i` 值对应的索引位置上的数字引用。\n\n接下来，使用数字格式化器获取该数字的拼写字符串版本。最后，将这个拼写的字符串值追加到可变字符串的末尾。以下是输出结果的样子：\n\
+  \n```\nreport = minus two, minus one, zero, one, two,\n```\n\n"
+- "# 11. While 循环\n\n## 摘要\n\n与 `for` 循环类似，当你想多次重复执行相似类型的任务时，会用到 `while` 循环。`While`\
+  \ 循环用于当你想要重复执行一行代码多次，直到满足某个条件时。下面是一个 `while` 循环示例，它将向控制台窗口写入 10 次：\n\n## While 循环详解\n\
+  \n与 `for` 循环类似，当你想多次重复执行相似类型的任务时，会用到 `while` 循环。`While` 循环用于当你想要重复执行一行代码多次，直到满足某个条件时。下面是一个\
+  \ `while` 循环示例，它将向控制台窗口写入 10 次：\n\n```\nint i = 0;\nwhile (i < 10) {\n    NSLog(@\"\
+  i = %i\", i);\n    i++;\n}\n```\n\n这个 `while` 循环将产生如下输出：\n\n```\ni = 0\ni = 1\n\
+  i = 2\ni = 3\ni = 4\ni = 5\ni = 6\ni = 7\ni = 8\ni = 9\n```\n\n上面的循环与第 10 章的 `for`\
+  \ 循环功能相同，但请注意循环的各个部分位于不同的位置。你首先会注意到的是，在 `while` 循环中需要有一个计数器变量供其使用。你不能像之前那样直接将计数器变量放在循环体内部。所以你需要在使用\
+  \ `while` 循环之前单独用一行代码来声明并赋值计数器变量。\n\n```\nint i = 0;\n```\n\n然后是 `while` 循环本身，它以\
+  \ `while` 关键字开始。在 `while` 关键字后面的括号内是结束条件 `(i < 10)`。这意味着只要 `i` 的值小于 10，循环就会继续。\n\
+  \n最后，有一个由花括号定义的代码块。包含在这些花括号中的代码将在每次循环时执行。你有一行代码 `NSLog(@\"i = %i\", i);` 用于写入日志。你还需要在此代码块中递增计数器变量：`i++;`。\n\
+  \n**注意**\n\n记住在此处递增计数器变量非常重要。如果你不这样做，那么 `i` 将永远不会超过 10。循环将永远不会结束，这实际上会导致你的程序挂起，直到用户终止它。\n\
+  \n\n\n### While 循环与数组\n\n现在，让我们重复第 10 章中的示例，该示例使用循环格式化数组中的数字列表。这是你在第 10 章中用过的数组和其他对象：\n\
+  \n```\nNSArray *list = @[@-2.0, @-1.0, @0.0, @1.0, @2.0];\nNSMutableString *report\
+  \ = [[NSMutableString alloc] init];\nNSNumberFormatter *formatter = [[NSNumberFormatter\
+  \ alloc] init];\nformatter.numberStyle = NSNumberFormatterSpellOutStyle;\n```\n\n\
+  你将执行与第 10 章相同的操作，但将改用 `while` 循环实现。\n\n```\nint i = 0;\nwhile(i < list.count) {\n\
+  \    NSNumber *num = [list objectAtIndex:i];\n    NSString *spelledOutNum = [formatter\
+  \ stringFromNumber:num];\n    [report appendString:spelledOutNum];\n    [report\
+  \ appendString:@\", \"];\n    i++;\n}\n```\n\n上述操作是在遍历列表中的每个对象，并获取列表中与当前 `i` 值对应的索引所关联的数字引用。\n\
+  \n接着，你使用数字格式化器获取数字的拼写字符串版本。最后，将这个拼写字符串值附加到可变字符串的末尾。以下是 `report` 的值：\n\n```\nreport\
+  \ = minus two, minus one, zero, one, two,\n```\n\n"
+- "# 12. Do While 循环\n\n**摘要**\n\n`Do while` 循环与 `for` 循环和 `while` 循环的用途相同。其语法有所不同，`do\
+  \ while` 循环的显著特点是代码块至少会执行一次。这是因为结束条件直到循环末尾才会被评估。以下是使用 `do while` 循环计数到 10 的代码示例：\n\
+  \n## Do While 循环的定义\n\n`Do while` 循环与 `for` 循环和 `while` 循环的用途相同。其语法有所不同，`do while`\
+  \ 循环的显著特点是代码块至少会执行一次。这是因为结束条件直到循环末尾才会被评估。以下是使用 `do while` 循环计数到 10 的代码示例：\n\n```\n\
+  int i = 0;\ndo{\n    NSLog(@\"i = %i\", i);\n    i++;\n}while (i <10);\n```\n\n\
+  这个 `do while` 循环将输出以下结果：\n\n```\ni = 0\ni = 1\ni = 2\ni = 3\ni = 4\ni = 5\ni = 6\n\
+  i = 7\ni = 8\ni = 9\n```\n\n上述循环与第 10 章中的 `for` 循环以及第 11 章中的 `while` 循环功能相同。`do\
+  \ while` 循环的规范与 `while` 循环类似，但它们位于不同的代码行中。\n\n与 `while` 循环一样，你需要准备一个计数器变量。\n\n```\n\
+  int i = 0;\n```\n\n然后是以 `do` 关键字开头的 `do while` 循环本身。紧跟在 `do` 关键字之后的是由花括号定义的代码块。每次循环时，花括号内的代码都会执行。这里有一行代码\
+  \ `NSLog(@\"i = %i\", i);` 用于写入日志，同时你还在该代码块中递增计数器变量 `i++;`。\n\n条件 `(i < 10)` 位于代码块之后的\
+  \ `while` 关键字之后。这意味着只要 `i` 的值小于 10，循环就会继续。\n\n> **注意：** 务必记得在此处递增计数器变量。如果不这样做，`i`\
+  \ 将永远不会超过 10，循环将永远不会结束，这会导致程序挂起，直到用户终止它。\n\n### Do While 循环与数组\n\n现在，让我们重复第 10 章和第\
+  \ 11 章中的示例，该示例使用循环格式化数组中的数字列表。这是你在第 10 章和第 11 章中用过的数组和其他对象：\n\n```\nNSArray *list\
+  \ = @[@-2.0, @-1.0, @0.0, @1.0, @2.0];\nNSMutableString *report = [[NSMutableString\
+  \ alloc] init];\nNSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];\n\
+  formatter.numberStyle = NSNumberFormatterSpellOutStyle;\n```\n\n你将改用 `do while`\
+  \ 循环实现。\n\n```\nint i = 0;\ndo {\n    NSNumber *num = [list objectAtIndex:i];\n\
+  \    NSString *spelledOutNum = [formatter stringFromNumber:num];\n    [report appendString:spelledOutNum];\n\
+  \    [report appendString:@\", \"];\n    i++;\n}while(i < list.count);\n\nNSLog(@\"\
+  report = %@\", report);\n```\n\n最终你会得到一个可变字符串，并将其输出到控制台日志中。输出结果如下：\n\n```\nreport\
+  \ = minus two, minus one, zero, one, two,\n```\n\n"
+- "# 13. For-Each 循环\n\n**摘要**\n\n`For-each` 循环是一种更具体的循环类型，只能用于 `NSArray` 和 `NSDictionary`\
+  \ 等集合对象。当你需要遍历对象列表并对列表中的每个对象执行操作时，可以使用 `for` 循环。\n\n## For-Each 循环的定义\n\n`For-each`\
+  \ 循环是一种更具体的循环类型，只能用于 `NSArray` 和 `NSDictionary` 等集合对象。当你需要遍历对象列表并对列表中的每个对象执行操作时，可以使用\
+  \ `for` 循环。\n\n例如，以第 8 章中的数组为例：\n\n```\nNSArray *numbers = @[@-2, @-1, @0, @1, @2];\n\
+  ```\n\n在第 8 章中，你使用了带块的枚举方法遍历列表并对每个数字求平方。你可以使用 `for` 循环作为枚举方法的替代方案。\n\n```\nfor (NSNumber\
+  \ *num in numbers){\n    NSLog(@\"num ^ 2= %f\", [num floatValue] * [num floatValue]);\n\
+  }\n```\n\n该循环以 `for` 关键字开头，后面是括号内的规范。规范以对象类型（`NSNumber`）和一个变量（`*num`）开头，该变量将提供对列表中当前对象的引用。\n\
+  \n接下来，你可以看到关键字 `in`，后面跟着数组（`numbers`）。综合来看，你可以将其理解为“对于数组 `numbers` 中的每个数字 num，执行某些操作”。“某些操作”定义在循环第一部分后面的代码块中。它将遍历整个数组并对每个数字求平方，生成以下输出：\n\
+  \n```\nnum ^ 2= 4.000000\nnum ^ 2= 1.000000\nnum ^ 2= 0.000000\nnum ^ 2= 1.000000\n\
+  num ^ 2= 4.000000\n```\n\n### 使用 NSDictionary 的 For 循环\n\n字典比数组稍微复杂一些，因为字典维护了一个键和对象的列表。你可能会认为对字典使用\
+  \ `for` each 循环会得到对象列表；但实际上，你只会得到字典键的列表。\n\n因此，如果你像下面这样对 `NSDictionary` 使用 `for`\
+  \ each 循环：\n\n```\nNSDictionary *d1 = @{@\"one\": @1, @\"two\": @2, @\"three\":\
+  \ @3};\nfor (id object in d1){\n    NSLog(@\"object = %@\", object);\n}\n```\n\n\
+  你将得到如下列出所有键的输出：\n\n```\nobject = one\nobject = two\nobject = three\n```\n\n如果你想输出字典中的值，你需要向字典发送\
+  \ `objectForKey:` 消息。\n\n```\nfor (id object in d1){\n    NSNumber *num = [d1 objectForKey:object];\n\
+  \    NSLog(@\"num = %@\", num);\n}\n```\n\n这个 `for` 循环将打印出对象的值：\n\n```\nnum = 1\n\
+  num = 2\nnum = 3\n```\n\n"
+- "# 14. If 语句\n\n**摘要**\n\n当你希望根据条件的真假来决定是否执行代码时，可以使用 `if` 语句。为此，你需要评估一个使用关系运算符的表达式，以得到\
+  \ `YES` 或 `NO` 的结果。如果表达式评估为真，则可以执行代码；否则可以忽略该代码。\n\n\n\n## If 语句的定义\n\n如果你想根据条件的真假来决定是否执行代码，就可以使用\
+  \ if 语句。为此，你需要计算一个使用关系运算符的表达式，以得到“是”或“否”的结果。如果表达式计算结果为真，则执行代码；否则忽略该代码。\n\n使用 if\
+  \ 语句需要 `if` 关键字、一个表达式以及一个代码块。\n\n```\nif(1 < 2){\n    NSLog(@\"That is true\");\n\
+  }\n```\n\n该语句的意思是：如果 1 小于 2，则执行代码，将字符串“That is true”打印到控制台日志中。\n\n### else 关键字\n\
+  \n你还可以使用 `else` 关键字定义一个备选操作。这提供了一种方式，让你可以根据所计算的表达式结果，执行两个操作中的一个。\n\n```\nif(1 <\
+  \ 2){\n    NSLog(@\"That is true\");\n}\nelse{\n    NSLog(@\"Not true\");\n}\n```\n\
+  \n### 嵌套 if-else\n\n每个 if 语句都可以包含嵌套的 if 语句。这为你提供了测试多个条件的方式。一般来说，最好将嵌套 if 语句限制在最多三层。以下是嵌套\
+  \ if 语句的样子：\n\n```\nif(1 > 2){\n    NSLog(@\"True\");\n}\nelse{\n    if(3 > 4){\n\
+  \        NSLog(@\"True\");\n    }\n    else{\n        NSLog(@\"Not True\");\n  \
+  \  }\n}\n```\n\n## if 语句与变量\n\n通常，你会看到 if 语句与用于跟踪程序状态的变量一起使用。你可以在 if 语句的括号内将变量作为表达式的一部分，或者直接测试变量。\n\
+  \n```\nBOOL isTrue = 1 == 2;\n\nif(isTrue){\n    NSLog(@\"isTrue = %@\", isTrue\
+  \ ? @\"YES\" : @\"NO\");\n    NSLog(@\"That was a true statement.\");\n}\nelse{\n\
+  \    NSLog(@\"isTrue = %@\", isTrue ? @\"YES\" : @\"NO\");\n    NSLog(@\"That was\
+  \ not a true statement.\");\n}\n```\n\n在上面的代码中，你将表达式的结果赋值给了布尔变量 `isTrue`，然后稍后通过\
+  \ if 语句对其进行测试。\n\n如果你亲自测试这段代码，在控制台日志中会看到以下内容：\n\n```\nisTrue = NO\nThat was not\
+  \ a true statement.\n```\n\n"
+- "# Switch 语句\n\nSwitch 语句用于根据整数值执行代码。要使 switch 语句工作，你需要定义一个层级变量，然后为预期的层级变量的每个可能值编写一个代码块。\n\
+  \n## Switch 语句的定义\n\nSwitch 语句用于根据整数值执行代码。要使 switch 语句工作，你需要定义一个层级变量，然后为预期的层级变量的每个可能值编写一个代码块。\n\
+  \n在本章中，假设你正在编写代码来帮助进行一些几何计算。你需要处理不同的形状，并希望计算每个形状的面积。你可以使用一个 `NSInteger` 类型的变量（如\
+  \ `shape`）来跟踪你正在处理的形状类型。\n\n```\nNSInteger shape = 0;\n```\n\n`NSInteger shape`\
+  \ 的每个值都对应一种形状类型。零可以是正方形，一可以是平行四边形，二可以是圆形。像 `shape` 这样的变量被称为层级变量，因为它们代表了可能的层级。\n\n\
+  为了本示例的目的，你还需要一个变量来存储任何计算的结果，这就是为什么你有一个名为 `area` 的浮点数变量。\n\n```\nfloat area;\n```\n\
+  \n### switch 关键字\n\n现在，让我们来介绍 switch 语句本身。要开始一个 switch 语句，你需要 `switch` 关键字，后面跟括号中的层级变量。同时，你应该使用花括号为\
+  \ switch 语句创建一个代码块。\n\n```\nswitch (shape) {\n\n}\n```\n\n### case 关键字\n\n接下来，你可以定义与层级变量可能取到的每个值相关联的代码块。你使用\
+  \ `case` 关键字将每个可能的值与一个代码块关联起来。\n\n```\nswitch (shape) {\n        case 0:{\n    \
+  \        float length = 3;\n            area = length * length;\n            NSLog(@\"\
+  Square area is %f\", area);\n            break;\n        }\n}\n```\n\n你上面看到的是 `case`\
+  \ 关键字后跟你要测试的值，这里是 `0`。然后是冒号，接着是用花括号定义的代码块，当 `shape` 的值为 `0` 时，该代码块将被执行。\n\n### break\
+  \ 关键字\n\n在上面代码块的末尾，你可以看到 `break` 关键字。这个关键字会将程序控制权返回给主程序，并跳出 case 语句。如果没有这个语句，那么一旦第一个\
+  \ case 为真，后面的每一行代码都会被执行（switch 语句在找到真值后，会停止对层级变量的求值）。\n\n### 完整的 Switch 语句\n\n以下是包含多个\
+  \ case 语句的 switch 语句样子：\n\n```\nswitch (shape) {\n    case 0:{\n        float length\
+  \ = 3;\n        area = length * length;\n        NSLog(@\"Square area is %f\", area);\n\
+  \        break;\n    }\n    case 1:{\n        float base = 16;\n        float height\
+  \ = 24;\n        area = base * height;\n        NSLog(@\"Parallelogram area is %f\"\
+  , area);\n        break;\n    }\n    default:{\n        area = -999;\n        NSLog(@\"\
+  No Shape Specified\");\n        break;\n    }\n}\n```\n\n### 默认 case\n\n仔细观察上面的代码，你可以看到有一个\
+  \ `default` 关键字。这个关键字用于定义一个默认 case，这是一种定义代码块的方式，当其他条件都不满足时，该代码块将被执行。因此，如果 `shape`\
+  \ 的值恰好是 6 并且没有定义相应的代码块，你可以确保至少默认 case 中包含的代码会被执行。\n\n如果你运行本章的代码，在控制台日志中会看到以下内容：\n\
+  \n```\nSquare area is 9.000000\n```\n\n"
+- "# 定义类\n\n我在演示用于处理字符串、数字、数组和字典的 Objective-C 对象时，已经介绍过对象。对象是一种基本的面向对象编程模式。虽然你通常会直接使用已经为你设置好的\
+  \ Foundation 对象，但通常你需要为你的应用自定义你自己的对象类型。\n\n## 类\n\n你可以在演示用于处理字符串、数字、数组和字典的 Objective-C\
+  \ 对象时已经介绍过对象。**（注：此处英文原文有重复段落，译文按原文结构保留重复）** 类是用于创建对象的代码定义。编写类定义的主要目的是表达一个具有属性和行为的实体。\n\
+  \n在编写类时，属性称为 properties，行为称为 methods。Properties 用于描述一个对象，而 methods 用于让对象执行一个动作。\n\
+  \n定义类时需要完成两项重要任务：编写接口和编写实现。\n\n\n\n### 类接口\n\n使用类接口可以指定类名以及构成该类的属性和方法。以下是创建一个名为\
+  \ `Project` 的类的方法：\n\n```\n#import <Foundation/Foundation.h>\n\n@interface Project\
+  \ : NSObject\n\n@end\n```\n\n以 `#import` 开头的代码行导入了 Foundation 框架。每当您需要使用 `NSObject`\
+  \ 或 `NSString` 这类 Objective-C 类时（几乎总是如此），都需要包含此框架。\n\n具体来说，您需要引用 `NSObject`，因为它将成为您的基类。基类是您派生类的起点，`NSObject`\
+  \ 提供了使对象按预期工作所需的对象创建方法（例如 `alloc` 和 `init`）。\n\n在以 `@interface` 关键字开头的行中，您可以使用类名\
+  \ `Project` 以及冒号后面的基类 `NSObject`。\n\n`@interface` 关键字必须与 `@end` 关键字配对使用。\n\n####\
+  \ 属性前置声明\n\n属性需要在类接口中编写前置声明。这些声明位于 `@interface` 行和 `@end` 行之间的空间内。\n\n```\n#import\
+  \ <Foundation/Foundation.h>\n\n@interface Project : NSObject\n\n@property(strong)\
+  \ NSString *name;\n\n@end\n```\n\n属性前置声明以 `@property` 关键字开头，后跟括号内的属性描述符。有关可使用的参数描述符列表，请参见表\
+  \ 16-1。\n\n**表 16-1.** 参数描述符\n\n| 属性 | 描述 |\n| --- | --- |\n| `Readwrite` | 该属性需要同时包含\
+  \ getter 和 setter 方法（默认值）。 |\n| `Readonly` | 该属性只需要 getter 方法（对象无法设置此属性）。 |\n| `strong`\
+  \ | 该属性将具有强引用关系。 |\n| `weak` | 当目标对象被释放时，该属性将被设为 nil。 |\n| `assign` | 该属性仅使用赋值操作（用于基础数据类型）。\
+  \ |\n| `Copy` | 该属性返回一个副本，并且必须实现 `NSCopying` 协议。 |\n| `retain` | setter 方法中会发送 retain\
+  \ 消息。 |\n| `nonatomic` | 指定该属性是非原子性的（在访问时不会加锁）。 |\n\n属性前置声明的后两部分是数据类型和属性名。您可以将此前置声明理解为：定义了一个名为\
+  \ `name` 的属性，其类型为 `NSString`，并且 `Project` 将与其建立强引用关系。\n\n**注意**  \n`strong`、`retain`\
+  \ 和 `weak` 等术语与属性值的内存管理方式有关。`strong` 和 `retain` 都意味着您的类对象将始终持有对属性值的引用，从而保证在您需要期间该对象不会超出作用域。而属性描述符\
+  \ `weak` 和 `assign` 则不提供此保证。\n\n#### 方法前置声明\n\n方法同样需要前置声明。属性用于描述对象，而方法则代表对象可以执行的操作。以下是向\
+  \ `Project` 类添加前置声明的方法：\n\n```\n#import <Foundation/Foundation.h>\n\n@interface\
+  \ Project : NSObject\n\n@property(strong) NSString *name;\n\n-(void)generateReport;\n\
+  \n@end\n```\n\n方法前置声明以减号开头，后跟括号内的返回类型。此方法具有 `void` 返回类型，但您可以使用任何数据类型或类作为方法的返回类型。\n\
+  \n之后是方法签名。当您看到一个包含参数的方法时，我会进一步讨论签名。以下是一个包含参数的方法示例：\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface Project : NSObject\n\n@property(strong) NSString *name;\n\n-(void)generateReport;\n\
+  \n-(void)generateReportAndAddThisString:(NSString *)string\n                   \
+  \  andThenAddThisDate:(NSDate *)date;\n\n@end\n```\n\n在此参数示例中，您可以看到方法签名被分为两部分。每部分都有一个参数和一个由冒号分隔的参数描述符。在\
+  \ Objective-C 中，方法签名是参数描述符和参数的集合。当您没有参数时（如第一个方法），只需使用一个参数描述符来描述该方法即可。\n\n### 实现类\n\
+  \n定义类接口是定义类过程的第一步。下一步称为实现，因为您要在此处提供使类对象正常工作的代码实现。\n\n要开始实现一个类，请使用 `@implementation`\
+  \ 关键字加上类名。\n\n```\n#import \"Project.h\"\n\n@implementation Project\n\n@end\n```\n\
+  \n第一行代码将 Project 的前置声明导入到此文件中，以便该类了解需要实现的内容。\n\n**注意**  \n虽然并非强制要求，但通常类接口和实现会分别编写在不同文件中。接口文件以\
+  \ `.h` 扩展名结尾，有时称为头文件。实现文件以 `.m` 扩展名结尾，有时称为代码文件。\n\n实现以 `@implementation` 关键字开头，后跟类名\
+  \ `Project`。实现以 `@end` 关键字结束。现在，您需要实现属性和方法。\n\n属性会自动为您实现，无需采取任何额外操作即可使属性生效。\n\n\
+  #### 实现方法\n\n当您实现一个方法时，需要重复接口中的方法前置声明。但您需要添加一个代码块以及使方法执行特定操作的代码。\n\n```\n#import\
+  \ \"Project.h\"\n\n@implementation Project\n\n-(void)generateReport{\n    NSLog(@\"\
+  This is a report!\");\n}\n\n@end\n```\n\n当您实现包含参数的方法时，可以在代码中引用这些参数值。\n\n```\n#import\
+  \ \"Project.h\"\n\n@implementation Project\n\n-(void)generateReport{\n    NSLog(@\"\
+  This is a report!\");\n}\n\n-(void)generateReportAndAddThisString:(NSString *)string\n\
+  \                     andThenAddThisDate:(NSDate *)date{\n    [self generateReport];\n\
+  \    NSLog(@\"%@\", string);\n    NSLog(@\"Date: %@\", date);\n}\n\n@end\n```\n\n\
+  \n好的，作为一名高级文档工程师和翻译员，我将遵循您提供的注意事项和示例，将给定的英文文本翻译成高质量的中文。\n\n---\n\n\n##### 私有属性和方法\n\
+  \n上述过程定义的都是公共属性和方法。这意味着其他对象可以引用这些属性并使用这些方法。从该类派生出的类也可以使用并覆写这些属性和方法。如果你希望阻止这种情况发生，使属性和方法成为私有，可以使用类扩展。\n\
+  \n###### 类扩展\n\n类扩展提供了一种在实现文件中扩展类接口的方式。由于其他类会导入以 `.h` 扩展名结尾的接口文件（头文件），它们将无法访问在类扩展中使用前向声明定义的任何内容。\n\
+  \n你可以像这样在实现文件中放置类扩展：\n\n```\n#import \"Project.h\"\n\n@interface Project()\n\n@property(strong)\
+  \ NSArray *listOfTasks;\n\n-(void)generateAnotherReport;\n\n@end\n\n@implementation\
+  \ Project\n\n-(void)generateReport{\n    NSLog(@\"This is a report!\");\n}\n\n-(void)generateReportAndAddThisString:(NSString\
+  \ *)string\n                   andThenAddThisDate:(NSDate *)date{\n    [self generateReport];\n\
+  \    NSLog(@\"%@\", string);\n    NSLog(@\"Date: %@\", date);\n}\n\n-(void)generateAnotherReport{\n\
+  \    NSLog(@\"Another report!\");\n}\n\n@end\n```\n\n类扩展看起来像接口，但类名后面有空的括号。上述类扩展中的前向声明遵循与其他属性和方法前向声明相同的规则。类扩展必须以\
+  \ `@end` 关键字结尾（每个 `@interface` 都需要一个匹配的 `@end`）。\n\n###### 局部实例变量\n\n有时你需要一些存储变量，这些变量不值得声明为属性。例如，有时你可能需要一个“计数器”或“进度”变量，或者一个维护日志的变量。这些变量是必需的，但它们并不能真正描述对象，因此不值得像属性一样对待。\n\
+  \n在这种情况下，你可以使用实例变量。实例变量可以直接包含在类扩展中，就像这样：\n\n```\n#import \"Project.h\"\n\n@interface\
+  \ Project() {\n    int counter;\n    NSString *log;\n}\n\n@property(strong) NSArray\
+  \ *listOfTasks;\n\n-(void)generateAnotherReport;\n\n@end\n\n@implementation Project\n\
+  \n-(void)generateReport{\n    NSLog(@\"This is a report!\");\n}\n\n-(void)generateReportAndAddThisString:(NSString\
+  \ *)string\n                   andThenAddThisDate:(NSDate *)date{\n    [self generateReport];\n\
+  \    NSLog(@\"%@\", string);\n    NSLog(@\"Date: %@\", date);\n}\n\n-(void)generateAnotherReport{\n\
+  \    NSLog(@\"Another report!\");\n}\n\n@end\n```\n\n"
+- "# 类方法\n\n**摘要**\n\n在第 16 章中，我们描述了如何使用属性和方法定义类。我们重点介绍的方法是实例方法。实例方法是只能用于对象的方法。当你想使用一个实例方法时，你向一个对象发送消息。\n\
+  \n## 类方法的定义\n\n在第 16 章中，我们描述了如何使用属性和方法定义类。我们重点介绍的方法是实例方法。实例方法是只能用于对象的方法。当你想使用一个实例方法时，你向一个对象发送消息。\n\
+  \n例如，如果你想向一个 `Project` 对象发送 `generateReport` 消息，你首先需要创建该对象，然后直接将消息发送给该对象。\n\n```\n\
+  Project *p = [[Project alloc] init];\n[p generateReport];\n```\n\n类方法与实例方法类似，区别在于它们只能用于类。当你想使用一个类方法时，你必须向该类发送消息。如果你仔细看看上面的构造函数，你会发现你已经在使用一个名为\
+  \ `alloc` 的类方法了。\n\n### 编写类方法\n\n如果你想创建自己的类方法，你需要从类接口开始。让我们为一个名为 `printTimeStamp`\
+  \ 的类方法编写前向声明，该方法用于打印时间戳。你可以将其添加到上一章开始编写的类中。\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface Project : NSObject\n\n@property(strong) NSString *name;\n\n-(void)generateReport;\n\
+  \n-(void)generateReportAndAddThisString:(NSString *)string\n                   andThenAddThisDate:(NSDate\
+  \ *)date;\n\n+(void)printTimeStamp;\n\n@end\n```\n\n这个方法看起来和你已经编写的实例方法类似，除了在返回类型前面有一个加号（`+`）。\n\
+  \n下一步是实现这个方法，你必须在 `Project` 的实现中完成。请注意，此处省略了第 16 章的部分代码，以避免示例过长而分心。\n\n```\n#import\
+  \ \"Project.h\"\n\n@implementation Project\n\n+(void)printTimeStamp{\n    NSLog(@\"\
+  Timestamp: %@\", [NSDate date]);\n}\n\n@end\n```\n\n你需要再次使用加号将其定义为类方法，但编码模式与实例方法相同。\n\
+  \n当你想使用 `printTimeStamp` 方法时，你直接将消息发送给这个类。你不需要先创建一个对象。\n\n```\n[Project printTimeStamp];\n\
+  ```\n\n这条消息会将以下内容打印到控制台日志：\n\n`Timestamp: 2014-10-30 18:13:01 +0000`\n\n"
+- "# 继承\n\n**摘要**\n\n当你想编写一个共享另一个类大部分属性和方法的新类时，可以使用继承。从另一个类继承的类继承了父类的所有属性和方法。\n\n\
+  当你想要利用已经完成的工作，并通过添加更多属性和方法来自定义新类时，可以使用继承。这种模式实现了代码复用。\n\n你在第 16 章中看到了继承的例子：当你创建\
+  \ `Project` 类时，你继承了 `NSObject`。这使得 `Project` 拥有了 `NSObject` 的所有方法和属性。\n\n当你将此技术应用于对象图时，会产生更有趣的应用。例如，假设现在你想创建一个与\
+  \ `Project` 类似但有一些关键区别的新类。\n\n## 创建子类\n\n要创建一个新的子类，你可以遵循第 16 章中列出的相同模式。你需要定义一个接口和实现。这里的区别在于，你将选择\
+  \ `Project` 而不是 `NSObject` 作为父类。\n\n```\n#import \"Project.h\"\n\n@interface SpecialProject\
+  \ : Project\n\n@end\n```\n\n在上述接口中需要注意两点：你导入的是 `Project.h`（而不是之前的 `Foundation`），并且你现在在冒号后面的是\
+  \ `Project` 而不是 `NSObject`，这表明 `Project` 是父类，而 `SpecialProject` 是你的子类。\n\n`SpecialProject`\
+  \ 的实现很简单，与你为原始 `Project` 类所做的类似。\n\n```\n#import \"SpecialProject.h\"\n\n@implementation\
+  \ SpecialProject\n\n@end\n```\n\n如果你现在使用 `SpecialProject`，它的行为会与 `Project` 完全一样。现在，你可以添加额外的属性和方法来自定义\
+  \ `SpecialProject`。这被称为扩展类。\n\n\n\n## 扩展类\n\n要扩展一个类，你可以向子类中添加属性和方法。你的子类是 `SpecialProject`。现在，我们为你的\
+  \ `SpecialProject` 类添加一个名为 `generateSpecialReport` 的方法。\n\n```\n#import \"Project.h\"\
+  \n\n@interface SpecialProject : Project\n\n-(void)generateSpecialReport;\n\n@end\n\
+  ```\n\n当然，接下来你需要实现这个方法。\n\n```\n#import \"SpecialProject.h\"\n\n@implementation\
+  \ SpecialProject\n\n-(void)generateSpecialReport{\n    NSLog(@\"This is a special\
+  \ report!\");\n}\n\n@end\n```\n\n扩展类的过程与你通常添加属性和方法的方式完全相同。这个方法之所以强大，在于你可以共享某一类对象中通用的方法代码。\n\
+  \n### 重写方法\n\n你还可以做另一件事：重写父类中的方法。重写方法意味着你将编写一个与父类方法*签名完全相同*（即参数描述符的集合）的自有版本。由于你编写的方法代码不同，这意味着即使子类对象收到与父类相同的消息，它们的行为也会有所不同。\n\
+  \n假设你想确保 `SpecialProject` 对象总能打印出特殊报告，即使发送的是来自父类 `Project` 的 `generateReport` 消息。\n\
+  \n首先，你需要在 `SpecialProject` 的接口中编写 `generateReport` 方法。\n\n```\n#import \"Project.h\"\
+  \n\n@interface SpecialProject : Project\n\n-(void)generateSpecialReport;\n-(void)generateReport;\n\
+  \n@end\n```\n\n然后，你需要为 `generateReport` 编写一个新的实现，并让该方法向 `generateSpecialReport`\
+  \ 发送一条消息。在这种情况下，你通常还会向父类（`super`）的该方法实现发送一条消息，这可以通过向 `super` 发送消息来实现。\n\n```\n#import\
+  \ \"SpecialProject.h\"\n\n@implementation SpecialProject\n\n-(void)generateSpecialReport{\n\
+  \    NSLog(@\"This is a special report!\");\n}\n\n-(void)generateReport{\n    [super\
+  \ generateReport];\n    [self generateSpecialReport];\n}\n\n@end\n```\n\n#### 实例变量的可见性\n\
+  \n在第 16 章中讨论实例变量（或 ivars）时，其使用场景非常直接。如果你的类需要数据存储，而这些数据并非描述对象的属性（因此不应该成为属性），那么你只需使用一个实例变量即可。\n\
+  \n由于你将实例变量添加到了类扩展中，因此只有在该文件中实现的类才能使用它们。这些实例变量被认为是*私有的*，因为它们仅对编写它们的类可见。\n\n#####\
+  \ 可见性级别\n\n当你在对象图中计划使用继承时，你可能希望实例变量具有不同的可见性级别。“可见性”指的是其他实体对该变量的访问权限。实例变量可以是私有的、受保护的或公有的。当你希望拥有不同的可见性级别时，你必须在接口中编写实例变量，该接口应位于头文件中，因为其他类导入的正是这个文件。\n\
+  \n###### 私有实例变量\n\n私有实例变量只能在其被编写的类中使用。要使实例变量成为私有的，你需要在类接口中声明该实例变量。假设你想添加一些 `NSString`\
+  \ 对象，作为所有 `Project` 类的日志。要为 `Project` 对象添加一个私有日志，你需要在 `Project` 接口中这样操作：\n\n```\n\
+  #import <Foundation/Foundation.h>\n\n@interface Project : NSObject {\n    @private\
+  \ NSString *log1;\n}\n\n@property(strong) NSString *name;\n-(void)generateReport;\n\
+  -(void)generateReportAndAddThisString:(NSString *)string\n                   andThenAddThisDate:(NSDate\
+  \ *)date;\n+(void)printTimeStamp;\n\n@end\n```\n\n你必须使用 `@private` 关键字来指定 `log1`\
+  \ 将具有私有可见性。这意味着你可以在 `Project` 的方法中使用 `log1`，但不能在 `SpecialProject` 的方法中使用。\n\n######\
+  \ 受保护的实例方法\n\n具有受保护可见性的实例变量可以被其所属类以及任何派生类中的方法访问。因此，如果你想让一个 `NSString` 日志变量既能被 `Project`\
+  \ 使用，也能被 `SpecialProject` 使用，你需要使用 `@protected` 关键字使其受保护。\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface Project : NSObject{\n    @private NSString *log1;\n    @protected NSString\
+  \ *log2;\n}\n\n@property(strong) NSString *name;\n-(void)generateReport;\n-(void)generateReportAndAddThisString:(NSString\
+  \ *)string\n                   andThenAddThisDate:(NSDate *)date;\n+(void)printTimeStamp;\n\
+  \n@end\n```\n\n###### 公有实例变量\n\n公有实例变量对其所属类以及所有派生类都是可用的。此外，其他对象可以直接引用公有实例变量。\n\n\
+  > **注意：** 我在此讨论公有实例变量是为了内容的完整性，但通常不推荐以这种方式使用实例变量。相反，你应该定义属性来返回任何你想让其他对象访问的值。\n\n\
+  要使一个实例变量成为公有的，你必须使用 `@public` 关键字。\n\n```\n#import <Foundation/Foundation.h>\n\n\
+  @interface Project : NSObject{\n    @private NSString *log1;\n    @protected NSString\
+  \ *log2;\n    @public NSString *log3;\n}\n\n@property(strong) NSString *name;\n\
+  -(void)generateReport;\n-(void)generateReportAndAddThisString:(NSString *)string\n\
+  \                   andThenAddThisDate:(NSDate *)date;\n+(void)printTimeStamp;\n\
+  \n@end\n```\n\n要使用这个对象，你需要使用成员操作符 `->`。成员操作符是一种传统的 C 语言操作，可用于引用由指针所指向的结构体成员。以下是使用示例：\n\
+  \n```\n#import <Foundation/Foundation.h>\n#import \"SpecialProject.h\"\n\nint main(int\
+  \ argc, const char * argv[]){\n    @autoreleasepool {\n        SpecialProject *sp\
+  \ = [[SpecialProject alloc]init];\n        NSString *tempLog = sp->log3;\n     \
+  \   NSLog(@\"temp = %@\", tempLog);\n        return 0;\n    }\n}\n```\n\n"
+- "# 19. 分类\n\n## 摘要\n\n分类用于在不使用继承的情况下扩展类。当你使用分类时，你可以在不声明父类的情况下向类添加属性和方法。\n\n## 分类定义\n\
+  \n分类用于在不使用继承的情况下扩展类。当你使用分类时，你可以在不声明父类的情况下向类添加属性和方法。\n\n要定义一个分类，你需要添加一个接口和实现。你可以通过添加新的头文件和代码文件来实现，也可以直接将分类添加到你正在处理的代码文件中。\n\
+  \n\n\n### 类别示例\n\n举个例子，假设你想给第 16 章中定义的`Project`类添加一个构造方法，用于初始化一个新的`Project`对象并同时为其赋值名称。你可以在正在编写代码的`main.m`文件中直接添加如下代码。\n\
+  \n首先要做的是添加接口。\n\n```\n#import <Foundation/Foundation.h>\n#import \"Project.h\"\n\
+  \n@interface Project(ProjectExtension)\n\n@end\n\nint main(int argc, const char\
+  \ * argv[]){\n    @autoreleasepool {\n        return 0;\n    }\n}\n```\n\n类别接口看起来与类接口类似，但遵循略有不同的格式。这些接口以`@interface`关键字开头，后跟原始类名。类名之后，括号内是类别的名称。\n\
+  \n你在类别接口中放置前向声明。由于你需要一个能设置名称的初始化器，因此需要在类别接口中添加如下内容：\n\n```\n#import <Foundation/Foundation.h>\n\
+  #import \"Project.h\"\n\n@interface Project(ProjectExtension)\n-(id)initWithName:(NSString\
+  \ *)aName;\n@end\n\nint main(int argc, const char * argv[]){\n    @autoreleasepool\
+  \ {\n        return 0;\n    }\n}\n```\n\n下一步是实现新方法，为此你必须编写类别实现。类别实现遵循与类别接口相同的模式。\n\
+  \n```\n#import <Foundation/Foundation.h>\n#import \"Project.h\"\n\n@interface Project(ProjectExtension)\n\
+  -(id)initWithName:(NSString *)aName;\n@end\n\n@implementation Project (ProjectExtension)\n\
+  \n@end\n\nint main(int argc, const char * argv[]){\n    @autoreleasepool {\n   \
+  \     return 0;\n    }\n}\n```\n\n最后，你需要像实现类方法一样实现这个新方法。\n\n```\n#import <Foundation/Foundation.h>\n\
+  #import \"Project.h\"\n\n@interface Project(ProjectExtension)\n-(id)initWithName:(NSString\
+  \ *)aName;\n@end\n\n@implementation Project (ProjectExtension)\n-(id)initWithName:(NSString\
+  \ *)aName{\n    self = [super init];\n    if (self) {\n        self.name = aName;\n\
+  \    }\n    return self;\n}\n@end\n\nint main(int argc, const char * argv[]){\n\
+  \    @autoreleasepool {\n        return 0;\n    }\n}\n```\n\n现在你已经设置好类别，可以在 main\
+  \ 函数内部直接使用这个初始化器来创建并初始化新的`Project`类对象了。\n\n```\n#import <Foundation/Foundation.h>\n\
+  #import \"Project.h\"\n\n@interface Project(ProjectExtension)\n-(id)initWithName:(NSString\
+  \ *)aName;\n@end\n\n@implementation Project (ProjectExtension)\n-(id)initWithName:(NSString\
+  \ *)aName{\n    self = [super init];\n    if (self) {\n        self.name = aName;\n\
+  \    }\n    return self;\n}\n@end\n\nint main(int argc, const char * argv[]){\n\
+  \    @autoreleasepool {\n        Project *p = [[Project alloc] initWithName:@\"\
+  ThisNewProject\"];\n        NSLog(@\"p.name = %@\", p.name);\n        return 0;\n\
+  \    }\n}\n```\n\n如果现在编译并运行这个项目，日志将打印出：\n\n```\np.name = ThisNewProject\n```\n\n"
+- "# 20. 块（Blocks）\n\n## 摘要\n\n块是一种定义代码块的方式，你可以在以后使用它。块与方法或函数有很多相似之处，它们都可以接受参数并返回值。有时人们将块称为匿名函数，因为它们是不附着于任何实体的函数。\n\
+  \n## 块的定义\n\n块是一种定义代码块的方式，你可以在以后使用它。块与方法或函数有很多相似之处，它们都可以接受参数并返回值。有时人们将块称为匿名函数，因为它们是不附着于任何实体的函数。\n\
+  \n块与众不同的一个特点是，它们与程序的其余部分编写在相同的作用域内，因此你无需类定义即可添加块。块还具有其他一些非常有用的特性。虽然块不需要附着于对象，但块可以被当作对象来处理。这意味着你可以编写一组块，然后将它们存储在数据集合中。\n\
+  \n块还会复制声明块时作用域内所有变量的值。这一特性使得块能够捕获状态，并在将来使用该状态，即使在块执行时原始变量已经超出作用域。\n\n### 定义块\n\n\
+  举个例子，我们来编写一个块，它接受一个浮点数作为参数，并返回其平方后的浮点数结果。将这个块命名为`squareThis`。首先需要声明块。这类似于声明数据类型或对象，但有一些差异，使你可以利用块类似函数的行为。\n\
+  \n```\nfloat (^squareThis)(float);\n```\n\n块声明以`float`返回类型开头。这意味着当你使用这个块时，将得到一个浮点数返回。\n\
+  \n块声明的下一部分是块名`squareThis`，前面是脱字符（`^`）。整个名称括在圆括号内。\n\n最后，括号内是一组参数类型。如果有多个参数类型，则列表必须用逗号分隔。代码行以分号结束。\n\
+  \n### 赋值块\n\n你可以使用赋值运算符（`=`）将代码块赋值给刚刚声明的块。当你将块代码赋值给块变量时，需要使用脱字符并声明变量名。还需要包含用花括号括起来的代码作用域。\n\
+  \n```\nsquareThis = ^(float x){\n    return x * x;\n};\n```\n\n这个块将接受提供的数字，将数字乘以自身，然后返回结果。\n\
+  \n### 使用块\n\n当你准备好执行代码时，可以像调用函数一样调用块。以下是使用`squareThis`的方法：\n\n```\nfloat result\
+  \ = squareThis(4);\nNSLog(@\"result = %f\", result);\n```\n\n这将在控制台日志中打印出以下输出：\n\
+  \n```\nresult = 16.000000\n```\n\n### 复制作用域内的变量\n\n块会复制声明块时当前作用域内每个变量的值。这意味着块可以保存周围变量的状态，以便在以后执行块时使用，无论变量是否仍在作用域内。\n\
+  \n下面是一个名为`multiplyThese`的块的示例，它接受两个数字并将它们相乘，返回一个浮点数结果。这个块需要两个参数，我们将同时定义并赋值该块。请注意，在`multiplyThese`块附近还定义了一个字符串。\n\
+  \n```\nNSString *title = @\"乘法块执行\";\n\nfloat (^multiplyThese)(float, float) = ^(float\
+  \ x, float y){\n    NSLog(title);\n    return x * y;\n};\n```\n\n在返回结果之前，`multiplyThese`块会打印出它从上下文中捕获的字符串值。要使用此块，可以这样做：\n\
+  \n```\nNSLog(@\"multiplyThese(3,4) = %f\", multiplyThese(3,4));\n```\n\n这将产生以下输出：\n\
+  \n```\n乘法块执行\nmultiplyThese(3,4) = 12.000000\n```\n\n\n\n### 作为属性的 Block\n\n尽管 Block\
+  \ 不像类那样需要实体，但你仍然可以使用 Block 来增强对象的灵活性。通过将 Block 作为属性添加到对象中，你可以提供一个接口，让客户端能够将自定义行为注入到你的对象中。\n\
+  \n#### Block 的前向声明\n\n由于 Block 的处理方式与对象类似，因此你可以将 Block 用作属性。为此，你需要从类接口（无论是公开接口还是私有类扩展）开始。下面演示了如何将`customReport`\
+  \ Block 添加到最初在第 16 章中定义的`Project`类中：\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface Project : NSObject{\n    @private NSString *log1;\n    @protected NSString\
+  \ *log2;\n    @public NSString *log3;\n}\n\n@property(strong) NSString *name;\n\
+  @property (copy) void (^makeCustomReport)(NSString *title);\n\n-(void)generateReport;\n\
+  -(void)generateReportAndAddThisString:(NSString *)string\n                   andThenAddThisDate:(NSDate\
+  \ *)date;\n+(void)printTimeStamp;\n\n@end\n```\n\n你需要使用`copy`属性描述符，因为你需要 Block 及其所有作用域变量被正确拷贝和保留。作为类的作者，接下来需要确定何时执行这个\
+  \ Block，同时要记住，你永远无法提前预知 Block 中会包含什么代码。\n\n#### 在类中使用 Block\n\n对于这个例子来说，`generateReport`方法看起来是一个适合执行\
+  \ Block 的位置。你需要进入`Project`类的实现部分，找到`generateReport`方法并添加这个 Block 调用。\n\n```\n#import\
+  \ \"Project.h\"\n\n@implementation Project\n\n-(void)generateReport{\n    NSLog(@\"\
+  This is a report!\");\n    self.makeCustomReport(@\"Custom Project Report Title\"\
+  );\n}\n\n@end\n```\n\n如果观察上面的加粗代码，你会发现使用参数 Block 与使用其他 Block 类似，唯一的区别是这里使用了`self`关键字来引用该\
+  \ Block。\n\n#### 分配 Block\n\n这种模式真正强大之处在于，即使你不确切知道某个行为是什么，或者该行为会随时间变化，你仍然可以设立一种方式来执行该行为。\n\
+  \n要使它生效，客户端需要为 Block 赋值，并为你实际定义该行为。你可以在示例的主函数中完成此操作。\n\n```\nProject *p =[[Project\
+  \ alloc]init];\np.makeCustomReport = ^(NSString* title){\n    NSLog(@\"%@\", title);\n\
+  \    NSLog(@\"This is a custom report requested by the author\");\n    NSLog(@\"\
+  Say This\");\n    NSLog(@\"Say That\");\n    NSLog(@\"Say The Other Thing\");\n\
+  };  \n[p generateReport];\n```\n\n你需要为示例发送`generateReport`消息；发送后，你将得到以下输出：\n\n```\n\
+  This is a report!\nCustom Project Report Title\nThis is a custom report requested\
+  \ by the author\nSay This\nSay That\nSay The Other Thing\n```\n\n"
+- '# 21. 键值编码
+
+
+  概要
+
+
+  通常，当你想获取或设置对象中的属性值时，你使用点符号来获取对属性的引用以更改值。然而，通过键值编码，你可以使用字符串键来间接存储和检索属性值。需要归档的应用程序需要这种功能，以便应用能够从归档文件中检索对象数据。
+
+
+  ## 键值编码定义
+
+
+  通常，当你想获取或设置对象中的属性值时，你使用点符号来获取对属性的引用以更改值。然而，通过键值编码，你可以使用字符串键来间接存储和检索属性值。需要归档的应用程序需要这种功能，以便应用能够从归档文件中检索对象数据。
+
+
+  ### 设置属性值
+
+
+  你可以使用键值编码来设置属性值。要设置属性值，你必须使用`setValue:forKey:`消息，并提供新的属性值以及该属性的`NSString`名称。
+
+
+  ```
+
+  [p setValue:@"New Project" forKey:@"name"];
+
+  ```
+
+
+  ### 检索属性值
+
+
+  要使用键值编码检索属性值，你可以直接向对象发送`valueForKey`消息。该消息需要以`NSString`格式的属性名称作为参数。下面演示了如何从`Project`对象中检索`name`属性值：
+
+
+  ```
+
+  NSString *retrievedName = [p valueForKey:@"name"];
+
+  ```
+
+
+  这适用于任何类型的对象，包括数据集合对象和自定义对象。现在，你可以使用`NSLog`函数将这个值打印到日志中。
+
+
+  ```
+
+  NSLog(@"retrievedName = %@", retrievedName);
+
+  ```
+
+
+  如果 Project 的名称是 New Project，执行上述代码你将得到以下输出：
+
+
+  ```
+
+  retrievedName = New Project
+
+  ```
+
+
+  '
+- "# 22. 键值观察\n\n概要\n\n键值编码的应用之一是实现观察者模式。当你希望一个对象在另一个对象的状态发生变化时收到通知时，就会使用观察者模式。在 Objective-C\
+  \ 中，这种模式是通过键值观察来实现的。\n\n## 键值观察定义\n\n键值编码的应用之一是实现观察者模式。当你希望一个对象在另一个对象的状态发生变化时收到通知时，就会使用观察者模式。在\
+  \ Objective-C 中，这种模式是通过键值观察来实现的。\n\n要看到一个清晰的键值观察示例，你至少需要两个对象。一个对象将被观察，另一个对象则进行观察。在这个例子中，假设你有两种类型的对象：一个`Project`对象和一个`Task`对象。`Project`对象维护着一个`Task`对象的列表。当`Task`对象的状态发生变化时（例如，当任务被标记为完成时），项目对象需要得到通知。\n\
+  \n\n\n## 项目与任务对象图\n\n在实现键值观察之前，我们先了解这个对象图。为了便于说明，`Project` 类已做了简化，同时我添加了一个 `Task`\
+  \ 类的定义。对象图将在 `main.m` 文件中建立。\n\n以下是 `Project` 类的接口：\n\n```\n#import <Foundation/Foundation.h>\n\
+  #import \"Task.h\"\n\n@interface Project : NSObject\n@property(strong) NSString\
+  \ *name;\n@property(strong) NSMutableArray *listOfTasks;\n-(void)generateReport;\n\
+  @end\n```\n\n以下是 `Project` 类的实现：\n\n```\n#import \"Project.h\"\n\n@implementation\
+  \ Project\n-(void)generateReport{\n    NSLog(@\"Report for %@ Project\", self.name);\n\
+  \    [self.listOfTasks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL\
+  \ *stop) {\n        [obj generateReport];\n    }];\n}\n@end\n```\n\n以下是 `Task` 类的接口：\n\
+  \n```\n#import <Foundation/Foundation.h>\n\n@interface Task : NSObject\n@property(strong)\
+  \ NSString *name;\n@property(assign) BOOL done;\n-(void)generateReport;\n@end\n\
+  ```\n\n以下是 `Task` 类的实现：\n\n```\n#import \"Task.h\"\n\n@implementation Task\n-(void)generateReport{\n\
+  \    NSLog(@\"Task %@ is %@\", self.name, self.done ? @\"DONE\" : @\"IN PROGRESS\"\
+  );\n}\n@end\n```\n\n最后，在 `main.m` 中像这样设置对象图：\n\n```\n#import <Foundation/Foundation.h>\n\
+  #import \"Project.h\"\n\nint main(int argc, const char * argv[]){\n    @autoreleasepool\
+  \ {\n        Project *p = [[Project alloc]init];\n        p.listOfTasks = [[NSMutableArray\
+  \ alloc]init];\n        p.name = @\"Cook Dinner\";\n        Task *t1 = [[Task alloc]init];\n\
+  \        t1.name = @\"Choose Menu\";\n        [p.listOfTasks addObject:t1];\n  \
+  \      Task *t2 = [[Task alloc]init];\n        t2.name = @\"Buy Groceries\";\n \
+  \       [p.listOfTasks addObject:t2];\n        Task *t3 = [[Task alloc]init];\n\
+  \        t3.name = @\"Prepare Ingredients\";\n        [p.listOfTasks addObject:t3];\n\
+  \        Task *t4 = [[Task alloc]init];\n        t4.name = @\"Cook Food\";\n   \
+  \     [p.listOfTasks addObject:t4];\n        return 0;\n    }\n}\n```\n\n这会给你一个名为\
+  \ `Cook Dinner` 的 `Project` 对象，它包含四个任务。现在你可以实施键值观察了。\n\n### 实施键值观察\n\n你希望当 `Task`\
+  \ 对象的状态发生变化时，`Project` 对象能得到通知。因此，如果一个 `Task` 对象被标记为完成，那么 `Project` 对象就会收到通知。使用键值观察需要三个步骤：\n\
+  \n*   向每个被观察的对象发送 `addObserver:forKeyPath:options:context:` 消息。\n*   在观察者对象的类定义中重写\
+  \ `observeValueForKeyPath:ofObject:change:content:` 方法。\n*   在观察者对象的类定义中重写 `dealloc`\
+  \ 方法，并移除观察者引用。\n\n#### 添加观察者\n\n向 `Project` 负责的每个 `Task` 发送此消息的最简单方法是使用 `listOfTasks`\
+  \ 的枚举方法：\n\n```\n[p.listOfTasks enumerateObjectsUsingBlock:^(id obj, NSUInteger\
+  \ idx, BOOL *stop) {\n    [obj addObserver:p\n              forKeyPath:@\"done\"\
+  \n                 options:NSKeyValueObservingOptionNew\n                 context:nil];\n\
+  }];\n```\n\n这段代码可以放在 `main.m` 文件中，在所有 `Task` 对象都添加到 `Project` 对象之后。`AddObserver`\
+  \ 参数描述符后的第一个参数是观察者对象。下一个参数是键路径，在这里设置你想要观察的属性的键。接着是一些你可以设置的选项；你可以选择 `NSKeyValueObservingOptionNew`\
+  \ 来跟踪属性值的最新变化。\n\n> **注意：** 你也可以选择 `NSKeyValueObservingOptionOld` 来获取之前的属性值，而不是像上面那样获取最新值。\n\
+  \n#### 观察值的变化\n\n要在属性值发生变化时收到通知，观察者对象需要在其类定义中重写一个方法。你在这里编写代码来响应变化。以下是在 `Project.m`\
+  \ 实现文件中执行此操作的示例：\n\n```\n#import \"Project.h\"\n\n@implementation Project\n-(void)observeValueForKeyPath:(NSString\
+  \ *)keyPath\n                     ofObject:(id)object\n                       change:(NSDictionary\
+  \ *)change\n                      context:(void *)context{\n    if([keyPath isEqualToString:@\"\
+  done\"]){\n        NSNumber *updatedStatus = [change objectForKey:@\"new\"];\n \
+  \       BOOL done = [updatedStatus boolValue];\n        NSLog(@\"Task '%@' is now\
+  \ %@\", [object name], done ? @\"DONE\" : @\"IN PROGRESS\");\n    }\n}\n@end\n```\n\
+  \n> **注意：** 上述代码将添加到你本章开头添加的代码中。\n\n每当你正在观察的 `Task` 对象改变其状态时，此方法都会执行。发生这种情况时，你首先需要测试以确保你期望的属性（`done`）确实发生了改变。你需要这样做，因为此方法可以用于各种类型的通知。\n\
+  \n在下一行代码中，你从提供的 `NSDictionary` 变化中提取出属性的 `NSNumber` 版本，然后将其转换为你期望的 `BOOL` 类型。最后，你向控制台输出报告，报告任务的更新状态。\n\
+  \n在测试这段代码之前，你需要进行清理工作。\n\n#### 注销观察者\n\n你需要确保观察者对象会遍历并停止观察每个对象，因为观察者对象很快就会被删除。执行此任务的最佳位置是在\
+  \ `dealloc` 方法中。每个对象在被从程序中移除之前都会执行 `dealloc` 方法，因此这是进行此类清理工作的好时机。\n\n以下是在 `Project.m`\
+  \ 实现文件中编写 `dealloc` 方法的方式：\n\n```\n-(void)dealloc{\n    [self.listOfTasks enumerateObjectsUsingBlock:^(id\
+  \ obj, NSUInteger idx, BOOL *stop) {\n        [obj removeObserver:self\n       \
+  \          forKeyPath:@\"done\"];\n    }];\n}\n```\n\n这将遍历 `listOfTasks` 数组，并从每个对象中移除观察者。\n\
+  \n#### 测试观察者\n\n要测试这一点，只需更改某些 `Task` 对象的 `done` 属性。每次这样做时，你都会看到报告写入日志。例如，假设你在 `main.m`\
+  \ 中这样做：\n\n```\nt4.done = YES;\nt4.done = NO;\nt2.done = YES;\nt1.done = NO;\n```\n\
+  \n每次状态发生变化时，你的 `Project` 对象都会收到通知，这会产生以下日志输出：\n\n```\nTask 'Cook Food' is now DONE\n\
+  Task 'Cook Food' is now IN PROGRESS\nTask 'Buy Groceries' is now DONE\nTask 'Choose\
+  \ Menu' is now IN PROGRESS\n```\n\n"
+- "# 协议\n\n## 摘要\n\n协议用于独立于类定义一组方法和属性。任何类都可以采纳协议，这意味着该类实现了协议中定义的属性和方法。实际上，协议定义了一个契约，类可以同意履行该契约。当一个类采纳协议时，你可以确信该类已经实现了协议中的属性和方法。\n\
+  \n## 协议概述\n\n协议用于独立于类定义一组方法和属性。任何类都可以采纳协议，这意味着该类实现了协议中定义的属性和方法。实际上，协议定义了一个契约，类可以同意履行该契约。当一个类采纳协议时，你可以确信该类已经实现了协议中的属性和方法。\n\
+  \n\n\n### 定义协议\n\n要使用协议，必须首先定义协议。使用 `@protocol` 关键字开始定义协议。你可以将其包含在与协议相关联的类所在的同一文件中，也可以将协议放在一个单独的头文件中。如果你想为上一章中编写的\
+  \ `Task` 类定义一个协议，可以这样做：\n\n```\n#import <Foundation/Foundation.h>\n@class Task;\n\
+  @protocol TaskDelegate <NSObject>\n@optional\n-(void)thisTask:(Task *)task statusHasChangedToThis:(BOOL)done;\n\
+  @end\n@interface Task : NSObject\n@end\n```\n\n协议名称跟在 `@protocol` 关键字后面，尖括号中的内容是要继承的协议。`NSObject`\
+  \ 是所有 `NSObject` 类必须遵循的协议。继承一个协议类似于继承一个类，但现在意味着采用你定义的协议的类，除了要实现继承协议中定义的方法之外，还要负责你定义的方法。\n\
+  \n协议定义以 `@end` 关键字结束。位于 `@protocol` 和 `@end` 之间的所有方法和属性，都是类在采用该协议时需要实现的内容。\n\n注意：上面需要用到\
+  \ `@class` 关键字，是因为在下面定义 `Task` 类之前，你已经在协议中引用了它。`@class` 提供了一种在不使用接口的情况下引用类的方式。\n\
+  \n#### 可选与必需的方法和属性\n\n协议方法默认是必需的。不过，你可以将某些方法指定为可选的。可选方法用于功能存在但并非关键的情况。要标记方法为可选，请使用\
+  \ `@optional` 关键字。在 `@optional` 关键字之后出现的每个属性和方法都将被视为可选。\n\n使用 `@required` 关键字将方法和属性标记为必需。之后的所有方法和属性都将被视为必需。\n\
+  \n#### 采用协议\n\n你可以在类接口中父类后面的尖括号里包含协议名称，以此指示某个类将采用该协议。如果一个类要采用多个协议，则必须在尖括号内提供以逗号分隔的协议名称列表。\n\
+  \n如果你想让 `Project` 采用 `TaskDelegate` 协议，可以像这样在 `Project` 接口中采用该协议：\n\n```\n#import\
+  \ <Foundation/Foundation.h>\n#import \"Task.h\"\n@interface Project : NSObject <TaskDelegate>\n\
+  @property(strong) NSString *name;\n@property(strong) NSMutableArray *listOfTasks;\n\
+  -(void)generateReport;\n@end\n```\n\n一旦采用 `TaskDelegate` 协议，就表示你同意实现 `TaskDelegate`\
+  \ 中的方法和属性。如果现在尝试构建项目，你会收到一条警告。接下来要做的就是实现 `TaskDelegate` 中定义的方法。\n\n#### 实现协议方法\n\
+  \n实现协议方法与实现其他方法完全相同。你需要在采用该协议的类的实现中实现这些协议方法。\n\n对于这个例子，你需要在 `Project` 类的实现中添加这个方法：\n\
+  \n```\n#import \"Project.h\"\n@implementation Project\n-(void)thisTask:(Task *)task\
+  \ statusHasChangedToThis:(BOOL)done{\n    NSLog(@\"Task '%@' is now %@\", task.name,\
+  \ done ? @\"DONE\" : @\"IN PROGRESS\");\n}\n@end\n```\n\n你还不能测试这段代码，因为你还需要添加代码，让\
+  \ `Task` 对象能够使用这个协议。这属于下一章将要介绍的委托设计模式的一部分。\n\n"
+- "# 委托\n\n摘要：委托是一种设计模式，其中一个对象向另一个对象请求帮助。协议是委托的重要组成部分，因为协议定义了对象将如何获得帮助。\n\n## 委托的定义\n\
+  \n委托是一种设计模式，其中一个对象向另一个对象请求帮助。协议是委托的重要组成部分，因为协议定义了对象将如何获得帮助。\n\n委托的工作方式是：定义一个协议，列出某个对象需要帮助的所有方法和属性。另一个对象称为委托，它通过采用并实现协议方法来提供所需的帮助。对象通过向其委托发送消息来请求帮助。\n\
+  \n### 定义委托协议\n\n假设你想在包含 `Project` 对象和 `Task` 对象的对象图中实现委托。在你的对象图中，`Task` 对象可能需要从\
+  \ `Project` 对象获得帮助。例如，当某个 `Task` 的状态被标记为“完成”时，该任务可能不知道下一步该做什么。如果 `Project` 能够充当\
+  \ `Task` 的委托，那么 `Task` 就可以向 `Project` 请求帮助。\n\n要实现这一点，你首先需要为 `Task` 定义一个协议，明确 `Task`\
+  \ 需要帮助的方式。幸运的是，你已经在上一章中完成了这一步。\n\n```\n#import <Foundation/Foundation.h>\n@class\
+  \ Task;\n@protocol TaskDelegate <NSObject>\n@optional\n-(void)thisTask:(Task *)task\
+  \ statusHasChangedToThis:(BOOL)done;\n@end\n@interface Task : NSObject\n@property(strong)\
+  \ NSString *name;\n@property(assign) BOOL done;\n-(void)generateReport;\n@end\n\
+  ```\n\n该协议名为 `TaskDelegate`（因为你用这个协议来定义委托如何提供帮助）。`thisTask:statusHasChangedToThis:`\
+  \ 是委托可以用来提供帮助的方法。\n\n### 向委托发送消息\n\n当 `Task` 对象需要帮助时，它们可以向委托发送消息。由于你希望在 `Task` 状态发生变化时触发此操作，可以通过为\
+  \ `Task` 的 `done` 属性编写自定义属性访问器来实现。\n\n注意：在第 16 章中，你声明了属性并让它们由自动生成的 getter 和 setter\
+  \ 来支持。在某些情况下，你可能希望自己编写 getter 和 setter。\n\n你可以在 `Task` 的 `done` setter 方法中直接发送消息。\n\
+  \n```\n#import \"Task.h\"\n@implementation Task\n-(void)generateReport{\n    NSLog(@\"\
+  Task %@ is %@\", self.name, self.done ? @\"DONE\" : @\"IN PROGRESS\");\n}\nBOOL\
+  \ _done;\n-(void)setDone:(BOOL)done{\n    _done = done;\n    [self.delegate thisTask:self\
+  \ statusHasChangedToThis:done];\n}\n-(BOOL)done{\n    return _done;\n}\n@end\n```\n\
+  \n在 setter 中，你可以看到正在向委托发送消息。你的 `delegate` 可以实现该方法来响应 `done` 属性更改的事件。\n\n你可能会注意到的另一件事是，你也编写了\
+  \ getter。即使不需要在 getter 中添加任何新代码，当你决定实现 setter 或 getter 中的任意一个时，必须手动实现两者。\n\n\n\n\
+  ### 分配委托对象\n\n下一步是分配委托对象。在本例中，可以在 `main.m` 文件中完成这一操作。你只需将项目对象赋值给每个任务的 `delegate`\
+  \ 属性即可。\n\n```\nProject *p = [[Project alloc]init];\np.listOfTasks = [[NSMutableArray\
+  \ alloc]init];\np.name = @\"Cook Dinner\";\n\nTask *t1 = [[Task alloc]init];\nt1.name\
+  \ = @\"Choose Menu\";\nt1.delegate = p;\n[p.listOfTasks addObject:t1];\n\nTask *t2\
+  \ = [[Task alloc]init];\nt2.name = @\"Buy Groceries\";\n[p.listOfTasks addObject:t2];\n\
+  t2.delegate = p;\n\nTask *t3 = [[Task alloc]init];\nt3.name = @\"Prepare Ingredients\"\
+  ;\n[p.listOfTasks addObject:t3];\nt3.delegate = p;\n\nTask *t4 = [[Task alloc]init];\n\
+  t4.name = @\"Cook Food\";\n[p.listOfTasks addObject:t4];\nt4.delegate = p;\n```\n\
+  \n现在，当你为某个任务的 `done` 属性赋予不同值时，`Project` 委托对象将收到通知。在上一章中，你已经采用了 `TaskDelegate` 协议并实现了协议方法\
+  \ `-(void)thisTask:(Task *)task statusHasChangedToThis:(BOOL)done;`。\n\n当你像这样设置\
+  \ `Task` 对象的 `done` 属性时：\n\n```\nt4.done = YES;\n```\n\n你在 `Project` 实现中编写的协议方法\
+  \ `thisTask:statusHasChangedToThis:` 将被执行。请记住，这是你在上一章中编写的代码：\n\n```\n-(void)thisTask:(Task\
+  \ *)task statusHasChangedToThis:(BOOL)done{\n    NSLog(@\"Task '%@' is now %@\"\
+  , task.name, done ? @\"DONE\" : @\"IN PROGRESS\");\n}\n```\n\n该方法将在控制台日志中生成如下输出：\n\
+  \n```\nTask 'Cook Food' is now DONE\n```\n\n"
+- "# 25. 单例模式\n\n摘要\n\n单例模式是一种设计模式，它确保一个类只能有一个实例。通常，当你定义一个类时，你期望使用该类的多个实例。但在某些设计中，这种做法是没有意义的。\n\
+  \n## 单例模式定义\n\n单例模式是一种设计模式，它确保一个类只能有一个实例。通常，当你定义一个类时，你期望使用该类的多个实例。但在某些设计中，这种做法是没有意义的。\n\
+  \n例如，一个应用程序可能只需要一个对文件系统的引用（因为只有一个文件系统）。或者，应用程序有一个需要保持同步的数据模型，因此你希望确保只有一个类的实例可用。\n\
+  \n要实现单例模式，你需要创建一种特殊类型的构造方法，然后只使用这个构造方法来获取单例对象的引用。\n\n### 单例接口\n\n第一步是编写接口代码。假设你要创建一个名为\
+  \ `AppSingleton` 的类，它将作为你的单例。以下是接口的编写方式：\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface AppSingleton : NSObject\n\n+ (AppSingleton *)sharedInstance;\n\n@end\n\
+  ```\n\n上述代码是一个返回 `AppSingleton` 实例的类方法。\n\n### 单例实现\n\n要实现这个单例，你需要一个静态变量以及你在接口中定义的类方法\
+  \ `sharedInstance` 的具体实现。\n\n```\n#import \"AppSingleton.h\"\n\n@implementation\
+  \ AppSingleton\n\nstatic AppSingleton *singletonInstance = nil;\n\n+ (AppSingleton\
+  \ *)sharedInstance{\n    @synchronized(self){\n        if (singletonInstance ==\
+  \ nil)\n            singletonInstance = [[self alloc] init];\n        return(singletonInstance);\n\
+  \    }\n}\n\n@end\n```\n\n静态实例是一个名为 `singletonInstance` 的 `AppSingleton` 类型变量，初始设置为\
+  \ nil。在 `sharedInstance` 方法中，你检查 `singletonInstance`；如果它为 nil，则创建一个新实例。无论哪种情况，你都将这个实例返回给调用者。\n\
+  \n该方法中的代码被 `@synchronized(self)` 块包含。这用于锁定代码，使得同一时间只有一个线程可以使用这些代码行。这确保了即使有多个线程，你也只会拥有这个单例的一个实例。\n\
+  \n### 引用单例\n\n当你需要一个单例对象时，必须使用返回该实例的方法。这也就是你编写的方法。\n\n如果你想使用 `AppSingleton` 类，可以这样做：\n\
+  \n```\nAppSingleton *ap = [AppSingleton sharedInstance];\n```\n\n这用于替代通常创建对象时使用的\
+  \ `alloc` 和 `init` 模式。你可以从应用程序中的任何类或文件中执行此操作，每一个都会得到该类的同一个实例。唯一的注意事项是，你必须使用单例的构造方法；虽然你仍然可以使用\
+  \ `alloc` 和 `init`，但这样做会破坏这种模式，因为这些方法仍然可以创建多个对象，而你创建的构造方法则只能创建一个对象。\n\n"
+- "# 26. 错误处理\n\n摘要\n\n当程序遇到意外错误时，它们可能会行为异常或完全停止工作。理想情况下，程序员应该在程序投入使用之前发现并修复所有 bug，但在某些情况下，程序员无法完全掌控整个局面。例如，当程序需要的资源（如文件或网站）不存在时，就可能会发生错误。\n\
+  \n## 错误处理定义\n\n当程序遇到意外错误时，它们可能会行为异常或完全停止工作。理想情况下，程序员应该在程序投入使用之前发现并修复所有 bug，但在某些情况下，程序员无法完全掌控整个局面。例如，当程序需要的资源（如文件或网站）不存在时，就可能会发生错误。\n\
+  \n处理这类情况的最佳实践是向程序添加错误处理。这意味着当错误发生时，程序可以恢复或优雅地关闭。`NSError` 是程序员用来处理错误的 Foundation\
+  \ 类。\n\n\n\n## NSError\n\n`NSError`经常在涉及文件操作时使用。许多 Foundation 类使用`NSError`对象来帮助处理错误。其模式是：声明一个`NSError`对象，在通过引用传递之前将其设置为`nil`。以下是`NSString`方法从文件内容创建字符串时的工作方式：\n\
+  \n```\nNSError *error = nil;\nNSString *file = @\"/Users/Shared/array.txt\";\nNSString\
+  \ *content = [NSString stringWithContentsOfFile:file\n                         \
+  \      encoding:NSStringEncodingConversionAllowLossy\n                         \
+  \                   error:&error];\n```\n\n在`error`参数前面看到的`&`符号称为 AddressOf 运算符。这意味着你传递的是对象的内存地址，而不是副本，因此当方法中的代码需要修改`error`对象时，你将能够看到结果。\n\
+  \n要检查`error`对象，你可以在消息之后立即加入如下代码：\n\n```\nif(!error)\n    NSLog(@\"content = %@\"\
+  , content);\nelse\n    NSLog(@\"error = %@\", error);\n```\n\n如果没有错误，则对内容进行处理；否则，处理错误。如果此代码成功，则日志会打印出以下内容：\n\
+  \n```\ncontent = <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC\
+  \ \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"\
+  >\n<plist version=\"1.0\">\n<array>\n    <string>A</string>\n    <string>B</string>\n\
+  \    <string>C</string>\n    <string>D</string>\n</array>\n</plist>\n```\n\n这个文件是我\
+  \ Mac 上的一个文件，但实际内容无关紧要。如果你将文件名更改为 Mac 上不存在的文件，则会收到错误消息，如下所示：\n\n```\nerror = Error\
+  \ Domain=NSCocoaErrorDomain Code=260 \"The file \"arrayf.txt\" couldn’t be opened\
+  \ because there is no such file.\" UserInfo=0x10010a8a0 {NSFilePath=/Users/Shared/arrayf.txt,\
+  \ NSUnderlyingError=0x10010a650 \"The operation couldn’t be completed. No such file\
+  \ or directory\"}\n```\n\n此时，你应该使用应用程序用户界面提示用户寻求帮助。\n\n## Try/Catch 语句\n\nTry/catch\
+  \ 语句是另一种尝试捕获错误的方式。其思想是：你可以识别容易出错的代码区域，然后将这些区域包裹在一个称为 try 块的代码块中。你还可以识别一个称为 catch\
+  \ 块的代码块，该代码块会在 try 块中的代码失败时执行。\n\n你还可以设置一个称为 finally 块的代码块，无论 try 块是否失败，该代码块都会执行。让我们通过读取一个仅包含四个元素的数组文件，然后尝试读取超出边界的第五个元素来尝试这一点。\n\
+  \n```\nNSArray *array = [NSArray arrayWithContentsOfFile:file];\n@try {\n    NSString\
+  \ *fifthItem = [array objectAtIndex:4];\n    NSLog(@\"fifthItem = %@\", fifthItem);\n\
+  }\n@catch (NSException *exception) {\n    NSLog(@\"exception = %@\", exception);\n\
+  }\n@finally {\n    NSLog(@\"Moving on...\");\n}\n```\n\n如果执行此代码，try 块会失败，控制权将转到\
+  \ catch 块，并且日志会打印出一条消息：\n\n```\nexception = *** -[__NSArrayM objectAtIndex:]: index\
+  \ 4 beyond bounds [0 .. 3]\nMoving on...\n```\n\n文本“Moving on...”会出现，因为它是 finally\
+  \ 块的一部分，并且无论如何都会执行。\n\n"
+- "# 背景处理\n\n摘要\n\n当你的程序需要同时执行多个任务时，可以使用后台处理。Objective-C 中的后台处理是通过名为`NSOperationQueue`的\
+  \ Foundation 类完成的。\n\n## 背景处理定义\n\n当你的程序需要同时执行多个任务时，可以使用后台处理。Objective-C 中的后台处理是通过名为`NSOperationQueue`的\
+  \ Foundation 类完成的。\n\n`NSOperationQueue`管理操作列表，并决定如何调度运行操作所需的资源。操作是代码块。操作可以同时执行，也可以逐个执行。\n\
+  \n假设你想计数到 10,000 并将其打印到日志中。为此，你可以编写如下代码：\n\n```\nfor (int y=0; y<=10000; y++) {\n\
+  \    NSLog(@\"y = %i\", y);\n}\n```\n\n这可以正常工作。如果你在应用中运行此代码，你将在控制台日志中看到一长串`y`值。\n\
+  \n```\ny = 0\n. . .\ny = 9998\ny = 9999\ny = 10000\n```\n\n现在，假设你还想从 20,000 倒数到\
+  \ 0。如果你只是编写另一个循环，那么你必须等待 10,000 计数完成后才能进行 20,000 计数。但如果你使用后台队列，则可以同时执行这两个任务，并且可能耗时相同。\n\
+  \n以下是如何使用后台队列进行设置：\n\n```\nNSOperationQueue *background = [[NSOperationQueue alloc]\
+  \ init];\n[background addOperationWithBlock:^{\n    for (int i1=20000; i1>0; i1--)\
+  \ {\n        NSLog(@\"i1 = %i\", i1);\n    }\n}];\nfor (int y=0; y<=10000; y++)\
+  \ {\n    NSLog(@\"y = %i\", y);\n}\n```\n\n你可以使用`alloc`和`init`函数创建队列，然后使用`addOperationWithBlock:`消息将代码块添加到队列中。如果你运行此代码，日志将打印出类似以下内容：\n\
+  \n```\ni1 = 20000\ny = 0\ni1 = 19999\ny = 1\ni1 = 19998\ny = 2\ny = 3\ni1 = 19997\n\
+  i1 = 19996\n. . .\ny = 9997\ni1 = 10001\ny = 9998\ny = 9999\ni1 = 10000\ni1 = 9999\n\
+  y = 10000\n```\n\n"
+- "# 对象归档\n\n摘要\n\n保存应用程序对象图的副本以供日后作为备份使用，称为对象归档。Objective-C 拥有可以帮助你归档对象图的类。每个支持归档的类都必须采用`NSCoding`协议，并实现`NSKeyedArchiver`和`NSKeyedUnarchiver`类所需的两个方法。\n\
+  \n## 对象归档定义\n\n保存应用程序对象图的副本以供日后作为备份使用，称为对象归档。Objective-C 拥有可以帮助你归档对象图的类。每个支持归档的类都必须采用`NSCoding`协议，并实现`NSKeyedArchiver`和`NSKeyedUnarchiver`类所需的两个方法。\n\
+  \n\n\n### NSCoding\n\n每个支持归档的类都必须遵循`NSCoding`协议并实现必需的方法。这些方法将帮助归档程序存储需要归档的对象中保存的属性值。\n\
+  \n要遵循`NSCoding`协议，请在类接口的尖括号中添加`NSCoding`协议名称。以下是你已经编码的`Task`类的实现方式：\n\n```\n#import\
+  \ <Foundation/Foundation.h>\n\n@interface Task : NSObject <NSCoding>\n\n@property(strong)\
+  \ NSString *name;\n@property(assign) BOOL done;\n-(void)generateReport;\n\n@end\n\
+  ```\n\n所遵循的`NSCoding`协议的语法如上所示（以粗体显示）。现在你需要实现两个协议方法。第一个方法称为编码器（encoder），因为它将用于将属性值编码到归档文件中。\n\
+  \n```\n#import \"Task.h\"\n\n@implementation Task\n\n-(void)generateReport{\n  \
+  \  NSLog(@\"Task %@ is %@\", self.name, self.done ? @\"DONE\" : @\"IN PROGRESS\"\
+  );\n}\n\n-(void)encodeWithCoder:(NSCoder *)encoder {\n    [encoder encodeObject:self.name\
+  \ forKey:@\"namekey\"];\n    [encoder encodeBool:self.done forKey:@\"donekey\"];\n\
+  }\n\n@end\n```\n\n你想要保存到归档中的每个属性都需要发送一个编码消息并附带一个键（key）。不同的数据类型需要不同的消息。有关可用方法的完整列表，请参阅\
+  \ Apple 的`NSCoding`文档。例如，对象需要`encodeObject:forKey:`消息，而布尔值需要`encodeBool:forKey:`消息。\n\
+  \n接下来，你需要实现解码器方法。该方法是一种构造器初始化方法，它会将属性值添加到对象中。与之前一样，重要方法以粗体显示。\n\n```\n#import \"\
+  Task.h\"\n\n@implementation Task\n\n-(void)generateReport{\n    NSLog(@\"Task %@\
+  \ is %@\", self.name, self.done ? @\"DONE\" : @\"IN PROGRESS\");\n}\n\n-(void)encodeWithCoder:(NSCoder\
+  \ *)encoder {\n    [encoder encodeObject:self.name forKey:@\"namekey\"];\n    [encoder\
+  \ encodeBool:self.done forKey:@\"donekey\"];\n}\n\n-(id)initWithCoder:(NSCoder *)decoder\
+  \ {\n    self = [super init];\n    if (self) {\n        self.name = [decoder decodeObjectForKey:@\"\
+  namekey\"];\n        self.done = [decoder decodeBoolForKey:@\"donekey\"];\n    }\n\
+  \    return self;\n}\n\n@end\n```\n\n此方法中的每个键和属性必须与`encodeWithCoder:`方法中的键和属性匹配。至此，`Task`已经支持`NSCoding`。为了查看示例，你还需要为`Project`添加`NSCoding`支持。以下是`Project`接口的实现方式：\n\
+  \n```\n#import <Foundation/Foundation.h>\n#import \"Task.h\"\n\n@interface Project\
+  \ : NSObject <NSCoding>\n\n@property(strong) NSString *name;\n@property(strong)\
+  \ NSMutableArray *listOfTasks;\n-(void)generateReport;\n\n@end\n```\n\n以下是`Project`实现的实现方式：\n\
+  \n```\n#import \"Project.h\"\n\n@implementation Project\n\n-(void)generateReport{\n\
+  \    NSLog(@\"Report for %@ Project\", self.name);\n    [self.listOfTasks enumerateObjectsUsingBlock:^(id\
+  \ obj, NSUInteger idx, BOOL *stop) {\n        [obj generateReport];\n    }];\n}\n\
+  \n-(void)encodeWithCoder:(NSCoder *)encoder {\n    [encoder encodeObject:self.name\
+  \ forKey:@\"namekey\"];\n    [encoder encodeObject:self.listOfTasks forKey:@\"listOfTaskskey\"\
+  ];\n}\n\n-(id)initWithCoder:(NSCoder *)decoder {\n    self = [super init];\n   \
+  \ if (self) {\n        self.name = [decoder decodeObjectForKey:@\"namekey\"];\n\
+  \        self.listOfTasks = [decoder decodeObjectForKey:@\"listOfTaskskey\"];\n\
+  \    }\n    return self;\n}\n\n@end\n```\n\n### 使用归档器（Archiver）\n\n假设你已经建立了一个对象图，那么使用归档器就很简单了。你使用的类是`NSKeyedArchiver`，只需发送`archiveRootObject:toFile:`消息即可。两个参数分别是你要使用的文件名和对象图中的根对象。你的根对象是`Project\
+  \ p`对象，因为你只有一个`p`，它包含多个`Task`对象。\n\n我们假设你仍然拥有第 24 章中创建的对象图，该章列出了`p`的所有任务。如果你想归档这些内容，可以在`main.m`文件中执行以下操作：\n\
+  \n```\nNSString *file = @\"/Users/Shared/project.dat\";\n[NSKeyedArchiver archiveRootObject:p\
+  \ toFile:file];\n```\n\n这将在你的 Mac 上创建一个数据文件。将来，你可以读取这个文件并用它来将对象图恢复到你的应用中。\n\n```\n\
+  NSString *file = @\"/Users/Shared/project.dat\";\nProject *p = [NSKeyedUnarchiver\
+  \ unarchiveObjectWithFile:file];\n[p generateReport];\n```\n\n由于你在此处发送了`generateReport`消息，你将在控制台日志中看到对象图的打印输出。\n\
+  \n```\nReport for Cook Dinner Project\nTask Choose Menu is IN PROGRESS\nTask Buy\
+  \ Groceries is IN PROGRESS\nTask Prepare Ingredients is IN PROGRESS\nTask Cook Food\
+  \ is IN PROGRESS\n```\n\n"
+- "# 29. Web 服务\n\n摘要\n\n许多公司（如 Facebook 和 Twitter）通过网站向用户提供服务。通常，这些服务也对开发者开放，以便在他们的应用中使用；这些服务被称为\
+  \ Web 服务。Web 服务是驻留在 Web 服务器上的功能和内容，你可以通过一组定义明确的规则（称为 API，应用程序编程接口）来使用它们。\n\n## Web\
+  \ 服务定义\n\n许多公司（如 Facebook 和 Twitter）通过网站向用户提供服务。通常，这些服务也对开发者开放，以便在他们的应用中使用；这些服务被称为\
+  \ Web 服务。Web 服务是驻留在 Web 服务器上的功能和内容，你可以通过一组定义明确的规则（称为 API，应用程序编程接口）来使用它们。\n\n使用 Web\
+  \ 服务的一般模式是：构建请求、发送请求、接收响应，然后解释响应。Objective-C 内置了对 Web 服务的支持。要发送请求和接收响应，你可以使用`NSURLConnection`类和`NSData`类。要解释（或解析）响应，你可以使用`NSJSONSerialization`类。\n\
+  \n注意\n\nJSON 代表 JavaScript 对象表示法（JavaScript Object Notation），用于数据存储和传输。实现为 REST（表述性状态转移）Web\
+  \ 服务的 Web 服务将提供 JSON 响应数据。`NSJSONSerialization`类使得在 Objective-C 中处理 JSON 更加容易。\n\
+  \n### Bitly 示例\n\nBitly 是一个很好的 Web 服务示例，我喜欢用它来做演示，因为它非常简单且功能清晰。Bitly 会将长 URL（你在\
+  \ Web 浏览器中输入的字符串）转换为更易于输入的短 URL。我将使用 bitly 的 Web 服务来展示`NSURLConnection`类。\n\n注意\n\
+  \n要跟着这个示例操作，你需要在 bit.ly 上创建一个免费账户，并获取你自己的 API 密钥和 API 用户名。如果你希望跟着这个示例操作，请前往[`https://bit.ly`](https://bit.ly/)获取你的账户。在示例中，当遇到`[YOUR\
+  \ API LOGIN]`或`[YOUR API KEY]`时，你需要替换为从 bitly 获取的登录名和密钥。\n\n\n\n### 构造请求字符串\n\n\
+  使用网络服务时，应参考发布该服务的公司提供的文档作为依据。该文档会提供可供使用的字符串和参数。你需要以 API 文档中的字符串（`http://api.bit.ly/shorten?version=2.0.1&longUrl=&login=&apiKey=&format=json`）为起点，结合\
+  \ bitly 登录名、bitly 密钥和一个长 URL 作为参数，来构造请求字符串。\n\n```\nNSString *APILogin = @\"[你的\
+  \ API 登录名]\";\n```\n\n```\nNSString *APIKey = @\"[你的 API 密钥]\";\n```\n\n```\nNSString\
+  \ *longURL = @\"https://mobileappmastery.com\";\n```\n\n```\nNSString *requestString\
+  \ = [NSString stringWithFormat:@\"http://api.bit.ly/shorten?version=2.0.1&longUrl=%@&login=%@&apiKey=%@&format=json\"\
+  , longURL, APILogin, APIKey];\n```\n\n### 创建会话和 URL\n\n你需要两个对象：一个用于表示发送到服务器的请求 URL\
+  \ 的 `NSURL` 对象，以及一个用于执行网络工作的 `NSURLSession` 对象。\n\n```\nNSURL *requestURL = [NSURL\
+  \ URLWithString:requestString];\n```\n\n```\nNSURLSession *session = [NSURLSession\
+  \ sharedSession];\n```\n\n### 发送和接收响应\n\n你将使用 `NSURLSession` 对象的一个块（block）来请求网络服务缩短\
+  \ URL。将处理响应所需的全部代码放入作为参数传递的块中。通过这种方法，你实际上是在同时完成两件事。\n\n```\n[[session dataTaskWithURL:requestURL\n\
+  \        completionHandler:^(NSData *data,\n                                   \
+  \       NSURLResponse *response,\n                                          NSError\
+  \ *error) {\n        }] resume];\n```\n\n```\nsleep(60);\n```\n\n你仍然需要填充用于处理响应的块，但这将启动操作。请注意，你需要在代码中放入一个\
+  \ `sleep` 函数。`sleep` 函数会阻止主线程在 60 秒内执行新代码。你需要这样做，因为正在使用的方法将在后台线程上执行（这是使用网络服务时的最佳实践）。如果不阻止命令行应用完成网络服务，它将没有足够的时间为你获取结果。\n\
+  \n\n好的，作为高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例，将给定的英文文本翻译成中文。\n\n\n### 解析 JSON\n\n在完成块（completion\
+  \ block）内部，你可以添加用于解释 Web 服务器响应的代码。由于你知道将要处理 JSON 数据，因此你需要使用 `NSJSONSerialization`\
+  \ 类。这里你需要一个 `NSError` 对象，以及由该块提供的 `NSData` 对象（它包含了来自 Web 服务的响应数据）。\n\n```\n[[session\
+  \ dataTaskWithURL:requestURL\n\n        completionHandler:^(NSData *data,\n\n  \
+  \                          NSURLResponse *response,\n\n                        \
+  \    NSError *error) {\n\n       NSError *e = nil;\n\n       NSDictionary *bitlyJSON\
+  \ = [NSJSONSerialization JSONObjectWithData:data\n\n                           \
+  \                                                        options:0\n\n         \
+  \                                                                              error:\
+  \ &e];\n\n        }] resume];\n\n```\n\n这会将所有 JSON 数据组织到一个 `NSDictionary` 集合中。这个字典内部可能包含其他字典、数组、数字和字符串。下一步是遍历所有这些返回的对象，以定位你需要的内容。同时，你还需要在这里测试错误。\n\
+  \n```\n[[session dataTaskWithURL:requestURL\n\n        completionHandler:^(NSData\
+  \ *data,\n\n                            NSURLResponse *response,\n\n           \
+  \                 NSError *error) {\n\nNSError *e = nil;\n\nNSDictionary *bitlyJSON\
+  \ = [NSJSONSerialization JSONObjectWithData:data\n\n                           \
+  \                                                            options:0\n\n     \
+  \                                                                              \
+  \       error:&e];\n\nif(!error){\n\n    NSDictionary *results = [bitlyJSON objectForKey:@\"\
+  results\"];\n\n    NSDictionary *resultsForLongURL = [results objectForKey:longURL];\n\
+  \n    NSString *shortURL = [resultsForLongURL objectForKey:@\"shortUrl\"];\n\n \
+  \   NSLog(@\"shortURL = %@\", shortURL);\n\n}\n\nelse\n\n    NSLog(@\"There was\
+  \ an error parsing the JSON\");\n\n        }] resume];\n\n```\n\n一旦设置完成，运行你的应用程序，你将能够从响应中检索到\
+  \ `shortURL`，并在控制台日志中打印出以下内容：\n\n```\nshortURL = http://bit.ly/1fHrAsT\n```\n\n\
+  **注意**\n\n像这样解析 Web 服务响应时，你需要通过查看 API 文档或查看返回的字符串，来调查重要数据所在的位置。\n\nMatthew Campbell\
+  \  \nObjective-C Quick Syntax Reference  \n10.1007/978-1-4302-6488-0  \n© Apress\
+  \ 2013\n\n**索引**\n\nA  \n- `Alloc` 和 `init` 方法  \n- `AppendString`  \n- 应用程序编程接口\
+  \ (API)  \n- 算术运算符  \n  - 浮点数  \n  - 运算符优先级  \n  - 类型  \n- 数组  \n  - `count` 属性\
+  \  \n  - 可变字符串  \n  - `NSArray` 类  \n  - `NSArray enumerateObjectsUsingBlock` 方法\
+  \  \n  - numbers 数组  \n  - `NSMutableArray`  \n  - `NSNumberFormatter`  \n  - `NSNumber`\
+  \ 对象  \n  - 程序拼写出的字符串  \n- 赋值运算符 (=)  \n\nB  \n- 后台进程  \n  - `alloc` 和 `init` 函数\
+  \  \n  - `for` 语句  \n  - `NSOperationQueue`  \n- Bitly  \n- 块 (Blocks)  \n  - 赋值运算符\
+  \ (=)  \n  - `copy` 属性  \n  - 声明  \n  - 定义  \n  - `generateReport` 方法  \n  - `main`\
+  \ 函数  \n  - `multiplyThese` 块  \n  - `Project` 类  \n  - `self` 关键字  \n  - `squareThis`\
+  \ 函数  \n- 布尔类型  \n- 布尔变量  \n- 构建并运行  \n  - 构建 (building)  \n  - 定义  \n  - 包 (bundle)\
+  \  \n  - 按钮  \n  - 编译代码  \n  - 控制台日志的输出  \n  - 构建选项  \n- 包 (Bundle)  \n\nC  \n-\
+  \ 分类 (Categories)  \n  - 分类接口  \n  - 定义  \n  - `@interface` 关键字  \n  - `main` 函数\
+  \  \n  - `main.m` 文件  \n  - 方法实现  \n  - `Project` 类  \n- `CGFloat` 数据类型  \n- 类 (Classes)\
+  \  \n  - 类接口  \n    - 基类  \n    - 定义  \n    - 基础框架  \n    - 实现类扩展  \n  - `@end`\
+  \ 和 `@implementation` 关键字  \n  - 实例变量 / ivar  \n  - 方法实现  \n  - `@interface` 行和\
+  \ `@end` 行  \n  - `Project` 类  \n  - 属性描述符  \n  - `void` 返回类型  \n- 类方法  \n  - `alloc`\
+  \ 函数  \n  - 控制台日志, 58  \n  - 实例方法  \n  - `printTimeStamp` 方法  \n  - `project` 实现\
+  \  \n  - `project` 对象  \n  - 示例程序  \n- 命令行工具  \n- 编译器 (另见 构建并运行)  \n- 控制台日志  \n\
+  - 构造函数  \n  - `alloc` 函数  \n  - `init` 函数  \n  - `new` 关键字  \n- 花括号 {}  \n\nD  \n\
+  - 自减运算符 (`--`)  \n- 委托 (Delegation)  \n  - 定义  \n  - `hisTask: statusHasChangedToThis`\
+  \ 方法  \n  - `project` 赋值  \n  - 协议引用  \n  - `TaskDelegate`  \n  - `Task done` 属性,\
+  \ 发送消息  \n  - `thisTask:statusHasChangedToThis` 方法  \n- 取消注册观察者  \n- 字典  \n  - `NSDictionary`\
+  \ 枚举  \n  - `NSDictionary` 类  \n  - `objectForKey`  \n  - `@` 符号  \n  - `NSMutableDictionary`\
+  \  \n    - 添加/删除项目  \n    - alloc 模式  \n    - init 模式  \n- Do 关键字  \n- Do While\
+  \ 循环  \n  - 数组计数器变量  \n  - `do` 关键字  \n  - `for` 循环  \n  - 示例程序  \n\nE  \n- Else\
+  \ 关键字  \n- 错误处理  \n  - `NSError`  \n  - try/catch 语句  \n\nF, G  \n- For-each 循环\
+  \  \n  - 数组 (numbers)  \n  - 集合对象  \n  - `NSDictionary` 输出  \n  - 示例程序  \n- For\
+  \ 循环  \n  - 数组  \n  - `count` 属性  \n  - `NSNumberFormatter`  \n  - `NSNumber` 对象\
+  \  \n  - 拼写出的字符串  \n  - 花括号  \n  - 自增 (i++)  \n  - 用法  \n- 格式说明符  \n\nH  \n- Hello\
+  \ World  \n  - 自动释放池  \n  - 构建并运行  \n  - 代码注释  \n  - 命令行工具项目  \n  - `#import` 语句\
+  \  \n  - `NSLog` 函数  \n  - `NSString` 对象  \n  - 项目创建  \n    - 代码编辑器和项目导航器  \n  \
+  \  - Xcode 欢迎屏幕  \n    - 项目导航器  \n  - Xcode 下载步骤  \n\nI  \n- If 语句  \n  - 布尔变量 \
+  \ \n  - 定义  \n  - `else` 关键字  \n  - 嵌套 if else 语句  \n- 实现类扩展  \n  - `@end` 和 `@implementation`\
+  \ 关键字  \n  - 实例变量 / ivar  \n  - 方法实现  \n- 自增运算符 (++)  \n- 继承  \n  - 类扩展  \n  - 实例变量\
+  \  \n  - `member of` 运算符  \n  - 私有实例变量  \n  - `@private` 关键字  \n  - 受保护可见性  \n \
+  \ - 公共实例变量可见性级别  \n  - 方法覆盖  \n  - 子类创建  \n- 实例方法  \n- 实例变量  \n  - `member of` 运算符\
+  \  \n  - 私有实例变量  \n  - 受保护可见性  \n  - 公共实例变量可见性级别  \n- 整数类型  \n  - `NSIntegers` \
+  \ \n  - `NSUIntegers`  \n- 集成开发环境 (IDE)  \n- 接口  \n\nJ  \n- JSON  \n  - 错误  \n \
+  \ - `NSData` 对象  \n  - `NSDictionary` 集合  \n\nK  \n- 键值编码  \n  - 定义  \n  - 获取属性值\
+  \  \n  - 设置属性值  \n- 键值观察  \n  - 定义  \n  - 实现  \n  - 添加观察者  \n  - 取消注册观察者  \n  -\
+  \ 测试值更改  \n  - project 和 task 对象图  \n\nL  \n- LLVM 编译器  \n- 逻辑运算符  \n\nM  \n- 方法覆盖\
+  \  \n\nN  \n- 嵌套 If Else 语句  \n- `NSArray` 类  \n  - `NSArray enumerateObjectsUsingBlock`\
+  \ 方法  \n  - numbers 数组  \n- `NSCoding` 协议  \n  - 解码器方法  \n  - 编码器方法  \n  - project\
+  \ 实现  \n  - `Task` 类  \n- `NSDictionary` 枚举  \n  - 键, 对象列表  \n  - `NSDictionary`\
+  \ 类  \n  - `objectForKey` 输出  \n  - 示例程序  \n  - `@` 符号  \n- `NSError`  \n- `NSInteger`\
+  \ 变量  \n- `NSLiteralSearch`  \n- `NSLog`  \n- `NSMutableArray`  \n- `NSMutableDictionary`\
+  \  \n  - 添加/删除项目  \n  - alloc 模式  \n  - init 模式  \n- `NSMutableString`  \n  - `atIndex`\
+  \ 参数  \n  - `deleteCharactersInRange`  \n  - `find` 函数  \n  - 插入  \n  - `NSMutableString`\
+  \ replace 函数  \n- `NSNumber`  \n  - 将字符串转换为数字  \n- `NSNumberFormatter`  \n  - 原始数据类型\
+  \  \n- `NSNumberFormatter`  \n- `NSObject` 类  \n- `NSString` 构造函数  \n\nO  \n- 对象归档\
+  \  \n  - 控制台日志  \n  - 定义  \n  - `NSCoding` 协议  \n    - 解码器方法  \n    - 编码器方法  \n\
+  \    - project 实现  \n    - `Task` 类  \n  - 根对象  \n- `ObjectForKey`  \n- 面向对象编程 \
+  \ \n- 对象  \n  - 构造函数  \n    - `alloc` 函数  \n    - `init` 函数  \n    - `new` 关键字 \
+  \ \n  - 声明  \n  - 定义  \n  - 格式说明符  \n  - 消息  \n  - `NSFileManager` 对象  \n  - `removeItemAtPath:error`\
+  \  \n  - `NSObject` 类  \n- 运算符  \n  - 算术运算符  \n    - 浮点数  \n    - 运算符优先级  \n   \
+  \ - 类型  \n  - 赋值运算符 (=)  \n  - 自减运算符 (`--`)  \n  - 定义  \n  - 自增运算符 (++)  \n  - 逻辑运算符\
+  \  \n  - 关系运算符  \n\nP, Q  \n- 原始数据类型  \n- `PrintTimeStamp` 方法  \n- 协议 (Protocols)\
+  \  \n  - 采纳  \n  - 定义  \n  - 可选方法  \n  - 方法实现  \n\nR  \n- 关系运算符  \n- `RemoveItemAtPath:error`\
+  \  \n\nS  \n- 单例 (Singleton)  \n  - `alloc` 和 `init` 函数  \n  - `AppSingleton` 类\
+  \  \n    - 定义  \n    - 实现  \n    - 接口  \n  - `@synchronized (self)` 块  \n- `SquareThis`\
+  \ 函数  \n- 字符串  \n  - `NSMutableString`  \n    - `atIndex` 参数  \n    - `deleteCharactersInRange`\
+  \  \n    - `find` 函数  \n    - 插入  \n    - `NSMutableString` replace 函数  \n  - `NSString`\
+  \ 类  \n  - `NSString` 构造函数  \n  - `NSString` 对象  \n- Switch 语句  \n  - `break` 关键字\
+  \  \n  - `case` 关键字  \n  - `default` 情况  \n  - 多 case 语句  \n  - `NSInteger` 变量 \
+  \ \n  - 示例程序  \n  - `switch` 关键字  \n  - 用法  \n\nT  \n- Try/catch 语句  \n\nU  \n-\
+  \ url  \n  - `NSURL` 对象  \n\nV  \n- 变量  \n  - 赋值运算符 (=)  \n  - 布尔类型  \n  - `CGFloat`\
+  \ 数据类型  \n  - 花括号 {}  \n  - 数据类型  \n  - 声明  \n  - 定义  \n  - 整数类型  \n    - `NSIntegers`\
+  \  \n    - `NSUIntegers`  \n\nW  \n- Web 服务  \n  - API  \n  - Bitly  \n  - 定义  \n\
+  \  - JSON  \n    - 错误  \n    - `NSData` 对象  \n    - `NSDictionary` 集合  \n  - 请求字符串\
+  \  \n  - `sleep` 函数  \n  - URL 创建  \n\nX, Y, Z  \n- Xcode  \n  - 下载步骤  \n  - Hello\
+  \ World 项目 (见 Hello World)  \n  - 集成开发环境 (IDE)\n"

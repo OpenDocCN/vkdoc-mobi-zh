@@ -1,0 +1,1483 @@
+- '
+
+  '
+- "# Xcode 故障排除指南\n\nMagno Urbano\n\n作者在本文中引用的任何源代码或其他补充材料，读者可在 [`www.apress.com/9781484215616`](http://www.apress.com/9781484215616)\
+  \ 获取。关于如何查找本书源代码的详细信息，请访问 [`www.apress.com/source-code/`](http://www.apress.com/source-code/)。读者也可以在\
+  \ SpringerLink 上每章的“补充材料”部分获取源代码。\n\nISBN 978-1-4842-1561-6  \n电子书 ISBN 978-1-4842-1560-9\
+  \  \nDOI 10.1007/978-1-4842-1560-9  \n© Apress 2015\n\n**Xcode 故障排除指南**  \n常务董事：Welmoed\
+  \ Spahr  \n首席编辑：Michelle Lowman  \n技术审校：Charles Cruz  \n编委会：Steve Anglin, Louise\
+  \ Corrigan, James T. DeWolf, Jonathan Gennick, Robert Hutchinson, Michelle Lowman,\
+  \ James Markham, Susan McDermott, Matthew Moodie, Jeffrey Pepper, Douglas Pundick,\
+  \ Ben Renow-Clarke, Gwenan Spearing, Steve Weiss  \n协调编辑：Kevin Walter  \n排版：SPi\
+  \ Global  \n索引编制：SPi Global  \n插图制作：SPi Global  \n封面图片：Martijn Vroom\n\n如需了解翻译事宜，请发送电子邮件至\
+  \ `rights@apress.com`，或访问 [`www.apress.com`](http://www.apress.com/)。Apress 及 friends\
+  \ of ED 的书籍可批量购买，用于学术、企业或促销用途。大多数图书也提供电子书版本和许可证。更多信息，请参考我们的特别批量销售 – 电子书许可网页：[`www.apress.com/bulk-sales`](http://www.apress.com/bulk-sales)。\n\
+  \n本作品受版权保护。出版商保留所有权利，无论涉及材料的全部或部分，具体包括翻译、重印、使用插图、朗诵、广播、微缩胶片复制或以任何其他物理方式复制，以及电子改编、计算机软件或类似或不同的方法进行传输或信息存储与检索，无论这些方法目前已知或未来开发。法律保留的例外情况包括：与评论或学术分析相关的简短摘录，或专门为输入并运行于计算机系统而提供的材料，仅供购买者独家使用。未经出版商所在地现行版权法许可，不得复制本出版物或其任何部分，且使用许可必须始终从\
+  \ Springer 获取。许可可通过 Copyright Clearance Center 的 RightsLink 获得。违反者将根据相应版权法被追究责任。\n\
+  \n本书中可能出现商标名称、标识和图像。我们并非在每次出现商标名称、标识或图像时都使用商标符号，而是仅以编辑方式使用这些名称、标识和图像，以维护商标所有者的权益，且无意侵犯商标权。本出版物中使用的商品名称、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的任何意见表达。\n\
+  \n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能出现的任何错误或遗漏承担法律责任。出版商对本书内容不作任何明示或暗示的保证。\n\
+  \n本书通过 Springer Science+Business Media New York 在全球图书贸易中发行，地址：233 Spring Street,\
+  \ 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问\
+  \ `www.springeronline.com`。Apress Media, LLC 是加利福尼亚州的有限责任公司，其唯一成员（所有者）为 Springer\
+  \ Science + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州的公司。\n\
+  \n## 前言\n\n`Xcode 故障排除指南` 是一本面向那些为 iOS 或 OS X 创建应用的人的指南。本书包含了针对棘手问题的解决方案——任何使用 Xcode\
+  \ 的开发人员迟早都会遇到的问题。\n\nXcode 是 Apple 为开发 iOS 和 OSX 应用而创建的官方工具。然而，该工具的局限性、一些错误以及其令人费解的错误信息，有时使得使用\
+  \ Xcode 变得非常困难。\n\n更糟糕的是，一些关键的文档不完整、含糊不清或难以解读。\n\n为了让工作更轻松，作者首先为自己记录下所有这些问题的笔记及其相应的解决方案。一周又一周，一月又一月，多年的笔记积累下来，`Xcode\
+  \ 故障排除指南` 就此诞生。\n\n`Xcode 故障排除指南` 还向您展示了如何自动化一些重复性任务，以及如何解决与 iOS 或 OS X 开发相关但位于\
+  \ Xcode 外部的问题。\n\n本书中的代码兼容 iOS 9 和 OS X 10.11 “El Capitan”。因此，本书中展示的 Swift 代码兼容\
+  \ Swift 2.0。\n\n我们希望本书能帮助您解决在开发过程中遇到的一些难题。其中一些问题有多种解决方案，我们已尽力为每种情况添加了所有已知选项。因此，本书并非每个解决方案的最终指南。我们只是尽我们所能。\n\
+  \n如果您想为本书未来版本建议添加某个主题，请随时直接联系作者：`troubleshooting-xcode@addfone.com`。\n\n\n\n"
+- '# 目录
+
+
+  Troubleshooting Xcode 问题排查
+
+
+  1 奋勇反击
+
+
+  1 打开项目文件时 Xcode 崩溃？
+
+
+  2 如果你不使用 CocoaPods
+
+
+  2 如果你使用 CocoaPods
+
+
+  2 用于签署可执行文件的身份无效
+
+
+  4 Xcode 编译失败并报错“SBPartialInfo”
+
+
+  6 NSLayoutConstraint 的问题
+
+
+  6 Info.plist 的路径错误
+
+
+  7 Info.plist 不得分配给某个目标
+
+
+  8 Storyboard 文件的重复引用
+
+
+  8 未找到匹配的配置文件
+
+
+  10 缺少配置文件
+
+
+  10 比 Photoshop 更好的图片压缩
+
+
+  12 为应用内购买创建包
+
+
+  13 交付内容
+
+
+  13 什么是包？
+
+
+  13 创建包的更快方法
+
+
+  14 创建最终包
+
+
+  15 减少高达 75% 的编译时间
+
+
+  16 Objective-C 中“不可能”的常量
+
+
+  18 Constants.h
+
+
+  18 Constants.m
+
+
+  18 Core Data 的并发
+
+
+  19 代码
+
+
+  19 从终端创建图标
+
+
+  22 为 iOS 应用创建图标
+
+
+  22 UINavigationBar 色调不起作用
+
+
+  24 Swift
+
+
+  24 Objective-C
+
+
+  24 调试一个极其棘手的 Quartz 错误
+
+
+  25 还有希望
+
+
+  25 并发地向数组添加对象
+
+
+  26 Objective-C
+
+
+  26 老派 C 语言
+
+
+  26 回到未来
+
+
+  27 应用已损坏，无法打开
+
+
+  28 条件
+
+
+  28 诸神要惩罚你
+
+
+  28 应用无法获取收据
+
+
+  30 不同目标中同名的类
+
+
+  31 这是你所期望的
+
+
+  31 别急！
+
+
+  31 反对基础国际化的一个案例
+
+
+  32 界面元素的本地化
+
+
+  32 UIBarButtonItem 和其他元素本地化失败
+
+
+  33 检查缺失的 Localizable.strings
+
+
+  34 你声明 NSString 的方式是错误的
+
+
+  35 Objective-C
+
+
+  35 CocoaPods: /Manifest.lock: 没有那个文件或目录
+
+
+  36 资源目录 Bug
+
+
+  37 这个 Bug
+
+
+  37 解决方案
+
+
+  37 应用崩溃却不给你任何线索？
+
+
+  38 Objective-C
+
+
+  38 NSUserDefaults 在沙盒应用中不起作用？
+
+
+  39 界面元素未更新？
+
+
+  40 Swift
+
+
+  40 Objective-C
+
+
+  40 使用正则表达式查找和替换字符串
+
+
+  41 Swift
+
+
+  41 Objective-C
+
+
+  41 Swift
+
+
+  41 Objective-C
+
+
+  41 使用正则表达式
+
+
+  42 从数组中提取字典
+
+
+  46 Swift: NSArray
+
+
+  46 一个 Swift 变种...
+
+
+  46 Objective-C
+
+
+  47 计算数组中元素的魔法方法
+
+
+  48 Swift
+
+
+  48 Objective-C
+
+
+  48 Swift: NSArray
+
+
+  48 一个 Swift 变种
+
+
+  49 Objective-C
+
+
+  49 OS X 应用未以正确尺寸启动
+
+
+  50 检测当前运行的应用目标
+
+
+  51 Swift
+
+
+  51 Objective-C
+
+
+  51 禁用类上的某个方法
+
+
+  52 Swift
+
+
+  52 Objective-C
+
+
+  52 弃用类上的某个方法
+
+
+  53 Swift
+
+
+  53 Objective-C
+
+
+  53 Xcode 出现“沙滩球”
+
+
+  54 UIButton 未变灰
+
+
+  55 Swift
+
+
+  55 Objective-C
+
+
+  55 Swift
+
+
+  55 Objective-C
+
+
+  55 捕获内存损坏
+
+
+  56 Sanitizer
+
+
+  56 SpriteKit 在 didBeginContact 中崩溃
+
+
+  58 Swift
+
+
+  58 Objective-C
+
+
+  58 SpriteKit 对象不遵循边界？
+
+
+  59 反对在 Cocoa 应用中使用 Storyboard 的案例
+
+
+  61 Swift
+
+
+  61 Objective-C
+
+
+  61 拥有独立圆角的 UIView 类
+
+
+  63 Swift
+
+
+  63 Objective-C
+
+
+  64 使 NSViews 与 UIViews “兼容”
+
+
+  66 Swift
+
+
+  66 Objective-C
+
+
+  69 检测 UIPickerView 何时停止旋转
+
+
+  72 Swift
+
+
+  72 Objective-C
+
+
+  72 “疯狂”的 NSDates
+
+
+  73 Swift
+
+
+  73 Objective-C
+
+
+  73 Swift
+
+
+  74 Objective-C
+
+
+  74 本地化应用名称
+
+
+  75 使用自动布局水平居中视图
+
+
+  76 示例
+
+
+  76 哦... 坏主意
+
+
+  77 什么？！
+
+
+  77 逻辑刚刚离开了房间
+
+
+  78 这就是你击败恶龙的方法
+
+
+  80 复制后 Storyboard 上的元素变灰
+
+
+  81 调试 Core Data
+
+
+  84 独自在黑暗中
+
+
+  84 包中不包含 Info.plist
+
+
+  86 检查 App Store 中应用的版本
+
+
+  88 Swift
+
+
+  88 Objective-C
+
+
+  89 断点和 NSLog 不起作用
+
+
+  91 项目损坏
+
+
+  91 错误的产物方案
+
+
+  91 视图控制器之间的过渡缓慢
+
+
+  92 Swift
+
+
+  92 Objective-C
+
+
+  92 已完成运行问题
+
+
+  93 我们已经警告过你的惩罚
+
+
+  93 iOS 与 Mac 之间的接力堵塞
+
+
+  95 在你的 iOS 设备上
+
+
+  95 在你的 Mac 上
+
+
+  99 在 Mac OS X 上
+
+
+  100 在你的项目中
+
+
+  100 顽固应用的 iCloud 容器
+
+
+  101 验证这一点
+
+
+  102 秘密“咒语”来了...
+
+
+  102 你可以在哪里看到文件
+
+
+  103 Swift
+
+
+  103 Objective-C
+
+
+  104 实用技巧
+
+
+  105 CocoaPods
+
+
+  105 GitHub
+
+
+  105 StackOverflow
+
+
+  105 fastlane 工具
+
+
+  106 HandBrake
+
+
+  106 Alcatraz
+
+
+  106 附录
+
+
+  107
+
+
+  索引 123
+
+
+  ## 内容概览
+
+
+  关于作者 xiii
+
+
+  关于技术审阅者 xv
+
+
+  前言 xvii
+
+
+  Troubleshooting Xcode 问题排查
+
+
+  1
+
+
+  索引 123
+
+
+  ## 关于作者与关于技术审阅者
+
+
+  ### 关于作者
+
+
+  ### 关于技术审阅者
+
+
+
+
+  '
+- "# Xcode 故障排除\n\n电子补充材料 本章在线版本 (doi:[10.1007/978-1-4842-1560-9_1](http://dx.doi.org/10.1007/978-1-4842-1560-9_1))\
+  \ 包含补充资料，仅供授权用户查阅。\n\n## 反击\n\n由于我们描述的开发问题较为复杂，本书并非针对 Xcode、iTunes Connect 和开发者门户所有问题的权威指南。\n\
+  \n你在开发过程中面临的问题是相互关联的。有时，同一个错误信息可能由多个原因引起。我们希望本书能帮助你解决大部分问题，并为你提供解决其他未提及问题的思路。\n\n\
+  因此，请戴上你的拳击手套，让第一回合开始吧。\n\n## 打开项目文件时 Xcode 崩溃？\n\n这类崩溃通常表明项目文件已损坏。\n\n不幸的是，由于 Xcode\
+  \ 的内部问题和 bug，项目文件很容易损坏，尤其是复杂项目。使用 Auto Layout 的复杂项目就像一颗定时炸弹，迟早（更可能是早）会导致项目损坏。\n\n\
+  此问题最常见的原因是项目工作区相关的内部文件损坏。这些内部文件可以轻松移除，让项目恢复正常。\n\n以下是解决崩溃问题的几个步骤。\n\n### 如果你没有使用\
+  \ CocoaPods\n\n备份你的项目文件夹。在项目文件夹中找到项目文件（扩展名为 `.xcodeproj` 的文件）。右键点击项目文件，选择“显示包内容”。删除\
+  \ `project.xworkspace` 文件和 `xcuserdata` 目录。\n\n就这么简单。现在尝试打开项目文件，Xcode 就不会崩溃了。\n\n\
+  **注意**\n\n坏消息是，Xcode 使用你删除的这些文件和目录来存储工作区信息（哪些窗口和标签页是打开的，以及一些调试器设置）。\n\n好消息是你的代码完好无损，下次打开项目时，你删除的文件会被重新创建。\n\
+  \n### 如果你正在使用 CocoaPods\n\n执行步骤 1 到 4。回到项目文件夹，删除扩展名为 `.xcworkspace` 的文件。同时删除同一目录下的\
+  \ `Podfile.lock` 文件。在项目文件夹中启动终端，输入以下命令并按下回车键：`pod deintegrate`\n\n**注意**\n\n终端是所有版本的\
+  \ [Mac OS X](http://guides.macrumors.com/Mac_OS_X) 都包含的程序。它位于[应用程序文件夹](http://guides.macrumors.com/Applications_folder)内的[实用工具文件夹](http://guides.macrumors.com/Utilities_folder)中。启动后，它可以控制任何基于\
+  \ UNIX 的操作系统（如 Mac OS X）的底层机制。\n\n要启动终端应用，点击 Spotlight，输入 `terminal`，然后按回车键。\n\n\
+  要将终端切换到你的项目文件夹，输入以下命令并按回车键：\n\n`cd /你的项目路径`\n\n如果路径中包含空格，必须在每个空格前加反斜杠。\n\n例如\n\n\
+  `/Mobile Documents` 必须写成 `/Mobile \\ Documents`。\n\n**注意**\n\n如果你的系统没有安装 `deintegrate`，请启动终端并输入以下命令：\n\
+  \n`sudo gem install cocoapods-deintegrate`\n\n返回终端，输入以下命令并按回车键：`pod install`\n\n\
+  这将重新安装项目使用的所有 Pod，并恢复 `xcworkspace` 文件。\n\n现在你可以再次打开工作区文件，Xcode 不会崩溃。\n\n**注意**\n\
+  \n当你使用 CocoaPods 时，你的项目文件是扩展名为 `.xcworkspace` 的那个文件。\n\n## 用于签署可执行文件的身份无效\n\n![A978-1-4842-1560-9_1_Fig1_HTML.jpg](img/A978-1-4842-1560-9_1_Fig1_HTML.jpg)\n\
+  \n图 1. 用于签署的身份无效\n\n这条错误信息表明某个签名身份已失效，或者设备的时钟有问题。连 Xcode 也无法确定问题所在。\n\n你可以通过访问 `开发者门户`\
+  \ 来确认所有签名身份的有效性，但我敢打赌它们都没问题。\n\n我们之前见过这个错误，解决方案是重新创建配置文件。\n\n请遵循以下步骤：\n\n- 使用 `开发者门户`，重新生成所有与项目相关的配置文件，但为它们命名新名称。\n\
+  - 下载新的证书，并将其拖放到 Xcode 的图标上。\n- 重启 Xcode。\n- 输入以下命令删除执行上一步时找到的所有文件，每找到一个文件就按一次回车键：`rm\
+  \ YYYYY`，其中 `YYYYY` 是要删除的文件名。\n- 输入以下命令并按回车键，查找所有与项目相关的配置文件：`grep -alir \"XXXXX\"\
+  \ *`，其中 `XXXXX` 是你的应用的 Bundle ID。例如：`grep –alir \"com.myCompany.myGreatApp\" *`\n\
+  - 启动终端，输入以下命令并按回车键：`cd ∼/Library/MobileDevice/Provisioning\\ Profiles` 这行命令会将终端定位到\
+  \ Xcode 存放配置文件的目录。\n\n## Xcode 编译失败并报错“SBPartialInfo”\n\n> 无法打开文件 myapp-SBPartialInfo.plist，因为不存在该文件\n\
+  \n当向用户呈现错误信息时，普遍共识是：\n\n- 如果用户能解决问题，告诉他怎么做。\n- 如果问题出在用户创建的文件上，解释如何修复该文件。\n- 永远不要显示涉及非用户创建文件或用户无法解决的问题的错误信息。为什么要制造困惑？\n\
+  \n这条错误信息违反了所有常识规则，因为它提到了一个用户未创建的文件，一个用户毫不知情的文件。更糟糕的是，即使使用最强大的通灵板，用户也无法猜出问题所在。\n\n\
+  经过几年使用 Xcode 的经验，我们知道有几个问题会导致这类错误信息。第一个问题是 Auto Layout 约束出了问题。\n\n### NSLayoutConstraint\
+  \ 问题\n\n大多数情况下，`SBPartialInfo` 错误与一个有问题的 `NSLayoutConstraint` 有关。是的，你没看错，就是那个好用的老式\
+  \ Auto Layout 约束，我们的崩溃老友。\n\n要解决此问题，请遵循以下步骤：\n\n选择报告导航器，点击 Xcode 的 `项目导航器` 面板顶部最后一个图标（图\
+  \ 2），或按下 ![A978-1-4842-1560-9_1_Figb_HTML.jpg](img/A978-1-4842-1560-9_1_Figb_HTML.jpg)8。\n\
+  \n![A978-1-4842-1560-9_1_Fig2_HTML.jpg](img/A978-1-4842-1560-9_1_Fig2_HTML.jpg)\n\
+  \n图 2. 报告导航器\n\n选择顶部的报告并仔细阅读，直到找到出问题的 `NSAutoLayoutConstraint`。\n\n还有一种问题也会导致图 1\
+  \ 中的错误信息：`Info.plist` 文件路径不正确。\n\n### Info.plist 路径不正确\n\n检查你目标的构建设置，确认 `Info.plist`\
+  \ 文件的路径是否正确。\n\n选择相关目标（1），点击构建设置（2），选择打包部分（3），检查 `Info.plist` 文件行（4）是否有正确的路径和 `Info.plist`\
+  \ 文件名（见图 3）。\n\n![A978-1-4842-1560-9_1_Fig3_HTML.jpg](img/A978-1-4842-1560-9_1_Fig3_HTML.jpg)\n\
+  \n图 3. Info.plist 路径\n\n还有第三种问题也会导致图 1 中的错误信息：`Info.plist` 文件分配给了某个目标。\n\n\n\n###\
+  \ `Info.plist` 不得分配给任何目标\n\n在 Xcode 的“项目导航器”（图 4）中选中 `Info.plist` 文件，然后在 Xcode 的右侧面板中，点击“文件检查器”图标（图\
+  \ 5 中圆圈标记处）。如图 5 所示的同一右侧面板中，请确保未将 `Info.plist` 文件分配给任何目标（见箭头）。\n\n![A978-1-4842-1560-9_1_Fig5_HTML.jpg](img/A978-1-4842-1560-9_1_Fig5_HTML.jpg)\n\
+  \n图 5.\n\n请勿将 `Info.plist` 分配给任何目标\n\n![A978-1-4842-1560-9_1_Fig4_HTML.jpg](img/A978-1-4842-1560-9_1_Fig4_HTML.jpg)\n\
+  \n图 4.\n\n`Info.plist` 位置说明\n\n请勿将 `Info.plist` 分配给任何目标。\n\n## 未找到匹配的描述文件\n\n当您尝试向\
+  \ App Store 提交应用时，会出现如图 7 所示的错误信息。此信息的出现通常与两件事有关：描述文件已过期或缺失。\n\n![A978-1-4842-1560-9_1_Fig7_HTML.jpg](img/A978-1-4842-1560-9_1_Fig7_HTML.jpg)\n\
+  \n图 7.\n\n未能找到签名资源\n\n### 缺失描述文件\n\n有时，上帝们早上心情不好，决定删除或吊销您的一些描述文件。“昨天一切都还运行良好，”您说道。我们理解。\n\
+  \n首先，请导航至项目的“构建设置”选项卡（图 8），验证您是否已为所选目标配置了正确的描述文件。\n\n![A978-1-4842-1560-9_1_Fig8_HTML.jpg](img/A978-1-4842-1560-9_1_Fig8_HTML.jpg)\n\
+  \n图 8.\n\n代码签名与描述文件\n\n如果描述文件缺失，请从“开发者门户”下载。\n\n说明\n\n好吧，我们可以建议您让 Xcode 自动获取描述文件，但不幸的是，此操作有\
+  \ 99.99% 的概率无法解决此问题。还是自行下载描述文件更快。\n\n## 比 Photoshop 更好的图片压缩\n\n如果您喜欢自己压缩图像，以下是一些实用技巧。\n\
+  \n据我们所知，Mac OS X 上用于图像优化和压缩的最佳应用程序是 `ImageOptim`（ [`www.imageoptim.com`](http://www.imageoptim.com/)\
+  \ ）。`ImageOptim` 是一款免费应用程序，它在一个易于使用的界面中集成了许多优化工具，例如 `PNGOUT`、`Zopfli`、`Pngcrush`、`AdvPNG`、扩展的\
+  \ `OptiPNG`、`JpegOptim`、`jpegrescan`、`jpegtran` 和 `Gifsicle`。\n\n默认情况下，Xcode 配置为压缩添加到包中的所有图像，但效果不如\
+  \ `ImageOptim`。\n\n为了使用您自己压缩的图像，您需要通过禁用“构建设置”选项卡中的 `COMPRESS_PNG_FILES` 来禁用 Xcode\
+  \ 的压缩标志。将此选项从 `YES` 更改为 `NO`，以防止 Xcode 压缩您已经压缩过的图像（图 9）。\n\n![A978-1-4842-1560-9_1_Fig9_HTML.jpg](img/A978-1-4842-1560-9_1_Fig9_HTML.jpg)\n\
+  \n图 9.\n\n压缩 PNG 选项\n\n## 为 App 内购买创建包\n\n您已决定在您的应用中添加 App 内购买项目。这些 App 内购买项目将向用户提供内容，并由\
+  \ Apple 托管这些内容。怎么做呢？\n\n### 提供内容\n\n在 iOS 6 发布之前，开发者负责在购买后为用户保留和提供内容。所有内容都必须存储由开发者自己维护的服务器上。\n\
+  \n自从 Apple 推出 iOS 6 以来，可以将所有内容托管在 Apple，从而使过程更加简单。\n\n要将内容提交给 Apple，您必须将所有内容打包成一种特殊类型的文件，称为“包”。\n\
+  \n### 什么是包？\n\n简单来说，包是一个结构化的文件夹。此文件夹内包含一个名为 `ContentInfo.plist` 的文件和一个名为 `Contents`\
+  \ 的文件夹。\n\n#### `ContentInfo.plist`\n\n`ContentInfo.plist` 文件包含两个键：\n\n*   `ContentVersion`，代表内容的版本号；\n\
+  *   `IAPProductionIdentifier`，即 App 内购买项目的捆绑标识符，如 `com.myCompany.myInAppPurchase`\
+  \ 之类的内容。\n\n#### `Contents` 文件夹\n\n`Contents` 文件夹包含与特定 App 内购买项目相关的所有文件，例如音乐、视频、图像、文本等，这些都与您正在销售的内容相关联。\n\
+  \n说明\n\n您的 App 内购买项目中可以包含任何类型的内容，但代码除外。\n\n### 创建包：更快的方法\n\nApple 推荐使用 Xcode 为您的\
+  \ App 内购买项目创建包，但这个过程需要无尽的点击和复杂的配置。\n\n我们为您创建了另一种方法，更简单，适合批量交付。\n\n方法如下：\n\n使用 Mac\
+  \ OS X 的 Finder，创建一个以您的 App 内购买项目的捆绑标识符命名的文件夹，例如 `com.myCompany.myApp.pack100`。我们将这个文件夹称为主包文件夹。\
+  \   在主包文件夹内创建一个名为 `Contents` 的文件夹。   在主包文件夹内创建一个纯文本文件，命名为 `ContentInfo.plist`。  \n\
+  \n此时，您将获得如图 10 所示的结构：\n\n![A978-1-4842-1560-9_1_Fig10_HTML.jpg](img/A978-1-4842-1560-9_1_Fig10_HTML.jpg)\n\
+  \n图 10.\n\nApp 内购买包结构将包要交付的所有多媒体内容复制到 `Contents` 文件夹。   将如下结构添加到您的 `ContentInfo.plist`\
+  \ 文件中：\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC\
+  \ \"-//Apple//DTD PLIST 1.0//EN\"\n\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"\
+  >\n<plist version=\"1.0\">\n<dict>\n    <key>ContentVersion</key>\n    <string>1.0</string>\n\
+  \    <key>IAPProductIdentifier</key>\n    <string>XXXXX</string>\n</dict>\n</plist>\n\
+  ```\n\n将 `XXXXX` 替换为 App 内购买项目的包 ID，在本例中为 `com.myCompany.myApp.pack100`。\n\n现在文件夹结构恰好如图\
+  \ 11 所示：\n\n![A978-1-4842-1560-9_1_Fig11_HTML.jpg](img/A978-1-4842-1560-9_1_Fig11_HTML.jpg)\n\
+  \n图 11.\n\nApp 内购买最终结构\n\n### 创建最终的包\n\n是时候创建扩展名为 `pkg` 的最终包文件了。\n\n在包含主包文件夹的目录中启动终端，键入以下命令，然后按回车键：\n\
+  \n```bash\nproductbuild --content <pathToInAppDirectory> <pkg-name.pkg>\n```\n\n\
+  示例：\n\n```bash\nproductbuild --content com.myCompany.myApp.pack100 com.myCompany.myApp.pack100.pkg\n\
+  ```\n\n此命令将在同一目录中为您创建包。您可以稍后使用 Application Loader 将此包提交给 Apple。\n\n说明\n\n如果 `productbuild`\
+  \ 命令失败，则意味着您需要在系统上安装 Xcode 的命令行工具。为此，请启动终端并键入以下命令：\n\n```bash\nxcode-select –-install\n\
+  ```\n\n\n好的，作为一名高级文档工程师和翻译员，我将遵循您给出的注意事项和示例，将以下英文文本翻译成中文。\n\n\n"
+- '# 将编译时间减少高达 75%
+
+
+  开发过程中最耗时的环节之一就是 Xcode 编译、构建和运行应用程序所花费的时间。
+
+
+  根据你的配置方式，编译代码的时间可能会过长。
+
+
+  其中一种“错误”配置会强制 Xcode 生成开发过程中不必要的文件。其中一个文件是 `dSYM` 文件，它包含编译后代码的调试符号。每次生成这些文件都会不必要地拖长编译时间。
+
+
+  你可以通过在“Build Settings”➤ “Build Options”➤ “Debug Information Format”➤ “Debug”（图 12）中将该项从
+  `DWARF with dSYM File` 更改为 `DWARF`（图 12）来禁用开发环境下的 `dSYM` 文件生成。
+
+
+  ![A978-1-4842-1560-9_1_Fig12_HTML.jpg](img/A978-1-4842-1560-9_1_Fig12_HTML.jpg)
+
+
+  **图 12.** 调试信息格式
+
+
+  > **注意：** 由 Xcode 7 创建的新项目已将此选项配置为 `DWARF`，这意味着 Xcode 在开发期间不会创建 `dSYM` 文件。
+
+  >
+
+  > 旧版本的 Xcode 将此选项设置为 `DWARF with dSYM file`，这意味着在开发期间会生成 `dSYM` 文件，从而导致项目编译时间更长。
+
+
+  > **注意：** 如果你的项目使用了 CocoaPods 或涉及多个目标依赖，请记得为所有目标更改此选项。
+
+  >
+
+  > 你应该为 Release 选项保留 `DWARF with dSYM File`，否则在你从 App Store 获取崩溃日志时，将无法对其进行符号化。
+
+
+  > **注意：** 在崩溃日志的符号化过程中，Xcode 会将原始的崩溃日志文件与 `dSYM` 文件合并，生成一个人类可读的崩溃日志版本。这个友好的崩溃日志版本包含程序员能够识别的代码信息，有助于确定崩溃的原因。
+
+
+  '
+- "# Objective-C 中不可能的“常量”\n\n与 Swift 不同，你无法使用 Objective-C 将一个像 `NSArray`、`NSDictionary`\
+  \ 这样的集合声明为常量；但我们认为我们或许有一个解决方案。\n\n该方案涉及创建一个基于 `NSObject` 的类，并声明静态变量来备份和模拟一个“常量”集合。\n\
+  \n## Constants.h\n\n```\n#import <Foundation/Foundation.h>\n\n@interface Constants\
+  \ : NSObject\n\n+ (NSArray *) myConstantArray;\n\n@end\n```\n\n## Constants.m\n\n\
+  ```\n#import \"Constants.h\"\n\n@implementation Constants\n\n+ (NSArray *) myConstantArray\
+  \ {\n     // 通过将静态变量声明在实现文件中，我们保证\n     // 使用此类的其他类不会创建该静态变量的副本\n  static NSArray\
+  \ *_myConstantArray = nil;\n  @synchronized (_myConstantArray) {\n    if (_myConstantArray\
+  \ == nil) {\n      _myConstantArray = @[ /* 在这里声明你的数组 */ ];\n    }\n    return _myConstantArray;\n\
+  \  }\n}\n\n@end\n```\n\n要使用这个“常量”，你必须使用以下形式：\n\n```\nNSArray *anArray = [MyConstantClass\
+  \ myConstantArray];\n```\n\n"
+- "# Core Data 的并发处理\n\n有时，你的应用程序可能在执行 Core Data 操作时崩溃，且原因不明。\n\n我们现在要探讨的一种可能性是，应用程序可能同时从不同的线程访问了\
+  \ `NSManagedObjectContext` 对象。\n\n为了从多线程访问 Core Data 实体，Apple 建议你使用线程隔离。\n\nCore\
+  \ Data 推荐的并发编程模式是线程隔离：每个线程都必须拥有自己完全私有的托管对象上下文。\n\n采用这种模式有两种可能的方法：\n\n- 为每个线程创建一个独立的托管对象上下文，并共享一个持久化存储协调器。这是通常推荐的方法。\n\
+  - 为每个线程创建一个独立的托管对象上下文和持久化存储协调器。这种方法提供了更高的并发性，但代价是更高的复杂性（特别是在不同上下文之间通信变更时）和更高的内存使用率。\n\
+  \n在你花时间开发支持线程隔离的必要代码之前，你可能需要确认你的应用遇到的问题是否真的是由多个线程同时访问 Core Data 上下文对象引起的。\n\n##\
+  \ 代码实现\n\n基本上，这段代码是一个用于控制上下文访问的锁机制。同一时间只有一个线程能够访问上下文。\n\n你必须找到代码中访问上下文的位置，并添加以下用**粗体**标出的行：\n\
+  \n#### Swift\n\n**Entity.swift**\n\n```\nimport Foundation\nimport CoreData\n\n\
+  @objc(Entity)\nclass Entity: NSManagedObject {\n\n    static let lock = NSLock()\n\
+  \n    func allObjectsInContext(context : NSManagedObjectContext)\n             \
+  \  -> NSArray {\n\n        var all : NSArray?\n        // 准备一个获取请求\n        let\
+  \ request : NSFetchRequest? = NSFetchRequest()\n        request?.entity =\n    \
+  \            NSEntityDescription.entityForName(\"Entity\",\n                inManagedObjectContext:\
+  \ context)\n        request?.returnsDistinctResults = true\n\n        Entity.lock.lock()\n\
+  \n        do {\n            // 这就是你访问上下文的地方\n            all = try context.executeFetchRequest(request!)\n\
+  \            // 成功...\n        } catch let error as NSError { // 失败\n          \
+  \  print(\"获取失败: \\(error.localizedDescription)\")\n        }\n\n        Entity.lock.unlock()\n\
+  \n        return all!\n    }\n}\n```\n\n#### Objective-C\n\n**Entity.h**\n\n```\n\
+  #import <Foundation/Foundation.h>\n#import <CoreData/CoreData.h>\n\nNS_ASSUME_NONNULL_BEGIN\n\
+  \n@interface Entity : NSManagedObject\n\n+ (NSArray *)allObjectsInContext:(NSManagedObjectContext\
+  \ *)\n                                       context;\n\n@end\n\nNS_ASSUME_NONNULL_END\n\
+  ```\n\n**Entity.m**\n\n```\n#import \"Entity.h\"\n\n@implementation Entity\n\n+\
+  \ (NSArray *)allObjectsInContext:(NSManagedObjectContext *)\n                  \
+  \                     context\n{\n  NSArray *all = nil;\n\n  // 准备一个获取请求\n  NSFetchRequest\
+  \ *request = [[NSFetchRequest alloc] init];\n  request.entity = [NSEntityDescription\n\
+  \                   entityForName:NSStringFromClass([self class])\n          inManagedObjectContext:context];\n\
+  \  [request setReturnsDistinctResults:YES];\n\n  NSError *error = nil;\n\n  // 这条指令将锁住上下文，防止\n\
+  \  // 对其的多次访问\n  @synchronized(context) {\n      // 这就是你访问上下文的地方\n      all = [context\
+  \ executeFetchRequest:request error:&error];\n  }\n\n  return all;\n}\n\n@end\n\
+  ```\n\n> **注意：** 请注意，这个机制可能会降低你的应用程序速度，尤其是在处理数据库密集型应用时。请仅将其用于调试目的。\n>\n> 如果在添加 `@synchronized`\
+  \ 这行代码后你的代码不再崩溃，那么问题就得到了确认，我们建议你遵循 Apple 的建议，为每个线程创建独立的上下文。\n\n"
+- '# 从终端创建图标
+
+
+  一次性为你的 iPhone、iPad 和 Mac 应用程序创建所有图标，只需几秒钟，几乎不费吹灰之力，怎么样？
+
+
+  很不错，对吧？我们为你准备了两份脚本：一份用于为你的 iOS 应用创建图标，另一份用于为你的 Mac 应用创建图标。
+
+
+
+
+  '
+- "# 为 iOS 应用创建图标\n\n以下脚本用于创建 iOS 应用图标：\n\n```\nmkdir -p ./icons_iphone\nmkdir -p\
+  \ ./icons_ipad\nfor x in 29 40 60\ndo\n   double=$(($x * 2))\n   triple=$(($x *\
+  \ 3))\n   sips --resampleWidth $double icon.png --out ./icons_iphone/icon-$x@2x.png\n\
+  \   sips --resampleWidth $triple icon.png --out ./icons_iphone/icon-$x@3x.png\n\
+  done\nfor x in 29 40 76\ndo\n   double=$(($x * 2))\n   sips --resampleWidth $x icon.png\
+  \ --out ./icons_ipad/icon-$x.png\n   sips --resampleWidth $double icon.png --out\
+  \ ./icons_ipad/icon-$x@2x.png\ndone\n```\n\n**注意：** 此脚本会创建两个文件夹：一个包含 iPhone 图标，另一个包含\
+  \ iPad 图标。\n\niOS 图标将按以下尺寸创建：iPhone 使用 29、40 和 60 点 @2x 和 @3x，iPad 使用 29、40 和 76\
+  \ 点 @1x 和 @2x。为 iOS 7 及以上版本编译的应用使用这些格式。\n\n## 为 OS X 应用创建图标\n\n使用以下脚本为你的 Mac 应用创建图标：\n\
+  \n```\nmkdir -p ./icons_mac\nfor x in 512 256 128 32 16\ndo\n   double=$(($x * 2))\n\
+  \   sips --resampleWidth $double icon.png –out ./icons_mac/icon-$x@2x.png\n   sips\
+  \ --resampleWidth $x icon.png --out ./icons_mac/icon-$x.png\ndone\n```\n\n**注意：**\
+  \ Mac OS X 图标将按以下尺寸创建（兼容 Mac OS X 10.8 及以上版本）：16、32、128、256 和 512 点，分辨率分别为 @1x 和\
+  \ @2x。\n\n## 使用脚本\n\n创建应用图标的大尺寸版本（至少 1024 x 1024 像素），并将此图像保存为 `icon.png` 到桌面文件夹。在桌面文件夹中启动终端。复制（C）并粘贴（V）本节列出的其中一个脚本到终端窗口中，然后按下回车键。\n\
+  \n脚本将执行并暂停。再次按下回车键以继续执行脚本。\n\n**注意：** 如果不想每次使用时都复制粘贴代码，可以使用本书和 apress.com 上提供的脚本。\n\
+  \n## UINavigationBar 色调不生效\n\n如果你尝试使用 `tintColor` 属性更改导航栏的色调颜色但颜色未变化，这是因为导航栏还有另一个名为\
+  \ `barTintColor` 的色调属性。你应该改用下面所示的方法。\n\n#### Swift\n\n```\nlet bar = self.navigationController?.navigationBar\n\
+  bar?.barTintColor = UIColor.greenColor()\n```\n\n#### Objective-C\n\n```\nUINavigationBar\
+  \ *bar = self.navigationController.navigationBar;\nbar.barTintColor = [UIColor greenColor];\n\
+  ```\n\n## 调试极其棘手的 Quartz 错误\n\n如果你的项目大量使用 Quartz，并且代码崩溃时没有给出任何问题线索，你会喜欢这一节。\n\n\
+  ### 还有希望...\n\n调试复杂 Quartz 应用程序的一个可行解决方案是为你的项目添加一个 `CGPostError` 断点。\n\n选择断点导航器（1），点击面板左下角的\
+  \ +（2），选择添加符号断点（3），然后在符号字段中填入 `CGPostError`（图 13）。\n\n如果问题行与 Quartz 相关，XCode 现在就会在出错行处停止。\n\
+  \n## 并发向数组添加对象\n\n如果你曾尝试并发向 `NSMutableArray` 添加对象，你会知道这是不可能的。`NSMutableArray` 不允许同时访问其内容。\n\
+  \n例如，以下 Objective-C 代码会崩溃，并显示错误消息：\"NSArray was mutated while being enumerated.\"\
+  \n\n#### Objective-C\n\n```\nNSMutableArray *newArray = [[NSMutableArray alloc]\
+  \ init];\n[anotherArray\n   enumerateObjectsWithOptions:NSEnumerationConcurrent\n\
+  \                   usingBlock:^(id obj,\n                                NSUInteger\
+  \ idx, BOOL *stop)\n{\n  // 向 newArray 添加新对象\n  [newArray addObject:newObject];\n\
+  }];\n```\n\n崩溃是因为枚举是并发运行的。任何两个线程同时尝试向 `newArray` 添加新对象都会导致应用程序崩溃。\n\n### 老式 C 语言方法\n\
+  \n解决方案是使用老式的 C 语言数组。\n\n```\n// cArray 是一个 \"id\" 类型元素的数组\n// count 是 cArray 将拥有的条目数\n\
+  id cArray [count];\nid __strong *arrayPtr = cArray;\n/* 填充数组\n   arrayPtr[0] = ...\n\
+  \   arrayPtr[1] = ...\n   arrayPtr[2] = ...\n   等等...\n*/\n[anotherArray\n    enumerateObjectsWithOptions:NSEnumerationConcurrent\n\
+  \                     usingBlock:^(id obj, NSUInteger idx,\n                   \
+  \               BOOL *stop) {\n        arrayPtr[idx] = newObject;\n}];\n```\n\n\
+  此方法有效，因为随着 `idx` 递增，枚举时将为 `arrayPtr[idx]` 分配不同的内存地址。两个线程不可能访问同一个内存地址。因此，这段代码永远不会崩溃。\n\
+  \n### 回到未来\n\n随后，你可以使用以下代码将这个 C 数组转换为普通的 `NSMutableArray`：\n\n```\nNSMutableArray\
+  \ *array = [NSMutableArray\n                arrayWithObjects:cArray\n          \
+  \                 count:count];\n```\n\n**注意：** Swift 中数组的并发访问完全正常，无需额外代码。\n\n##\
+  \ 应用已损坏，无法打开\n\n以下是 Xcode 显示的错误信息的一部分：删除该应用并重新从 App Store 下载。\n\n### 情况\n\n我们有一个\
+  \ Cocoa 应用在启动时尝试验证其内部购买收据，但在 bundle 中未找到收据。\n\n按照 Apple 的指示，我们使用 `exit(173)` 强制应用退出，这会指示\
+  \ iTunes 检索缺失的收据，但我们仍然无法获取该收据。\n\n以下是 Apple 关于收据验证失败的说法（http://addfone.com/TXReceiptValidation）：\n\
+  \n- 应对收据验证失败\n\n> 验证失败的原因有多种。例如，当用户将你的应用从一台 Mac 复制到另一台时，GUID 不再匹配，导致收据验证失败。\n\n\
+  在 OS X 中验证失败则退出\n\n> 如果在 OS X 中验证失败，请以状态码 173 调用 `exit`。此退出状态通知系统你的应用已确定其收据无效。此时，系统会尝试获取有效收据，并可能提示用户输入其\
+  \ iTunes 凭证。\n\n互联网上的多个网页说明了此问题与证书的关系，但我们之前多次遇到此问题，并观察到另一种可能导致此错误的情况：沙盒用户已损坏。\n\n\
+  \n\n### 众神想要惩罚你\n\n你懂的：某一天，你心情愉悦，阳光灿烂，花儿绽放，鸟儿歌唱，`Xcode`里的一切都运行良好。\n\n第二天，众神一觉醒来心情不佳，便来惩罚你。有时他们会间接惩罚你，通过内部腐败的方式判处沙盒用户“惨死”。此时，获取或验证该用户的购买收据就会失败。\n\
+  \n更“贴心”的是，众神绝不会向你提供任何能提示问题真正原因的错误信息——你永远也猜不到。\n\n解决沙盒用户死亡的方法是删除有问题的用户，并通过`iTunesConnect`创建一个新用户。\n\
+  \n**注意**  \n另一个可以尝试的解决方案是：打开 Mac App Store 应用（如果你处理的是 Mac 应用）或`iTunes`（如果你处理的是 iOS\
+  \ 应用），从当前账户注销，然后立即退出该应用。\n\n### 应用无法获取收据\n\n你已经按照上一节的说明创建了一个新的沙盒用户，但你的应用仍然无法获取购买收据？\n\
+  \n请验证你的代码是否已正确签名。\n\n转到目标的构建设置，为`Code Signing Identity`和`Provisioning Profile`的\
+  \ Debug 和 Release 字段调整为你应用对应的值（参见图 14）。\n\n![A978-1-4842-1560-9_1_Fig14_HTML.jpg](img/A978-1-4842-1560-9_1_Fig14_HTML.jpg)\n\
+  \n**图 14.**  \n代码签名身份和配置文件\n\n在图 14 中，你可以看到`Provisioning Profile`部分在 Debug 和 Release\
+  \ 条目中设置为“自动”。点击“自动”，将这两个条目更改为各自目标的配置文件。\n\n同时，将`Code Signing Identity`中的`iOS Developer`条目更改为在调整`Provisioning\
+  \ Profile`部分后出现的正确的 Debug 和 Release 身份。\n\n### 不同目标中存在同名类\n\n你有一个包含多个目标的项目，特别是涉及不同平台，如\
+  \ iOS 和 OS X。\n\n你有两个名为`RenderMe`的类，一个为 iOS 设计，另一个为 OS X 设计。这两个类功能相似，但由于平台差异，实现完全不同。\n\
+  \n你希望这两个类同名，因为这能简化项目管理，而且它们用途相似。\n\n在开发的某个阶段，你将不得不将这些类分配给各自的目标，并使用如下代码行导入类：\n\n\
+  ```\n#import \"RenderMe.h\"\n```\n\n#### 这是你所期望的...\n你期望 iOS 目标导入并编译 iOS 版本的`RenderMe`，Mac\
+  \ OS X 目标也同样如此。\n\n#### 且慢！\n请相信我们，在合适的时间和项目复杂性下，Xcode 会为错误的目标导入并编译错误的类。我们之前就见过这种情况。\n\
+  \n此时你有两个解决方案：为这两个类使用不同的名称，或者使用绝对路径导入它们。\n\n不要对两个目标都使用\n\n```\n#import \" RenderMe.h\"\
+  \n```\n\n而要根据不同情况使用如下代码行：\n\n```\n#import \"/absolutePathForMyIOSRenderMe/RenderMe.h\"\
+  \n#import \"/absolutePathForMyMacRenderMe/RenderMe.h\"\n```\n\n虽然不美观，但有效。\n\n###\
+  \ 反对基础国际化的案例\n\niOS 6 在 Xcode 中引入了一个名为“使用基础国际化”的选项。你可以通过导航到项目的信息标签页（图 15）来查看此选项。基础国际化的原理是定义一个默认语言作为基础语言。\n\
+  \n![A978-1-4842-1560-9_1_Fig15_HTML.jpg](img/A978-1-4842-1560-9_1_Fig15_HTML.jpg)\n\
+  \n**图 15.**  \n使用基础国际化\n\n假设你的应用本地化成了英语和葡萄牙语，并且英语是基础语言。所有设备语言设置为葡萄牙语的用户都将看到葡萄牙语本地化内容，而其他所有用户都将看到英语内容，因为英语是基础语言。\n\
+  \n#### 界面元素的本地化\n当我们谈论本地化界面元素时，我们指的是 XIB 文件和故事板。\n\n在 iOS 6 之前，本地化一个界面文件会使 Xcode\
+  \ 生成额外的 XIB 和故事板文件副本，每个要本地化的语言一个。这种文件的多重性使得维护和处理多种本地化几乎不可能。\n\n苹果通过引入一个名为`Base Internationalization`的选项解决了这个问题。使用此选项，你不再需要拥有多个界面元素副本，而是拥有一个指定为基础语言的\
+  \ XIB 或故事板，以及包含其他语言本地化内容的文本文件（图 16）。\n\n![A978-1-4842-1560-9_1_Fig16_HTML.jpg](img/A978-1-4842-1560-9_1_Fig16_HTML.jpg)\n\
+  \n**图 16.**  \n一个被本地化为多种语言的故事板\n\n`Base Internationalization`的想法很好，但你必须意识到，此功能存在一些问题，会导致某些界面元素无法被本地化。\n\
+  \n#### UIBarButtonItem 及其他元素的本地化失败\n`Base Internationalization`选项在某些元素上本地化失败的一个典型例子是当你的应用使用了`UIBarButtonItem`对象时。`Base\
+  \ Internationalization`选项不会自动本地化这些元素。Xcode 甚至不会将它们的字符串添加到`localization files`中，而手动添加也无法本地化这些元素。\n\
+  \n如果你使用了`UIBarButtonItem`对象，你将不得不在运行时通过编程方式对它们进行本地化。\n\n**注意**  \n如果你使用“使用基础国际化”选项，请务必在所有语言上测试你的应用，因为包括`UIBarButtonItems`在内的其他一些界面元素也可能无法正常显示本地化内容。\n\
+  \n### 检查缺失的 Localizable.strings\n\n你已经将应用本地化为多种语言，但你感觉某些字符串在某种语言中缺失了。\n\n逐一检查所有本地化文件并进行比较过于复杂且效率低下。\n\
+  \n好消息是：你可以让 Xcode 为你检查缺失的字符串！\n\n选择“产品” ➤ “方案” ➤ “编辑方案”，并在“启动时传递的参数”部分添加选项`-NSShowNonLocalizedStrings\
+  \ YES`（见图 17）。\n\n![A978-1-4842-1560-9_1_Fig17_HTML.jpg](img/A978-1-4842-1560-9_1_Fig17_HTML.jpg)\n\
+  \n**图 17.**  \n检查缺失的 Localizable.strings\n\n下次运行应用时，你将看到 Xcode 的控制台中显示了缺失的字符串，类似如下内容：\n\
+  \n```\nBarButtonItemColor[23980:60b] Localizable string \"Ahi-1h-yfI.title\" not\
+  \ found in strings table \"Main∼iphone\" of bundle CFBundle 0x17d70dd0 </var/mobile/Applications/1228CFF2-DB3D-4A2D-B0D8-17DA32E7DD8A/BarButtonItemColor.app>\n\
+  ```\n\n这个错误信息与一个最初以英语（基础语言）创建，后来本地化为葡萄牙语的应用有关。\n\n错误信息中缺失的字符串属于元素`\"Ahi-1h-yfI.title\"\
+  `，这并非巧合，它正是一个`UIBarButtonItem`，证实了我们在“反对基础国际化的案例”一节中所说的内容。\n\n在将该项目的故事板从基础语言本地化为葡萄牙语之后，Xcode\
+  \ 确实忘记将`UIBarButtonItem`的字符串添加到本地化文件中，这就是 Xcode 报错的原因。\n\n将缺失的字符串添加到葡萄牙语本地化文件中并不会将`UIBarButtonItem`本地化。要本地化此按钮，唯一的办法是在运行时通过编程方式实现。\n\
+  \n### 你错误地声明了你的 NSString\n\n你需要为全新的类声明一个常量`NSString`，而你很可能正在像下面这样声明它。\n\n\n\n####\
+  \ Objective-C\n\n`const NSString * kMyConstant;`\n\n这一行代码定义了一个指向常量 `NSString` 的指针。但这并非你想要的结果，原因很简单：`NSString`\
+  \ 对象本身已经是不可变的。\n\n相反，你应该像下面这样声明：\n\n`NSString * const kMyConstant;`\n\n这定义了一个指向\
+  \ `NSString` 的常量指针，这才是你需要的。\n\n这才是声明 `NSString` 常量的正确方式。\n\n**注意：** 在 Swift 中声明常量，只需使用\
+  \ `let` 关键字：\n\n`let kMyConstant = \"something\"`\n\n## CocoaPods: /Manifest.lock:\
+  \ 没有那个文件或目录\n\n`diff: /../Podfile.lock: No such file or directory`\n\n`diff: /Manifest.lock:\
+  \ No such file or directory`\n\n`error: The sandbox is not in sync with the Podfile.lock.\
+  \ Run 'pod install' or update your CocoaPods installation`\n\n如果你的项目使用了 CocoaPods，并且编译时遇到此错误信息，请尝试以下步骤：\n\
+  \n关闭 Xcode。在存放 `Podfile` 的目录中启动终端，依次输入以下每一行命令，每输入一行后按回车键，等待命令执行完毕。\n\n`sudo gem\
+  \ install cocoapods-deintegrate`  \n`pod deintegrate`  \n`pod install`\n\n第一行命令会在你的系统上安装\
+  \ `deintegrate`，这是 CocoaPods 的一个模块，用于从项目中移除所有 Pod 及其相关引用。\n\n如果你已经安装了 `deintegrate`，请跳过这一行。\n\
+  \n第二行命令会从项目中移除所有 Pod，并清理所有相关引用。\n\n第三行命令会重新安装这些 Pod。\n\n返回 Xcode，选择 **Product ➤\
+  \ Clean**。然后重新构建项目即可。如有必要，请重启 Xcode。\n\n## Asset Catalogs 错误\n\nApple 在 iOS 7（Xcode\
+  \ 5）中引入了 Asset Catalogs。使用 Asset Catalogs，你可以简化应用程序中用户界面所用图片的管理。\n\n如果你是个完美主义者，你可能不想听到下面这种情况下的\
+  \ Asset Catalogs 错误：\n\n- 你的项目有两个 target：一个针对 iPhone，一个针对 iPad。\n- 每个 target 有不同的图标。\n\
+  - 你的项目是为 iOS 7 编译的。\n- 所有图标共用一个 Assets Catalog 文件。\n- `AppIcon` 被设置为包含特定设备的图标。\n\
+  - 所有图标都存储在 Assets Catalog 的 `AppIcon` 条目中。\n\n很遗憾地通知你，这样是无法正常工作的。\n\n### 错误表现\n\n\
+  在 iPad 上运行的 iPhone target 会为 iOS 7.x 设备显示 iPad 图标。\n\n### 解决方案\n\n为你支持的每个平台分别创建一个不同名称的\
+  \ Assets Catalog 文件。每个 Assets Catalog 必须包含自己名称不同的 `AppIcon` 条目。每个 `AppIcon` 条目只能包含属于该平台的图标。\n\
+  \n不要忘记为每个 target 配置正确的 Assets Catalog 和 `AppIcon` 条目。\n\n## 应用崩溃且无任何线索？\n\n如果你的\
+  \ Objective-C 应用崩溃并显示臭名昭著的 `signal SIGABRT` 消息，且没有提供任何其他崩溃线索，那么本节提供的代码将特别有用。\n\n\
+  将 `main.m` 文件中的代码替换为类似下面的内容：\n\n#### Objective-C\n\n```\nint main(int argc, char\
+  \ *argv[]) {\n  int retVal;\n  @autoreleasepool {\n    @try {\n      retVal = UIApplicationMain(argc,\
+  \ argv, nil, nil); //***\n    }\n    @catch (NSException *exception) {\n      NSLog(@\"\
+  \\n\\nSTACK SYMBOLS\\n%@\",\n            [exception callStackSymbols]);\n      NSLog(@\"\
+  \\n\\nSTACK RETURN ADDRESSES\\n%@\",\n            [exception callStackReturnAddresses]);\n\
+  \      NSLog(@\"\\n\\nOBJECT: %@\",[exception name]);\n      NSLog(@\"\\n\\nUSER\
+  \ INFO DICT: %@\",[exception userInfo]);\n      NSLog(@\"\\n\\nREASON: %@\",[exception\
+  \ reason]);\n      retVal = 1;\n    }\n  }\n  return retVal;\n}\n//*** 这一行应与你 `main.m`\
+  \ 中的写法保持一致。\n```\n\n如果应用崩溃，这段代码会向控制台输出大量信息，可能会帮助你识别问题。\n\n**注意：** 由于 Swift 的特性，无法为该语言实现此类代码。\n\
+  \n## 沙盒应用的 NSUserDefaults 失效？\n\n这个问题我们见过几次。\n\n你在测试一个应用时，它突然失去了读取或写入 `NSUserDefaults`\
+  \ 的能力。\n\n这个问题的典型解决方案是重启你的 Mac，但每个人都讨厌这样做。\n\n相反，你可以启动终端并输入：\n\n```\nps auwx | grep\
+  \ cfprefsd | grep -v grep | awk '{print $2}' |\nxargs sudo kill -9\n```\n\n这会杀死\
+  \ macOS 的 `cfprefsd` 守护进程，该进程为 `CFPreferences` 和 `NSUserDefaults` API（应用程序编程接口）提供偏好设置服务。\n\
+  \n下次尝试访问 `NSUserDefaults` 时，该守护进程会自动重启，一切应该就能恢复正常。\n\n## 界面元素不更新？\n\n如果你有一个界面元素（如旋转指示器或文本视图）需要持续更新，但由于应用忙于循环而无法更新，请在循环末尾添加以下代码。\n\
+  \n#### Swift\n\n```\nvar date : NSDate? = NSDate()\ndate = date!.dateByAddingTimeInterval(0.0)\n\
+  let runLoop = NSRunLoop.currentRunLoop()\nrunLoop.runUntilDate(date!)\n```\n\n####\
+  \ Objective-C\n\n```\n[[NSRunLoop currentRunLoop] runUntilDate:\n           [NSDate\
+  \ dateWithTimeIntervalSinceNow:0.0]];\n```\n\n这段代码会强制循环短暂暂停，从而让应用能够更新界面。\n\n**注意：**\
+  \ 请记住，这段代码会停止当前运行循环极短的时间。这可能会拖慢某些应用。请谨慎使用。如果需要，你可以调整时间间隔。\n\n## 使用正则表达式查找和替换字符串\n\
+  \n假设你的项目中包含类似本节中的多行代码。\n\n#### Swift\n\n```\nmyButton1.setTitleColor(UIColor.grayColor(),\n\
+  \          forState:UIControlState.Normal)\nmyButton2.setTitleColor(UIColor.greenColor(),\n\
+  \          forState:UIControlState.Selected)\nmyButton3.setTitleColor(UIColor.orangeColor(),\n\
+  \          forState:UIControlState.Disabled)\n```\n\n#### Objective-C\n\n```\n[myButton1\
+  \ setTitleColor:[UIColor grayColor]\n           forState: UIControlStateNormal];\n\
+  [myButton2 setTitleColor:[UIColor greenColor]\n           forState: UIControlStateSelected];\n\
+  [myButton3 setTitleColor:[UIColor orangeColor]\n           forState: UIControlStateDisabled];\n\
+  ```\n\n这些按钮具有不同的名称、不同的颜色和不同的控件状态。\n\n你想要搜索所有类似的行，并将颜色改为红色，但保留名称和控件状态不变。\n\n你想要将代码修改为如下所示：\n\
+  \n#### Swift\n\n```\nmyButton1.setTitleColor(UIColor.redColor(),\n          forState:UIControlState.Normal)\n\
+  myButton2.setTitleColor(UIColor.redColor(),\n          forState:UIControlState.Selected)\n\
+  myButton3.setTitleColor(UIColor.redColor(),\n          forState:UIControlState.Disabled)\n\
+  ```\n\n\n\n#### Objective-C\n\n```\n[myButton1 setTitleColor:[UIColor redColor]\n\
+  \           forState: UIControlStateNormal];\n[myButton2 setTitleColor:[UIColor\
+  \ redColor]\n           forState: UIControlStateSelected];\n[myButton3 setTitleColor:[UIColor\
+  \ redColor]\n           forState: UIControlStateDisabled];\n```\n\n如何实现？  \n正则表达式可以拯救你。\n\
+  \n### 使用正则表达式\n\n**注意**  \n苹果文档指出，在使用 Xcode 搜索功能并配合正则表达式时，必须使用 ICU 语法。ICU 语法使用美元符号（`$`）后跟数字来表示引用的捕获组（`$1`、`$2`\
+  \ 等）。\n\n选择 Find ➤ Find and Replace in Project... 确保你选择了“替换”选项并勾选了“Regular Expression”（正则表达式）。如果没有，请点击“Text”字样并选择正确选项（参见图\
+  \ 18 和图 19）。\n\n![A978-1-4842-1560-9_1_Fig19_HTML.jpg](img/A978-1-4842-1560-9_1_Fig19_HTML.jpg)\
+  \  \n图 19. 已选中正则表达式\n\n![A978-1-4842-1560-9_1_Fig18_HTML.jpg](img/A978-1-4842-1560-9_1_Fig18_HTML.jpg)\
+  \  \n图 18. 正则表达式选项\n\n#### “查找”字段\n\n“查找”字段用于输入要查找的字符串，或者在本例中，输入你想要查找的正则表达式。\n\n\
+  在“查找”字段中填入 `\\[(.*) setTitleColor:(.*) forState:(.*)\\]`\n\n##### 说明：\n\n你可以将这个表达式分为几个部分（参见图\
+  \ 20）。\n\n![A978-1-4842-1560-9_1_Fig20_HTML.jpg](img/A978-1-4842-1560-9_1_Fig20_HTML.jpg)\
+  \  \n图 20. 分解后的正则表达式\n\n➊ 查找左方括号 `[`；  \n➋ 查找左方括号与字符串 `setTitleColor:` 之间可能存在的任何内容，并将结果存储为“组\
+  \ 1”；  \n➌ 查找 `setTitleColor:` 与 `forState:` 之间可能存在的任何内容，并将结果存储为“组 2”；  \n➍ 查找 `setTitleColor:`\
+  \ 与右方括号之间可能存在的任何内容，并将结果存储为“组 3”；  \n➎ 查找右方括号 `]`；\n\n**注意**  \n这里的问题是，为什么要在方括号前加上反斜杠来进行搜索？答案很简单——因为方括号本身是正则表达式语法的一部分。如果我们使用像\
+  \ `[0-9]` 这样的表达式，就是在告诉 Xcode“查找一个介于 0 到 9 之间的数字”。反斜杠的作用是告诉 Xcode，我们要查找的是方括号这个字符，而不是将方括号当作命令来使用。反斜杠字符被称为“转义”字符，根据维基百科的解释，它是一个能够引发对字符序列中后续字符进行另一种解释的字符。\n\
+  \n#### “替换”字段\n\n“替换”字段用于输入你希望用来替换匹配“查找”字段表达式的文本的表达式。\n\n在“替换”字段中填入 `[$1 setTitleColor:[UIColor\
+  \ redColor] forState:$3]`\n\n参见图 21。\n\n![A978-1-4842-1560-9_1_Fig21_HTML.jpg](img/A978-1-4842-1560-9_1_Fig21_HTML.jpg)\
+  \  \n图 21. 正则表达式\n\n#### 说明\n\n变量 `$1` 和 `$3` 代表“查找”字段中的捕获组。如前所述，“组 1”将是左方括号与 `setTitleColor:`\
+  \ 之间可能存在的任何内容，而“组 3”将是 `setTitleColor:` 与右方括号之间可能存在的任何内容。通过使用变量 `$1` 和 `$3`，我们相当于将“组\
+  \ 1”和“组 3”的内容“粘贴”到了相应位置上。\n\n在我们的示例中：\n- “组 1”将包含不同的按钮名称：`myButton1`、`myButton2`\
+  \ 和 `myButton3`；\n- “组 2”将包含不同的颜色：灰色、绿色和橙色；\n- “组 3”将包含不同的控件状态：normal、selected 和\
+  \ disabled。\n\n通过使用图 21 中“替换”字段所示的表达式，我们指示 Xcode 按以下方法构建替换字符串：以左方括号开头，接着是“组 1”的内容，然后是一个空格，接着是字符串\
+  \ `setTitleColor:[UIColor redColor] forState:`，再接着是“组 3”的内容，最后以右方括号结尾。\n\n#### 但有一个问题...\n\
+  \n我们描述的搜索命令只有在连续书写这些代码行时才会生效，如下所示：\n\n```\n[myButton1 setTitleColor:...\n      \
+  \             forState:...];\n```\n\n如果这些行被换行符分隔，像下面这样，搜索将无法找到它们：\n\n```\n[myButton1\
+  \ setTitleColor:...\n                   forState:...];\n```\n\n问题出现的原因在于，命令的不同部分之间存在换行符（在本书中用\
+  \ `\\n` 字符表示），而我们没有在搜索命令中提供相应的指令来考虑这一点。\n\n为了处理换行符或其他不可见字符，你需要在搜索字符串中添加 `\\s*` 指令。\n\
+  \n在这种情况下，“查找”字段将变为：\n\n```\n\\[(.*) \\s* setTitleColor:(.*) \\s* forState:(.*)\\\
+  ]\n```\n\n**注意**  \nICU 语法将以下字符视为“空白字符”：制表符、换页符、换行符、回车符以及任何类型的空格或不可见字符。  \n你可以通过访问\
+  \ [`http://addfone.com/TXICUSyntax`](http://addfone.com/TXICUSyntax) 了解更多关于 ICU\
+  \ 语法的信息。\n\n## 从数组中提取字典\n\n你有一个字典数组，这些字典包含两个字段：“name”和“date”，分别对应一个 `NSString` 对象和一个\
+  \ `NSDate` 对象。\n\n在某个时候，你想要从这个数组中提取出日期最近的字典。\n\n你可以使用如下所示的代码。\n\n### Swift: NSArray\n\
+  \n```\n// 创建带有随机日期的字典\nlet obj1 : NSDictionary? = [\"name\":\"car\",\n         \
+  \                   \"date\":date1!]\nlet obj2 : NSDictionary? = [\"name\":\"boat\"\
+  ,\n                            \"date\":date2!]\nlet obj3 : NSDictionary? = [\"\
+  name\":\"plane\",\n                            \"date\":date3!]\n// 将它们存储到一个数组中\n\
+  let unsortedArray : NSArray = [obj1!, obj2!, obj3!]\n// 创建一个 NSSortDescriptor 来对数组进行排序\n\
+  let dateDescriptor : NSSortDescriptor =\n    NSSortDescriptor(key: \"date\", ascending:\
+  \ true)\n// 对数组进行排序\nlet sortedArrayOfDics : NSArray =\n    unsortedArray.sortedArrayUsingDescriptors([dateDescriptor])\n\
+  // 因为数组已排序，最后一个对象就是\n// 日期最近的那个\nlet mostRecent : AnyObject! = sortedArrayOfDics.lastObject\n\
+  ```\n\n\n好的，作为高级文档工程师和翻译员，我将严格按照您提供的注意事项和示例，将给定的英文文本翻译成中文。\n\n\n### Swift 变体...\n\
+  \n如果你正在处理一个包含 `NSDictionary` 对象的 `NSArray`，前面的代码是有效的，但如果你使用的是 Swift 字典构成的 Swift\
+  \ 数组，那又该如何呢？\n\n在这种情况下，你必须使用以下代码：\n\n```\n// creating the dictionaries\nlet dict1\
+  \ : [String:AnyObject?] = [\"object\" : \"car\",    \"date\" : date1]\nlet dict2\
+  \ : [String:AnyObject?] = [\"object\" : \"boat\",   \"date\" : date2]\nlet dict3\
+  \ : [String:AnyObject?] = [\"object\": \"plane\",  \"date\" : date3]\n\n// creating\
+  \ the array\nlet array : Array = [dict1, dict2, dict3]\n\n// creating the sort\n\
+  let result = array.sort {\n  item1, item2 in\n  let date1 = item1[\"date\"] as!\
+  \ NSDate\n  let date2 = item2[\"date\"] as! NSDate\n  return date1.compare(date2)\
+  \ == NSComparisonResult.OrderedAscending\n}\n\nlet latestDate = result.last\nprint(latestDate)\n\
+  ```\n\n#### Objective-C\n\n```\n// the dictionaries with random dates\nNSDictionary\
+  \ *obj1 = @{ @\"name\":@\"car\", @\"date\":date1};\nNSDictionary *obj2 = @{ @\"\
+  name\":@\"boat\", @\"date\":date2};\nNSDictionary *obj3 = @{ @\"name\":@\"plane\"\
+  , @\"date\":date3};\n\n// the unsorted array\nNSArray *unsortedArray = @[obj1, obj2,\
+  \ obj3];\n\n// create a NSSortDescriptor to sort the array\nNSSortDescriptor *dateDescriptor\
+  \ = [NSSortDescriptor sortDescriptorWithKey:@\"date\" ascending:YES];\nNSArray *sortDescriptors\
+  \ = @[dateDescriptor];\n\n// sorting the array\nNSArray *sortedArray = [unsortedArray\
+  \ sortedArrayUsingDescriptors:sortDescriptors];\n\n// because the array is sorted,\
+  \ the last object is the\n// one with the most recent date\nNSDictionary *mostRecent\
+  \ = [sortedArray lastObject];\n```\n\n## 计算数组中元素数量的神奇方法\n\n假设你有一个字典数组，这些字典包含两个字段：`object`（一个\
+  \ `NSString` 类型）和 `selected`（一个存储在 `NSNumber` 中的 `BOOL` 类型）。\n\n你想知道这些字典中有多少个的 `selected`\
+  \ 字段等于 `YES`/`true`。\n\n接下来展示的是首先想到的代码。\n\n#### Swift\n\n```\nvar count = 0\nfor\
+  \ dict in array {\n  if dict[\"selected\"] == true\n     count++\n}\n```\n\n####\
+  \ Objective-C\n\n```\nNSInteger count = 0;\nfor (NSDictionary * dict in array) {\n\
+  \  BOOL isSelected = [dict [@\"selected\"] boolValue];\n  if (isSelected)\n    count++;\n\
+  }\n```\n\n但这段代码不够“神奇”。\n\n让我们用神奇的方式来实现它。\n\n### Swift: NSArray\n\n```\n// creating\
+  \ the dictionaries\nlet dict1: NSDictionary = [\"object\"   : \"television\",\n\
+  \                           \"selected\" : true]\nlet dict2: NSDictionary = [\"\
+  object\"   : \"phone\",\n                           \"selected\" : false]\nlet dict3:\
+  \ NSDictionary = [\"object\"   : \"book\",\n                           \"selected\"\
+  \ : true]\n\n// creating the array\nlet array : NSArray? = [dict1, dict2, dict3]\n\
+  \n// this is the magical command\nlet count = array!.valueForKeyPath(\"@sum.selected\"\
+  )?.integerValue\nprint(count); // this will print 2 on console\n```\n\n### Swift\
+  \ 变体...\n\n前面的代码只有在使用 `NSDictionary` 实例构成的 `NSArray` 时才有效。如果你使用的是 Swift 字典构成的 Swift\
+  \ 数组，则应使用以下代码：\n\n```\n// creating the dictionaries\nlet dict1 = [\"object\" : \"\
+  television\", \"selected\": true]\nlet dict2 = [\"object\" : \"phone\",      \"\
+  selected\": false]\nlet dict3 = [\"object\" : \"book\",       \"selected\": true]\n\
+  \n// creating the array\nlet array = [dict1, dict2, dict3]\n\n// the magic command\n\
+  let filteredArray = array.filter({$0[\"selected\"] == true})\nlet result = filteredArray.count\n\
+  print(result) // this will print 2 on console\n```\n\n#### Objective-C\n\n```\n\
+  // creating the dictionaries\nNSDictionary *dict1 = @{@\"object\"    : @\"television\"\
+  ,\n                        @\"selected\"  : @(YES) };\nNSDictionary *dict2 = @{@\"\
+  object\"    : @\"phone\",\n                        @\"selected\"  : @(NO)  };\n\
+  NSDictionary *dict3 = @{@\"object\"    : @\"book\",\n                        @\"\
+  selected\"  : @(YES) };\n\n// creating the array\nNSArray *array = @[dict1, dict2,\
+  \ dict3];\n\n// this is the magical command\nNSInteger count = [[array valueForKeyPath:@\"\
+  @sum.selected\"] integerValue];\nNSLog(@\"count %@\", @(count)); // this will print\
+  \ 2 on console\n```\n\n## OS X 应用未以正确尺寸启动\n\n如果你已经调整了 Cocoa 应用，使其以特定尺寸启动，但应用却未能做到，那么本节内容绝对适合你。\n\
+  \n我们不止一次看到这个问题，它通常与某些干扰初始 `ViewController` 的「自动布局」约束有关。\n\n此问题的解决方案是向 `ViewController`\
+  \ 的视图应用约束，使其以正确尺寸启动，但这类视图不接受约束。\n\n你必须将整个界面嵌入到一个 `NSView` 中，并对该视图应用约束，定义你希望应用启动时的尺寸（图\
+  \ 22）。\n\n![图 22](img/A978-1-4842-1560-9_1_Fig22_HTML.jpg)\n\n图 22. 将整个界面元素嵌入到一个视图中（之前和之后）\n\
+  \n## 检测正在运行的应用目标\n\n你有一个包含独立 iPhone 和 iPad 目标的项目，在代码的某个地方，你想知道当前正在运行的是哪个目标。\n\n\
+  使用 `UI_USER_INTERFACE_IDIOM()` 不是一个选项，因为该方法只会检查目标是在 iPhone 还是 iPad 上运行，而不是检查目标本身。\n\
+  \n解决此问题的一种方法是添加一个预处理宏，然后在代码中检查该宏是否存在，但编译器指令会使代码变得笨拙并降低可读性。\n\n然而，有更好的方法。下面展示的代码将读取\
+  \ bundle 的 `infoDictionary`，并找出正在运行的目标。\n\n#### Swift\n\n```\nfunc getTarget() ->\
+  \ NSString {\n  let dict : NSDictionary = NSBundle.mainBundle().infoDictionary!\n\
+  \  let family  = dict[\"UIDeviceFamily\"]!\n  let device = family[0]\n  return (device.integerValue\
+  \ == 1) ? \"iPhone\" : \"iPad\"\n}\n```\n\n#### Objective-C\n\n```\n- (NSString\
+  \ *) getTarget {\n  NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];\n\
+  \  NSArray *family = dict[@\"UIDeviceFamily\"];\n  NSInteger device = [family[0]\
+  \ integerValue];\n  return (device == 1) ? @\"iPhone\" : @\"iPad\";\n}\n```\n\n\
+  ## 禁用类上的方法\n\n你有一个新类，必须使用特定的初始化方法（如 `initWithMode:`）来初始化，并且你希望阻止人们使用父类可能提供的其他初始化方法。\n\
+  \n下面展示的代码将提醒人们使用正确的初始化方法，并禁用可能存在的其他方法。\n\n\n\n#### Swift\n\n```\n@available(*, unavailable,\n\
+  \             message=\"init is unavailable, use initWithMode\")\ninit() {\n  //\
+  \ your code...\n}\n```\n\n#### Objective-C\n\n```\n#import <Foundation/Foundation.h>\n\
+  \n@interface SampleClass : NSObject\n\n- (id)init __attribute__((unavailable(\"\
+  init is unavailable,\n                                    use initWithMode\")));\n\
+  @end\n```\n\n**注意**  \n该指令将在编译时产生错误，警告用户不应使用 `init` 方法进行初始化。\n\n## 弃用类中的某个方法\n\n\
+  你弃用了类中的一个方法，并希望警告用户更新代码以使用新方法。\n\n你可以简单地为此方法添加这个编译器属性。\n\n#### Swift\n\n```\n@available(*,\
+  \ deprecated)\nclass func shareWithParams(params: NSDictionary) {\n  // your code...\n\
+  }\n```\n\n#### Objective-C\n\n```\n#import <Foundation/Foundation.h>\n\n@interface\
+  \ SampleClass : NSObject\n\n+(void)shareWithParams:(NSDictionary *)params\n    \
+  \   __attribute((deprecated(\"use shareWithPars:\n                             \
+  \   instead\")));\n@end\n```\n\n**注意**  \n该编译器属性将在编译时产生错误，警告当前方法已被弃用，应使用其他方法。\n\n\
+  ## Xcode 出现“沙滩球”现象\n\n当我们试图打开一个前一天还能正常工作的项目时，Xcode 是否永远在显示“沙滩球”？\n\n**注意**  \n死亡沙滩球或旋转等待光标是一种彩色的圆形光标类型，形似沙滩球，当应用程序在\
+  \ Mac OS X 上挂起时，它会取代常规鼠标指针。\n\n事实证明，在 Xcode 偏好设置中禁用源代码控制可以解决此问题（图 23）。\n\n![A978-1-4842-1560-9_1_Fig23_HTML.jpg](img/A978-1-4842-1560-9_1_Fig23_HTML.jpg)\n\
+  \n**图 23.** 通过禁用源代码控制解决“沙滩球”问题\n\n**注意**  \n此处描述的源代码控制问题也是导致尝试打开某些项目时 Xcode 崩溃的原因。\n\
+  \n## UIButton 未变灰\n\n你正尝试使用以下代码禁用 `UIButton`，但按钮并未变灰。\n\n#### Swift\n\n```\nmyButton.enabled\
+  \ = false\n```\n\n#### Objective-C\n\n```\nmyButton.enabled = NO;\n```\n\n`UIButton`\
+  \ 对象在被禁用时不会显示为灰色。你必须强制将其标题设为灰色，以使其看起来像是“已禁用”，可使用如下代码。\n\n#### Swift\n\n```\nmyButton.enabled\
+  \ = false\nmyButton.setTitleColor(UIColor.grayColor(),\n                       forState:UIControlState.Disabled)\n\
+  ```\n\n#### Objective-C\n\n```\nmyButton.enabled = NO;\n[myButton setTitleColor:[UIColor\
+  \ grayColor]\n              forState:UIControlStateDisabled];\n```\n\n## 捕获内存损坏\n\
+  \n有些类型的 Bug 简直难以捕获。\n\n你的应用程序崩溃了，情况怪异且难以追踪。\n\n用户开始抱怨，而你无法复现问题。\n\n你的应用程序可能遇到了某种内存损坏问题。\n\
+  \n以下是苹果对此的看法。\n\n> Objective-C 和 C 代码容易受到内存损坏问题的影响，例如栈和堆缓冲区溢出以及释放后使用问题。当这些内存违规发生时，你的应用程序可能会不可预测地崩溃或显示异常行为。内存损坏问题难以追踪，因为崩溃和异常行为通常难以复现，并且原因可能远离问题的源头。\n\
+  \n更多信息，请访问 [`http://addfone.com/TXSanitizer`](http://addfone.com/TXSanitizer)\n\n\
+  ### Sanitizer（地址清理器）\n\nXcode 7 附带一个名为 Address Sanitizer 的选项，该选项会在应用程序中生成额外代码，通过指针检查每次读取和写入，如果内存中的某个地址被损坏，则会发出警告。\n\
+  \n要启用此选项，请选择 Product ➤ Scheme ➤ Edit Scheme ➤ Diagnostics，然后勾选 **Enable Address\
+  \ Sanitizer**（图 24）。\n\n![A978-1-4842-1560-9_1_Fig24_HTML.jpg](img/A978-1-4842-1560-9_1_Fig24_HTML.jpg)\n\
+  \n**图 24.** Xcode 7 Address Sanitizer\n\n启用 Address Sanitizer 后运行你的应用程序，直到它崩溃。崩溃现在将产生丰富的错误信息，为你提供问题的线索。\n\
+  \n你的用户将停止抱怨。\n\n**注意**  \nAddress Sanitizer 可能会带来显著的开销，并将你的代码速度降低至少一半。\n\n## SpriteKit\
+  \ 在 didBeginContact 时崩溃\n\n> spritekit 断言失败： (typeA == b2_dynamicBody || typeB ==\
+  \ b2_dynamicBody)，函数 SolveTOI\n\n每次两个物体碰撞时，都会调用 `SpriteKit’s didBeginContact:` 方法。在此方法运行期间，SpriteKit\
+  \ 期望至少其中一个碰撞物体是动态的（`physicsBody.dynamic = YES`）。如果其中一个物体在 `didBeginContact:` 运行时从动态变为静态，SpriteKit\
+  \ 将会崩溃。\n\n防止崩溃的一种解决方法是操作临时变量，而不是直接操作 `dynamic` 属性本身。请参考以下代码。\n\n#### Swift\n\n\
+  ```\nlet tempBody = self.physicsBody\ntempBody!.dynamic = false\nself.physicsBody\
+  \ = tempBody\n```\n\n#### Objective-C\n\n```\nSKPhysicsBody *tempBody = node.physicsBody;\n\
+  tempBody.dynamic = NO;\nnode.physicsBody = tempBody;\n```\n\n**注意**  \n此解决方案仅用于确认问题。你必须检查代码，防止在\
+  \ `didBeginContact:` 期间将两个 `physicsBody` 的属性都改为静态。\n\n如果你的 `physicsBody` 属于一个已被缩放过的节点，此解决方案将无法正常工作。在这种情况下，当你将\
+  \ `tempBody` 重新赋值给该对象时，它会创建一个未缩放的 `physicsBody`。\n\n## SpriteKit 对象不遵守边界？\n\n你的\
+  \ SpriteKit 对象使用路径作为其 `physicsBody` 边界，但这些对象不遵守其他对象的边缘/边界。\n\nSpriteKit 对象使用的所有路径必须是凸的，并且应使用按逆时针顺序绘制的顶点创建（图\
+  \ 25）。\n\n![A978-1-4842-1560-9_1_Fig25_HTML.jpg](img/A978-1-4842-1560-9_1_Fig25_HTML.jpg)\n\
+  \n**图 25.** 按正确顺序绘制的凸形状\n\n请检查你的路径是否遵循此规则，或者使用它们创建的任何形状是否是非凸的（图 26）。\n\n![A978-1-4842-1560-9_1_Fig26_HTML.jpg](img/A978-1-4842-1560-9_1_Fig26_HTML.jpg)\n\
+  \n**图 26.** 非凸形状；顶点顺序无关紧要\n\n**注意**  \n你可以通过绘制形状内两点之间的连线来检测形状是否为非凸。如果连接线落在形状外部，则为非凸形。SpriteKit\
+  \ 对象必须是凸的（图 25），并应使用按逆时针顺序绘制的顶点创建。\n\n## 关于 Cocoa 应用使用 Storyboard 的反例\n\n这是一种致命的组合：\n\
+  \n- 你正在创建一个 Cocoa 应用程序。\n- 你的应用程序需要分别使用 `[NSPanel openPanel]` 和 `[NSPanel savePanel]`\
+  \ 来加载和保存文件。\n- 你使用 storyboard 创建应用程序。\n- 你选择要求 OS X 10.10.0 作为应用程序所需的最低操作系统。\n\n\
+  很抱歉地通知你，你的应用程序将无法工作。\n\n原因是 OS X 10.10.0 和 10.10.1 中的一个 Bug，它不仅阻止 `[NSPanel openPanel]`\
+  \ 和 `[NSPanel savePanel]` 工作，而且如果你尝试使用这些方法，实际上会导致应用程序崩溃。\n\n例如，以下代码在 OS X 10.10.0\
+  \ 和 10.10.1 中会崩溃，但在 10.10.2 及更高版本中完美运行。\n\n\n\n#### Swift\n\n```swift\nlet panel\
+  \ = NSSavePanel()\npanel.beginSheetModalForWindow(self.view.window!, completionHandler:\
+  \ { (result) -> Void in\n})\n```\n\n#### Objective-C\n\n```objc\nNSSavePanel* panel\
+  \ = [NSSavePanel savePanel];\npanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger\
+  \ result){\n}];\n```\n\n以下是我们联系苹果公司后得到的回复：\n\n> 我们的工程师已审查您的请求，并确定您遇到的是一个已知问题，其解决方法是使用\
+  \ xib 文件替代 storyboard。或者，您也可以选择将该应用的最低操作系统版本要求设为 OS X 10.10.2。\n\nOS X 应用中的 storyboard\
+  \ 问题并不仅限于 `NSSavePanel` 和 `NSOpenPanel`。在某些情况下，`NSSplitControllers` 和 `NSTabViewControllers`\
+  \ 也无法与 storyboard 很好地协同工作。\n\n因此，在 OS X 10.10 成为历史之前，我们建议不要在 OS X 项目中使用 storyboard。请按照苹果的建议，使用\
+  \ XIB 文件。\n\n## 支持独立圆角的 UIView 类\n\n**注意**\n\n`UIButton`、`UILabel`、`UISegmentedControl`\
+  \ 和 `UITextView` 是 `UIView` 基类的一些示例。\n\n如果你想创建圆角 `UIView` 基类，并且能够独立控制每个角的半径，我们为你创建了这个分类（Swift\
+  \ 中称为“extension”）。\n\n#### Swift\n\n`UIView+IndependentCorners.swift`\n\n```swift\n\
+  import UIKit\nimport QuartzCore\n\nextension UIView {\n    func corners(corners:\
+  \ UIRectCorner, radius: CGFloat) {\n        let maskPath = UIBezierPath(roundedRect:\
+  \ bounds,\n                                    byRoundingCorners: corners,\n   \
+  \                                 cornerRadii: CGSizeMake(radius, radius))\n   \
+  \     let cornerLayer = CAShapeLayer()\n        cornerLayer.frame = self.bounds\n\
+  \        cornerLayer.path = maskPath.CGPath\n        layer.mask = cornerLayer\n\
+  \    }\n}\n```\n\n使用以下代码设置圆角：\n\n```swift\n// 同时将左上角和右下角的半径设为 20 点\nmyView.corners(UIRectCorner.TopLeft\
+  \ | UIRectCorner.BottomRight, radius: 20)\n```\n\n**注意**\n\n你可以通过竖线字符（\"|\"）分隔多个角来组合它们。选项包括\
+  \ `UIRectCorner.TopLeft`、`UIRectCorner.TopRight`、`UIRectCorner.BottomLeft`、`UIRectCorner.BottomRight`\
+  \ 和 `UIRectCorner.AllCorners`。\n\n#### Objective-C\n\n`UIView+IndependentCorners.h`\n\
+  \n```objc\n#import <UIKit/UIKit.h>\n\n@interface UIView (IndependentCorners)\n-\
+  \ (void)setCorners:(UIRectCorner)corners withRadius:(CGFloat)radius;\n@end\n```\n\
+  \n`UIView+IndependentCorners.m`\n\n```objc\n#import \"UIView+IndependentCorners.h\"\
+  \n\n@implementation UIView (IndependentCorners)\n- (void)setCorners:(UIRectCorner)corners\
+  \ withRadius:(CGFloat)radius\n{\n    UIBezierPath *shapePath = [UIBezierPath\n \
+  \       bezierPathWithRoundedRect:[self bounds]\n                byRoundingCorners:corners\n\
+  \                      cornerRadii:CGSizeMake(radius, radius)];\n    CAShapeLayer\
+  \ *newCornerLayer = [CAShapeLayer layer];\n    newCornerLayer.frame = [self bounds];\n\
+  \    newCornerLayer.path = shapePath.CGPath;\n    [self layer].mask = newCornerLayer;\n\
+  }\n@end\n```\n\n使用以下代码设置圆角：\n\n```objc\n// 同时将左上角和右下角的半径设为 30 点\n[myView setMaskTo:self.pickerFrom\n\
+  \    byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight\n      withCornerRadii:CGSizeMake(30.0f,\
+  \ 30.0f)];\n```\n\n**注意**\n\n与 Swift 示例类似，你可以通过竖线字符（\"|\"）分隔多个角来组合它们。选项包括 `UIRectCornerTopLeft`、`UIRectCornerTopRight`、`UIRectCornerBottomLeft`、`UIRectCornerBottomRight`\
+  \ 和 `UIRectCornerAllCorners`。\n\n## 让 NSViews 与 UIViews 兼容\n\n如果你既开发 iOS 应用又开发 OS\
+  \ X 应用，你一定曾希望可以将为一个平台编写的代码用于另一个平台。其中最经典的场景之一就涉及 `UIViews` 和 `NSViews`。\n\n`UIViews`\
+  \ 和 `NSViews` 的问题在于它们是截然不同的物种。最终，即使你用它们执行相同的简单操作，也必须为这两个类编写不同的代码。\n\n虽然我们同意 `UIViews`\
+  \ 和 `NSViews` 是截然不同的物种，但也看到它们有很多共同之处。为同一功能（例如在 iOS 和 OS X 上分别使用 `setAlpha:` 和 `setAlphaValue:`\
+  \ 设置视图透明度）使用不同命令，这并不合理。\n\n我们为你创建了一个类，使 `UIView` 和 `NSView` 对象在某些简单方面具有相似性。该类还为\
+  \ `NSViews` 添加了一些增强功能，例如支持视图的淡入淡出以及通过视图中心设置其位置。\n\n\n\n#### Swift\n\n`NSView+ CompatibleUIView.swift`\n\
+  \n```\nimport Foundation\nimport AppKit\n\nextension NSView {\n    typealias AnimationHandler\
+  \  = () -> Void\n    typealias CompletionHandler = (finished : Bool) -> Void\n\n\
+  \    var center: CGPoint {\n        get {\n            let midX = CGRectGetMidX(frame)\n\
+  \            let midY = CGRectGetMidY(frame)\n            return CGPointMake(midX,\
+  \ midY)\n        }\n        set(newCenter) {\n            var newFrame = CGRectZero\n\
+  \            newFrame.size = frame.size\n            let myWidth = CGRectGetWidth(frame)\n\
+  \            let myHeight = CGRectGetHeight(frame)\n            let x = floor(newCenter.x\
+  \ - (myWidth / 2.0))\n            let y = floor(newCenter.y - (myHeight / 2.0))\n\
+  \            newFrame.origin.x = x\n            newFrame.origin.y = y\n        \
+  \    frame = newFrame\n        }\n    }\n\n    var alpha: CGFloat {\n        get\
+  \ { return alphaValue }\n        set(value) { alphaValue = value }\n    }\n\n  \
+  \  func fadeInWithDuration(duration: NSTimeInterval) {\n        wantsLayer = true\n\
+  \        NSAnimationContext.beginGrouping()\n        NSAnimationContext.currentContext().duration\
+  \ = duration\n        animator().alphaValue = 1.0\n        NSAnimationContext.endGrouping()\n\
+  \    }\n\n    func fadeOutWithDuration(duration: NSTimeInterval) {\n        wantsLayer\
+  \ = true\n        NSAnimationContext.beginGrouping()\n        NSAnimationContext.currentContext().duration\
+  \ = duration\n        animator().alphaValue = 0.0\n        NSAnimationContext.endGrouping()\n\
+  \    }\n\n    func animateWithDuration(duration: NSTimeInterval, animations: AnimationHandler)\
+  \ {\n        wantsLayer = true\n        NSAnimationContext.runAnimationGroup({ (context:\
+  \ NSAnimationContext) -> Void in\n            context.duration = duration\n    \
+  \        context.allowsImplicitAnimation = true\n            animations()\n    \
+  \    }, completionHandler: { () -> Void in })\n    }\n\n    func animateWithDuration(duration:\
+  \ NSTimeInterval, animations: AnimationHandler, completion: CompletionHandler) {\n\
+  \        wantsLayer = true\n        NSAnimationContext.runAnimationGroup({ (context:\
+  \ NSAnimationContext) -> Void in\n            context.duration = duration\n    \
+  \        context.allowsImplicitAnimation = true\n            animations()\n    \
+  \    }, completionHandler: { () -> Void in\n            completion(finished: true)\n\
+  \        })\n    }\n}\n```\n\n这一类别将允许你在你的 `NSViews` 上使用 `setAlpha:` 和 `setCenter:`，并且作为额外功能，还添加了一些强大的方法。\n\
+  \n**淡入和淡出**\n\n```\n// 在 5 秒内淡入或淡出 myView\nmyView.fadeInWithDuration(5)\nmyView.fadeOutWithDuration(5)\n\
+  ```\n\n**像 UIView 一样为 NSView 添加动画**\n\n```\n// 在 5 秒内将 myView 的透明度从 0 动画至 0.7\n\
+  myView.alpha = 0\nmyView.animateWithDuration(5.0, animations: { () -> Void in\n\
+  \    self.myView.alphaValue = 0.7\n})\n\n// 或者\n// 在 5 秒内将 myView 的透明度从 0 动画至 0.7，并在动画完成后执行某些操作\n\
+  self.myView.animateWithDuration(5.0,\n    animations: { () -> Void in\n        self.myView.alphaValue\
+  \ = 0.7\n    }, completion: { (finished) -> Void in\n        // 动画完成... 在此执行操作\n\
+  \    })\n```\n\n#### Objective-C\n\n`NSView+ CompatibleUIView.h`\n\n```\n@class\
+  \ NSView;\n\n@interface NSView (CompatibleUIView)\n- (void)setAlpha:(CGFloat)point;\n\
+  - (CGFloat)alpha;\n- (void)setCenter:(CGPoint)point;\n- (CGPoint)center;\n+(void)fadeOut:(NSView*)viewToDissolve\n\
+  \  withDuration:(NSTimeInterval)duration;\n+(void)fadeIn:(NSView*)viewToFadeIn\n\
+  withDuration:(NSTimeInterval)duration;\n+ (void)animateWithDuration:(NSTimeInterval)duration\n\
+  \                 animations:(void (^)(void))animations;\n+ (void)animateWithDuration:(NSTimeInterval)duration\n\
+  \                 animations:(void (^)(void))animations\n                 completion:(void\
+  \ (^)(BOOL finished))completion;\n@end\n```\n\n`NSView+ CompatibleUIView.m`\n\n\
+  ```\n#import \"NSView+CompatibleUIView.h\"\n#import <Cocoa/Cocoa.h>\n\n@implementation\
+  \ NSView (CompatibleUIView)\n\n- (void)setAlpha:(CGFloat)point {\n    [self setAlphaValue:point];\n\
+  }\n\n- (CGFloat)alpha {\n    return self.alphaValue;\n}\n\n- (void)setCenter:(CGPoint)point\
+  \ {\n    CGSize size = self.frame.size;\n    CGRect newFrame = CGRectZero;\n   \
+  \ newFrame.size = size;\n    CGFloat width = CGRectGetWidth(self.frame);\n    CGFloat\
+  \ height = CGRectGetHeight(self.frame);\n    CGFloat x = floorf(point.x - (width\
+  \ / 2.0f));\n    CGFloat y = floorf(point.y - (height / 2.0f));\n    newFrame.origin.x\
+  \ = x;\n    newFrame.origin.y = y;\n    [self setFrame:newFrame];\n}\n\n- (CGPoint)center\
+  \ {\n    return CGPointMake(CGRectGetMidX(self.frame),\n                       CGRectGetMidY(self.frame));\n\
+  }\n\n+(void)fadeOut:(NSView*)viewToDissolve\n  withDuration:(NSTimeInterval)duration\n\
+  {\n    [NSAnimationContext beginGrouping];\n    [[NSAnimationContext currentContext]\
+  \ setDuration:duration];\n    [[viewToDissolve animator] setAlphaValue:0.0];\n \
+  \   [NSAnimationContext endGrouping];\n}\n\n+(void)fadeIn:(NSView*)viewToFadeIn\n\
+  withDuration:(NSTimeInterval)duration\n{\n    [NSAnimationContext beginGrouping];\n\
+  \    [[NSAnimationContext currentContext] setDuration:duration];\n    [[viewToFadeIn\
+  \ animator] setAlphaValue:1.0f];\n    [NSAnimationContext endGrouping];\n}\n\n+\
+  \ (void)animateWithDuration:(NSTimeInterval)duration\n                 animations:(void\
+  \ (^)(void))animations\n{\n    [NSAnimationContext beginGrouping];\n    [[NSAnimationContext\
+  \ currentContext] setDuration:duration];\n    animations();\n    [NSAnimationContext\
+  \ endGrouping];\n}\n\n+ (void)animateWithDuration:(NSTimeInterval)duration\n   \
+  \              animations:(void (^)(void))animations\n                 completion:(void\
+  \ (^)(BOOL finished))completion\n{\n    [NSAnimationContext beginGrouping];\n  \
+  \  [[NSAnimationContext currentContext] setDuration:duration];\n    animations();\n\
+  \    [NSAnimationContext endGrouping];\n    if(animations)\n    {\n        id completionBlock\
+  \ = [completion copy];\n        [self performSelector:@selector(runEndBlock:)\n\
+  \                   withObject:completionBlock\n                   afterDelay:duration];\n\
+  \    }\n}\n\n+ (void)runEndBlock:(void (^)(void))completionBlock\n{\n    completionBlock();\n\
+  }\n\n@end\n```\n\n以下代码展示了如何使用这些强大的功能：\n\n**淡入和淡出**\n\n```\n[NSView fadeIn:myView\
+  \ withDuration:1.0];\n[NSView fadeOut:myView withDuration:1.0];\n```\n\n**像 UIView\
+  \ 一样为 NSView 添加动画**\n\n```\n[NSView animateWithDuration:1.0 animations:^{\n    [myView\
+  \ setAlphaValue:0.7f];\n}]\n\n// 或者\n[NSView animateWithDuration:1.0 animations:^{\n\
+  \    [myView setAlpha:0.7f];\n} completion:^(BOOL finished) {\n    // 动画完成后执行某些操作\n\
+  }];\n```\n\n## 检测 UIPickerView 何时停止滚动\n\n`UIPickerView` 并没有提供直接的方法来检测其滚轮何时停止滚动，但我们可以使用一个小技巧来实现检测。\n\
+  \n首先，在你的代码中找到让滚轮开始滚动的那一行，然后添加如下所示的代码。\n\n\n\n#### Swift\n\n```swift\nUIView.beginAnimations(\"\
+  animation\", context: nil)\nUIPickerView.setAnimationDelegate(self)\nUIView.setAnimationDidStopSelector(\
+  \ Selector(\"animationDidStop:finished:context:\") )\n// 这一行让转轮动起来\npicker.selectRow(value,\
+  \ inComponent: 0, animated: true)\nUIView.commitAnimations()\n```\n\n转轮停止转动时，将执行以下代码：\n\
+  \n```swift\nfunc animationDidStop(animationID: String?, finished: NSNumber, context:\
+  \ UnsafeMutablePointer<Void>) {\n  print( \"动画结束！\" )\n}\n```\n\n#### Objective-C\n\
+  \n```objc\n[UIView beginAnimations:@\"animation\" context:nil];\n[UIPickerView setAnimationDelegate:self];\n\
+  [UIPickerView setAnimationDidStopSelector:\n                         @selector(animationFinished:finished:context:)];\n\
+  // 这一行让转轮动起来\n[self selectRow:value inComponent:0 animated:YES];\n[UIView commitAnimations];\n\
+  ```\n\n转轮停止转动时，将执行以下代码：\n\n```objc\n- (void) animationFinished:(NSString *)animationID\n\
+  \         finished:(BOOL)finished context:(void *)context {\n  NSLog(@\"动画结束\");\n\
+  }\n```\n\n## “疯狂”的 NSDates\n\n接下来是创建 `NSDate` 的代码。\n\n#### Swift\n\n```swift\nlet\
+  \ comps   = NSDateComponents()\ncomps.day   = 22\ncomps.month = 8\ncomps.year  =\
+  \ 2020\nlet gregorian = NSCalendar(identifier:\n           NSCalendarIdentifierGregorian)\n\
+  let date = gregorian?.dateFromComponents(comps)\nprint(\"日期是\", date)\n```\n\n####\
+  \ Objective-C\n\n```objc\nNSDateComponents *comps = [[NSDateComponents alloc] init];\n\
+  [comps setDay:22];\n[comps setMonth:8];\n[comps setYear:2020];\nNSCalendar *gregorian\
+  \ = [[NSCalendar alloc]\n                  initWithCalendarIdentifier:\n       \
+  \         NSCalendarIdentifierGregorian];\nNSDate *date = [gregorian dateFromComponents:comps];\n\
+  NSLog(@\"日期是 %@\", date);\n```\n\n日期是 2020 年 8 月 22 日，对吧？然而，当你查看控制台时，却看到\n\n```\n\
+  日期是 2020-08-21 23:00:00 +0000\n```\n\n什么？！2020 年 8 月 21 日？？？\n\n问题在于 `NSLog` 和 `print`\
+  \ 都使用了 UTC（协调世界时）日期表示法，这种表示法考虑了时区。\n\n如果你需要创建一个不考虑时区的日期，或者更准确地说，一个将某个时区引用视为“默认”的日期，请在创建\
+  \ Gregorian 变量之后，添加一行代码（以**粗体**显示）。\n\n代码将变为：\n\n#### Swift\n\n```swift\nlet comps\
+  \   = NSDateComponents()\ncomps.day   = 22\ncomps.month = 8\ncomps.year  = 2020\n\
+  let gregorian = NSCalendar(identifier:\n              NSCalendarIdentifierGregorian)\n\
+  // 魔法行\ngregorian?.timeZone = NSTimeZone(forSecondsFromGMT: 0)\nlet date = gregorian?.dateFromComponents(comps)\n\
+  print(\"日期是\", date)\n```\n\n#### Objective-C\n\n```objc\nNSDateComponents *comps\
+  \ = [[NSDateComponents alloc] init];\n[comps setDay:22];\n[comps setMonth:8];\n\
+  [comps setYear:2020];\nNSCalendar *gregorian = [[NSCalendar alloc]\n           \
+  \       initWithCalendarIdentifier:\n       NSCalendarIdentifierGregorian];\n//\
+  \ 魔法行\ngregorian.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];\nNSDate *date\
+  \ = [gregorian dateFromComponents:comps];\nNSLog(@\"日期是 %@\", date);\n```\n\n现在结果将是\n\
+  \n```\n日期是 2020-08-22 00:00:00 +0000\n```\n\n## 本地化应用名称\n\n如果你希望 iOS 或 OS X 应用在不同销售国家拥有不同的名称，可以通过一种名为\
+  \ `InfoPlist.strings` 的特殊文件来本地化名称。\n\n只需遵循以下步骤：\n\n1. 将 `InfoPlist.strings` 本地化为你需要的语言。\n\
+  2. 选择 **文件 ➤ 新建 ➤ 文件 ➤ 选择 iOS 或 OS X ➤ 资源 ➤ 字符串文件**，创建一个名为 `InfoPlist.strings` 的文件，并将其分配到所需的目标中。\n\
+  3. 在 `InfoPlist.strings` 中添加以下键值对：\n   `\"CFBundleDisplayName\" = \"AAA\";`\n  \
+  \ `\"CFBundleName\" = \"BBB\";`\n   将 `AAA` 和 `BBB` 分别替换为特定语言下的应用名称和包名称。\n\n> **注意：**\
+  \ 你可能已经注意到 `InfoPlist.strings` 包含了同样存在于 `Info.plist` 中的键 `CFBundleDisplayName` 和\
+  \ `CFBundleName`。`InfoPlist.strings` 中的键将优先于 `Info.plist` 中对应的键。\n\n## 使用 Auto Layout\
+  \ 水平居中视图\n\n警告！你现在正步入野兽的心脏地带，一个从未有人能全身而退的危险区域。从此刻起，你所有的战斗都将是史诗级的，对手是毫无怜悯之心的生物。\n\
+  \n忘掉逻辑思维，欢迎来到 Auto Layout。\n\n### 示例\n\n你有三个简单的视图。所有视图具有相同的宽度和高度，并且间距相等（图 27）。你的目标是使用\
+  \ Auto Layout，让这些视图在所有设备上都精确呈现如图 27 所示的效果。\n\n![A978-1-4842-1560-9_1_Fig27_HTML.jpg](img/A978-1-4842-1560-9_1_Fig27_HTML.jpg)\n\
+  \n**图 27.** 三个对齐的视图\n\n### 哎呀……坏主意\n\n要让这些视图在不同设备上呈现图 27 的效果，第一个想法是让 Xcode 为你创建约束。为此，在\
+  \ Xcode 的项目导航器中选择故事板文件，点击 **编辑器 ➤ 解析 Auto Layout 问题 ➤ 重置为建议的约束**。在不同设备上执行此操作的结果如图\
+  \ 28 所示。\n\n![A978-1-4842-1560-9_1_Fig28_HTML.jpg](img/A978-1-4842-1560-9_1_Fig28_HTML.jpg)\n\
+  \n**图 28.** Auto Layout 的结果\n\n### 什么？！\n\n然后你想：问题在于我们必须约束这些视图，使其具有“相同宽度”、“相同高度”和相同的“宽高比”。不，如果你这样做，结果和第一个一样错误。\n\
+  \n接着你尝试另一种方法。你为这些视图的“宽度”和“高度”以及它们之间的间距定义了约束。没门，何塞！结果更糟。\n\n多次尝试之后，你放弃了。没有任何逻辑或直觉思考能拯救你。\n\
+  \n你现在独自在丛林中，野兽正注视着你。\n\n\n\n### 逻辑已退出房间\n\n以下是用一种看似“取巧”的方法来解决这个问题，而这在 Auto Layout\
+  \ 中似乎是公认的解决方式：\n\n1.  选中所有视图。点击 Interface Builder 面板底部的 `Pin` 按钮，选择 `Equal Widths`（等宽）、`Equal\
+  \ Heights`（等高）和 `Aspect Ratio`（宽高比），然后点击 `Add 6 Constraints`（添加 6 个约束）。这将使所有三个视图具有相同的宽度、高度和宽高比（见图\
+  \ 29）。\n\n![A978-1-4842-1560-9_1_Fig29_HTML.jpg](img/A978-1-4842-1560-9_1_Fig29_HTML.jpg)\n\
+  \n**图 29.** 宽度、高度和宽高比\n\n2.  仅选中第一个视图，返回 `Pin` 菜单，选择 `Width`（宽度）和 `Height`（高度），然后点击\
+  \ `Add 2 Constraints`（添加 2 个约束）（见图 30）。这将定义第一个视图的宽度和高度。由于上一步添加的约束，其他视图将具有相同的大小。\n\
+  \n![A978-1-4842-1560-9_1_Fig30_HTML.jpg](img/A978-1-4842-1560-9_1_Fig30_HTML.jpg)\n\
+  \n**图 30.** 第一个视图的宽度/高度\n\n3.  选中所有视图，点击 Interface Builder 面板底部的 `Alignment`（对齐）按钮，选择\
+  \ `Horizontal Center in Container`（容器内水平居中）和 `Vertical Center in Container`（容器内垂直居中），然后点击\
+  \ `Add 6 Constraints`（添加 6 个约束）（见图 31）。\n\n![A978-1-4842-1560-9_1_Fig31_HTML.jpg](img/A978-1-4842-1560-9_1_Fig31_HTML.jpg)\n\
+  \n**图 31.** 水平和垂直居中\n\n> **注意：** 在第 4 步中，我们为所有视图添加了一个 `Horizontal Center in Container`\
+  \ 约束。添加此约束后，我们是在告诉 Auto Layout 将三个视图都对齐到容器的水平中心，这不符合逻辑，因为这不是我们希望视图所处的位置。下一步将解决这个问题。\n\
+  \n### 这样就能击败这个“怪兽”\n\n选择 `Editor`（编辑器）➤ `Resolve Auto Layout Issues`（解决自动布局问题）➤\
+  \ `Update Constraints`（更新约束）。此步骤会为所有视图添加一个水平偏移量，从而解决上一步造成的问题。换句话说，每个视图将位于“水平中心加上一个偏移量”的位置。\n\
+  \n图 32 显示了最终结果。\n\n![A978-1-4842-1560-9_1_Fig32_HTML.jpg](img/A978-1-4842-1560-9_1_Fig32_HTML.jpg)\n\
+  \n**图 32.** Auto Layout 的最终结果\n\n所有视图大小相同，并且在不同的设备上具有相同的间距。\n\n---\n\n## 复制后 Storyboard\
+  \ 中的元素变灰\n\n你在 Storyboard 或项目之间复制了一个视图控制器或其元素，复制完成后，你注意到其中一些元素变成了灰色（图 33）。这是为什么？\n\
+  \n![A978-1-4842-1560-9_1_Fig33_HTML.jpg](img/A978-1-4842-1560-9_1_Fig33_HTML.jpg)\n\
+  \n**图 33.** Storyboard 中变灰的元素\n\n出现此问题是因为你在具有不同 `Size Classes`（尺寸类别）的 Storyboard\
+  \ 之间复制了元素。\n\n请参见图 34 中的 `Size Classes` 选择按钮。\n\n![A978-1-4842-1560-9_1_Fig34_HTML.jpg](img/A978-1-4842-1560-9_1_Fig34_HTML.jpg)\n\
+  \n**图 34.** 尺寸类别选择\n\n如果你将一个元素从设置为 `Any/Any` 的 Storyboard 复制到另一个未按此设置的 Storyboard，则该元素会变灰。\n\
+  \n两个 Storyboard 的 `Size Classes` 选择必须相同，否则复制后元素会变灰。\n\n要解决此问题，请遵循以下步骤：\n\n1.  备份一份你要从中复制元素的\
+  \ Storyboard。\n2.  通过取消选中相应的复选框，禁用该 Storyboard 的 `Size Classes`（尺寸类别）（见图 35）。\n\n\
+  ![A978-1-4842-1560-9_1_Fig35_HTML.jpg](img/A978-1-4842-1560-9_1_Fig35_HTML.jpg)\n\
+  \n**图 35.** 使用尺寸类别选项\n\n3.  从已复制的 Storyboard 中将所需的界面元素复制到最终的 Storyboard 中。\n\n复制后，元素将不再变灰。\n\
+  \n---\n\n## 调试 Core Data\n\n当你使用 Core Data 处理数据库密集型应用程序时，幕后会进行许多操作以保持运行流畅。\n\n当这些操作之一发生异常时，应用程序将崩溃，并且很可能很难发现问题。\n\
+  \n在“Core Data 的并发处理”一节中，我们描述了可能影响 Core Data 应用程序的问题之一，但其他晦涩的问题也可能突然出现。\n\n### 在黑暗中独行\n\
+  \n如果问题奇怪且难以捉摸，你可以通过选择 `Product`（产品）➤ `Scheme`（方案）➤ `Edit`（编辑）➤ `Scheme`（方案）➤ `Arguments`（参数），并在\
+  \ `Arguments Passed on Launch`（启动时传递的参数）部分添加键值 `-com.apple.CoreData.SQLDebug 3`，来启用\
+  \ Xcode 调试 Core Data 操作的能力（图 36）。\n\n![A978-1-4842-1560-9_1_Fig36_HTML.jpg](img/A978-1-4842-1560-9_1_Fig36_HTML.jpg)\n\
+  \n**图 36.** 调试 Core Data\n\n> **注意：** 选项 `-com.apple.CoreData.SQLDebug` 接受 1 到 3\
+  \ 之间的值。值越高，详细程度越高。\n\n一旦启用此键，Xcode 的日志会显示如图 37 所示的信息。\n\n![A978-1-4842-1560-9_1_Fig37_HTML.jpg](img/A978-1-4842-1560-9_1_Fig37_HTML.jpg)\n\
+  \n**图 37.** Core Data 调试信息\n\n---\n\n## 包中不包含 Info.plist\n\n当你尝试验证或向 App Store 提交应用程序时，通常会出现此错误消息。\n\
+  \n此消息表明 `Info.plist` 文件缺失。实际上，这条消息具有误导性，因为如果你的 `Info.plist` 文件中缺少某些键，也可能显示此错误消息。\n\
+  \n如果 `Info.plist` 文件中缺少以下键，则会触发该错误：`CFBundleVersion`、`CFBundleShortVersionString`\
+  \ 和 `CFBundlePackageType`。\n\n- `CFBundleVersion`：此键指定包的构建版本号。\n- `CFBundleShortVersionString`：此键存储包的发布版本号字符串。\n\
+  - `CFBundlePackageType`：此键通常包含一个四字母代码，用于标识包的类型。可能的值包括：\n    - `APPL` – 该包是一个应用程序；\n\
+  \    - `FMWK` – 该包是一个框架；\n    - `BNDL` – 该包是一个可加载的包。\n\n> **注意：** iOS 和 OS X 应用程序都使用所有这些键。\n\
+  \n欲了解更多信息，请访问 [`http://www.addfone.com/TXCFKeys`](http://www.addfone.com/TXCFKeys)\n\
+  \n要检查你的 `Info.plist` 文件是否缺少任何这些键，请打开你的目标（Target）信息面板，右键单击任意键，然后选择 `Show Raw Keys/Value`（显示原始键/值）（图\
+  \ 38）。\n\n![A978-1-4842-1560-9_1_Fig38_HTML.jpg](img/A978-1-4842-1560-9_1_Fig38_HTML.jpg)\n\
+  \n**图 38.** `Info.plist` 键（友好名称）\n\n选择此选项后，键将不会像图 38 那样以友好的名称显示。相反，它们将使用不友好的 Core\
+  \ Foundation (CF) 名称显示（图 39），这正是你所需要的。\n\n![A978-1-4842-1560-9_1_Fig39_HTML.jpg](img/A978-1-4842-1560-9_1_Fig39_HTML.jpg)\n\
+  \n**图 39.** `Info.plist` 键（CF 名称）\n\n---\n\n## 检查 App Store 中应用的版本\n\n如果出于某种原因，你需要检查你的\
+  \ iOS 或 OS X 应用程序在 App Store 中的版本，请使用下面显示的代码。\n\n\n好的，这是根据您的要求和示例，将给定英文文本翻译成中文的结果。\n\
+  \n\n#### Swift\n\n```\nfunc getAppVersion ( onCompletion: (version: String) -> Void)\
+  \ {\n    // 获取应用的 Bundle 标识符\n    let bundleIdentifier = \"com.yourCompany.yourAppBundleID\"\
+  \n    // 使用 iTunes API 构建应用路径\n    let path : String = \"http://itunes.apple.com/lookup?bundleId=\\\
+  (bundleIdentifier)\"\n    let lookupURL : NSURL = NSURL(string:path)!\n    let session\
+  \ = NSURLSession.sharedSession()\n    let request = NSURLRequest(URL: lookupURL)\n\
+  \    // 使用 iTunes API 异步请求应用数据\n    let task = session.dataTaskWithRequest(request,\n\
+  \                              completionHandler: { data, response, error in\n \
+  \     if !(error != nil) {\n      do {\n      let jsonResults = try\n          \
+  \                NSJSONSerialization.JSONObjectWithData(data!,\n               \
+  \                  options: [])  as! NSDictionary\n      let results = jsonResults[\"\
+  results\"]\n      let appDetails = results?.firstObject\n      // 获取应用版本号\n    \
+  \  let latestVersion = appDetails!![\"version\"] as! String\n      onCompletion(version:\
+  \ latestVersion)\n    }\n      catch let error as NSError {\n      print(\"error\
+  \ = \\(error)\")\n    }\n      catch {   }\n      }\n      })\n    task.resume()\n\
+  \  }\n```\n\n你必须像这样使用它：\n\n```\ngetAppVersion { (version) -> Void in\n  print(\"\
+  latest version = \", version)\n}\n```\n\n#### Objective-C\n\n```\n-(void)getAppVersionAndRunOnCompletion:\n\
+  \       (void (^)(NSString *version))completionBlock {\n  // 获取应用的 Bundle 标识符\n\
+  \  NSString *bundleIdentifier =\n                           @\"com.yourCompany.yourAppBundleID\"\
+  ;\n  // 使用 iTunes API 获取应用数据\n  NSURL *lookupURL = [NSURL URLWithString:[NSString\n\
+  \                             stringWithFormat: @\"http://itunes.apple.com/\n  \
+  \       lookup?bundleId=%@\", bundleIdentifier]];\n  NSURLSession *session = [NSURLSession\
+  \ sharedSession];\n  [[session dataTaskWithURL:lookupURL\n          completionHandler:^(NSData\
+  \ *data,\n                              NSURLResponse *response,\n             \
+  \                 NSError *error) {\n            // data 为 nil 或发生错误，返回 nil 并退出\n\
+  \            if ( (data == nil) || (error != nil) ) {\n              completionBlock(nil);\n\
+  \              return;\n            }\n            NSDictionary *jsonResults = [NSJSONSerialization\n\
+  \                          JSONObjectWithData:data options:0\n                 \
+  \                               error:nil];\n            NSUInteger resultCount\
+  \ = [[jsonResults\n                        objectForKey: @\"resultCount\"]\n   \
+  \                                             integerValue];\n            // jsonResults\
+  \ 中的对象数量为零，返回 nil 并退出\n            if (!resultCount){\n              completionBlock(nil);\n\
+  \              return;\n            }\n            NSDictionary *appDetails = [[jsonResults\n\
+  \                                              objectForKey: @\"results\"]\n   \
+  \                        firstObject];\n            NSString *latestVersion = [appDetails\n\
+  \                                                 objectForKey: @\"version\"];\n\
+  \            completionBlock(latestVersion);\n          }] resume];\n}\n```\n\n\
+  你必须像这样使用它：\n\n```\n[self getAppVersionAndRunOnCompletion:^(NSString *version) {\n\
+  \    NSLog(@\"latest version on the app store = %@\", version);\n}];\n```\n\n##\
+  \ 断点和 NSLog 不工作\n\n当出现此问题时，Xcode 不会在任何已设置的断点处暂停，并且`NSLog`也无法向 Xcode 的控制台打印任何信息。\n\
+  \n此问题通常由两个原因之一导致：项目文件损坏或产品 Scheme 错误。\n\n出于某种原因，应用扩展和 Apple Watch 目标更容易受到错误的 Product\
+  \ Scheme 影响。\n\n**注意：** 如果你在项目期间多次创建和删除 Target，Xcode 会失去对内容的控制，并且 Product Scheme\
+  \ 会被损坏。\n\n### 项目损坏\n\n首先，尝试按照“打开项目文件时 Xcode 崩溃？”一节的说明清理项目，并查看问题是否解决。\n\n### 错误的\
+  \ Product Scheme\n\n如果问题仍未解决，请点击 **Product** ➤ **Scheme** ➤ **Manage Schemes**，选择所有\
+  \ Scheme，然后点击左下角的减号将其删除。接着点击 **Autocreate Schemes Now** 按钮重新创建刚刚删除的 Scheme。\n\n\
+  现在你可以构建并运行你的项目，断点很可能会正常工作。\n\n## ViewControllers 之间切换缓慢\n\n如果你的应用使用了 Storyboard，并且`ViewControllers`之间的切换耗时过长，可能是因为\
+  \ iOS 在加载和实例化下一个`ViewController`时遇到了困难。也许下一个`ViewController`包含了许多需要加载的元素，导致耗时过长。\n\
+  \n这个问题合乎逻辑的解决方案是预加载下一个`ViewController`，但如何做到呢？\n\n我们在网络上看到一些页面建议使用`UIPageViewControllers`而不是\
+  \ Storyboard 来实现`ViewControllers`之间的平滑过渡，但这远非一个好的解决方案，只会引发更多问题。\n\nStoryboard 没有提供预加载`ViewControllers`的方法，但我们可以通过在当前`ViewController`的`viewWillAppear`方法中使用如下所示的代码来模拟这一功能。\n\
+  \n#### Swift\n\n```\noverride func viewWillAppear(animated: Bool) {\n  super.viewWillAppear(animated)\n\
+  \  // 这将预加载下一个 ViewController\n  dispatch_async(dispatch_get_main_queue()) {\n \
+  \  storyboard?.instantiateViewControllerWithIdentifier\n           (\"nextViewController\"\
+  )\n  }\n}\n```\n\n#### Objective-C\n\n```\n- (void)viewWillAppear:(BOOL)animated\
+  \ {\n  [super viewWillAppear:animated];\n  // 这将预加载下一个 ViewController\n  dispatch_async(dispatch_get_main_queue(),\n\
+  \  ^{\n     [self.storyboard\n      instantiateViewControllerWithIdentifier:\n \
+  \     @\"nextViewController\"];\n  });\n}\n```\n\n这段代码会在一个单独的线程上实例化下一个`ViewController`，并将其保留在内存中。当我们\
+  \ push 出下一个`ViewController`时，它将会快速且平滑地加载完成。\n\n\n\n"
+- "# 完成运行问题\n\n你构建并运行 Mac 或 iOS 应用程序。Xcode 正确编译了所有内容。Xcode 显示以下信息：“正在构建 MyGreatApp...”和“正在运行\
+  \ MyGreatApp”，紧接着就终止了应用程序，并显示“已完成运行 MyGreatApp。”。没有任何错误信息，没有崩溃，什么也没有，同时也没有应用程序在运行。\n\
+  \n## 我们曾警告过你将受到的惩罚\n\n正如我们之前所说，当神灵惩罚你时，它们会阻止 Xcode 显示任何能暗示问题的错误信息。但我们可以通过打破常规思维来激怒这些至高无上的存在，并笑到最后。\n\
+  \n我们知道 OS X 的 `console` 始终会显示系统上运行的应用程序（包括 Xcode）所产生的错误信息。所以，这是我们必须检查的第一件事。\n\n\
+  `Console` 是存在于所有 UNIX 版本（包括 Mac OS X）中的一个日志查看器。它允许用户搜索系统中所有已记录的日志信息，并能在记录特定类型信息时提醒用户。\n\
+  \n要启动 `console`，请点击 OS X 的 `Spotlight`，输入 `console`，然后按下 `Return` 键。\n\n保持控制台窗口打开，再次构建并运行你的应用程序，查看是否有关于你应用程序的信息弹出。在我们的案例中，我们看到了一条类似这样的记录：\n\
+  \n`taskgated[98]: 已终止 com.myGreatApp，因为其使用 com.apple.developer.ubiquity-container-identifiers\
+  \ 授权不被允许 (错误代码 -67050)`\n\n换句话说，我们的应用程序因为试图使用其授权未许可的功能而被 `taskgated` 终止。再换句话说，OS\
+  \ X 因为我们的应用程序试图执行其授权未授权的操作而终止了它。问题是，到底是什么操作呢？\n\n出于某种奇怪的原因（这恰恰证实了 Xcode 确实非常憎恨我们），一个名为\
+  \ `Ubiquity Container Identifiers` 的键被随机添加到了我们应用程序的授权文件中，而且我们发誓，这绝非我们本意，也违背了我们的意愿。\n\
+  \n要检查你的应用程序的授权是否有问题，请在 Xcode 的 `Project Navigator` 中选择该授权文件，定位并打开应用程序的授权窗口。图 40\
+  \ 显示了该文件以及授权的一个示例。\n\n![A978-1-4842-1560-9_1_Fig40_HTML.jpg](img/A978-1-4842-1560-9_1_Fig40_HTML.jpg)\n\
+  \n图 40. Ubiquity Container Identifiers\n\n在图 40 中，你可以看到应用程序的授权文件中存在一个名为 `Ubiquity\
+  \ Container Identifiers` 的键，但这个键是空的，没有值。\n\n当你移除这个键后，应用程序就能再次正常运行了。\n\n如果你的问题与应用程序的授权无关，控制台上的信息也能为你提供线索。\n\
+  \n## iOS 与 Mac 之间的 Handoff 堵塞\n\n这是我们遇到过的最棘手的问题之一。\n\n你正在开发同一应用程序的 iOS 和 OS X 版本，并希望使用\
+  \ `Handoff` 在平台之间传输活动。\n\n一切运行正常，但突然间，iOS 和 Mac 应用程序之间的管道堵塞了，`Handoff` 停止了工作。你的\
+  \ iOS 应用程序发布了新的 `Handoff` 活动，但 OS X 没有响应。\n\n我们准备了一份系统性的检查清单，列出了你必须修正的所有事项，以疏通这些管道。\n\
+  \n### 在你的 iOS 设备上\n\n按下设备的 Home 按钮返回主屏幕。轻点“设置” ➤ “通用” ➤ “Handoff 与建议的 App”，查看 Handoff、我的\
+  \ App 以及 App Store 是否已开启（参见图 41、42、43 和 44 中的 ➊ 至 ➏ 项）。\n\n![A978-1-4842-1560-9_1_Fig44_HTML.jpg](img/A978-1-4842-1560-9_1_Fig44_HTML.jpg)\n\
+  \n图 44. Handoff\n\n![A978-1-4842-1560-9_1_Fig43_HTML.jpg](img/A978-1-4842-1560-9_1_Fig43_HTML.jpg)\n\
+  \n图 42. 设置\n\n![A978-1-4842-1560-9_1_Fig42_HTML.jpg](img/A978-1-4842-1560-9_1_Fig42_HTML.jpg)\n\
+  \n图 41. 展示作者创建的应用程序及主屏幕的无耻广告\n\n![A978-1-4842-1560-9_1_Fig41_HTML.jpg](img/A978-1-4842-1560-9_1_Fig41_HTML.jpg)\n\
+  \n图 43. Handoff 与建议的 App\n\n确保你的设备上 Wi-Fi 和蓝牙已配置并正常工作。验证你是否有可用的互联网连接。\n\n### 在你的\
+  \ Mac 上\n\n检查你的 Mac 是否支持 `Handoff`。点击 ➤ “关于本机” ➤ “系统报告” ➤ “蓝牙”，并检查“Handoff 支持”条目是否显示为“是”（图\
+  \ 45）。\n\n![A978-1-4842-1560-9_1_Fig45_HTML.jpg](img/A978-1-4842-1560-9_1_Fig45_HTML.jpg)\n\
+  \n图 45. Handoff 支持\n\n验证蓝牙是否已开启。验证你是否有可用的互联网连接。\n\n### 在 Mac OS X 上\n\n你可以通过设置一个隐蔽的首选项标志后重启\
+  \ OS X，来增加 `sharingd`（负责 `Handoff` 等功能的守护进程）的日志详细程度。为此，启动 `Terminal`，输入以下命令，然后按下\
+  \ Return 键。\n\n`defaults write com.apple.Sharing EnableDebugLogging -bool TRUE`\n\
+  \n之后 OS X 会在 `Console` 中显示 `sharingd` 的日志信息。\n\n### 在你的项目中\n\n- 检查你是否通过使用 `addUserInfoEntriesFromDictionary`\
+  \ 来更新 `NSUserActivity`。不要直接更新 `userInfo` 字典。\n- 你的 Mac 应用程序必须被沙盒化，并使用你的团队 ID 进行签名。在你的\
+  \ OS X 目标的“功能”标签页中开启“App Sandbox”。\n- 检查你是否已将类似以下键值添加到 `Info.plist` 文件中：\n```\n\
+  <key>NSUserActivityTypes</key>\n<array>\n    <string>XXXXX</string>\n</array>\n\
+  ```\n其中 `XXXXX` 是描述的活动，例如 `com.myCompany.myApp.activity`。\n\n## 顽固的应用通用容器\n\n你的应用程序正在使用\
+  \ iCloud Drive，但你创建的文件夹和文件并未在 iCloud 上公开显示。\n\n调试 iCloud 是一项复杂的任务，尤其是在 Xcode 中唯一可用的相关工具是\
+  \ iCloud 调试计量器（图 46），而该计量器自 Xcode 6 以来就一直存在故障。很可能会一直显示你应用的 iCloud 状态为“已禁用”（➊）。\n\
+  \n![A978-1-4842-1560-9_1_Fig46_HTML.jpg](img/A978-1-4842-1560-9_1_Fig46_HTML.jpg)\n\
+  \n图 46. iCloud 调试计量器\n\n### 验证以下内容\n\n以下是你为了在 iCloud 上公开显示应用程序文件夹需要验证的几项内容：\n\n\
+  -   必须为“iCloud 文档”开启 iCloud 功能，使用默认容器或你定义的某些自定义容器。\n-   授权文件必须类似于以下内容：\n```\n<key>com.apple.developer.icloud-container-identifiers</key>\n\
+  <array>\n    <string>iCloud.$(CFBundleIdentifier)</string>\n</array>\n<key>com.apple.developer.icloud-services</key>\n\
+  <array>\n    <string>CloudDocuments</string>\n</array>\n<key>com.apple.developer.ubiquity-container-identifiers</key>\n\
+  <array/>\n```\n-   你是否已将这些键添加到 `Info.plist` 文件中？\n```\n<key>NSUbiquitousContainers</key>\n\
+  <dict>\n    <key>iCloud.$(CFBundleIdentifier)</key>\n    <dict>\n        <key>NSUbiquitousContainerIsDocumentScopePublic</key>\n\
+  \        <true/>\n        <key>NSUbiquitousContainerSupportedFolderLevels</key>\n\
+  \        <string>Any</string>\n        <key>NSUbiquitousContainerName</key>\n  \
+  \      <string>MyApp</string>\n    </dict>\n</dict>\n```\n\n\n\n### 秘密“咒语”在此……\n\
+  \n每次你在应用的 iCloud 配置中修改任何内容（例如容器名称或容器标识符）时，都需要增加应用 `Info.plist` 的版本号和构建号——分别对应 `CFBundleShortVersionString`\
+  \ 和 `CFBundleVersion`，并确保你的应用在启动时运行以下代码行：\n\n```\n[[NSFileManager defaultManager]\
+  \ URLForUbiquityContainerIdentifier:nil];\n```\n\n**注意：** Mac OS X 自带一个名为 `brctl`\
+  \ 的工具，它是 `CloudDocs` 守护进程的管理器，负责将文件从你的设备传输到 iCloud。要使用此工具，请启动 `终端`，输入以下命令，然后按回车键：\n\
+  \n```\nbrctl log --wait --shorten\n```\n\n### 在哪里可以查看文件……\n\n当文件和文件夹暴露在 iCloud 云端盘上后，你可以通过以下任一位置查看它们：\n\
+  \n- 在设备的“设置”➤“iCloud”➤“管理储存空间”➤“文稿与数据”中；\n- 在 Mac OS X 的 iCloud 云端盘文件夹中；\n- 在你的应用内部，通过使用\
+  \ `UIDocumentPicker` 并由以下代码调用：\n\n#### Swift\n\n```\n@IBAction func openImportDocumentPicker(sender\
+  \ : AnyObject) {\n    let documentPicker = UIDocumentPickerViewController(documentTypes:\
+  \ [\"public.image\"],\n                                                       inMode:\
+  \ UIDocumentPickerMode.Import)\n    documentPicker.modalPresentationStyle = UIModalPresentationStyle.FormSheet\n\
+  \    self.presentViewController(documentPicker, animated: true) { () -> Void in\
+  \  }\n}\n```\n\n#### Objective-C\n\n```\n- (IBAction)openImportDocumentPicker:(id)sender\
+  \ {\n   UIDocumentPickerViewController *documentPicker =\n                     \
+  \    [[UIDocumentPickerViewController alloc]\n                                initWithDocumentTypes:@[@\"\
+  public.image\"]\n                                              inMode:UIDocumentPickerModeImport];\n\
+  \   documentPicker.modalPresentationStyle = UIModalPresentationFormSheet;\n   [self\
+  \ presentViewController:documentPicker animated:YES completion:nil];\n}\n```\n\n\
+  ## 实用技巧\n\n让开发者的工作更轻松，不仅包括解决 Xcode 内部的问题（正如本书一直试图做到的），还包括在 Xcode 之外使用一些工具和方法来辅助开发。以下部分介绍了一些这样的工具。\n\
+  \n### CocoaPods\n\n根据 CocoaPods 官网介绍，CocoaPods 是 Swift 和 Objective-C Cocoa 项目的依赖管理器。它拥有近\
+  \ 10,000 个库，可以帮助你优雅地扩展项目。简而言之，CocoaPods 是一个巨大的归档库，包含数千个库和开源代码，你可以在项目中使用这些代码——这些代码不仅能加速开发，还能让开发过程更轻松。在你的项目中使用\
+  \ CocoaPods 非常简单，网上也有很多教程对其进行了说明。\n\n[`www.cocoapods.org`](http://www.cocoapods.org/)\n\
+  \n### GitHub\n\n为你的项目寻找开源代码的另一个好来源是 GitHub。许多托管在 GitHub 上的项目都可以通过 CocoaPods 轻松导入到你的项目中。所以，别忘了去看看它们：\n\
+  \n[`www.github.com`](http://www.github.com/)\n\n### StackOverflow\n\n如果其他方法都没用，试试\
+  \ StackOverflow。以下是 StackOverflow 的官方定义：“Stack Overflow 是一个面向专业和业余程序员的问答网站。它由你构建并运营，是\
+  \ [Stack Exchange](http://stackexchange.com/) 问答网站网络的一部分。有了你的帮助，我们正在共同努力建立一个关于每个编程问题的详细答案库。”据我们所知，StackOverflow\
+  \ 是发布问题并获得快速高质量答案的最佳网站。\n\n[`www.stackoverflow.com`](http://www.stackoverflow.com/)\n\
+  \n### fastlane 工具\n\n根据 fastlane 官网介绍，“fastlane 让你能够定义并运行针对不同环境的部署流水线。它帮助你统一应用的发布流程，并自动化整个过程。fastlane\
+  \ 连接了所有 fastlane 工具和第三方工具，例如 [CocoaPods](http://cocoapods.org/) 和 [xctool](https://github.com/facebook/xctool)。”所谓“自动化整个过程”，fastlane\
+  \ 指的是使用终端来处理大量与应用开发和交付相关的事务，消除处理 iTunesConnect 和开发者门户时的繁琐与痛苦，包括配置文件带来的噩梦。\n\n[`http://fastlane.tools`](http://fastlane.tools/)\n\
+  \n### HandBrake\n\n`HandBrake` 是一个开源工具，用于将几乎所有格式的视频转换为一系列现代、广泛支持的编码格式。我们见过 `Handbrake`\
+  \ 将 1.2GB 大小的视频转换为 16MB，且画质没有明显损失。\n\n[`http://handbrake.fr`](http://handbrake.fr/)\n\
+  \n### Alcatraz\n\n根据 Alcatraz 官网介绍，“Alcatraz 是一个面向 Xcode 的开源包管理器。它让你无需手动克隆或复制文件即可发现并安装插件、模板和配色方案。”换句话说，Alcatraz\
+  \ 可以让你安装许多有用的插件，帮助改进 Xcode。\n\n[`www.alcatraz.io`](http://www.alcatraz.io/)\n\n"
+- "# 附录\n\n下表提供了 Apple 设备用于本地化的所有 `NSLocale` 代码。Apple 使用的是国际标准化组织（ISO）创建的代码，ISO 是一个独立的、非政府成员组织，也是世界上最大的自愿性国际标准制定者。更多信息请访问\
+  \ [`www.iso.org`](http://www.iso.org/)。\n\n本附录中的表格是 ISO 代码的汇编，既包含像“en”代表“英语”这样的通用条目，也包含像“en_AU”代表“澳大利亚英语”或“en_JM”代表“牙买加英语”这样的特定条目。英语本身就有近\
+  \ 30 种变体。如果你使用特定的变体，只有设备设置为使用该变体时，该本地化内容才会可见。而使用通用的“en”，则可以保证所有设置为英语变体的设备都能看到该本地化内容。当你在\
+  \ iTunesConnect 的 App Store 上创建本地化时，这也同样适用。\n\n\n\n| `NSLocale` | 国家/地区 |\n| ---\
+  \ | --- |\n| `af` | 阿非利堪斯语 |\n| `af_NA` | 阿非利堪斯语（纳米比亚） |\n| `af_ZA` | 阿非利堪斯语（南非）\
+  \ |\n| `ak` | 阿肯语 |\n| `ak_GH` | 阿肯语（加纳） |\n| `sq` | 阿尔巴尼亚语 |\n| `sq_AL` | 阿尔巴尼亚语（阿尔巴尼亚）\
+  \ |\n| `am` | 阿姆哈拉语 |\n| `am_ET` | 阿姆哈拉语（埃塞俄比亚） |\n| `ar` | 阿拉伯语 |\n| `ar_DZ` |\
+  \ 阿拉伯语（阿尔及利亚） |\n| `ar_BH` | 阿拉伯语（巴林） |\n| `ar_EG` | 阿拉伯语（埃及） |\n| `ar_IQ` | 阿拉伯语（伊拉克）\
+  \ |\n| `ar_JO` | 阿拉伯语（约旦） |\n| `ar_KW` | 阿拉伯语（科威特） |\n| `ar_LB` | 阿拉伯语（黎巴嫩） |\n\
+  | `ar_LY` | 阿拉伯语（利比亚） |\n| `ar_MA` | 阿拉伯语（摩洛哥） |\n| `ar_OM` | 阿拉伯语（阿曼） |\n| `ar_QA`\
+  \ | 阿拉伯语（卡塔尔） |\n| `ar_SA` | 阿拉伯语（沙特阿拉伯） |\n| `ar_SD` | 阿拉伯语（苏丹） |\n| `ar_SY` |\
+  \ 阿拉伯语（叙利亚） |\n| `ar_TN` | 阿拉伯语（突尼斯） |\n| `ar_AE` | 阿拉伯语（阿拉伯联合酋长国） |\n| `ar_YE`\
+  \ | 阿拉伯语（也门） |\n| `hy` | 亚美尼亚语 |\n| `hy_AM` | 亚美尼亚语（亚美尼亚） |\n| `as` | 阿萨姆语 |\n|\
+  \ `as_IN` | 阿萨姆语（印度） |\n| `asa` | 帕雷语 |\n| `asa_TZ` | 帕雷语（坦桑尼亚） |\n| `az` | 阿塞拜疆语\
+  \ |\n| `az_Cyrl_AZ` | 阿塞拜疆语（西里尔文，阿塞拜疆） |\n| `az_Cyrl` | 阿塞拜疆语（西里尔文） |\n| `az_Latn_AZ`\
+  \ | 阿塞拜疆语（拉丁文，阿塞拜疆） |\n| `az_Latn` | 阿塞拜疆语（拉丁文） |\n| `bm` | 班巴拉语 |\n| `bm_ML` |\
+  \ 班巴拉语（马里） |\n| `eu` | 巴斯克语 |\n| `eu_ES` | 巴斯克语（西班牙） |\n| `be` | 白俄罗斯语 |\n| `be_BY`\
+  \ | 白俄罗斯语（白俄罗斯） |\n| `bem` | 本巴语 |\n| `bem_ZM` | 本巴语（赞比亚） |\n| `bez` | 贝纳语 |\n|\
+  \ `bez_TZ` | 贝纳语（坦桑尼亚） |\n| `bn` | 孟加拉语 |\n| `bn_BD` | 孟加拉语（孟加拉国） |\n| `bn_IN` |\
+  \ 孟加拉语（印度） |\n| `bs` | 波斯尼亚语 |\n| `bs_BA` | 波斯尼亚语（波斯尼亚和黑塞哥维那） |\n| `bg` | 保加利亚语\
+  \ |\n| `bg_BG` | 保加利亚语（保加利亚） |\n| `my` | 缅甸语 |\n| `my_MM` | 缅甸语（缅甸） |\n| `ca` |\
+  \ 加泰罗尼亚语 |\n| `ca_ES` | 加泰罗尼亚语（西班牙） |\n| `tzm` | 中阿特拉斯塔马齐格特语 |\n| `tzm_Latn_MA`\
+  \ | 中阿特拉斯塔马齐格特语（拉丁文，摩洛哥） |\n| `tzm_Latn` | 中阿特拉斯塔马齐格特语（拉丁文） |\n| `chr` | 切罗基语 |\n\
+  | `chr_US` | 切罗基语（美国） |\n| `cgg` | 奇加语 |\n| `cgg_UG` | 奇加语（乌干达） |\n| `zh` | 中文 |\n\
+  | `zh_Hans_CN` | 中文（简体，中国） |\n| `zh_Hans_HK` | 中文（简体，中国香港特别行政区） |\n| `zh_Hans_MO`\
+  \ | 中文（简体，中国澳门特别行政区） |\n| `zh_Hans_SG` | 中文（简体，新加坡） |\n| `zh_Hans` | 中文（简体） |\n\
+  | `zh_Hant_HK` | 中文（繁体，中国香港特别行政区） |\n| `zh_Hant_MO` | 中文（繁体，中国澳门特别行政区） |\n| `zh_Hant_TW`\
+  \ | 中文（繁体，台湾） |\n| `zh_Hant` | 中文（繁体） |\n| `kw` | 康沃尔语 |\n| `kw_GB` | 康沃尔语（英国） |\n\
+  | `hr` | 克罗地亚语 |\n| `hr_HR` | 克罗地亚语（克罗地亚） |\n| `cs` | 捷克语 |\n| `cs_CZ` | 捷克语（捷克共和国）\
+  \ |\n| `da` | 丹麦语 |\n| `da_DK` | 丹麦语（丹麦） |\n| `nl` | 荷兰语 |\n| `nl_BE` | 荷兰语（比利时）\
+  \ |\n| `nl_NL` | 荷兰语（荷兰） |\n| `ebu` | 恩布语 |\n| `ebu_KE` | 恩布语（肯尼亚） |\n| `en` | 英语\
+  \ |\n| `en_AS` | 英语（美属萨摩亚） |\n| `en_AU` | 英语（澳大利亚） |\n| `en_BE` | 英语（比利时） |\n| `en_BZ`\
+  \ | 英语（伯利兹） |\n| `en_BW` | 英语（博茨瓦纳） |\n| `en_CA` | 英语（加拿大） |\n| `en_GU` | 英语（关岛）\
+  \ |\n| `en_HK` | 英语（中国香港特别行政区） |\n| `en_IN` | 英语（印度） |\n| `en_IE` | 英语（爱尔兰） |\n\
+  | `en_JM` | 英语（牙买加） |\n| `en_MT` | 英语（马耳他） |\n| `en_MH` | 英语（马绍尔群岛） |\n| `en_MU`\
+  \ | 英语（毛里求斯） |\n| `en_NA` | 英语（纳米比亚） |\n| `en_NZ` | 英语（新西兰） |\n| `en_MP` | 英语（北马里亚纳群岛）\
+  \ |\n| `en_PK` | 英语（巴基斯坦） |\n| `en_PH` | 英语（菲律宾） |\n| `en_SG` | 英语（新加坡） |\n| `en_ZA`\
+  \ | 英语（南非） |\n| `en_TT` | 英语（特立尼达和多巴哥） |\n| `en_UM` | 英语（美国本土外小岛屿） |\n| `en_VI`\
+  \ | 英语（美属维尔京群岛） |\n| `en_GB` | 英语（英国） |\n| `en_US_POSIX` | 英语（美国，计算机） |\n| `en_US`\
+  \ | 英语（美国） |\n| `en_ZW` | 英语（津巴布韦） |\n| `eo` | 世界语 |\n| `et` | 爱沙尼亚语 |\n| `et_EE`\
+  \ | 爱沙尼亚语（爱沙尼亚） |\n| `ee` | 埃维语 |\n| `ee_GH` | 埃维语（加纳） |\n| `ee_TG` | 埃维语（多哥） |\n\
+  | `fo` | 法罗语 |\n| `fo_FO` | 法罗语（法罗群岛） |\n| `fil` | 菲律宾语 |\n| `fil_PH` | 菲律宾语（菲律宾）\
+  \ |\n| `fi` | 芬兰语 |\n| `fi_FI` | 芬兰语（芬兰） |\n| `fr` | 法语 |\n| `fr_BE` | 法语（比利时） |\n\
+  | `fr_BJ` | 法语（贝宁） |\n| `fr_BF` | 法语（布基纳法索） |\n| `fr_BI` | 法语（布隆迪） |\n| `fr_CM`\
+  \ | 法语（喀麦隆） |\n| `fr_CA` | 法语（加拿大） |\n| `fr_CF` | 法语（中非共和国） |\n| `fr_TD` | 法语（乍得）\
+  \ |\n| `fr_KM` | 法语（科摩罗） |\n| `fr_CG` | 法语（刚果 - 布拉柴维尔） |\n| `fr_CD` | 法语（刚果 - 金沙萨）\
+  \ |\n| `fr_CI` | 法语（科特迪瓦） |\n| `fr_DJ` | 法语（吉布提） |\n| `fr_GQ` | 法语（赤道几内亚） |\n| `fr_FR`\
+  \ | 法语（法国） |\n| `fr_GA` | 法语（加蓬） |\n| `fr_GP` | 法语（瓜德罗普） |\n| `fr_GN` | 法语（几内亚）\
+  \ |\n| `fr_LU` | 法语（卢森堡） |\n| `fr_MG` | 法语（马达加斯加） |\n| `fr_ML` | 法语（马里） |\n| `fr_MQ`\
+  \ | 法语（马提尼克） |\n| `fr_MC` | 法语（摩纳哥） |\n| `fr_NE` | 法语（尼日尔） |\n| `fr_RE` | 法语（留尼汪）\
+  \ |\n| `fr_RW` | 法语（卢旺达） |\n| `fr_BL` | 法语（圣巴泰勒米） |\n| `fr_MF` | 法语（圣马丁） |\n| `fr_SN`\
+  \ | 法语（塞内加尔） |\n| `fr_CH` | 法语（瑞士） |\n| `fr_TG` | 法语（多哥） |\n| `ff` | 富拉语 |\n| `ff_SN`\
+  \ | 富拉语（塞内加尔） |\n| `gl` | 加利西亚语 |\n| `gl_ES` | 加利西亚语（西班牙） |\n| `lg` | 卢干达语 |\n|\
+  \ `lg_UG` | 卢干达语（乌干达） |\n| `ka` | 格鲁吉亚语 |\n| `ka_GE` | 格鲁吉亚语（格鲁吉亚） |\n| `de` | 德语\
+  \ |\n| `de_AT` | 德语（奥地利） |\n| `de_BE` | 德语（比利时） |\n| `de_DE` | 德语（德国） |\n| `de_LI`\
+  \ | 德语（列支敦士登） |\n| `de_LU` | 德语（卢森堡） |\n| `de_CH` | 德语（瑞士） |\n| `el` | 希腊语 |\n|\
+  \ `el_CY` | 希腊语（塞浦路斯） |\n| `el_GR` | 希腊语（希腊） |\n| `gu` | 古吉拉特语 |\n| `gu_IN` | 古吉拉特语（印度）\
+  \ |\n| `guz` | 古西语 |\n| `guz_KE` | 古西语（肯尼亚） |\n| `ha` | 豪萨语 |\n| `ha_Latn_GH` |\
+  \ 豪萨语（拉丁文，加纳） |\n| `ha_Latn_NE` | 豪萨语（拉丁文，尼日尔） |\n| `ha_Latn_NG` | 豪萨语（拉丁文，尼日利亚）\
+  \ |\n| `ha_Latn` | 豪萨语（拉丁文） |\n| `haw` | 夏威夷语 |\n| `haw_US` | 夏威夷语（美国） |\n| `he`\
+  \ | 希伯来语 |\n| `he_IL` | 希伯来语（以色列） |\n| `hi` | 印地语 |\n| `hi_IN` | 印地语（印度） |\n| `hu`\
+  \ | 匈牙利语 |\n| `hu_HU` | 匈牙利语（匈牙利） |\n| `is` | 冰岛语 |\n| `is_IS` | 冰岛语（冰岛） |\n| `ig`\
+  \ | 伊博语 |\n| `ig_NG` | 伊博语（尼日利亚） |\n| `id` | 印度尼西亚语 |\n| `id_ID` | 印度尼西亚语（印度尼西亚）\
+  \ |\n| `ga` | 爱尔兰语 |\n| `ga_IE` | 爱尔兰语（爱尔兰） |\n| `it` | 意大利语 |\n| `it_IT` | 意大利语（意大利）\
+  \ |\n| `it_CH` | 意大利语（瑞士） |\n| `ja` | 日语 |\n| `ja_JP` | 日语（日本） |\n| `kea` | 卡布佛得鲁语\
+  \ |\n| `kea_CV` | 卡布佛得鲁语（佛得角） |\n| `kab` | 卡比勒语 |\n| `kab_DZ` | 卡比勒语（阿尔及利亚） |\n\
+  | `kl` | 格陵兰语 |\n| `kl_GL` | 格陵兰语（格陵兰） |\n| `kln` | 卡伦金语 |\n| `kln_KE` | 卡伦金语（肯尼亚）\
+  \ |\n| `kam` | 卡姆巴语 |\n| `kam_KE` | 卡姆巴语（肯尼亚） |\n| `kn` | 卡纳达语 |\n| `kn_IN` | 卡纳达语（印度）\
+  \ |\n| `kk` | 哈萨克语 |\n| `kk_Cyrl_KZ` | 哈萨克语（西里尔文，哈萨克斯坦） |\n| `kk_Cyrl` | 哈萨克语（西里尔文）\
+  \ |\n| `km` | 高棉语 |\n| `km_KH` | 高棉语（柬埔寨） |\n| `ki` | 基库尤语 |\n| `ki_KE` | 基库尤语（肯尼亚）\
+  \ |\n| `rw` | 基尼亚卢旺达语 |\n| `rw_RW` | 基尼亚卢旺达语（卢旺达） |\n| `kok` | 孔卡尼语 |\n| `kok_IN`\
+  \ | 孔卡尼语（印度） |\n| `ko` | 韩语 |\n| `ko_KR` | 韩语（韩国） |\n| `khq` | 科伊拉奇尼语 |\n| `khq_ML`\
+  \ | 科伊拉奇尼语（马里） |\n| `ses` | 科伊拉博罗塞尼语 |\n| `ses_ML` | 科伊拉博罗塞尼语（马里） |\n| `lag` | 兰吉语\
+  \ |\n| `lag_TZ` | 兰吉语（坦桑尼亚） |\n| `lv` | 拉脱维亚语 |\n| `lv_LV` | 拉脱维亚语（拉脱维亚） |\n| `lt`\
+  \ | 立陶宛语 |\n| `lt_LT` | 立陶宛语（立陶宛） |\n| `luo` | 卢奥语 |\n| `luo_KE` | 卢奥语（肯尼亚） |\n\
+  | `luy` | 卢雅语 |\n| `luy_KE` | 卢雅语（肯尼亚） |\n| `mk` | 马其顿语 |\n| `mk_MK` | 马其顿语（马其顿）\
+  \ |\n| `jmc` | 马查梅语 |\n| `jmc_TZ` | 马查梅语（坦桑尼亚） |\n| `kde` | 马孔德语 |\n| `kde_TZ` |\
+  \ 马孔德语（坦桑尼亚） |\n| `mg` | 马达加斯加语 |\n| `mg_MG` | 马达加斯加语（马达加斯加） |\n| `ms` | 马来语 |\n\
+  | `ms_BN` | 马来语（文莱） |\n| `ms_MY` | 马来语（马来西亚） |\n| `ml` | 马拉雅拉姆语 |\n| `ml_IN` | 马拉雅拉姆语（印度）\
+  \ |\n| `mt` | 马耳他语 |\n| `mt_MT` | 马耳他语（马耳他） |\n| `gv` | 马恩语 |\n| `gv_GB` | 马恩语（英国）\
+  \ |\n| `mr` | 马拉地语 |\n| `mr_IN` | 马拉地语（印度） |\n| `mas` | 马赛语 |\n| `mas_KE` | 马赛语（肯尼亚）\
+  \ |\n| `mas_TZ` | 马赛语（坦桑尼亚） |\n| `mer` | 梅鲁语 |\n| `mer_KE` | 梅鲁语（肯尼亚） |\n| `mfe`\
+  \ | 毛里求斯克里奥尔语 |\n| `mfe_MU` | 毛里求斯克里奥尔语（毛里求斯） |\n| `naq` | 纳马语 |\n| `naq_NA` | 纳马语（纳米比亚）\
+  \ |\n| `ne` | 尼泊尔语 |\n| `ne_IN` | 尼泊尔语（印度） |\n| `ne_NP` | 尼泊尔语（尼泊尔） |\n| `nd` |\
+  \ 北恩德贝勒语 |\n| `nd_ZW` | 北恩德贝勒语（津巴布韦） |\n| `nb` | 挪威博克马尔语 |\n| `nb_NO` | 挪威博克马尔语（挪威）\
+  \ |\n| `nn` | 挪威尼诺斯克语 |\n| `nn_NO` | 挪威尼诺斯克语（挪威） |\n| `nyn` | 尼扬科勒语 |\n| `nyn_UG`\
+  \ | 尼扬科勒语（乌干达） |\n| `or` | 奥里亚语 |\n| `or_IN` | 奥里亚语（印度） |\n| `om` | 奥罗莫语 |\n| `om_ET`\
+  \ | 奥罗莫语（埃塞俄比亚） |\n| `om_KE` | 奥罗莫语（肯尼亚） |\n| `ps` | 普什图语 |\n| `ps_AF` | 普什图语（阿富汗）\
+  \ |\n| `fa` | 波斯语 |\n| `fa_AF` | 波斯语（阿富汗） |\n| `fa_IR` | 波斯语（伊朗） |\n| `pl` | 波兰语\
+  \ |\n| `pl_PL` | 波兰语（波兰） |\n| `pt` | 葡萄牙语 |\n| `pt_BR` | 葡萄牙语（巴西） |\n| `pt_GW` |\
+  \ 葡萄牙语（几内亚比绍） |\n| `pt_MZ` | 葡萄牙语（莫桑比克） |\n| `pt_PT` | 葡萄牙语（葡萄牙） |\n| `pa` | 旁遮普语\
+  \ |\n| `pa_Arab_PK` | 旁遮普语（阿拉伯文，巴基斯坦） |\n| `pa_Arab` | 旁遮普语（阿拉伯文） |\n| `pa_Guru_IN`\
+  \ | 旁遮普语（古尔穆基文，印度） |\n| `pa_Guru` | 旁遮普语（古尔穆基文） |\n| `ro` | 罗马尼亚语 |\n| `ro_MD` |\
+  \ 罗马尼亚语（摩尔多瓦） |\n| `ro_RO` | 罗马尼亚语（罗马尼亚） |\n| `rm` | 罗曼什语 |\n| `rm_CH` | 罗曼什语（瑞士）\
+  \ |\n| `rof` | 隆博语 |\n| `rof_TZ` | 隆博语（坦桑尼亚） |\n| `ru` | 俄语 |\n| `ru_MD` | 俄语（摩尔多瓦）\
+  \ |\n| `ru_RU` | 俄语（俄罗斯） |\n| `ru_UA` | 俄语（乌克兰） |\n| `rwk` | 鲁瓦语 |\n| `rwk_TZ` |\
+  \ 鲁瓦语（坦桑尼亚） |\n| `saq` | 桑布鲁语 |\n| `saq_KE` | 桑布鲁语（肯尼亚） |\n| `sg` | 桑戈语 |\n| `sg_CF`\
+  \ | 桑戈语（中非共和国） |\n| `seh` | 塞纳语 |\n| `seh_MZ` | 塞纳语（莫桑比克） |\n| `sr` | 塞尔维亚语 |\n\
+  | `sr_Cyrl_BA` | 塞尔维亚语（西里尔文，波斯尼亚和黑塞哥维那） |\n| `sr_Cyrl_ME` | 塞尔维亚语（西里尔文，黑山） |\n|\
+  \ `sr_Cyrl_RS` | 塞尔维亚语（西里尔文，塞尔维亚） |\n| `sr_Cyrl` | 塞尔维亚语（西里尔文） |\n| `sr_Latn_BA`\
+  \ | 塞尔维亚语（拉丁文，波斯尼亚和黑塞哥维那） |\n| `sr_Latn_ME` | 塞尔维亚语（拉丁文，黑山） |\n| `sr_Latn_RS` |\
+  \ 塞尔维亚语（拉丁文，塞尔维亚） |\n| `sr_Latn` | 塞尔维亚语（拉丁文） |\n| `sn` | 绍纳语 |\n| `sn_ZW` | 绍纳语（津巴布韦）\
+  \ |\n| `ii` | 四川彝语 |\n| `ii_CN` | 四川彝语（中国） |\n| `si` | 僧伽罗语 |\n| `si_LK` | 僧伽罗语（斯里兰卡）\
+  \ |\n| `sk` | 斯洛伐克语 |\n| `sk_SK` | 斯洛伐克语（斯洛伐克） |\n| `sl` | 斯洛文尼亚语 |\n| `sl_SI` |\
+  \ 斯洛文尼亚语（斯洛文尼亚） |\n| `xog` | 索加语 |\n| `xog_UG` | 索加语（乌干达） |\n| `so` | 索马里语 |\n|\
+  \ `so_DJ` | 索马里语（吉布提） |\n| `so_ET` | 索马里语（埃塞俄比亚） |\n| `so_KE` | 索马里语（肯尼亚） |\n| `so_SO`\
+  \ | 索马里语（索马里） |\n| `es` | 西班牙语 |\n| `es_AR` | 西班牙语（阿根廷） |\n| `es_BO` | 西班牙语（玻利维亚）\
+  \ |\n| `es_CL` | 西班牙语（智利） |\n| `es_CO` | 西班牙语（哥伦比亚） |\n| `es_CR` | 西班牙语（哥斯达黎加） |\n\
+  | `es_DO` | 西班牙语（多米尼加共和国） |\n| `es_EC` | 西班牙语（厄瓜多尔） |\n| `es_SV` | 西班牙语（萨尔瓦多） |\n\
+  | `es_GQ` | 西班牙语（赤道几内亚） |\n| `es_GT` | 西班牙语（危地马拉） |\n| `es_HN` | 西班牙语（洪都拉斯） |\n\
+  | `es_419` | 西班牙语（拉丁美洲） |\n| `es_MX` | 西班牙语（墨西哥） |\n| `es_NI` | 西班牙语（尼加拉瓜） |\n|\
+  \ `es_PA` | 西班牙语（巴拿马） |\n| `es_PY` | 西班牙语（巴拉圭） |\n| `es_PE` | 西班牙语（秘鲁） |\n| `es_PR`\
+  \ | 西班牙语（波多黎各） |\n| `es_ES` | 西班牙语（西班牙） |\n| `es_US` | 西班牙语（美国） |\n| `es_UY` | 西班牙语（乌拉圭）\
+  \ |\n| `es_VE` | 西班牙语（委内瑞拉） |\n| `sw` | 斯瓦希里语 |\n| `sw_KE` | 斯瓦希里语（肯尼亚） |\n| `sw_TZ`\
+  \ | 斯瓦希里语（坦桑尼亚） |\n| `sv` | 瑞典语 |\n| `sv_FI` | 瑞典语（芬兰） |\n| `sv_SE` | 瑞典语（瑞典） |\n\
+  | `gsw` | 瑞士德语 |\n| `gsw_CH` | 瑞士德语（瑞士） |\n| `shi` | 塔切尔希特语 |\n| `shi_Latn_MA` |\
+  \ 塔切尔希特语（拉丁文，摩洛哥） |\n| `shi_Latn` | 塔切尔希特语（拉丁文） |\n| `shi_Tfng_MA` | 塔切尔希特语（提非纳文，摩洛哥）\
+  \ |\n| `shi_Tfng` | 塔切尔希特语（提非纳文） |\n| `dav` | 塔伊塔语 |\n| `dav_KE` | 塔伊塔语（肯尼亚） |\n\
+  | `ta` | 泰米尔语 |\n| `ta_IN` | 泰米尔语（印度） |\n| `ta_LK` | 泰米尔语（斯里兰卡） |\n| `te` | 泰卢固语\
+  \ |\n| `te_IN` | 泰卢固语（印度） |\n| `teo` | 泰索语 |\n| `teo_KE` | 泰索语（肯尼亚） |\n| `teo_UG`\
+  \ | 泰索语（乌干达） |\n| `th` | 泰语 |\n| `th_TH` | 泰语（泰国） |\n| `bo` | 藏语 |\n| `bo_CN` |\
+  \ 藏语（中国） |\n| `bo_IN` | 藏语（印度） |\n| `ti` | 提格里尼亚语 |\n| `ti_ER` | 提格里尼亚语（厄立特里亚） |\n\
+  | `ti_ET` | 提格里尼亚语（埃塞俄比亚） |\n| `to` | 汤加语 |\n| `to_TO` | 汤加语（汤加） |\n| `tr` | 土耳其语\
+  \ |\n| `tr_TR` | 土耳其语（土耳其） |\n| `uk` | 乌克兰语 |\n| `uk_UA` | 乌克兰语（乌克兰） |\n| `ur` |\
+  \ 乌尔都语 |\n| `ur_IN` | 乌尔都语（印度） |\n| `ur_PK` | 乌尔都语（巴基斯坦） |\n| `uz` | 乌兹别克语 |\n|\
+  \ `uz_Arab_AF` | 乌兹别克语（阿拉伯文，阿富汗） |\n| `uz_Arab` | 乌兹别克语（阿拉伯文） |\n| `uz_Cyrl_UZ`\
+  \ | 乌兹别克语（西里尔文，乌兹别克斯坦） |\n| `uz_Cyrl` | 乌兹别克语（西里尔文） |\n| `uz_Latn_UZ` | 乌兹别克语（拉丁文，乌兹别克斯坦）\
+  \ |\n| `uz_Latn` | 乌兹别克语（拉丁文） |\n| `vi` | 越南语 |\n| `vi_VN` | 越南语（越南） |\n| `vun`\
+  \ | 温乔语 |\n| `vun_TZ` | 温乔语（坦桑尼亚） |\n| `cy` | 威尔士语 |\n| `cy_GB` | 威尔士语（英国） |\n|\
+  \ `yo` | 约鲁巴语 |\n| `yo_NG` | 约鲁巴语（尼日利亚） |\n| `zu` | 祖鲁语 |\n| `zu_ZA` | 祖鲁语（南非） |\n\
+  \n\n\n## A\n* `AddressSanitizer`\n* `Alcatraz`\n* `AppIcon` 条目\n* App Store 版本检查\n\
+  \  * Objective-C\n  * Swift\n\n## B\n* `Asset Catalogs`\n* Auto layout 自动布局\n  *\
+  \ 对齐视图\n  * 宽高比\n  * 攻克约束问题\n* 反斜杠字符\n* `barTintColor` 属性\n* Base Internationalization\
+  \ 基础国际化\n  * 本地化界面元素\n  * `UIBarButtonItem` 对象\n* 沙滩球问题\n\n## C\n* `CFPreferences`\n\
+  * `CGPostError`\n* Cocoa 应用\n  * `NSPanel` 打开面板\n  * `NSPanel` 保存面板\n* CocoaPods\n\
+  \  * 崩溃问题\n  * 优势\n  * 劣势\n  * 文件/目录\n* 代码签名标识\n* 编译器属性\n* 缩减编译时间\n* Core Data，并发处理\n\
+  \  * 调试\n  * `NSManagedObjectContext` 对象\n  * Objective-C\n  * Swift\n  * 线程限制\n\
+  * 元素计数\n  * `NSArray`\n  * `NS` 字典\n  * Objective-C\n  * Swift\n  * 数组/字典\n* 崩溃问题\n\
+  * CocoaPods 优势\n  * 劣势\n  * 损坏\n\n## D\n* 卸载集成\n* 已弃用的方法、类\n* 开发问题\n* 提取字典\n  *\
+  \ `NSArray`\n  * Objective-C\n  * Swift 变体\n* `DWARF`、`dSYM` 文件\n\n## E\n* 错误消息\n\
+  \  * 沙盒用户验证失败\n  * 退出状态\n  * 响应收据\n\n## F\n* `fastlane` 工具\n* 运行完成问题\n  * 控制台\n\
+  \  * Ubiquity 容器标识符\n\n## G\n* `GitHub`\n* 灰显元素\n\n## H\n* `HandBrake` 工具\n* Handoff\
+  \ 接力\n  * iOS 设备上的活动\n  * 在 Mac 上\n  * 支持\n* 硬 Quartz 错误\n\n## I, J, K, L\n* `iCloud`\n\
+  \  * 调试指示器配置\n  * Objective-C\n  * 存储管理\n  * Swift 验证\n* 图标创建\n  * iOS 应用\n  * Mac\
+  \ 应用\n  * 使用脚本\n* 图像压缩\n* `ImageOptim`\n* 应用内购买，包创建\n  * 批量交付\n  * `ContentInfo.plist`\
+  \ 文件内容\n  * 文件夹\n  * 交付内容\n  * `pkg.extension`\n  * `productbuild` 命令结构\n* `Info.plist`\
+  \ 文件\n* `InfoPlist.strings`\n* `initWithMode` 方法\n* 界面元素\n  * Objective-C\n  * Swift\n\
+  \n## M\n* 内存损坏\n* 缺少可本地化的字符串\n* 缺少配置文件\n\n## N\n* `NSDate`\n  * 公历变量\n  * Objective-C\n\
+  \  * Swift\n* `NSLocale` 代码\n* `NSLog` 产品方案\n* `NSManagedObjectContext` 对象\n* 项目损坏\n\
+  * `NSMutableArray`\n  * 未来展望\n  * Objective-C\n  * 老式 C\n* `NSString` 对象\n* `NSUserDefaults`\n\
+  \n## O\n* Objective-C\n  * `constants.h`\n  * `constants.m`\n\n## P, Q\n* 配置文件\n\
+  \n## R\n* 正则表达式\n  * 查找字段\n  * 替换字段\n  * 搜索命令\n* RenderMe 绝对路径\n  * 期望值\n\n## S\n\
+  * `SBPartialInfo`\n  * 重复引用错误消息\n  * `Info.plist` 文件路径不正确\n  * 目标\n* `NSLayoutConstraint`\n\
+  * `signal SIGABRT` 消息\n* 签名标识\n* Size Classes 选择\n* `SpriteKit`\n  * `didBeginContact`\
+  \ 方法\n  * `physicsBody`\n    * 边界\n    * 凸形状\n    * 非凸形状\n* `StackOverflow`\n\n\
+  ## T\n* `tintColor` 属性\n\n## U\n* Ubiquity 容器标识符\n* `UIButton`\n  * 禁用状态\n  * 启用状态\n\
+  * `UIPickerView`\n  * Objective-C\n  * Swift\n* `UI_USER_INTERFACE_IDIOM()` 方法\n\
+  * `UIView` 基类\n  * Objective-C\n  * Swift\n* `UIViews` 和 `NSViews`\n  * Objective-C\n\
+  \  * Swift\n\n## V, W, X, Y, Z\n* ViewControllers\n  * Objective-C\n  * Swift\n\
+  \  * `UIPageViewControllers`\n  * `viewWillAppear` 方法\n"

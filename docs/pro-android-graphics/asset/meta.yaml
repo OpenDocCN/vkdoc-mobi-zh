@@ -1,0 +1,626 @@
+name: Pro Android Graphics
+name_cn: Android 图形高级指南
+slug: pro-android-graphics
+toc:
+- - '#'
+  - 目录
+- - '##'
+  - 关于作者
+- - '###'
+  - 华莱士·杰克逊
+- - '##'
+  - 关于技术审校
+- - '##'
+  - 致谢
+- - '##'
+  - 第 1 章：Android 数字成像：格式、概念与优化
+- - '###'
+  - 摘要
+- - '###'
+  - Android 的数字图像格式：无损与有损
+- - '###'
+  - Android View 和 ViewGroup 类：图像容器
+- - '###'
+  - 数字图像的基础：像素与宽高比
+- - '###'
+  - 数字图像的颜色：色彩理论与颜色深度
+- - '###'
+  - 在安卓中表示颜色：十六进制表示法
+- - '###'
+  - 图像合成：Alpha 通道与混合模式
+- - '###'
+  - 数字图像蒙版：Alpha 通道的流行应用
+- - '###'
+  - 遮罩边缘平滑：抗锯齿的概念
+- - '###'
+  - 优化数字图像：压缩与抖动
+- - '###'
+  - 下载 Android 环境：Java 和 ADT 捆绑包
+- - '###'
+  - 安装与更新 Android 开发者 ADT 套件
+- - '###'
+  - 总结
+- - '##'
+  - 第 2 章：Android 数字视频：格式、概念与优化
+- - '###'
+  - 摘要
+- - '###'
+  - Android 数字视频格式：MPEG4 H.264 与 WebM VP8
+- - '###'
+  - Android 中的 VideoView 与 MediaPlayer 类：视频播放器
+- - '###'
+  - 数字视频的基础：运动、帧与帧率
+- - '###'
+  - 数字视频规范：比特率、流、标清与高清
+- - '###'
+  - Android 数字视频文件：分辨率密度目标
+- - '###'
+  - 优化数字视频：编解码器与压缩
+- - '###'
+  - 在 Eclipse ADT 中创建您的 Pro Android Graphics 应用
+- - '###'
+  - 排版后的文档
+- - '###'
+  - 创建你的视频启动画面用户界面设计
+- - '###'
+  - 查看你的 MainActivity.java 活动子类
+- - '###'
+  - 创建你的视频素材：使用 Terragen 3 3D 软件
+- - '###'
+  - 创建未压缩视频：使用 VirtualDub 软件
+- - '###'
+  - 压缩视频资源：使用 Sorenson Squeeze
+- - '###'
+  - 在 Android 中安装视频资源：使用 Raw 文件夹
+- - '###'
+  - 在 Android 应用中引用视频资源
+- - '###'
+  - 总结
+- - '##'
+  - 第 3 章：Android 帧动画：XML、概念与优化
+- - '###'
+  - 帧动画概念：赛璐珞片、帧率与分辨率
+- - '###'
+  - 优化帧动画：色彩深度与帧速率
+- - '###'
+  - 使用 XML 标记在 Android 中创建逐帧动画
+- - '###'
+  - Android `<animation-list>` 标签：父级帧容器
+- - '###'
+  - Android `<item>` 标签：指定动画帧
+- - '###'
+  - 为我们的 GraphicsDesign 应用创建逐帧动画
+- - '###'
+  - 复制分辨率密度目标帧
+- - '###'
+  - 使用 XML 创建帧动画定义
+- - '###'
+  - 在 ImageView 中引用帧动画定义
+- - '###'
+  - 图 3-17. 引用 `anim_intro` 帧动画的 `ImageView` 用户界面元素的最终 XML 标记
+- - '###'
+  - 使用 Java 实例化帧动画定义
+- - '###'
+  - 总结
+- - '##'
+  - 第 4 章：Android 程序化动画：XML、概念与优化
+- - '###'
+  - 摘要
+- - '###'
+  - 程序化动画概念：补间与插值器
+- - '###'
+  - 程序化动画数据值：范围与枢轴点
+- - '###'
+  - 程序化动画变换：旋转、缩放、平移
+- - '###'
+  - 程序化动画合成：Alpha 混合
+- - '###'
+  - 程序化动画时序：使用持续时间与偏移
+- - '###'
+  - 程序化动画循环：repeatCount 与 repeatMode
+- - '###'
+  - '`<set>`标签：使用 XML 对程序化动画进行分组'
+- - '###'
+  - 程序化动画与逐帧动画：权衡取舍
+- - '###'
+  - 在图形设计应用中创建过程动画
+- - '###'
+  - 使用 XML 创建过程动画定义
+- - '###'
+  - 在 `MainActivity.java` 中实例化动画对象
+- - '###'
+  - 使用 Set 创建更复杂的程序化动画
+- - '###'
+  - 旋转变换：用 FX 稍微走远一点
+- - '###'
+  - 微调变换值：调整 XML 的便捷性
+- - '###'
+  - 总结
+- - '##'
+  - 第 5 章：Android DIP：设备独立像素图形设计
+- - '###'
+  - 摘要
+- - '###'
+  - Android 如何支持设备显示：UI 设计与 UX
+- - '###'
+  - 设备显示概念：尺寸、密度、方向与 DIP
+- - '###'
+  - 密度无关性：打造相似的用户体验
+- - '###'
+  - 通过 `<supports-screens>` 标签实现安卓多屏支持
+- - '###'
+  - 提供针对设备优化的用户界面布局设计
+- - '###'
+  - 使用 Android 的 SmallestWidth 屏幕配置修饰符
+- - '###'
+  - 使用可用屏幕宽度配置修饰符
+- - '###'
+  - 使用可用屏幕高度配置修饰符
+- - '###'
+  - 提供针对设备优化的可绘制图像资源
+- - '###'
+  - DisplayMetrics 类：尺寸、密度和字体缩放
+- - '###'
+  - 优化适用于 LDPI 到 XXXHDPI 的 Android 应用图标
+- - '###'
+  - 导出新的 144 像素 XXHDPI 启动器图标资源后
+- - '###'
+  - 在新应用图标安装至正确的密度文件夹
+- - '###'
+  - 为自定义应用图标配置 AndroidManifest.xml
+- - '###'
+  - 在 Nexus One 上测试新应用图标和标签
+- - '###'
+  - 摘要
+- - '##'
+  - 第 6 章：Android UI 布局：使用 ViewGroup 类的图形设计
+- - '###'
+  - 摘要
+- - '###'
+  - Android ViewGroup 超类：布局的基础
+- - '###'
+  - ViewGroup LayoutParams 类：布局参数
+- - '###'
+  - 已弃用的布局：AbsoluteLayout 与 SlidingDrawer
+- - '###'
+  - Android 的实验性布局：SlidingPaneLayout
+- - '###'
+  - Android UI 布局容器设计
+- - '###'
+  - 导航抽屉模式
+- - '###'
+  - '`SlidingPaneLayout` 容器'
+- - '###'
+  - Android `RelativeLayout` 类：设计相对布局
+- - '###'
+  - Android `LinearLayout` 类：设计线性布局
+- - '###'
+  - Android FrameLayout 类：设计帧布局
+- - '###'
+  - Android GridLayout 类：设计 UI 布局网格
+- - '###'
+  - '`DrawerLayout` 类：设计 UI 抽屉布局'
+- - '###'
+  - 添加菜单项以访问 UI 布局容器
+- - '###'
+  - 为你的 UI 设计创建目录 Activity
+- - '###'
+  - 创建 XML 格式的目录 LinearLayout UI 设计
+- - '###'
+  - 向 TOC UI 布局容器添加文本 UI 控件
+- - '###'
+  - 使用 `onOptionsItemSelected()` 添加菜单功能
+- - '###'
+  - 在 Nexus One 上测试目录 Activity
+- - '###'
+  - 总结
+- - '##'
+  - 第 7 章：Android UI 控件：使用 View 类进行图形设计
+- - '###'
+  - 摘要
+- - '###'
+  - Android View 类：UI 组件的基础
+- - '###'
+  - View 基本属性：ID、布局定位和尺寸
+- - '###'
+  - 视图定位特性：外边距与内边距
+- - '###'
+  - 查看视图图形属性：背景、Alpha 与可见性
+- - '###'
+  - 视图的功能特性：监听器与焦点
+- - '###'
+  - 书签工具 UI：使用 RelativeLayout 和 TextView
+- - '###'
+  - 使用 ImageView 控件：图形处理的基石
+- - '###'
+  - 在 Nexus One 横向模式下测试你的 UI 设计
+- - '###'
+  - 为 ImageView 图像资源添加投影效果
+- - '###'
+  - 更改 ImageView 的 XML 以加入新资源
+- - '###'
+  - 在 RelativeLayout 中添加背景图像
+- - '###'
+  - 总结
+- - '##'
+  - 第 8 章：高级 ImageView：使用 ImageView 进行更多图形设计
+- - '###'
+  - 摘要
+- - '###'
+  - Android 中的图形：`ImageView` 类的起源
+- - '###'
+  - '`ImageView.ScaleType` 嵌套类：缩放控制'
+- - '###'
+  - 使用 AdjustViewBounds 及其与 ScaleType 的关系
+- - '###'
+  - MaxWidth 和 MaxHeight：控制 AdjustViewBounds
+- - '###'
+  - 在 ImageView 中设置基准线并控制对齐方式
+- - '###'
+  - 使用 `CropToPadding` 方法裁剪您的 ImageView
+- - '###'
+  - 使用 `PorterDuff` 为 ImageView 着色与颜色混合
+- - '###'
+  - 为 `SkyCloud` 图像应用色调以改善阴影对比度
+- - '###'
+  - 使用 CropByPadding 裁剪你的 SkyCloud 图片资源
+- - '###'
+  - 更改 ImageView 的基线对齐索引
+- - '###'
+  - 执行图像缩放：边距（Margin）与内边距（Padding）属性
+- - '###'
+  - 本章小结
+- - '##'
+  - 第 9 章：高级 ImageButton：创建自定义多状态 ImageButton
+- - '###'
+  - 摘要
+- - '###'
+  - Android 中的按钮图形：ImageButton 类概述
+- - '###'
+  - ImageButton 状态：正常、按下、聚焦与悬停
+- - '###'
+  - ImageButton Drawable 资源：合成按钮状态
+- - '###'
+  - ImageButton 的可绘制对象：设置多状态 XML
+- - '###'
+  - 创建所有 ImageButton 状态资源：密度分辨率
+- - '###'
+  - 将 ImageButton 缩小至类似 UI 元素的尺寸
+- - '###'
+  - 总结
+- - '##'
+  - 第 10 章：使用 9-Patch 成像技术创建可扩展成像元素
+- - '###'
+  - 摘要
+- - '###'
+  - Android NinePatchDrawable：NinePatch 的基础
+- - '###'
+  - NinePatch 图形资源：9-Patch 概念概述
+- - '###'
+  - Android NinePatch 类：创建 NinePatch 资源
+- - '###'
+  - Draw 9-Patch 工具：创建 NinePatchDrawable 资源
+- - '####'
+  - 10-4. 绘制顶部水平拉伸区域：用单像素黑色线段定义活动 X 轴区域
+- - '####'
+  - 10-6. 绘制左侧垂直拉伸区域：用单像素黑色线段定义活动 Y 轴区域
+- - '####'
+  - 10-7. 水平和垂直拉伸区域的单像素黑色线段现已定义好活动轴区域
+- - '####'
+  - 10-8. 使用右侧和底部的单像素黑色线段定义内边距区域
+- - '####'
+  - 10-9. 通过右侧单像素黑色线段调整内边距区域以显示拉伸区域调整指引
+- - '####'
+  - 10-10. 最终定义的拉伸区域和内边距区域，并通过鼠标悬停中心区域获取拉伸区域坐标
+- - '###'
+  - 使用 XML 标记实现你的九宫格资源
+- - '##'
+  - 第 11 章：高级图像混合：使用 Android PorterDuff 类
+- - '###'
+  - 本章小结
+- - '###'
+  - 像素混合：将图像合成提升至新高度
+- - '###'
+  - Android 的 PorterDuff 类：混合的基础
+- - '###'
+  - PorterDuff.Mode 类：Android 混合常量
+- - '###'
+  - '`PorterDuffColorFilter`类：混合你的`ColorFilter`'
+- - '###'
+  - 使用 PorterDuff 将 ColorFilter 效果应用于图像资源
+- - '###'
+  - '`PorterDuffXfermode`类：应用混合常量'
+- - '###'
+  - '`Paint`类：将混合常量应用到图像上'
+- - '###'
+  - 使用位图类在图像间应用 PorterDuff 混合模式
+- - '###'
+  - 使用 `.setXfermode()` 方法应用 PorterDuffXfermode
+- - '###'
+  - Canvas 类：为合成创建画布
+- - '###'
+  - 在 XML 和 Java 中创建 ImageView 以显示 Canvas
+- - '###'
+  - 通过`.setImageBitmap()`将 Canvas 写入 ImageView
+- - '###'
+  - 总结
+- - '##'
+  - 第 12 章：高级图像合成：使用 `LayerDrawable` 类
+- - '###'
+  - 摘要
+- - '###'
+  - 图层绘制对象：将图像合成提升至新高度
+- - '###'
+  - Android 的 `LayerDrawable` 类：图层的基础
+- - '###'
+  - '`<layer-list>` 父标签：使用 XML 设置图层'
+- - '###'
+  - 实例化用于 PorterDuff 合成的 `LayerDrawable`
+- - '###'
+  - 创建一个 `Drawable` 对象来保存 `LayerDrawable` 资源
+- - '###'
+  - 将 Drawable 转换为 BitmapDrawable 并提取 Bitmap
+- - '###'
+  - 修改 PorterDuff 管线以使用 LayerDrawable
+- - '###'
+  - 切换 LayerDrawable 图像资源：源图与目标图
+- - '###'
+  - 更改流水线中使用的 LayerDrawable 层
+- - '###'
+  - 读者练习：使用两个 `LayerDrawable` 资源
+- - '###'
+  - Android 中数字图像合成的若干注意事项
+- - '###'
+  - 总结
+- - '##'
+  - 第 13 章：数字图像过渡：使用 `TransitionDrawable` 类
+- - '###'
+  - 过渡效果：通过图像混合创建运动幻觉
+- - '###'
+  - Android 的 TransitionDrawable 类：过渡引擎
+- - '###'
+  - '`<transition>` 父标签：在 XML 中设置过渡动画'
+- - '###'
+  - 实例化 ImageButton 与 TransitionDrawable 对象
+- - '###'
+  - 使用 `.reverseTransition()` 方法实现乒乓过渡效果
+- - '###'
+  - 通过 ImageView 实现高级 TransitionDrawable 合成
+- - '###'
+  - 小结
+- - '##'
+  - 第 14 章：基于帧的动画：使用 AnimationDrawable 类
+- - '###'
+  - 摘要
+- - '###'
+  - AnimationDrawable 类：帧动画引擎
+- - '###'
+  - DrawableContainer 类：一个可包含多个 Drawable 的 Drawable
+- - '###'
+  - 使用 Java 创建你的 `AnimationDrawable` 闪屏
+- - '###'
+  - 使用 Android Runnable 类运行动画
+- - '###'
+  - 为你的动画创建 setUpAnimation() 方法
+- - '###'
+  - 创建一个新的 AnimationDrawable 对象并引用其帧
+- - '###'
+  - 使用 `AnimationDrawable` 类的 `.addFrame()` 方法
+- - '###'
+  - 使用 `.setOneShot()` 配置 `AnimationDrawable`
+- - '###'
+  - 使用 `Handler` 类调度 `AnimationDrawable`
+- - '###'
+  - 设计一个循环回到第一帧的 AnimationDrawable
+- - '###'
+  - 添加事件处理以实现点击触发帧动画
+- - '###'
+  - 总结
+- - '##'
+  - 第 15 章：程序化动画：使用动画类
+- - '###'
+  - 动画类：你的程序化动画引擎
+- - '###'
+  - TranslateAnimation 类：用于移动的动画子类
+- - '###'
+  - ScaleAnimation 类：用于缩放的动画子类
+- - '###'
+  - 缩放你的标志：使用 `ScaleAnimation` 类
+- - '###'
+  - AlphaAnimation 类：用于混合的动画子类
+- - '###'
+  - 淡入您的 PAG 徽标：使用 AlphaAnimation 类
+- - '###'
+  - AnimationSet 类：创建复杂的动画集
+- - '###'
+  - 为你的 PAG 标志动画创建 AnimationSet
+- - '###'
+  - '`RotateAnimation` 类：用于旋转的动画子类'
+- - '###'
+  - 旋转 PAG 标志：使用 `RotateAnimation` 类
+- - '###'
+  - 使用 Android Runnable 类运行 AnimationSet
+- - '###'
+  - 为您的 AnimationSet 创建一个 TranslateAnimation 对象
+- - '###'
+  - 总结
+- - '##'
+  - 第 16 章：高级图形：掌握 Drawable 类
+- - '###'
+  - 摘要
+- - '###'
+  - Android 可绘制资源：可绘制对象的类型
+- - '###'
+  - 创建 ShapeDrawable 对象：XML `<shape>` 父标签
+- - '###'
+  - Android Drawable 类：图形蓝图
+- - '###'
+  - 创建自定义 Drawable：ImageRoundingDrawable
+- - '###'
+  - 创建用于绘制 Drawable 画布的 Paint 对象
+- - '###'
+  - Android Shader 超类：用于绘制的纹理映射
+- - '###'
+  - Shader.TileMode 嵌套类：着色器平铺模式
+- - '###'
+  - BitmapShader 类：使用位图进行纹理映射
+- - '###'
+  - 为 Drawable 创建并配置 BitmapShader
+- - '###'
+  - Android 的 Rect 和 RectF 类：定义绘图区域
+- - '###'
+  - 定义你的 `RectF` 对象并调用 `drawRoundRect()`
+- - '###'
+  - Java InputStream 类：读取原始数据流
+- - '###'
+  - 总结
+- - '##'
+  - 第 17 章：交互式绘图：交互使用 Paint 和 Canvas 类
+- - '###'
+  - 摘要
+- - '###'
+  - Android 的 onDraw() 方法：在屏幕上绘图
+- - '###'
+  - Android Canvas 类：数字工匠的画布
+- - '###'
+  - Android Paint 类：数字工匠的画笔
+- - '###'
+  - 为图形设计项目设置画板
+- - '####'
+  - 创建自定义视图类：你的 `SketchPadView` 类
+- - '####'
+  - Android 的 `Context` 类：告知 Activity 所处位置
+- - '###'
+  - 配置你的`SketchPadView()`构造方法
+- - '###'
+  - 创建一个`Coordinate`类来跟踪触摸点的 X 和 Y 坐标
+- - '###'
+  - Java 列表工具类：让集合井然有序
+- - '###'
+  - Java 的 ArrayList 工具类：一种基于集合列表的数组
+- - '###'
+  - 创建 ArrayList 对象来保存触摸点数据
+- - '###'
+  - 实现 `onDraw()` 方法：绘制画布
+- - '###'
+  - 创建 `OnTouchListener()` 方法：事件处理
+- - '###'
+  - Android 的 MotionEvent 类：Android 中的移动数据
+- - '###'
+  - 处理你的移动数据：使用 .getX() 和 .getY()
+- - '###'
+  - 编写你的 SketchPad 活动：使用 `SketchPadView`
+- - '###'
+  - 测试 SketchPad 活动类：手写一个 PAG 徽标
+- - '###'
+  - 使用位图源绘制：实现你的 InkShader
+- - '###'
+  - 总结
+- - '##'
+  - 第 18 章：使用 VideoView 和 MediaPlayer 类播放视频
+- - '###'
+  - 摘要
+- - '###'
+  - 视频的一生：视频播放生命周期的各个阶段
+- - '###'
+  - 视频的存储位置：数据 URI 与 Android 的 Uri 类
+- - '###'
+  - Android `MediaPlayer` 类：控制视频播放
+- - '###'
+  - Android `VideoView` 类：视频资产容器
+- - '###'
+  - 使用 `MediaPlayer` 类：无缝循环播放视频
+- - '###'
+  - 设置视频素材缩放以适配任意屏幕宽高比
+- - '###'
+  - 优化视频素材分辨率目标范围
+- - '###'
+  - 使用 16:9 低分辨率 640x360 数字视频素材
+- - '###'
+  - 使用上网本分辨率 1024x600 数字视频素材
+- - '###'
+  - 使用低高清分辨率 1280x720 数字视频素材
+- - '###'
+  - 为 iTV 使用真正高清 1920x1080 数字视频素材
+- - '###'
+  - 分析目标分辨率压缩比结果
+- - '###'
+  - 使用 WebM VP8 编解码器压缩伪高清视频
+- - '###'
+  - 使用 WebM VP8 编解码器压缩真高清视频
+- - '###'
+  - 摘要
+- - '##'
+  - 第 19 章：从外部媒体服务器流式传输数字视频
+- - '###'
+  - 摘要
+- - '###'
+  - 可以流式传输视频吗？设置清单的网络权限
+- - '###'
+  - 当视频远在他方：HTTP URL 与你的 URI
+- - '###'
+  - '`ProgressDialog` 类：展示你的下载进度'
+- - '###'
+  - 在 `GraphicsDesign` 应用中实现 `ProgressDialog`
+- - '###'
+  - 测试进度对话框：处理编译器错误
+- - '###'
+  - 使用 WebM VP8 视频编解码器进行数字视频流传输
+- - '###'
+  - 让您的视频播放应用感知屏幕方向
+- - '###'
+  - Android 显示类：物理显示特性
+- - '###'
+  - Android DisplayManager 类：管理显示器
+- - '###'
+  - Android 的 WindowManager 接口：管理窗口
+- - '###'
+  - 设置 Display 对象以确定设备旋转方向
+- - '###'
+  - Android 的`Surface`类：获取显示器的原始缓冲区
+- - '###'
+  - 使用`.getRotation()`方法调用驱动`Switch`循环
+- - '###'
+  - 测试竖屏和横屏模式下的流媒体视频
+- - '###'
+  - 关于在 Android 中使用数字视频的一些注意事项
+- - '###'
+  - Android 的 DisplayMetrics 类：显示屏的规格说明
+- - '###'
+  - 总结
+- - '##'
+  - Pro Android Graphics — 索引
+- - '###'
+  - A
+- - '###'
+  - B
+- - '###'
+  - C
+- - '###'
+  - D
+- - '###'
+  - E
+- - '###'
+  - F
+- - '###'
+  - G
+- - '###'
+  - H
+- - '###'
+  - I
+- - '###'
+  - J, K
+- - '###'
+  - L
+- - '###'
+  - M
+- - '###'
+  - N
+- - '###'
+  - O
+- - '###'
+  - P, Q
+- - '###'
+  - R
+- - '###'
+  - S

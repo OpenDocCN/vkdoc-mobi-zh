@@ -1,0 +1,10872 @@
+# 存储数据：SQLite 与其他选项
+
+第 2 章 解释了组成 Core Data 框架的各个类，以及它们之间协同工作的相互依赖关系和精确性。接下来的章节将解释并演示该框架在获得期望结果方面的灵活性，但框架的灵活性是有一定限度的。该框架为数据的存入和取出规定了结构、顺序和规则。你必须按照这种顺序和结构，以 Core Data 的方式行事，才能可靠地存储和检索数据。然而，在定义持久化存储的外观或运作方式时，Core Data 的束缚便不复存在。尽管人们倾向于认为数据“属于”数据库，并且苹果公司提供并将 SQLite 数据库作为 Core Data 持久化存储的默认选项，但你还有其他的选择；你的数据可以以你想要的任何形式存储。在大多数情况下，你可能会对默认的 SQLite 数据库感到满意，但本章将讨论其他选项以及它们可能适用的场景。
+
+在本章中，你将构建一个包含两个表以及它们之间的一对多关系的简单应用程序。假设你自愿管理一个青少年足球联赛，并试图跟踪各支球队的信息。在你的数据模型中，有一个 `Team` 表记录球队名称和队服颜色，还有一个 `Player` 表记录每位球员的名字、姓氏和电子邮件地址。一支球队有多名球员，而每名球员只属于一支球队。你先为 SQLite 构建这个应用程序，然后将其移植到其他持久化存储选项：内存存储和原子（或自定义）存储。请跟随步骤操作，并随意将数据存储到 SQLite 或你能想到的任何其他持久化存储中。
+
+
+
+### 可视化用户界面
+
+League Manager 应用包含四个界面：
+- 球队列表
+- 添加/编辑球队
+- 球员列表
+- 添加/编辑球员
+
+球队列表界面会列出应用内存储的所有球队及其球衣颜色。界面中有一个用于添加球队的 `+` 按钮，以及一个用于删除球队的编辑按钮。该界面如图 3–1 所示。
+
+![images](img/0301.jpg)
+
+**图 3–1.** *球队列表界面*
+
+添加/编辑球队界面提供了用于输入球队名称和球衣颜色的字段。该界面如图 3–2 所示。你可以通过点击球队列表界面中的 `+` 按钮来添加新球队，或通过点击现有球队来编辑其名称和球衣颜色，从而显示此界面。
+
+![images](img/0302.jpg)
+
+**图 3–2.** *添加/编辑球队界面*
+
+球员列表界面列出了特定球队的所有球员。通过点击任意球队旁边的详细信息展开按钮即可进入该界面。如图 3–3 所示，该界面有一个用于添加新球员的 `+` 按钮和一个用于删除球员的编辑按钮。
+
+![images](img/0303.jpg)
+
+**图 3–3.** *球员列表界面*
+
+与添加/编辑球队界面类似，添加/编辑球员界面允许用户添加或编辑球员，并提供了相应的字段：名、姓和电子邮件地址。该界面如图 3–4 所示。你可以通过点击球员列表界面中的 `+` 按钮来添加新球员，或通过点击现有球员来编辑其数据。
+
+![images](img/0304.jpg)
+
+**图 3–4.** *添加/编辑球员界面*
+
+现在你已了解要构建的内容，让我们开始吧。
+
+### 使用 SQLite 作为持久化存储
+
+在本节中，你将构建一个基于 Core Data 的应用，本章将使用该应用来演示不同的持久化存储选项。你将从 Xcode 的 Core Data 模板开始，在生成的代码基础上构建一个应用，该应用可以存储一组球队和一组球员，并允许用户对其进行维护。不要过分关注应用代码或用户界面；相反，应聚焦于背后的持久化存储及其多种形式。
+
+首先，启动 Xcode，选择 `File` ![images](img/U001.jpg) `New` ![images](img/U001.jpg) `New Project`。在弹出的对话框左侧的 iOS 下选择 Application，在右侧选择 Master-Detail Application，如图 3–5 所示。点击 Next 按钮。在项目选项中，为 Product Name 输入 **League Manager**，为 Company Identifier 输入 **book.coredata**，并勾选 Use Core Data 复选框，如图 3–6 所示。
+
+![images](img/0305.jpg)
+
+**图 3–5.** *选择 Master-Detail Application 模板*
+
+![images](img/0306.jpg)
+
+**图 3–6.** *命名项目并选择使用 Core Data*
+
+将项目保存到你通常保存项目的位置。
+
+就当前目的而言，League Manager 应用中最有趣的部分是数据模型。理解持久化存储依赖于创建并理解合适的数据模型，因此请仔细且精确地完成这一部分。通过选择 `League_Manager.xcdatamodeld` 在 Xcode 中打开数据模型。Xcode 右侧会显示生成的数据模型，其中包含一个名为 `Event` 的实体和一个名为 `timeStamp` 的属性。选中 `Event` 实体并按 Delete 键将其删除，这样你将得到一个空的数据模型，如图 3–7 所示。
+
+![images](img/0307.jpg)
+
+**图 3–7.** *空数据模型*
+
+League Manager 数据模型需要两个实体：一个用于存储球队，另一个用于存储球员。对于球队，你需要跟踪两个属性：名称和球衣颜色。对于球员，你需要跟踪三个属性：名、姓和电子邮件地址（这样你就可以联系球员，通知他们训练、比赛以及负责分发橙子片的时间安排）。你还需要记录哪些球员为哪支球队效力，以及某位球员为哪支球队效力。首先创建 `Team` 实体：点击 Xcode 底部显示的 Add Entity 按钮。（它可能显示为 Add Fetch Request 或 Add Configuration；如果是这样，请点击并按住以从菜单中选择 Add Entity。）Xcode 会创建一个名为 `Entity` 的新实体，其名称已高亮显示，方便你直接输入 **Team** 并按 Enter 键。现在点击 Add Attribute 按钮（它可能显示为 Add Property 或 Add Fetched Property；如果是这样，请点击并按住以从菜单中选择 Add Attribute）并输入 `name` 作为新属性的名称。请注意，你也可以点击 Attributes 部分底部的 `+` 按钮来添加属性。从 Type 下拉菜单中选择 `String`。现在按照相同步骤创建第二个属性，但将其命名为 `uniformColor`，并选择 `String` 类型。你的数据模型应如图 3–8 所示。
+
+![images](img/0308.jpg)
+
+**图 3–8.** *球队数据模型*
+
+在创建球队与球员之间的一对多关系之前，你必须先有球员供球队关联。创建另一个名为 `Player` 的实体，包含三个属性，均为 `String` 类型：`firstName`、`lastName` 和 `email`。你的数据模型现在应如图 3–9 所示。
+
+![images](img/0309.jpg)
+
+**图 3–9.** *球队与球员数据模型*
+
+#### 配置一对多关系
+
+要创建 `Team` 实体与 `Player` 实体之间的一对多关系，请选中 `Team` 实体，然后点击 Relationships 部分下方的 `+` 按钮。将此关系命名为 `players`，并从 Destination 下拉菜单中选择 `Player`。在数据模型检查器中，保持 Optional 复选框处于选中状态。勾选 To-Many Relationship 复选框；一支球队可以拥有多名球员。对于 Delete Rule，从下拉菜单中选择 Cascade，这样删除一支球队时会将其所有球员一并删除。你暂时还无法在 Inverse 下拉菜单中选择反向关系，因为你尚未创建反向关系。Relationship information 部分应如图 3–10 所示。
+
+![images](img/0310.jpg)
+
+**图 3–10.** *球员关系选项*
+
+接下来，通过选中 `Player` 实体，添加一个关系并将其命名为 `team`，来创建从 `Player` 实体到 `Team` 实体的反向关系。从 Destination 列中选择 `Team`，从 Inverse 列中选择 `players`。保持关系选项为默认值。现在，你应该能够选中 `Team` 实体并验证其 `players` 关系已有反向关系：`team`。你的 Xcode 窗口应如图 3–11 所示。
+
+![images](img/0311.jpg)
+
+**图 3–11.** *完整的 League Manager 数据模型*
+
+
+
+### 构建用户界面
+
+数据模型完成后，`League Manager` 现在需要代码来显示数据。`Xcode` 生成了显示球队列表所需的大部分代码；接下来的任务是调整代码，因为生成的代码是为显示 `Event` 实体准备的，而 `Event` 实体在数据模型中已不存在。这些代码位于 `MasterViewController.h` 和 `MasterViewController.m` 中，因此首先打开 `MasterViewController.h` 文件。注意，它有两个成员：一个 `NSManagedObjectContext` 实例和一个 `NSFetchedResultsController` 实例。你可以将 `NSManagedObjectContext` 实例（即你认识的应用对象上下文）移动到应用的委托（`League_ManagerAppDelegate`）中，但在这个简单的应用中，我们暂且将其保留在此处。`NSFetchedResultsController` 实例与表格视图协同工作以显示你的球队。
+
+你需要一个添加球队的方法，因此在 `MasterViewController.h` 中声明一个名为 `insertTeamWithName:` 的方法。此外，生成的代码在几个地方保存了上下文，因此遵循“不要重复自己（DRY）”原则，将其全部移到一个名为 `saveContext:` 的方法中。`MasterViewController.h` 的代码现在如下所示，新方法声明以粗体显示：
+
+```objc
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
+@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (void)insertTeamWithName:(NSString *)name uniformColor:(NSString *)uniformColor;
+- (void)saveContext;
+
+@end
+```
+
+打开 `MasterViewController.m` 文件，在 `initWithNibName:bundle:` 方法中调整视图标题，该方法为应用设置了标题。该行代码如下所示：
+
+```objc
+self.title = NSLocalizedString(@"League Manager", @"League Manager");
+```
+
+现在在 `MasterViewController.m` 中定义 `insertTeamWithName:` 方法。该方法如下所示：
+
+```objc
+- (void)insertTeamWithName:(NSString *)name uniformColor:(NSString *)uniformColor {
+    // 创建由获取结果控制器管理的实体新实例。
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObject *newManagedObject = [NSEntityDescription
+insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+
+    // 配置新球队
+    [newManagedObject setValue:name forKey:@"name"];
+    [newManagedObject setValue:uniformColor forKey:@"uniformColor"];
+
+    // 保存上下文
+    [self saveContext];
+}
+```
+
+这段代码从应用的 `fetchedResultsController` 中获取托管对象上下文，然后在该托管对象上下文中插入一个新的 `NSManagedObject` 实例。注意，它并未指定要插入的新实体名为 `Team`。该名称在 `fetchedResultsController` 的访问器中定义。生成的代码使用了名称 `Event`，因此找到 `fetchedResultsController` 中如下所示的一行：
+
+```objc
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event"
+inManagedObjectContext:self.managedObjectContext];
+```
+
+并将其更改为：
+
+```objc
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"Team"
+inManagedObjectContext:self.managedObjectContext];
+```
+
+此外，你还会注意到 `fetchedResultsController` 方法中生成的模型残留：对名为 `timeStamp` 属性的引用，该属性用于对获取的结果进行排序（第 6 章讨论了排序及其工作原理）。将其改为按球队名称升序排序，因此这一行：
+
+```objc
+NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp"
+ascending:NO];
+```
+
+现在看起来像这样：
+
+```objc
+NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
+ascending:YES];
+```
+
+在创建了代表新球队的托管对象后，`insertTeamWithName:` 方法中的代码使用传入的参数设置其名称和队服颜色：
+
+```objc
+[newManagedObject setValue:name forKey:@"name"];
+[newManagedObject setValue:uniformColor forKey:@"uniformColor"];
+```
+
+最后，`insertTeamWithName:` 方法通过调用你声明但尚未定义的 `saveContext:` 方法来保存对象图（包括新球队）。你可以通过从 `Xcode` 生成的现已多余的 `insertNewObject:` 方法中剪切并粘贴那段代码来定义它。剪切该代码段后，删除 `insertNewObject:` 方法，并按如下方式定义 `saveContext:`：
+
+```objc
+- (void)saveContext {
+    NSManagedObjectContext *context = [self.fetchedResultsController
+managedObjectContext];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        /*
+         替换此实现，以合适的方式处理错误。
+
+         abort() 会导致应用生成崩溃日志并终止。你绝不应在发布的应用中使用此函数，
+尽管它在开发过程中可能有用。如果无法从错误中恢复，请显示一个提示用户按 Home 键退出应用的警告面板。
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+```
+
+保留生成的注释，以提醒你调用 `abort` 是一种非常不友好的错误处理方式。第 10 章讨论了合适的错误处理方式。既然你现在有了一个可重用的方法来保存上下文，请将 `commitEditingStyle:` 方法中的那段代码替换为对新的 `saveContext:` 方法的调用。
+
+
+
+### 配置表格
+
+表格单元格仍在配置为显示`Event`实体，而不是`Team`实体。您希望在每个表格单元格中显示团队的两项信息：团队名称和队服颜色。为此，首先在`cellForRowAtIndexPath:`方法中修改所创建的单元格样式以及使用的`CellIdentifier`。将这一行：
+
+```
+static NSString *CellIdentifier = @"Cell";
+```
+
+改为：
+
+```
+static NSString *CellIdentifier = @"TeamCell";
+```
+
+并将创建的表格单元格样式从`UITableViewCellStyleDefault`更改为`UITableViewCellStyleValue1`，使这一行：
+
+```
+cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+reuseIdentifier:CellIdentifier];
+```
+
+变为如下形式：
+
+```
+cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+reuseIdentifier:CellIdentifier];
+```
+
+生成的代码中已创建了一个名为`configureCell:atIndexPath:`的方法，该方法负责配置单元格。将这个方法从配置`Event`实体改为配置`Team`实体。您还希望能够从团队下钻查看其球员，因此为每个单元格添加一个详细信息展开按钮。生成的方法如下所示：
+
+```
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *managedObject = [self.fetchedResultsController
+        objectAtIndexPath:indexPath];
+    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+}
+```
+
+将其修改为如下形式：
+
+```
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *managedObject = [self.fetchedResultsController
+        objectAtIndexPath:indexPath];
+    cell.textLabel.text = [[managedObject valueForKey:@"name"] description];
+    cell.detailTextLabel.text = [[managedObject valueForKey:@"uniformColor"] description];
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+}
+```
+
+### 创建团队
+
+应用程序目前功能还很少。例如，您无法添加团队或任何球员。不过，现在正是编译并运行应用程序以确保一切进展顺利的好时机。如果应用程序此时无法构建或运行，请返回并检查您的数据模型和代码，确保与之前显示的代码一致，然后再继续。
+
+主-从应用程序模板还创建了一个名为`DetailViewController`的控制器。您可以重用这个类，但由于我们希望同时显示团队和球员的详细信息，最佳做法是删除它并为控制器重新命名。删除`MasterViewController.m`文件顶部的`#import "DetailViewController.h"`行。找到`tableView:didSelectRowAtIndexPath:`方法并将其清空，如下所示：
+
+```
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+```
+
+然后，您可以安全地删除这三个`DetailViewController`文件（`.h`、`.m`和`.xib`）。
+
+如果您运行应用程序并点击 + 按钮添加团队，会注意到应用程序崩溃了。+ 按钮仍然连接到您已经删除的`insertNewObject:`方法。您需要将其连接到一个允许您创建新团队的方法。创建新团队的设计需要一个模态窗口，让您输入团队名称和队服颜色。您也可以重复使用这个模态窗口来编辑现有团队，用户可以通过点击团队单元格进行编辑。通过选择 Xcode 菜单中的 `File` → `New` → `New File`，然后在左侧 iOS 下选择 Cocoa Touch Class，右侧选择`UIViewController`子类来创建这个模态窗口，如图 3–12 所示，然后点击 Next 按钮。
+
+![images](img/0312.jpg)
+
+**图 3–12.** *为新建团队添加视图控制器*
+
+将类命名为`TeamViewController`，使其成为`UIViewController`的子类，并勾选“With XIB for user interface”复选框，如图 3–13 所示，然后点击 Next。
+
+![images](img/0313.jpg)
+
+**图 3–13.** *为新团队的视图控制器选择选项*
+
+打开新的头文件（`TeamViewController.h`）。在 League Manager 中，`MasterViewController`类控制管理对象上下文，因此`TeamViewController`需要一个对它的引用和一个相应的初始化方法。由于您可以使用该控制器编辑团队以及创建新团队，因此允许调用代码传递一个团队对象进行编辑，并为此存储一个属性并添加到初始化方法中。用户界面有两个文本字段，一个用于团队名称，一个用于队服颜色，因此`TeamViewController`需要为这些字段提供属性。用户界面还有两个按钮：Save 和 Cancel，因此`TeamViewController`必须具有连接到这些按钮的方法。综合以上所有内容，您将得到如清单 3–1 所示的`TeamViewController.h`。
+
+**清单 3–1.** *TeamViewController.h*
+
+```
+#import <UIKit/UIKit.h>
+
+@class MasterViewController;
+
+@interface TeamViewController : UIViewController {
+    IBOutlet UITextField *name;
+    IBOutlet UITextField *uniformColor;
+    NSManagedObject *team;
+    MasterViewController *masterController;
+}
+@property (nonatomic, retain) UITextField *name;
+@property (nonatomic, retain) UITextField *uniformColor;
+@property (nonatomic, retain) NSManagedObject *team;
+@property (nonatomic, retain) MasterViewController *masterController;
+
+- (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:
+    (NSManagedObject *)aTeam;
+
+@end
+```
+
+
+
+现在打开 `TeamViewController.m`；导入 `MasterViewController.h`；删除 `initWithNibName:` 方法；为 `name`、`uniformColor`、`team` 和 `masterController` 添加 `@synthesize` 语句。接下来，添加一个如下所示的 `initWithMasterController:` 方法的定义：
+
+```
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:
+(NSManagedObject *)aTeam {
+  if ((self = [super init])) {
+    self.masterController = aMasterController;
+    self.team = aTeam;
+  }
+  return self;
+}
+```
+
+在用户添加新团队的情况下，`aTeam` 参数将为 `nil`，并且 `TeamViewController.m` 将负责创建新团队。然而，在用户编辑现有团队的情况下，你必须获取现有团队的属性值，并将它们放入相应的文本字段中。在 `viewDidLoad:` 方法中执行此操作，如下所示：
+
+```
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  if (team != nil) {
+    name.text = [team valueForKey:@"name"];
+    uniformColor.text = [team valueForKey:@"uniformColor"];
+  }
+}
+```
+
+最后，实现 `save:` 和 `cancel:` 方法，以便此控制器能够在用户点击保存或取消按钮时做出适当的响应。`save:` 方法会检查非 `nil` 的 `masterController` 实例，然后通过检查其 `team` 成员是否为 `nil` 来决定是创建新团队还是编辑现有团队。如果 `team` 不是 `nil`，它将更新现有团队的值，并请求 `masterController` 成员保存其上下文。如果 `team` 是 `nil`，它将请求 `MasterViewController` 实例在托管对象上下文中创建一个新团队，并传递用户输入的团队名称和队服颜色。最后，它关闭自身。方法的实现如下所示：
+
+```
+- (IBAction)save:(id)sender {
+  if (masterController != nil) {
+    if (team != nil) {
+      [team setValue:name.text forKey:@"name"];
+      [team setValue:uniformColor.text forKey:@"uniformColor"];
+      [masterController saveContext];
+    } else {
+      [masterController insertTeamWithName:name.text uniformColor:uniformColor.text];
+    }
+  }
+  [self dismissModalViewControllerAnimated:YES];
+}
+```
+
+`cancel:` 方法则简单地关闭自身。整个文件应如列表 3–2 所示。
+
+**列表 3–2.** *TeamViewController.m*
+
+```
+#import "TeamViewController.h"
+#import "MasterViewController.h"
+
+@implementation TeamViewController
+
+@synthesize name;
+@synthesize uniformColor;
+@synthesize team;
+@synthesize masterController;
+
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:
+(NSManagedObject *)aTeam {
+  if ((self = [super init])) {
+    self.masterController = aMasterController;
+    self.team = aTeam;
+  }
+  return self;
+}
+
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+}
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  if (team != nil) {
+    name.text = [team valueForKey:@"name"];
+    uniformColor.text = [team valueForKey:@"uniformColor"];
+  }
+}
+
+- (void)viewDidUnload {
+  [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+  return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button handlers
+
+- (IBAction)save:(id)sender {
+  if (masterController != nil) {
+    if (team != nil) {
+      [team setValue:name.text forKey:@"name"];
+      [team setValue:uniformColor.text forKey:@"uniformColor"];
+      [masterController saveContext];
+    } else {
+      [masterController insertTeamWithName:name.text uniformColor:uniformColor.text];
+    }
+  }
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)cancel:(id)sender {
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+@end
+```
+
+编写好支持用户界面的代码后，就可以构建标签、文本字段和按钮了，用户将通过它们来创建团队。在 Xcode 中打开 `TeamViewController.xib`。你应该会看到一个空白视图。将两个 `Label` 实例拖到视图上，并将它们的内容修改为 **Team Name:** 和 **Uniform Color:**。将两个 `Text Field` 实例拖到视图上，并将它们与标签右侧对齐。将两个 `Round Rect Button` 实例拖到 `Label` 和 `Text Field` 控件的下方，并将它们的标签改为 **Save** 和 **Cancel**。你的视图应如图 3–14 所示。
+
+![images](img/0314.jpg)
+
+**图 3–14.** *更新后的团队视图*
+
+通过按住 Ctrl 键并将 File's Owner 图标分别拖拽到对应的 `Text Field` 实例上，然后从弹出菜单中选择相应的 `name` 或 `uniformColor`，将 `Text Field` 实例绑定到 `TeamViewController` 的成员 `name` 和 `uniformColor`。通过按住 Ctrl 键依次将每个按钮拖拽到 File's Owner 图标上，然后从弹出菜单中选择相应的方法，将按钮连接到 `save:` 和 `cancel:` 方法。
+
+在构建并运行应用程序之前，你必须返回 `MasterViewController` 并添加代码以显示你刚刚构建的团队界面。你将在两种场景中显示它：当用户点击 + 按钮创建新团队时，以及当用户点击表格中的现有团队进行编辑时。首先，创建响应 + 按钮点击的方法。在 `MasterViewController.h` 中声明一个名为 `showTeamView:` 的方法，如下所示：
+
+```
+- (void)showTeamView;
+```
+
+转到 `MasterViewController.m`，导入 `TeamViewController.h`，并添加 `showTeamView:` 方法的定义。此方法创建一个 `TeamViewController` 实例，并使用 `MasterViewController` 实例和 `nil` 团队进行初始化，以便 `TeamViewController` 知道在用户点击保存时应创建一个新团队。该方法应如下所示：
+
+```
+- (void)showTeamView {
+  TeamViewController *teamViewController = [[TeamViewController alloc]
+initWithMasterController:self team:nil];
+  [self presentModalViewController:teamViewController animated:YES];
+}
+```
+
+现在，你需要将 + 按钮连接到此方法。转到 `viewDidLoad:` 方法，并将这一行代码
+
+```
+UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
+action:@selector(insertNewObject)];
+```
+
+修改为：
+
+```
+UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
+action:@selector(showTeamView)];
+```
+
+现在应用程序应该能够添加团队了，但在测试之前，请先添加编辑团队的代码。这段代码应通过询问 `fetchedResultsController` 来获取被点击的团队，`fetchedResultsController` 将使用传递给 `didSelectRowAtIndexPath:` 方法的 `indexPath` 来确定。然后，代码会创建一个 `TeamViewController` 实例，并使用 `MasterViewController` 和被点击的团队进行初始化。找到 `didSelectRowAtIndexPath:` 方法，并添加编辑被点击团队的代码，如下所示：
+
+
+
+`- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {`  
+`  NSManagedObject *team = [[self fetchedResultsController] objectAtIndexPath:indexPath];`  
+`  TeamViewController *teamViewController = [[TeamViewController alloc]`  
+`initWithMasterController:self team:team];`  
+`  [self presentModalViewController:teamViewController animated:YES];`  
+`}`
+
+构建应用并运行它。应用的界面与上次运行时相同，如图 3–15 所示。
+
+![images](img/0315.jpg)
+
+**图 3–15.** *不包含任何球队的联赛管理器*
+
+然而，现在如果你点击`+`按钮，就会出现创建新球队的屏幕，如图 3–16 所示。
+
+尽管去添加几支球队，编辑一些球队，再删除一些球队。你可以关闭并重新启动应用，会发现球队的状态与退出应用时一致——它们都会被添加到你的 SQLite 数据存储中。你还会注意到，球队会按队伍名称的字母顺序排列。图 3–17 展示了一些示例球队，并显示了名称和队服颜色。
+
+![images](img/0316.jpg)
+
+**图 3–16.** *向联赛管理器添加新球队*
+
+![images](img/0317.jpg)
+
+**图 3–17.** *包含球队的联赛管理器*
+
+你可能会注意到，可以创建名称和队服颜色为空白的球队。如果这是一个真实的应用程序，你会采取措施防止用户创建没有名称甚至没有队服颜色的球队。然而，本章的重点仍然是不同的持久化存储选项，因此你特意省略了任何验证代码。你还会注意到，本章后面创建的球员用户界面也没有验证代码，因此你可以创建空白的球员。第 5 章会讨论如何验证数据。
+
+退出应用，享受你迄今为止所取得的成果……然后你会意识到，你只完成了`Team`实体。你必须继续实现`Player`用户界面和实体，才能称为完整的联赛管理器应用！
+
+#### 球员用户界面
+
+要实现`Player`用户界面，你需要两个视图及其对应的控制器：一个用于列出球队的球员，另一个用于添加新球员或编辑现有球员。这些控制器在很大程度上与`Team`的控制器类似，不过它们不包含`NSFetchedResultsController`，也不包含`MasterViewController`所拥有的其他 Core Data 类。取而代之的是，它们将 Core Data 的交互委托给`MasterViewController`。
+
+首先创建用于列出球队球员的控制器和视图。添加一个新的`UIViewController`子类，确保在“Subclass of”下拉菜单中选择`UITableViewController`，并取消选中“With XIB for user interface”。将其命名为`PlayerListViewController`，然后将注意力转向`PlayerListViewController.h`文件。这个类负责列出球队的球员，因此需要引用它所管理球员的`Team`实体。此外，由于它将 Core Data 交互委托给`MasterViewController`类，因此还需要引用`MasterViewController`。该控制器会有一个用于添加新球员的`+`按钮，因此声明一个名为`showPlayerView:`的方法来响应这个按钮的点击。最后，由于它不使用`NSFetchedResultsController`实例来对球员进行排序，因此必须自行实现球员排序。为了实现所有这些功能，最终得到的`PlayerListViewController.h`文件如代码清单 3–3 所示。
+
+**代码清单 3–3.** *PlayerListViewController.h*
+
+```
+#import <UIKit/UIKit.h>
+
+@class MasterViewController;
+
+@interface PlayerListViewController : UITableViewController {
+  NSManagedObject *team;
+  MasterViewController *masterController;
+}
+@property (nonatomic, retain) NSManagedObject *team;
+@property (nonatomic, retain) MasterViewController *masterController;
+
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:
+(NSManagedObject *)aTeam;
+- (void)showPlayerView;
+- (NSArray *)sortPlayers;
+
+@end
+```
+
+你会在`PlayerListViewController.m`文件中看到`MasterViewController.m`的部分身影。打开文件，添加对`MasterViewController.h`的导入，以及`team`和`masterController`属性的`@synthesize`行。将生成的`initWithStyle:`方法修改为`initWithMasterController:`方法，该方法接受这两个属性并进行存储，代码示例如下：
+
+```
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:
+(NSManagedObject *)aTeam {
+  if ((self = [super init])) {
+    self.masterController = aMasterController;
+    self.team = aTeam;
+  }
+  return self;
+}
+```
+
+Xcode 为你生成了一个`viewDidLoad:`方法。添加以下代码来适当地更新视图标题，并显示一个`+`按钮用于向球队添加球员。由于你尚未开始构建添加或编辑球员的用户界面，因此先将`+`按钮连接到一个目前为空的新方法`showPlayerView:`。这两个方法如下所示：
+
+```
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  self.title = @"Players";
+
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
+action:@selector(showPlayerView)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+
+- (void)showPlayerView {
+}
+```
+
+在`viewWillAppear:`方法中，指示控制器的表视图重新加载其数据，如下所示：
+
+```
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+[self.tableView reloadData];
+}
+```
+
+
+
+如果您希望表格视图重新加载其数据，您必须告诉表格视图要加载和显示什么数据。球员列表将在一个分区中按字母顺序显示某支球队的所有球员。要获取球队的球员，调用该球队的`valueForKey:@"players"`方法，该方法利用数据模型中的“players”关系从 SQLite 持久化存储中提取所有`Player`实体，并将它们作为`NSSet`返回。设置单个分区和表格行数的代码如下：
+
+```
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return [(NSSet *)[team valueForKey:@"players"] count];
+}
+```
+
+对于表格单元格，再次使用`UITableViewCellStyleValue1`样式，在左侧显示文本（球员的名字和姓氏），在右侧显示文本（电子邮件地址）。将生成的`cellForRowAtIndexPath:`修改为如下所示：
+
+```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  static NSString *CellIdentifier = @"PlayerCell";
+
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+reuseIdentifier:CellIdentifier];
+  }
+
+  NSManagedObject *player = [[self sortPlayers] objectAtIndex:indexPath.row];
+  cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [[player
+valueForKey:@"firstName"] description], [[player valueForKey:@"lastName"] description]];
+  cell.detailTextLabel.text = [[player valueForKey:@"email"] description];
+  return cell;
+}
+```
+
+这里您看到了对`sortPlayers`的调用。回顾一下，“team”实例上的“players”关系返回一个`NSSet`，它不仅没有排序，而且由于没有确定的顺序，也无法通过索引访问。`cellForRowAtIndexPath:`方法要求为特定索引提供单元格以对应后端数据，因此没有`NSSet`方法能够完成您在此需要的任务：为表格在该索引路径处返回适当的单元格。相反，您需要使用这个`sortPlayers:`方法将`NSSet`转换为按球员姓氏排序的`NSArray`，如下所示：
+
+```
+- (NSArray *)sortPlayers {
+  NSSortDescriptor *sortLastNameDescriptor = [[NSSortDescriptor alloc]
+initWithKey:@"lastName" ascending:YES];
+  NSArray *sortDescriptors = [NSArray arrayWithObjects:sortLastNameDescriptor, nil];
+  return [[(NSSet *)[team valueForKey:@"players"] allObjects]
+sortedArrayUsingDescriptors:sortDescriptors];
+}
+```
+
+要显示球队的球员列表视图，请返回`MasterViewController.m`，并添加一个方法来响应点击球队的详细信息披露按钮。需要实现的方法称为`accessoryButtonTappedForRowWithIndexPath:`，在此方法中，您从 fetched results controller 中检索被点击的球队，创建一个`PlayerListViewController`实例，用主视图控制器和该球队进行初始化，然后显示该控制器。代码如下：
+
+```
+- (void)tableView:(UITableView *)tableView
+accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+  NSManagedObject *team = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  PlayerListViewController *playerListViewController = [[PlayerListViewController
+alloc] initWithMasterController:self team:team];
+  [self.navigationController pushViewController:playerListViewController animated:YES];
+}
+```
+
+在`MasterViewController.m`顶部添加对`PlayerListViewController.h`的导入，然后您就可以重新构建并启动 League Manager 了。您应该能看到之前创建的球队，但现在当您点击球队的详细信息披露按钮时，会跳转到球员列表视图，如图 3-18 所示。由于目前还没有添加球员的途径，列表是空白的，并且“+”按钮没有任何作用。
+
+![Figure 3-18](img/0318.jpg)
+
+
+  
+#### 添加、编辑和删除球员  
+
+`LeagueManager` 应用基本完成，目前仅缺少添加、编辑和删除球员的功能。为实现这些功能，需创建一个新的 `UIViewController` 子类：在“Subclass of”下拉菜单中选择 `UIViewController`，并勾选“With XIB for user interface”，将其命名为 `PlayerViewController`。此类与 `TeamViewController` 类及其界面类似，但包含三个字段：`firstName`、`lastName` 和 `email`。它还持有对 `MasterViewController` 实例的引用，以便将所有 Core Data 的存储与检索操作委托给该类。该类中有一个成员用于记录该球员所属的球队，另一个成员用于引用球员对象。若球员对象为 `nil`，`PlayerViewController` 则创建新球员；否则，它将编辑现有球员对象。界面包含三个按钮：保存球员、取消操作（添加或编辑）以及删除球员。由于在删除球员前需显示确认操作表，因此让 `PlayerViewController` 实现 `UIActionSheetDelegate` 协议。`PlayerViewController.h` 的内容请参见代码清单 3–4。  
+
+**代码清单 3–4.** *PlayerViewController.h*  
+
+```objc  
+#import <UIKit/UIKit.h>  
+
+@class MasterViewController;  
+
+@interface PlayerViewController : UIViewController <UIActionSheetDelegate> {  
+  IBOutlet UITextField *firstName;  
+  IBOutlet UITextField *lastName;  
+  IBOutlet UITextField *email;  
+  NSManagedObject *team;  
+  NSManagedObject *player;  
+  MasterViewController *masterController;  
+}  
+@property (nonatomic, retain) UITextField *firstName;  
+@property (nonatomic, retain) UITextField *lastName;  
+@property (nonatomic, retain) UITextField *email;  
+@property (nonatomic, retain) NSManagedObject *team;  
+@property (nonatomic, retain) NSManagedObject *player;  
+@property (nonatomic, retain) MasterViewController *masterController;  
+
+- (IBAction)save:(id)sender;  
+- (IBAction)cancel:(id)sender;  
+- (IBAction)confirmDelete:(id)sender;  
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:  
+(NSManagedObject *)aTeam player:(NSManagedObject *)aPlayer;  
+
+@end  
+```  
+
+现在，打开 `PlayerViewController.m` 文件，导入 `MasterViewController.h`，并为各个属性添加 `@synthesize` 行。添加 `PlayerViewController.h` 中声明的 `initWithMasterController:` 方法，以使用 `MasterViewController` 实例、`team` 以及可能为 `nil` 的 `player` 初始化该视图控制器。该方法如下所示：  
+
+```objc  
+- (id)initWithMasterController:(MasterViewController *)aMasterController team:  
+(NSManagedObject *)aTeam player:(NSManagedObject *)aPlayer {  
+  if ((self = [super init])) {  
+    self.masterController = aMasterController;  
+    self.team = aTeam;  
+    self.player = aPlayer;  
+  }  
+  return self;  
+}  
+```  
+
+使用 `viewDidLoad:` 方法从 `player` 托管对象中提取值（若不为 `nil`），并将其填入 `firstName`、`lastName` 和 `email` 字段。该方法如下所示：  
+
+```objc  
+- (void)viewDidLoad {  
+  [super viewDidLoad];  
+  if (player != nil) {  
+    firstName.text = [player valueForKey:@"firstName"];  
+    lastName.text = [player valueForKey:@"lastName"];  
+    email.text = [player valueForKey:@"email"];  
+  }  
+}  
+```  
+
+下一步是添加响应三个按钮的方法。`save:` 和 `cancel:` 方法与 `TeamViewController` 类中的对应方法类似，具体如下：  
+
+```objc  
+- (IBAction)save:(id)sender {  
+  if (masterController != nil) {  
+    if (player != nil) {  
+      [player setValue:firstName.text forKey:@"firstName"];  
+      [player setValue:lastName.text forKey:@"lastName"];  
+      [player setValue:email.text forKey:@"email"];  
+      [masterController saveContext];  
+    } else {  
+      [masterController insertPlayerWithTeam:team firstName:firstName.text  
+lastName:lastName.text email:email.text];  
+    }  
+  }  
+  [self dismissModalViewControllerAnimated:YES];  
+}  
+
+- (IBAction)cancel:(id)sender {  
+  [self dismissModalViewControllerAnimated:YES];  
+}  
+```  
+
+`MasterViewController` 中尚不存在 `insertPlayerWithTeam:` 方法，稍后将创建。但首先需要实现界面中删除按钮调用的 `confirmDelete:` 方法。该方法不会立即删除球员，而是显示一个操作表，请求用户确认其意图。实现时先检查 `player` 是否不为 `nil`，即只有已有球员才能被删除。实际上，编辑球员时才应显示删除按钮，但为了聚焦于 Core Data，此处保持简单，在添加球员时忽略删除按钮的点击。`confirmDelete:` 方法如下：  
+
+```objc  
+- (IBAction)confirmDelete:(id)sender {  
+  if (player != nil) {  
+    UIActionSheet *confirm = [[UIActionSheet alloc] initWithTitle:nil delegate:self  
+cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Player"  
+otherButtonTitles:nil];  
+    confirm.actionSheetStyle = UIActionSheetStyleBlackTranslucent;  
+    [confirm showInView:self.view];  
+  }  
+}  
+```  
+
+注意，此处将 `self` 作为 `UIActionSheet` 初始化方法的委托。Cocoa 框架会调用所传入委托的 `clickedButtonAtIndex:` 方法，因此需实现该方法。它检查被点击的按钮是否为删除按钮，然后请求主视图控制器使用 `deletePlayer:` 方法删除球员（该方法需在 `MasterViewController` 中创建）。`clickedButtonAtIndex:` 方法如下：  
+
+```objc  
+- (void)actionSheet:(UIActionSheet *)actionSheet  
+clickedButtonAtIndex:(NSInteger)buttonIndex {  
+  if (buttonIndex == 0 && masterController != nil) {  
+    // The Delete button was clicked  
+    [masterController deletePlayer:player];  
+    [self dismissModalViewControllerAnimated:YES];  
+  }  
+}  
+```  
+
+现在，回到 `MasterViewController.h`，声明 `PlayerViewController` 调用的两个方法：`insertPlayerWithTeam:` 和 `deletePlayer:`。声明如下：  
+
+```objc  
+- (void)insertPlayerWithTeam:(NSManagedObject *)team firstName:(NSString *)firstName  
+lastName:(NSString *)lastName email:(NSString *)email;  
+- (void)deletePlayer:(NSManagedObject *)player;  
+```  
+
+打开 `MasterViewController.m`，定义这两个方法。`insertPlayerWithTeam:` 方法与 `insertTeamWithName:` 方法类似，但有一些重要区别。`insertTeamWithName:` 方法利用获取结果控制器及其与 `Team` 实体的关联，而 `Player` 实体与获取结果控制器并无关联。因此，`insertPlayerWithTeam:` 方法通过显式将 `Player` 名称传递给 `insertNewObjectForEntityForName:` 方法来创建 `Player` 实体。它还必须通过将“team”键（即数据模型中关系的名称）设置为相应 `Team` 实体来建立与该实体的关系。`insertPlayerWithTeam:` 方法如下：  
+
+
+
+
+`- (void)insertPlayerWithTeam:(NSManagedObject *)team firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email {
+  // 创建球员对象
+  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+  NSManagedObject *player = [NSEntityDescription insertNewObjectForEntityForName:@"Player" inManagedObjectContext:context];
+  [player setValue:firstName forKey:@"firstName"];
+  [player setValue:lastName forKey:@"lastName"];
+  [player setValue:email forKey:@"email"];
+  [player setValue:team forKey:@"team"];
+
+  // 保存上下文
+  [self saveContext];
+}
+```
+
+`deletePlayer:`方法会检索托管对象上下文，调用其 `deleteObject:` 方法（传入 `Player` 托管对象），然后保存该上下文。其实现如下：
+
+```
+- (void)deletePlayer:(NSManagedObject *)player {
+  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+  [context deleteObject:player];
+  [self saveContext];
+}
+```
+
+最后一步是创建用户界面，并在用户添加或编辑球员时显示它。选择 `PlayerViewController.xib`，点击视图图标，将三个 `Label` 实例和三个 `Text Field` 实例拖到视图上。将标签分别命名为**名字：**、**姓氏：**和**邮箱：**，并将文本字段连接到相应的属性。将三个 `Round Rect Button` 实例拖到视图上，分别命名为保存、取消和删除，并将它们连接到对应的方法。你的视图应如图 3–19 所示。
+
+![images](img/0319.jpg)
+
+**图 3–19.** *球员视图*
+
+为了在用户调用时显示球员视图，前往 `PlayerListViewController.m`，导入 `PlayerViewController.h`，找到之前创建的空白 `showPlayerView:` 方法。在该方法中，创建一个 `PlayerViewController` 实例，用主视图控制器、球队和 `nil` 球员进行初始化（以便应用创建新球员），然后以模态窗口形式显示该视图。代码如下：
+
+```
+- (void)showPlayerView {
+  PlayerViewController *playerViewController = [[PlayerViewController alloc] initWithMasterController:masterController team:team player:nil];
+  [self presentModalViewController:playerViewController animated:YES];
+}
+```
+
+你还需要让应用响应对球员单元格的点击，以便用户编辑或删除所选球员。找到 `PlayerListViewController.m` 中生成的 `didSelectRowAtIndexPath:` 方法，清空其内容，替换为以下代码：从排序后的 `players` 数组中获取被点击的球员，创建球员视图控制器，按之前的方式初始化（但这次传入所选球员），然后显示视图。此时方法如下：
+
+```
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  NSManagedObject *player = [[self sortPlayers] objectAtIndex:indexPath.row];
+  PlayerViewController *playerViewController = [[PlayerViewController alloc] initWithMasterController:masterController team:team player:player];
+  [self presentModalViewController:playerViewController animated:YES];
+}
+```
+
+至此，League Manager 应用就完成了。构建并运行它。得益于 SQLite 持久化存储，之前添加的任何球队都应仍然显示。深入球队，添加、删除或编辑一些球员。也可以尝试删除球队，观察球员随之消失。
+
+### 查看持久化存储中的数据
+
+第 2 章展示了如何使用 `sqlite3` 命令行工具浏览 SQLite Core Data 持久化存储中的数据。为了结束关于 SQLite 持久化存储的部分，找到你的 SQLite 数据库（`League_Manager.sqlite3`），使用如下命令启动 `sqlite3` 并传入数据库：
+
+```
+sqlite3 ./5.0/Applications/CE79C20B-4CBF-47C3–9E7C-9EC24FA88/Documents/League_Manager.sqlite
+```
+
+保持 League Manager 应用在 iPhone 模拟器中运行，以便你可以在应用和 `sqlite3` 工具之间切换，观察对数据库的影响。
+
+首先使用 `.tables` 命令显示所有表。输出应如下所示：
+
+```
+sqlite> .tables
+ZPLAYER       ZTEAM         Z_METADATA    Z_PRIMARYKEY
+```
+
+`ZPLAYER` 表存储 `Player` 实体，`ZTEAM` 表存储 `Team` 实体。创建三支球队：Crew（蓝色队服）、Fire（红色队服）和 Revolution（绿色队服）。在 SQLite 数据库中，它们看起来类似如下（取决于你创建和删除了多少支球队）：
+
+```
+sqlite> select * from ZTEAM;
+1|2|3|Crew|Blue
+2|2|1|Fire|Red
+3|2|1|Revolution|Green
+```
+
+快速检查数据库，发现 League Manager 应用中没有球员：
+
+```
+sqlite> select * from ZPLAYER;
+```
+
+深入 Crew 球队，添加三名球员：Jordan Gordon、Pat Sprat 和 Bailey Staley。参考图 3–20 了解如何输入球员信息。添加完这三名球员后，你应该能在“球员”屏幕的列表中看到他们，如图 3–21 所示。
+
+![images](img/0320.jpg)
+
+**图 3–20** *添加一名球员*
+
+![images](img/0321.jpg)
+
+**图 3–21.** *球员列表*
+
+对 `ZPLAYER` 表重新执行 select 命令。输出应类似如下：
+
+```
+sqlite> select * from ZPLAYER;
+1|1|1|1|Jordan|Gordan|jgordon@example.com
+2|1|1|1|Pat|Sprat|psprat@example.com
+3|1|1|1|Bailey|Staley|bstaley@example.com
+```
+
+现在再添加一名球员，但这次添加到 Fire 球队，命名为 Terry Gary。然后运行一条命令，显示每支球队及其球员，如下所示：
+
+```
+sqlite> select ZTEAM.ZNAME, ZPLAYER.ZFIRSTNAME, ZPLAYER.ZLASTNAME from ZTEAM, ZPLAYER where ZTEAM.Z_PK = ZPLAYER.ZTEAM;
+Crew|Jordan|Gordon
+Crew|Pat|Sprat
+Crew|Bailey|Staley
+Fire|Terry|Gary
+```
+
+现在删除 Pat Sprat，并重新运行相同的 SQLite 命令。输出应如下所示：
+
+```
+sqlite> select ZTEAM.ZNAME, ZPLAYER.ZFIRSTNAME, ZPLAYER.ZLASTNAME from ZTEAM, ZPLAYER where ZTEAM.Z_PK = ZPLAYER.ZTEAM;
+Crew|Jordan|Gordon
+Crew|Bailey|Staley
+Fire|Terry|Gary
+```
+
+最后，删除 Fire 球队，并验证不仅 Fire 球队被删除，其唯一球员 Terry Gary 也随之消失：
+
+```
+sqlite> select ZTEAM.ZNAME, ZPLAYER.ZFIRSTNAME, ZPLAYER.ZLASTNAME from ZTEAM, ZPLAYER where ZTEAM.Z_PK = ZPLAYER.ZTEAM;
+Crew|Jordan|Gordon
+Crew|Bailey|Staley
+```
+
+可见 SQLite 数据库的运行方式符合你的理解。在开发 iOS 应用时，欢迎随时查看 SQLite 数据库，以便更深入地理解和欣赏 Core Data 的工作原理。你的大多数数据驱动型应用很可能都会使用 SQLite 数据库，因此理解它们如何与 Core Data 协同工作，有助于排查问题或优化性能。
+
+
+### 使用内存持久化存储
+
+在上一节中，你构建了一个基于 Core Data 的应用程序，它使用了默认的 SQLite 持久化存储类型。本节将讨论另一种类型：内存持久化存储。我们先来看看如何切换存储类型，然后再详细说明为何要使用这种存储类型。
+
+切换 Core Data 为应用程序所使用的存储类型非常简单，只需在应用委托中创建持久化存储协调器时指定新的类型即可。`League_ManagerAppDelegate.m` 中 `persistentStoreCoordinator:` 方法的代码现在如代码清单 3–5 所示，更新后的代码以粗体显示。
+
+**代码清单 3–5.** *`League_ManagerAppDelegate.m` 中的 `persistentStoreCoordinator:` 方法*
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+  if (__persistentStoreCoordinator != nil) {
+    return __persistentStoreCoordinator;
+  }
+
+//  NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"League_Manager.sqlite"];
+
+  NSError *error = nil;
+  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+  if (![__persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+
+  return __persistentStoreCoordinator;
+}
+```
+
+存储已被切换为内存存储。重新启动应用程序后，首先会发现之前存储在数据存储中的所有数据都消失了。这是因为你切换了数据存储，并且没有尝试将数据从旧存储迁移到新存储。第 8 章 会解释如何在两个持久化存储之间迁移数据。
+
+内存数据存储的生命周期始于 Core Data 堆栈初始化时，止于应用程序停止时。
+
+**注意：** 自 iOS4 及 iDevices 引入多任务功能以来，切换到另一个应用程序并不一定会终止当前正在运行的应用程序。相反，应用会进入后台。当应用被发送到后台时，内存持久化存储仍然存在，因此当应用重新回到前台时，数据仍然可用。
+
+在设计数据管理框架并思考其默认应提供哪些类型的持久化存储时，内存存储通常不是首先浮现的想法。要找到一个使用内存存储的充分理由可能颇具挑战性，但确实存在一些合理的用途。例如，远程数据的本地缓存就能从内存持久化存储中获益。假设你的应用程序从远程服务器接收数据。如果应用程序执行大量查询，良好的软件工程实践会要求使用高效的数据传输方式。远程服务器可以将数据以压缩包的形式传输到客户端应用程序，客户端随后解压数据并存入内存存储中，以便高效地进行查询。在这种情况下，你希望每次应用程序启动时，甚至在应用程序运行期间定期刷新数据，因此内存数据存储的丢失是可以接受的。
+
+图 3–22 展示了一个在内存存储中本地缓存远程信息的应用程序的启动序列。
+
+![images](img/0322.jpg)
+
+**图 3–22.** *本地缓存远程信息*
+
+在开发基于 Core Data 的 iOS 应用程序时，可以考虑在应用不要求跨调用持久化数据的情况下使用内存数据存储。然而，那些要求用户数据不会仅仅因为应用程序停止运行而消失的传统应用程序，则不能使用这种持久化存储类型。
+
+### 创建自定义持久化存储
+
+将持久化存储的实现与用户进行抽象隔离，是 Core Data 框架的基本原则。这种抽象使得你可以在不同的默认存储类型（`NSSQLiteStoreType`、`NSInMemoryStoreType`、`NSBinaryStoreType`）之间切换，而无需修改超过一行代码。在某些情况下，默认的存储类型并不能最好地满足你的需求。Core Data 框架提供了一个钩子，用于在这些特殊情况下创建自定义存储类型。在本节中，你将创建一个新的存储类型，并将其用于 League Manager 应用程序。
+
+在着手实现之前，你应该了解 Core Data 只允许你创建原子存储类型。原子存储是一种每次执行保存操作时都会一次性写入所有内容的存储。这实际上排除了创建基于 SQL 的存储类型的可能性，因为这种类型本可以借助 SQLite 之外的数据库作为后端，且仅影响数据库中修改过的数据行。在本节中，你将构建一个基于文件的自定义存储，它会以逗号分隔值（CSV）文件的形式存储数据，不过我们将使用竖线符号（`|`）来分隔值。
+
+自定义数据存储必须继承 `NSAtomicStore` 类（`NSPersistentStore` 的子类），该类提供了容纳数据所需的基础架构。为了更好地理解其工作原理，可以想象 Core Data 框架内部的两个层级，如图 3–23 所示。用户与包含 `NSManagedObject` 和 `NSManagedObjectContext` 的层级交互。另一层级则执行实际的持久化操作，并包含持久化存储协调器和持久化存储。在自定义存储的情况下，持久化层级还包含 `NSAtomicStoreCacheNode`，该节点包含在此层级内持有数据的对象。`NSAtomicStoreCacheNode` 之于 `NSAtomicStore`，就如同 `NSManagedObject` 之于 `NSManagedObjectContext`。
+
+![images](img/0323.jpg)
+
+**图 3–23.** *Core Data 内部的两个层级*
+
+
+
+#### 初始化自定义存储
+
+新的自定义存储负责在存储设备与`NSAtomicStoreCacheNode`之间传输数据，同时也负责在`NSManagedObject`与`NSAtomicStoreCacheNode`之间传输数据。
+
+创建自定义存储的第一步是添加一个（或多个）类来实现它。本节构建的自定义存储位于一个名为`CustomStore`的类中。使用 Xcode 向 League Manager 应用程序添加一个名为`CustomStore`的新 Objective-C 类，指定其为`NSAtomicStore`的子类。`CustomStore.h`的初始代码很简单：它按预期扩展了`NSAtomicStore`，如代码清单 3–6 所示。
+
+**代码清单 3–6.** *CustomStore.h*
+
+```
+#import <Foundation/Foundation.h>
+
+@interface CustomStore : NSAtomicStore {
+}
+
+@end
+```
+
+实现类最初是空白模板，必须实现几个方法。它包含用于获取类型和标识符的访问器方法（本节后续会解释），一个接受持久化存储协调器及其他参数的初始化方法，以及一些待实现的方法（你将在本节的后续内容中逐步实现）。参见代码清单 3–7。
+
+**代码清单 3–7.** *CustomStore.m*
+
+```
+#import "CustomStore.h"
+
+@implementation CustomStore
+
+#pragma mark - NSPersistentStore
+
+- (NSString *)type {
+    return [[self metadata] objectForKey:NSStoreTypeKey];
+}
+
+- (NSString *)identifier {
+    return [[self metadata] objectForKey:NSStoreUUIDKey];
+}
+
+- (id)initWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator
+configurationName:(NSString *)configurationName URL:(NSURL *)url options:(NSDictionary
+*)options {
+    self = [super initWithPersistentStoreCoordinator:coordinator
+configurationName:configurationName URL:url options:options];
+
+    return self;
+}
+
++ (NSDictionary *)metadataForPersistentStoreWithURL:(NSURL *)url error:(NSError **)error {
+    return nil;
+}
+
+#pragma mark - NSAtomicStore
+
+- (BOOL)load:(NSError **)error {
+    return YES;
+}
+
+- (id)newReferenceObjectForManagedObject:(NSManagedObject *)managedObject {
+    return nil;
+}
+
+- (NSAtomicStoreCacheNode *)newCacheNodeForManagedObject:(NSManagedObject
+*)managedObject {
+    return nil;
+}
+
+- (BOOL)save:(NSError **)error {
+    return YES;
+}
+
+-(void)updateCacheNode:(NSAtomicStoreCacheNode *)node fromManagedObject:
+(NSManagedObject *)managedObject {
+}
+
+@end
+```
+
+所有 Core Data 存储都包含辅助元数据，帮助持久化存储协调器管理不同的存储。元数据在`NSPersistentStore`类中具体化为`NSDictionary`对象。对于新的数据存储，有两个数据项尤其重要：`NSStoreTypeKey`和`NSStoreUUIDKey`。`NSStoreTypeKey`的值必须是唯一标识数据存储类型的字符串，而`NSStoreUUIDKey`的值必须是唯一标识数据存储本身的字符串。为了创建唯一标识符，添加一个静态工具方法，用于生成并返回通用唯一标识符（UUID）：
+
+```
++ (NSString *)makeUUID {
+    CFUUIDRef uuidRef = CFUUIDCreate(NULL);
+    CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
+    CFRelease(uuidRef);
+    NSString* uuid = [NSString stringWithString:( __bridge NSString *)uuidStringRef];
+    CFRelease(uuidStringRef);
+    return uuid;
+}
+```
+
+在本章的示例中，两个数据文件支持自定义存储。第一个文件扩展名为`.txt`，包含数据本身；第二个文件扩展名为`.plist`，包含元数据。针对加载和保存元数据的问题，你将添加一个保存元数据的方法，并完善`metadataForPersistentStoreWithURL:error:`方法的实现，以加载元数据。
+
+数据存储的初始化基于一个基础 URL。在`CustomStore`示例中，URL 指向数据文件（`.txt`文件），而元数据文件的 URL 则通过将基础 URL 中的`.txt`扩展名替换为`.plist`扩展名来派生。
+
+`writeMetadata:toURL:`方法接收元数据`NSDictionary`并将其写入文件，代码如下：
+
+```
++ (void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url {
+    NSString *path = [[url relativePath] stringByAppendingString:@".plist"];
+    [metadata writeToFile:path atomically:YES];
+}
+```
+
+加载元数据稍显复杂，因为如果数据存储是新建且元数据文件不存在，则必须同时创建元数据文件和一个空数据文件。Core Data 期望元数据中包含存储类型和存储 UUID，这有助于持久化存储协调器处理自定义存储，因此需要为`NSStoreTypeKey`和`NSStoreUUIDKey`设置相应值。找到`metadataForPersistentStoreWithURL:error:`方法，并将其内容修改为检查元数据文件是否存在；如果不存在，则写入包含存储类型键和 UUID 键的元数据文件，同时写入一个空白数据文件，如代码清单 3–8 所示。
+
+**代码清单 3–8.** *`metadataForPersistentStoreWithURL:error:`方法*
+
+```
++ (NSDictionary *)metadataForPersistentStoreWithURL:(NSURL *)url error:(NSError **)error {
+    // 确定元数据文件的文件名
+    NSString *path = [[url relativePath] stringByAppendingString:@".plist"];
+
+    // 如果元数据文件不存在，则创建它
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        // 创建一个字典，存储存储类型键（CustomStore）
+        // 和 UUID 键
+        NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
+        [metadata setValue:@"CustomStore" forKey:NSStoreTypeKey];
+        [metadata setValue:[CustomStore makeUUID] forKey:NSStoreUUIDKey];
+
+        // 将元数据写入.plist 文件
+        [CustomStore writeMetadata:metadata toURL:url];
+
+        // 写入一个空数据文件
+        [@"" writeToURL:url atomically:YES encoding:[NSString defaultCStringEncoding] error:nil];
+
+        NSLog(@"已创建新存储于 %@", path);
+    }
+    return [NSDictionary dictionaryWithContentsOfFile:path];
+}
+```
+
+借助检索元数据和创建空白存储的方法，你可以完善初始化方法，代码如下：
+
+```
+- (id)initWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator
+configurationName:(NSString *)configurationName URL:(NSURL *)url options:(NSDictionary
+*)options {
+    self = [super initWithPersistentStoreCoordinator:coordinator
+configurationName:configurationName URL:url options:options];
+
+    NSDictionary *metadata = [CustomStore metadataForPersistentStoreWithURL:[self URL]
+error:nil];
+    [self setMetadata:metadata];
+
+    return self;
+}
+```
+
+
+
+### NSManagedObject 与 NSAtomicStoreCacheNode 之间的映射
+
+要使自定义存储正常运行，您必须为三个额外的实用方法提供实现。第一个方法为给定的托管对象创建一个新的引用对象。引用对象为每个 `NSAtomicStoreCacheNode` 提供唯一标识符（类似于数据库主键）。`Reference` 对象之于 `NSAtomicStoreCacheNode`，就如同 `NSObjectID` 之于 `NSManagedObject`。由于自定义数据存储必须管理 `NSManagedObject` 和 `NSAtomicCacheNode` 之间的数据传输，因此它必须能够为新创建的托管对象创建引用对象。为此，您再次使用 UUID。
+
+```
+- (id)newReferenceObjectForManagedObject:(NSManagedObject *)managedObject {
+    NSString *uuid = [CustomStore makeUUID];
+    return uuid;
+}
+```
+
+需要的第二个方法创建一个新的 `NSAtomicStoreCacheNode` 实例，以匹配新创建的 `NSManagedObject`。当添加一个新的 `NSManagedObject` 并需要持久化时，框架首先使用 `newReferenceObjectForManagedObject:` 方法获取一个引用对象。`NSAtomicCache` 会跟踪 `NSObjectID` 和引用对象之间的映射。当 Core Data 将托管对象持久化到持久化存储时，它会调用 `newCacheNodeForManagedObject:` 方法，顾名思义，该方法会创建一个新的 `NSAtomicStoreCacheNode`，作为 `NSManagedObject` 的对等节点。
+
+```
+- (NSAtomicStoreCacheNode *)newCacheNodeForManagedObject:(NSManagedObject *)managedObject {
+    NSManagedObjectID *oid = [managedObject objectID];
+    id referenceID = [self referenceObjectForObjectID:oid];
+
+    NSAtomicStoreCacheNode* node = [self nodeForReferenceObject:referenceID andObjectID:oid];
+    [self updateCacheNode:node fromManagedObject:managedObject];
+    return node;
+}
+```
+
+`newCacheNodeForManagedObject:` 的实现会查找为托管对象创建的引用对象，并创建一个链接到该引用 ID 的新缓存节点。最后，该方法使用 `updateCacheNode:fromManagedObject:` 方法将托管对象的数据复制到节点中。您的自定义存储还需要提供第三个方法的实现，如列表 3–9 所示。
+
+**列表 3–9.** *`updateCacheNode:fromManagedObject:` 方法*
+
+```
+- (void)updateCacheNode:(NSAtomicStoreCacheNode *)node
+fromManagedObject:(NSManagedObject *)managedObject {
+    // 确定托管对象的实体
+    NSEntityDescription *entity = managedObject.entity;
+
+    // 遍历实体中的所有属性
+    NSDictionary *attributes = [entity attributesByName];
+    for (NSString *name in [attributes allKeys]) {
+        // 对于每个属性，将托管对象的值设置到节点中
+        [node setValue:[managedObject valueForKey:name] forKey:name];
+    }
+
+    // 遍历实体中的所有关系
+    NSDictionary *relationships = [entity relationshipsByName];
+    for (NSString *name in [relationships allKeys]) {
+        id value = [managedObject valueForKey:name];
+        // 如果这是对多关系...
+        if ([[relationships objectForKey:name] isToMany]) {
+            // ...获取所有目标对象
+            NSSet *set = (NSSet*)value;
+            NSMutableSet *data = [NSMutableSet set];
+            for (NSManagedObject *managedObject in set) {
+                // 对于关系中的每个目标对象，将缓存节点添加到集合中
+                NSManagedObjectID *oid = [managedObject objectID];
+                id referenceID = [self referenceObjectForObjectID:oid];
+                NSAtomicStoreCacheNode* n = [self nodeForReferenceObject:referenceID andObjectID:oid];
+                [data addObject:n];
+            }
+            [node setValue:data forKey:name];
+        } else {
+            // 这是对一关系，因此只需获取关系的单个目标节点
+            NSManagedObject *managedObject = (NSManagedObject*)value;
+            NSManagedObjectID *oid = [managedObject objectID];
+            id referenceID = [self referenceObjectForObjectID:oid];
+            NSAtomicStoreCacheNode* n = [self nodeForReferenceObject:referenceID andObjectID:oid];
+            [node setValue:n forKey:name];
+        }
+    }
+}
+```
+
+该实现会查找给定托管对象的实体描述，并使用它来遍历属性和关系，以便将它们的值复制到节点中。
+
+为了跟踪缓存节点，创建一个实用方法，给定一个引用对象，如果存在则返回匹配的 `NSAtomicStoreCacheNode`，否则创建一个新的。
+
+```
+- (NSAtomicStoreCacheNode *)nodeForReferenceObject:(id)reference
+andObjectID:(NSManagedObjectID *)oid {
+    NSAtomicStoreCacheNode *node = [nodeCacheRef objectForKey:reference];
+    if (node == nil) {
+        node = [[NSAtomicStoreCacheNode alloc] initWithObjectID:oid];
+        [nodeCacheRef setObject:node forKey:reference];
+    }
+    return node;
+}
+```
+
+`nodeForReferenceObject:andObjectID:` 的实现使用了一个名为 `nodeCacheRef` 的字典，因此需要在 `CustomStore.h` 头文件中声明它，如列表 3–10 所示。
+
+**列表 3–10.** *CustomStore.h*
+
+```
+#import <Foundation/Foundation.h>
+
+@interface CustomStore : NSAtomicStore {
+    NSMutableDictionary *nodeCacheRef;
+}
+
+@end
+```
+
+在 `initWithPersistentStoreCoordinator:configurationName:URL:options:` 方法中初始化 `nodeCacheRef`。
+
+```
+- (id)initWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator
+configurationName:(NSString *)configurationName URL:(NSURL *)url options:(NSDictionary *)options {
+    self = [super initWithPersistentStoreCoordinator:coordinator
+configurationName:configurationName URL:url options:options];
+    NSDictionary *metadata = [CustomStore metadataForPersistentStoreWithURL:[self URL]
+error:nil];
+    [self setMetadata:metadata];
+    nodeCacheRef = [NSMutableDictionary dictionary];
+    return self;
+}
+```
+
+
+
+#### 序列化数据
+
+到目前为止，你所做的只是实现了处理元数据、初始化数据存储，以及在 `NSManagedObject` 实例与 `NSAtomicStoreCacheNode` 实例之间传输数据的实用方法。然而，在实现读写存储设备的方法之前，自定义存储没有任何用处。在扩展 `NSAtomicStore` 时，必须提供 `load:` 和 `save:` 方法的实现，它们构成了自定义存储实现的核心部分。在本例中，我们从 `save:` 方法开始。下面的 `save:` 方法代码乍看起来可能令人不知所措，但如果你花点时间跟进代码，就会意识到它只是遍历缓存节点，将属性值写入文件，随后写入关系值。属性值被转换为 `NSString`，并作为键值对以 *attributeName=value* 的形式追加到管道分隔的文件中。关系的处理方式类似，不过写入的值不是目标节点本身，而是由 `newReferenceObjectForManagedObject:` 方法创建的引用对象。对于一对多关系，代码会写入一个逗号分隔的引用对象列表。列表 3–11 展示了 `save:` 方法。
+
+**列表 3–11.** *`save:` 方法*
+
+```
+- (BOOL)save:(NSError **)error {
+    NSURL *url = [self URL];
+
+    // 首先更新元数据
+    [CustomStore writeMetadata:[self metadata] toURL:url];
+
+    NSString* dataFile = @"";
+    // 然后写入实际数据
+    NSSet *nodes = [self cacheNodes];
+    NSAtomicStoreCacheNode *node;
+    NSEnumerator *enumerator = [nodes objectEnumerator];
+
+    // 枚举所有节点
+    while ((node = [enumerator nextObject]) != nil) {
+        // 获取每个节点的对象 ID 和引用 ID
+        NSManagedObjectID *oid = [node objectID];
+        id referenceID = [self referenceObjectForObjectID:oid];
+
+        // 将实体名称和引用 ID 作为行的前两个值写入
+        NSEntityDescription *entity = [oid entity];
+        dataFile = [dataFile stringByAppendingFormat:@"%@|%@", entity.name, referenceID];
+
+        {   // 写入所有属性
+            NSDictionary *attributes = [entity attributesByName];
+            NSAttributeDescription *key = nil;
+            NSEnumerator *enumerator = [attributes objectEnumerator];
+            while ((key = [enumerator nextObject]) != nil) {
+                NSString *value = [node valueForKey:key.name];
+                if (value == nil) value = @"(null)";
+                dataFile = [dataFile stringByAppendingFormat:@"|%@=%@", key.name, value];  
+            }
+        }
+
+        {   // 写入所有关系
+            NSDictionary *relationships = [entity relationshipsByName];
+            NSRelationshipDescription *key = nil;
+            NSEnumerator *enumerator = [relationships objectEnumerator];
+            while ((key = [enumerator nextObject]) != nil) {
+                id value = [node valueForKey:key.name];
+                if (value == nil) {
+                    dataFile = [dataFile stringByAppendingFormat:@"|%@=%@", key.name, @"(null)"];
+                } else if (![key isToMany]) {  // 一对一
+                    NSManagedObjectID *oid = [(NSAtomicStoreCacheNode*)value objectID];
+                    id referenceID = [self referenceObjectForObjectID:oid];
+                    dataFile = [dataFile stringByAppendingFormat:@"|%@=%@", key.name, referenceID];
+                } else {  // 一对多
+                    NSSet* set = (NSSet*)value;
+                    if ([set count] == 0) {
+                        dataFile = [dataFile stringByAppendingFormat:@"|%@=%@", key.name, @"(null)"];
+                    } else {
+                        NSString *list = @"";
+                        for (NSAtomicStoreCacheNode *item in set) {
+                            id referenceID = [self referenceObjectForObjectID:[item objectID]];
+                            list = [list stringByAppendingFormat:@"%@,", referenceID];
+                        }
+                        list = [list substringToIndex:[list length]-1];
+                        dataFile = [dataFile stringByAppendingFormat:@"|%@=%@", key.name, list];
+                    }
+                }
+            }
+        }
+        // 换行，进入下一行以处理下一个节点
+        dataFile = [dataFile stringByAppendingString:@"\n"];
+    }
+    // 写入文件
+    NSString *path = [url relativePath];
+    [dataFile writeToFile:path atomically:YES encoding:[NSString defaultCStringEncoding] error:error];  
+    return YES;
+}
+```
+
+文本文件中每条数据记录（在代码中由 `NSAtomicStoreCacheNode` 实例表示）遵循以下格式：
+
+```
+Entity Name|Reference
+Object|attribute1=value1|attribute2=value2|...|relationship1=ref1,ref2,ref3|relationship2=ref4|...
+```
+
+`load:` 方法遵循与 `save:` 方法相同的步骤，但方向相反。它逐行读取数据文件，对每一行使用第一个元素查找实体描述，使用第二个元素作为节点的引用对象，然后遍历剩余元素以加载属性和关系。它利用这些元素重构 `NSAtomicStoreCacheNode` 实例；请参见列表 3–12。
+
+**列表 3–12.** *`load:` 方法*
+
+```
+- (BOOL)load:(NSError **)error {
+    // 查找要加载的文件
+    NSURL* url = [self URL];
+    NSMutableSet *nodes = [NSMutableSet set];
+    NSString *path = [url relativePath];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        // 文件不存在，则添加空集合并退出
+        [self addCacheNodes:nodes];
+        return YES;
+    }
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+
+    // 将整个文件加载到一个数组中，每个元素
+    // 包含文件中的一行。每个元素对应一个节点
+    NSString *fileString = [NSString stringWithContentsOfFile:path encoding:[NSString defaultCStringEncoding] error:error];
+    NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
+    NSString *line;
+
+    // 枚举文件中的每一行
+    NSEnumerator *enumerator = [lines objectEnumerator];
+    while ((line = [enumerator nextObject]) != nil) {
+        // 将字段拆分为数组
+        NSArray *components = [line componentsSeparatedByString:@"|"];
+```
+
+
+
+代码如下：
+
+```
+// If you don't have at least an entity name and a reference ID,
+// ignore this line
+if ([components count] < 2) continue;
+NSString *entityName = [components objectAtIndex:0];
+NSString *pkey = [components objectAtIndex:1];
+
+// Make the node
+NSEntityDescription *entity = [[[coordinator managedObjectModel] entitiesByName] valueForKeyPath:entityName];
+if (entity != nil) {
+    NSManagedObjectID *oid = [self objectIDForEntity:entity referenceObject:pkey];
+    NSAtomicStoreCacheNode *node = [self nodeForReferenceObject:pkey andObjectID:oid];
+
+    // Get the attributes and relationships from the model
+    NSDictionary *attributes = [entity attributesByName];
+    NSDictionary *relationships = [entity relationshipsByName];
+
+    // Go through the rest of the fields
+    for (int i = 2; i < [components count]; i++) {
+        // Each field is a name/value pair, separated by an equals
+        // sign. Parse name and value
+        NSArray *entry = [[components objectAtIndex:i] componentsSeparatedByString:@"="];
+        NSString *key = [entry objectAtIndex:0];
+        if([attributes objectForKey:key] != nil) {
+            // Get the type of the attribute from the model
+            NSAttributeDescription *attributeDescription = [attributes objectForKey:key];
+            NSAttributeType type = [attributeDescription attributeType];
+
+            // Default value to type string
+            id dataValue = [entry objectAtIndex:1];
+            if ([(NSString*)dataValue compare:@"(null)"] == NSOrderedSame) {
+                continue;
+            }
+            // Convert the value to the proper data type
+            if ((type == NSInteger16AttributeType) || (type == NSInteger32AttributeType) || (type == NSInteger64AttributeType)) {
+                dataValue = [NSNumber numberWithInteger:[dataValue integerValue]];
+            } else if (type == NSDecimalAttributeType) {
+                dataValue = [NSDecimalNumber decimalNumberWithString:dataValue];
+            } else if (type == NSDoubleAttributeType) {
+                dataValue = [NSNumber numberWithDouble:[dataValue doubleValue]];
+            } else if (type == NSFloatAttributeType) {
+                dataValue = [NSNumber numberWithFloat:[dataValue floatValue]];
+            } else if (type == NSBooleanAttributeType) {
+                dataValue = [NSNumber numberWithBool:[dataValue intValue]];
+            } else if (type == NSDateAttributeType) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+                dataValue = [formatter dateFromString:dataValue];
+            } else if (type == NSBinaryDataAttributeType) {
+                // This implementation doesn't support binary data
+                // You could enhance this code to base64 encode and
+                // decode binary data to be able to support binary
+                // types.
+                NSLog(@"Binary type not supported");
+            }
+            // Set the converted value into the node
+            [node setValue:dataValue forKey:key];
+        } else if ([relationships objectForKey:key] != nil) {  // See if it's a relationship
+            // Destination objects are comma-separated
+            NSArray *ids = [[entry objectAtIndex:1] componentsSeparatedByString:@","];
+            NSRelationshipDescription *relationship = [relationships objectForKey:key];
+            // If it's a to-many relationship . . .
+            if ([relationship isToMany]) {
+                // . . . get the set of destination objects and
+                // iterate through them
+                NSMutableSet* set = [NSMutableSet set];
+                for (NSString *fKey in ids) {
+                    if (fKey != nil && [fKey compare:@"(null)"] != NSOrderedSame) {
+                        // Create the node for the destination object
+                        NSManagedObjectID *oid = [self objectIDForEntity:[relationship destinationEntity] referenceObject:fKey];
+                        NSAtomicStoreCacheNode *destinationNode = [self nodeForReferenceObject:fKey andObjectID:oid];
+                        [set addObject:destinationNode];
+                    }
+                }
+                // Store the set into the node
+                [node setValue:set forKey:key];
+            } else {
+                // This is a to-one relationship; check whether there's
+                // a destination object
+                NSString* fKey = [ids count] > 0 ? [ids objectAtIndex:0] : nil;
+                if (fKey != nil && [fKey compare:@"(null)"] != NSOrderedSame) {
+                    // Set the destination into the node
+                    NSManagedObjectID *oid = [self objectIDForEntity:[relationship destinationEntity] referenceObject:fKey];
+                    NSAtomicStoreCacheNode *destinationNode = [self nodeForReferenceObject:fKey andObjectID:oid];
+                    [node setValue:destinationNode forKey:key];
+                }
+            }
+        }
+    }
+    // Remember this node
+    [nodes addObject:node];
+}
+// Register all the nodes
+[self addCacheNodes:nodes];
+return YES;
+```
+
+请记住，虽然文本文件将数据存储为纯文本，但 Core Data 处理的是对象。代码必须使用实体描述检查每个属性的数据类型，并创建适当的数据对象实例。对于关系，代码必须使用存储引用对象，以便重用现有节点或在需要时创建新节点。`load:`方法使用之前实现的`nodeForReferenceObject:andObjectID:`方法来重用现有节点或创建新节点。
+
+在继续处理`CustomStore.m`之前，请为您创建的三个实用方法添加声明，以便编译器不会报错。由于这些方法不在`CustomStore`类之外使用，因此您不需要将它们添加到头文件中。声明如下所示：
+
+```
+@interface CustomStore (private)
+
++ (void)writeMetadata:(NSDictionary*)metadata toURL:(NSURL*)url;
++ (NSString *)makeUUID;
+- (NSAtomicStoreCacheNode*)nodeForReferenceObject:(id)reference andObjectID:(NSManagedObjectID*)oid;
+@end
+```
+
+将此代码添加到`CustomStore.m`的顶部，在导入`CustomStore.h`之后，`@implementation CustomStore`行之前。
+
+
+
+#### 使用自定义存储
+
+在 League Manager 应用中使用自定义存储所需的最后一步是注册它，并在初始化持久化存储协调器时使用它。所有操作都在应用代理（`League_ManagerAppDelegate.m`）中完成。首先，在类顶部添加一条导入语句，以便实现代码能够识别 `CustomStore` 类。
+
+```
+#import "CustomStore.h"
+```
+
+修改 `application:didFinishLaunchingWithOptions:` 方法，以便在应用启动时注册自定义存储。
+
+```
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [NSPersistentStoreCoordinator registerStoreClass:[CustomStore class]
+                                     forStoreType:@"CustomStore"];
+    NSLog(@"已注册类型：%@", [NSPersistentStoreCoordinator registeredStoreTypes]);
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // 应用启动后的自定义覆盖点。
+
+    MasterViewController *controller = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.window.rootViewController = self.navigationController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+```
+
+最后，修改 `persistentStoreCoordinator:` 访问器以使用新的自定义存储。
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"League_Manager.txt"];
+
+    NSError *error = nil;
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:@"CustomStore" configuration:nil URL:storeURL options:nil error:&error]) {
+        NSLog(@"未解决的错误：%@, %@", error, [error userInfo]);
+        abort();
+    }
+
+    return __persistentStoreCoordinator;
+}
+```
+
+此时，你应该能够启动应用，并且它将使用新的自定义存储。一个名为 `League_Manager.txt` 的文件将会被创建在你之前在本章首次实现时创建 `League_Manager.sqlite` 数据库的同一目录中。启动应用试试看，添加几个球队和球员，然后使用任意文本编辑器检查 `League_Manager.txt` 数据文件。根据你创建的球队和球员，该文件的内容将类似于：
+
+```
+Player|5247F86F-0397-4814-9AF7-5F6946BE20C4|email=rrondo@example.com|firstName=Rajon|lastName=Rondo|team=9F2662B9-3006-4B8D-BC43–EA68DB7AD037
+Player|20C2D39C-D831-4AD7-9FE7-E1CE22D765E0|email=twarner@example.com|firstName=Tyson|lastName=Warner|team=3BBC1923–0EA7-485C-9516-3B993D30D0CE
+Player|3E817374-2BE2-495F-8029-1698C34DE07F|email=ljames@example.com|firstName=LeBron|lastName=James|team=3BBC1923–0EA7-485C-9516-3B993D30D0CE
+Player|7ABACD30-2586-4522-8369-0D104FE248AF|email=cbosh@example.com|firstName=Chris|lastName=Bosh|team=3BBC1923–0EA7-485C-9516-3B993D30D0CE
+Player|D14E8D95-FC94-48AA-BE9B-E20FC36B70EB|email=dwade@example.com|firstName=Dwyane|lastName=Wade|team=3BBC1923–0EA7-485C-9516-3B993D30D0CE
+Team|3BBC1923–0EA7-485C-9516-3B993D30D0CE|name=Miami Heat|uniformColor=Red|players=3E817374-2BE2-495F-8029-1698C34DE07F,7ABACD30-2586-4522-8369-0D104FE248AF,D14E8D95-FC94-48AA-BE9B-E20FC36B70EB,20C2D39C-D831-4AD7-9FE7-E1CE22D765E0
+Team|9F2662B9-3006-4B8D-BC43–EA68DB7AD037|name=Boston Celtics|uniformColor=Green|players=5247F86F-0397-4814-9AF7-5F6946BE20C4
+```
+
+在数据文件中，你可以看到最后两行是两个球队：波士顿凯尔特人队和迈阿密热火队。实体名称“Team”是这两行中每一行的第一个字段。你可以看到波士顿凯尔特人队有一名球员，因为在其行的最后一个字段中，`players` 关系只列出了一个引用 ID。该 `players` 关系列出的引用 ID 与拉简·隆多的引用 ID 匹配，后者是文件第一行中的第二个字段。你还可以看到代表迈阿密热火队未来的四名球员：勒布朗·詹姆斯、德维恩·韦德、克里斯·波什和泰森·沃纳。
+
+#### XML 持久化存储怎么样？
+
+Core Data 在 Mac OS X 上提供了另一种持久化存储类型——XML，你可以通过将 `NSXMLStoreType` 传递给持久化存储协调器的 `addPersistentStoreWithType:` 方法来指定它。然而，在为 iOS 编译时传递 `NSXMLStoreType` 会产生一个编译错误：`'NSXMLStoreType' 未声明`。如果你查看 iOS 的 Core Data 头文件，会在 `NSPersistentStoreCoordinator.h` 中发现以下内容：
+
+```
+// Core Data 支持的持久化存储类型：
+COREDATA_EXTERN NSString * const NSSQLiteStoreType __OSX_AVAILABLE_STARTING(__MAC_10_4,
+__IPHONE_3_0);
+COREDATA_EXTERN NSString * const NSBinaryStoreType __OSX_AVAILABLE_STARTING(__MAC_10_4,
+__IPHONE_3_0);
+COREDATA_EXTERN NSString * const NSInMemoryStoreType __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_3_0);
+```
+
+确实，`NSXMLStoreType` 仍然未声明，尽管它明确适用于 Mac OS X。要理解原因，请查阅 Apple 关于 Core Data 持久化存储功能的开发者文档，网址为 [`developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CoreData/Articles/cdPersistentStores.html`](http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CoreData/Articles/cdPersistentStores.html)，其中对 iOS 上排除 XML 的解释如下：
+
+```
+iOS：XML 存储在 iOS 上不可用。
+```
+
+仅此而已，这保持了 Apple 保密的声誉。那么，你只能进行推测。Apple 可能在 iOS 版本的 Core Data 中弃用 XML 有几个原因：
+
+- 解析 XML 会消耗大量处理器周期，使得处理器速度相对 iMac、Mac Pro 等较慢的 iDevice 运行更慢。
+- 因为解析 XML 会消耗更多处理能力，所以可能会消耗更多电池电量。
+- XML 及其字符、括号和元数据，通常比二进制文件类型占用更多存储空间。
+- Apple 倾向于引导开发者采用它认为更好的解决方案，而不是提供尽可能多的选项。对于 Core Data 持久化来说，XML 是多余的。
+
+如果你怀念 XML 并希望它在你的应用中可用，你可以编写自己的 XML 自定义存储。然而，如果你想象从一个复杂数据模型生成一个漂亮的、嵌套的 XML 文档，那么在尝试创建自定义 XML 持久化存储类型时，你可能会感到沮丧。Core Data 的关系有其逆关系，这意味着你实际上无法仲裁实体之间的父子关系。例如，在 League Manager 数据模型中，是 `Team` 实体标签应包含 `Player` 实体标签（因为球队“拥有”其球员），还是反过来？球员是否拥有他们效力的球队（正如许多超级巨星职业运动员所展示的那样）？如果你追求一个 XML 自定义数据存储，你会发现你生成的不是使关系清晰的、可读的 XML 文档，而是包含大量同级节点、仅适合 Core Data 消费的 XML 文档。例如，如果你将相同的 League Manager 数据模型移植到一个使用 XML 持久化存储的 Mac OS X Core Data 应用，并为球队和球员输入相同的数据，Core Data 会生成如代码清单 3–13 所示的 XML 文档。
+
+**代码清单 3–13.** *将 League Manager 数据模型移植到 Mac OS X Core Data 应用后生成的 XML*
+
+```
+<?xml version="1.0"?>
+<!DOCTYPE database SYSTEM "file:///System/Library/DTDs/CoreData.dtd">
+```
+
+
+```xml
+<database>
+    <databaseInfo>
+        <version>134481920</version>
+        <UUID>45AD66DE-CC52-4B2B-931C-6ACA69BB5507</UUID>
+        <nextObjectID>108</nextObjectID>
+        <metadata>
+            <plist version="1.0">
+                <dict>
+                    <key>NSPersistenceFrameworkVersion</key>
+                    <integer>251</integer>
+                    <key>NSStoreModelVersionHashes</key>
+                    <dict>
+                        <key>Player</key>
+                        <data>
+                            QRI+8jf5OXSA5dkydbK20isvHVrWhCAttsY9Yh4oUSQ=
+                        </data>
+                        <key>Team</key>
+                        <data>
+                            V/pOfHFixiAQ1Nb7Xlg2Xu4laNYWtrsg5Br1qtI9JMY=
+                        </data>
+                    </dict>
+                    <key>NSStoreModelVersionHashesVersion</key>
+                    <integer>3</integer>
+                    <key>NSStoreModelVersionIdentifiers</key>
+                    <array></array>
+                </dict>
+            </plist>
+        </metadata>
+    </databaseInfo>
+    <object type="TEAM" id="z102">
+        <attribute name="uniformcolor" type="string">Red</attribute>
+        <attribute name="name" type="string">Fire</attribute>
+        <relationship name="players" type="0/0" destination="PLAYER" idrefs="z103"></relationship>
+    </object>
+    <object type="PLAYER" id="z103">
+        <attribute name="lastname" type="string">Gary</attribute>
+        <attribute name="firstname" type="string">Terry</attribute>
+        <attribute name="email" type="string">tgary@example.com</attribute>
+        <relationship name="team" type="1/1" destination="TEAM" idrefs="z102"></relationship>
+    </object>
+    <object type="PLAYER" id="z104">
+        <attribute name="lastname" type="string">Sprat</attribute>
+        <attribute name="firstname" type="string">Pat</attribute>
+        <attribute name="email" type="string">psprat@example.com</attribute>
+        <relationship name="team" type="1/1" destination="TEAM" idrefs="z105"></relationship>
+    </object>
+    <object type="TEAM" id="z105">
+        <attribute name="uniformcolor" type="string">Blue</attribute>
+        <attribute name="name" type="string">Crew</attribute>
+        <relationship name="players" type="0/0" destination="PLAYER" idrefs="z107 z104 z106"></relationship>
+    </object>
+    <object type="PLAYER" id="z106">
+        <attribute name="lastname" type="string">Staley</attribute>
+        <attribute name="firstname" type="string">Bailey</attribute>
+        <attribute name="email" type="string">bstaley@example.com</attribute>
+        <relationship name="team" type="1/1" destination="TEAM" idrefs="z105"></relationship>
+    </object>
+    <object type="PLAYER" id="z107">
+        <attribute name="lastname" type="string">Gordon</attribute>
+        <attribute name="firstname" type="string">Jordan</attribute>
+        <attribute name="email" type="string">jgordon@example.com</attribute>
+        <relationship name="team" type="1/1" destination="TEAM" idrefs="z105"></relationship>
+    </object>
+    <object type="TEAM" id="z108">
+        <attribute name="uniformcolor" type="string">Green</attribute>
+        <attribute name="name" type="string">Revolution</attribute>
+        <relationship name="players" type="0/0" destination="PLAYER"></relationship>
+    </object>
+</database>
+
+Core Data 不会尝试确定队伍和球员之间的父子关系，也不会为不同的实体类型创建标签。它依赖于名为 `object` 的标签，这些标签通过 `type` 属性指定实体名称；此外，它将球员和队伍视为同级实体，这听起来像是导致锁定和赛季取消的导火索。
+
+### 总结
+
+SQLite 在其官网 [`www.sqlite.org`](http://www.sqlite.org) 上声称，它“是世界上部署最广泛的 SQL 数据库引擎”。它得到了 Oracle、Mozilla 和 Adobe 等技术巨头的支持。如果你在职业生涯中大部分时间都从事典型的企业开发工作，你可能认为数据应该存放在数据库中。SQLite 能够高效且紧凑地存储数据，无需在每次更改时原子性地重写持久化存储，也无需编写自定义代码即可使用。Xcode 会生成你开始使用基于 SQLite 的持久化存储所需的一切。为什么不为你的所有 Core Data 持久化存储使用 SQLite 数据库呢？
+
+嗯，你确实可以这么选择。对于大多数（甚至所有）应用程序的数据存储需求，SQLite 可能都是正确的数据存储选择。然而，你在本章中已经了解到，还有其他选项存在，并且你可以创建针对特定应用和数据需求优化的自定义存储类型。无论你是处理仅需在内存中存储的远程数据，希望将数据持久化到文本文件中，还是设想其他更适合自定义数据存储类型的场景，请记住，你的数据可以存在于 SQLite 数据库之外的地方。请记住，你可以自由选择任何方式存储数据，而 Core Data 会为你妥善管理。
+
+## 第 4 章
+
+#### 创建数据模型
+
+你可以创建拥有最直观用户界面的应用程序，执行用户离不开的任务，但如果没有正确建模你的数据，应用程序将变得难以维护、性能不佳，甚至可能变得无法使用。本章将解释如何对数据进行建模，以支持你的应用程序，而不是削弱它。
+```
+
+
+### 设计数据库
+
+美国哲学家拉尔夫·沃尔多·爱默生曾言：“愚蠢的一致性是思想狭隘者的小鬼。”人们常引用这句话来为粗心大意或忽视细节辩护。我们希望在既声称 Core Data 不是数据库，又将其当作数据库使用的自相矛盾中，不要落入这个陷阱。本节将讨论如何设计数据结构，并将此过程类比为建模关系型数据库，这不仅极大地有助于讨论，也有助于最终的设计。然而，这种类比在某些地方会失效——正如所有类比都会有的那样——我们会在讨论中明确指出这些地方。
+
+Core Data 的实体描述在外观、行为、气味和感觉上都极其类似关系型数据库中的表。属性看起来像表中的列，关系感觉像主键和外键上的连接，而实体则像行。如果你的模型位于 SQLite 持久化存储之上，那么 Core Data 实际上会将实体描述、属性、关系和实体实现为你所期望的数据库结构，正如第 2 章和第 3 章所展示的那样。但请记住，你的数据可以仅存在于内存中，或存在于某些没有表、行、列或主键、外键的平面文件原子存储中。Core Data 将数据结构从关系型数据库结构中抽象出来，简化了你建模和与数据交互的方式。请在理解 Core Data 建模方式的思维模型中允许这种抽象存在，否则你的 Core Data 模型将充满冗余，行事与 Core Data 相悖，并产生次优的数据结构。
+
+具有数据建模经验的 Core Data 新手通常会抱怨缺少自动递增字段类型，认为他们有责任像在传统数据建模中那样为每个表定义主键。Core Data 没有自动递增类型，因为你根本不需要定义任何主键。Core Data 承担起建立和维护每个托管对象（即“行”）唯一性的责任。没有主键也意味着没有外键；Core Data 管理实体（即“表”）之间的关系，并为你执行所有必要的连接操作。请迅速克服不定义主键和外键带来的不适感，因为纠结于这个实现细节并不值得你花费精力或感到焦虑。
+
+另一个过度依赖数据库建模知识可能导致与 Core Data 设计理念相悖的地方在于多对多关系。例如，考虑一下如果 League Manager 应用程序中的玩家可以属于多个球队。如果真是这样，每个球队可以有多个球员，而每个球员也可以为多个球队效力。如果你在创建传统的关系型数据模型，你会创建三个表：一个用于球队，一个用于球员，另一个用于跟踪每个球队-球员关系。在 Core Data 中，你仍然只需要两个实体：`Team` 和 `Player`，然后将从 `Player` 到 `Team` 的关系改为多对多关系。Core Data 在 SQLite 数据库中仍然会将其实现为三个表：`ZTEAM`、`ZPLAYER` 和 `Z1TEAMS`，但这只是一个实现细节。你不需要知道第三个表的存在，因为 Core Data 会为你处理这一切。
+
+**提示：** 在创建 Core Data 模型时，请记住一条经验法则：关注数据本身，而非数据存储机制。
+
+#### 关系型数据库规范化
+
+关系型数据库理论推崇一种名为*规范化*的数据模型设计流程，其目标是减少或消除冗余，并提供对数据库内部数据的高效访问。规范化过程分为五个层级，或称*范式*，第六范式的研究仍在继续。这五个范式的定义只有逻辑学家才会喜爱，或许甚至只有他们才能理解；这些定义大致如下：
+
+> *“一个关系 R 满足第四范式（4NF）当且仅当，只要在 R 中存在一个多值依赖（MVD），比如 A -> -> B，那么 R 的所有其他属性也都函数依赖于 A。换句话说，R 中唯一的依赖关系（函数依赖 FD 或多值依赖 MVD）都是 K -> X 的形式（即从候选键 K 到某些其他属性 X 的函数依赖）。等价地：R 满足 4NF 当且仅当它满足 BCNF，并且 R 中的所有 MVD 实际上都是 FD。”*
+>
+> *(`www.databasedesign-resource.com/normal-forms.html`)*
+
+我们既没有足够的篇幅，也没有意向来逐一讲解每个范式的形式化定义并解释其含义。相反，本节将结合 Core Data 来描述每个范式，并提供数据建模建议。请注意，满足某个给定的范式，需要先满足它之前的所有范式。
+
+符合第一范式（1NF）的数据库被认为是规范化的。要符合这一规范化级别，数据库中的每一行必须具有相同数量的字段。对于 Core Data 模型而言，这意味着每个托管对象应具有相同数量的属性。由于 Core Data 不允许你在实体中创建可变数量的属性，因此你的 Core Data 模型会自动满足第一范式。
+
+第二范式（2NF）和第三范式（3NF）处理非键字段与键字段之间的关系，规定非键字段应是对其所属的整个键字段的事实的描述。由于你的 Core Data 模型没有键字段，你理应不会遇到这些问题。不过，你应该确保给定实体的所有属性都描述的是该实体本身，而非其他事物。例如，`Player` 实体不应包含 `uniformColor` 字段，因为队服颜色描述的是球队，而非某个独立的球员。
+
+接下来的两个范式，第四范式（4NF）和第五范式（5NF），在 Core Data 的世界中可以视为同一个范式。它们涉及减少或消除数据冗余，促使你将多值属性移至单独的实体，并在实体间创建多对多关系。用 Core Data 的术语来说，4NF 规定实体不应拥有可以取多个值的属性。相反，你应该将这些属性移至一个单独的实体，并在实体间创建多对多关系。例如，考虑上一章中 League Manager 应用程序模型中的球队和球员。一个违反 4NF 和 5NF 的模型会拥有一个单独的实体 `Team`，并额外添加一个属性：`player`。接着我们为每个球员创建一个新的 `Team` 托管对象，这样就会产生多个冗余的 `Team` 对象。相反，League Manager 的数据模型将球员移至一个 `Player` 实体，并在每个球队及其球员之间创建了一个名为 `players` 的多对多关系。
+
+在 Core Data 应用程序中创建模型时，请牢记数据库建模原则，并考虑通过将多值属性移至单独的实体来消除冗余。例如，在 League Manager 数据模型中，`Team` 的 `uniformColor` 属性就提供了一个规范化的机会。命名颜色代表一个有限的集合（无论 Crayola 蜡笔公司声称什么），因此你可以创建一个名为 `Color` 的实体，它有一个名为 `name` 的属性，并通过多对多关系与球队相关联。
+
+
+
+### 使用 Xcode 数据模型器
+
+有些开发者只是被动接受给予他们的工具。另一些开发者则只在认为现有工具不够好时才去构建工具。然而，还有一小部分人固执地坚持要自行构建所有工具。我们倾向于成为最后一类开发者，我们因使用自己构建的工具而自豪，同事们也因此将我们视为“自造工具”的程序员。我们以构建工具为荣，甚至在广播了这些工具节省了多少时间后还会举行庆祝活动。我们从不统计构建工具所花费的时间，而是将其归入“娱乐时间”，因为我们享受构建工具的过程。然而，令人惊讶的是，我们从未想过要为 Core Data 编写一个数据模型器工具，这很可能是因为 Xcode 在数据建模方面已经做得相当不错了。它绝非完美无瑕，但确实能胜任工作，并且与开发环境完美集成，即便是我们自行构建的工具，也永远无法超越这一特性。事实上，Xcode 自带了一个内置的数据建模工具，可以让你以可视化的方式轻松创建数据模型，而无需手动编写 `NSManagedObjectModel`。在前几章中，你已经多次瞥见过这个工具。在本节中，我们将花较少的时间讨论 Core Data 的工作原理，而花更多的时间来研究这个工具及其使用方法。
+
+在本节中，你不会编写任何可运行的代码。相反，你将专注于数据模型器的用户界面。要在 Xcode 项目中添加一个数据模型，请从菜单中选择 **File ![image](img/U001.jpg) New ![image](img/U001.jpg) New File**。在左侧的 iOS 部分中，选择 Core Data 子部分。它会显示三种文件类型：Data Model、Mapping Model 和 `NSManagedObject` 子类。Mapping Model 用于协助跨数据模型版本的数据迁移，这将在第 8 章中介绍；而 `NSManagedObject` 子类则从模型中的实体生成类，这将在第 5 章中介绍。选择 Data Model，如图 4–1 所示，然后点击 Next。为数据模型选择一个名称，然后点击 Save。Xcode 就会为你创建该数据模型。
+
+![images](img/0401.jpg)
+
+**图 4–1.** *新建数据模型文件*
+
+在 Xcode 中打开你新建的数据模型文件，它就会在数据模型器界面中打开。Xcode 数据模型器界面按钮和选项众多，可能会让人感到困惑。请参考图 4–2，该图对用户界面进行了注释，总结了与数据建模相关的按钮，以帮助你了解如何使用模型器来为你的数据建模。
+
+![images](img/0402.jpg)
+
+**图 4–2.** *数据模型器界面*
+
+模型器允许你浏览数据模型的实体、属性、关系、请求和配置。当你选中某个构件时，会获得关于它的更多详细信息。你还可以通过按下 Xcode 窗口底部的相应 Editor Style 按钮，在图 4–2 所示的 Table 视图和 Xcode 称为“Graph”视图（如图 4–3 所示）的类实体-关系视图之间切换。
+
+![images](img/0403.jpg)
+
+**图 4–3.** *Graph 视图*
+
+为了让模型讨论起来更有趣，请打开第 3 章中的 League Manager 数据模型。Xcode 界面看起来应该与图 4–4 类似。
+
+![images](img/0404.jpg)
+
+**图 4–4.** *Xcode 数据模型器中的 League Manager 模型*
+
+你可以看到，Xcode 默认以表格形式显示实体和属性。你可能会发现使用图形形式（点击 Editor Style 上方的 Graph View 按钮即可获得）更容易操作。Graph View 中的 League Manager 看起来就像图 4–5 所示。
+
+![images](img/0405.jpg)
+
+**图 4–5.** *Graph View 中的 League Manager 模型*
+
+图形视图类似于数据模型器熟悉的传统实体-关系图。在图形视图中，你可以轻松地看到实体之间是如何相互关联的。你可能已经注意到，从 `Team` 到 `Player` 的关系是双头箭头。这是因为这是一个一对多关系。一支球队可能有多个球员。而从 `Player` 到 `Team` 的反向关系是单头箭头，因为这是一个一对一关系。一个球员最多只属于一支球队。我们倾向于认为 Table View 更适合创建和修改模型，而 Graph View 更适合可视化模型，不过你可以开发出适合自己的方法。
+
+通过选择任何一个实体或属性，你可以获取它的更多信息。例如，图 4–4 显示了选中的 `Player` 实体。在右上角，你可以看到关于 `Player` 实体的详细信息：它名为 `Player`，属于 `NSManagedObject` 类，没有父实体，并且不是抽象的。如果你选择一个属性，该面板会更改为显示该属性的详细信息，具体内容会因其类型而异。例如，如果你选择 `Player` 实体的 `email` 属性，面板会变成图 4–6 所示的样子。你将看到以下内容：
+
+- 它名为 `email`。
+- 它是可选的。
+- 它不是瞬态属性，也没有被索引。
+- 它的类型是 `String`。
+- 它没有最小或最大长度限制。
+- 它没有默认值。
+- 它没有附加的正则表达式。
+- 它不会被 Spotlight 索引。
+- 它不会存储在外部的记录中。
+
+![images](img/0406.jpg)
+
+**图 4–6.** *email 属性的详细信息*
+
+将选择切换到 `Player` 的 `team` 关系，面板会显示面向关系的详细信息，如图 4–7 所示。从这个视图中，你可以了解到关于该关系的以下信息：
+
+- 它名为 `team`。
+- 它的目标实体是 `Team`。
+- 它的反向关系名为 `players`。
+- 它是可选的，但不是瞬态关系。
+- 它不是一个对多关系。
+- 它的最小计数为 1，最大计数为 1。
+- 它使用的删除规则是 Nullify。
+- 它不会被 Spotlight 索引。
+- 它不会存储在外部的记录中。
+
+![images](img/0407.jpg)
+
+**图 4–7.** *team 关系的详细信息*
+
+让我们看看图 4–8 中显示的 `Player` 实体的详细信息。实体由其名称定义。Core Data 也允许你创建 `NSManagedObject` 的子类，为你的托管对象提供另一个实现类。如果你创建了 `NSManagedObject` 的子类，并希望将一个实体映射到该类，你可以在实体详细信息窗格中指定该类名。
+
+![images](img/0408.jpg)
+
+**图 4–8.** *实体详细信息窗格*
+
+### 查看和编辑属性详细信息
+
+从 Xcode 数据建模工具中间列的 Attributes 部分选择一个属性，以便将详细信息窗格切换为显示属性详细信息。
+
+表 4–1 解释了 Attribute 窗格中的各字段。第一列 Name 指的是字段的名称，而 Description 列则解释了该字段的含义及其使用方式。
+
+![image](img/t0401.jpg)
+
+
+
+### 查看和编辑关系详情
+
+同样地，您可以点击某个关系来查看其详细信息。
+
+关系具有几个属性。首先，它们都有一个名称和一个目标实体。目标实体描述了该关系所指向的对象类型。对于 `Player` 实体而言，正如预期，"team" 关系指向一个 `Team` 实体。Core Data 架构师强烈建议每个关系都应有一个*反向关系*，即指向相反方向的关系。例如，`Player` 与 `Team` 之间存在关系，因此推荐（正如我们所实现的那样）`Team` 也与 `Player` 之间存在关系。事实上，如果您不指定反向关系，编译器将会生成一条警告消息。
+
+属性还有两个额外的属性：`Transient`（瞬态）和 `Optional`（可选）。瞬态关系在 `save:` 操作期间不会被存储到持久化存储区。如果 team 关系是瞬态的，那么玩家所属队伍的信息将不会被保存，并在应用程序退出时丢失。`Player` 对象本身仍会被持久化，但与队伍的关系则不会。如果您希望在运行时设置值（例如密码或通过代码从其他信息派生出来的内容），但又不想使用 Core Data 存储关系事实，那么瞬态关系会很有用。当关系是可选时，仅意味着您可以为其赋予 `nil` 值。例如，某个玩家可能没有所属队伍。
+
+关系的多重性定义了源对象可以关联多少个目标对象：一个或多个。默认情况下，关系是**对一**关系，这意味着源对象最多可以关联一个目标对象。`Player` 实体的 "team" 关系就是这种情况：一个玩家最多只能有一个队伍。但是一个队伍可以有多个玩家；因此，`Team` 实体的 "player" 关系是一个**对多**关系。它的值由一组实体表示。关系的多重性还可以使用最小值和最大值进一步指定，这代表了该关系目标实体的基数。
+
+最后，Core Data 使用删除规则来确定当源对象被删除时，如何处理目标对象。如果队伍被删除，Core Data 可以对该队伍的玩家执行不同的操作。选项包括：无操作（No Action）、置空（Nullify）、级联（Cascade）和拒绝（Deny）。本章的 "设置规则" 部分将讨论这些删除规则及其含义。
+
+### 使用获取属性
+
+到目前为止，本书中我们已经多次提到了属性和关系。第三种属性可以附加到实体上：获取属性。获取属性与关系类似，因为它们都允许一个对象引用其他对象。但是，关系直接引用目标对象，而获取属性则通过使用谓词来识别目标对象。获取属性的行为类似于 iTunes 中的智能播放列表，用户指定源列表（通常是音乐库），然后指定一些条件来过滤结果。然而，获取属性的行为与智能播放列表的不同之处在于：它们在首次被调用时进行评估，并且其结果会被缓存，直到您使用 `refreshObject:mergeChanges:` 方法告知它们重新评估。
+
+例如，在 League Manager 应用程序中，您可以在 `Team` 实体中创建一个获取属性，以返回所有姓氏以字母 *W* 开头的玩家。选择 `Team` 实体，点击"获取属性"部分下方的 + 按钮，并将新的获取属性命名为 `wPlayers`。选择 `Player` 作为目标实体（即获取属性将检索的实体类型）。
+
+在"谓词"字段中，使用标准的 `NSPredicate` 格式（更多关于 `NSPredicate` 的详细信息，请参见第 6 章）指定过滤玩家的条件。在本例中，谓词如下：
+
+`lastName BEGINSWITH "W"`
+
+然后，这个获取属性就成为 `Player` 实体上的一个命名属性，就像所有属性和关系一样，并且您可以通过相同的方式访问它们。您可以通过在 League Manager 的 `application:didFinishLaunchingWithOptions:` 方法的应用委托中添加代码来测试这一点，该代码使用了 `wPlayers` 获取属性。清单 4-1 中的代码获取所有队伍，抓取第一个队伍（如果存在），然后抓取 `wPlayers` 获取属性中的所有玩家。接着，它遍历这些玩家并打印他们的名字和姓氏。
+
+**清单 4-1.** *使用 wPlayers 获取属性*
+
+```
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+[fetchRequest setEntity:[NSEntityDescription entityForName:@"Team"
+inManagedObjectContext:self.managedObjectContext]];
+NSArray *teams = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+if ([teams count] > 0)
+{
+  NSManagedObject *team = [teams objectAtIndex:0];
+  NSSet *wPlayers = [team valueForKey:@"wPlayers"];
+  for (NSManagedObject *wPlayer in wPlayers)
+  {
+    NSLog(@"%@ %@", [wPlayer valueForKey:@"firstName"], [wPlayer
+valueForKey:@"lastName"]);
+  }
+}
+```
+
+如果您运行此代码，根据您在 League Manager 中输入的数据，您应该在控制台中看到类似以下内容：
+
+```
+2011-07-31 19:08:23.005 League Manager[8039:f203] Dwyane Wade
+2011-07-31 19:08:23.006 League Manager[8039:f203] Tyson Warner
+```
+
+使用 Xcode 配置数据模型的最后一个重要方面是创建获取请求。您可以使用获取请求从数据模型中检索托管对象，就像在代码中使用 `NSFetchRequest` 一样，区别在于您可以在此处预定义它们。例如，要创建一个获取所有穿着绿色队服的队伍的获取请求，请在"实体"部分选择 `Team`，点击并按住"添加实体"按钮，直到出现下拉菜单，然后选择"添加获取请求"。将获取请求命名为 `GreenTeams`。在 Xcode 的中间列中，您应该会看到一个 + 按钮，用于向获取请求添加条件。点击该按钮并输入 `uniformColor == "Green"`。它应该看起来像图 4-9。
+
+![images](img/0409.jpg)
+
+**图 4-9.** *为获取请求设置谓词*
+
+通过这种方式创建的获取请求存储在数据模型中，并且可以使用 `ManagedObjectModel` 类的 `fetchRequestTemplateForName:` 方法进行检索。您可以向 League Manager 应用委托的 `application:didFinishLaunchingWithOptions:` 方法中添加代码来测试此获取请求。清单 4-2 显示了执行此操作的代码。
+
+**清单 4-2.** *使用在模型中创建的获取请求*
+
+```
+NSFetchRequest *fetchRequest = [self.managedObjectModel
+fetchRequestTemplateForName:@"GreenTeams"];
+NSArray *teams = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+for (NSManagedObject *team in teams)
+{
+  NSLog(@"%@", [team valueForKey:@"name"]);
+}
+```
+
+同样，根据您在 League Manager 中输入的数据，您的控制台输出应该如下所示：
+
+```
+2011-07-31 19:17:25.598 League Manager[8184:f203] Boston Celtics
+```
+
+
+
+### 创建实体
+
+到目前为止，我们已经详细讨论了实体。实体描述了被管理对象的属性和关系。要在 Xcode 中添加实体，只需点击 Xcode 中实体部分下方的添加实体按钮，并为你的实体命名。
+
+默认情况下，每个实体的实例在运行时由 `NSManagedObject` 类型的对象表示，但随着项目的发展和成熟，你通常会选择创建自己的类来表示被管理对象。你的自定义被管理对象必须继承自 `NSManagedObject`，并且必须在实体详细信息面板的类字段中指定自定义对象的类名，如图 4-10 所示。
+
+![images](img/0410.jpg)
+
+**图 4-10.** *自定义被管理对象类*
+
+我们还有一个尚未涉及的主题：实体继承。与面向对象编程范式中的类继承非常相似，实体继承允许你创建从另一个实体继承属性，并可以添加自身属性的实体。例如，你可以创建一个 `Person` 实体，而 `Player` 实体可以继承它。如果你还有其他表示人的实体——例如 `Coach`，你也可以继承自 `Person` 实体。如果你想阻止父实体被直接实例化，从而防止用户创建独立的 `Person` 对象，你可以将 `Person` 实体设为抽象。例如，你可以创建一个带有 `dateOfBirth` 属性的 `Person` 实体。图 4-11 展示了如何配置 `Person` 实体。注意它如何被设置为抽象以防止直接实例化。
+
+![images](img/0411.jpg)
+
+**图 4-11.** *作为抽象实体的 Person 实体*
+
+下一步是更改 `Player` 实体的配置，并将其父实体设置为 `Person`。选择 `Player` 实体，并将父字段更改为 `Person`，如图 4-12 所示。`Player` 实体现在继承自 `Person` 实体，如图 4-13 的图形视图所示。这意味着一个球员被管理对象也具有可设置和读取的 `dateOfBirth` 属性。
+
+![images](img/0412.jpg)
+
+**图 4-12.** *配置为继承自 Person 实体的 Player 实体*
+
+![images](img/0413.jpg)
+
+**图 4-13.** *配置为继承自 Person 实体的 Player 实体的图形视图*
+
+### 创建属性
+
+属性描述了一个实体。与面向对象编程中对象的属性类似，实体属性定义了实体的当前状态，并可以由各种数据类型表示。选择一个实体，然后点击属性标题下方的 + 按钮，为所选实体创建一个新属性。图 4-14 展示了配置属性的不同选项。
+
+![images](img/0414.jpg)
+
+**图 4-14.** *属性详细信息面板*
+
+本章前面部分，我们讨论了属性不同属性的含义。请参见表 4-1 回顾这些属性。可以说是属性最关键的性质是其类型。Core Data 默认提供了几种类型，如表 4-2 所示。
+
+![image](img/t0402.jpg)
+
+![image](img/t0402a.jpg)
+
+这些类型大多很直观，因为它们直接映射到 Objective-C 数据类型。使用它们只需利用 `NSManagedObject` 实例的键/值访问器即可。`Transformable` 类型是唯一没有 Objective-C 对应类型的类型。`Transformable` 类型用于自定义类型，即 Core Data 不支持的类型。当你试图持久化的属性无法整齐地归入某个支持的数据类型时，使用 `Transformable` 作为类型。例如，如果你的被管理对象需要表示一种颜色并需要持久化它，那么使用 `CGColorRef` 类型是合理的。在这种情况下，你需要将 Core Data 类型设置为 `Transient` 和 `Transformable`，并提供一个机制，让 Core Data 能够将该属性转换（变换）为支持的数据类型。当你创建自己的继承自 `NSManagedObject` 的被管理对象时，使用自定义属性；这些内容将在下一章中更详细地介绍。
+
+### 创建关系
+
+当你规范化数据模型时，根据所建模数据的复杂程度，你可能会创建多个实体。关系允许你将实体联系在一起，就像 League Manager 应用将队伍和球员联系起来一样。Core Data 允许你调整创建的关系，以准确反映数据之间的关联方式。
+
+在 Xcode 中，当你创建一个 Core Data 关系或选择一个现有关系时，你会看到一组可以修改的选项，以改变关系的性质。例如，如果你从 League Manager 数据模型中的 `Player` 实体选择“team”关系，你会看到类似图 4-15 的内容。该面板中的选项允许你配置关系的字段。这些字段如下：
+
+*   名称
+*   目标
+*   反向
+*   瞬态
+*   可选
+*   对多关系
+*   计数（最小值和最大值）
+*   删除规则
+
+接下来的几节将逐一讲解所有这些字段，解释它们的含义以及它们如何影响关系，以便你能够在数据模型中正确设置关系。
+
+![images](img/0415.jpg)
+
+**图 4-15.** *关系面板*
+
+#### 名称
+
+第一个字段“名称”将成为 `NSManagedObject` 用来引用该关系的键的名称。按照惯例，它是被引用实体名称的小写形式。在对多关系的情况下，“名称”字段惯例上使用复数形式。请注意，这些指南只是约定，但如果你遵循它们，将使你的数据模型更易于理解、维护和操作。你可以看到 League Manager 数据模型遵循了这些约定——在 `Player` 实体中，到 `Team` 实体的关系被称为“team”。在 `Team` 实体中，到 `Player` 实体的关系，是一个对多关系，被称为“players”。
+
+#### 目标和反向
+
+下一个字段“目标”指定关系另一端的实体。“反向”字段允许你选择同一个关系，但是从目标实体的角度。要正确设置，请在两个相关实体中都创建关系，在每个实体中设置名称和目标，然后在一个实体中选择正确的反向关系。Core Data 会为另一个实体计算出反向关系并自动设置。
+
+将“反向”字段保留为“无反向关系”值会给你带来两个编译器警告：一致性错误和配置错误的属性。
+
+你可以忽略这些警告并在不指定反向关系的情况下运行你的应用程序——毕竟，这些是编译器警告，而不是编译器错误——但你可能会面临意想不到的后果。Core Data 使用双向关系信息来维护对象图的**一致性**（因此有一致性错误）以及管理撤销和重做信息。如果你留下一个没有反向关系的关系，就意味着你将自行处理对象图的一致性和撤销/重做管理。然而，苹果文档强烈不鼓励这样做，尤其是在对多关系的情况下。当你不指定反向关系时，当关系这一端的被管理对象发生变化时，关系另一端的被管理对象不会被标记为已更改。考虑一个 `Player` 对象被删除并且没有返回到其队伍的反向关系的例子。当保存对象图时，任何可空性规则或删除规则都不会被强制执行。
+
+
+
+#### 瞬态（Transient）
+
+`Transient`（瞬态）复选框允许你指定某个关系不应保存到持久化存储中。瞬态关系仍然支持撤销和重做操作，但在应用程序退出时会消失，使其生命周期如同好莱坞婚姻般短暂。以下是瞬态关系的一些可能用途：
+
+-   具有时效性且不应在本次应用运行结束后继续存在的实体间关系。
+-   可从某些外部数据源（无论是另一个 Core Data 持久化存储还是其他信息源）推导出的关系信息。
+
+大多数情况下，你希望关系是持久的，因此应保持 `Transient` 复选框处于未选中状态。
+
+#### 可选（Optional）
+
+下一个字段 `Optional`（可选）是一个复选框，用于指定此关系是否需要非 `nil` 值。可以将其类比为数据库中的可空列与不可空列。如果选中 `Optional` 复选框，那么此实体类型的托管对象可以在未为此关系指定任何值的情况下保存到持久化存储中。但若未选中，则保存上下文将会失败。例如，如果 League Manager 应用数据模型中的 `Player` 实体取消了此复选框的勾选，那么每个球员实体都必须属于某个球队。将球员的“team”值设置为 `nil`（或根本不设置）会导致所有对 `save:` 的调用失败，并显示错误描述“team is a required value”。
+
+#### 对多关系（To-Many Relationship）
+
+`To-Many Relationship`（对多关系）是另一个复选框。取消选中此复选框会使关系成为对一（to-one）关系，这意味着该关系的每一端恰好有一个托管对象（或零个，具体取决于可选性设置）。对于 League Manager 应用，如果取消勾选 `Team` 实体上“players”关系的 `To-Many Relationship` 复选框，就意味着一个球队只能有一名球员，这或许适用于高尔夫球，但不适用于足球。选中此复选框则表示目标实体可以有多个托管对象，这些对象与此实体类型的每个托管对象实例相关联。
+
+#### 数量（最小值和最大值）（Count (Minimum and Maximum)）
+
+接下来的字段 `Count`（数量）、`Minimum`（最小值）和 `Maximum`（最大值）用于设定此实体类型的每个托管对象可关联的目标实体类型托管对象的数量限制，且仅在选中 `To-Many Relationship` 复选框时生效。取消选中该框使关系成为对一关系，会将 `Minimum` 和 `Maximum` 值都重置为 1。
+
+在对多关系中，你可以使用 `Count` 字段来限制此托管对象可关联的托管对象数量。超出限制会导致 `save:` 操作失败，并显示“Too many items”或“Too few items”错误消息。请注意，`Optional` 设置会覆盖 `Minimum Count` 设置；如果 `Optional` 被选中且 `Min Count` 为 1，当关系计数为零时保存上下文仍会成功。另请注意，Core Data 不会要求你智能地设置这些值。例如，你可以将 `Minimum Count` 设置得比 `Maximum Count` 高。如果你这样做，对 `save:` 的调用将始终失败，因为你永远无法满足所设定的 `Count` 标准。你可能自己也经历过感觉像这样的关系。
+
+#### 删除规则（Delete Rule）
+
+`Delete Rule`（删除规则）设置允许你指定当尝试删除此实体类型的托管对象时会发生什么。表 4–3 列出了四种可能性及其含义。
+
+![image](img/t0403.jpg)
+
+例如，League Manager 应用将 `Team` 实体中“players”关系的 `Delete Rule` 设置为 `Cascade`（级联），以便删除球队会删除所有与之相关的球员。如果你将该规则设置为 `Deny`（拒绝），并且球队有任意球员，那么尝试删除该球队会导致任何保存上下文的尝试出错，并显示消息“team is not valid”。将 `Delete Rule` 设置为 `Nullify`（置空）会保留持久化存储中的球员，但他们将不再属于任何球队。
+
+`No Action`（无操作）选项代表了另一种方式，例如不指定反向关系，Core Data 允许你承担管理对象图一致性的责任。如果你为 `Delete Rule` 指定此值，Core Data 允许你删除源对象，但会向目标对象假装源对象仍然存在。对于 League Manager 应用，这意味着解散一个球队，但仍然告诉球员们来参加训练和比赛。你很难找到使用 `No Action` 设置的令人信服的理由，除非可能是出于性能考虑，当你有大量目标对象时。第 7 章 讨论了使用 Core Data 进行性能调优。
+
+### 总结
+
+对于依赖数据的应用程序（即大多数应用程序），正确设计数据模型的重要性怎么强调都不为过。Xcode 数据模型器为设计和定义数据模型提供了坚实的界面，在本章中，你学习了如何在创建实体、属性和关系时浏览众多可用选项。请务必理解你所配置的数据模型的影响，以便你的应用程序能够高效且正确地运行。
+
+在大多数情况下，你应该避免在模型中使用那些会从 Core Data 手中夺走控制权、并迫使你自己管理对象图一致性的选项。Core Data 在管理对象图一致性方面几乎总是比你做得更好。当你必须掌控时，请确保对你的解决方案进行充分调试，以防止应用程序崩溃或数据损坏。
+
+Xcode 的一个你可能觉得有用的功能是能够打印你的数据模型以供审查。你会发现在 Mac OS X 支持的任何打印机上，Xcode 都能打印你的数据模型。
+
+在下一章中，你将学习如何通过实际创建、检索、更新和删除数据来使用你创建的数据模型。
+
+## 第 5 章
+
+## 处理数据对象
+
+轻松与数据库中的数据交互的能力是推动大多数新编程语言和框架成功的重要特性之一。本章讨论如何处理你创建并存储在 Core Data 模型中的数据对象。你会发现 Core Data 提供了对结构化查询语言 (SQL) 和数据库编程复杂性的抽象，使你能够快速高效地读写持久化存储中的数据。
+
+
+
+### 理解 CRUD
+
+无论你认为 `R` 代表读取（Read）还是检索（Retrieve），也不论你对 `D` 是更倾向于销毁（Destroy）还是删除（Delete），CRUD 这个缩写都描述了在持久化数据存储上执行的四种操作：
+
+- 创建（Create）
+- 检索/读取（Retrieve/Read）
+- 更新（Update）
+- 删除/销毁（Delete/Destroy）
+
+这四种操作适用于所有持久化存储交互，无论你是在 iOS 应用中使用 Core Data，在 Java 企业 Web 应用中操作 Oracle 数据库，在 COBOL 程序中处理虚拟存储存取方法（VSAM）文件，还是任何其他需要程序处理数据的场景。事实上，CRUD 概念已被扩展用于描述创建、检索、更新和删除数据的其他情形。例如，最新的 Web 服务提供方式——表述性状态转移（REST），就被称为“Web 版的 CRUD”；HTTP 动词与 CRUD 操作的对应关系如下：
+
+- `POST` = 创建
+- `GET` = 检索
+- `PUT` = 更新
+- `DELETE` = 删除
+
+在本章中，你将构建同一个应用两次：第一次直接使用 `NSManagedObject` 实例，第二次使用继承自 `NSManagedObject` 的自定义类。本部分构建的是原始 `NSManagedObject` 版本。借鉴 Scott Hanselman 的 Baby Smash!（[`www.hanselman.com/babysmash/`](http://www.hanselman.com/babysmash/)）的思路，这个名为 Shapes 的应用具有以下需求和特性：
+
+- 每次点击屏幕，在点击位置会出现一个随机形状。
+- 该形状随机为圆形或多边形。
+- 如果是多边形，其边数随机，可以是凹形、凸形或混合形。
+- 如果是圆形，其半径随机。
+- 形状以随机颜色出现。
+- 摇动设备会删除所有形状。
+- 旋转设备会将所有形状更新为随机颜色。
+- 屏幕从中部分为两半，每个形状出现两次，每半屏幕各一次。
+- 其中一半屏幕放大 2 倍（这意味着一些形状将不会显示，因为它们会落在屏幕边界之外）。
+- Shapes 专为 iPad 构建，以利用额外的屏幕空间。
+
+从 Core Data 的角度来看，Shapes 演示了以下内容：
+
+- *创建*：每次点击屏幕时，Shapes 都会在持久化存储中创建一个形状对象。
+- *检索*：每次屏幕绘制形状时，Shapes 都会从持久化存储中检索形状。
+- *更新*：每次旋转设备时，Shapes 都会用不同的随机颜色更新持久化存储中的所有形状。
+- *删除*：每次摇动设备时，Shapes 都会从持久化存储中删除所有形状。
+- *继承*：`Polygon` 和 `Circle` 实体继承自同一个父实体 `Shape`。
+- *一对多*：一个 `Polygon` 实例关联多个 `Vertex` 实例。
+- *多对多*：多个 `Shape` 实例关联多个 `Canvas` 实例。
+- *一对一*：一个 `Canvas` 实例关联一个 `Transform` 实例，后者控制缩放。
+
+完成后的应用将如图 5-1 所示。
+
+![images](img/0501.jpg)
+
+***图 5-1.** 完成的 Shapes 应用*
+
+Shapes 可能无法与 BabySmash! 的趣味性相媲美，但我们也不鼓励摔砸 iPad。Shapes 展示了 Core Data 的广泛基础。不过，你会注意到 Shapes 并未对结果进行过滤或排序，这一点将在第 6 章中介绍。
+
+在 Xcode 中，创建一个新项目，在 iOS 下选择 Single View Application。将其命名为 Shapes，在 Company Identifier 中输入 `book.coredata`，并将 Device Family 设置为 iPad（如图 5-2 所示）。保存项目以便在 Xcode 中打开。
+
+![images](img/0502.jpg)
+
+***图 5-2.** 名为 Shapes 的新 iPad 项目*
+
+请注意，在 Single View Application 模板中，你无法将 Core Data 添加到应用程序，因此现在需要手动添加 Core Data。你在第 1 章中已学习过如何操作，但这里再回顾一下：选择左侧的 Shapes 项目，转到 Build Phases 选项卡，展开 Link Binary with Libraries 部分，如图 5-3 所示。点击该部分下的 + 按钮，选择 `CoreData.framework`，然后点击 Add。`CoreData.framework` 会出现在 Xcode 左侧的项目文件树中。将其拖到 Frameworks 文件夹中。
+
+![images](img/0503.jpg)
+
+**图 5-3.** *准备将 Core Data 添加到 Shapes 应用程序*
+
+
+#### 创建 Shape 应用数据模型
+
+在编写应用程序代码之前，请先创建数据模型。依次选择 **文件** ![图片](img/U001.jpg) **新建** ![图片](img/U001.jpg) **新建文件**，在左侧 iOS 下选择 Core Data，在右侧选择数据模型，然后点击“下一步”。将模型文件命名为 `Shapes.xcdatamodel`，并将其保存到 Shapes 组中的 Shapes 文件夹中，如图 5-4 所示。
+
+![图片](img/0504.jpg)
+
+**图 5-4.** *创建你的 Shapes 数据模型*
+
+选择 `Shapes.xcdatamodeld` 来编辑你的数据模型，并按照以下步骤完成模型：
+
+1.  添加一个名为 `Shape` 的实体，并为其添加一个名为 `color` 的非可选属性，类型为 `String`。
+2.  添加一个名为 `Circle` 的实体，并为其添加三个非可选属性，类型均为 `Float`：`radius`、`x` 和 `y`。将其父实体设置为 `Shape`。
+3.  添加一个名为 `Polygon` 的实体，不添加属性，并将其父实体设置为 `Shape`。
+4.  添加一个名为 `Vertex` 的实体，并为其添加一个名为 `index` 的非可选属性，类型为 `Integer 16`。为其添加两个名为 `x` 和 `y` 的非可选 `Float` 属性。添加一个名为 `polygon` 的关系，并将目标设置为 `Polygon`。将其设为可选，并保持删除规则为“置空”。
+5.  为 `Polygon` 实体添加一个名为 `vertices` 的关系，将其目标设置为 `Vertex`，反向关系设置为 `polygon`。取消选中“可选”复选框，选中“对多关系”复选框，将最小计数设置为 3，并将删除规则设置为“级联”。
+6.  添加一个名为 `Transform` 的实体，并为其添加一个名为 `scale` 的非可选 `Float` 类型属性。
+7.  添加一个名为 `Canvas` 的实体，并为其添加一个名为 `transform` 的关系。将目标设置为 `Transform`，取消选中“可选”复选框，并将删除规则设置为“级联”。再添加一个名为 `shapes` 的关系。将目标设置为 `Shape`，保持“可选”为选中状态，并选中“对多关系”复选框。将删除规则保留为“置空”。
+8.  选择 `Shape` 实体，并添加一个名为 `canvases` 的关系。将目标设置为 `Canvas`，反向关系设置为 `shapes`。选中“可选”和“对多关系”，并将删除规则设置为“置空”。
+9.  选择 `Transform` 实体，并添加一个名为 `canvas` 的关系。将目标设置为 `Canvas`，反向关系设置为 `transform`。取消选中“可选”，并将删除规则设置为“拒绝”。
+
+完成后，你的数据模型布局应如图 5-5 所示。
+
+![图片](img/0505.jpg)
+
+**图 5-5.** *Shapes 应用数据模型*
+
+数据模型就位后，你就可以在应用委托中添加 Core Data 支持了。打开 `ShapesAppDelegate.h`，导入 Core Data 头文件，并为托管对象上下文、托管对象模型和持久化存储协调器添加属性。同时，为两个方法添加声明：一个用于保存托管对象上下文，另一个用于返回应用程序的文档目录。完成后，你的文件应如下所示，新增的行以粗体显示：
+
+```
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
+@class ShapesViewController;
+
+@interface ShapesAppDelegate : NSObject <UIApplicationDelegate>
+@property (strong, nonatomic) IBOutlet UIWindow *window;
+@property (strong, nonatomic) IBOutlet ShapesViewController *viewController;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator
+*persistentStoreCoordinator;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
+
+@end
+```
+
+接下来，打开 `ShapesAppDelegate.m`，为你刚添加的三个 Core Data 相关属性添加 `@synthesize` 行。同时，为相同的三个 Core Data 相关属性添加访问器方法。最后，为你保存托管对象上下文和返回应用文档目录的方法添加实现。你的 `ShapesAppDelegate.m` 文件应与代码清单 5-1 一致。
+
+***代码清单 5-1.** ShapesAppDelegate.m*
+
+```
+#import "ShapesAppDelegate.h"
+#import "ShapesViewController.h"
+
+@implementation ShapesAppDelegate
+
+@synthesize window=_window;
+@synthesize viewController=_viewController;
+@synthesize managedObjectContext=__managedObjectContext;
+@synthesize managedObjectModel=__managedObjectModel;
+@synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  // 应用启动后的自定义覆盖点。
+  self.viewController = [[ShapesViewController alloc] initWithNibName:@"ShapesViewController" bundle:nil];
+  self.window.rootViewController = self.viewController;
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+
+#pragma mark - Core Data 栈
+
+- (NSManagedObjectContext *)managedObjectContext {
+  if (__managedObjectContext != nil) {
+    return __managedObjectContext;
+  }
+
+  NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+  if (coordinator != nil) {
+    __managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+  }
+  return __managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+  if (__managedObjectModel != nil) {
+    return __managedObjectModel;
+  }
+  NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Shapes" withExtension:@"momd"];
+  __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
+  return __managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+  if (__persistentStoreCoordinator != nil) {
+    return __persistentStoreCoordinator;
+  }
+
+  NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes.sqlite"];
+
+  NSError *error = nil;
+  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+  if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    NSLog(@"无法解决的错误 %@, %@", error, [error userInfo]);
+    abort();
+  }    
+  return __persistentStoreCoordinator;
+}
+
+- (void)saveContext {
+  NSError *error = nil;
+  NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+  if (managedObjectContext != nil) {
+    if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+      NSLog(@"无法解决的错误 %@, %@", error, [error userInfo]);
+      abort();
+    }
+  }
+}
+
+#pragma mark - 应用的文档目录
+
+- (NSURL *)applicationDocumentsDirectory {
+  return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+@end
+```
+
+
+### 排版后的文本
+
+根据需求，`Shapes`应用程序将屏幕分成两半，并在两半上显示相同的形状，其中一半的形状尺寸加倍。`Canvas`实体在 Core Data 数据模型中代表了这些屏幕半部分，但您需要相应的用户界面元素来实际在屏幕上绘制形状。为此，您将创建一个派生自`UIView`的类，然后将这两个视图添加到现有的 XIB 文件中。从创建类开始：选择**文件** ![images](img/U001.jpg) **新建** ![images](img/U001.jpg) **新建文件**，在左侧选择 Cocoa Touch Class，在右侧选择 Objective-C class，然后点击 Next。将类命名为`BasicCanvasUIView`，并使其成为`UIView`的子类，如图 5–6 所示。您应该会看到该类的两个文件：`BasicCanvasUIView.h`和`BasicCanvasUIView.m`，它们已列在项目文件中。打开`BasicCanvasUIView.h`文件。
+
+![images](img/0506.jpg)
+
+**图 5–6.** *从 UIView 派生 BasicCanvasUIView 类*
+
+在`BasicCanvasUIView`中，您需要引用该视图将显示的对应`Canvas`实体，以及一种缩放视图的方式（一个实例的缩放比例为 1x，另一个为 2x）。将`BasicCanvasUIView.h`修改为如下所示：
+
+```objc
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
+@interface BasicCanvasUIView : UIView {
+    NSManagedObject *canvas;
+}
+@property (nonatomic, retain) NSManagedObject *canvas;
+
+-(float)scale;
+
+@end
+```
+
+在类的实现文件`BasicCanvasUIView.m`中，您需要为`canvas`属性添加访问器和修改器，因此添加这行代码：
+
+```objc
+@synthesize canvas;
+```
+
+`scale:`方法返回存储在与该视图表示的`Canvas`实体相关的`Transform`实体中的`scale`属性的值。请记住，`Canvas`与`Transform`是一对一的关系；每个`Canvas`实例都有一个对应的`Transform`实例。要获取`scale`的值，您需要使用 CRUD 的 Retrieve 操作。首先，从`BasicCanvasUIView`类指向的`Canvas`托管对象中检索`Transform`托管对象，代码如下：
+
+```objc
+NSManagedObject *transform = [canvas valueForKey:@"transform"];
+```
+
+注意此处没有任何结构化查询语言（SQL）代码。另外还要注意，您用于检索关系值的语法与用于检索属性值的语法相同。Core Data 不区分实体中属性的类型。
+
+一旦有了对`Transform`托管对象的引用，您就可以使用如下代码检索其`scale`的值：
+
+```objc
+[transform valueForKey:@"scale"]
+```
+
+`valueForKey:`方法返回一个对象，因此使用`floatValue`方法将存储的值作为`float`类型获取。`scale:`方法的完整实现如下所示：
+
+```objc
+- (float)scale {
+    NSManagedObject *transform = [canvas valueForKey:@"transform"];
+    return [[transform valueForKey:@"scale"] floatValue];
+}
+```
+
+实际绘制形状的方法看起来稍微复杂一些，而绘图和图形处理超出了本书的范围。不过，请仔细阅读代码，您会发现它并没有看起来那么糟糕。由于本书涵盖的是 Core Data，您可以直接输入这些代码而无需理解其原理。与 Core Data 相关的部分是 Retrieve 操作：该方法使用`Canvas`实体和`Shape`实体之间的关系检索所有要绘制的形状，然后检索要绘制形状的相关属性。对于`Circle`实例，代码检索`x`、`y`和`radius`属性以在屏幕上构造圆。对于`Polygon`实例，代码使用`Polygon`的`vertices`关系检索所有相关的`Vertex`实例，根据`index`属性对它们进行排序，然后绘制与这些顶点匹配的多边形。代码清单 5–2 展示了完整的`drawRect:`方法。
+
+***代码清单 5–2.** `drawRect:`方法*
+
+```objc
+- (void)drawRect:(CGRect)rect {
+    // 确认我们有数据
+    if (canvas == nil) {
+        return;
+    }
+
+    // 获取当前绘图图形上下文
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    // 将缩放比例存入局部变量，避免重复访问数据存储
+    float scale = self.scale;
+
+    // 根据存储的值缩放上下文
+    CGContextScaleCTM(context, scale, scale);    
+
+    // 检索与此画布相关的所有形状并遍历它们
+    NSSet* shapes = [canvas valueForKey:@"shapes"];
+    for (NSManagedObject *shape in shapes) {
+        // 获取实体名称，判断是 Circle 还是 Polygon
+        NSString *entityName = [[shape entity] name];
+
+        // 获取颜色（以逗号分隔的 RGB 字符串形式存储）并设置到上下文中
+        NSString *colorCode = [shape valueForKey:@"color"];
+        NSArray *colorCodes = [colorCode componentsSeparatedByString:@","];
+        CGContextSetRGBFillColor(context, [[colorCodes objectAtIndex:0] floatValue] / 255,
+                                 [[colorCodes objectAtIndex:1] floatValue] / 255,
+                                 [[colorCodes objectAtIndex:2] floatValue] / 255, 1.0);        
+
+        // 如果该形状是圆形……
+        if ([entityName compare:@"Circle"] == NSOrderedSame) {
+            // 从数据存储中获取 x、y 和半径，并绘制圆形
+            float x = [[shape valueForKey:@"x"] floatValue];
+            float y = [[shape valueForKey:@"y"] floatValue];
+            float radius = [[shape valueForKey:@"radius"] floatValue];
+            CGContextFillEllipseInRect(context, CGRectMake(x-radius, y-radius, 2*radius, 2*radius));
+        } else if ([entityName compare:@"Polygon"] == NSOrderedSame) {
+            // 这是多边形
+            // 使用排序描述符根据索引值对顶点排序
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:
+                                                @"index" ascending:YES];
+            NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+            NSArray* vertices = [[[shape mutableSetValueForKey:@"vertices"] allObjects]
+                                sortedArrayUsingDescriptors:sortDescriptors];
+
+            // 开始绘制多边形
+            CGContextBeginPath(context);
+
+            // 将当前图形上下文点放置在最后一个顶点上
+            NSManagedObject *lastVertex = [vertices lastObject];
+            CGContextMoveToPoint(context, [[lastVertex valueForKey:@"x"] floatValue],
+                                [[lastVertex valueForKey:@"y"] floatValue]);
+}
+```
+
+
+
+```  
+// 遍历顶点并将它们连接起来  
+for (NSManagedObject *vertex in vertices) {  
+    CGContextAddLineToPoint(context, [[vertex valueForKey:@"x"] floatValue],  
+        [[vertex valueForKey:@"y"] floatValue]);  
+}  
+// 填充多边形  
+CGContextFillPath(context);  
+```  
+
+至此就完成了 `BasicCanvasUIView` 类的实现。不过，你还需要将两个此类实例添加到应用程序的主视图中，该视图由 `ShapesViewController` 类控制。打开 `ShapesViewController.h`，为 `BasicCanvasUIView.h` 添加一个导入，并在接口中添加两个 `BasicCanvasUIView` 实例（一个用于表示屏幕上半部分，另一个用于表示屏幕下半部分），如下所示：  
+
+```  
+#import <UIKit/UIKit.h>  
+#import "BasicCanvasUIView.h"  
+
+@interface ShapesViewController : UIViewController {  
+    IBOutlet BasicCanvasUIView *topView;  
+    IBOutlet BasicCanvasUIView *bottomView;  
+}  
+@property (nonatomic, retain) BasicCanvasUIView *topView;  
+@property (nonatomic, retain) BasicCanvasUIView *bottomView;  
+
+@end  
+```  
+
+在 `ShapesViewController.m` 中添加两个 `@synthesize` 指令，如下所示：  
+
+```  
+@synthesize topView;  
+@synthesize bottomView;  
+```  
+
+## 构建形状应用用户界面  
+
+现在你将在形状视图中创建顶部和底部视图。选择 `ShapesViewController.xib`，在 Interface Builder 中打开它，这应该也会打开与 `ShapesViewController` 类关联的视图。将一个视图对象拖到视图上，然后转到“大小”选项卡进行放置和大小调整。将 `X` 设为 0，`Y` 设为 0，`Width` 设为 768，`Height` 设为 502。在“自动调整大小”部分，选择除底部栏之外的所有选项。请参考图 5–7 了解你想要实现的效果。  
+
+![images](img/0507.jpg)  
+
+**图 5–7.** *顶部视图大小和位置已设置*  
+
+选择你刚刚创建并调整到屏幕上半部分的视图，然后选择“标识检查器”选项卡。在这里，你可以从“类”部分的“类”下拉列表中选择 `BasicCanvasUIView`，将类从 `UIView` 更改为 `BasicCanvasUIView`，如图 5–8 所示。  
+
+![images](img/0508.jpg)  
+
+**图 5–8.** *顶部视图已更改为 BasicCanvasUIView*  
+
+现在，你可以按住 Ctrl 键并单击“文件所有者”图标，然后将指针拖入你创建的视图中。释放鼠标按钮后，你应该会看到一个弹出窗口，显示可以绑定的可用输出口。选择 `topView`。转到“属性检查器”，单击背景为这个视图选择不同的背景颜色。你可以自由选择自己的颜色；我们选择了“蓝莓色”。  
+
+现在，通过将另一个视图对象拖到屏幕上并调整其大小来创建底部视图，使用以下值：`X` = 0，`Y` = 502，`Width` = 768，`Height` = 502。在“自动调整大小”部分，选择除顶部栏之外的所有选项。转到“标识检查器”，将类更改为 `BasicCanvasUIView`。按住 Ctrl 键并单击并从“文件所有者”图标拖到这个新视图，将其绑定到 `bottomView` 输出口。更改颜色；我们选择了“橘色”。  
+
+尽管应用程序尚未绘制任何形状，因为你尚未提供在持久化存储中创建它们的机制，但现在是构建和运行应用程序以验证其能否编译和运行的好时机。你应该能够运行应用程序并在屏幕上看到视图，如图 5–9 所示。旋转设备应会导致视图调整大小，并保持在屏幕的上下半部分，如图 5–10 所示。如果应用程序编译并运行，但屏幕旋转时视图显示不正确，请检查视图的“自动调整大小”设置。  
+
+![images](img/0509.jpg)  
+
+**图 5–9.** *竖屏模式下没有形状的形状*  
+
+![images](img/0510.jpg)  
+
+**图 5–10.** *横屏模式下没有形状的形状*  
+
+下一步是让 `ShapesViewController` 类支持 Core Data，然后添加用户界面来创建、更新和删除形状。回到 `ShapesViewController.h` 文件，添加一个指向托管对象上下文的属性。`ShapesViewController.h` 应该如下所示，新增的行以粗体显示：  
+
+```  
+#import <UIKit/UIKit.h>  
+#import <CoreData/CoreData.h>  
+#import "BasicCanvasUIView.h"  
+
+@interface ShapesViewController : UIViewController {  
+    NSManagedObjectContext *managedObjectContext;  
+    IBOutlet BasicCanvasUIView *topView;  
+    IBOutlet BasicCanvasUIView *bottomView;  
+}  
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;  
+@property (nonatomic, retain) BasicCanvasUIView *topView;  
+@property (nonatomic, retain) BasicCanvasUIView *bottomView;  
+
+@end  
+```  
+
+现在打开 `ShapesViewController.m`，你还有几项任务需要完成才能完成 Shapes 应用。首先，为托管对象上下文添加一个 `@synthesize` 行。  
+
+```  
+@synthesize managedObjectContext;  
+```  
+
+
+
+接下来，创建用于创建形状、更新所有形状和删除所有形状的方法。这些方法是 `ShapeViewController` 私有接口的一部分，需要在 `ShapeViewController.m` 中声明。另一个需要添加到私有接口的方法是返回随机颜色的辅助方法。在 `ShapeViewController.m` 中实现代码开始之前，需要添加的代码如下所示：
+
+``` objc
+@interface ShapesViewController (private)
+- (void)createShapeAt:(CGPoint)point;
+- (void)updateAllShapes;
+- (void)deleteAllShapes;
+- (NSString *)makeRandomColor;
+@end
+```
+
+``` objc
+@implementation ShapesViewController
+...
+```
+
+创建形状的方法的实现会接收一个参数，该参数描述在屏幕上的哪个位置创建形状。此方法会创建一个实体类型为 Shape 的 `NSManagedObject`，然后随机创建一个 Circle 类型或 Polygon 类型。如果是圆形，它会为 `radius` 属性生成一个随机值，并使用传入的 `CGPoint` 实例中的 `x` 和 `y` 值。如果是多边形，它会创建围绕传入 `CGPoint` 排列的随机数量的顶点，并将它们存储为 Vertex 类型，同时创建与刚创建的 `Polygon` 实例之间的关系。该实现如代码清单 5–3 所示。
+
+***代码清单 5–3.** 创建一个形状*
+
+``` objc
+- (void)createShapeAt:(CGPoint)point {
+  // 创建一个托管对象来存储形状
+  NSManagedObject *shape = nil;
+
+  // 随机选择圆形或多边形
+  int type = arc4random() % 2;
+  if (type == 0) { // 圆形
+    // 创建圆形托管对象
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Circle"  
+inManagedObjectContext:self.managedObjectContext];
+    NSManagedObject *circle = [NSEntityDescription  
+insertNewObjectForEntityForName:[entity name]  
+inManagedObjectContext:self.managedObjectContext];
+    shape = circle;
+
+    // 随机生成半径并设置圆形的属性
+    float radius = 10 + (arc4random() % 90);
+    [circle setValue:[NSNumber numberWithFloat:point.x] forKey:@"x"];
+    [circle setValue:[NSNumber numberWithFloat:point.y] forKey:@"y"];
+    [circle setValue:[NSNumber numberWithFloat:radius] forKey:@"radius"];
+
+    NSLog(@"已创建新圆形，位置为 (%f,%f)，半径为 %f", point.x, point.y, radius);
+  } else {  // 多边形
+    // 创建多边形托管对象
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Polygon"  
+inManagedObjectContext:self.managedObjectContext];
+    NSManagedObject *polygon = [NSEntityDescription  
+insertNewObjectForEntityForName:[entity name]  
+inManagedObjectContext:self.managedObjectContext];
+    shape = polygon;
+
+    // 获取顶点。此时，此形状尚不存在任何 Vertex 对象。
+    // 但添加到集合中的任何内容都将被添加到 Vertex 实体中。
+    NSMutableSet *vertices = [polygon mutableSetValueForKey:@"vertices"];
+
+    // 创建随机数量的顶点
+    int nVertices = 3 + (arc4random() % 20);
+    float angleIncrement = (2 * M_PI) / nVertices;
+    int index = 0;
+    for (float i = 0; i < nVertices; i++) {
+      // 为每个顶点生成随机值
+      float a = i * angleIncrement;
+      float radius = 10 + (arc4random() % 90);
+      float x = point.x + (radius * cos(a));
+      float y = point.y + (radius * sin(a));
+
+      // 创建顶点托管对象
+      NSEntityDescription *vertexEntity = [NSEntityDescription entityForName:@"Vertex"  
+inManagedObjectContext:self.managedObjectContext];
+      NSManagedObject *vertex = [NSEntityDescription  
+insertNewObjectForEntityForName:[vertexEntity name]
+inManagedObjectContext:self.managedObjectContext];
+
+      // 设置顶点的值
+      [vertex setValue:[NSNumber numberWithFloat:x] forKey:@"x"];
+      [vertex setValue:[NSNumber numberWithFloat:y] forKey:@"y"];
+      [vertex setValue:[NSNumber numberWithInt:index++] forKey:@"index"];
+
+      // 将顶点对象添加到关系中
+      [vertices addObject:vertex];
+    }
+    NSLog(@"已创建包含 %d 个顶点的新多边形", nVertices);
+  }
+  // 设置形状的颜色    
+  [shape setValue:[self makeRandomColor] forKey:@"color"];
+
+  // 将同一个形状添加到两个画布中
+  [[topView.canvas mutableSetValueForKey:@"shapes"] addObject:shape];
+  [[bottomView.canvas mutableSetValueForKey:@"shapes"] addObject:shape];
+
+  // 保存上下文
+  NSError *error = nil;
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+    abort();
+  }
+
+  // 通知视图重新绘制
+  [topView setNeedsDisplay];
+  [bottomView setNeedsDisplay];
+}
+```
+
+虽然这个方法很长，但请通读一遍；通过代码和注释，你应该能理解它的功能。它使用了 C 标准库中的一些方法，因此需要包含所需的头文件，如下所示：
+
+``` c
+#include <stdlib.h>
+```
+
+它还调用了 `makeRandomColor:` 方法为这个形状（无论是圆形还是多边形）创建随机颜色，因此需要实现该方法。该方法会创建三个随机颜色值（分别对应红色、绿色和蓝色），并将它们格式化为逗号分隔的字符串，如下所示：
+
+``` objc
+- (NSString *)makeRandomColor {
+  // 生成三个颜色值
+  int red = arc4random() % 256;
+  int green = arc4random() % 256;
+  int blue = arc4random() % 256;
+
+  // 将它们放入逗号分隔的字符串中
+  return [NSString stringWithFormat:@"%d,%d,%d", red, green, blue];
+}
+```
+
+更新所有形状为新随机颜色的方法也使用了此方法。它会从持久化存储中检索所有形状，并用新的随机颜色更新它们。该方法如下所示：
+
+``` objc
+- (void)updateAllShapes {
+  // 检索所有形状
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Shape"  
+inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSArray *shapes = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+  // 遍历所有形状并随机更新它们的颜色
+  for (NSManagedObject *shape in shapes) {
+    [shape setValue:[self makeRandomColor] forKey:@"color"];
+  }
+
+  // 保存上下文
+  NSError *error = nil;
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+    abort();
+  }
+
+  // 通知视图重新绘制
+  [topView setNeedsDisplay];
+  [bottomView setNeedsDisplay];
+}
+```
+
+删除所有形状的方法看起来惊人地相似。实际上，这是一个利用 Objective-C 和 iOS 4 中新增的块支持的好机会，但为了简单起见，它再次从持久化存储中检索所有形状，但这次不是用新颜色更新它们，而是删除它们。请注意，模型中设置的删除规则会处理与之相关的实体。以下是 `deleteAllShapes:` 方法：
+
+
+
+```objectivec
+- (void)deleteAllShapes {
+    // 获取所有形状
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Shape" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *shapes = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+    // 逐一删除每个形状
+    for (NSManagedObject *shape in shapes) {
+        [managedObjectContext deleteObject:shape];
+    }
+
+    // 保存上下文
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+
+    // 通知视图重新绘制
+    [topView setNeedsDisplay];
+    [bottomView setNeedsDisplay];
+}
+```
+
+你可能注意到 `ShapesViewController` 类中有一个托管对象上下文的成员，但你尚未为该成员设置任何值。打开 `ShapesAppDelegate.m` 并添加代码来设置该值。方法定义中，新增的一行以粗体显示，如下所示：
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // 应用启动后的自定义覆盖点
+    self.viewController = [[ShapesViewController alloc] initWithNibName:@"ShapesViewController" bundle:nil];
+    self.viewController.managedObjectContext = self.managedObjectContext;
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+```
+
+构建 Shapes 应用还需要处理最后一个 Core Data 相关部分：创建 `Canvas` 实例并将其与视图关联，以及为每个 `Canvas` 创建一个 `Transform` 实例。这段代码应放入 `ShapesViewController.m` 的 `viewDidLoad:` 方法中。
+
+```objectivec
+- (void)viewDidLoad {
+    // 创建 Canvas 实体
+    NSManagedObject *canvas1 = nil;
+    NSManagedObject *canvas2 = nil;
+
+    // 加载画布
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Canvas" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *canvases = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+    // 如果持久化存储中已存在画布，则加载它们
+    if([canvases count] >= 2) {
+        NSLog(@"加载现有画布");
+        canvas1 = [canvases objectAtIndex:0];
+        canvas2 = [canvases objectAtIndex:1];
+    } else { // 持久化存储中不存在画布，则创建它们
+        NSLog(@"创建新画布");
+        canvas1 = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:self.managedObjectContext];
+        canvas2 = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:self.managedObjectContext];
+
+        // 为每个画布创建 Transform 实例。第一个的缩放比例为 1
+        NSManagedObject *transform1 = [NSEntityDescription insertNewObjectForEntityForName:@"Transform" inManagedObjectContext:self.managedObjectContext];
+        [transform1 setValue:[NSNumber numberWithFloat:1] forKey:@"scale"];
+        [canvas1 setValue:transform1 forKey:@"transform"];
+
+        // 第二个画布的 Transform 缩放比例为 0.5
+        NSManagedObject *transform2 = [NSEntityDescription insertNewObjectForEntityForName:@"Transform" inManagedObjectContext:self.managedObjectContext];
+        [transform2 setValue:[NSNumber numberWithFloat:0.5] forKey:@"scale"];
+        [canvas2 setValue:transform2 forKey:@"transform"];
+
+        // 保存上下文
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    // 将 Canvas 实例设置到视图中
+    topView.canvas = canvas1;
+    bottomView.canvas = canvas2;
+}
+```
+
+
+#### 启用与图形应用的用户交互
+
+这样便完成了应用的 Core Data 部分。你可以构建并运行它，但界面上并没有任何可见变化。你需要添加用户界面元素来创建、更新和删除图形。先从创建开始。创建图形的用户界面操作是点击屏幕，因此在 `ShapesViewController.m` 中添加一个方法，用于捕获屏幕点击、确定点击位置、根据画布进行适当缩放，然后调用 `createShapeAt:` 方法并传入点击点坐标。
+
+```
+#pragma mark - 触摸事件处理
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+  UITouch *touch = [touches anyObject];
+  
+  // 视图在哪被触摸？
+  CGPoint location = [touch locationInView: touch.view];
+  
+  // 根据画布的形变进行缩放
+  float scale = [(BasicCanvasUIView *)touch.view scale];    
+  location = CGPointMake(location.x / scale, location.y / scale);
+  
+  // 创建图形
+  [self createShapeAt:location];
+}
+```
+
+现在值得构建和运行应用了。虽然你尚未完成——还不能更新或删除图形——但你已经为此付出了大量努力，理应收获一些成就感。构建并运行应用，然后点击屏幕几次。请注意，你可以点击屏幕的任一半，图形会在上下两半屏都出现，并且上半屏的图形尺寸是下半屏的两倍。旋转屏幕，图形依然会正常显示。请参见图 5–11 查看屏幕应有的显示效果。
+
+![images](img/0511.jpg)
+
+**图 5–11.** *屏幕上的若干图形*
+
+停止正在运行的应用，然后添加用于更新和删除图形的用户界面元素。更新图形的用户界面操作是旋转设备，因此添加一个检测设备旋转的方法，并在其中调用 `updateAllShapes` 方法。
+
+```
+- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+duration:(NSTimeInterval)duration {
+  [self updateAllShapes];
+}
+```
+
+添加对设备摇一摇的检测支持，以便应用能够删除所有图形，这一过程稍显复杂。`ShapeViewController` 必须在其视图显示时成为第一响应者，因此添加使其具备第一响应者资格的方法，然后在 `viewDidAppear` 方法中使其成为第一响应者。
+
+```
+- (BOOL)canBecomeFirstResponder {
+  return YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  [self becomeFirstResponder];
+}
+```
+
+现在，添加检测摇动的方法，并在其中调用 `deleteAllObjects` 方法。
+
+```
+#pragma mark - 摇动事件处理
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+  if (event.subtype == UIEventSubtypeMotionShake) {
+    [self deleteAllShapes];
+  }
+}
+```
+
+至此，Shapes 应用开发完成。构建它，运行它，点击它，旋转它，摇动它。你会看到图形出现、颜色变化、然后消失。通过易用的 Core Data 接口，你可以对持久化存储中的数据进行创建、检索、更新和删除操作。
+
+如果在构建或运行 Shapes 应用时遇到任何问题，请检查你的数据模型和代码的准确性。Shapes 应用的完整源代码可在本书的页面 `http://apress.com/` 上在线获取。
+
+下一节将通过使用自定义数据对象而非 `NSManagedObject` 实例来增强 Shapes 应用。在 Core Data 应用的典型生命周期中，你通常会从使用 `NSManagedObject` 开始。随着应用的演进，为了提升代码的清晰度和可维护性，你最终会需要引入自定义数据对象。
+
+### 生成类
+
+这是本书中你首次将受管对象提升到能真正与代码其他部分融合的地步。Core Data 为你实现自定义受管对象提供了极大的灵活性，你几乎可以完全隐藏它们由框架支持的这一事实。在本节中，你将重构 Shapes 应用以使用自定义受管对象。你可以直接修改现有的 Shapes 项目，也可以复制一个项目副本再进行修改。在本书的可下载源代码中，我们在名为 `Shapes2` 的目录下复制了 Shapes 项目并进行了修改。
+
+增强 Shapes 应用的第一步是创建数据对象类本身。你可以手动创建，也可以让 Xcode 为你生成。在 Xcode 4 中为模型实体生成类，省去了 Xcode 3 所需的小技巧（打开模型文件，点击背景空白处，选择**文件** ![images](img/U001.jpg) **新建文件**，然后才能选择创建表示实体的类）。
+
+要为模型实体生成类，请选择**文件** ![images](img/U001.jpg) **新建** ![images](img/U001.jpg) **新建文件**，然后在左侧 iOS 下选择 Core Data，在右侧选择 `NSManagedObject` 子类，如图 5–12 所示。点击下一步，在后续对话框中选择 Shapes 数据模型，如图 5–13 所示，然后点击下一步。下一个对话框让你选择数据模型中需要生成类的实体。全选它们，如图 5–14 所示，点击下一步。在下一个对话框中点击“创建”按钮来保存生成的类。
+
+![images](img/0512.jpg)
+
+**图 5–12.** *创建新的 NSManagedObject 子类*
+
+![images](img/0513.jpg)
+
+**图 5–13.** *选择 Shapes 数据模型*
+
+![images](img/0514.jpg)
+
+**图 5–14.** *选择需要生成类的实体*
+
+为了保持代码组织有序，一个好的实践是创建一个用于存放数据对象的类组。在 Xcode 中，选中所有生成的类，按住 Ctrl 键并点击，然后选择“从所选内容新建组”。将新组重命名为 `Managed Objects`。图 5–15 展示了你的源代码树应该呈现的样子。
+
+![images](img/0515.jpg)
+
+**图 5–15.** *包含 Managed Object 类组的源代码树*
+
+Xcode 会更新你的模型，以便为实体使用生成的类。要验证这一点，请在地数据模型检查器中显示任意实体的属性。在“类”字段中，应显示生成的类名而非 `NSManagedObject`。图 5–16 以 `Canvas` 实体为例进行了展示；请注意，Xcode 已将“类”字段的值从 `NSManagedObject` 更改为 `Canvas`，即你生成的新类。
+
+![images](img/0516.jpg)
+
+**图 5–16.** *Canvas 实体已更新为使用 Canvas 类*
+
+然而，你并非必须使用 Xcode 的生成器来创建模型类。若要手动执行相同任务（而不让 Xcode 生成类），你需要做两件事：
+
+1.  创建类的代码（打开任意新文件查看示例）。
+2.  更新数据模型中实体的“类”字段，使其指向新类。
+
+了解这些信息很有用，以防你将来需要手动创建这些类，不过让 Xcode 代劳要方便得多。
+
+现在，让我们看看其中一些类。打开 `Vertex.h`。你可以看到它导入了 Foundation 和 Core Data 框架头文件，派生自 `NSManagedObject`，并将 `Vertex` 实体的属性（包括属性和关系）作为 Objective-C 属性暴露出来，如下所示：
+
+```
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@class Polygon;
+```
+
+
+
+`@interface Vertex : NSManagedObject`
+
+`@property (nonatomic, retain) NSNumber * y;`
+`@property (nonatomic, retain) NSNumber * x;`
+`@property (nonatomic, retain) NSNumber * index;`
+`@property (nonatomic, retain) Polygon * polygon;`
+
+`@end`
+
+不过，请检查你的类；你可能会注意到某些生成的类在关系中使用的是 `NSManagedObject` 实例，而不是你生成的类。例如，你生成的 `Transform` 类使用 `NSManagedObject` 实例而不是 `Canvas` 图像来表示其画布关系，如下所示：
+
+`#import <Foundation/Foundation.h>`
+`#import <CoreData/CoreData.h>`
+
+`@interface Transform : NSManagedObject`
+
+`@property (nonatomic, retain) NSNumber * scale;`
+`@property (nonatomic, retain) NSManagedObject * canvas;`
+
+`@end`
+
+如果你在生成的类中发现此类异常，请更新文件以使用生成的类。以下代码展示了更新后的 `Transform.h`，用 `Canvas` 实例替代了 `NSManagedObject` 实例：
+
+`#import <Foundation/Foundation.h>`
+`#import <CoreData/CoreData.h>`
+
+`@class Canvas;`
+
+`@interface Transform : NSManagedObject`
+`@property (nonatomic, retain) NSNumber * scale;`
+`@property (nonatomic, retain) Canvas * canvas;`
+
+`@end`
+
+对于任何已更新的头文件，请确保在对应的实现文件中添加相应的头文件。针对上述示例，你需要在 `Transform.m` 中添加这一行：
+
+`#import "Canvas.h"`
+
+接下来，我们来看看这些生成的类是如何实现的。以下代码展示了 `Vertex` 类的实现文件 `Vertex.m`。你可能会忍不住注意到这个实现是多么轻量。其中的魔法源于代码中使用了 `@dynamic` 指令。你已经知道更常见的 `@synthesize` 指令，它告诉编译器为属性访问器生成基本的存根，以满足头文件中 `@property` 指令的 API 契约。而 `@dynamic` 指令则用于告诉编译器：即使它找不到满足契约的方法，这些方法在运行时需要调用它们时也必定存在。本质上，你是在告诉编译器要信任你。当然，如果你违背承诺，在运行时没有提供访问器，便会遭到应用崩溃的惩罚。由于你的类继承自 `NSManagedObject`，访问器已经为你生成，因此无需担心任何惩罚。对实体属性使用 `@dynamic` 指令是安全的。
+
+`#import "Vertex.h"`
+`#import "Polygon.h"`
+
+`@implementation Vertex`
+`@dynamic y;`
+`@dynamic x;`
+`@dynamic index;`
+`@dynamic polygon;`
+
+`@end`
+
+再次强调，你也可以自己编写这些代码，但让 Xcode 替你完成这些工作还是很不错的。
+
+你可以启动应用，即使其余代码尚未使用新生成的类，它也能正常运行。例如，它仍然可以通过 `valueForKey:` 方法访问任何顶点的属性。由于 `Vertex` 是 `NSManagedObject` 的实例，通过 `valueForKey:` 访问其属性仍然是有效的。
+
+接下来，打开 `Circle` 的头文件。由于你在数据模型中将 `Circle` 实体设为 `Shape` 的子实体，因此 `Circle` 类继承自 `Shape`。又因为 `Shape` 继承自 `NSManagedObject`，所以 `Circle` 通过继承仍然是 `NSManagedObject`。
+
+`#import <Foundation/Foundation.h>`
+`#import <CoreData/CoreData.h>`
+`#import "Shape.h"`
+
+`@interface Circle : Shape`
+
+`@property (nonatomic, retain) NSNumber * x;`
+`@property (nonatomic, retain) NSNumber * y;`
+`@property (nonatomic, retain) NSNumber * radius;`
+
+`@end`
+
+接下来要审查的是 `Polygon`。`Polygon` 与目前创建的其他对象略有不同，因为它与其他类存在一对多关系。
+
+由于 `Polygon` 是 `NSManagedObject` 的子类，它受益于其键值编码（KVC）合规性。Core Data 为你数据模型中建模的属性和关系提供了访问器方法。对于属性，你已经看到它提供了简单的 `get`/`set` 方法。对于一对多关系，它会自动为 `NSSet` 创建 KVC 可变代理方法。这些方法以键命名：
+
+- `- (void)add<Key>Object:(id)value;`
+- `- (void)remove<Key>Object:(id)value;`
+- `- (void)add<Key>:(NSSet *)value;`
+- `- (void)remove<Key>:(NSSet *)value;`
+
+这一特性意味着你现在可以调用 `addVerticesObject:(Vertex*)`，而此前你使用的是 `[[managedObject mutableSetValueForKey:key] addObject:value]`。
+
+`#import <Foundation/Foundation.h>`
+`#import <CoreData/CoreData.h>`
+`#import "Shape.h"`
+
+`@interface Polygon : Shape`
+
+`@property (nonatomic, retain) NSSet *vertices;`
+`@end`
+
+`@interface Polygon (CoreDataGeneratedAccessors)`
+
+`- (void)addVerticesObject:(NSManagedObject *)value;`
+`- (void)removeVerticesObject:(NSManagedObject *)value;`
+`- (void)addVertices:(NSSet *)values;`
+`- (void)removeVertices:(NSSet *)values;`
+
+`@end`
+
+不过，你不需要在 `Polygon.m` 中为这些方法提供实现，因为它们由 KVC 机制自动提供。如果 Xcode 生成了这些方法，你可以保留或删除它们。
+
+请随意浏览生成的类的其余代码。凭借你对 Core Data 的了解以及上述信息，你应该能够理解这段代码的作用。
+
+现在你已经有了自定义对象，可以回到应用代码中直接使用它们的属性，而不再通过 `valueForKey:`。打开 `ShapesViewController.m`，为你创建的所有新对象添加导入语句，如下所示：
+
+`#import "Polygon.h"`
+`#import "Circle.h"`
+`#import "Shape.h"`
+`#import "Canvas.h"`
+`#import "Vertex.h"`
+`#import "Transform.h"`
+
+接下来，更新 `createShapeAt:` 方法以使用你的新类。`createShapeAt:` 的修订实现略显清爽；请参见代码清单 5–4。在这第一轮清理中，你已移除了所有对 `NSManagedObject` 的引用，替换为实际的类型。这让你能够直接设置属性，而无需调用 `setValue:forKey:`。在本章稍后部分，你将进行第二轮清理，说明如何从代码中移除所有对 Core Data 的引用，从而使该框架更加无缝。
+
+**代码清单 5–4.** `createShapeAt:` 方法的修订实现
+
+```
+- (void)createShapeAt:(CGPoint)point {
+  // 创建一个托管对象来存储形状
+  Shape *shape = nil;
+
+  // 随机选择一个 Circle 或 Polygon
+  int type = arc4random() % 2;
+  if (type == 0) { // Circle
+    // 创建 Circle 托管对象
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Circle"
+inManagedObjectContext:self.managedObjectContext];
+    Circle *circle = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+inManagedObjectContext:self.managedObjectContext];
+    shape = circle;
+
+    // 随机创建半径并设置圆的属性
+    float radius = 10 + (arc4random() % 90);
+    circle.x = [NSNumber numberWithFloat:point.x];
+    circle.y = [NSNumber numberWithFloat:point.y];
+    circle.radius = [NSNumber numberWithFloat:radius];
+
+    NSLog(@"在 (%f,%f) 处创建了一个半径为 %f 的新圆", point.x, point.y, radius);
+  } else {  // Polygon
+    // 创建 Polygon 托管对象
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Polygon"
+inManagedObjectContext:self.managedObjectContext];
+    Polygon *polygon = [NSEntityDescription insertNewObjectForEntityForName:[entity
+name] inManagedObjectContext:self.managedObjectContext];
+    shape = polygon;
+```
+
+
+```objective-c
+// 生成随机数量的顶点
+int nVertices = 3 + (arc4random() % 20);
+float angleIncrement = (2 * M_PI) / nVertices;
+int index = 0;
+for (float i = 0; i < nVertices; i++) {
+    // 为每个顶点生成随机值
+    float a = i * angleIncrement;
+    float radius = 10 + (arc4random() % 90);
+    float x = point.x + (radius * cos(a));
+    float y = point.y + (radius * sin(a));
+
+    // 创建 Vertex 托管对象
+    NSEntityDescription *vertexEntity = [NSEntityDescription entityForName:@"Vertex"
+        inManagedObjectContext:self.managedObjectContext];
+    Vertex *vertex = [NSEntityDescription
+        insertNewObjectForEntityForName:[vertexEntity name]
+        inManagedObjectContext:self.managedObjectContext];
+
+    // 设置顶点的值
+    vertex.x = [NSNumber numberWithFloat:x];
+    vertex.y = [NSNumber numberWithFloat:y];
+    vertex.index = [NSNumber numberWithInt:index++];
+
+    // 将 Vertex 对象添加到关系中
+    [polygon addVerticesObject:vertex];
+}
+NSLog(@"生成了一个包含 %d 个顶点的新多边形", nVertices);
+}
+// 设置形状的颜色
+shape.color = [self makeRandomColor];
+
+// 将相同的形状添加到两个画布
+[[topView.canvas mutableSetValueForKey:@"shapes"] addObject:shape];
+[[bottomView.canvas mutableSetValueForKey:@"shapes"] addObject:shape];
+
+// 保存上下文
+NSError *error = nil;
+if (![self.managedObjectContext save:&error]) {
+    NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+    abort();
+}
+
+// 通知视图重新绘制自身
+[topView setNeedsDisplay];
+[bottomView setNeedsDisplay];
+}
+```
+
+请注意每个顶点是如何通过调用 `addVerticesObject:` 添加到多边形的。
+
+到目前为止，这仍然没有任何突破性的进展，因为你只是移除了对 `NSManagedObject` 的引用和对键/值存储的调用。生成的代码略有改进，因为它对托管对象及其属性实施了更强的类型约束。自定义托管对象的真正价值在于通过更专业的方法对其进行增强。下一节将解释如何做到这一点。
+
+### 修改生成的类
+
+现在应用程序已经配备了自定义对象，是时候展示自定义托管对象的真正威力了。在构建应用程序时，如果必须不断参考 Core Data 框架或键/值存储来处理与托管对象相关的所有事情，这会非常分散注意力。框架应该帮助而非阻碍开发者构建数据存储驱动的应用程序。使用自定义对象，你已经成功了一半，创建了一个贫血的对象模型，以及一组有状态但没有行为的对象。ThoughtWorks 的首席科学家、自封的软件开发领域“大嘴巴”马丁·福勒（Martin Fowler）首先识别出了贫血领域模型这一反模式以及对应的解药。将业务逻辑注入对象已被证明能迅速治愈贫血症。重构 Core Data 托管对象的下一步是添加业务逻辑，使你的对象更有用且更易于使用。
+
+添加一个静态的托管对象初始化方法，是将 Core Data 与其余代码进一步解耦的常见方式。在 `ShapesViewController` 中，你通过以下方式创建画布及其变换：
+
+```objective-c
+canvas1 = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:self.managedObjectContext];
+...
+NSManagedObject *transform1 = [NSEntityDescription insertNewObjectForEntityForName:@"Transform" inManagedObjectContext:self.managedObjectContext];
+[transform1 setValue:[NSNumber numberWithFloat:1] forKey:@"scale"];
+[canvas1 setValue:transform1 forKey:@"transform"];
+```
+
+应用程序代码仍然充斥着 Core Data 的气息。更好的创建 `Canvas` 及其 `Transform` 的方式是在相应的对象（`Transform` 和 `Canvas`）内部定义创建变换和画布的方法。你首先在 `Transform.h` 中声明一个初始化方法，如下面粗体所示：
+
+```objective-c
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@class Canvas;
+
+@interface Transform : NSManagedObject
+
+@property (nonatomic, retain) NSNumber * scale;
+@property (nonatomic, retain) Canvas * canvas;
+
++ (Transform *)initWithScale:(float)scale inContext:(NSManagedObjectContext *)context;
+
+@end
+```
+
+新初始化方法的实现位于 `Transform.m` 中，如下面粗体所示：
+
+```objective-c
+#import "Transform.h"
+#import "Canvas.h"
+
+@implementation Transform
+@dynamic scale;
+@dynamic canvas;
+
++ (Transform *)initWithScale:(float)scale inContext:(NSManagedObjectContext *)context {
+    Transform *transform = [NSEntityDescription
+        insertNewObjectForEntityForName:@"Transform" inManagedObjectContext:context];
+    transform.scale = [NSNumber numberWithFloat:scale];
+    return transform;
+}
+
+@end
+```
+
+对 `Canvas` 也采取同样的做法，它可以在初始化时就携带其 `Transform`，而不是之后再设置。这是一个更优的设计，因为 `Canvas` 实体的 `transform` 属性是必需的。`Canvas.h` 可以修改为如下形式：
+
+```objective-c
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@class Transform;
+
+@interface Canvas : NSManagedObject
+
+@property (nonatomic, retain) NSSet* shapes;
+@property (nonatomic, retain) Transform * transform;
+
++ (Canvas *)initWithTransform:(Transform *)transform inContext:(NSManagedObjectContext *)context;
+
+@end
+
+@interface Canvas (CoreDataGeneratedAccessors)
+- (void)addShapesObject:(NSManagedObject *)value;
+- (void)removeShapesObject:(NSManagedObject *)value;
+- (void)addShapes:(NSSet *)value;
+- (void)removeShapes:(NSSet *)value;
+
+@end
+```
+
+然后你可以将代码添加到实现文件 `Canvas.m` 中，如下所示：
+
+```objective-c
+#import "Canvas.h"
+#import "Transform.h"
+
+@implementation Canvas
+@dynamic shapes;
+@dynamic transform;
+```
+
+
+`+ (Canvas *)initWithTransform:(Transform *)transform inContext:(NSManagedObjectContext *)context {
+    Canvas *canvas = [NSEntityDescription insertNewObjectForEntityForName:@"Canvas" inManagedObjectContext:context];
+    canvas.transform = transform;
+    return canvas;
+}
+
+`@end`
+
+最后，你已准备好修改`ShapesViewController`实现中的`viewDidLoad:`方法，具体如下：
+
+```
+- (void)viewDidLoad {
+    // 创建 Canvas 实体
+    Canvas *canvas1 = nil;
+    Canvas *canvas2 = nil;
+
+    // 加载画布
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Canvas" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *canvases = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    [fetchRequest release];
+
+    // 如果画布已存在于持久化存储中，则加载它们
+    if([canvases count] >= 2) {
+        NSLog(@"正在加载现有画布");
+        canvas1 = [canvases objectAtIndex:0];
+        canvas2 = [canvases objectAtIndex:1];
+    } else { // 持久化存储中不存在画布，因此创建它们
+        NSLog(@"正在创建新画布");
+        Transform *transform1 = [Transform initWithScale:1 inContext:self.managedObjectContext];
+        canvas1 = [Canvas initWithTransform:transform1 inContext:self.managedObjectContext];
+
+        Transform *transform2 = [Transform initWithScale:0.5 inContext:self.managedObjectContext];
+        canvas2 = [Canvas initWithTransform:transform2 inContext:self.managedObjectContext];
+
+        // 保存上下文
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    // 将 Canvas 实例设置到视图中
+    topView.canvas = canvas1;
+    bottomView.canvas = canvas2;
+}
+```
+
+代码变得越来越简洁，使用托管对象也愈发像使用常规对象，因为与 Core Data 的关联都被封装在了类本身中。
+
+现在将注意力转向形状的创建。形状视图控制器中有一段代码用于创建一个随机圆形。在你的应用程序上下文中，这是可以封装在`Circle`类中的业务逻辑。你可以让`Circle`类基于给定的原点为你提供一个自身的随机实例，而不必自己构建圆形。然后你可以通过调用`[Circle randomInstance:origin inContext:managedObjectContext]`来创建一个圆形。
+
+为此，你需要在`Circle`类中添加一个静态初始化方法：
+
+`+ (Circle *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context;`
+
+并在`Circle.m`中提供实现：
+
+```
++ (Circle *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context {
+    Circle *circle = [NSEntityDescription insertNewObjectForEntityForName:@"Circle" inManagedObjectContext:context];
+
+    float radius = 10 + (arc4random() % 90);
+    circle.x = [NSNumber numberWithFloat:origin.x];
+    circle.y = [NSNumber numberWithFloat:origin.y];
+    circle.radius = [NSNumber numberWithFloat:radius];
+
+    return circle;
+}
+```
+
+对`Polygon`执行相同操作，在`Polygon.h`中添加类似方法：
+
+`+ (Polygon *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context;`
+
+并在`Polygon.m`中提供实现：
+
+```
++ (Polygon *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context
+{
+    Polygon *polygon = [NSEntityDescription insertNewObjectForEntityForName:@"Polygon" inManagedObjectContext:context];
+
+    // 设置顶点
+    int nVertices = 3 + (arc4random() % 20);
+    float angleIncrement = (2 * M_PI) / nVertices;
+    int index = 0;
+    for (float i = 0; i < nVertices; i++) {
+        float a = i * angleIncrement;
+        float radius = 10 + (arc4random() % 90);
+        float x = origin.x + (radius * cos(a));
+        float y = origin.y + (radius * sin(a));
+
+        Vertex *vertex = [NSEntityDescription insertNewObjectForEntityForName:@"Vertex" inManagedObjectContext:context];
+        vertex.x = [NSNumber numberWithFloat:x];
+        vertex.y = [NSNumber numberWithFloat:y];
+        vertex.index = [NSNumber numberWithFloat:index++];
+
+        [polygon addVerticesObject:vertex];
+    }
+    return polygon;
+}
+```
+
+现在，你可以按如下方式修改`ShapesViewController.m`中`createShapeAt:`的实现：
+
+```
+- (void)createShapeAt:(CGPoint)point {
+    // 创建一个托管对象来存储形状
+    Shape *shape = nil;
+
+    // 随机选择圆形或多边形
+    int type = arc4random() % 2;
+    if (type == 0) { // 圆形
+        shape = [Circle randomInstance:point inContext:self.managedObjectContext];
+    } else {  // 多边形
+        shape = [Polygon randomInstance:point inContext:self.managedObjectContext];
+    }
+    // 设置形状的颜色    
+    shape.color = [self makeRandomColor];
+
+    // 将相同的形状添加到两个画布
+    [(Canvas *)topView.canvas addShapesObject:shape];
+    [(Canvas *)bottomView.canvas addShapesObject:shape];
+
+    // 保存上下文
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+        abort();
+    }
+
+    // 通知视图重新绘制自身
+    [topView setNeedsDisplay];
+    [bottomView setNeedsDisplay];
+}
+```
+
+至此，应用程序代码的整洁性不言而喻。大部分逻辑都已封装到自定义的托管对象中。
+
+
+
+### 使用可转换类型
+
+尽管尽了最大努力来隐藏 Core Data，但自定义对象的某些属性仍可能让人感觉只是为了满足 Core Data 而使用了“错误”的类型。针对这种情况，框架允许你使用 `Transformable` 类型（`NSTransformableAttributeType`）。在 Shapes 应用中，`Shape` 对象的 `color` 属性就给人带来这种类型误用的感觉。在当前实现中，颜色由一个逗号分隔的字符串表示，以便在数据模型中使用 `NSStringAttributeType`。这种方法虽然可行，但使用该对象变得更加复杂，因为你发现自己不得不在字符串和颜色之间来回解码值。第一步是修改数据模型。选择 `Shape` 实体，选取 `color` 属性，并将其类型更改为 `Transformable`。在 `Transformer` 字段中，填入你将编写的自定义转换器名称：`UIColorTransformer`。
+
+**注意：** 值转换器是 Cocoa 中 Foundation 框架的一部分。顾名思义，它们用于将数据从一种格式转换为另一种格式。在 Core Data 中，通常使用 `NSKeyedUnarchiveFromDataTransformerName`，它可以将对象转换为 `NSData`。或者，你也可以扩展 `NSValueTransformer` 来提供自定义转换器，正如本章中你所做的那样。
+
+在代码中，现在编辑 `Shape.h`，将属性类型从 `NSString` 改为 `UIColor`。
+
+`@property (nonatomic, retain) UIColor *color;`
+
+当然，使用 `Transformable` 类型并非全是好消息。由于转换器会为 `color` 属性创建 `NSData` 表示，数据存储将使用二进制字段。例如，在使用 SQLite 的情况下，将会创建一个 BLOB 列来存储数据。这意味着你将无法在查询中使用该数据。例如，你将无法再查询所有红色的形状。请注意，即使用之前采用的字符串编码方式，这也不是一件轻而易举的事，但至少是可行的。
+
+由于你更改了属性类型，你需要回到应用程序代码中，使其使用新类型。首先，修改 `ShapesViewController.m` 中 `makeRandomColor:` 方法的实现，如下所示：
+
+```objc
+- (UIColor *)makeRandomColor {
+  // 设置形状的颜色
+  float red = (arc4random() % 256) / 255.0;
+  float green = (arc4random() % 256) / 255.0;
+  float blue = (arc4random() % 256) / 255.0;
+
+  return [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+}
+```
+
+不要忘记修改文件顶部分类中方法定义的返回类型，如下所示：
+
+```objc
+@interface ShapesViewController (private)
+- (void)createShapeAt:(CGPoint)point;
+- (void)updateAllShapes;
+- (void)deleteAllShapes;
+- (UIColor *)makeRandomColor;
+@end
+```
+
+下一个需要修改的地方是 `BasicCanvasUIView.m` 中 `drawRect:` 方法的实现。请确保在 `BasicCanvasUIView.m` 中导入了 `Shape.h`、`Circle.h`、`Polygon.h` 和 `Vertex.h`，然后更新 `drawRect:` 方法，如代码清单 5–5 所示。
+
+***代码清单 5–5.** 修改 `BasicCanvasUIView.m` 中的 `drawRect:` 方法。*
+
+```objc
+- (void)drawRect:(CGRect)rect {
+  // 检查确保有数据
+  if (canvas == nil) {
+    return;
+  }
+
+  // 获取当前绘图图形上下文
+  CGContextRef context = UIGraphicsGetCurrentContext();
+
+  // 将缩放比例存储在局部变量中，以避免两次访问数据存储
+  float scale = self.scale;
+
+  // 根据存储的值缩放上下文
+  CGContextScaleCTM(context, scale, scale);    
+
+  // 检索与此画布相关的所有形状并遍历它们
+  NSSet* shapes = [canvas valueForKey:@"shapes"];
+  for (Shape *shape in shapes) {
+    // 获取实体名称以确定这是圆形还是多边形
+    NSString *entityName = [[shape entity] name];
+
+    // 获取颜色
+    const CGFloat *rgb = CGColorGetComponents(shape.color.CGColor);
+    CGContextSetRGBFillColor(context, rgb[0], rgb[1], rgb[2], 1.0);
+
+    // 如果此形状是圆形...
+    if ([entityName compare:@"Circle"] == NSOrderedSame) {
+      // 从数据存储获取 x、y 和半径并绘制圆形
+      Circle *circle = (Circle *)shape;
+      float x = [circle.x floatValue];
+      float y = [circle.y floatValue];
+      float radius = [circle.radius floatValue];
+      CGContextFillEllipseInRect(context, CGRectMake(x-radius, y-radius, 2*radius,
+                                                     2*radius));
+    } else if ([entityName compare:@"Polygon"] == NSOrderedSame) {
+      // 这是一个多边形
+      Polygon *polygon = (Polygon *)shape;
+
+      // 使用排序描述符按索引值对顶点进行排序
+      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:
+                                          @"index" ascending:YES];
+      NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+      NSArray* vertices = [polygon.vertices
+                           sortedArrayUsingDescriptors:sortDescriptors];
+
+      // 开始绘制多边形
+      CGContextBeginPath(context);
+
+      // 将当前图形上下文点放在最后一个顶点上
+      Vertex *lastVertex = [vertices lastObject];
+      CGContextMoveToPoint(context, [lastVertex.x floatValue], [lastVertex.y
+                            floatValue]);
+
+      // 遍历所有顶点并将它们连接起来
+      for (Vertex *vertex in vertices) {
+        CGContextAddLineToPoint(context, [vertex.x floatValue], [vertex.y floatValue]);
+      }
+      // 填充多边形
+      CGContextFillPath(context);
+
+      // 清理工作
+      [sortDescriptors release];
+      [sortDescriptor release];
+    }
+  }
+}
+```
+
+我们已经提到，可以使用替代的值转换器。对于无法自然序列化为 `NSData` 的对象，你必须使用替代的值转换器，并且你可以为你的任何属性使用它。
+
+**提示：** 如果一个类符合 `NSCoding` 协议，那么可以使用 `NSKeyedUnarchiveFromDataTransformerName`。
+
+现在，你正在为你的 `UIColor` 对象实现一个自定义值转换器。在 Xcode 中，添加一个名为 `UIColorTransformer` 的新类，它扩展了 `NSValueTransformer`，如下所示：
+
+```objc
+#import <Foundation/Foundation.h>
+
+@interface UIColorTransformer : NSValueTransformer
+
+@end
+```
+
+为了提供 Core Data 所需的功能，必须在 `UIColorTransformer.m` 中实现 `NSValueTransformer` 的几个方法。首先，必须确保转换器是可逆的，这意味着它可以将 `UIColor` 对象转换为 `NSData`，也可以将 `NSData` 转换回 `UIColor`。这对于能够存储和检索 `color` 属性至关重要。为此，打开 `UIColorTransformer.m` 文件，并重写 `allowsReverseTransformation:` 方法，如下所示：
+
+```objc
++ (BOOL)allowsReverseTransformation {
+  return YES;
+}
+```
+
+你还需要指明转换后的对象将表示为 `NSData`。
+
+```objc
++ (Class)transformedValueClass {
+  return [NSData class];
+}
+```
+
+最后，你提供两个转换方法。一个将 `UIColor` 转换为 `NSData`，反向方法执行相反的操作。请注意，这是一个简化的颜色转换实现，它假设 `UIColor` 对象是在 RGB 颜色空间中创建的，而 Shapes 应用正是这种情况。颜色空间不在本书的讨论范围之内，但如果你想实现一个更完整的颜色值转换器，我们鼓励你进一步阅读有关颜色和转换器的内容。
+
+```objc
+- (id)transformedValue:(id)value {
+  UIColor* color = (UIColor *)value;
+  const CGFloat *components = CGColorGetComponents(color.CGColor);
+```
+
+
+
+### 排版后的内容
+
+**`NSString* result = [NSString stringWithFormat:@"%f,%f,%f", components[0],`** `components[1]`,` components[2]];`
+**`return [result dataUsingEncoding:[NSString defaultCStringEncoding]];`**
+**`}`**
+
+**`- (id)reverseTransformedValue:(id)value {`**
+**`NSString *string = [[NSString alloc] initWithData:value`**
+**`encoding:[NSString defaultCStringEncoding]];`**
+**`NSArray *components = [string componentsSeparatedByString:@","];`**
+**`CGFloat red = [[components objectAtIndex:0] floatValue];`**
+**`CGFloat green = [[components objectAtIndex:1] floatValue];`**
+**`CGFloat blue = [[components objectAtIndex:2] floatValue];`**
+**`return [UIColor colorWithRed:red green:green blue:blue alpha:1.0];`**
+**`}`**
+
+使用自定义属性转换器的最后一步，是在 `ShapesAppDelegate.m` 中注册该转换器。只需导入 `UIColorTransformer.h`，并在 `application:didFinishLaunchingWithOptions:` 方法的开头添加以下两行代码，即可在 Core Data 栈初始化前调用它们：
+
+**`UIColorTransformer* transformer = [[UIColorTransformer alloc] init];`**
+**`[UIColorTransformer setValueTransformer:transformer forName:(NSString*)@"UIColorTransformerName"];`**
+
+你需要删除现有的 Shapes 数据库，然后构建并运行 Shapes 应用程序，即可看到颜色转换器被使用。你也可以打开 shapes SQLite 数据库，查看 `ZSHAPE` 表中的 `ZCOLOR` 列，该列现在的类型是 `BLOB`。查看其中的任意一个值，你会看到它们采用你创建的 `UIColorTransformer` 类的 `transformedValue:` 方法生成的格式：三个用逗号分隔的浮点数值，它们代表 `CGColor` 的各个分量。
+
+在这一节中，你已了解如何充分利用自定义对象，尽可能将 Core Data 隐藏在你的应用程序代码之后，从而使持久化层尽可能透明。
+
+### 验证数据
+
+Core Data 不允许你向模型中的任何属性存储不符合其类型的数据。例如，尝试将诸如“专业人士的书籍，由专业人士编写”这样的字符串（Apress 的宣传语）放入类型为 `Integer 16` 的属性中，将会引发一个类似如下的 `NSInvalidArgumentException` 异常：
+
+`'NSInvalidArgumentException', reason: 'Unacceptable type of value for attribute: property = "x"; desired type = NSNumber; given type = NSCFString; value = Books for Professionals by Professionals.'`
+
+Core Data 强制保障数据完整性，但有时你需要的不仅仅是这个。有时你想要强制应用所谓的 **业务规则**，尽管这些规则可能与业务有关，也可能无关。以 Shapes 应用程序中的 `Polygon` 实例及其与 `Vertex` 实例的关系为例。现实世界中没有顶点的多边形是不存在的，因此你将“vertices”关系设置为非可选。只有一个顶点的多边形也不是多边形，它是一个点。而拥有两个顶点的多边形是一条线。一个多边形必须至少有三个顶点才算得上。因此，你将“vertices”关系的“Min Count”值设置为 3。将 `Polygon` 实例仅关联到一个或两个 `Vertex` 实例会阻止托管对象上下文成功保存。相反，你会得到类似这样的错误：“Operation could not be completed. (Cocoa error 1580.)”。这些错误码来自头文件 `CoreDataErrors.h`，并在表 5–1 中列出，同时附有描述。请注意，这些描述直接取自头文件。检查此表会发现，错误码 1580 意味着“对多关系中目标对象数量过少”，这恰好描述了你尝试的操作。
+
+![images](img/t0501.jpg)
+
+错误码表格为你提供了关于 Core Data 会为你验证哪些内容的一些线索。用于定义属性和关系的 Core Data 建模工具也提供了同样的线索。对于关系，你可以验证对多关系中的目标对象数量是否有效——既不能太多也不能太少。然而，对于属性，你可以验证的参数更多，具体取决于属性类型。对于所有数字类型，你可以指定最小值（Min value）和最大值（Max value）：
+
+*   `Integer 16`
+*   `Integer 32`
+*   `Integer 64`
+*   `Decimal`
+*   `Double`
+*   `Float`
+
+超出允许范围的值会根据具体情况引发 `NSValidationNumberTooSmallError` 或 `NSValidationNumberTooLargeError` 错误。例如，如果你将 `Circle` 实体的 `radius` 属性的 Min 值设为 7.0，Max 值设为 10.0，那么半径不在此范围内的随机圆形将无法保存到持久化存储中。
+
+对于 `String` 类型，你可以指定字符串的最小长度（Min Length）和最大长度（Max Length），还可以提供一个值必须符合的正则表达式。然而，`Date` 属性处理起来稍微棘手一些，因为 Core Data 建模工具只提供了文本输入框来输入 Min 和 Max 值，却没有提示如何格式化这些值，或者是否有像“今天”（Today）、“昨天”（Yesterday）、“三天前”（3 Days Ago）或“从现在起一年”（1 Year From Now）这样的“魔法”值可用。查阅 Apple 的文档一无所获，但稍微谷歌一下就能发现 Shane Crawford（[`http://shanecrawford.org/2008/57/coredatas-default-date-value/`](http://shanecrawford.org/2008/57/coredatas-default-date-value/)）和 Jeff LaMarche（[`http://iphonedevelopment.blogspot.com/2009/07/core-data-default-dates-in-data-model.html`](http://iphonedevelopment.blogspot.com/2009/07/core-data-default-dates-in-data-model.html)）的博客文章，这些文章让 Date 的 Min 和 Max 值（以及默认值，见“默认值”一节）听起来非常酷：你可以指定自然语言字符串，例如“now”、“today”或“last Saturday”。正当你兴奋不已时，你会读到帖子中说，这些自然语言字符串是在编译时解释的，而非运行时，因此它们永远不会更新以反映当前日期。这使它们变得毫无用处。
+
+不过，你可以在这些字段中输入具体日期，例如 1/1/1900，但这很难找到太多用处。下一节“自定义验证”将介绍如何验证相对日期。
+
+
+
+#### 自定义验证
+
+如果你已为数据模型生成了自己的 `NSManagedObject` 派生类，那么你可以在自定义对象时轻松创建自己的验证例程，Core Data 会自动调用这些例程。一种方法是编辑你的 `NSManagedObject` 实现文件（`*.m`），并重写 `validateValue:forKey:error` 方法，其函数签名如下：
+
+`- (BOOL)validateValue:(id *)ioValue forKey:(NSString *)key error:(NSError **)outError`
+
+该方法对有效值返回 `YES`，对无效值返回 `NO`。它会被对象的每个属性调用，每次调用时 `key` 值会持有该属性的名称。你需要通过确定传递了哪个键，并对该键对应的属性执行适当的验证，来验证对象的所有属性。
+
+Core Data 提供了第二种更简洁的方案，允许你为部分或所有属性编写独立的验证例程，并允许对未显式编写验证例程的属性执行默认验证。若要使用这种验证方案，你需要在 `NSManagedObject` 派生类的实现文件中编写如下形式的方法：
+
+`- (BOOL)validate<属性名称>:(id *)ioValue error:(NSError **)outError`
+
+将 `validate<属性名称>` 中的 `<属性名称>` 替换为你要验证的属性名。例如，在 Core Data 建模器中移除 `Circle` 实体中 `radius` 属性上的所有验证，然后在 `Circle.m` 中创建如下所示的方法：
+
+```
+- (BOOL)validateRadius:(id *)ioValue error:(NSError **)outError {
+  NSLog(@"使用自定义方法验证半径");
+
+  if ([*ioValue floatValue] < 7.0 || [*ioValue floatValue] > 10.0) {
+    // 填充错误对象
+    if (outError != NULL) {
+      NSString *msg = @"半径必须在 7.0 到 10.0 之间";
+      NSDictionary *dict = [NSDictionary dictionaryWithObject:msg
+                                                       forKey:NSLocalizedDescriptionKey];
+      NSError *error = [[NSError alloc] initWithDomain:@"Shapes" code:10 userInfo:
+                        dict];
+      *outError = error;
+    }
+    return NO;
+  }
+  return YES;
+}
+```
+
+这段代码将 `ioValue` 参数中传入的值提取为 `float` 类型，然后将其与可接受的范围边界（7.0 和 10.0）进行比较。若比较失败，则在传入错误对象的情况下，使用任意错误码 10 填充 `NSError` 对象。然后代码返回 `NO` 表示验证失败。若比较通过，则返回 `YES`。
+
+如果你运行此代码并创建一些包含圆形的形状，应用程序最终会崩溃。你会在日志中看到类似如下的消息：
+
+`2011-03-24 04:57:59.948 Shapes[65076:207] 使用自定义方法验证半径`
+
+如果有任何形状验证失败，你会看到类似如下的日志消息：
+
+`2011-03-24 04:57:59.949 Shapes[65076:207] 未解决的错误 Error Domain=Shapes Code=10`
+`"半径必须在 7.0 到 10.0 之间" UserInfo=0x590f5a0`
+
+使用同样的机制创建相对于当前日期验证日期范围的日期验证。以下示例验证 Core Data 模型中名为 `myDate` 的日期是否落在一周前到一周后的范围内：
+
+```
+- (BOOL)validateMyDate:(id *)ioValue error:(NSError **)outError {
+  // 1 周 = 60 秒/分钟 * 60 分钟/小时 * 24 小时/天 * 7 天/周
+  static int SECONDS_IN_A_WEEK = 60 * 60 * 24 * 7;
+
+  NSLog(@"使用自定义方法验证 myDate");
+
+  // 获取传入的日期并计算有效日期范围
+  NSDate *myDate = (NSDate *)(*ioValue);
+  NSDate *minDate = [NSDate dateWithTimeIntervalSinceNow:-SECONDS_IN_A_WEEK];
+  NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:SECONDS_IN_A_WEEK];
+
+  // 检查日期是否有效
+  if ([myDate earlierDate:minDate] == myDate || [myDate laterDate:maxDate] == myDate) {
+    // 日期无效，若传入了错误对象则构造 NSError 并返回 NO
+    if (outError != NULL) {
+      NSString *msg = @"myDate 必须落在一周前到一周后的范围内";
+      NSDictionary *dict = [NSDictionary dictionaryWithObject:msg
+                                                       forKey:NSLocalizedDescriptionKey];
+      NSError *error = [[NSError alloc] initWithDomain:@"Shapes" code:20 userInfo:
+                        dict];
+      *outError = error;
+    }
+    return NO;
+  }
+  return YES;
+}
+```
+
+尽管 `ioValue` 是指向对象引用的指针，允许你在对象图中修改输入值，但 Apple 的文档强烈不建议这样做，因为这可能会造成内存管理问题。
+
+第一种验证方法 `validateValue:forKey:error` 的优先级高于 `validate<属性名称>` 方式。如果你提供了 `validateValue` 实现，则你的所有 `validate<属性名称>` 方法都不会被调用，Core Data 会使用 `validateValue` 返回的结果来确定对象是否有效。
+
+你还可以重写 `NSManagedObject` 提供的其他三种验证方法：
+
+*   `validateForInsert`
+*   `validateForUpdate`
+*   `validateForDelete`
+
+Core Data 会在插入、更新或删除对象之前分别调用这些方法以触发验证。这些方法会调用 `validateValue` 方法（无论是你自己的实现还是默认的 `NSManagedObject` 实现）。你可以重写这些方法以执行自己的自定义验证，但请务必先调用父类实现，以便获取所有适当的验证。这样做的一个棘手之处在于：如果你的代码检测到错误，它不应覆盖父类验证中已有的错误。相反，它应该合并所有错误。Apple 的文档提供了一个 `errorFromOriginalError` 方法，你可以在自己的类中编写该方法来合并错误。你可以使用此处列出的方法，也可以自己编写。无论哪种方式，请务必合并错误，而不是覆盖它们。
+
+```
+- (NSError *)errorFromOriginalError:(NSError *)originalError error:(NSError *)secondError
+{
+  NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+  NSMutableArray *errors = [NSMutableArray arrayWithObject:secondError];
+
+  if ([originalError code] == NSValidationMultipleErrorsError) {
+    [userInfo addEntriesFromDictionary:[originalError userInfo]];
+    [errors addObjectsFromArray:[userInfo objectForKey:NSDetailedErrorsKey]];
+  } else {
+    [errors addObject:originalError];
+  }
+
+  [userInfo setObject:errors forKey:NSDetailedErrorsKey];
+
+  return [NSError errorWithDomain:NSCocoaErrorDomain
+                             code:NSValidationMultipleErrorsError
+                         userInfo:userInfo];
+}
+```
+
+你通常会重写某个 `validateFor...` 方法来执行依赖于多个属性的验证。每个属性本身可能是有效的，但某些组合可能无效。例如，假设你想让一个圆形在 `x` 值大于 `y` 值的两倍时无法插入。你在 `Circle.m` 中创建一个方法，该方法首先调用父类的 `validateForInsert` 实现，然后执行自己的验证以确保 `x` 不超过 `y` 的两倍。它可能如下所示：
+
+```
+- (BOOL)validateForInsert:(NSError **)outError {
+  BOOL valid = [super validateForInsert:outError];
+```
+
+
+
+### 排版结果
+
+```
+// x 不能超过 y 的两倍
+float fx = [self.x floatValue], fy = [self.y floatValue];
+if (fx >= (2 * fy)) {
+    // 如果传入了错误对象，则创建错误
+    if (outError != NULL) {
+      NSString *msg = @"x 不能超过 y 的两倍";
+      NSDictionary *dict = [NSDictionary dictionaryWithObject:msg
+        forKey:NSLocalizedDescriptionKey];
+      NSError *error = [[NSError alloc] initWithDomain:@"Shapes" code:30 userInfo:
+        dict]];
+
+      // 检查 [super validateForInsert] 是否返回了错误
+      if (*outError == nil) {
+        *outError = error;
+      } else {
+        // 将当前错误与已有错误合并
+        *outError = [self errorFromOriginalError:*outError error:error];
+      }
+    }
+    valid = NO;
+  }
+  return valid;
+}
+```
+
+注意，它调用了前面列出的 `errorFromOriginalError` 方法来合并所有已有的错误。
+
+运行 Shapes 应用并点击顶部视图的右上象限来测试此方法。当 Shapes 在右上象限生成一个圆时，如果 `x` 大于 `y` 的两倍，应用在尝试保存该圆时会崩溃。
+
+### 调用验证
+
+Core Data 允许你创建包含无效属性的对象，并在保存托管对象上下文时调用验证例程。属性值无效或关系数量不正确的对象可以安然存在于托管对象上下文中。验证只会在你尝试保存托管对象时才会触发，届时保存操作会因相应的错误码而失败。
+
+但是，如果你不想等待调用 `save:` 方法，也可以手动调用验证。为此，只需调用你刚刚学到的任意验证方法即可。
+
+### 默认值
+
+Core Data 允许你为每个属性设置默认值。你可能已经注意到，如果在属性中设置了验证规则却没有设置符合这些规则的默认值，编译器会给出类似这样的警告：
+
+`Misconfigured Property. Circle.radius 的默认值小于最小值。`
+
+编译器会尽力保护你，避免创建违反验证规则的属性。你可以安全地忽略这些警告，并自行确保设置有效的值，或者也可以利用 Core Data 提供的帮助。
+
+设置默认值的方式与你的设想完全一致：在“默认值”字段中输入一个有效的默认值，之后该实体类型的任何新实例都会以该属性的这个值开始生命。例如，尝试将 `radius` 的默认值设为 8.0，并注释掉设置随机半径的代码。你会发现所有创建的圆的半径都是 8.0。
+
+关于默认值的一个特殊之处在于 Date 类型的属性（如前所述）。你可以使用显式的日期，或像“today”这样的自然语言字符串，但该字符串会在编译时求值而非运行时，因此通常达不到你想要的效果（除非你希望所有日期默认都纪念应用的发布日）。要创建基于运行时日期的默认日期，请在 `NSManagedObject` 派生类中添加一个方法，覆盖 `NSManagedObject` 的 `awakeFromInsert:` 方法。在该方法（在对象被插入托管对象上下文时调用）中，你可以为任意字段提供自己的默认值。以下实现将当前日期插入到属性 `myDate` 中，使该对象的任何新实例都自动拥有当前日期：
+
+```
+- (void)awakeFromInsert {
+  [super awakeFromInsert];
+  [self setValue:[NSDate date] forKey:@"myDate"];
+}
+```
+
+### 撤销与重做
+
+高尔夫球手称之为“重打”。校园里的孩子们称之为“重来”。电脑用户则称之为**编辑** > **撤销**。无论你怎么称呼它，当你意识到自己犯了错误并想撤销上一步操作时，并非所有场景都能给你这个机会——许多心碎的恋人都能证明这一点——但 Core Data 允许你使用标准的 Cocoa `NSUndoManager` 机制来撤销已做的操作。本节将指导你如何使用它，让你的用户能够撤销对 Core Data 所做的更改。
+
+Core Data 的撤销管理器是一个 `NSUndoManager` 类型的对象，它存在于托管对象上下文中，且 `NSManagedObjectContext` 提供了撤销管理器的 getter 和 setter。然而，与 Mac OS X 上的 Core Data 不同，iOS 的 Core Data 中的托管对象上下文出于性能原因默认不提供撤销管理器。如果你需要为 Core Data 对象启用撤销功能，则必须自行在托管对象上下文中设置撤销管理器。
+
+**注意：** iOS 上的 Core Data 默认不提供撤销管理器。你必须自行设置。
+
+如果你想在 iOS 应用中支持撤销操作，通常会在设置托管对象上下文时创建撤销管理器，这通常发生在托管对象上下文的 getter 方法中。例如，Shapes 应用在应用委托中设置托管对象上下文，如下所示。请注意用粗体标记的代码，它为托管对象上下文添加了一个撤销管理器。
+
+```
+- (NSManagedObjectContext *)managedObjectContext {
+  if (__managedObjectContext != nil) {
+    return __managedObjectContext;
+  }
+
+  NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+  if (coordinator != nil) {
+    __managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+
+    NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+    [__managedObjectContext setUndoManager:undoManager];
+  }
+  return __managedObjectContext;
+}
+```
+
+如你所见，代码分配并初始化了撤销管理器，并将其设置到托管对象中。
+
+一旦撤销管理器设置到托管对象上下文中，它就会跟踪托管对象上下文中的任何更改，并将其添加到撤销栈中。你可以通过调用 `NSUndoManager` 的 `undo:` 方法来撤销这些更改，每次更改（实际上是每个撤销组，如“撤销组”一节所述）都会从托管对象上下文中回滚。你还可以通过调用 `NSUndoManager` 的 `redo:` 方法来重放已撤销的更改。
+
+仅当托管对象上下文中有更改可供撤销或重做时，`undo:` 和 `redo:` 方法才会生效；因此，在没有可撤销或重做的更改时调用它们不会产生任何效果。不过，你可以通过调用 `canUndo:` 和 `canRedo:` 方法来检查撤销管理器是否可以撤销或重做任何更改。
+
+
+
+#### 撤销组
+
+默认情况下，撤销管理器将应用程序运行循环单次执行过程中发生的所有变更汇总为一个可整体撤销或重做的变更。这意味着，例如在 Shapes 应用中，每次创建图形都可以单独撤销或重做，因为每个图形都是响应触摸事件而创建的。然而，当你摇动设备时，会触发一个单一的摇动事件，并且你响应该事件所调用的方法会删除所有图形。你可以撤销全部图形的删除，或调用 `redo:` 来撤销删除，但默认情况下，你无法单独撤销某个图形的删除或重做某个图形的创建。
+
+要改变这一行为，你需要完全关闭自动分组并自行管理撤销组。为此，需向 `setGroupsByEvent` 传递 `NO`。之后，你需要负责创建所有撤销组，因为撤销管理器将不再为你创建它们。通过调用 `beginUndoGrouping:` 开始创建组，并调用 `endUndoGrouping:` 完成撤销组的创建。这两个调用必须成对出现，否则会引发 `NSInternalInconsistencyException` 类型的异常。例如，你可以为 Shapes 应用中每次图形删除创建一个撤销组，以便能一次撤销一个图形的删除。你还可以跨事件创建撤销组，例如，可以将三次图形创建归为一组，通过单次调用撤销来撤销这三个图形。
+
+#### 限制撤销堆栈
+
+默认情况下，撤销管理器会追踪无限数量的变更供你撤销和重做。这可能导致内存问题，尤其是在 iOS 设备上。你可以通过调用 `NSUndoManager` 的 `setLevelsOfUndo:` 方法来限制撤销堆栈的大小，该方法接受一个无符号整数，表示撤销堆栈上保留的撤销组数量。你可以通过调用 `levelsOfUndo:` 来检查当前撤销堆栈的大小（以撤销组数量衡量），该方法返回一个无符号整数。值为 0 表示没有限制。如果你对撤销堆栈大小设置了限制，最旧的撤销组将从堆栈中移除，以便容纳新的组。
+
+#### 禁用撤销追踪
+
+一旦你创建了撤销管理器并将其设置到托管对象上下文中，你对托管对象上下文所做的任何变更都会被追踪且可撤销。但你可以通过调用 `NSUndoManager` 的 `disableUndoRegistration:` 方法来禁用撤销追踪。要重新启用撤销追踪，请调用 `NSUndoManager` 的 `enableUndoRegistration:` 方法。禁用和启用撤销追踪使用了引用计数机制，因此多次调用 `disableUndoRegistration:` 需要调用相同次数的 `enableUndoRegistration:` 才能再次启用撤销追踪。
+
+在撤销追踪已启用时调用 `enableUndoRegistration:` 会引发 `NSInternalInconsistencyException` 类型的异常，这很可能会导致你的应用崩溃。为避免这种尴尬，你可以在调用 `enableUndoRegistration:` 之前调用 `NSUndoManager` 的 `isUndoRegistrationEnabled:`，该方法返回一个 `BOOL` 值。例如，以下代码在启用撤销追踪前检查其是否已启用：
+
+```
+if (![undoManager isUndoRegistrationEnabled]) {
+  [undoManager enableUndoRegistration];
+}
+```
+
+你可以通过调用 `removeAllActions:` 方法来完全清空撤销堆栈。此方法有一个副作用，即会重新启用撤销追踪。
+
+#### 为 Shapes 添加撤销功能
+
+本节其余部分将通过向 Shapes 应用添加撤销和重做支持，将上述关于撤销管理器的概念付诸实践。首先，修改应用委托中托管对象上下文的访问器，为上下文创建一个撤销管理器。将撤销堆栈设置为一个任意大小，比如 10，如以下代码所示：
+
+```
+- (NSManagedObjectContext *)managedObjectContext {
+    if (__managedObjectContext != nil) {
+        return __managedObjectContext;
+    }
+
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+
+        // 设置撤销管理器
+        NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+        [undoManager setLevelsOfUndo:10];
+        [__managedObjectContext setUndoManager:undoManager];
+}
+    return managedObjectContext_;
+}
+```
+
+在 iOS 设备上执行撤销操作的典型界面是摇动设备，但 Shapes 已经使用摇动操作来从持久化存储中删除所有图形。因此，Shapes 将提供两个按钮，一个用于撤销上次变更，另一个用于重做。打开 `ShapesViewController.h` 文件，为这两个按钮添加成员变量、按钮按下时调用的方法，以及一个当托管对象上下文没有可撤销或重做的变更时隐藏按钮的方法。代码应如下所示，新增的行以粗体显示：
+
+```
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "BasicCanvasUIView.h"
+
+@interface ShapesViewController : UIViewController {
+  NSManagedObjectContext *managedObjectContext;
+  IBOutlet BasicCanvasUIView *topView;
+  IBOutlet BasicCanvasUIView *bottomView;
+  IBOutlet UIButton *undoButton;
+  IBOutlet UIButton *redoButton;
+}
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) BasicCanvasUIView *topView;
+@property (nonatomic, retain) BasicCanvasUIView *bottomView;
+@property (nonatomic, retain) UIButton *undoButton;
+@property (nonatomic, retain) UIButton *redoButton;
+
+- (IBAction)undo:(id)sender;
+- (IBAction)redo:(id)sender;
+- (void)updateUndoAndRedoButtons:(NSNotification *)notification;
+
+@end
+```
+
+在 `ShapesViewController.m` 中为 `undoButton` 和 `redoButton` 添加 `@synthesize` 指令。为 `undo:`、`redo:` 和 `updateUndoAndRedoButtons:` 方法添加实现。撤销方法应从托管对象上下文中获取撤销管理器，调用 `undo:` 方法，然后通知视图重新绘制自身，如下所示：
+
+```
+- (IBAction)undo:(id)sender {
+  [[self.managedObjectContext undoManager] undo];
+  [topView setNeedsDisplay];
+  [bottomView setNeedsDisplay];
+}
+```
+
+`redo:` 方法应执行相同的操作，但调用撤销管理器的 `redo:` 方法而非 `undo:` 方法：
+
+```
+- (IBAction)redo:(id)sender {
+  [[self.managedObjectContext undoManager] redo];
+  [topView setNeedsDisplay];
+  [bottomView setNeedsDisplay];
+}
+```
+
+为了仅在用户可以撤销变更时显示“撤销”按钮，仅在用户可以重做变更时显示“重做”按钮，你可以在每次进行数据变更的地方插入代码来更新按钮。然而，利用 Cocoa Touch 的通知机制，可以让托管对象上下文在托管数据发生变更时通知你。在 `viewDidLoad:` 方法中，添加代码，以便在数据变更时调用你的 `updateUndoAndRedoButtons:` 方法。你还需要在视图首次加载时调用 `updateUndoAndRedoButtons:` 方法，因此追加对该方法的调用。以下是你应在设置画布实例到视图之后，添加到 `viewDidLoad:` 中的代码：
+
+
+
+```
+// 将 Canvas 实例设置到视图中
+topView.canvas = canvas1;
+bottomView.canvas = canvas2;
+
+// 注册托管对象上下文的变更通知
+NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+[notificationCenter addObserver:self selector:@selector(updateUndoAndRedoButtons:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+[self updateUndoAndRedoButtons:nil];
+```
+
+在 `viewDidUnload:` 方法中取消通知注册，如下所示：
+
+```
+- (void)viewDidUnload {
+  [super viewDidUnload];
+[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+```
+
+`updateUndoAndRedoButtons:` 方法会在应用程序无需撤销或重做时适当地隐藏按钮。其实现如下：
+
+```
+- (void)updateUndoAndRedoButtons:(NSNotification *)notification {
+  NSUndoManager *undoManager = [self.managedObjectContext undoManager];
+  undoButton.hidden = ![undoManager canUndo];
+  redoButton.hidden = ![undoManager canRedo];
+}
+```
+
+接下来，打开 `ShapesViewController.xib`，拖拽两个 `Round Rect Button` 实例到屏幕顶部角落——一个在左侧，一个在右侧。将左侧按钮的标签改为 Undo，右侧按钮的标签改为 Redo。为每个按钮设置合适的自动尺寸属性。Undo 按钮应仅保留顶部和左侧的固定带，Redo 按钮应仅保留顶部和右侧的固定带。按住 Ctrl 键从 File's Owner 图标拖拽到 Undo 按钮，并将其连接到 `undoButton`；重复此过程将 Redo 按钮连接到 `redoButton`。将每个按钮的“Touch Up Inside”事件连接到您创建的方法——Undo 按钮连接到 `undo:` 方法，Redo 按钮连接到 `redo:` 方法。
+
+完成这些更改后，构建并运行 Shapes 应用程序。当您添加形状并撤销更改时，应能看到 Undo 和 Redo 按钮，如图 5–17 所示。添加形状、通过旋转设备改变形状颜色、删除形状。点击 Undo 和 Redo，观察数据变更的撤销与重做效果。
+
+![images](img/0517.jpg)
+
+**图 5–17.** *Undo 和 Redo 按钮*
+
+只需少量工作，您就能在 Core Data 应用程序中支持撤销和重做操作。用户期望拥有反悔的机会，因此请付出这点努力来满足他们。
+
+### 总结
+
+本章涵盖了 Core Data 的核心目标：在持久化存储中创建、检索、更新和删除数据。与 Ruby on Rails 类似，Core Data 提供了简单而强大的机制来执行这些 CRUD 操作。无论是直接操作 `NSManagedObject` 实例，还是使用自定义类来表示数据对象，您都可以通过 Core Data 提供的接口执行 CRUD 操作，而无需深入 SQL 或其他数据存储的繁琐细节。
+
+Core Data 胜过 Ruby on Rails 的一个领域是其对撤销数据操作的原生支持。尽管为 Rails 添加撤销/重做支持的努力仍在继续，但没有内置的 Rails 解决方案能像 Core Data 那样提供简单的方式撤销与数据相关的操作。
+
+尽管您现在已经掌握了编写可用 Core Data 应用程序所需的大部分知识，但请不要止步于此。下一章将讨论如何优化结果集，以便您能过滤、排序和聚合从持久化存储中检索到的数据。
+
+# 第 6 章
+## 优化结果集
+
+AutoTrader.com 自称是“终极汽车市场”，允许美国消费者买卖汽车。根据人口普查数据，美国约有 2.5 亿辆注册机动车辆，因此您可以想象，即使是最勇敢的潜在购车者，也会在寻找完美汽车时感到困难。为了帮助购车者从海量汽车中筛选出心仪之选，AutoTrader.com 在其网站上提供了按车型、品牌、型号、年份、价格和位置等条件筛选可用汽车的工具。
+
+处理大量数据集时，优化结果集对于分析师从数据中提取任何意义都至关重要。计算机（包括 iDevice）擅长缩小数据集范围，以便计算机用户更容易理解他们正在处理的数据。例如，想象一下，如果“通讯录”应用没有按字母顺序对联系人进行排序，也不允许您搜索联系人，那么从您的 iPhone 上给某人打电话会变得多么困难。
+
+本章演示如何使用 Core Data 的机制对数据进行排序、过滤和聚合，从而帮助您应用的用户找到他们所需的数据。
+
+### 构建测试应用程序
+
+从 Core Data 持久化存储中获取数据有两种方式。如果您已经拥有现有托管对象的句柄，则可以沿着对象图和关系拉取更多对象。如果您还没有任何对象（例如应用程序首次启动时），则必须直接从持久化存储中获取它们。在这种情况下，您通常使用 `NSFetchRequest` 的实例来获取对象。您使用 `NSEntityDescription` 初始化 `NSFetchRequest`，这有助于通过限制要检索的托管对象类型来缩小结果集。本章向您展示如何使用 `NSFetchRequest` 类以各种方式缩小您的获取请求。
+
+为了支持本章中的示例，您将重用第 2 章中的 OrgChart 应用程序。我们建议您复制一份该应用程序，因为您将在本章中对第 2 章的数据模型进行一些更改。自第 2 章以来，您已经了解到，如果所有关系都有反向关系，Core Data 可以更好地管理对象图，因此请返回 OrgChart 应用程序，为 leader 和 employees 添加反向关系。为此，打开 `OrgChart.xcdatamodeld` 数据模型，选择 `Person` 实体。由于 Organization 已经拥有到 `Person` 实体的 leader 关系，请在 `Person` 中添加一个名为 organization 的关系，将目标设置为 Organization，并选择 leader 作为反向关系。`Person` 还有一个名为 employees 的自引用关系，因此请创建从 `Person` 到 `Person` 的关系，将其命名为 manager，并选择 employees 作为反向关系。同时，将 `Person` 的 id 属性重命名为 age。您的 `Person` 实体应如图 6–1 所示。
+
+![images](img/0601.jpg)
+
+**图 6–1.** *包含反向关系的 Person 实体*
+
+
+
+### 创建组织架构图数据
+
+`OrgChart` 应用是一个非常简单的应用，没有花哨的用户界面——只有一个空白的灰色窗口。在本章中，你将使用 `OrgChart` 应用从持久化存储中检索数据。在 `OrgChartAppDelegate.m` 文件中，`createData` 方法用于填充数据存储。该方法用于填充数据存储的数据，如图 6-2 所示的组织架构图。
+
+![images](img/0602.jpg)
+
+**图 6-2.** *示例组织架构图数据集*
+
+代码清单 6-1 展示了根据图 6-2 填充数据的 `createData` 方法。打开 `OrgChartAppDelegate.m`，并将第 2 章中的 `createData` 方法替换为代码清单 6-1 中的代码。
+
+**代码清单 6-1.** *填充组织架构图的 `createData` 方法*
+
+```
+- (void)createData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];
+  
+  NSEntityDescription *orgEntity = [NSEntityDescription entityForName:@"Organization"
+inManagedObjectContext:context];
+  NSEntityDescription *personEntity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  { // 公司 A
+    NSManagedObject *organization = [NSEntityDescription
+insertNewObjectForEntityForName:[orgEntity name] inManagedObjectContext:context];
+    
+    [organization setValue:@"Company A" forKey:@"name"];
+    int orgId = [organization hash];
+    [organization setValue:[NSNumber numberWithInt:orgId] forKey:@"id"];
+
+    NSManagedObject *john = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [john setValue:@"John" forKey:@"name"];
+    [john setValue:[NSNumber numberWithInt:32] forKey:@"age"];
+
+    NSManagedObject *jane = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [jane setValue:@"Jane" forKey:@"name"];
+    [jane setValue:[NSNumber numberWithInt:26] forKey:@"age"];
+
+    NSManagedObject *tim = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [tim setValue:@"Tim" forKey:@"name"];
+    [tim setValue:[NSNumber numberWithInt:22] forKey:@"age"];
+
+    NSManagedObject *jim = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [jim setValue:@"Jim" forKey:@"name"];
+    [jim setValue:[NSNumber numberWithInt:40] forKey:@"age"];
+
+    NSManagedObject *kate = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [kate setValue:@"Kate" forKey:@"name"];
+    [kate setValue:[NSNumber numberWithInt:40] forKey:@"age"];
+
+    NSManagedObject *jill = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [jill setValue:@"Jill" forKey:@"name"];
+    [jill setValue:[NSNumber numberWithInt:22] forKey:@"age"];
+
+    NSMutableSet *johnsEmployees = [john mutableSetValueForKey:@"employees"];
+    [johnsEmployees addObject:jane];
+    [johnsEmployees addObject:tim];
+
+    NSMutableSet *timsEmployees = [tim mutableSetValueForKey:@"employees"];
+
+    [timsEmployees addObject:jim];
+    [timsEmployees addObject:kate];
+    [timsEmployees addObject:jill];
+
+    [organization setValue:john forKey:@"leader"];
+  }
+
+  { // 公司 B
+    NSManagedObject *organization = [NSEntityDescription
+insertNewObjectForEntityForName:[orgEntity name] inManagedObjectContext:context];
+    
+    [organization setValue:@"Company B" forKey:@"name"];
+    int orgId = [organization hash];
+    [organization setValue:[NSNumber numberWithInt:orgId] forKey:@"id"];
+
+    NSManagedObject *mary = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [mary setValue:@"Mary" forKey:@"name"];
+    [mary setValue:[NSNumber numberWithInt:36] forKey:@"age"];
+
+    NSManagedObject *tom = [NSEntityDescription
+insertNewObjectForEntityForName:[personEntity name] inManagedObjectContext:context];
+    [tom setValue:@"Tom" forKey:@"name"];
+    [tom setValue:[NSNumber numberWithInt:26] forKey:@"age"];
+
+    [[mary mutableSetValueForKey:@"employees"] addObject:tom];
+
+    [organization setValue:mary forKey:@"leader"];
+  }
+
+  [self saveContext];
+}
+```
+
+下一步是编辑 `application:didFinishLaunchingWithOptions:` 方法，使其调用 `createData`，如下所示：
+
+```
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  [self createData];
+
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  // 应用启动后的自定义覆盖点。
+  self.viewController = [[OrgChartViewController alloc]
+initWithNibName:@"OrgChartViewController" bundle:nil];
+  self.window.rootViewController = self.viewController;
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+从你在第 2 章中运行 `OrgChart` 时起，删除现有的数据存储，然后启动应用。应用应该会启动，显示灰色屏幕，并且没有输出。应用已创建持久化存储，并使用组织架构图数据将其填充完毕，你将在本章后续部分使用这些数据对结果集进行排序、过滤和聚合。你可以使用前几章概述的技术来验证应用是否已创建持久化存储：找到 SQLite 数据存储，并使用 `sqlite3` 命令行工具对其运行查询。更多信息请参见第 2 章。
+
+
+
+### 读取并输出数据
+
+现在你已经创建了持久化存储并插入了所有组织结构图测试数据，就不再需要调用 `createData:` 方法了。停止应用程序，并在 `application:didFinishLaunchingWithOptions:` 方法中注释掉对 `createData:` 的调用。在其下方添加对 `readData:` 方法的调用，这样应用程序在启动时就会读取数据并将其输出到调试器控制台。在本章中，你将会多次替换 `readData:` 方法，以从组织结构图数据模型中读取并输出不同的数据。`application:didFinishLaunchingWithOptions:` 方法现在应该如下所示：
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+//[self createData];
+[self readData];
+
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  // 应用程序启动后进行自定义的覆盖点。
+  self.viewController = [[OrgChartViewController alloc] initWithNibName:@"OrgChartViewController" bundle:nil];
+  self.window.rootViewController = self.viewController;
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+接下来，编辑 `displayPerson:withIndentation:` 方法以显示人员的年龄，因为你刚刚添加了这个新字段，如下所示：
+
+```
+- (void)displayPerson:(NSManagedObject*)person withIndentation:(NSString*)indentation
+{
+NSLog(@"%@Name: %@ (%@)", indentation, [person valueForKey:@"name"], [person valueForKey:@"age"]);
+
+  // 为子级别增加缩进
+  indentation = [NSString stringWithFormat:@"%@  ", indentation];
+
+  NSSet *employees = [person valueForKey:@"employees"];
+  id employee;
+  NSEnumerator *it = [employees objectEnumerator];
+  while((employee = [it nextObject]) != nil)
+  {        
+    [self displayPerson:employee withIndentation:indentation];
+  }
+}
+```
+
+再次启动应用程序，日志输出将类似于以下示例，显示你的两个组织已经存在，并带有正确的组织结构图。（你的输出顺序可能有所不同——例如，公司 B 可能出现在公司 A 之前——但这并不重要。）
+
+```
+2011-07-31 20:59:09.057 OrgChart[9928:f203] Organization: Company A
+2011-07-31 20:59:09.059 OrgChart[9928:f203]   Name: John (32)
+2011-07-31 20:59:09.059 OrgChart[9928:f203]     Name: Tim (22)
+2011-07-31 20:59:09.060 OrgChart[9928:f203]       Name: Kate (40)
+2011-07-31 20:59:09.060 OrgChart[9928:f203]       Name: Jim (40)
+2011-07-31 20:59:09.061 OrgChart[9928:f203]       Name: Jill (22)
+2011-07-31 20:59:09.061 OrgChart[9928:f203]     Name: Jane (26)
+2011-07-31 20:59:09.062 OrgChart[9928:f203] Organization: Company B
+2011-07-31 20:59:09.063 OrgChart[9928:f203]   Name: Mary (36)
+2011-07-31 20:59:09.063 OrgChart[9928:f203]     Name: Tom (26)
+```
+
+你的数据集现在已经准备好并验证完毕。本章的其余部分将介绍如何只提取特定对象，并根据你指定的约束条件对其进行重新排列。
+
+### 过滤
+
+Core Data 使用 Foundation 框架中的 `NSPredicate` 类来指定如何选择执行提取请求时应包含在结果集中的对象。谓词可以通过两种方式构建：你可以手动构建对象及其关系图，也可以使用 `NSPredicate` 实现的查询语言。你会发现大多数时候你更喜欢后一种方法的便利性和可读性。
+
+本节将针对每个示例探讨构建谓词的两种方法，以帮助你在查询语言和 `NSPredicate` 对象图之间建立联系。理解这两种方法将有助于你确定自己偏好的方式。你也可以根据应用程序和数据场景混合使用这些方法。
+
+谓词查询语言从字符串表示形式构建一个 `NSPredicate` 对象图，该字符串表示形式与 SQL `WHERE` 子句类似。从语言构建谓词的方法是 `+predicateWithFormat:(NSString*)`。例如，如果你想获取代表 Jane 的管理对象，可以调用 `[NSPredicate predicateWithFormat:@"name = 'Jane'"]` 来构建谓词。
+
+为了测试这一点，按如下方式修改 `readData:` 方法：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+[fetchRequest setEntity:entity];
+
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name='Jane'"];
+[fetchRequest setPredicate:predicate];
+
+NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+for (NSManagedObject *person in persons)
+{
+NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+}
+}
+```
+
+再次运行应用程序，将得到以下预期输出：
+
+```
+name=Jane age=26
+```
+
+在最简单的形式中，谓词对对象执行测试。如果测试通过，则该对象属于结果集的一部分。如果测试未通过，则该对象不会包含在结果集中。在前面的例子中，`name='Jane'` 是一个简单谓词的示例。键路径 `name` 和常量字符串值 `'Jane'` 被称为*表达式*。运算符 `=` 被称为*比较器*。
+
+#### 单值表达式
+
+由 `NSExpression` 类表示的表达式是谓词的基本构建块。它们表示可以相互比较或单独求值的值。最简单、最常见的表达式类型是表示单个值的表达式（与表示值集合的表达式相对）。`NSPredicate` 支持四种类型的单值表达式，如表 6–1 所示。
+
+![images](img/t0601.jpg)
+
+之前使用查询语言的例子有两个表达式：`name` 和 `Jane`。`name` 表达式是管理对象中的键路径，而 `Jane` 表达式是常量值。在代码中创建相同的表达式如下所示：
+
+```
+NSExpression *exprName = [NSExpression expressionForKeyPath:@"name"];
+NSExpression *exprJane = [NSExpression expressionForConstantValue:@"Jane"];
+```
+
+#### 集合表达式
+
+某些比较需要多个右侧表达式。例如，当你想要将一个值与一个值范围进行比较时，就会出现这种情况。在这种情况下，你需要提供一个下限值和一个上限值。谓词使用表达式数组来表示多个值。以下示例展示了如何构建一个值范围。首先，创建表示单个值的表达式；然后，使用 `expressionForAggregate:` 方法将它们放入表示数组的表达式。
+
+```
+NSExpression *lower = [NSExpression expressionForConstantValue:[NSNumber numberWithInt:20]];
+NSExpression *upper = [NSExpression expressionForConstantValue:[NSNumber numberWithInt:35]];
+NSExpression *exprRange = [NSExpression expressionForAggregate:[NSArray arrayWithObjects:lower, upper, nil]];
+```
+
+**注意：** 尽管 `NSExpression` 类提供了使用 `expressionForFunction:arguments:` 方法从选择器构建表达式的方法，但 Core Data **不支持**这种机制。
+
+
+
+#### 比较谓词
+
+表达式本身并不是谓词。另一个必需的元素是比较器，用于评估谓词。两个表达式通过 `NSComparisonPredicate` 类（它是 `NSPredicate` 的子类）相互比较。比较器是一个位于左表达式和右表达式之间的二元运算符。表 6–2 列出了这些比较器，并描述了 `NSComparisonPredicate` 如何根据所选类型，利用左表达式（L）和右表达式（R）来确定比较结果。
+
+![images](img/t0602.jpg)
+
+**注意：** `NSLikePredicateOperatorType` 是 `NSMatchesPredicateOperatorType` 的简化版本。`NSMatchesPredicateOperatorType` 可以使用复杂的正则表达式，而 `NSLikePredicateOperatorType` 类型则使用简单的通配符替换（`*`）字符。因此，表达式 `name like 'J*n*'` 可以匹配 `Jane` 和 `John`，但不能匹配 `Jim`。
+
+谓词 `name='Jane'` 可以不通过查询语言，而是直接使用 `NSExpression` 和 `NSComparisonPredicate` 在代码中编写，如下所示：
+
+```
+NSExpression *exprName = [NSExpression expressionForKeyPath:@"name"];
+NSExpression *exprJane = [NSExpression expressionForConstantValue:@"Jane"];
+NSPredicate *predicate = [NSComparisonPredicate predicateWithLeftExpression:exprName
+rightExpression:exprJane modifier:NSDirectPredicateModifier
+type:NSEqualToPredicateOperatorType options:0];
+```
+
+你可以使用谓词对象图（而非查询语言）来重写 `readData:` 方法，输出结果仍然相同。显然，大多数程序员更喜欢使用查询语言，但了解查询语言如何在幕后转换为谓词对象是一个很好的练习。重写后的代码如下：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];    
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSExpression *exprName = [NSExpression expressionForKeyPath:@"name"];
+  NSExpression *exprJane = [NSExpression expressionForConstantValue:@"Jane"];
+  NSPredicate *predicate = [NSComparisonPredicate predicateWithLeftExpression:exprName
+rightExpression:exprJane modifier:NSDirectPredicateModifier
+type:NSEqualToPredicateOperatorType options:0];
+
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+使用这个版本的 `readData:` 运行应用程序，会得到与之前相同的输出。
+
+```
+name=Jane age=26
+```
+
+你可能已经注意到，刚刚使用的静态 `init` 方法的第五个参数是 `options`。选项用于修改比较器的行为。选项并非总是适用，但仅用于字符串比较比较器。也可以在查询语言中，通过在操作符后面加上方括号内的选项代码来指定。表 6–3 列出了可用的选项以及如何在查询语言中使用它们。
+
+![images](img/t0603.jpg)
+
+要指定多个选项，只需在它们之间使用二进制 OR 运算符（`|`）。在查询语言中，你需要将代码拼接在一起，如下例所示：
+
+```
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name =[cd] 'jàne'"];
+```
+
+注意，`predicateWithFormat:` 接受字符串格式。因此，上面的例子也可以写成这样：
+
+```
+[NSPredicate predicateWithFormat:@"name =[cd] %@", @"jàne"];
+```
+
+如果右表达式是一个集合而不是单个对象，则可以使用修饰符来表示右表达式所指的内容；修饰符在表 6–4 中有详细说明。
+
+![images](img/t0604.jpg)
+
+
+
+#### 复合谓词
+
+刚才你看到的谓词示例仅使用了单一条件（`name = 'Jane'`）。实际上，谓词通常由多个子谓词通过逻辑运算组合而成。如果你想找出所有名字以字母 *J* 开头且年龄在 20 至 35 岁之间的人，系统应该能找出约翰、简和吉尔，他们的年龄分别为 32 岁、26 岁和 22 岁，但不包括 40 岁的吉姆。Core Data 允许你使用 `NSCompoundPredicate` 类构建复合谓词。复合运算符是三种主要逻辑运算符之一：OR、AND 和 NOT。复合谓词可以通过以下三种方法之一构建，如表 6-5 所示。
+
+![images](img/t0605.jpg)
+
+在本例中，你手动构建谓词如下：
+
+```
+NSExpression *exprName = [NSExpression expressionForKeyPath:@"name"];
+NSExpression *exprJ = [NSExpression expressionForConstantValue:@"J"];
+
+NSPredicate *p1 = [NSComparisonPredicate predicateWithLeftExpression:exprName
+rightExpression:exprJ modifier:NSDirectPredicateModifier
+type:NSBeginsWithPredicateOperatorType options:0];
+
+NSExpression *exprAge = [NSExpression expressionForKeyPath:@"age"];
+
+NSExpression *lower = [NSExpression expressionForConstantValue:[NSNumber
+numberWithInt:20]];
+NSExpression *upper = [NSExpression expressionForConstantValue:[NSNumber
+numberWithInt:35]];
+NSExpression *exprRange = [NSExpression expressionForAggregate:[NSArray
+arrayWithObjects:lower, upper, nil]];
+
+NSPredicate *p2 = [NSComparisonPredicate predicateWithLeftExpression:exprAge
+rightExpression:exprRange modifier:NSDirectPredicateModifier
+type:NSBetweenPredicateOperatorType options:0];
+
+NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray
+arrayWithObjects:p1, p2, nil]];
+```
+
+将 `readData:` 方法更新为使用此谓词后，运行应用程序将得到如下预期输出。
+
+```
+name=John age=32
+name=Jane age=26
+name=Jill age=22
+```
+
+如表 6-5 所示，查询语言也支持使用 OR、AND 和 NOT 运算符构建复合谓词。同样的示例可以使用查询语言更简单地重写，如下所示：
+
+```
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH %@ AND age BETWEEN {%d, %d}", @"J", 20, 35];
+```
+
+**注意：** 如果你无法确定查询语言的语法，你可以始终构建谓词对象图，然后使用 `NSLog(@"%@", myPredicate)` 将其打印到控制台。它会为你显示要使用的确切语法。
+
+使用基于字符串的谓词重写 `readData` 方法的结果如下所示。运行它会产生相同的结果，正如预期。
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+ inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+ [fetchRequest setEntity:entity];
+
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH %@ AND
+age BETWEEN {%d, %d}", @"J", 20, 35];
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+#### 子查询
+
+在某些情况下，你可能希望根据与其他相关对象相关的条件来查找对象。例如，你可能想要找出所有至少有一名年龄为 26 岁的直接下属的管理者。根据测试数据集，这应该返回 Mary 和 John，因为他们都有 26 岁的直接下属。如果没有子查询，你无法直接获取这个结果集。相反，你需要执行两个步骤：首先，获取所有年龄符合条件的人员，然后遍历他们每个人以找到其管理者。解决方案如下所示：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"age=26"];
+[fetchRequest setPredicate:predicate];
+
+NSArray *matches = [context executeFetchRequest:fetchRequest error:nil];
+
+NSMutableArray *persons = [[NSMutableArray alloc] init];
+for (NSManagedObject *obj in matches)
+{
+[persons addObject:[obj valueForKey:@"manager"]];
+}
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+子查询表达式提供了一种将解决方案封装到单个查询中的方法，从而消除了获取数据后手动进行后处理的需要。你的整个谓词和逻辑可以替换为 `"SUBQUERY(employees, $x, $x.age == 26).@count > 0"`，该表达式对于任何其 `employees` 关系中至少有一个 26 岁员工的人都会返回 true。子查询会遍历一个集合表达式（本例中为 `employees`）并创建一个临时变量（本例中为 `$x`，但你可以随意命名），该变量依次取集合中每一项的值来评估谓词。语法 `@count` 返回集合中项目的计数。（本章后面你将了解更多关于聚合器的内容。）使用这个谓词，你可以清理 `readData:` 方法，如下所示：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SUBQUERY(employees,
+$x, $x.age == %d).@count > 0)", 26];
+[fetchRequest setPredicate:predicate];
+
+NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+返回相同结果的另一种方法是使用表达式修饰符，并将谓词应用于被评估对象的任意一名员工。谓词将如下所示：
+
+`[NSPredicate predicateWithFormat:@"ANY employees.age == %d", 26].`
+
+不幸的是，这种逻辑存在风险，因为它仅适用于简单的谓词。如果你有一个复合谓词，逻辑就会出错。想象一下，例如，你想要返回所有不仅拥有 26 岁直接下属，而且名字以字母 *T* 开头的管理者。根据你的测试数据，这只会匹配 Mary，因为她有一名叫 Tom 的 26 岁员工。这不会再匹配 John，因为尽管 Jane 26 岁，但她的名字不以 *T* 开头。如果你尝试使用表达式修饰符 `ANY`，你会像这样编写你的谓词：
+
+
+
+`[NSPredicate predicateWithFormat:@"ANY employees.age == %d AND ANY employees.name BEGINS WITH %@", 26, @"T"];`
+
+生成的 `readData:` 方法如下：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY employees.age == %d AND ANY employees.name BEGINSWITH %@", 26, @"T"];
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+运行测试得到以下错误输出：
+
+```
+name=John age=32
+name=Mary age=36
+```
+
+你遇到的问题在于，John 有两名员工：Jane（26 岁）和 Tim（22 岁）。Jane 符合年龄条件，而 Tim 符合名字首字母条件。问题在于你希望 `ANY` 修饰符同时封装两个条件，而不是一个条件对应一个 `ANY` 修饰符。这个反面示例说明了为什么子查询更适合解决此类问题。以下 `readData:` 的实现展示了如何使用复合谓词进行子查询：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SUBQUERY(employees, $x, $x.age == %d and $x.name BEGINSWITH %@).@count > 0)", 26, @"T"];
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+这次，它产生了正确的输出。
+
+```
+name=Mary age=36
+```
+
+### 聚合（Aggregating）
+
+当我们想到数据聚合时，我们想到的是对集合进行全局统计。上一个示例就是这种情况，你希望知道子查询返回的集合中有多少个元素。集合运算符是键值编码（Key-Value Coding）范式的一部分。它们可以嵌入在键路径中，以表示应执行聚合操作。图 6–3 展示了集合运算符的通用语法。
+
+![图片](img/0603.jpg)
+
+**图 6–3.** *集合运算符的语法*
+
+你目前无法定义自己的自定义运算符，但最常用的运算符已默认可用，如表 6–6 所示。
+
+![图片](img/t0606.jpg)
+
+让我们来尝试这些运算符。回到你的测试数据；这次你要返回所有直接下属平均年龄为 24 岁的经理。你的查询结果应该只包含 John，因为 Jane 是 26 岁，Tim 是 22 岁。使用 `avg` 运算符，谓词出乎意料地简单。
+
+```
+"employees.@avg.age = 24"
+```
+
+将 `readData:` 方法替换为以下实现：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"employees.@avg.age = %d", 24];
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+运行这段代码会返回 John，正如预期。
+
+其他运算符的工作方式相同。例如，要找出所有最年轻直接下属为 22 岁的经理，使用 `min` 运算符并构建如下谓词：
+
+```
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"employees.@min.age = %d", 22];
+```
+
+该谓词返回 John（他有 Tim，22 岁）和 Tim（他有 Jill，22 岁）。
+
+```
+name=John age=32
+name=Tim age=22
+```
+
+一个行为略有不同的运算符是 `count` 运算符，它不接受参数属性。例如，要找出所有恰好有一个直接下属的经理，使用以下谓词：
+
+```
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"employees.@count = %d", 1];
+```
+
+这只会提取 Mary，因为她只有一名员工 Tom 向她汇报，如控制台所示。
+
+```
+name=Mary age=36
+```
+
+### 排序（Sorting）
+
+排序是基于某些条件对结果数据集进行排序的操作。假设你想找出所有其经理姓名包含字母 *M* 的人，但你想按年龄对结果集进行排序。
+
+#### 返回未排序的数据
+
+使用上一节中设置的数据集，你的查询应返回 Mary 的员工（Tom）和 Tim 的员工（Kate、Jim 和 Jill）。对于此类示例，`readData:` 方法如下所示：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
+inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"manager.name CONTAINS[c] %@", @"m"];
+  [fetchRequest setPredicate:predicate];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+用上面列出的代码替换现有的 `readData:` 方法，然后重新运行应用程序。在 Xcode 的控制台中，你应该会看到以下输出（每行前面的日期、时间和应用程序信息已删除），对象没有特定顺序：
+
+```
+name=Jill age=22
+name=Jim age=40
+name=Kate age=40
+name=Tom age=26
+```
+
+
+
+#### 按单一条件排序数据
+
+在许多情况下，尤其是在处理用户界面时，对数据进行排序能带来价值——无论是让数据更具视觉吸引力，还是让数据更容易查找。这时就需要用到 `NSSortDescriptor`。使用这个类，你可以像在 SQL 中使用 `ORDER BY` 关键字一样指定排序顺序。如果你希望结果按年龄排序，可以修改 `readData:` 方法，加入排序描述符，代码如下：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"manager.name CONTAINS[c] %@", @"m"];
+  [fetchRequest setPredicate:predicate];
+
+  NSSortDescriptor *sortDescriptorByAge = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:YES];
+  NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorByAge, nil];
+  [fetchRequest setSortDescriptors:sortDescriptors];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+同样，将 `OrgChartAppDelegate.m` 中的 `readData:` 方法替换为上面列出的代码，然后运行应用程序。这一次，输出结果会按年龄排序。请注意，Jim 和 Kate 年龄相同（都是 40 岁），因此输出中它们的顺序可能互换。无论如何，你的输出应该类似下面这样：
+
+```
+name=Jill age=22
+name=Tom age=26
+name=Kate age=40
+name=Jim age=40
+```
+
+就像谓词中的一些表达式一样，排序描述符也依赖键路径来指定排序时使用的属性。`initWithKey:ascending:` 方法的第二个属性指定排序顺序是升序还是降序。改变这个值会反转排序顺序。
+
+#### 按多个条件排序数据
+
+你还可以添加额外的排序条件来实现多级排序。例如，你可能希望先按年龄排序数据，如果多个年龄相同，则使用补充排序顺序（如按名字字母顺序排列）。这样可以消除上一个例子中 Jim 和 Kate 的任意返回顺序。你可能已经注意到，`setSortDescriptors:` 方法期望的是一个排序描述符数组。添加二级排序只需向数组中添加另一个排序描述符即可，代码如下：
+
+```
+- (void)readData
+{
+  NSManagedObjectContext *context = [self managedObjectContext];  
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entity];
+
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"manager.name CONTAINS[c] %@", @"m"];
+  [fetchRequest setPredicate:predicate];
+
+  NSSortDescriptor *sortDescriptorByAge = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:YES];
+  NSSortDescriptor *sortDescriptorByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+  NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptorByAge, sortDescriptorByName, nil];
+  [fetchRequest setSortDescriptors:sortDescriptors];
+
+  NSArray *persons = [context executeFetchRequest:fetchRequest error:nil];
+
+  for (NSManagedObject *person in persons)
+  {
+    NSLog(@"name=%@ age=%@", [person valueForKey:@"name"], [person valueForKey:@"age"]);
+  }
+}
+```
+
+由于 Kate 和 Jim 年龄相同，但 Kate 在字母顺序中排在 Jim 之后，输出结果从任意顺序变为确定顺序。
+
+```
+name=Jill age=22
+name=Tom age=26
+name=Jim age=40
+name=Kate age=40
+```
+
+你可以通过将 `sortDescriptorByName` 实例改为降序排序（向 `ascending:` 参数传递 `NO`）来验证对 Jim 和 Kate 名字顺序的控制，代码如下：
+
+```
+NSSortDescriptor *sortDescriptorByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+```
+
+得到的输出确认了 Kate 现在排在 Jim 之前：
+
+```
+name=Jill age=22
+name=Tom age=26
+name=Kate age=40
+name=Jim age=40
+```
+
+### 小结
+
+将整个数据集一股脑地抛给用户会让他们不知所措，也无法找到所需的内容。AutoTrader.com 意识到了这一点，并将其过滤结果的能力作为一种营销手段来吸引客户。你在构建 Core Data 应用程序时也应该意识到这一点。利用本章介绍的信息来对结果进行排序、过滤和聚合，从而将数据缩小到用户寻找的范围。
+
+## 第 7 章：调优性能与内存使用
+
+近来，人们越来越讨厌沙漏、旋转的沙滩球以及“请稍候”弹出窗口。虽然给出计算机正在工作的视觉提示比不给出提示、让用户以为电脑死机要好，但更好的做法是根本不要让用户等待。你可能无法总是实现这一目标，但你应始终努力尝试。
+
+在持久化存储中获取和存储数据可能耗时较长，尤其是涉及大量数据时。本章将确保你理解 Core Data 如何帮助你——以及你如何自助——避免让用户看到“请稍候”旋转图标，更糟糕的是，当应用程序在检索或保存大型对象图时出现无响应、看似死机的情况。你将学习如何利用各种工具和策略，如缓存、故障（faulting）以及 Xcode 自带的 Instruments 应用。
+
+### 构建用于测试的应用程序
+
+你需要一种方法来完成性能测试，以便验证结果。本节将引导你构建一个应用程序，使你能够运行各种测试并查看结果。该应用程序（如图 7-1 所示）在标准选择器视图中呈现一个测试列表。要运行测试，只需在选择器中选中它，点击“运行所选测试”按钮，然后等待结果。测试运行后，你将看到开始时间、结束时间、测试所耗秒数，以及一些描述测试结果的文本。
+
+![images](img/0701.jpg)
+
+**图 7-1.** *性能调优应用程序*
+
+
+
+### 创建 Core Data 项目
+
+首先，创建一个新的单视图应用程序，将产品选项设置为 iPhone。将其命名为 `PerformanceTuning`，并添加 Core Data 框架。在您的应用程序委托（`PerformanceTuningAppDelegate`）中，添加一个托管对象上下文、一个托管对象模型和一个持久化存储协调器，以及一个用于返回应用程序文档目录的方法和一个用于保存托管对象上下文的方法。以下是 `PerformanceTuningAppDelegate.h` 的代码：
+
+```objc
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
+@class PerformanceTuningViewController;
+
+@interface PerformanceTuningAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) IBOutlet UIWindow *window;
+@property (strong, nonatomic) IBOutlet PerformanceTuningViewController *viewController;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
+
+@end
+```
+
+清单 7–1 展示了 `PerformanceTuningAppDelegate.m` 的代码。
+
+**清单 7–1.** *PerformanceTuningAppDelegate.m*
+
+```objc
+#import "PerformanceTuningAppDelegate.h"
+#import "PerformanceTuningViewController.h"
+
+@implementation PerformanceTuningAppDelegate
+
+@synthesize window=_window;
+@synthesize viewController=_viewController;
+@synthesize managedObjectContext=__managedObjectContext;
+@synthesize managedObjectModel=__managedObjectModel;
+@synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
+
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.viewController = [[PerformanceTuningViewController alloc] initWithNibName:@"PerformanceTuningViewController" bundle:nil];
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+}
+
+- (void)saveContext {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+#pragma mark - Core Data stack
+
+/**
+ Returns the managed object context for the application.
+ If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+ */
+- (NSManagedObjectContext *)managedObjectContext {
+    if (__managedObjectContext != nil) {
+        return __managedObjectContext;
+    }
+
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return __managedObjectContext;
+}
+
+/**
+ Returns the managed object model for the application.
+ If the model doesn't already exist, it is created from the application's model.
+ */
+- (NSManagedObjectModel *)managedObjectModel {
+    if (__managedObjectModel != nil) {
+        return __managedObjectModel;
+    }
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PerformanceTuning" withExtension:@"momd"];
+    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return __managedObjectModel;
+}
+
+/**
+ Returns the persistent store coordinator for the application.
+ If the coordinator doesn't already exist, it is created and the application's store added to it.
+ */
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+
+    NSURL *storeURL = [[self applicationDocumentsDirectory]
+                       URLByAppendingPathComponent:@"PerformanceTuning.sqlite"];
+
+    NSError *error = nil;
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return __persistentStoreCoordinator;
+}
+
+#pragma mark - Application's Documents directory
+
+/**
+ Returns the URL to the application's Documents directory.
+ */
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+@end
+```
+
+
+
+### 创建数据模型与数据
+
+此性能测试应用的数据模型包含三个实体：`Actor`、`Movie` 和 `Studio`。`Actor` 与 `Movie` 之间是多对多关系，`Movie` 与 `Studio` 之间也是多对多关系。每个实体都有两个属性：类型为 String 的 `name` 和类型为 Integer 16 的 `rating`。请创建数据模型并将其命名为 `PerformanceTuning.xcdatamodeld`。为 `Actor`、`Movie` 和 `Studio` 创建实体；为它们分别添加名为 `name`（类型为 String）和 `rating`（类型为 Integer 16）的属性；并在 `Actor` 与 `Movie` 之间以及 `Movie` 与 `Studio` 之间创建可选的多对多关系。完成后的数据模型应如图 Figure 7–2 所示。
+
+![images](img/0702.jpg)
+
+**图 7–2.** *性能调优数据模型*
+
+现在数据模型已创建完毕，接下来需要向其中填充数据。你需要足够的数据来进行性能测试并区分结果，因此计划创建 200 个演员、200 部电影和 200 个工作室，然后将每个演员与每部电影关联（反之亦然），并将每部电影与每个工作室关联（反之亦然）。完成后，你将得到三个各有 200 行的表（`Actor`、`Movie` 和 `Studio`），以及两个各有 40,000 行的连接表（`Actor`-`Movie` 和 `Movie`-`Studio`）。
+
+为了插入数据，打开 `PerformanceTuningAppDelegate.h` 文件，并声明两个方法：一个用于将数据加载到持久化数据存储区，另一个作为辅助方法来创建实体。辅助方法接收两个字符串：要创建的实体名称和 `name` 属性的值。对于 `rating` 属性，辅助方法将插入一个介于 1 到 10 之间的随机数。这两个方法声明应如下所示：
+
+```
+- (void)loadData;
+- (NSManagedObject *)insertObjectForName:(NSString *)entityName withName:(NSString *)name;
+```
+
+现在，打开 `PerformanceTuningAppDelegate.m` 文件并定义这些方法。辅助方法在指定的实体类型内创建对象，然后设置 `name` 属性的值。代码如下：
+
+```
+- (NSManagedObject *)insertObjectForName:(NSString *)entityName withName:(NSString *)name {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
+    [object setValue:name forKey:@"name"];
+    [object setValue:[NSNumber numberWithInteger:((arc4random() % 10) + 1)] forKey:@"rating"];
+    return object;
+}
+```
+
+加载数据的方法 `loadData:` 首先检查持久化存储区，以确定数据是否已加载，从而避免程序后续运行时重复添加数据。如果数据尚未创建，则 `loadData:` 方法会创建 200 个演员（名称类似 `Actor 1`、`Actor 2` 等）、200 部电影（名称类似 `Movie 1`）和 200 个工作室（名称类似 `Studio 1`）。创建所有对象后，代码会遍历所有电影，并与所有演员及所有工作室建立关联。最后，`loadData:` 将对象图保存到持久化数据存储区。以下是 `loadData` 方法的完整实现：
+
+```
+- (void)loadData {
+    // 拉取电影数据。如果已有 200 条，则假定数据库已设置完成。
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+    if ([results count] != 200) {
+        // 添加 200 个演员、电影和工作室
+        for (int i = 1; i <= 200; i++) {
+            [self insertObjectForName:@"Actor" withName:[NSString stringWithFormat:@"Actor %d", i]];
+            [self insertObjectForName:@"Movie" withName:[NSString stringWithFormat:@"Movie %d", i]];
+            [self insertObjectForName:@"Studio" withName:[NSString stringWithFormat:@"Studio %d", i]];
+        }
+
+        // 将所有演员和工作室与所有电影建立关联
+        NSManagedObjectContext *context = [self managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+        NSArray *results = [context executeFetchRequest:request error:nil];
+        for (NSManagedObject *movie in results) {
+            [request setEntity:[NSEntityDescription entityForName:@"Actor" inManagedObjectContext:context]];
+            NSArray *actors = [context executeFetchRequest:request error:nil];
+            NSMutableSet *set = [movie mutableSetValueForKey:@"actors"];
+            [set addObjectsFromArray:actors];
+
+            [request setEntity:[NSEntityDescription entityForName:@"Studio" inManagedObjectContext:context]];
+            NSArray *studios = [context executeFetchRequest:request error:nil];
+            set = [movie mutableSetValueForKey:@"studios"];
+            [set addObjectsFromArray:studios];
+        }
+    }
+    [self saveContext];
+}
+```
+
+找到 `application:didFinishLaunchingWithOptions:` 方法，在显示窗口和视图之前添加对 `loadData:` 方法的调用，使其如下所示：
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self loadData];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // 应用程序启动后的自定义点。
+    self.viewController = [[PerformanceTuningViewController alloc] initWithNibName:@"PerformanceTuningViewController" bundle:nil];
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+```
+
+构建并运行程序以创建持久化数据存储区。
+
+
+
+### 创建测试视图
+
+你正在构建的应用将提供一个选择器，其中包含可运行的测试列表，以及一个用于启动选定测试的按钮。它将列出测试的开始时间、停止时间和经过时间，以及一个描述测试结果的字符串。首先打开 `PerformanceTuningViewController.h` 文件来创建此用户界面，声明该类实现了选择器视图所需的协议、声明用户界面元素的字段，并声明一个在用户点击“运行选定测试”按钮时调用的方法。以下代码包含了 `PerformanceTuningViewController.h` 的内容：
+
+```objc
+#import <UIKit/UIKit.h>
+
+@interface PerformanceTuningViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+    IBOutlet UILabel *startTime;
+    IBOutlet UILabel *stopTime;
+    IBOutlet UILabel *elapsedTime;
+    IBOutlet UITextView *results;
+    IBOutlet UIPickerView *testPicker;
+}
+@property (nonatomic, retain) UILabel *startTime;
+@property (nonatomic, retain) UILabel *stopTime;
+@property (nonatomic, retain) UILabel *elapsedTime;
+@property (nonatomic, retain) UITextView *results;
+@property (nonatomic, retain) UIPickerView *testPicker;
+
+- (IBAction)runTest:(id)sender;
+
+@end
+```
+
+在 `PerformanceTuningViewController.m` 中，为你的字段添加 `@synthesize` 指令，为你承诺实现的选择器视图协议添加存根实现，并为 `runTest` 添加存根实现，如下所示：
+
+```objc
+@synthesize startTime, stopTime, elapsedTime, results, testPicker;
+
+#pragma mark - UIPickerViewDataSource methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 1;
+}
+
+#pragma mark - UIPickerViewDelegate methods
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return @"Test";
+}
+
+#pragma mark - Run the test
+
+- (IBAction)runTest:(id)sender {
+}
+```
+
+打开 `PerformanceTuningViewController.xib` 文件，开始构建视图。你需要为“开始时间”、“停止时间”和“经过时间”添加标签，以及用于存储实际开始时间、停止时间和经过时间的右对齐标签；需要一个文本视图来存储任何已运行测试的结果；一个用于启动测试的按钮；以及一个显示可用测试的选择器视图。将所有控件拖到屏幕上，并排列成如图 图 7–3 所示。
+
+![images](img/0703.jpg)
+
+**图 7–3.** *为性能调优应用构建视图*
+
+下一步是将所有控件连接到你在 `PerformanceTuningViewController` 类中创建的字段。按住 Ctrl 键从“文件所有者”图标拖拽到开始时间、停止时间和经过时间的每个标签（即显示实际时间的右对齐标签），并为每个标签选择相应的输出口。按住 Ctrl 键从“文件所有者”拖拽到文本视图，并选择 `results`。按住 Ctrl 键从“文件所有者”拖拽到选择器视图，选择 `testPicker`，然后从选择器视图向“文件所有者”拖拽两次：第一次选择 `dataSource`，第二次选择 `delegate`。如果你忘记执行此操作，运行应用时选择器视图将不会显示，你就会知道出问题了。最后，按住 Ctrl 键从“运行选定测试”按钮拖拽到“文件所有者”，然后从弹出菜单中选择 `runTest:`。保存所有内容，构建应用并运行。你应当看到类似 图 7–4 所示的效果。
+
+![images](img/0704.jpg)
+
+**图 7–4.** *性能调优应用的首次运行*
+
+### 构建测试框架
+
+为性能测试应用添加可运行测试的方法是，创建一个名为 `PerformanceTest` 的 Objective-C 协议，然后创建一个实现该协议的所有测试的数组。应用将在选择器视图中显示测试名称，并在用户点击“运行选定测试”按钮时执行所选测试。因此，该协议需要两个方法：
+
+- 一个用于返回将在选择器视图中显示的测试名称。
+- 一个用于在应用的管理对象上下文中执行所选测试。
+
+为保持项目组织有序，在 `PerformanceTuning` 文件夹下创建一个新的分组（按住 Ctrl 键点击 `PerformanceTuning`，然后从弹出菜单中选择“新建分组”），并将其命名为 `Tests`。你在本章中添加的所有测试都将放在此分组中。要创建该协议，选择“文件” ![images](img/U001.jpg) “新建” ![images](img/U001.jpg) “新建文件”，在左侧选择“Cocoa Touch”，在右侧选择“Objective-C 协议”，然后点击“下一步”。将协议命名为 `PerformanceTest.h`，并放入 `Tests` 分组。打开 `PerformanceTest.h`，修改其内容以匹配以下代码：
+
+```objc
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@protocol PerformanceTest <NSObject>
+
+- (NSString *)name;
+- (NSString *)runWithContext:(NSManagedObjectContext *)context;
+
+@end
+```
+
+在将测试框架集成到应用之前，先创建一个测试（如果你愿意，可以称之为“测试的测试”），以便你可以在选择器视图中看到某些内容并运行它。你创建的第一个测试将从持久化存储中检索所有电影、演员和工作室。创建一个名为 `FetchAllMoviesActorsAndStudiosTest` 的新 Objective-C 类，作为 `NSObject` 的子类，并将其添加到你刚刚创建的 `Tests` 分组中。以下是头文件的代码：
+
+```objc
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface FetchAllMoviesActorsAndStudiosTest : NSObject <PerformanceTest>
+
+@end
+```
+
+以下是实现文件的代码。将你的文件修改为此内容：
+
+```objc
+#import <CoreData/CoreData.h>
+#import "FetchAllMoviesActorsAndStudiosTest.h"
+
+@implementation FetchAllMoviesActorsAndStudiosTest
+
+- (NSString *)name {
+    return @"Fetch all test";
+}
+
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    int actorsRead = 0, studiosRead = 0;
+    for (NSManagedObject *movie in results) {
+        actorsRead += [[movie valueForKey:@"actors"] count];
+        studiosRead += [[movie valueForKey:@"studios"] count];
+        [context refreshObject:movie mergeChanges:NO];
+    }
+    return [NSString stringWithFormat:@"Fetched %d actors and %d studios", actorsRead, studiosRead];
+}
+
+@end
+```
+
+
+
+### 将测试框架添加到应用程序
+
+现在，你必须修改视图控制器以使用测试框架。打开 `PerformanceTuningViewController.h`，并添加一个 `NSArray` 实例来保存测试。以下是该文件的更新版本，需要添加的行以粗体显示。保存文件，然后转到 `PerformanceTuningViewController.m`。
+
+```
+#import <UIKit/UIKit.h>
+
+@interface PerformanceTuningViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+  IBOutlet UILabel *startTime;
+  IBOutlet UILabel *stopTime;
+  IBOutlet UILabel *elapsedTime;
+  IBOutlet UITextView *results;
+  IBOutlet UIPickerView *testPicker;
+  NSArray *tests;
+}
+@property (nonatomic, retain) UILabel *startTime;
+@property (nonatomic, retain) UILabel *stopTime;
+@property (nonatomic, retain) UILabel *elapsedTime;
+@property (nonatomic, retain) UITextView *results;
+@property (nonatomic, retain) UIPickerView *testPicker;
+@property (nonatomic, retain) NSArray *tests;
+
+- (IBAction)runTest:(id)sender;
+
+@end
+```
+
+在 `PerformanceTuningViewController.m` 中，将新的 `tests` 成员添加到你的 `@synthesize` 行，现在看起来像这样：
+
+`@synthesize startTime, stopTime, elapsedTime, results, testPicker, tests;`
+
+添加以下导入语句，以支持你将进行的修改，从而让你的新测试以及本章后续构建的测试能够运行：
+
+```
+#import "PerformanceTuningAppDelegate.h"
+#import "PerformanceTest.h"
+#import "FetchAllMoviesActorsAndStudiosTest.h"
+```
+
+现在，创建一个 `viewDidLoad:` 方法，该方法会清空测试运行后将填充的字段，并将新测试添加到 `tests` 数组中。你的实现应与此匹配：
+
+```
+- (void)viewDidLoad {
+[super viewDidLoad];
+
+startTime.text = @"";
+stopTime.text = @"";
+elapsedTime.text = @"";
+results.text = @"";
+
+FetchAllMoviesActorsAndStudiosTest *famaasTest = [[FetchAllMoviesActorsAndStudiosTest alloc] init];
+self.tests = [[NSArray alloc] initWithObjects:famaasTest, nil];
+}
+```
+
+由于你在选择器中仍然只显示一个组件，因此可以保留 `numberOfComponentsInPickerView:` 方法不变，继续让它返回 1。但是，你的 `pickerView:numberOfRowsInComponent:` 方法应返回 `tests` 数组中测试的数量。
+
+```
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+return [self.tests count];
+}
+```
+
+`pickerView:titleForRow:forComponent:` 方法允许你使用新的 `PerformanceTest` 协议。该方法应从 `tests` 数组中检索对应行的测试，并返回该测试的名称，以便选择器视图显示此名称。该方法现在应如下所示：
+
+```
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+id <PerformanceTest> test = [self.tests objectAtIndex:row];
+return [test name];
+}
+```
+
+最后，你必须指示 `runTest:` 方法执行以下操作：
+
+1.  从应用程序委托中获取托管对象上下文。
+2.  确定选择了哪个测试。
+3.  获取开始时间。
+4.  运行选定的测试。
+5.  获取停止时间。
+6.  用时间和结果更新字段。
+
+该实现如下所示：
+
+```
+- (IBAction)runTest:(id)sender {
+PerformanceTuningAppDelegate *delegate = (PerformanceTuningAppDelegate *)[[UIApplication sharedApplication] delegate];
+NSManagedObjectContext *context = [delegate managedObjectContext];
+id <PerformanceTest> test = [self.tests objectAtIndex:[testPicker selectedRowInComponent:0]];
+
+NSDate *start = [NSDate date];
+results.text = [test runWithContext:context];
+NSDate *stop  = [NSDate date];
+
+startTime.text = [start description];
+stopTime.text = [stop description];
+elapsedTime.text = [NSString stringWithFormat:@"%.03f seconds", [stop timeIntervalSinceDate:start]];
+}
+```
+
+你已完成了性能调优应用程序——目前是这样。随着你学习本章，你将添加测试来覆盖你所读到的各种场景。
+
+### 运行你的第一个测试
+
+构建并运行应用程序。需要注意的重要一点是，你正在向托管对象上下文加载大量数据，这会加重 iOS 的内存处理负担。如果你连续运行几个测试，在本章中你可能会看到应用程序出现一些不稳定性。当应用程序崩溃时，只需重新启动它并继续即可。
+
+当你运行应用程序时，应该会看到 iPhone 模拟器显示图 7-5 所示的屏幕。你目前创建的唯一个测试“获取所有测试”独自显示在选择器中，处于选中状态，随时可以运行。点击“运行选定的测试”按钮，然后等待。请耐心等待。你没有在用户界面中添加任何旋转图标、进度指示器或其他反馈机制，因此在运行期间，你只会看到按钮变蓝并保持该状态，但测试最终会完成，你将看到类似图 7-6 的画面。在图 7-6 中，你可以看到测试在我们的机器上运行了 1.431 秒。
+
+![images](img/0705.jpg)
+
+**图 7-5.** *性能调优应用程序，有一个可用的测试*
+
+![images](img/0706.jpg)
+
+**图 7-6.** *运行测试后的性能调优应用程序*
+
+本章的其余部分将解释 Core Data 对 iOS 及其运行设备施加的各种性能考量。当你学习这些性能考量时，你将向应用程序添加新的测试。也可以随意添加你自己的测试，为你的应用程序用户提供尽可能最佳的体验。
+
+
+
+### 错误/故障机制
+
+当你针对数据库运行 SQL 查询时，你清楚正在拉取的数据的深度和范围。你知道是否在联表查询，知道要取回的列，而且，如果足够谨慎，你还能限制从数据库拉取到工作内存中的行数。获取数据可能需要比使用 Core Data 付出更多努力，但你拥有更强的控制力。你清楚用于保存所取数据的大致内存用量。
+
+然而，使用 Core Data 时，你为了易用性放弃了一定程度的控制力。例如，在第 5 章的 Shapes 应用中，每个 `Polygon` 实例都包含一个顶点集合，你通过面向对象而非面向数据的方式来访问它。你无需关心 Core Data 是在应用启动时、多边形加载时、还是在你首次访问顶点时从数据库拉取顶点数据。但 Core Data 会关心这一点，并试图将数据从持久化存储加载到对象图的时机推迟到必要时刻，从而减少获取时间和内存占用。它通过一种称为 *故障（fault）* 的机制来实现这一点。
+
+可以把故障想象成 Unix 文件系统上的符号链接，它既不是所指向的实际文件，也不包含文件的数据。但符号链接代表了该文件，并且在需要时可以访问该文件及其数据，就好像它本身就是文件一样。与符号链接类似，故障是一个占位符，可以访问持久化存储中的数据。一个故障既可以代表一个托管对象，也可以（当它代表一个对多关系时）代表一组托管对象。作为数据的链接或影子，故障占用的内存远少于实际数据。托管对象和故障的图示请参见图 7–7。在此例中，托管对象是一个 `Shape` 实例，而故障指向相关的 `Vertex` 对象集合。`Shape` 用粗体表示，表明它已从持久化存储中取出并驻留在内存中。而顶点则用浅灰色显示，因为它们尚未从持久化存储中取出，也不在内存中。
+
+![images](img/0707.jpg)
+
+**图 7–7.** *一个形状及其故障状态的顶点*
+
+#### 触发故障
+
+当 Core Data 必须从故障所指向的持久化存储中拉取数据并将其放入内存时，它使用术语 *触发故障（firing faults）*。Core Data 已经“触发”了一个从数据存储获取数据的请求，而故障也从其代表实际数据的任务中被“触发”了。每当你请求一个托管对象的持久化数据时——无论通过 `valueForKey:` 还是通过自定义类中返回或访问对象持久化数据的方法——都会导致故障触发。访问托管对象的元数据（而非持久化存储中存储的任何数据）的方法则不会触发故障。这意味着你可以查询托管对象的类、哈希值、描述、实体和对象 ID 等信息，而不会触发故障。关于哪些方法不会触发故障的完整列表，请参阅 Apple 文档中“故障行为”部分，网址为 [`http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CoreData/Articles/cdPerformance.html`](http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CoreData/Articles/cdPerformance.html)。
+
+显式请求托管对象的持久化数据会触发故障，但调用任何从托管对象访问持久化数据的方法或结构也同样会触发故障。例如，你可以通过托管对象的关系访问集合而不会触发故障。然而，对集合进行排序会触发故障，因为任何逻辑排序都会依据对象的某些持久化数据进行。稍后在本节中构建的测试将演示这一行为。
+
+#### 故障与缓存
+
+我们之前说触发故障会从持久化存储中获取数据，这其实有点不准确。这种情况通常是成立的，但 Core Data 在跋涉到持久化存储获取数据之前，会首先在缓存中查找所需数据。如果 Core Data 在缓存中找到了目标数据，它就会从缓存中拉取数据，跳过前往持久化存储的更漫长路径。“缓存”和“过期”部分会更详细地讨论缓存。
+
+#### 恢复故障
+
+控制应用程序持久化数据和内存使用的一种方法是将托管对象恢复为故障，从而释放其数据所占用的内存。通过调用托管对象上下文的 `refreshObject:mergeChanges:` 方法，并将你想要设为故障的对象作为参数传入，同时将 `mergeChanges:` 参数设为 `NO`，即可将对象恢复为故障。例如，如果你有一个名为 `foo` 的托管对象，并希望将其恢复为故障，可以使用类似如下的代码：
+
+```
+[context refreshObject:foo mergeChanges:NO];
+```
+
+调用之后，`foo` 就变成了一个故障，`[foo isFault]` 会返回 `YES`。如果你查看前面测试的代码，会在遍历所有 `movie` 实例的循环中看到将每个 `movie` 实例恢复为故障的调用。
+
+```
+[context refreshObject:movie mergeChanges:NO];
+```
+
+理解 `mergeChanges:` 参数很重要。像前面代码那样传入 `NO`，会丢弃所有尚未保存到持久化存储的更改数据。执行此操作需要小心，因为你会丢失此故障对象中的所有数据更改，并且与故障对象相关的所有对象都会被释放。如果任何关系发生了更改，并且上下文随后被保存，那么你的故障对象将与其关系不同步，从而在持久化存储中造成数据完整性问题。
+
+**注意：** 由于通过调用 `refreshObject:mergeChanges:NO` 将对象设为故障会释放关系，因此你可以利用这一点来修剪内存中的对象图。例如，在 PerformanceTuning 应用中，将一个电影设为故障会释放其关联的 200 个演员和 200 个工作室。
+
+向 `mergeChanges:` 传入 `YES` 则不会将对象设为故障。相反，它会从持久化存储（或最后的缓存状态）重新加载对象的所有持久化数据，然后重新应用在调用 `refreshObject:` 之前已存在但尚未保存的所有更改。
+
+当你将一个托管对象恢复为故障时，Core Data 会向该托管对象发送以下两条消息：
+
+* 对象进入故障状态前的 `willTurnIntoFault:`
+* 对象进入故障状态后的 `didTurnIntoFault:`
+
+如果你为托管对象实现了自定义类，则可以在你的类中实现这两个方法之一或全部，以便对对象执行某些操作。例如，假设你的自定义托管对象对某些持久化值执行了耗时的计算并缓存了结果，并且你希望在所依赖的值不存在时将缓存结果置空。你可以在 `didTurnIntoFault:` 方法中将计算结果置空。
+
+
+  
+### 构建故障测试  
+
+为了检验你在本部分学到的关于故障（fault）的知识，请构建一个测试，该测试将执行以下操作：  
+
+1.  从持久化存储中检索第一部电影。  
+2.  从该电影中获取一位演员。  
+3.  检查该演员是否是一个故障。  
+4.  获取该演员的姓名。  
+5.  检查该演员是否是一个故障。  
+6.  将该演员重新变回一个故障。  
+7.  检查该演员是否是一个故障。  
+
+首先，从你的数据模型生成一个代表 `Actor` 实体的 `Actor` 类。如果你愿意，也可以手动创建它。以下是头文件 `Actor.h` 的代码：  
+
+```
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@interface Actor : NSManagedObject
+
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * rating;
+@property (nonatomic, retain) NSSet* movies;
+
+@end
+
+@interface Actor (CoreDataGeneratedAccessors)
+
+- (void)addMoviesObject:(NSManagedObject *)value;
+- (void)removeMoviesObject:(NSManagedObject *)value;
+- (void)addMovies:(NSSet *)value;
+- (void)removeMovies:(NSSet *)value;
+
+@end
+```
+
+以下代码展示了实现文件 `Actor.m`。在实现文件中，实现 `willTurnIntoFault:` 和 `didTurnIntoFault:` 方法，以便验证当你将对象重新变回故障时，Core Data 确实调用了这些方法。在这些方法中，你不做任何特殊处理，仅记录事件发生。  
+
+```
+#import "Actor.h"
+
+@implementation Actor
+@dynamic name;
+@dynamic rating;
+@dynamic movies;
+
+- (void)willTurnIntoFault {
+    NSLog(@"Actor named %@ will turn into fault", self.name);
+}
+
+- (void)didTurnIntoFault {
+    NSLog(@"Actor named %@ did turn into fault", self.name);
+}
+
+@end
+```
+
+现在，创建一个名为 `DidTurnIntoFaultTest` 的类，该类实现 `PerformanceTest` 协议。以下是 `DidTurnIntoFaultTest.h` 的代码：  
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface DidTurnIntoFaultTest : NSObject <PerformanceTest>
+
+@end
+```
+
+以下是 `DidTurnIntoFaultTest.m` 的代码：  
+
+```
+#import <CoreData/CoreData.h>
+#import "DidTurnIntoFaultTest.h"
+#import "Actor.h"
+
+@implementation DidTurnIntoFaultTest
+
+- (NSString *)name {
+    return @"Did Turn Into Fault Test";
+}
+
+// 拉取所有电影，并验证它们的每个演员对象是否指向相同的演员
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSString *result = nil;
+
+    // 获取第一部电影
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie"
+                                 inManagedObjectContext:context]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", @"Movie 1"];
+    [request setPredicate:predicate];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    if ([results count] == 1) {
+        NSManagedObject *movie = (NSManagedObject *)[results objectAtIndex:0];
+        NSSet *actors = [movie valueForKey:@"actors"];
+        if ([actors count] != 200) {
+            result = @"Failed to find the 200 actors for the first movie";
+        } else {
+            // 获取一个演员
+            Actor *actor = (Actor *)[actors anyObject];
+
+            // 检查它是否是一个故障
+            result = [actor isFault] ? @"Actor is a fault.\n" : @"Actor is NOT a fault.\n";
+
+            // 获取其姓名和评分
+            result = [result stringByAppendingFormat:@"Actor is named %@\n", actor.name];
+            result = [result stringByAppendingFormat:@"Actor has rating %d\n", [actor.rating integerValue]];
+
+            // 检查它是否是一个故障
+            result = [result stringByAppendingString:[actor isFault] ?
+                      @"Actor is a fault.\n" : @"Actor is NOT a fault.\n"];
+
+            // 将演员重新变回故障
+            result = [result stringByAppendingString:@"Turning actor back into a fault.\n"];
+            [context refreshObject:actor mergeChanges:NO];
+
+            // 检查它是否是一个故障
+            result = [result stringByAppendingString:[actor isFault] ?
+                      @"Actor is a fault.\n" : @"Actor is NOT a fault.\n"];
+        }
+    } else {
+        result = @"Failed to fetch the first movie";
+    }
+    return result;
+}
+
+@end
+```
+
+将注意力转向 `runWithContext:` 方法，该方法从持久化存储中获取第一部电影。然后，它获取与该电影相关的任意一个演员，并检查该演员是否是一个故障。请注意，尽管到目前为止你在代码中未做任何触发演员故障（fault fire）的操作，但根据你在应用程序中此前执行的操作，此时该演员可能并非故障。随后，代码访问演员的姓名，并再次检查演员是否是一个故障。此时它将不是。如果此前尚未在其他地方触发故障，那么对姓名的访问将触发一个故障。然后，代码将演员变回故障，并验证该演员确实是一个故障。
+
+要将你的新测试添加到应用程序中，请打开 `PerformanceTuningViewController.m`，确保你导入了 `DidTurnIntoFaultTest.h`，在 `viewDidLoad:` 方法中找到将测试添加到 `tests` 数组的那行代码，然后添加新的测试，如下所示：  
+
+```
+FetchAllMoviesActorsAndStudiosTest *famaasTest = [[FetchAllMoviesActorsAndStudiosTest alloc] init];
+DidTurnIntoFaultTest *dtifTest = [[DidTurnIntoFaultTest alloc] init];
+self.tests = [[NSArray alloc] initWithObjects:famaasTest, dtifTest, nil];
+```
+
+构建应用程序并运行测试。你应该会看到类似于以下的输出：  
+
+```
+Actor is a fault.
+Actor is named Actor 42
+Actor has rating 8
+Actor is NOT a fault.
+Turning actor back into a fault.
+Actor is a fault.
+```
+
+回到 `Actor.m`，注释掉 `willTurnIntoFault:` 和 `didTurnIntoFault:` 方法，因为这两个方法及其对 `NSLog()` 的调用可能会影响任何使用 `Actor` 类的其他测试的计时结果。  
+
+
+
+
+### 掌控主动权：主动触发故障
+
+关于故障的章节开头已说明，与让 Core Data 管理数据获取相比，自己运行 SQL 查询时能更好地控制内存使用。虽然事实如此，但你可以通过主动触发故障，对 Core Data 的故障管理施加一定程度的控制。通过主动触发故障，你可以避免低效场景——即 Core Data 必须触发多个小故障来获取数据，从而导致多次持久化存储访问。
+
+Core Data 提供了两种优化故障触发的方式：
+
+- 批量故障处理
+- 预取
+
+作为对照组，创建一个名为 `SinglyFiringFaultTest` 的测试。该测试应获取所有电影，逐个遍历它们，并执行以下操作：
+
+- 访问 `name` 属性，仅为此电影触发一个故障。
+- 遍历所有相关演员，并逐个访问它们的 `name` 属性，每次访问都触发一个故障。
+- 重置每个演员，以便下一部电影需要为每位演员重新触发故障。
+- 对所有相关工作室执行相同操作。
+
+以下是 `SinglyFiringFaultTest.h` 的代码：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface SinglyFiringFaultTest : NSObject <PerformanceTest>
+
+@end
+```
+
+以下是 `SinglyFiringFaultTest.m` 的代码：
+
+```
+#import <CoreData/CoreData.h>
+#import "SinglyFiringFaultTest.h"
+
+@implementation SinglyFiringFaultTest
+
+- (NSString *)name {
+    return @"单次触发故障测试";
+}
+
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSString *result = @"单次触发故障测试完成！";
+
+    // 获取所有电影
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie"
+                                  inManagedObjectContext:context]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    // 遍历所有电影
+    for (NSManagedObject *movie in results) {
+        // 仅为此电影触发故障
+        [movie valueForKey:@"name"];
+
+        // 遍历这部电影的所有演员
+        for (NSManagedObject *actor in [movie valueForKey:@"actors"]) {
+            // 仅为此演员触发故障
+            [actor valueForKey:@"name"];
+
+            // 将此演员恢复为故障状态，以便下一部电影
+            // 需要重新触发故障
+            [context refreshObject:actor mergeChanges:NO];
+        }
+
+        // 遍历这部电影的所有工作室
+        for (NSManagedObject *studio in [movie valueForKey:@"studios"]) {
+            // 仅为此工作室触发故障
+            [studio valueForKey:@"name"];
+
+            // 将此工作室恢复为故障状态，以便下一部电影
+            // 需要重新触发故障
+            [context refreshObject:studio mergeChanges:NO];
+        }
+    }
+    return result;
+}
+
+@end
+```
+
+创建这些文件，并将 `SinglyFiringFaultTest` 的一个实例添加到 `tests` 数组中。别忘了导入 `SinglyFiringFaultTest.h`。构建应用，启动模拟器，然后运行测试。在我们的机器上运行此测试大约需要 2.2 秒。通过使用预取，你应该能够改善这些结果！
+
+### 预取
+
+与批量故障处理类似，预取最大限度地减少了 Core Data 触发故障和获取数据的次数。然而，使用预取时，你可以告诉 Core Data 在执行获取操作时，同时获取你指定的相关对象。例如，使用本章的数据模型，当你获取电影时，可以告诉 Core Data 预取相关的演员、工作室，或两者都预取。
+
+要预取相关对象，请调用 `NSFetchRequest` 的 `setRelationshipKeyPathsForPrefetching:` 方法，传入一个数组，其中包含你希望 Core Data 预取的关系名称。例如，要在获取电影时预取相关的演员和工作室，请使用以下代码：
+
+```
+NSFetchRequest *request = [[NSFetchRequest alloc] init];
+[request setEntity:[NSEntityDescription entityForName:@"Movie"
+                              inManagedObjectContext:context]];
+[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObjects:@"actors",
+                                                                         @"studios", nil]];
+NSArray *results = [context executeFetchRequest:request error:nil];
+```
+
+加粗的那一行指示 Core Data 在获取电影时预取所有相关的演员和工作室。
+
+在测试之前，请注意你的基准数字依赖于在触发故障加载某部电影的数据后，将每个演员和工作室恢复为故障状态。这样做是因为每部电影都关联相同的 200 名演员和相同的 200 个工作室，因此演员和电影通常只在第一部电影时才处于故障状态，而非剩下的 199 部。将每个演员和每个工作室为每部电影恢复为故障状态，使你可以测量每部电影中每个演员和工作室的故障触发情况。
+
+然而，将每个演员和每个工作室恢复为故障状态会抵消预取带来的性能提升，因此你不需要将它们重新设为故障。为了获得良好的比较数据，你必须修改 `SinglyFiringFaultTest` 的代码，不再重置 `Actor` 和 `Studio` 对象。打开 `SinglyFiringFaultTest.m`，找到 `runWithContext:` 方法，并注释掉以下两行：
+
+```
+[context refreshObject:actor mergeChanges:NO];
+
+[context refreshObject:studio mergeChanges:NO];
+```
+
+启动应用，重新运行测试。在我们的机器上，大约需要 1.9 秒。
+
+现在，创建一个名为 `PreFetchFaultingTest` 的新类，并实现 `PerformanceTest` 协议。该测试看起来与 `SinglyFiringFaultTest` 类似，但有两个重要区别：
+
+- 获取操作会预取演员和工作室。
+- 演员和工作室不会被恢复为故障状态。
+
+以下是头文件：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface PreFetchFaultingTest : NSObject <PerformanceTest>
+
+@end
+```
+
+以下是实现文件：
+
+```
+#import <CoreData/CoreData.h>
+#import "PreFetchFaultingTest.h"
+
+@implementation PreFetchFaultingTest
+
+- (NSString *)name {
+    return @"预取故障测试";
+}
+
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSString *result = @"预取故障测试完成！";
+
+    // 获取所有电影
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie"
+                                  inManagedObjectContext:context]];
+
+    // 预取演员和工作室
+    [request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObjects:@"actors",
+                                                                             @"studios", nil]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    // 遍历所有电影
+    for (NSManagedObject *movie in results) {
+        // 仅为此电影触发故障
+        [movie valueForKey:@"name"];
+
+        // 遍历这部电影的所有演员
+        for (NSManagedObject *actor in [movie valueForKey:@"actors"]) {
+            // 获取此演员的名称
+            [actor valueForKey:@"name"];
+        }
+
+        // 遍历这部电影的所有工作室
+        for (NSManagedObject *studio in [movie valueForKey:@"studios"]) {
+            // 获取此工作室的名称
+            [studio valueForKey:@"name"];
+        }
+    }
+    return result;
+}
+
+@end
+```
+
+以下这行代码设置了演员和工作室的预取：
+
+```
+[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObjects:@"actors", @"studios", nil]];
+```
+
+像添加其他测试一样，将此测试添加到 `PerformanceTuningViewController` 的 `viewDidLoad:` 方法中的 `tests` 数组中。构建并运行此测试。我们的结果大约是 0.6 秒，比没有预取的相同测试的 1.9 秒快了约 70%。
+
+
+
+### 缓存
+
+无论目标语言或平台如何，大多数数据持久化框架和库都具备内部缓存机制。合理实现的缓存能显著提升性能，尤其对于需要重复检索相同数据的应用程序而言。`Core Data` 也不例外。`NSManagedObjectContext` 类充当了 `Core Data` 框架的内置缓存。当你从底层持久化存储中检索对象时，上下文会保留对该对象的引用以跟踪其变化。如果再次检索该对象，上下文可以向调用方返回与首次调用时相同的对象引用。
+
+使用缓存带来的明显权衡是：在提升性能的同时，缓存会消耗更多内存。如果没有相应的缓存管理方案来限制缓存的内存使用，缓存中的对象会不断积累，最终因内存不足导致整个系统崩溃。为了管理内存，`Core Data` 上下文对从持久化存储中取出的托管对象持有弱引用。这意味着，如果某个托管对象的引用计数因没有其他对象引用它而降至零，该对象将被释放。此规则的例外情况是对象有任何形式的修改。在这种情况下，上下文会持有强引用（即向托管对象发送 `retain` 信号），并保持该状态直到上下文提交或回滚，此时它才会重新变为弱引用。
+
+**注意：** 可以通过向 `NSManagedObjectContext` 的 `setRetainsRegisteredObjects:` 方法传递 `YES` 来更改默认的保留行为。传递 `YES` 后，上下文将保留所有已注册的对象。默认行为仅在对象被插入、更新、删除或锁定时才保留已注册对象。
+
+在本节中，你将对比从持久化存储获取对象与从缓存获取对象的差异。你将构建一个测试，执行以下操作：
+
+1. 重置托管对象上下文以清空缓存。
+2. 检索所有电影。
+3. 检索每部电影的所有演员。
+4. 显示完成两次检索所需的时间。
+5. 再次检索所有电影（此时对象将被缓存）。
+6. 再次检索每部电影的所有演员。
+7. 显示完成两次检索所需的时间。
+
+首先，创建一个名为 `CacheTest` 的类，并将其添加到 Xcode 的 Tests 组中。确保 `CacheTest` 实现了 `PerformanceTest` 协议。以下是 `CacheTest.h` 的代码：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface CacheTest : NSObject <PerformanceTest>
+
+@end
+```
+
+以下是 `CacheTest.m` 的代码：
+
+```
+#import "CacheTest.h"
+#import "Actor.h"
+
+@implementation CacheTest
+
+- (NSString *)name {
+    return @"Cache Test";
+}
+
+- (void)loadDataFromContext:(NSManagedObjectContext *)context {
+    // 检索所有电影和所有演员
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie"
+                                   inManagedObjectContext:context]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    // 检索所有演员
+    for (NSManagedObject *movie in results) {
+        NSSet *actors = [movie valueForKey:@"actors"];
+        for (Actor *actor in actors) {
+            [actor valueForKey:@"name"];
+        }
+    }
+}
+
+// 提取所有电影，并验证每部电影的演员对象是否指向相同的演员对象
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSMutableString *result = [NSMutableString string];
+
+    [context reset];  // 清除所有可能被缓存的对象
+
+    NSDate *startTest1 = [NSDate date];
+    [self loadDataFromContext:context];
+    NSDate *endTest1 = [NSDate date];
+    NSTimeInterval test1 = [endTest1 timeIntervalSinceDate:startTest1];
+    [result appendFormat:@"Without cache: %.2f s\n", test1];
+
+    NSDate *startTest2 = [NSDate date];
+    [self loadDataFromContext:context];
+    NSDate *endTest2 = [NSDate date];
+
+    NSTimeInterval test2 = [endTest2 timeIntervalSinceDate:startTest2];
+    [result appendFormat:@"With cache: %.2f s\n", test2];
+
+    return result;
+}
+
+@end
+```
+
+让我们分析 `runWithContext:` 方法。它重复执行两次相同的操作：检索所有电影和所有演员。第一次，通过 `[context reset]` 显式清空缓存。第二次，所有对象都位于缓存中，因此数据返回速度会快得多。`loadDataFromContext:` 方法被调用来检索所有电影，然后拉取每部电影的每个演员。你显式获取演员的 `name` 属性，以强制 `Core Data` 加载该属性，必要时触发错误（fault）。
+
+将一个 `CacheTest` 实例添加到 `tests` 数组中，构建应用，并运行缓存测试。应用的输出将类似于图 7–8，其中使用缓存的版本比不使用缓存的版本运行速度显著更快。
+
+![images](img/0708.jpg)
+
+**图 7–8.** *测量加载缓存对象与非缓存对象的时间差异*
+
+如果在第一次和第二次测试之间使用 `[context reset]` 重置缓存，那么第二次测试的执行时间将与第一次大致相同。这是因为所有对象都必须再次从持久化存储中检索。
+
+### 过期
+
+任何应用程序在使用缓存时，都会面临缓存过期的问题：缓存中的对象应在何时过期并从持久化存储重新加载？确定过期间隔的难点在于，需要权衡长期缓存对象带来的性能提升，与由此产生的额外内存消耗以及缓存数据可能过时的问题。本节将探讨两种缓存过期和释放内存策略的取舍。
+
+#### 内存消耗
+
+随着越来越多的对象被放入缓存，内存使用量也随之增加。即使托管对象完全处于错误状态，快速调用 `NSLog(@"%d", class_getInstanceSize(NSManagedObject.class))` 也会显示，一个未填充数据的托管对象分配大小为 48 字节。这是因为它持有对其他对象（如实体描述、上下文和对象 ID）的引用（即 4 字节指针）。即使没有任何实际数据，托管对象也至少占用 48 字节。这是最佳情况，因为该估算不包括已填充数据的唯一对象 ID 所占用的内存。这意味着，如果缓存中有 10 万个托管对象，即使处于错误状态，你也会为数据之外的内容消耗至少 5MB 内存。如果开始加载无错误的数据，你很快就会遇到内存问题。
+
+这种平衡策略的关键在于：当不再需要数据时，或者在你能承受再次从持久化存储检索对象的代价时，及时从缓存中移除数据。
+
+
+
+### 暴力缓存过期
+
+如果你不关心丢失所有托管对象，可以完全重置上下文。这通常不是你想要选择的选项，但它极其高效。`NSManagedObjectContext` 有一个 `reset` 方法，可以一次性清空缓存。一旦你调用 `[managedObjectContext reset]`，内存占用将显著降低，但如果你想再次获取任何对象，就必须付出访问持久化存储的代价。还请理解，与其他任何大规模销毁机制一样，在正在运行的应用程序中重置缓存会带来严重的副作用和连带损害。例如，在重置前你正在使用的任何托管对象现在都失效了。如果你尝试对它们进行任何操作，都会遭遇运行时错误。
+
+### 通过 Fault 机制使缓存过期
+
+正如关于 Fault 的章节所解释的，Fault 是一种更精细的选项。你可以通过调用 `[context refreshObject:managedObject mergeChanges:NO]` 使任何托管对象变成 Fault。此方法调用后，该对象便成为 Fault，因此它在缓存中占用的内存会最小化，尽管并非为零。然而，这种策略一个不可忽视的优势是，当托管对象转变为 Fault 时，它所引用的任何托管对象（通过关系）都会被释放。如果这些相关的托管对象没有其他引用指向它们，它们就会从缓存中移除，从而进一步降低内存占用。以这种方式使托管对象变为 Fault 有助于剪枝整个对象图。
+
+### 唯一性保证
+
+商业界和科技界都喜欢把名词变成动词，而伪词 *uniquing* 就证明了这一弱点。它试图定义使某物变得唯一或确保唯一性的行为。使用情况表明，不仅是苹果公司没有发明这个术语，而且它早于 Core Data 出现。然而，苹果公司在其中文档中采用了这个术语，这引发了人们的担忧：有一天苹果公司会把听音乐的行为称为 *iPodding*。
+
+科技行业将术语 *uniquing* 与内存对象及其在数据存储中的表示关联起来。在《Core Java Data Objects》（Prentice Hall，2003 年）一书中提到，uniquing“确保无论一个持久化对象被查找多少次，它在内存中都只有一个表示。在同一个 `PersistenceManager` 实例的范围内，对同一个持久化对象的所有引用都指向同一个内存对象。”
+
+Martin Fowler 在《企业应用架构模式》（Addison-Wesley Professional，2005 年）中为其取了一个不那么花哨、更具描述性且更符合英语习惯的名称：*identity map*。他解释说，身份映射“通过将每个已加载的对象保存在一个映射中，确保每个对象只被加载一次”。不管你怎么称呼它或如何描述它，*uniquing* 意味着 Core Data 通过确保每个对象在内存中的唯一性，并且没有两个对象的内存实例指向持久化存储中的同一个实例，来节省内存使用。
+
+例如，考虑第 5 章 中的 Shapes 应用程序。每个 `Shape` 实例都与两个 `Canvas` 实例存在关系。当你运行 Shapes 应用程序并通过任何 `Shape` 实例引用这两个 `Canvas` 实例时，你总是会得到相同的两个 `Canvas` 实例，如图 7–9 所示。如果 Core Data 不使用唯一性保证，你可能会发现自己处于图 7–10 所示的场景中，其中每个 `Canvas` 实例在内存中被多次表示，每个 `Shape` 对应一次，而每个 `Shape` 实例在内存中也被多次表示，每个 `Canvas` 对应一次。
+
+![images](img/0709.jpg)
+
+**图 7–9.** *唯一化形状和画布*
+
+![images](img/0710.jpg)
+
+**图 7–10.** *非唯一化形状和画布*
+
+唯一性保证不仅节省内存，还消除了数据不一致的问题。例如，想想如果 Core Data 不采用唯一性保证，并且 Shapes 应用程序中每个形状都有两个内存实例（每个画布一个），会发生什么。假设 `Canvas 1` 将某个形状的颜色改为淡紫色，而 `Canvas 2` 将该形状的颜色改为青柠色。那么该形状应该显示什么颜色？当应用程序将该形状存储到持久化存储中时，它应该保存什么颜色？你可以想象，如果 Core Data 在内存中维护了每个数据对象的多个实例，你将不得不追踪哪些数据不一致的 bug。
+
+请注意，唯一性保证仅在单个托管对象上下文内发生，不会跨托管对象上下文。不过，好消息是，Core Data 的默认行为（你无法更改）就是进行唯一化。唯一性保证是 Core Data 自带的功能。
+
+为了测试唯一性保证，你将创建一个测试，从持久化存储中获取所有电影，然后比较每部电影的关联演员与另一部电影的关联演员。为了通过测试，代码必须验证内存中只有 200 个 `Actor` 实例，并且每部电影都指向相同的这 200 个演员。首先，创建一个名为 `UniquingTest` 的新类，它应该实现 `PerformanceTest` 协议，如下所示：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface UniquingTest : NSObject <PerformanceTest>
+
+@end
+```
+
+
+
+### 实现文件中的唯一性测试
+
+实现文件`UniquingTest.m`获取所有电影并遍历它们，提取与每部电影相关的所有演员。代码对演员进行排序，使其处于确定的顺序，以便可以预测性地比较实例。在第一次循环（针对第一部电影）中，代码将每个演员存储到一个引用数组中，以便所有后续循环都有东西可以与之比较。在后续的每次循环中，代码提取电影的演员并将其与引用数组进行比较。如果有一个演员不匹配，测试就会失败。代码如下所示：
+
+```
+#import <CoreData/CoreData.h>
+#import "UniquingTest.h"
+
+@implementation UniquingTest
+
+- (NSString *)name {
+    return @"Uniquing test";
+}
+
+// 拉取所有电影，并验证它们的演员对象是否都指向相同的演员
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSString *result = @"Uniquing test passed";
+
+    // 用于比较的演员数组
+    NSMutableArray *referenceActors = nil;
+
+    // 对演员进行排序
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+
+    // 拉取所有电影
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+    NSArray *results = [context executeFetchRequest:request error:nil];
+
+    // 遍历每部电影
+    for (NSManagedObject *movie in results) {
+        // 获取演员
+        NSSet *actors = [movie mutableSetValueForKey:@"actors"];
+        NSArray *sortedActors = [actors sortedArrayUsingDescriptors:sortDescriptors];
+
+        if (referenceActors == nil) {
+            // 第一次遍历；存储引用
+            referenceActors = [[NSMutableArray alloc] initWithArray:sortedActors];
+        } else {
+            for (int i = 0, n = [sortedActors count]; i < n; i++) {
+                if ([sortedActors objectAtIndex:i] != [referenceActors objectAtIndex:i]) {
+                    result = [NSString stringWithFormat:@"Uniquing test failed; %@ != %@", [sortedActors objectAtIndex:i], [referenceActors objectAtIndex:i]];
+                    break;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+@end
+```
+
+要运行此测试，请打开`PerformanceTuningViewController.m`，并将`UniquingTest`的实例添加到`tests`数组中，同时导入`UniquingTest.h`。运行测试应显示每个演员在内存中只存在一次，并且 Core Data 已使用唯一性来减少应用程序的内存占用（参见 图 7–11）。
+
+![images](img/0711.jpg)
+
+**图 7–11.** *唯一性测试的结果*
+
+### 使用更好的谓词提高性能
+
+尽管电影标题《2001：太空漫游》中的年份已到，但距离我们的机器能够智能地回应诸如“抱歉，戴夫。恐怕我做不到”之类的话，仍然遥遥无期。在撰写本书时，程序员仍然需要做大量的辅助工作来引导机器完成它们被要求执行的任务。这意味着你编写代码的方式决定了它的效率。通常有多种方法可以检索相同的数据，但你使用的解决方案可能会显著改变应用程序的性能。
+
+#### 使用更快的比较器
+
+通常来说，字符串比较器的执行速度比原始类型比较器慢。当使用`OR`运算符组合谓词时，将原始类型比较器放在前面总是更高效，因为如果它们解析为`TRUE`，则无需评估其余比较器。这是因为“`TRUE` OR 任何东西”始终为真。类似的策略可以用于 AND 组合的谓词。在这种情况下，如果第一个谓词失败，则不会评估第二个谓词，因为“`FALSE` AND 任何东西”始终为假。
+
+为了验证这一点，向性能测试应用程序添加一个新测试。将新类命名为`PredicatePerformanceTest`。以下是头文件：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface PredicatePerformanceTest : NSObject <PerformanceTest>
+
+@end
+```
+
+此测试包含两个获取请求，它们使用 OR 组合的谓词检索相同的对象。在第一个测试中，字符串比较器`LIKE`在原始类型比较器之前使用。在第二个测试中，比较器的顺序被调换。每个测试运行 1000 次，以获得以秒为单位的显著计时；每次循环时，都会重置缓存以保持干净的上下文。以下代码展示了实现：
+
+```
+#import <CoreData/CoreData.h>
+#import "PredicatePerformanceTest.h"
+
+@implementation PredicatePerformanceTest
+
+- (NSString *)name {
+    return @"Predicate Performance Test";
+}
+
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSMutableString *result = [NSMutableString string];
+    NSFetchRequest *request;
+    NSDate *startTest1 = [NSDate date];
+    for (int i=0; i<1000; i++) {
+        [context reset];
+        request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(name LIKE %@) OR (rating < %d)", @"*c*or*", 5]];
+        [context executeFetchRequest:request error:nil];
+    }
+    NSDate *endTest1 = [NSDate date];
+
+    NSTimeInterval test1 = [endTest1 timeIntervalSinceDate:startTest1];
+    [result appendFormat:@"Slow predicate: %.2f s\n", test1];
+
+    NSDate *startTest2 = [NSDate date];
+    for (int i=0; i<1000; i++) {
+        [context reset];
+        request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(rating < %d) OR (name like %@)", 5, @"*c*or*"]];
+        [context executeFetchRequest:request error:nil];
+    }
+    NSDate *endTest2 = [NSDate date];
+
+    NSTimeInterval test2 = [endTest2 timeIntervalSinceDate:startTest2];
+    [result appendFormat:@"Fast predicate: %.2f s\n", test2];
+
+    return result;
+}
+
+@end
+```
+
+要在用户界面中查看测试，请打开`PerformanceTuningViewController.m`，并将`PredicatePerformanceTest`的实例添加到`tests`数组中，同时导入`PredicatePerformanceTest.h`。
+
+运行测试将一致地显示两个测试之间存在显著的计时差异。当然，计时结果会因机器性能而异，但以下是一个示例运行，其中快速谓词比慢速谓词性能高出超过 25%：
+
+```
+Slow predicate: 1.21s
+Fast predicate: 0.89s
+```
+
+
+
+### 使用子查询
+
+你在上一章中了解了如何使用子查询来简化代码。在本节中，你将添加一个测试，以展示使用子查询与手动检索相关数据之间的区别。考虑一个示例，你想从一部电影中查找符合特定条件的所有演员。如果不使用子查询，你必须首先获取所有符合条件的电影。然后，你需要遍历每部电影并提取演员。接着，你遍历所有演员并将其添加到结果集中，同时确保如果同一演员出演多部电影，不会重复添加。手动查询的测试如下所示：
+
+```
+NSMutableDictionary *actorsMap = [NSMutableDictionary dictionary];
+request = [[NSFetchRequest alloc] init];
+[request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+[request setPredicate:[NSPredicate predicateWithFormat:@"(rating < %d) OR (name LIKE %@)", 5, @"*c*or*"]];
+NSArray *movies = [context executeFetchRequest:request error:nil];
+
+for (NSManagedObject *movie in movies) {
+    NSSet *actorSet = [movie valueForKey:@"actors"];
+    for (NSManagedObject *actor in actorSet) {
+        [actorsMap setValue:actor forKey:[[[actor objectID] URIRepresentation] description]];
+    }
+}
+```
+
+在这个实现中，`actorsMap` 字典包含了所有演员。你通过 `objectID` 作为键来消除重复项。另一种替代方法是使用子查询（更多关于构建子查询的信息，请参考第 6 章）。在这种情况下，子查询如下所示：
+
+```
+request = [[NSFetchRequest alloc] init];
+[request setEntity:[NSEntityDescription entityForName:@"Actor" inManagedObjectContext:context]];
+[request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(movies, $x, ($x.rating < %d) OR ($x.name LIKE %@)).@count > 0)", 5, @"*c*or*"]];
+NSArray *actors = [context executeFetchRequest:request error:nil];
+```
+
+这里的一个主要区别是，你让持久化存储区完成所有检索匹配演员的工作，这意味着大部分结果无需返回到 Core Data 的上下文层进行后续处理。使用子查询时，你实际上并没有检索电影，而是直接设置获取请求来获取演员。相比之下，手动方式在检索电影后，必须触发故障（faults）才能检索演员。
+
+为了在测试中演示这一点，请在项目中创建一个名为 `SubqueryTest` 的新类。头文件如下所示：
+
+```
+#import <Foundation/Foundation.h>
+#import "PerformanceTest.h"
+
+@interface SubqueryTest : NSObject <PerformanceTest>
+
+@end
+```
+
+测试在 `SubqueryTest.m` 中实现，如下所示：
+
+```
+#import <CoreData/CoreData.h>
+#import "SubqueryTest.h"
+
+@implementation SubqueryTest
+
+- (NSString *)name {
+    return @"子查询性能测试";
+}
+
+- (NSString *)runWithContext:(NSManagedObjectContext *)context {
+    NSMutableString *result = [NSMutableString string];
+
+    NSFetchRequest *request;
+
+    int count = 0;
+
+    [context reset];
+    NSDate *startTest1 = [NSDate date];
+    NSMutableDictionary *actorsMap = [NSMutableDictionary dictionary];
+    request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Movie" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(rating < %d) OR (name LIKE %@)", 5, @"*c*or*"]];
+    NSArray *movies = [context executeFetchRequest:request error:nil];
+
+    for (NSManagedObject *movie in movies) {
+        NSSet *actorSet = [movie valueForKey:@"actors"];
+        for (NSManagedObject *actor in actorSet) {
+            [actorsMap setValue:actor forKey:[[[actor objectID] URIRepresentation] description]];
+        }
+    }
+
+    count = [actorsMap count];
+
+    NSDate *endTest1 = [NSDate date];
+
+    NSTimeInterval test1 = [endTest1 timeIntervalSinceDate:startTest1];
+    [result appendFormat:@"无子查询: %.2f s\n", test1];
+    [result appendFormat:@"检索到的演员数: %d\n", count];
+
+    [context reset];
+    NSDate *startTest2 = [NSDate date];
+    request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Actor" inManagedObjectContext:context]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(movies, $x, ($x.rating < %d) OR ($x.name LIKE %@)).@count > 0)", 5, @"*c*or*"]];
+
+    NSArray *actors = [context executeFetchRequest:request error:nil];
+    count = [actors count];
+    NSDate *endTest2 = [NSDate date];
+
+    NSTimeInterval test2 = [endTest2 timeIntervalSinceDate:startTest2];
+    [result appendFormat:@"子查询: %.2f s\n", test2];
+    [result appendFormat:@"检索到的演员数: %d\n", count];
+
+    return result;
+}
+
+@end
+```
+
+打开 `PerformanceTuningViewController.m`，将 `SubqueryTest` 的一个实例添加到 `tests` 数组中，以便能够运行该测试。测试结果——速度提升超过 80%——是毋庸置疑的。
+
+```
+无子查询: 0.74 s
+检索到的演员数: 200
+子查询: 0.13 s
+检索到的演员数: 200
+```
+
+你编写谓词的方式会对应用程序的性能产生深远影响。应始终留意你要求 Core Data 执行的操作，以及如何通过更高效的谓词实现相同的结果。
+
+### 分析性能
+
+虽然在编写代码前深思熟虑，并理解故障（faulting）、预抓取（prefetching）和内存使用等概念的影响，通常能让你写出性能良好的稳固代码，但你往往仍需要一种无偏见、客观的方法来评估应用程序的表现。对应用程序性能最无偏见且最客观的评价来自运行它的计算机。因此，让计算机测量你应用程序中 Core Data 交互的结果，能为优化性能提供至关重要的见解。
+
+苹果提供了一款名为 Instruments 的工具，它可以测量应用程序的多个方面，包括与 Core Data 相关的项目。本节将展示如何使用 Instruments 来测量应用程序中 Core Data 的相关指标。我们鼓励你探索 Instruments 提供的其他测量选项。
+
+
+
+### 启动 Instruments
+
+虽然你可以像启动其他应用程序一样启动 Instruments，但 Xcode 提供了一种更简单的方式来启动它并运行你的应用程序。在 Xcode 菜单中，选择 `Product` → `Profile`。这会启动 Instruments，并显示一个对话框，询问你要分析什么，如图 7-12 所示。
+
+![images](img/0712.jpg)
+
+**图 7-12.** *Instruments 要求你选择一个模板*
+
+由于 Instruments 没有为 iOS 提供 Core Data 模板，请选择 `Blank` 模板，然后点击 `Profile` 按钮。这将打开 Instruments 主窗口，并显示一条消息，要求你将录制工具从库中拖到此处，如图 7-13 所示。
+
+![images](img/0713.jpg)
+
+**图 7-13.** *Instruments 主窗口*
+
+点击 `Library` 旁边的箭头以显示库。你会在录制工具面板中看到四个与 Core Data 相关的工具，如图 7-14 所示。将这四种工具全部拖到 Instruments 窗口的左侧边栏，使其看起来像图 7-15。
+
+![images](img/0714.jpg)
+
+**图 7-14.** *工具库中的 Core Data 录制工具*
+
+![images](img/0715.jpg)
+
+**图 7-15.** *包含 Core Data 录制工具的 Instruments 主窗口*
+
+现在，你已经配置好 Instruments 来录制 Core Data 交互，点击 Instruments 窗口左上角的 `Record` 按钮，启动 iOS 模拟器和 `PerformanceTuning` 应用程序。
+
+### 理解结果
+
+Instruments 窗口显示其正在追踪的 Core Data 测量指标，包括以下内容：
+
+- Core Data 保存
+- Core Data 获取
+- Core Data 故障
+- Core Data 缓存未命中
+
+运行 `PerformanceTuning` 应用程序中的任何测试——例如，预取故障测试——并等待测试完成。测试完成后，点击 Instruments 左上角的 `Stop` 按钮，停止应用程序并停止录制 Core Data 测量结果。然后，你可以查看测试结果，了解关于保存、获取、故障和缓存未命中的信息。你可以通过选择菜单中的 `File` → `Save As` 将结果保存到文件系统，以便日后复查。在 Instruments 中，可以使用标准的 `File` → `Open` 菜单项重新打开这些结果。
+
+图 7-16 展示了运行预取故障测试后的 Instruments 窗口。你可以看到 Core Data 获取的获取次数和获取持续时间（以微秒为单位）（你可能需要稍微调整列表头才能显示所有信息）。代码对 `Movie` 实体执行了一次获取请求（Instruments 将获取调用列出两次：一次是调用开始时，一次是调用结束时）。该请求耗时 450,700 微秒，获取了 200 部电影，这可以从获取实体 `Movie` 和获取计数 200 中看出。
+
+![images](img/0716.jpg)
+
+**图 7-16.** *预取故障测试的结果*
+
+通过将窗口中间的 `Event List` 下拉菜单更改为 `Call Tree`，你可以查看获取请求的调用树。通过勾选窗口左侧的 `Hide System Libraries` 复选框，可以减少查看应用程序代码中调用所需的导航深度。图 7-17 展示了获取请求的调用树。使用调用树，你可以确定代码的哪些部分正在从 Core Data 存储中获取数据。
+
+![images](img/0717.jpg)
+
+**图 7-17.** *获取请求的调用树*
+
+这仅仅是 Instruments 能为你所做事情的一个缩影，它可以帮助你确定应用程序如何使用 Core Data，并引导你找到 Core Data 性能缓慢而需要优化的地方。
+
+### 总结
+
+从唯一化到故障处理再到缓存托管对象，Core Data 为你做了大量的数据访问性能优化。这些优化是免费的，无需你付出任何额外的努力。然而，你应该了解 Core Data 提供的这些优化，以确保与之协同工作，而不是背道而驰。
+
+然而，并非所有的 Core Data 性能提升都是自动获得的。在本章中，你学习了如何使用预取和谓词优化等技术，为你的应用程序从 Core Data 中榨取尽可能多的性能。你还学习了如何使用 Instruments 应用程序分析你的 Core Data 应用程序，从而了解你的应用程序如何使用 Core Data，以及问题出在哪里。
+
+其他 iOS 编程书籍可能会很好地展示如何在针对持久化存储执行长时间查询时显示一个旋转指示器和“请稍候”消息。本书则向你展示如何完全避免使用旋转指示器和“请稍候”消息。
+
+## 第 8 章
+
+## 版本控制与数据迁移
+
+在开发基于 Core Data 的应用程序时，通常第一次并不能完全准确地设计出数据模型。你一开始创建的数据模型似乎满足了应用程序的数据需求，但随着应用程序开发的深入，你常常会发现数据模型需要改变，以适应你不断发展的应用程序愿景。在应用程序生命周期的这个阶段，更改数据模型以适应你对应用程序数据的新理解几乎没有什么代价：你的应用程序将无法启动，启动时会崩溃并显示以下消息：
+
+```
+用于打开存储的模型与用于创建存储的模型不兼容。
+```
+
+你可以通过文件系统找到数据库文件并删除它，或者从 iPhone 模拟器或你的设备上删除这个尚不成熟的应用程序来解决这个问题。无论哪种方式，使用旧版架构的数据库文件都会消失，持久化存储中的数据也会随之消失，你的应用程序将在下次启动时重新创建数据库文件。在应用程序的开发过程中，你可能会多次执行此操作。
+
+然而，一旦你发布了应用程序，人们开始使用它，他们就会在设备上的持久化存储中积累他们认为重要的数据。每次你想发布一个数据模型有所变更的应用程序新版本时，都要求他们删除自己的数据存储，这会让你的应用程序立即跌至一星评级，评论者会谴责苹果的评级系统不允许零星甚至负星评级。
+
+这是否意味着发布应用程序会冻结其数据模型，你的应用程序 1.0 版本中的数据模型是永久性的？你最好在第一个公开版本中就将数据模型设计得完美无缺，因为你永远无法再更改它？幸运的是，答案是否定的。Apple 预见到了在应用程序生命周期中改进 Core Data 模型的需求，并构建了相应的机制，让你能够更改数据模型，然后将用户的数据迁移到新模型，这一切都不需要用户干预，甚至让他们毫无察觉。本章将介绍数据模型版本控制以及跨这些版本进行数据迁移的过程，无论你对模型做了多么复杂的更改。
+
+
+
+### 版本控制
+
+要利用 Core Data 对数据模型版本控制以及数据在不同版本间迁移的支持，你需要首先显式地创建一个新版本的数据模型。为了说明其工作原理，我们重新引入第 5 章中的 Shapes 应用。请复制一份该应用，因为本章中你将多次修改其数据模型。在 Shapes 的原始版本中，你创建了一个数据模型，该模型如图 8-1 所示。
+
+![images](img/0801.jpg)
+
+**图 8-1.** *单版本数据模型*
+
+`Shapes.xcdatamodeld` 包含了该模型，它实际上是你文件系统中的一个目录。其中包含了应用运行时创建 Core Data 持久化存储所需的文件。选中 `Shapes.xcdatamodeld`，并查看 Xcode 工具区域中的文件检查器，如图 8-2 所示。它显示了当前模型版本的名称：Shapes。由于只有一个对象模型版本，当前版本是自动设定的。要添加新版本，请从 Xcode 菜单栏中选择 `Editor` → `Add Model Version`。此时会弹出一个面板，允许你输入版本名称，并选择新版本所基于的模型，如图 8-3 所示。接受默认设置，然后点击完成。Xcode 会在 `Shapes.xcdatamodeld` 内部创建一个名为 `Shapes 2.xcdatamodel` 的新目录，如图 8-4 所示。`Shapes.xcdatamodeld` 下的每个条目都代表你数据模型的一个版本；绿色勾选标记表示你的应用当前正在使用的版本。
+
+![images](img/0802.jpg)
+
+**图 8-2.** *数据模型的当前版本*
+
+![images](img/0803.jpg)
+
+**图 8-3.** *选择版本名称和模型基础*
+
+![images](img/0804.jpg)
+
+**图 8-4.** *包含两个版本的数据模型*
+
+你可以看到，原始数据模型 `Shapes.xcdatamodel` 是当前版本。在将当前版本从 `Shapes.xcdatamodel` 更改为 `Shapes 2.xcdatamodel` 之前，请先运行 Shapes 应用并创建几个形状，这样你就有数据可以跨版本迁移。你的数据库中需要有数据，才能测试本章中的数据迁移是否工作正常。
+
+现在，假设你想向 `Shape` 实体添加一个新的 `name` 属性。如果你编辑当前模型并向 `Shape` 实体添加一个 `name` 属性，你会惊讶地发现应用在启动时崩溃了。这是因为数据存储区中存储的数据与 Core Data 数据模型不匹配。缓解此问题的一种方法是删除现有的数据存储区。在开发应用时，这可以接受，但如果已经有用户在使用此应用，这样做会招致他们的愤怒。为了获得更流畅的体验，我们强烈建议你对模型进行版本控制，并使用 Core Data 的迁移功能，通过将数据从旧模型迁移到新模型来保护用户的数据。你对数据模型所做的任何更改都应进入新版本的模型，而不是任何旧版本。对你而言，这意味着你将在 `Shapes 2` 数据模型的 `Shape` 实体中添加 `name` 属性。
+
+要做出此更改，请选中 `Shapes 2` 数据模型，然后按正常方式向 `Shape` 实体添加一个类型为 `String` 的 `name` 属性。图 8-5 展示了包含新版本 Core Data 模型以及已向 `Shape` 实体添加 `name` 属性的 Xcode 窗口。
+
+![images](img/0805.jpg)
+
+**图 8-5.** *包含模型第二个版本的 Xcode 窗口*
+
+除了添加新属性，你还可以将非可选属性改为可选属性，Core Data 能够处理这种情况。请将以下属性改为可选：
+
+- `Shape` 实体中的 `color` 属性
+- `Transform` 实体中的 `scale` 属性
+- `Vertex` 实体中的 `index`、`x` 和 `y` 属性
+
+要将模型的当前版本从 `Shapes` 更改为 `Shapes 2`，请选中 `Shapes.xcdatamodeld`，然后在工具面板中将当前版本设置为 `Shapes 2`，如图 8-6 所示。
+
+![images](img/0806.jpg)
+
+**图 8-6.** *将当前数据模型版本更新为 Shapes 2*
+
+此时，你的应用有了一个新的当前版本的数据模型，但它还不能运行。你需要定义一个策略，用于将数据从名为 `Shapes` 的模型版本迁移到名为 `Shapes 2` 的版本。如果你现在尝试运行该应用，它会崩溃，原因与修改第一个模型时相同：数据存储区与当前模型不匹配。你需要告诉应用如何处理从旧模型切换到新模型。本章的其余部分将讨论实现此目的的多种方法。
+
+### 轻量级迁移
+
+一旦你有了版本化的数据模型，就可以在演化数据模型时利用 Core Data 对迁移的支持。每次创建新的数据模型版本时，用户的应用数据都必须从旧模型迁移到新模型。为了进行迁移，Core Data 需要有要遵循的规则，才能知道如何正确地迁移数据。你可以使用所谓的*映射模型*来创建这些规则。Xcode 内置了对创建映射模型的支持。然而，对于某些简单的情况，Core Data 拥有足够的智能自行推断出映射规则，无需你创建映射模型。这被称为*轻量级迁移*，这些情况对开发者而言工作量最小。Core Data 完成所有工作并迁移数据。本节将详细介绍轻量级迁移过程，并引导你了解所支持的一系列更改及其实现方法。
+
+要使迁移符合轻量级迁移的条件，你的更改必须局限在以下狭窄范围内：
+
+-   添加或删除一个属性（属性或关系）。
+-   将非可选属性改为可选。
+-   将可选属性改为非可选，前提是你提供了默认值。
+-   添加或删除一个实体。
+-   重命名一个属性。
+-   重命名一个实体。
+
+除了需要你完成的工作更少之外，使用 SQLite 数据存储进行的轻量级迁移，运行速度比其他迁移方式更快，占用的空间也更少。因为 Core Data 可以发出 SQL 语句来执行这些迁移，所以它无需将所有数据加载到内存中即可进行迁移，也无需将数据从一个存储区移动到另一个存储区。Core Data 只需使用 SQL 语句就地修改 SQLite 数据库。如果可行，你应该积极尝试将数据模型的更改限制在轻量级迁移支持的范围内。如果不行，本章的其他部分将引导你完成更复杂的迁移。
+
+
+
+#### 迁移简单变更
+
+在上一节“版本管理”中，你在`Shapes`应用程序中创建了一个名为`Shapes 2`的新模型版本，并在`Shapes 2`模型的`Shape`实体中添加了一个名为`name`的新属性。通过该变更执行轻量级迁移的最后一步，是告诉持久化存储协调器两件事：
+
+- 它应该自动迁移模型。
+- 它应该推断映射模型。
+
+你可以通过在持久化存储协调器的`addPersistentStoreWithType:`方法的`options`参数中传递这些指令来实现。首先，像这样设置`options`（一个`NSDictionary`）：
+
+```
+NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+```
+
+这段代码创建了一个包含两个条目的`NSDictionary`实例。
+
+- 一个条目的键为`NSMigratePersistentStoresAutomaticallyOption`，值为`YES`，告知持久化存储协调器自动迁移数据。
+- 另一个条目的键为`NSInferMappingModelAutomaticallyOption`，值为`YES`，告知持久化存储协调器推断映射模型。
+
+然后，在调用`addPersistentStoreWithType:`时，将`options`对象（而非`nil`）传递给`options`参数。打开`ShapesAppDelegate.m`文件，将`persistentStoreCoordinator`方法修改为如下形式：
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+  if (__persistentStoreCoordinator != nil) {
+    return __persistentStoreCoordinator;
+  }
+
+  NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes.sqlite"];
+  NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+
+  NSError *error = nil;
+  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+  if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }    
+  return __persistentStoreCoordinator;
+}
+```
+
+这就是迁移数据所需做的一切。构建并运行应用程序，它不再崩溃，而是显示你创建的所有形状。打开终端并导航到包含`Shapes`应用程序的 SQLite 文件的目录。与保留数据库文件迁移前后两个版本的较旧 iOS 版本不同，iOS 5 仅保留迁移后的版本。你会找到迁移后的文件`Shapes.sqlite`。使用`sqlite3`应用程序打开它，并运行`.schema`命令来查看`ZSHAPE`表的定义。你可以看到`Shapes.sqlite`文件已为`name`属性添加了一列：`ZNAME VARCHAR`，如下所示。
+
+```
+sqlite> .schema
+…
+CREATE TABLE ZSHAPE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZRADIUS FLOAT, ZX FLOAT, ZY FLOAT, ZNAME VARCHAR, ZCOLOR BLOB );
+…
+sqlite>
+```
+
+#### 迁移更复杂的变更
+
+如前所述，轻量级迁移除了添加属性外，还可以处理更多情况。像在“版本管理”一节中那样，创建另一个新版本的模型。Xcode 会将此版本命名为`Shapes 3`。对模型执行以下操作：
+
+1. 添加一个名为`Ellipse`的实体，该实体具有四个`Float`值：`x`、`y`、`width`和`height`。
+2. 将`Canvas`实体的`transform`关系设为可选。
+
+在 Xcode 中，将当前模型更改为你刚刚创建的新模型。再次构建并运行`Shapes`应用程序，一切都会正常启动：新的数据模型将应用于 SQLite 数据存储，数据将适当迁移。当然，椭圆并没有神奇地添加到随机形状组合中，因为你还没有添加任何创建它们的代码，并且你也不必费心去做这件事，因为它不会加深你对模型版本管理和数据迁移的理解。但是，如果你查看数据库的模式，你会看到椭圆的表，如下所示：
+
+```
+CREATE TABLE ZELLIPSE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZHEIGHT FLOAT, ZWIDTH FLOAT, ZX FLOAT, ZY FLOAT );
+```
+
+
+
+### 重命名实体和属性
+
+轻量级迁移也支持重命名实体和属性，但这需要你付出更多努力。除了修改模型之外，你还必须为修改名称的项目指定旧名称。你可以通过以下两种方式之一完成此操作：
+
+- 在 Xcode 数据建模器中
+- 在代码中
+
+Xcode 数据建模器是更简单的选择。当你在 Xcode 数据建模器中选择一个实体或属性时，有关该实体或属性的常规信息会显示在右侧的实用工具面板中。显示实用工具面板后，打开数据模型检查器，然后找到版本控制部分。在重命名 ID 字段中，输入你已更改内容的旧名称（参见图 8-7）。
+
+![images](img/0807.jpg)
+
+**图 8-7.** *包含重命名标识符字段的版本控制部分*
+
+如果你坚持在代码中指定旧名称（或者你仍在 Leopard 系统下运行，并且重命名 ID 字段不可用），则需要根据重命名的内容，调用 `NSEntityDescription` 或 `NSPropertyDescription` 的 `setRenamingIdentifier:` 方法，并传入实体或属性的旧名称。你需要在模型加载完成之后，但打开持久化存储（`addPersistentStoreWithType:`） 之前执行此操作。例如，如果你想将 `Vertex` 实体重命名为 `Point`，则应在调用 `addPersistentStoreWithType:` 之前添加以下代码：
+
+```
+NSEntityDescription *point = [[managedObjectModel entitiesByName] objectForKey:@"Point"];
+[point setRenamingIdentifier:@"Vertex"];
+```
+
+Core Data 负责迁移数据，但你仍有责任更新应用程序中所有依赖旧名称的代码。
+
+要实际查看此过程，请创建数据模型的新版本，并将其设置为当前版本。你现在应该处于第 4 版本 (`Shapes 4`)。在此版本的模型中，你将把 `Vertex` 实体重命名为 `Point`。转到你的新模型文件 `Shapes 4.xcdatamodel`，并将 `Vertex` 实体重命名为 `Point`。然后，转到数据模型检查器选项卡中的版本控制部分，在重命名 ID 字段中输入旧名称 `Vertex`，以便 Core Data 知道如何迁移现有数据（如图 8-8 所示），并保存此模型。
+
+![images](img/0808.jpg)
+
+**图 8-8.** *将 Vertex 重命名为 Point 并指定重命名 ID*
+
+等等！在运行应用程序之前，请记住你负责更改任何依赖旧名称 `Vertex` 的代码。你可以将自定义托管对象类名从 `Vertex` 更改为 `Point`，将 `Polygon` 实体中的关系名称从 `vertices` 更改为 `points`，并适当地更改任何变量名称。这里我们保持简单，只更改 Shapes 应用程序中引用 `Vertex` 实体名称的一个地方。你可以在 `Polygon.m` 文件的 `[NSEntityDescription insertNewObjectForEntityForName:]` 调用中找到它。它当前如下所示：
+
+```
+Vertex *vertex = [NSEntityDescription insertNewObjectForEntityForName:@"Vertex"
+inManagedObjectContext:context];
+```
+
+将传递给方法的实体名称从 `Vertex` 更改为 `Point`，使该行如下所示：
+
+```
+Vertex *vertex = [NSEntityDescription insertNewObjectForEntityForName:@"Point"
+inManagedObjectContext:context];
+```
+
+现在你可以构建并运行 Shapes 应用程序；所有现有的形状，包括多边形，都应该显示出来。你可以打开 SQLite 数据库，确认模式现在有一个 `ZPOINT` 表
+
+```
+CREATE TABLE ZPOINT ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZINDEX INTEGER, ZPOLYGON INTEGER, ZX FLOAT, ZY FLOAT );
+```
+
+并且没有 `ZVERTEX` 表。
+
+如你所见，轻量级迁移几乎毫不费力，至少对你来说是这样。Core Data 负责处理如何将数据从旧模型映射和迁移到新模型的艰巨工作。但是，如果你的模型更改超出了轻量级迁移所能处理的范围，则必须指定你自己的映射模型。
+
+#### 创建映射模型
+
+当你的数据模型更改超出了 Core Data 推断如何将数据从旧模型映射到新模型的能力时，你就不能使用轻量级迁移来自动迁移数据。相反，你必须创建一个所谓的*映射模型*来告诉 Core Data 如何执行迁移。本节将引导你完成为迁移创建映射模型所涉及的步骤。映射模型大致类似于数据模型——数据模型包含实体和属性，而类型为 `NSMappingModel` 的映射模型则包含实体映射（类型为 `NSEntityMapping`）和属性映射（类型为 `NSPropertyMapping`）。实体映射的作用正如你所期望的那样：它们将源实体映射到目标实体。同样，属性映射的作用也如你所想：将源属性映射到目标属性。映射模型使用这些映射，以及它们关联的类型和策略，来执行迁移。
+
+**注意：** Apple 的文档和代码可互换地使用术语 *destination* 和 *target* 来指代新的数据模型。在本章中，我们也效仿此做法，互换使用 *destination* 和 *target*。
+
+在典型的数据迁移中，大多数实体和属性从旧版本到新版本并没有改变。对于这些情况，实体映射只是简单地将每个实体从源模型复制到目标模型。当你创建映射模型时，你会注意到 Xcode 会生成这些实体映射，以及它可以从你的模型更改中推断出的任何其他内容，并将这些映射存储在映射模型中。这些映射代表了 Core Data 在轻量级迁移中迁移数据的方式。你必须创建新的映射，或调整 Xcode 生成的映射，以更改数据的迁移方式。
+
+
+
+#### 理解实体映射
+
+每个由 `NSEntityMapping` 实例表示的实体映射都包含三部分内容：
+
+- 一个源实体
+- 一个目标实体
+- 一种映射类型
+
+当 Core Data 执行迁移时，它会使用实体映射将源数据移动到目标，并根据映射类型决定如何操作。表 8-1 列出了映射类型、对应的 Core Data 常量及其含义。
+
+![images](img/t0801.jpg)
+
+“添加”（Add）、“移除”（Remove）和“复制”（Copy）类型并不引人关注，因为轻量级迁移可以处理这些实体映射类型。然而，“转换”（Transform）和“自定义”（Custom）类型正是本书需要专门讲解此部分的原因。它们告诉 Core Data：每个源实体实例必须根据指定的规则，转换为目标实体的一个实例。本章将分别演示 `Transform`（转换）和 `Custom`（自定义）实体映射类型的示例。如果你为实体的某个属性指定了值表达式，则该实体映射的类型为 `Transform`（转换）。如果你为实体映射指定了自定义迁移策略，则该实体映射将变为 `Custom`（自定义）类型。在阅读本章时，请留意 Core Data 映射模型构建器（mapping modeler）如何针对你的修改来调整映射模型。
+
+要为 `Custom`（自定义）实体映射类型指定规则，你需要创建一个迁移策略（migration policy），即编写一个继承自 `NSEntityMigrationPolicy` 的类。然后，在 Xcode 的映射模型构建器中，将你创建的类设置为该实体映射的自定义策略。
+
+Core Data 分三个阶段运行你的迁移。
+
+1. 根据源模型中的对象，在目标模型中创建对象，包括它们的属性。
+2. 在目标模型的对象之间创建关系。
+3. 验证目标模型中的数据并保存。
+
+你可以通过自定义策略（Custom Policy）来自定义 Core Data 执行这三个步骤的方式。`NSEntityMigrationPolicy` 类有七个方法，你可以重写这些方法来自定义 Core Data 如何将数据从源实体迁移到目标实体，不过你通常不需要重写全部七个方法。这些方法列在 Apple 的 `NSEntityMigrationPolicy` 类文档中，它们提供了迁移过程中的多个可重写节点，用于改变 Core Data 的迁移行为。你可以根据需要重写其中几个或全部方法，但如果一个自定义迁移策略没有重写任何方法，那它就毫无意义。通常，如果你想改变目标实例的创建方式或其属性数据的填充方式，你会重写 `createDestinationInstancesForSourceInstance:` 方法。如果你想自定义目标实体与其他实体之间的关系创建方式，你会重写 `createRelationshipsForDestinationInstance:` 方法。最后，如果你想在迁移过程中执行任何自定义验证，你会重写 `performCustomValidationForEntityMapping:` 方法。
+
+`createDestinationInstancesForSourceInstance:` 方法有一个注意事项：如果你不调用父类的实现（你可能不会调用，因为重写此方法就是为了改变默认行为），那么你必须调用迁移管理器的 `associateSourceInstance:withDestinationInstance:` ![images](img/U002.jpg) `forEntityMapping:` 方法，将源实例与目标实例关联起来。忘记这样做会导致迁移出现问题。稍后在本章中，你将通过 Shapes 应用学习正确调用此方法的方式。
+
+#### 理解属性映射
+
+属性映射与实体映射类似，它告诉 Core Data 如何将源数据迁移到目标。属性映射是 `NSPropertyMapping` 的一个实例，包含以下三部分内容：
+
+- 源实体中属性的名称。
+- 目标实体中属性的名称。
+- 一个值表达式，告诉 Core Data 如何从源获取数据到目标。
+
+要改变属性映射迁移数据的方式，你需要为属性映射提供一个值表达式。值表达式遵循与谓词相同的语法，并使用以下六个预定义键来辅助检索值：
+
+- `$manager`，代表迁移管理器。
+- `$source`，代表源实体。
+- `$destination`，代表目标实体。
+- `$entityMapping`，代表实体映射。
+- `$propertyMapping`，代表此属性映射。
+- `$entityPolicy`，代表实体迁移策略。
+
+如你所见，这些键的名称使其目的很容易推断。当你创建映射模型时，可以探索 Xcode 从你的源模型和目标数据模型中推断出的属性映射，以便更好地理解这些键的含义及其用法。
+
+最简单的值表达式是将一个属性从源实体复制到目标实体。例如，如果你有一个 `Person` 实体，它有一个 `name` 属性，并且该 `Person` 实体在你的旧模型版本和新模型版本之间没有变化，那么你的 `PersonToPerson` 实体映射中 `name` 属性的值表达式将如下所示：
+
+`$source.name`
+
+你也可以使用值表达式对源数据进行操作。例如，假设同一个 `Person` 实体有一个名为 `salary` 的属性，用于存储每个人的薪资。在新模型中，你想给每个人加薪 4%。那么你的值表达式将如下所示：
+
+`$source.salary*1.04`
+
+由于属性既包括属性（attributes）也包括关系（relationships），因此属性映射同时代表了对属性和关系的映射。关系的一个典型值表达式会调用一个函数，该函数接收迁移管理器、目标实例、实体映射以及源关系的名称作为参数。例如，如果你的旧数据模型中，`Person` 实体有一个名为 `staff` 的关系，代表向此人汇报的所有人，而你的新模型将这个关系重命名为 `reports`，那么 `reports` 属性的值表达式将如下所示：
+
+`FUNCTION($manager, "destinationInstancesForEntityMappingNamed:sourceInstances:", "PersonToPerson", $source.staff)`
+
+请注意，你使用 `$manager` 键来传递迁移管理器，从针对源实例的实体映射中获取目标实例，传递正确的实体映射（`PersonToPerson`），并传递从 `$source` 键获取的旧关系。
+
+
+
+### 创建需要映射模型的新模型版本
+
+在本章前面的内容中，你创建了一个名为 `Ellipse` 的实体，它包含四个属性：`x`、`y`、`width` 和 `height`。当时你并未对该实体进行任何操作，也未将其集成到应用程序中。不过，现在 `Ellipse` 大显身手的时刻到了，你将把它集成到应用程序中。基于"圆形就是宽高相等的椭圆"这一理念（数学家们可能会对此感到不适，但它却非常契合 Shape 应用程序的代码），你将把所有 `Circle` 实例迁移到 `Ellipse` 实体，并彻底删除 `Circle` 实体。
+
+同时，你决定将 `Transform` 实体的 `scale` 属性更名为 `scalarValue`。此外，你还认为应用程序绘制的形状过大，应将缩放比例从现有的 0.5 和 1.0 分别降低 20%，调整为 0.4 和 0.8。
+
+要执行此次迁移，你需要创建一个映射模型和一个自定义策略，该策略会将每个 `Circle` 实例迁移到对应的 `Ellipse` 实例。其中，`x` 和 `y` 的值将原样复制，而 `Circle` 的 `radius` 值将被复制到 `Ellipse` 的 `width` 和 `height` 属性。这个自定义策略将附着在一个负责将 `Circle` 映射到 `Ellipse` 的实体映射上。
+
+你还需要修改 `scalarValue` 的属性映射，以便在数据迁移时将每个 `scale` 值乘以 0.8。
+
+首先，创建数据模型的新版本；当前版本应为第 5 版。在新数据模型中，删除 `Circle` 实体。然后，转到 `Transform` 实体，将 `scale` 属性的名称更改为 `scalarValue`。将 `Ellipse` 实体的父实体改为 `Shape`。为 `Ellipse` 实体创建或生成一个自定义类，将其放入 Managed Objects 组，然后在数据模型中将 `Ellipse` 实体（如有必要）设置为此类，如图 Figure 8–9 所示。
+
+![images](img/0809.jpg)
+
+**图 8–9.** *将 `Ellipse` 实体设置为 Ellipse 类*
+
+实体定义完成后，根据 清单 8–1 和 8–2 修改 `Ellipse` 的代码，以便可以从控制器中使用它。
+
+**清单 8–1.** *Ellipse.h*
+
+```objectivec
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import "Shape.h"
+
+@interface Ellipse : Shape  
+
+@property (nonatomic, retain) NSNumber * height;
+@property (nonatomic, retain) NSNumber * width;
+@property (nonatomic, retain) NSNumber * x;
+@property (nonatomic, retain) NSNumber * y;
+
++ (Ellipse *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context;
+
+@end
+```
+
+**清单 8–2.** *Ellipse.m*
+
+```objectivec
+#import "Ellipse.h"
+
+@implementation Ellipse
+
+@dynamic height;
+@dynamic width;
+@dynamic x;
+@dynamic y;
+
++ (Ellipse *)randomInstance:(CGPoint)origin inContext:(NSManagedObjectContext *)context {
+    Ellipse *ellipse = [NSEntityDescription insertNewObjectForEntityForName:@"Ellipse"
+                                                    inManagedObjectContext:context];
+
+    float width = 10 + (arc4random() % 90);
+    float height = 10 + (arc4random() % 90);
+    ellipse.x = [NSNumber numberWithFloat:origin.x];
+    ellipse.y = [NSNumber numberWithFloat:origin.y];
+    ellipse.width = [NSNumber numberWithFloat:width];
+    ellipse.height = [NSNumber numberWithFloat:height];
+
+    return ellipse;
+}
+
+@end
+```
+
+`Ellipse` 类看起来与 `Circle` 类极为相似，只是用 `width` 和 `height` 属性替代了单一的 `radius` 属性。你现在必须更新 Shapes 应用程序代码中的几个位置，以使用 `Ellipse` 代替 `Circle`。在 `ShapesViewController.m` 中，将这一行
+
+```objectivec
+#import "Circle.h"
+```
+
+修改为
+
+```objectivec
+#import "Ellipse.h"
+```
+
+然后，在 `createShapeAt:` 方法中，修改创建形状的代码，以便当 `type` 的随机值为 `0` 时，创建 `Ellipse` 而不是 `Circle`：
+
+```objectivec
+if (type == 0) { // Ellipse
+    shape = [Ellipse randomInstance:point inContext:self.managedObjectContext];
+}
+else {  // Polygon
+    shape = [Polygon randomInstance:point inContext:self.managedObjectContext];
+}
+```
+
+在 `BasicCanvasUIView.m` 中，将 `Circle.h` 的导入语句改为导入 `Ellipse.h`，然后在 `drawRect:` 方法中找到如下所示的一行：
+
+```objectivec
+if ([entityName compare:@"Circle"] == NSOrderedSame) {
+```
+
+`if` 条件内的代码用于绘制一个 `Circle`，你必须将其修改为绘制 `Ellipse`。更新后的代码如下所示：
+
+```objectivec
+if ([entityName compare:@"Ellipse"] == NSOrderedSame) {
+    Ellipse *ellipse = (Ellipse *)shape;
+    float x = [ellipse.x floatValue];
+    float y = [ellipse.y floatValue];
+    float width = [ellipse.width floatValue];
+    float height = [ellipse.height floatValue];
+
+    CGContextFillEllipseInRect(context, CGRectMake(x - (width / 2), y - (height / 2),
+                                                   width, height));
+}
+```
+
+至此，使用 `Ellipse` 替代 `Circle` 的代码修改就完成了。现在，你需要对代码进行修改，以使用 `Transform` 实体的 `scale` 属性的新名称 `scalarValue`。在 `Transform.h` 中，将属性名称从 `scale` 改为 `scalarValue`。在 `Transform.m` 中，将这一行
+
+```objectivec
+@dynamic scale;
+```
+
+修改为
+
+```objectivec
+@dynamic scalarValue;
+```
+
+并将这一行
+
+```objectivec
+transform.scale = [NSNumber numberWithFloat:scale];
+```
+
+修改为
+
+```objectivec
+transform.scalarValue = [NSNumber numberWithFloat:scale];
+```
+
+打开 `BasicCanvasUIView.m`，将 `scale:` 方法修改如下：
+
+```objectivec
+-(float)scale {
+    NSManagedObject *transform = [canvas valueForKey:@"transform"];
+    return [[transform valueForKey:@"scalarValue"] floatValue];
+}
+```
+
+你还必须修改最初创建两个 `Transform` 实例的代码，将缩放比例从 0.5 和 1.0 改为 0.4 和 0.8。该代码位于 `ShapesViewController.m` 的 `viewDidLoad:` 方法中，如下所示：
+
+```objectivec
+// If there aren't any canvases, then we create them
+Transform *transform1 = [Transform initWithScale:1 inContext:self.managedObjectContext];
+canvas1 = [Canvas initWithTransform:transform1 inContext:self.managedObjectContext];
+
+Transform *transform2 = [Transform initWithScale:0.5 inContext:self.managedObjectContext];
+canvas2 = [Canvas initWithTransform:transform2 inContext:self.managedObjectContext];
+```
+
+将其修改为：
+
+```objectivec
+// If there aren't any canvases, then we create them
+Transform *transform1 = [Transform initWithScale:0.8 inContext:self.managedObjectContext];
+canvas1 = [Canvas initWithTransform:transform1 inContext:self.managedObjectContext];
+
+Transform *transform2 = [Transform initWithScale:0.4 inContext:self.managedObjectContext];
+canvas2 = [Canvas initWithTransform:transform2 inContext:self.managedObjectContext];
+```
+
+现在，你有了新的模型，并且已经更新了代码来使用它。下一步是创建一个映射模型，该模型将把 `Circle` 转换为 `Ellipse`，并将缩放比例降低 20%。
+
+
+
+#### 创建映射模型
+
+要创建映射模型，请在 Xcode 的菜单中选择 **文件** ![images](img/U001.jpg) **新建** ![images](img/U001.jpg) **新建文件...**。在弹出的对话框中，选择左侧 iOS 下的 Core Data，然后在右侧选择 映射模型，如图 8-10 所示。点击“下一步”。
+
+![images](img/0810.jpg)
+
+**图 8-10.** *创建新的映射模型*
+
+下一步是选择源模型。选择 `Shapes 4.xcdatamodel`，如图 8-11 所示，然后点击“下一步”。接着系统会要求您选择目标模型。为目标选择 `Shapes 5.xcdatamodel`，如图 8-12 所示，然后点击“下一步”。最后一步是为映射模型命名。将其命名为 `Model4to5.xcmappingmodel`，然后点击“创建”。
+
+![images](img/0811.jpg)
+
+**图 8-11.** *选择源数据模型*
+
+![images](img/0812.jpg)
+
+**图 8-12.** *选择目标数据模型*
+
+现在您应该看到 Xcode 中已经创建了您的映射模型，其中包含 Core Data 能够推断出的所有实体映射和属性映射，如图 8-13 所示。
+
+![images](img/0813.jpg)
+
+**图 8-13.** *您的新映射模型*
+
+创建映射模型后，您就处于与轻量级迁移相同的起点，即拥有了 Core Data 可以从源和目标数据模型中推断出的映射关系。下一步是自定义映射模型，以便将 `Circle` 迁移到 `Ellipse`。首先创建您将要使用的自定义策略，该类是 `NSEntityMigrationPolicy` 的子类。创建一个名为 `CircleToEllipseMigrationPolicy` 的新 Objective-C 类（位于 Cocoa Touch 模板下），使其继承自 `NSEntityMigrationPolicy`，如图 8-14 所示。创建完成后，为其新建一个名为“迁移映射”的组。
+
+![images](img/0814.jpg)
+
+**图 8-14.** *创建新的迁移策略*
+
+您的新迁移策略类的头文件很简单，如下所示：
+
+```
+#import <CoreData/CoreData.h>
+
+@interface CircleToEllipseMigrationPolicy : NSEntityMigrationPolicy
+
+@end
+```
+
+在实现文件 `CircleToEllipseMigrationPolicy.m` 中，您需要重写 `createDestinationInstancesForSourceInstance:` 方法。在执行迁移过程中，每当 Core Data 要从一个 `Circle` 实例创建一个 `Ellipse` 实例时，都会调用此方法。请记住，`Circle` 和 `Ellipse` 都继承自 `Shape` 实体，因此您也需要负责处理 `Shape` 的所有属性。在您的实现中，您创建一个 `Ellipse` 实例；将从 `Circle` 实例传递过来的 `x`、`y` 和 `color` 值复制过去；然后将 `Circle` 的 `radius` 值复制给 `Ellipse` 的 `width` 和 `height` 值。最后，您需要告诉迁移管理器关于源 `Circle` 实例和目标新 `Ellipse` 实例之间的关系，这是确保迁移正确进行的重要步骤。代码清单 8-3 显示了实现文件。
+
+**代码清单 8-3.** *CircleToEllipseMigrationPolicy.m*
+
+```
+#import "CircleToEllipseMigrationPolicy.h"
+
+@implementation CircleToEllipseMigrationPolicy
+
+- (BOOL)createDestinationInstancesForSourceInstance:(NSManagedObject *)sInstance
+                                    entityMapping:(NSEntityMapping *)mapping
+                                          manager:(NSMigrationManager *)manager
+                                            error:(NSError **)error {
+    // 创建椭圆托管对象
+    NSManagedObject *ellipse = [NSEntityDescription
+                                insertNewObjectForEntityForName:[mapping destinationEntityName]
+                                inManagedObjectContext:[manager destinationContext]];
+
+    // 从 Circle 复制 x, y 和 color 值到 Ellipse
+    [ellipse setValue:[sInstance valueForKey:@"x"] forKey:@"x"];
+    [ellipse setValue:[sInstance valueForKey:@"y"] forKey:@"y"];
+    [ellipse setValue:[sInstance valueForKey:@"color"] forKey:@"color"];
+
+    // 从 Circle 复制 radius 值到 Ellipse 的 width 和 height
+    [ellipse setValue:[sInstance valueForKey:@"radius"] forKey:@"width"];
+    [ellipse setValue:[sInstance valueForKey:@"radius"] forKey:@"height"];
+
+    // 为迁移管理器设置 Circle 和 Ellipse 之间的关联
+    [manager associateSourceInstance:sInstance
+            withDestinationInstance:ellipse
+                    forEntityMapping:mapping];
+
+    return YES;
+}
+
+@end
+```
+
+您可能注意到我们忽略了 `Shape` 的 `name` 属性。通常情况下，您也会将这个属性从源复制到目标，但在 Shapes 应用程序中我们并没有对 `name` 属性做任何处理。我们从未将其添加到 `Shape` 的自定义类中，也没有添加任何填充该值的代码，因此这里将其省略是为了说明一点：如果您在映射策略中忽略某个属性，该属性将不会被复制，并且在目标实体中会为空。
+
+另外请注意，我们没有复制 `canvases` 关系。这些关系默认会通过 `NSEntityMigrationPolicy` 的 `createRelationshipsForDestinationInstance:` 方法复制过来。通过不重写该方法，我们让 Core Data 替我们复制这些关系。
+
+现在，您已准备好创建 `Circle` 和 `Ellipse` 之间的实体映射了。选择您的映射模型（`Model4to5.xcmappingmodel`），点击“添加实体映射”按钮。将新实体映射命名为 `CircleToEllipse`，并将其`源`设置为 `Circle`，`目标`设置为 `Ellipse`，`自定义策略`设置为 `CircleToEllipseMigrationPolicy`，如图 8-15 所示。
+
+![images](img/0815.jpg)
+
+**图 8-15.** *添加并配置 `CircleToEllipse` 实体映射*
+
+这样就处理了将 `Circle` 映射到 `Ellipse` 的工作。接下来，您需要设置属性映射，用于将 `Transform` 的 `scale` 值以原值的 80% 迁移到 `scalarValues`。在映射模型中选择 `TransformToTransform` 实体映射，这会显示其信息（包括属性映射），如图 8-16 所示。
+
+![images](img/0816.jpg)
+
+**图 8-16.** *`TransformToTransform` 映射*
+
+选择 `scalarValue` 属性映射，然后在“属性映射”下的“表达式”设置中输入以下内容（如图 8-17 所示）：
+
+`$source.scale*0.8`
+
+![images](img/0817.jpg)
+
+**图 8-17.** *设置表达式以将 `scale` 映射到 `scalarValue`*
+
+这会告诉 Core Data 从源数据模型的 `scale` 属性中取值，将其乘以 0.8，然后将结果存储到目标的 `scalarValue` 属性中。
+
+您的映射模型已准备好执行迁移。然而，与轻量级迁移一样，您需要在应用程序委托中添加一些代码，以告知 Core Data 执行迁移。
+
+
+
+### 迁移数据
+
+创建映射模型对于执行轻量级迁移无法处理的迁移操作至关重要，但你仍需实际执行迁移。本节将解释如何实现这一点，并更新 Shapes 应用的代码以实际运行迁移。到本节结束时，你将拥有一个包含之前所有形状（包括圆形）的 Shapes 应用，但现在的圆形都变为宽度和高度相同的椭圆。当你点击屏幕时，会看到随机生成的椭圆。你可能还会注意到，所有形状的大小都变成了原来的 80%。
+
+使用你创建的映射模型指示 Core Data 从旧模型迁移到新模型，与指示 Core Data 使用轻量级迁移的方式类似。正如你之前所学，指示 Core Data 执行轻量级迁移的方法是传递一个选项字典，其中包含两个键对应的 `YES`：
+
+- `NSMigratePersistentStoresAutomaticallyOption`
+- `NSInferMappingModelAutomaticallyOption`
+
+第一个键指示 Core Data 自动迁移数据，第二个键指示 Core Data 推断映射模型。
+
+对于使用你创建的映射模型的迁移，你显然希望 Core Data 仍然自动执行迁移，因此你仍需将 `NSMigratePersistentStoresAutomaticallyOption` 设置为 `YES`。然而，既然你已经创建了映射模型，你就无需 Core Data 进行任何推断；你希望它使用你的映射模型。因此，你将 `NSInferMappingModelAutomaticallyOption` 设置为 `NO`，或者完全将其从选项字典中移除。
+
+那么，你如何指定 Core Data 用于执行迁移的映射模型呢？是在选项字典中设置它吗？还是以某种方式将其传递给持久化存储协调器的 `addPersistentStoreWithType:` 方法？又或者将其设置到持久化存储协调器、托管对象模型或上下文中？
+
+答案可能会让你有些惊讶：你什么都不用做。Core Data 会自行处理。它会在你的映射模型中搜索，找到一个适合从源模型迁移到目标模型的映射模型，然后使用它。这使得迁移变得异常简单。
+
+#### 运行你的迁移
+
+要运行 Shapes 数据存储的迁移，请打开 `ShapesAppDelegate.m` 文件，并从选项字典中移除 `NSInferMappingModelAutomaticallyOption` 键。这意味着你将这一行代码：
+
+```
+NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+```
+
+修改为：
+
+```
+NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, nil];
+```
+
+要让 Core Data 使用你的映射模型 `Model4to5.xcmappingmodel` 迁移数据，你只需完成这些操作。将当前模型版本设置为 `Shapes 5`，然后构建并运行 Shapes 应用；你应该会看到运行迁移前数据库中已有的所有形状，尽管它们现在以原来 80% 的大小显示。去查看 SQLite 数据库，确认迁移已运行。你可以看到 `ZSHAPE` 表现在包含 `ZWIDTH` 和 `ZHEIGHT` 列，但没有 `ZRADIUS` 列。
+
+```
+CREATE TABLE ZSHAPE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZHEIGHT FLOAT, ZWIDTH FLOAT, ZX FLOAT, ZY FLOAT, ZNAME VARCHAR, ZCOLOR BLOB );
+```
+
+你还可以从 `ZTRANSFORM` 表中获取 `ZSCALARVALUE`（不是 `ZSCALE`）的值，以验证它们比原来的 0.5 和 1.0 小了 20%。
+
+```
+sqlite> select distinct zscalarvalue from ztransform;
+0.4
+0.8
+```
+
+点击 Shapes 应用的屏幕几次，查看生成的椭圆，如图 8–18 所示。
+
+![images](img/0818.jpg)
+
+**图 8–18.** *包含椭圆的 Shapes 应用*
+
+### 自定义迁移
+
+在大多数数据迁移场景中，使用默认的三步迁移过程（创建目标对象、创建关系、验证并保存）就足够了。首先根据先前版本在新数据存储中创建数据对象，然后创建所有关系，最后验证并持久化数据。然而，在某些情况下，你需要在迁移过程中进行干预。这时就需要用到自定义迁移。
+
+设想一个场景，作为迁移的一部分，目标对象中的一个新属性需要在应用能够使用新模型之前预填充。接管迁移过程的初始化意味着你需要执行 Core Data 通常为你做的所有工作。这意味着你需要执行以下操作：
+
+- 确保确实需要迁移。
+- 设置迁移管理器。
+- 通过将模型拆分为独立的部分来运行迁移。
+
+本节将通过一个自定义迁移的示例，逐步向你展示如何实现一个非平凡的迁移。
+
+为了说明这个示例，首先创建一个 Shapes 模型的新版本。你现在应该处于版本 6（`Shapes 6`）。确保当前模型版本设置为刚创建的新模型版本。在新模型中，编辑 `Shape` 实体，添加一个类型为 `String` 的属性，名为 `uniqueID`，如图 8–19 所示。你将利用迁移过程为每个形状填充一个通用唯一标识符（UUID），以使应用中的每个形状都有一个唯一的序列号。
+
+![images](img/0819.jpg)
+
+**图 8–19.** *包含新字段的形状实体*
+
+#### 确保需要迁移
+
+要验证模型是否与持久化存储兼容，请在将持久化存储添加到协调器之前，使用 `NSManagedObjectModel` 类的 `isConfiguration:compatibleWithStoreMetadata:` 方法。可以通过使用协调器的 `metadataForPersistentStoreOfType:URL:error:` 方法查询来检索数据存储元数据。
+
+打开 `ShapesAppDelegate.m`，按照清单 8–4 所示编辑 `persistentStoreCoordinator` 的 getter 方法。
+
+**清单 8–4.** *persistentStoreCoordinator 检测是否需要迁移*
+
+```objc
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes.sqlite"];
+
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+
+    NSError *error = nil;
+    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:storeURL error:&error];
+
+    NSManagedObjectModel *destinationModel = [__persistentStoreCoordinator managedObjectModel];
+
+    BOOL pscCompatible = [destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
+
+    if(!pscCompatible) {
+        // 需要迁移
+        ... 执行迁移
+    }
+
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return __persistentStoreCoordinator;
+}
+```
+
+如果不需要迁移，则按通常方式将持久化存储注册到协调器即可。
+
+
+
+#### 设置迁移管理器
+
+一旦确定确实需要迁移，下一步就是设置迁移管理器，它是`NSMigrationManager`的一个子类。为此，你需要获取与当前持久化存储匹配的模型：即模型的先前版本。这个模型将作为迁移过程中的源模型。可以使用`mergedModelFromBundles:forStoreMetadata:`方法获取源模型，该方法会在应用程序主包中查找与给定元数据匹配的模型。
+
+通过创建一个继承自`NSMigrationManager`的新类来开始创建自定义迁移管理器。在本例中，将其命名为`MyMigrationManager`（参见代码清单 8-5）。
+
+**代码清单 8-5.** *MyMigrationManager.h*
+
+```objc
+#import <CoreData/CoreData.h>
+
+@interface MyMigrationManager : NSMigrationManager
+@end
+```
+
+该迁移的实现会为每个正在迁移的`Shape`实例生成一个新的 UUID，并在迁移过程中分配`uniqueID`属性（参见代码清单 8-6）。
+
+**代码清单 8-6.** *MyMigrationManager.m*
+
+```objc
+#import "MyMigrationManager.h"
+
+@implementation MyMigrationManager
+
+- (void)associateSourceInstance:(NSManagedObject *)sourceInstance
+withDestinationInstance:(NSManagedObject *)destinationInstance
+forEntityMapping:(NSEntityMapping *)entityMapping {
+
+    [super associateSourceInstance:sourceInstance
+    withDestinationInstance:destinationInstance forEntityMapping:entityMapping];
+
+    NSString *name = [entityMapping destinationEntityName];
+
+    if([name compare:@"Ellipse"] == NSOrderedSame || [name compare:@"Polygon"] == NSOrderedSame)
+        // 生成 UUID
+        CFUUIDRef theUUID = CFUUIDCreate(NULL);
+        CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+        CFRelease(theUUID);
+        NSString *uuid = (__bridge NSString *)string;
+
+        [destinationInstance setValue:uuid forKey:@"uniqueID"];
+    }
+}
+
+@end
+```
+
+#### 运行迁移
+
+在最后一步中，你需要将自己的类设置为负责执行此迁移的管理器。在`ShapesAppDelegate.m`文件顶部添加对`MyMigrationManager.h`的导入，并再次编辑`persistentStoreCoordinator`方法，如代码清单 8-7 所示。
+
+**代码清单 8-7.** *启动自定义迁移*
+
+```objc
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes.sqlite"];
+    NSURL *newStoreURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes-Temp.sqlite"];
+
+    NSError *error = nil;
+    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:storeURL error:&error];
+
+    if(sourceMetadata != nil) {
+    }
+
+    NSManagedObjectModel *destinationModel = [self managedObjectModel];
+
+    BOOL pscCompatible = [destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
+
+    if(!pscCompatible) {
+        NSLog(@"需要进行迁移");
+        // 需要迁移
+
+        NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
+
+        MyMigrationManager *migrationManager = [[MyMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
+
+        NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel destinationModel:destinationModel error:&error];
+
+        if(mappingModel == nil) {
+            NSLog(@"找不到映射模型");
+            abort();
+        }
+
+        if(![migrationManager migrateStoreFromURL:storeURL
+            type:NSSQLiteStoreType
+            options:nil
+            withMappingModel:mappingModel
+            toDestinationURL:newStoreURL
+            destinationType:NSSQLiteStoreType
+            destinationOptions:nil
+            error:&error]) {
+            // 处理错误
+            NSLog(@"迁移出错 %@, %@", error, [error userInfo]);
+            abort();
+        }
+
+        // 迁移完成后用新存储替换旧存储
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSURL *backupURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Shapes-old.sqlite"];
+
+        if(![fm moveItemAtURL:storeURL toURL:backupURL error:&error]) {
+            NSLog(@"备份存储时出错");
+            abort();
+        }
+        else if(![fm moveItemAtURL:newStoreURL toURL:storeURL error:&error]) {
+            NSLog(@"放置新存储时出错");
+            abort();
+        }
+        else if(![fm removeItemAtURL:backupURL error:&error]) {
+            NSLog(@"删除旧存储时出错");
+        }
+    }
+
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:destinationModel];
+
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+        abort();
+    }
+
+    return __persistentStoreCoordinator;
+}
+```
+
+请注意，源存储和目标存储的 URL 必须不同，以便迁移能够运行。一旦迁移成功，你需要自行清理旧的数据存储。如上实现所示，这一步通过使用`NSFileManager`类直接移动 SQLite 文件来完成。方法返回后，新的、内容完整的数据存储就已就位，可供应用程序使用。
+
+运行应用程序以执行自定义迁移，并像往常一样使用`sqlite3`命令行验证数据存储是否包含正确的数据。
+
+### 总结
+
+尽管在其他编程环境中更改数据模型可能很麻烦，但 Core Data 使更改数据模型几乎毫无痛苦。凭借其对模型版本、轻量级迁移以及针对非轻量级迁移的映射模型的支持，你可以放心地更改数据模型，并让 Core Data 确保用户数据的完整性。
+
+然而，与应用程序的任何其他部分一样，请务必测试你的迁移。要进行广泛测试。其测试力度甚至要超过对应用程序代码的测试。用户能容忍偶尔的应用程序崩溃，但如果在升级到最新版本时丢失了数据，你的应用程序和声誉可能永远无法恢复。
+
+## 第 9 章
+
+## 使用抓取结果控制器管理表视图
+
+抓取结果控制器由`NSFetchedResultsController`类实现，它将 Core Data 结果与表视图结合在一起。在 iPhone 上启动任何非游戏应用程序，你很可能至少会看到一个表视图。Apple 将表视图作为 iPhone 界面不可或缺的一部分，并在其自己的应用程序中充分利用了这一点。你开发的应用程序中，许多（如果不是全部的话）都会包含表视图，因此任何能让你更轻松地使用表视图的知识都会让你受益匪浅。
+
+秉承其注重细节的一贯作风，Apple 在 Core Data 框架中包含了一个专门设计用于使 Core Data 与表视图更好协作的类。这个类名为`NSFetchedResultsController`，它简化了在表视图中显示来自 Core Data 持久化存储数据所需的开发任务。在第 3 章的 League Manager 应用程序中，你已经见识过`NSFetchedResultsController`类，其中`MasterViewController`类使用`NSFetchedResultsController`实例来显示球队。本章将更深入地探讨如何使用`NSFetchedResultsController，并在 League Manager 中使用`NSFetchedResultsController`实现一个全新的“所有球员”视图。
+
+
+
+### 理解 `NSFetchedResultsController`
+
+`NSFetchedResultsController` 类与 `UITableView` 实例紧密协作，以在表格视图中显示来自 Core Data 数据模型的数据。它从持久化存储中拉取您指定实体的托管对象，通过缓存来提高性能，并在必要时将数据提供给表格视图以便显示。它还能响应数据变化，自动管理表格中行的添加、删除和移动。
+
+创建获取结果控制器需要以下四个参数：
+
+-   一个获取请求（`NSFetchRequest` 实例）
+-   一个托管对象上下文
+-   一个分区名称键路径
+-   一个缓存名称
+
+这些参数将在以下各节中详细说明。
+
+### 获取请求
+
+该获取请求与您在本节及所有 Core Data 开发中使用的任何获取请求几乎相同。它与您数据模型中指定的实体配合工作，并可选择性地包含一个谓词（`NSPredicate`）来过滤获取的数据。这个获取请求的一个不同之处在于，它必须至少包含一个排序描述符，否则您的应用程序将因以下消息而崩溃：
+
+`'NSInvalidArgumentException', reason: 'An instance of NSFetchedResultsController requires a fetch request with sort descriptors'`
+
+这是因为获取结果控制器在表格的约束下工作，而表格的单元格以可预测的顺序显示，因此获取结果控制器也必须以可预测的顺序提供数据。排序描述符提供了对数据进行排序所需的机制。
+
+### 托管对象上下文
+
+这是一个普通的托管对象上下文，用于持有托管对象。保存该上下文会保存其中的所有对象。通常，您会将应用程序的托管对象上下文用作此参数。
+
+### 分区名称键路径
+
+iDevice 上的表格视图被划分为多个分区，每个分区包含一定数量的行。这种结构是表格视图操作的基础。获取结果控制器针对这种环境进行了优化，可以将数据划分为与表格分区相对应的分区。`sectionNameKeyPath` 参数指定了 Core Data 模型中的一个键路径，该路径将获取请求实体的托管对象划分到这些分区中。
+
+通常，您会让 `sectionNameKeyPath` 参数指向该表格所显示实体的某个属性。请注意，如果您为 `sectionNameKeyPath` 参数指定了值，则还必须根据该值对获取结果进行排序，否则应用程序会因错误而崩溃。例如，假设 League Manager 应用程序有一个表格视图，按球队分组列出了所有球队的所有球员。那么，每支球队就是表格中的一个分区，每个球员则占据其所在球队分区中的一行。在这种情况下，获取请求的实体将是 `Player` 实体，分区名称键路径将是 `team.name` 属性，即存储在 `Player` 的 team 关系中的 `Team` 实体的 `name` 属性。您还需要向 `NSFetchRequest` 添加一个指向 `team.name` 的 `SortDescriptor` 实例。在本章中，您将向 League Manager 应用程序添加这样一个视图。
+
+如果您的表格视图只包含一个分区（也就是说，如果您的数据无法划分成几个分区，因此您只想显示一个单一的列表），您可以将 `sectionNameKeyPath` 参数设置为 `nil`。
+
+### 缓存名称
+
+缓存名称参数为获取结果控制器用于缓存它获取并提供给表格的托管对象的缓存指定一个名称。在 iOS 3.*x* 版本中，建议让此缓存名称在获取结果控制器之间保持唯一，但即使与其他获取结果控制器共享缓存名称，您的应用程序也能正常工作。然而，从 iOS 4.0 开始，如果您在多个获取结果控制器之间共享缓存名称，应用程序将无法正常工作。请确保您的缓存名称是唯一的。
+
+### 理解 `NSFetchedResultsController` 委托
+
+`NSFetchedResultsController` 遵循 Apple 的设计模式，使用名为 `NSFetchedResultsControllerDelegate` 的委托来实现关键方法，使表格视图和获取结果控制器协同工作。通常，您会让表格视图的视图控制器成为其获取结果控制器的委托。该委托有一个方法 `controller:sectionIndexTitleForSectionName:`，用于在表格视图右侧显示索引时自定义索引名称。此外，该委托还有以下四个方法用于处理表格中显示的数据变化：
+
+-   `controllerWillChangeContent:` 在内容即将发生更改时调用。这是告诉您的表格视图即将进行一些更改的好时机，以便它可以通过 `beginUpdates:` 方法启动一系列更改。表格视图使用 `beginUpdates:` 方法来分组应同时进行动画处理的更改。
+-   `controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:` 在托管对象发生更改（被添加、删除、编辑或移动）时调用。在此方法中，您需要判断发生了什么变化，并相应地添加、移动、删除或刷新受影响的表格行的内容。
+-   `controller:didChangeSection:atIndex:forChangeType:` 在分区发生更改（被添加或删除）时调用。在此方法中，您需要判断分区是被添加还是删除，然后在表格中插入或删除相应的分区。
+-   `controllerDidChangeContent:` 在更改完成时调用。这是告诉表格视图由 `beginUpdates:` 方法启动的更改已完成的好时机，方法是调用 `endUpdates:` 方法。
+
+在您的视图控制器中实现这些方法，并在创建获取结果控制器时，将其委托设置为该视图控制器。
+
+### 使用 `NSFetchedResultsController`
+
+在基于 Core Data 和表格视图的应用程序执行期间，获取结果控制器将成为数据与表格之间的联络人。获取结果控制器包含一些方法，这些方法能够根据分区和行返回表格所需的数据。这意味着，无论表格是需要显示单元格、确定哪个单元格被点击、计算一个分区中有多少行，还是需要其他任何显示和运行所需的数据片段，获取结果控制器都能提供答案。
+
+
+
+### 在 League Manager 中实现 NSFetchedResultsController
+
+League Manager 已经使用了一个 `NSFetchedResultsController` 实例来控制其 `MasterViewController` 实例中的数据展示，该视图控制器用于显示球队。不过，这个 `NSFetchedResultsController` 实例是为您自动生成的，您并未深入探究它。为了更好地理解 `NSFetchedResultsController`，在本节中，您将构建一个名为“Players”的全新球员视图，并将其作为标签页添加到 League Manager 应用中。您还将现有的 League Manager 视图放入一个标签页中。最终的应用效果如图 Figure 9–1（显示现有球队视图的标签页）和 Figure 9–2（显示全新球员视图的另一个标签页）所示。
+
+![images](img/0901.jpg)
+
+**图 9–1** *标签页中的 League Manager 视图*
+
+![images](img/0902.jpg)
+
+**图 9–2** *标签页中的 Players 视图*
+
+首先，复制一份 League Manager 应用。上一次您开发 League Manager 时，它使用的是自定义存储器作为持久化存储。如果您愿意，可以将其改回 SQLite 存储，但请记住，Core Data 将数据存储方式与应用的其他部分进行了抽象分离。本书提供的下载源码中，League Manager 仍使用自定义存储器。
+
+接下来，确保 League Manager 能够构建并运行，然后将视图改为使用标签页。为此，请打开 `League_ManagerAppDelegate.m` 文件，修改 `application:didFinishLaunchingWithOptions:` 方法，创建一个 `UITabBarController` 实例，将现有的球队视图控制器（存储在 `navigationController` 成员变量中）添加到其中，并将应用窗口的根视图控制器设置为这个新的 `UITabBarController` 实例，具体代码如下：
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+  MasterViewController *controller = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
+  self.navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+
+  UITabBarController *tabBarController = [[UITabBarController alloc] init];
+  [tabBarController setViewControllers:[NSArray arrayWithObjects:self.navigationController, nil]];
+  self.window.rootViewController = tabBarController;
+
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+虽然并非必需，但为标签页添加图片能让您的应用更具吸引力，并有助于区分应用中的不同标签。每个标签页应准备两张图片：一张用于配备视网膜屏幕的 iDevice，另一张用于普通屏幕。视网膜屏幕的图片大小应为 60x60 像素，另一张为 30x30 像素。我们选择了一张类似带列表的剪贴板图片，用以代表球队。您可以使用下载源码中提供的这张图片，也可以自己创建。无论选择哪种方式，请将您的图片文件命名为 `teams.png` 和 `teams@2x.png`，并添加到一个名为“Images”的新分组中。要将图片添加到标签页，请回到刚才编辑的 `application:didFinishLaunchingWithOptions:` 方法，添加如下代码来设置图片：
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+  MasterViewController *controller = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
+  self.navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+
+  self.navigationController.tabBarItem.image = [UIImage imageNamed:@"teams.png"];
+
+  UITabBarController *tabBarController = [[UITabBarController alloc] init];
+  [tabBarController setViewControllers:[NSArray arrayWithObjects:self.navigationController, nil]];
+  self.window.rootViewController = tabBarController;
+
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+构建并运行应用。尽管您的数据可能不同，但您应该会看到如 Figure 9–3 所示的单个标签页。
+
+![images](img/0903.jpg)
+
+**图 9–3** *带球队标签页的 League Manager*
+
+现在，您已准备好添加全球员视图。首先，创建一个不带 XIB 的 `UITableViewController` 子类，命名为 `AllPlayerViewController`。为标签页添加名为 `players.png` 和 `players@2x.png` 的图片（我们选择了一张类似带列表的人形轮廓图片，用以代表球员列表）到您的项目中。编辑 `AllPlayerViewController.m` 中的 `initWithStyle:` 方法，设置标签页的标题和图片，具体代码如下：
+
+```
+- (id)initWithStyle:(UITableViewStyle)style {
+  self = [super initWithStyle:style];
+  if (self) {
+    self.title = @"Players";
+    self.tabBarItem.image = [UIImage imageNamed:@"players.png"];
+  }
+  return self;
+}
+```
+
+通过编辑 `application:didFinishLaunchingWithOptions:` 方法，将标签页添加到应用中。在该方法中，创建一个 `AllPlayerViewController` 实例（请确保导入其头文件），将其包装到 `UINavigationController` 实例中，并添加到标签栏控制器的视图控制器数组中，具体代码如下：
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+  MasterViewController *controller = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
+  self.navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+
+  self.navigationController.tabBarItem.image = [UIImage imageNamed:@"teams.png"];
+
+  AllPlayerViewController *playersController = [[AllPlayerViewController alloc] initWithStyle:UITableViewStylePlain];
+  UINavigationController *navPlayersController = [[UINavigationController alloc] initWithRootViewController:playersController];
+
+  UITabBarController *tabBarController = [[UITabBarController alloc] init];
+  [tabBarController setViewControllers:[NSArray arrayWithObjects:self.navigationController, navPlayersController, nil]];
+
+  self.window.rootViewController = tabBarController;
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+构建并运行应用。您应该会看到一个名为“Players”的标签页，选择它后会显示一个空列表，如 Figure 9–4 所示。
+
+设置好球员的标签页和表格视图后，您就可以实现 `NSFetchedResultsController` 实例来显示球员数据了。
+
+![images](img/0904.jpg)
+
+**图 9–4** *带 Players 标签页的 League Manager*
+
+
+
+### 实现 `NSFetchedResultsController`
+
+`NSFetchedResultsController` 的职责是从持久化存储中获取数据，并根据需要将这些数据提供给表视图控制器。首先，在 `AllPlayerViewController.h` 中导入 Core Data 头文件，具体操作如下：
+
+`#import <CoreData/CoreData.h>`
+
+在 `AllPlayerViewController.h` 中创建一个属性来存储 `NSFetchedResultsController` 实例。同时，创建一个属性来存储 `NSManagedObjectContext`，您的 `NSFetchedResultsController` 将从中获取数据。这些属性如下所示：
+
+`@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;`
+`@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;`
+
+在 `AllPlayerViewController.m` 中添加代码，为这些属性合成 getter 和 setter 方法。
+
+`@synthesize fetchedResultsController=__fetchedResultsController;`
+`@synthesize managedObjectContext=__managedObjectContext;`
+
+重写 `fetchedResultsController` 的存取器方法，以创建并配置它。在存取器中，执行以下操作：
+
+1.  检查它是否已被创建，如果已创建则直接返回；尽管它获取的数据可能会改变，但控制器本身一旦创建和配置完成就无需改变。
+2.  创建控制器将要使用的获取请求，并设置其实体。
+3.  设置获取请求的批量大小。这一步并非必须，但如果您的 `NSFetchRequest` 获取大量数据行，这样做可以提升性能。数据行将按照您指定的大小以透明的方式分批获取，并在表格和 `NSFetchedResultsController` 需要它们时进行懒加载。
+4.  设置排序规则：先按球队名称排序，再按球员姓氏排序，最后按球员名字排序。
+5.  创建控制器，使用获取请求、托管对象上下文、分节键路径和缓存名称进行初始化。
+6.  设置控制器的委托。目前将其设置为 `nil`；稍后您会重新审视这一点。
+7.  获取数据。
+8.  返回新创建的控制器。
+
+以下代码（您应将其添加到 `AllPlayerViewController.m` 中）执行了所有这些步骤：
+
+```
+#pragma mark - 获取结果控制器
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (__fetchedResultsController != nil) {
+        return __fetchedResultsController;
+    }
+
+    // 设置要获取的实体为球员
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Player" inManagedObjectContext:self.managedObjectContext]];
+
+    // 将批量大小设置为一个合适的数值
+    [fetchRequest setFetchBatchSize:20];
+
+    // 设置排序：球队名称、球员姓氏、球员名字
+    NSSortDescriptor *sdTeam = [[NSSortDescriptor alloc] initWithKey:@"team.name" ascending:YES];
+    NSSortDescriptor *sdLastName = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    NSSortDescriptor *sdFirstName = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sdTeam, sdLastName, sdFirstName, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+
+    // 创建获取结果控制器
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"team.name" cacheName:@"AllPlayer"];
+    aFetchedResultsController.delegate = nil;
+    self.fetchedResultsController = aFetchedResultsController;
+
+    // 获取数据
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return __fetchedResultsController;
+}
+```
+
+您的 `NSFetchedResultsController` 将在首次被访问时创建并配置完成。不过，您可能会疑惑，是什么触发了它的访问，从而使其被创建、配置和使用。答案是：表视图数据源委托方法，这些方法直接与 `NSFetchedResultsController` 实例通信，以确定在表格中绘制什么信息，它们都位于 `AllPlayerViewController.m` 中（因为它是此表视图的数据源委托）。我们先从获取表格中分节数量的方法开始，该方法应如下所示：
+
+```
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [[self.fetchedResultsController sections] count];
+}
+```
+
+`NSFetchedResultsController` 的 `sections:` 方法返回一个 `NSArray`，其中包含 `NSFetchedResultsController` 所获取的每个分节的信息对象。对于此方法，您返回的是数组中对象的数量。
+
+`sections:` 方法返回的数组中所包含的对象遵循 `NSFetchedResultsSectionInfo` 协议，该协议提供了提取必要数据以正确显示表格信息的方法。在获取分节标题的方法中，您会看到其中一个方法 `name:`。
+
+```
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo name];
+}
+```
+
+这段代码从 `sections:` 返回的数组中获取与需要标题的分节相对应的对象，然后返回 `name:` 方法的结果。该结果包含的值对应于您传递给 `NSFetchedResultsController` 初始化方法的 `sectionNameKeyPath` 参数——在您的情况下，就是 `team.name` 的值，即该分节中球员所属球队的名称。
+
+此时，您已向表视图提供了分节数量以及每个分节的标题，但尚未提供指定分节应显示的行数。您可以使用以下方法来实现：
+
+```
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+}
+```
+
+与上一个方法类似，此方法从 `sections:` 返回的数组中获取相应的 `NSFetchedResultsSectionInfo` 对象。不过，这次它调用的是 `numberOfObjects:` 方法，该方法返回此分节包含的对象数量。这对应于表格中的行数，因为您会在每个表格行中显示一个对象。
+
+您必须提供给表格的最后一项信息是要显示的单元格，这需要在 `tableView:cellForRowAtIndexPath:` 方法中完成。在此方法中，您创建或获取一个适当单元格类型的可用单元格，然后将单元格的实际配置提取到其自己的方法中，原因将在本章后面解释。以下是 `tableView:cellForRowAtIndexPath:` 方法：
+
+```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"AllPlayerCell";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
+}
+```
+
+`configureCell:atIndexPath:` 的实现如下所示：
+
+
+
+### 排版后的文本
+
+```objc
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [[managedObject valueForKey:@"firstName"] description], [[managedObject valueForKey:@"lastName"] description]];
+}
+```
+
+在`AllPlayerViewController.m`顶部为`configureCell:atIndexPath:`方法添加一个类别，如下所示：
+
+```objc
+@interface AllPlayerViewController ()
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+@end
+```
+
+在运行应用程序之前，必须为`NSFetchedResultsController`实例设置要使用的托管对象上下文。通过编辑`initWithStyle:`方法来连接`managedObjectContext`：
+
+```objc
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+      self.title = @"Players";
+      self.tabBarItem.image = [UIImage imageNamed:@"players.png"];
+      id delegate = [[UIApplication sharedApplication] delegate];
+      self.managedObjectContext = [delegate managedObjectContext];
+    }
+    return self;
+}
+```
+
+现在，可以构建并运行应用程序了。如果点击"Players"标签页，应该会看到持久化存储中的所有球员，按球队名称分组到各个部分（参见图 9-5）。
+
+![images](img/0905.jpg)
+
+**图 9-5.** *League Manager 显示球员列表*
+
+## 实现`NSFetchedResultsControllerDelegate`协议
+
+`NSFetchedResultsControllerDelegate`协议声明了五个可选方法，允许修改行为或响应`NSFetchedResultsController`实例的变化。其中四个方法处理底层数据的变化，另一个处理索引表中所用索引字符串。先将`AllPlayerViewController`设为其`NSFetchedResultsController`的委托，首先修改`AllPlayerViewController.h`，声明`AllPlayerViewController`实现了`NSFetchedResultsControllerDelegate`协议，如下所示：
+
+```objc
+@interface AllPlayerViewController : UITableViewController
+<NSFetchedResultsControllerDelegate>
+```
+
+然后，回到`fetchedResultsController:`访问器，将`fetchedResultsController`的委托从`nil`改为`self`：
+
+```objc
+NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"team.name" cacheName:@"AllPlayer"];
+aFetchedResultsController.delegate = self;
+self.fetchedResultsController = aFetchedResultsController;
+```
+
+现在`AllPlayerViewController`实例是`fetchedResultsController`成员的委托，可以在`AllPlayerViewController`类中实现五个委托方法以更改某些行为。先来看处理索引的方法。
+
+### 为表格添加索引
+
+iOS 表格视图可以在表格右侧显示一个索引。点击索引可以直接跳转到表格的相应位置，无需滚动所有行。例如，**通讯录**应用在"所有联系人"视图右侧显示了字母表（加上搜索图标和井号）。点击该列表中的任意字母，可以直接跳转到以该字母开头的联系人部分。iOS 将这个字母列表称为*索引*，类似于书籍末尾的索引，可以查找并跳转到书中提及你要找内容的特定页面。
+
+要使表格视图显示索引，需要实现`UITableViewDataSource`协议中的两个方法。第一个是`sectionIndexTitlesForTableView:`，返回一个包含表格应显示的所有索引标题的`NSArray`。在**通讯录**应用中，这是字母 A-Z。第二个是`sectionForSectionIndexTitle:atIndex:`，返回与指定部分索引对应的部分编号；需要根据索引的标题和索引来确定返回哪个部分。当用户点击表格右侧的索引时，会调用第二个方法，以便应用程序确定在表格中跳转到何处。
+
+`NSFetchedResultsController`提供了帮助实现这两个方法的方法：一个返回所有部分索引标题，称为`sectionIndexTitles:`；另一个返回指定索引标题和索引对应的部分编号，称为`sectionForSectionIndexTitle:atIndex:`。将使用这些方法在球员视图中实现索引。将以下代码添加到`AllPlayerViewController.m`中：
+
+```objc
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return [self.fetchedResultsController sectionIndexTitles];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+```
+
+再次运行应用程序，查看表格右侧的索引，如图 9-6 所示。右侧边缘的字母 B-C-L-M-O 代表索引。点击底部的 O 可以直接滚动到"O"部分，如图 9-7 所示。
+
+![images](img/0906.jpg)
+
+**图 9-6.** *显示索引的球员视图*
+
+![images](img/0907.jpg)
+
+**图 9-7.** *点击索引中的 O 后的球员视图*
+
+正如刚才所见，`NSFetchedResultsController`实例默认只使用部分名称的首字母作为索引标题。如果想要显示部分名称的前三个字母，而不是仅显示首字母，该怎么办？`NSFetchedResultsControllerDelegate`协议有一个在 iOS 4.0 中添加的方法`controller:sectionIndexTitleForSectionName:`，它允许自定义部分在索引中的显示内容。在 iOS 4.0 之前，要自定义表格索引的显示，必须创建自己的`NSFetchedResultsController`子类并重写该方法。使用委托方法是一种更友好的方式。
+
+当调用`controller:sectionIndexTitleForSectionName:`方法时，它会收到一个`NSString`类型的部分名称，并返回要显示的索引（也是`NSString`类型）。将以下代码添加到`AllPlayerViewController`中，以使用部分名称的前三个字母作为索引标题：
+
+```objc
+- (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName {
+    return [sectionName substringToIndex:MIN([sectionName length], 3)];
+}
+```
+
+然而，iOS 似乎会积极缓存索引名称，甚至跨应用程序调用。如果构建并运行应用程序，可能仍然会看到字母索引名称，因为索引名称是从缓存中读取的，而刚刚编写的方法没有被调用。要清除缓存并修复此问题，调用`NSFetchedResultsController`的静态方法`deleteCacheWithName:`，传入缓存名称。在`fetchedResultsController:`访问器中获取结果之前添加此调用，如下所示：
+
+```objc
+[NSFetchedResultsController deleteCacheWithName:@"AllPlayer"];
+
+// Fetch the data
+NSError *error = nil;
+if (![self.fetchedResultsController performFetch:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+}
+```
+
+构建并运行应用程序，应该会看到索引名称已更新为球队名称的前三个字母，如图 9-8 所示。
+
+![images](img/0908.jpg)
+
+**图 9-8.** *显示三个字母索引名称的球员视图*
+
+
+
+### 响应数据变化
+
+你或许已经注意到，"所有选手"视图对数据变化的响应并不理想。如果你在联盟管理员标签中添加、编辑或删除选手或队伍，然后切换到选手标签，你将看不到任何更改的反映。你可以通过在每次视图出现时重新加载表格数据来解决这个问题，代码如下：
+
+```
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+```
+
+然而，这种暴力方式与优雅的 `NSFetchedResultsController` 形成了鲜明对比。你可以实现 `NSFetchedResultsControllerDelegate` 协议中响应底层模型变化的四个方法，以优雅地更新视图。前两个方法涵盖了数据变化的始末。当数据发生变化时，系统会调用 `controllerWillChangeContent:` 方法，标志着 `NSFetchedResultsController` 实例即将响应这些变化。在该方法中，你通常需要在表格视图上调用 `beginUpdates`，以便它能够同时执行所有动画。随后，在 `controllerDidChangeContent:` 方法（在 `NSFetchedResultsController` 完成响应变化后调用）中，你需要对表格视图调用 `endUpdates`，以标记所有同步动画的完成。将以下代码添加到 `AllPlayerViewController.m` 文件中：
+
+```
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+```
+
+协议中的另外两个方法 `controller:didChangeSection:atIndex:forChangeType:` 和 `controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:`，分别让你能够响应分区和行的变化。当这些方法被调用时，你的 `NSFetchedResultsController` 已经用最新的数据更新了自身，并为你提供了根据变化数据更新表格视图的机会。在你的实现中，你应该确定哪些数据发生了变化，然后指示你的表格视图相应地更新自身。
+
+当分区发生变化时，系统会调用 `controller:didChangeSection:atIndex:forChangeType:` 方法，传入代表变化对象的 `NSFetchedResultsSectionInfo` 对象、变化分区的索引以及由 `NSFetchedResultsChangeType` 实例表示的变化类型。`controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:` 方法也使用 `NSFetchedResultsChangeType` 值来表示发生了什么变化。表 9–1 列出了 `NSFetchedResultsChangeType` 的可能取值及其含义。
+
+![images](img/t0901.jpg)
+
+从表 9–1 可以注意到，对于分区变化，只传入了两个 `NSFetchedResultsChangeType` 值：`NSFetchedResultsChangeInsert` 和 `NSFetchedResultsChangeDelete`。而对于对象（或行）的变化，这四种取值都可能传入。
+
+在你的实现中，你通常需要确定发生的变化类型，然后告诉你的表格视图如何处理。但是，请注意你的 `NSFetchedResultsController` 实例正在获取哪些数据，以及你在分区中使用了哪些数据。例如，在联盟管理器应用程序中，`NSFetchedResultsController` 实例从 `Player` 实体获取数据，并使用选手的队名作为分区。`NSFetchedResultsController` 完全不监视 `Team` 实体。这意味着，如果你进入联盟管理员标签并添加一支新队伍（同时向数据存储中添加了一个新的 `Team` 实体），`didChangeSection:` 方法不会被调用，并且传入的更改类型不会是 `NSFetchedResultsChangeInsert`。实际上，它根本不会被调用，因为与 `NSFetchedResultsController` 实例（即与 `Player` 实体相关的内容）相关的任何内容都没有发生变化。但是，如果你向新队伍中添加一名新选手，则 `didChangeSection:` 方法就会被调用，并传入 `NSFetchedResultsChangeInsert` 以告知你已添加了一个新的分区（即新的队伍）。
+
+类似地，如果你在联盟管理员标签中编辑一个队伍（例如，重命名它），`didChangeSection:` 方法不会被调用。但是，如果你对该队伍中的选手进行了任何操作（添加、删除或编辑一个选手），那么 `didChangeSection:` 方法会被调用两次：一次传入 `NSFetchedResultsChangeInsert`，另一次传入 `NSFetchedResultsChangeDelete`，最终效果是用新的队名更新该分区。这意味着，你可以在联盟管理员标签中重命名一个队伍，然后切换到选手标签，分区名称仍然会显示旧的队名。然而，如果你返回并进行添加、编辑或删除选手操作，队名将自动更新。请务必理解这些限制及其后果，以避免不必要的困扰。
+
+为了响应分区变化，请实现 `controller:didChangeSection:atIndex:forChangeType:` 方法，检查变化类型的两个有效值，并指示你的表格视图相应地插入或删除分区，如下所示：
+
+```
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+```
+
+需要实现的、用于响应 `NSFetchedResultsController` 底层数据变化的最后一个方法是 `controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:`，当结果集中的任何对象发生变化时，系统会调用该方法。作为参数，你会收到发生变化的对象、变化前（在表格视图中的）原始索引路径、变化类型以及（在表格视图中的）新索引路径。变化类型的可能取值即表 9–1 中列出的值。根据传入的变化类型，你应该相应地更新表格。下面的实现正是这样做的：
+
+```
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch(type) {
+        // 数据被插入 -- 将数据插入到表格视图中
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+```
+
+
+
+```objectivec
+// 数据已删除——从表视图中删除数据
+case NSFetchedResultsChangeDelete:
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    break;
+
+// 数据已更新（改变）——为数据重新配置单元格
+case NSFetchedResultsChangeUpdate:
+    [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+    break;
+
+// 数据已移动——从原位置删除数据并插入至新位置
+case NSFetchedResultsChangeMove:
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    break;
+}
+```
+
+与处理分区变更的代码类似，这段代码同样根据底层数据的变化来更新表视图。阅读这段代码时，你应该理解为什么将表单元格的配置逻辑抽离到独立的 `configureCell:atIndexPath:` 方法中。如果数据中的任意行被更新，你都会调用该方法来更新表视图单元格。
+
+构建并运行应用程序。你会发现，当你在“联盟管理器”选项卡中修改数据时，变更会立即反映在“球员”选项卡中。
+
+### 总结
+
+只要应用中基于 Core Data 的表视图符合 `NSFetchedResultsController` 类所覆盖的范式，使用 `NSFetchedResultsController` 就能简化你在处理表格时的开发工作。在操作 `NSFetchedResultsController` 实例时，大多数代码无需在不同应用间改动，因此你可以快速启动新应用的开发。
+
+`NSFetchedResultsController` 的批处理与缓存功能，还能让你更高效地在表视图中展示结果。仅当表视图需要显示时，行数据才会被加载，从而让应用消耗更少内存、性能更佳。
+
+# 第 10 章
+
+# 在高级应用中使用 Core Data
+
+即使不阅读本章内容，你也能构建出很多酷炫的应用。但在合上本书之前，我们建议你继续往下读。本章涉及一些高级 Core Data 主题，这些可能是你的特定应用所需要的，特别是在保护用户数据对你的应用至关重要的情况下。跟随本章内容，在你的工具箱中添置一些高级 Core Data 工具。
+
+在本章中，我们将引导你构建一个涵盖每个主题的应用。你将逐步构建该应用，并能在每节结束时运行它，从而亲眼见证该节的高级功能。由于每节内容都建立在前一节的基础上，因此请勿跳过任何一节。
+
+本章构建的应用名为 MyStash，用于存储密码和笔记。构建完成后，所有密码都将被安全加密。笔记默认不加密，但你可以选择单独加密某些笔记。密码和笔记存储在不同的数据库中，尽管它们共享同一数据模型。完成之后，你还可以对代码进行微调，添加一个诱人的图标，谁知道呢？也许你的应用会荣登 App Store 热榜！
+
+### 创建用于笔记与密码存储及加密的应用
+
+要开始创建本章中将要使用的应用，请新建一个名为 `MyStash` 的 Xcode 项目。选择“空应用程序”模板（如图 10–1 所示），然后点击“下一步”。在“产品名称”处输入 **MyStash**，勾选“使用 Core Data”，并将“设备系列”设置为 iPhone（如图 10–2 所示）。点击“下一步”，选择项目保存目录，然后点击“创建”。
+
+![images](img/1001.jpg)
+
+**图 10–1.** *选择“空应用程序”模板*
+
+![images](img/1002.jpg)
+
+**图 10–2.** *设置 MyStash 项目*
+
+现在你可以构建并运行应用，查看一个空白的白色屏幕。你既没有数据，也没有查看数据的方式。接下来，你将开始向应用添加数据。
+
+#### 设置数据模型
+
+MyStash 数据模型将包含两个实体：一个用于存储笔记，另一个用于存储系统（如网站）的密码。打开数据模型，创建一个名为 `Note` 的实体和另一个名为 `System` 的实体。为 `Note` 实体添加两个属性：
+
+*   `title`（String 类型）
+*   `body`（String 类型）
+
+为 `System` 实体添加三个属性：
+
+*   `name`（String 类型）
+*   `userId`（String 类型）
+*   `password`（String 类型）
+
+你的数据模型应如图 10–3 所示。
+
+![images](img/1003.jpg)
+
+**图 10–3.** *MyStash 数据模型*
+
+再次构建并运行应用，但你仍然只会看到一个空白屏幕。在下一节中，你将添加一个基本界面。不过，直到本章后续章节你将用户界面拼装完成后，才能真正实现数据的添加、编辑和删除。
+
+#### 设置标签栏控制器
+
+MyStash 应用使用两个标签页来在“笔记”视图和“密码”视图之间切换。这意味着你需要为主窗口添加一个标签栏控制器。打开 `AppDelegate.h`，添加一个 `UITabBarController` 属性。
+
+`@property (strong, nonatomic) UITabBarController *tabBarController;`
+
+现在，打开文件 `AppDelegate.m`，为标签栏控制器添加一行 `@synthesize` 语句。
+
+`@synthesize tabBarController = _tabBarController;`
+
+在 `application:didFinishLaunchingWithOptions:` 方法中，将标签栏控制器添加到主窗口，使该方法现在如下所示：
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+
+    self.tabBarController = [[UITabBarController alloc] init];
+    [self.window addSubview:self.tabBarController.view];
+
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+```
+
+构建并运行应用，你会看到标签栏控制器（虽然很小）已添加在屏幕底部，如图 10–4 所示。
+
+![images](img/1004.jpg)
+
+**图 10–4.** *带有标签栏的 MyStash*
+
+
+
+#### 添加标签页
+
+要为笔记视图添加标签页，创建一个名为 `NoteListViewController` 的新 `UIViewController` 子类（参见图 10–6）。在下一个屏幕中，务必使其成为 `UITableViewController` 的子类，并取消勾选“使用 XIB 用户界面”，如图 10–5 所示。
+
+![images](img/1005.jpg)
+
+**图 10–5.** *为笔记视图添加视图类*
+
+打开 `NoteListViewController.m`，找到 `initWithStyle:` 方法，并在其中为标签页添加标题和图片，如下所示：
+
+```objc
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  self = [super initWithStyle:style];
+  if (self) {
+    self.title = @"Notes";
+    self.tabBarItem.image = [UIImage imageNamed:@"note"];
+  }
+  return self;
+}
+```
+
+至于标签页图片，请从本书的下载源代码中获取以下四个文件：
+
+- `note.png`
+- `password.png`
+- `note@2x.png`
+- `password@2x.png`
+
+或者，你也可以自己创建。iPhone 4 版本的图片（`*@2x.png`）应约为 60 x 60 像素，普通版本应约为 30 x 30 像素。应使其具有透明背景和黑色图像。
+
+无论你如何获取这四张图片，都要将它们添加到项目的一个名为 **Images** 的新组中，如图 10–6 所示。
+
+![images](img/1006.jpg)
+
+**图 10–6.** *已添加到项目中的标签页图片*
+
+现在，将笔记标签页添加到应用委托中的标签栏控制器。打开 `AppDelegate.m`，并为笔记列表视图添加 import 语句。
+
+```objc
+#import "NoteListViewController.h"
+```
+
+然后，在 `application:didFinishLaunchingWithOptions:` 方法中，创建 `NoteListViewController` 的实例，将其包裹在 `UINavigationController` 的实例中，然后将其添加到标签栏控制器。更新后的方法如下所示：
+
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window.backgroundColor = [UIColor whiteColor];
+
+  self.tabBarController = [[UITabBarController alloc] init];
+  [self.window addSubview:self.tabBarController.view];
+
+  // 添加笔记列表标签页
+  NoteListViewController *noteListViewController = [[NoteListViewController alloc] initWithStyle:UITableViewStylePlain];
+  UINavigationController *navNoteList = [[UINavigationController alloc] initWithRootViewController:noteListViewController];
+  [self.tabBarController setViewControllers:[NSArray arrayWithObjects:navNoteList, nil]];
+
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+现在，你可以构建并运行应用程序，你会看到视图只有一个标签页（用于笔记的标签页），如图 10–7 所示。
+
+![images](img/1007.jpg)
+
+**图 10–7.** *具有单个标签页的 MyStash 应用程序*
+
+你仍然需要用于密码的标签页，所以再制作一个视图控制器，仿照用于笔记的那个。再次选择“UIViewController 子类”，进一步将其特化为“UITableViewController 子类”，并命名为 `PasswordListViewController`。打开 `PasswordListViewController.m` 文件，找到 `initWithStyle:` 方法，并使用它为标签页添加标题和图标。
+
+```objc
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  self = [super initWithStyle:style];
+  if (self) {
+    self.title = @"Passwords";
+    self.tabBarItem.image = [UIImage imageNamed:@"password"];
+  }
+  return self;
+}
+```
+
+返回 `AppDelegate.m` 文件，并为密码列表视图控制器添加 import 语句。
+
+```objc
+#import "PasswordListViewController.h"
+```
+
+在同一文件中，更新 `application:didFinishLaunchingWithOptions:` 方法，将密码标签页添加到标签栏控制器。
+
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window.backgroundColor = [UIColor whiteColor];
+
+  self.tabBarController = [[UITabBarController alloc] init];
+  [self.window addSubview:self.tabBarController.view];
+
+  // 添加笔记列表标签页
+  NoteListViewController *noteListViewController = [[NoteListViewController alloc] initWithStyle:UITableViewStylePlain];
+  UINavigationController *navNoteList = [[UINavigationController alloc] initWithRootViewController:noteListViewController];
+
+  // 添加密码列表标签页
+  PasswordListViewController *passwordListViewController = [[PasswordListViewController alloc] initWithStyle:UITableViewStylePlain];
+  UINavigationController *navPasswordList = [[UINavigationController alloc] initWithRootViewController:passwordListViewController];
+
+  [self.tabBarController setViewControllers:[NSArray arrayWithObjects:navNoteList, navPasswordList, nil]];
+
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+现在，当你构建并运行 MyStash 应用程序时，你应该会看到两个标签页：一个用于笔记，一个用于密码，如图 10–8 所示。你现在已经构建了一个基本的 MyStash 应用程序；本章的其余部分将添加高级功能！
+
+![images](img/1008.jpg)
+
+**图 10–8.** *具有两个标签页的 MyStash 应用程序*
+
+#### 将 NSFetchedResultsController 集成到 MyStash 中
+
+如果你现在运行 MyStash 应用程序，你会看到预期的笔记和密码标签页。但是，你无法添加任何笔记或密码，即使你以某种方式添加了它们，也无法看到。在上一章中，你已经学习了如何使用 `NSFetchedResultsController` 类在表格中显示数据。在本节中，你将应用相同的技术，使用两个 `NSFetchedResultsController` 实例（一个用于笔记，一个用于密码）来显示笔记和密码。
+
+
+
+#### 创建获取结果控制器
+
+为了创建用于显示笔记和密码的获取结果控制器，首先需在 `NoteListViewController.h`（如 代码清单 10-1 所示）和 `PasswordListViewController.h`（如 代码清单 10-2 所示）中声明一个获取结果控制器和一个托管对象上下文。你会注意到，我们还声明了两个控制器都实现了 `NSFetchedResultsControllerDelegate` 协议。
+
+**代码清单 10-1.** *`NoteListViewController.h`*
+
+```
+#import <UIKit/UIKit.h>
+
+@interface NoteListViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@end
+```
+
+**代码清单 10-2.** *`PasswordListViewController.h`*
+
+```
+#import <UIKit/UIKit.h>
+
+@interface PasswordListViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@end
+```
+
+下一步是初始化 `NSFetchedResultsController` 实例。同样，我们将在 `fetchedResultsController` 成员的访问器中初始化这些实例。首先在 `NoteListViewController.m` 中为这两个新成员添加 `@synthesize` 行，如下所示：
+
+```
+@synthesize fetchedResultsController;
+@synthesize managedObjectContext;
+```
+
+接着，添加如 代码清单 10-3 所示的 `fetchedResultsController:` 访问器方法。
+
+**代码清单 10-3.** *`fetchedResultsController:` 访问器*
+
+```
+#pragma mark -
+#pragma mark Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+  if (fetchedResultsController != nil)
+  {
+    return fetchedResultsController;
+  }
+
+  // 为实体创建获取请求。
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note"
+                                        inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:entity];
+
+  // 设置批量大小
+  [fetchRequest setFetchBatchSize:20];
+
+  // 按笔记标题升序排列
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                ascending:YES];
+  NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+  [fetchRequest setSortDescriptors:sortDescriptors];
+
+  // 使用刚创建的获取请求和托管对象上下文成员创建获取结果控制器，
+  // 并将此控制器设置为委托
+  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController
+      alloc] initWithFetchRequest:fetchRequest
+            managedObjectContext:managedObjectContext
+              sectionNameKeyPath:nil
+                       cacheName:@"Note"];
+  aFetchedResultsController.delegate = self;
+  self.fetchedResultsController = aFetchedResultsController;
+
+  // 将结果获取到获取结果控制器中
+  NSError *error = nil;
+  if (![[self fetchedResultsController] performFetch:&error])
+  {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+  return fetchedResultsController;
+}
+```
+
+将相同的 `@synthesize` 行和方法添加到 `PasswordListViewController.m`，并将实体名称和缓存名称从 `Note` 改为 `System` 以匹配数据模型。同时，将用于排序描述符的属性从 `title` 改为 `name`。
+
+现在，你的控制器已经可以创建各自的获取结果控制器了。下一步是实现 `NSFetchedResultsControllerDelegate` 协议。将 代码清单 10-4 中的代码添加到 `NoteListViewController.m` 和 `PasswordListViewController.m` 中。
+
+**代码清单 10-4.** *`NSFetchedResultsControllerDelegate` 协议方法*
+
+```
+#pragma mark -
+#pragma mark Fetched results controller delegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+  [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+  [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+  switch(type)
+  {
+    case NSFetchedResultsChangeInsert:
+      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+    case NSFetchedResultsChangeDelete:
+      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+```
+
+
+
+#### 将获取结果控制器集成到表格中
+
+最后一步是将 `UITableViewController` 的调用委托给 `FetchedResultsController`。请修改 `NoteListViewController.m` 和 `PasswordListViewController.m` 中的以下方法，使其与代码清单 10-5 所示内容一致。
+
+**代码清单 10-5.** *将调用委托给 `FetchedResultsController`*
+
+```
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections]
+  objectAtIndex:section];
+  return [sectionInfo numberOfObjects];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+static NSString *CellIdentifier = @"NoteCell";
+
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil)
+  {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+reuseIdentifier:CellIdentifier];
+  }
+  [self configureCell:cell atIndexPath:indexPath];
+  return cell;
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)
+anObject atIndexPath:(NSIndexPath *)indexPath
+forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+  switch(type)
+  {
+    case NSFetchedResultsChangeInsert:
+[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+withRowAnimation:UITableViewRowAnimationFade];
+      break;
+    case NSFetchedResultsChangeDelete:
+[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+withRowAnimation:UITableViewRowAnimationFade];
+      break;
+    case NSFetchedResultsChangeUpdate:
+[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]
+atIndexPath:indexPath];
+      break;
+    case NSFetchedResultsChangeMove:
+[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+withRowAnimation:UITableViewRowAnimationFade];
+[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+```
+
+对于 `PasswordListViewController.m`，将 `CellIdentifier` 的值更改为 `PasswordCell`。
+
+```
+static NSString *CellIdentifier = @"PasswordCell";
+```
+
+现在终于可以为每个控制器实现 `configureCell:` 方法了。从 `NoteViewController.m` 开始，在 `@implementation NoteListViewController` 这行之前，添加一个声明 `NoteListViewController` 接口上 `configureCell:` 方法的私有分类。代码如下：
+
+```
+@interface NoteListViewController()
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+@end
+```
+
+在实现代码中，添加此方法的实现，用于配置单元格以便显示笔记的文本属性。此方法中值得注意的一点是：你无需解析传入索引路径中的分区和行。获取结果控制器知道如何处理索引路径，并使用其包含的分区和行索引返回正确的托管对象。方法如下：
+
+```
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+  NSManagedObject *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  cell.textLabel.text = [note valueForKey:@"title"];
+}
+```
+
+这些代码行与 `PasswordListViewController.m` 中的内容类似但略有不同。显然，它们是在 `PasswordListViewController` 接口上声明 `configureCell:` 方法，而不是 `NoteListViewController` 接口，并且 `configureCell:` 的实现显示了托管对象的 `name` 属性。代码如下：
+
+```
+@interface PasswordListViewController(private)
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+@end
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+  NSManagedObject *system = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  cell.textLabel.text = [system valueForKey:@"name"];
+}
+```
+
+需要更新的表格视图数据源方法中的最后一个方法是 `tableView:CommitEditingStyle:forRowAtIndexPath:` 方法，该方法在用户移动或删除行时被调用。在 MyStash 应用程序中，用户无法移动笔记或密码，但可以删除它们。将代码清单 10-6 中的方法添加到两个控制器的实现文件中，并在两个头文件中声明 `saveContext:`。
+
+**代码清单 10-6.** *用于删除行的方法*
+
+```
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (editingStyle == UITableViewCellEditingStyleDelete)
+  {
+    [[self.fetchedResultsController managedObjectContext]
+deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [self saveContext];
+  }
+}
+
+- (void)saveContext
+{
+  NSError *error = nil;
+  if(![[self.fetchedResultsController managedObjectContext] save:&error])
+  {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+}
+```
+
+确保将 `saveContext:` 声明添加到 `NoteListViewController.h` 和 `PasswordListViewController.h` 中：
+
+```
+-(void)saveContext;
+```
+
+为了完成将获取结果控制器集成到 MyStash 应用程序中，你必须为这两个视图控制器提供托管对象上下文。打开 `AppDelegate.m`，找到 `application:didFinishLaunchingWithOptions:` 方法，并在初始化每个控制器后立即设置其托管对象上下文成员。需要添加的两行代码如下：
+
+```
+noteListViewController.managedObjectContext = self.managedObjectContext;
+. . .
+passwordListViewController.managedObjectContext = self.managedObjectContext;
+```
+
+
+
+#### 创建添加和编辑笔记与密码的界面
+
+`MyStash` 应用目前可以显示和删除笔记与密码，但你尚无法添加或编辑任何笔记或密码。接下来的部分将引导你添加用于添加和编辑笔记与密码的界面。你将分别为笔记和密码创建不同的模态视图，并且 `MyStash` 将使用同一个模态视图来处理添加和编辑操作。
+
+从添加和编辑笔记的界面开始。创建一个名为 `NoteViewController` 的 `UIViewController` 子类，并确保仅选中"附带 XIB 用户界面"选项。这将创建以下三个文件：
+
+- `NoteViewController.h`
+- `NoteViewController.m`
+- `NoteViewController.xib`
+
+打开 `NoteViewController.h`。你需要添加以下内容：
+
+- 一个文本字段，让用户输入笔记标题。
+- 一个文本视图，用于容纳笔记的正文。
+- 一个指向父控制器的指针，以便你可以请求父控制器保存任何新笔记。
+- 一个表示当前笔记的管理对象，以便用户可以编辑现有笔记。如果当前笔记为 `nil`，代码将创建一个新笔记。
+- 一个初始化方法，用于接收父控制器和笔记对象。
+- 一个方法，响应用户通过"保存"按钮关闭模态视图的操作。
+- 一个方法，响应用户通过"取消"按钮关闭模态视图的操作。
+
+`NoteListViewController.h` 应与清单 10–7 一致。
+
+**清单 10–7.** *`NoteListViewController.h`*
+
+```
+@class NoteListViewController;
+
+@interface NoteViewController : UIViewController
+{
+    UITextField *titleField;
+    UITextView *body;
+    NoteListViewController *parentController;
+    NSManagedObject *note;
+}
+@property (strong, nonatomic) IBOutlet UITextField *titleField;
+@property (strong, nonatomic) IBOutlet UITextView *body;
+@property (strong, nonatomic) NoteListViewController *parentController;
+@property (strong, nonatomic) NSManagedObject *note;
+
+- (id)initWithParentController:(NoteListViewController *)parentController note:(NSManagedObject *)note;
+- (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end
+```
+
+笔记视图的实现文件 `NoteViewController.m` 如下所示，见清单 10–8。请注意以下几点：
+
+- 初始化方法存储了父 `NoteListViewController` 实例和指定的 `NSManagedObject` 实例。
+- 当视图加载并调用 `viewDidLoad:` 方法时，代码会检查 `note` 管理对象是否为 `nil`。如果是，代码将正文文本设置为"在此处输入文本..."，以便用户知道该怎么做。如果不是 `nil`，代码会从管理对象中取值并填充到用户界面字段中。
+- `save:` 方法再次检查当前是在编辑现有笔记还是添加新笔记。如果是编辑现有笔记，它会用用户输入的值更新 `note` 管理对象，并请求父控制器保存上下文。如果是创建新笔记，它会请求父控制器插入一个新的笔记对象，并传入用户输入的值。无论哪种情况，随后都会关闭模态视图。
+- `cancel:` 方法仅关闭模态视图，丢弃所有用户输入。
+
+**清单 10–8.** *`NoteViewController.m`*
+
+```
+#import "NoteViewController.h"
+#import "NoteListViewController.h"
+
+@implementation NoteViewController
+
+@synthesize titleField, body, parentController, note;
+
+- (id)initWithParentController:(NoteListViewController *)parentController_
+                        note:(NSManagedObject *)note_
+{
+    if ((self = [super init]))
+    {
+        self.parentController = parentController_;
+        self.note = note_;
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    if (note != nil)
+    {
+        titleField.text = [note valueForKey:@"title"];
+        body.text = [note valueForKey:@"body"];
+    }
+    else
+    {
+        body.text = @"Type text here . . .";
+    }
+}
+
+- (void)viewDidUnload
+{
+    self.titleField = nil;
+    self.body = nil;
+    [super viewDidUnload];
+}
+
+- (IBAction)save:(id)sender
+{
+    if (parentController != nil)
+    {
+        if (note != nil)
+        {
+            [note setValue:titleField.text forKey:@"title"];
+            [note setValue:body.text forKey:@"body"];
+            [parentController saveContext];
+        }
+        else
+        {
+            [parentController insertNoteWithTitle:titleField.text body:body.text];
+        }
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)cancel:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+@end
+```
+
+请注意，你尚未在 `NoteListViewController` 中实现 `insertNoteWithTitle:body:` 方法，因此该文件目前无法编译。
+
+接下来，你必须创建 `NoteViewController` 实例所控制的实际用户界面。选择 `NoteViewController.xib` 文件，在 Interface Builder 中打开它。执行以下步骤：
+
+1. 在视图上拖入一个导航栏，并将其与视图顶部边缘对齐。将其标题改为"笔记"。
+2. 在导航栏上拖入两个栏按钮项——一个放在左侧，一个放在右侧。
+3. 更改刚刚添加的两个栏按钮项的标签——左侧的改为"取消"，右侧的改为"保存"。
+4. 按住 Ctrl 键并从"取消"栏按钮项拖拽到 File's Owner 图标上，然后从弹出菜单中选择 `cancel:`。
+5. 按住 Ctrl 键并从"保存"栏按钮项拖拽到 File's Owner 图标上，然后从弹出菜单中选择 `save:`。
+6. 在视图左上角、导航栏下方拖入一个标签，并将其文本改为"标题："。
+7. 在视图上拖入一个文本字段，放在"标题："标签的右侧。
+8. 在视图上拖入一个文本视图，放在"标题："标签的下方，并使其填充视图的剩余部分。
+9. 按住 Ctrl 键并从 File's Owner 图标拖拽到文本字段，然后从弹出菜单中选择 `titleField`。
+10. 按住 Ctrl 键并从 File's Owner 图标拖拽到文本视图，然后从弹出菜单中选择 `body`。
+
+图 10–9 展示了完成后的视图效果。请确保你完成了所有上述步骤，包括将按钮连接到你创建的操作方法（`save:` 和 `cancel:`），以及将用户界面组件连接到相应的变量。
+
+![images](img/1009.jpg)
+
+**图 10–9.** *设置单条笔记视图*
+
+为了使 `MyStash` 应用能够添加和编辑笔记，最后一步是响应用户在笔记列表视图中的两个操作来显示此模态视图。
+
+1. 点击 + 按钮以添加一条新笔记。
+2. 点击列表中笔记的标题以编辑该笔记。
+
+打开 `NoteListViewController.h`，添加以下两个方法声明：一个用于在用户点击 + 按钮时显示模态视图，另一个用于插入新笔记：
+
+```objectivec
+- (void)showNoteView;
+- (void)insertNoteWithTitle:(NSString *)title body:(NSString *)body;
+```
+
+打开 `NoteListViewController.m`，导入 `NoteViewController.h`，并为这两个方法添加定义。第一个方法 `showNoteView:` 分配一个 `NoteViewController` 实例，并使用父视图控制器和一个 `nil` 的笔记进行初始化，这样将会创建一个新笔记。第二个方法 `insertNoteWithTitle:` 是 `NoteViewController` 在用户保存新笔记时调用的方法。清单 10–9 展示了这两个方法。
+
+**清单 10–9.** *创建笔记的方法*
+
+
+
+`- (void)showNoteView`
+```
+{
+  NoteViewController *noteViewController = [[NoteViewController alloc] 
+initWithParentController:self note:nil];
+  [self presentModalViewController:noteViewController animated:YES];
+}
+```
+
+`- (void)insertNoteWithTitle:(NSString *)title body:(NSString *)body`
+```
+{
+  NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
+  NSEntityDescription *entity = [[fetchedResultsController fetchRequest] entity];
+  NSManagedObject *newNote = [NSEntityDescription 
+insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+
+  [newNote setValue:title forKey:@"title"];
+  [newNote setValue:body forKey:@"body"];
+
+  [self saveContext];
+}
+```
+
+现在，你需要在笔记列表界面中添加 + 按钮和编辑按钮。进入 `viewDidLoad:` 方法，在左侧添加编辑按钮，右侧添加 + 按钮。将 + 按钮连接到 `showNoteView` 动作。代码清单 10–10 展示了相关代码。
+
+**代码清单 10–10.** *在 `viewDidLoad:` 中添加按钮*
+
+`- (void)viewDidLoad`
+```
+{
+  [super viewDidLoad];
+
+  // 设置编辑和添加按钮。
+  self.navigationItem.leftBarButtonItem = self.editButtonItem;
+
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] 
+initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self 
+action:@selector(showNoteView)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+```
+
+剩下的工作就是添加对编辑笔记的支持。当用户点击现有笔记时，会调用 `tableView:didSelectRowAtIndexPath:` 方法。在该方法中，获取与 `indexPath` 参数对应的笔记，然后分配并初始化一个 `NoteViewController` 实例。这次，你需要传递 `note` 托管对象，以便编辑现有笔记。该方法如代码清单 10–11 所示。
+
+**代码清单 10–11.** *点击时显示笔记*
+
+`- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath 
+*)indexPath`
+```
+{
+  NSManagedObject *note = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+
+  NoteViewController *noteViewController = [[NoteViewController alloc] 
+initWithParentController:self note:note];
+  [self presentModalViewController:noteViewController animated:YES];
+}
+```
+
+构建并运行应用程序。和之前一样，你会看到一个空白屏幕，但现在你可以点击 + 按钮添加笔记。如果这样做，你会看到如图 10–10 所示的界面。输入笔记并点击保存。你的新笔记应该会出现在列表视图中，如图 10–11 所示。
+
+![images](img/1010.jpg)
+
+**图 10–10.** *一条新的空白笔记*
+
+![images](img/1011.jpg)
+
+**图 10–11.** *添加了一条笔记后的笔记列表视图*
+
+你可以点击笔记，它会显示出来供你编辑。你可以编辑并保存更改，或者取消而不保存任何更改。在笔记列表视图中，你可以点击编辑按钮来删除任意笔记，如图 10–12 所示。点击完成按钮即可退出编辑模式。
+
+![images](img/1012.jpg)
+
+**图 10–12.** *编辑模式下的笔记列表视图*
+
+要完成 MyStash 应用程序的这个阶段，你必须创建用于添加和编辑密码的界面。同样，创建一个新的 `UIViewController` 子类，并为其用户界面绑定一个 XIB 文件，命名为 `PasswordViewController`。其代码与 `NoteViewController` 的代码非常相似，但使用适合数据模型中 `System` 实体的不同字段。代码清单 10–12 展示了 `PasswordViewController.h` 的代码：
+
+**代码清单 10–12.** `PasswordViewController.h`
+
+```
+@class PasswordListViewController;
+
+@interface PasswordViewController : UIViewController
+{
+  UITextField *name;
+  UITextField *userId;
+  UITextField *password;
+  PasswordListViewController *parentController;
+  NSManagedObject *system;
+}
+@property (strong, nonatomic) IBOutlet UITextField *name;
+@property (strong, nonatomic) IBOutlet UITextField *userId;
+@property (strong, nonatomic) IBOutlet UITextField *password;
+@property (strong, nonatomic) PasswordListViewController *parentController;
+@property (strong, nonatomic) NSManagedObject *system;
+
+- (id)initWithParentController:(PasswordListViewController *)parentController system:(NSManagedObject *)system;
+- (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+
+@end
+```
+
+代码清单 10–13 包含了 `PasswordViewController.m` 的代码。
+
+**代码清单 10–13.** `PasswordViewController.m`
+
+```
+#import "PasswordViewController.h"
+#import "PasswordListViewController.h"
+
+@implementation PasswordViewController
+
+@synthesize name, userId, password, parentController, system;
+
+- (id)initWithParentController:(PasswordListViewController *)parentController_ 
+system:(NSManagedObject *)system_ {
+  if ((self = [super init]))
+  {
+    self.parentController = parentController_;
+    self.system = system_;
+  }
+  return self;
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  if (system != nil)
+  {
+    name.text = [system valueForKey:@"name"];
+    userId.text = [system valueForKey:@"userId"];
+    password.text = [system valueForKey:@"password"];
+  }
+}
+
+- (void)viewDidUnload
+{
+  self.name = nil;
+  self.userId = nil;
+  self.password = nil;
+  [super viewDidUnload];
+}
+
+- (IBAction)save:(id)sender
+{
+  if (parentController != nil)
+  {
+    if (system != nil)
+    {
+      [system setValue:name.text forKey:@"name"];
+      [system setValue:userId.text forKey:@"userId"];
+      [system setValue:password.text forKey:@"password"];
+      [parentController saveContext];
+    }
+    else
+    {
+      [parentController insertPasswordWithName:name.text userId:userId.text 
+password:password.text];
+    }
+  }
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)cancel:(id)sender
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+@end
+```
+
+同样，这段代码无法编译，因为你还没有在 `PasswordListViewController` 中实现 `insertPasswordWithName:userId:password:` 方法。
+
+密码视图的用户界面与笔记视图相似但不完全相同。因此，后续步骤与你为笔记视图执行的步骤类似。打开 `PasswordViewController.xib` 并按照以下步骤操作：
+
+
+
+1.  将一个导航栏（`Navigation Bar`）拖到视图上，并使其与视图顶部对齐。将其标题更改为“Password”。
+2.  将两个栏按钮项（`Bar Button Items`）拖到导航栏上——一个放在左侧，一个放在右侧。
+3.  更改刚添加的两个栏按钮项的标签——左侧改为“Cancel”，右侧改为“Save”。
+4.  按住 `Ctrl`键从“Cancel”栏按钮项拖拽到“File's Owner”图标，然后从弹出菜单中选择`cancel:`。
+5.  按住 `Ctrl`键从“Save”栏按钮项拖拽到“File's Owner”图标，然后从弹出菜单中选择`save:`。
+6.  将一个标签（`Label`）拖到视图左上角、导航栏下方，并将其文本更改为“System:”。
+7.  将一个文本字段（`Text Field`）拖到“System:”标签下方的视图上，并使其宽度与视图相同。
+8.  将另一个标签拖到刚添加的文本字段下方的视图上，并将其文本更改为“User ID:”。
+9.  将一个文本字段拖到“User ID:”标签下方的视图上，并使其宽度与视图相同。
+10. 将另一个标签拖到刚添加的文本字段下方的视图上，并将其文本更改为“Password:”。
+11. 将一个文本字段拖到“Password:”标签下方的视图上，并使其宽度与视图相同。
+12. 按住 `Ctrl`键从“File's Owner”图标拖拽到“System:”下方的文本字段，然后从弹出菜单中选择`name`。
+13. 按住 `Ctrl`键从“File's Owner”图标拖拽到“User ID:”下方的文本字段，然后从弹出菜单中选择`userId`。
+14. 按住 `Ctrl`键从“File's Owner”图标拖拽到“Password:”下方的文本字段，然后从弹出菜单中选择`password`。
+
+完成后，视图应如图图 10–13 所示。
+
+![images](img/1013.jpg)
+
+**图 10–13.** *已配置的密码视图*
+
+接下来的步骤是更新`PasswordListViewController`类，就像你更新`NoteListViewController`一样，以便在添加或编辑密码时显示密码模态视图。打开`PasswordListViewController.h`，并添加以下两个方法声明：
+
+```
+- (void)showPasswordView;
+- (void)insertPasswordWithName:(NSString *)name userId:(NSString *)userId
+password:(NSString *)password;
+```
+
+在`PasswordListViewController.m`中，导入`PasswordViewController.h`，并添加代码清单 10–14 中的代码。
+
+**代码清单 10–14.** *用于添加和编辑密码的方法*
+
+```
+- (void)showPasswordView
+{
+  PasswordViewController *passwordViewController = [[PasswordViewController alloc]
+initWithParentController:self system:nil];
+  [self presentModalViewController:passwordViewController animated:YES];
+}
+
+- (void)insertPasswordWithName:(NSString *)name userId:(NSString *)userId
+password:(NSString *)password
+{
+  NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
+  NSEntityDescription *entity = [[fetchedResultsController fetchRequest] entity];
+  NSManagedObject *newPassword = [NSEntityDescription
+insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+
+  [newPassword setValue:name forKey:@"name"];
+  [newPassword setValue:userId forKey:@"userId"];
+  [newPassword setValue:password forKey:@"password"];
+
+  [self saveContext];
+}
+```
+
+将`viewDidLoad:`方法修改为与代码清单 10–15 一致。
+
+**代码清单 10–15.** *更新后的`viewDidLoad:`方法*
+
+```
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+
+  self.navigationItem.leftBarButtonItem = self.editButtonItem;
+
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
+action:@selector(showPasswordView)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+```
+
+最后，将`tableView:didSelectRowAtIndexPath:`方法更新为与代码清单 10–16 中的代码一致。
+
+**代码清单 10–16.** *更新后的`tableView:didSelectRowAtIndexPath:`方法*
+
+```
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+NSManagedObject *system = [[self fetchedResultsController]
+objectAtIndexPath:indexPath];
+
+PasswordViewController *passwordViewController = [[PasswordViewController alloc]
+initWithParentController:self system:system];
+  [self presentModalViewController:passwordViewController animated:YES];
+}
+```
+
+MyStash 应用程序的这一阶段现已完成。你可以添加、编辑和删除笔记和密码。现在构建并运行应用程序，然后添加一个新密码。当你点击“Passwords”标签页上的“+“按钮时，你应该会看到用于添加新密码的模态视图，如图图 10–14 所示。添加几个密码后，你应该会看到它们出现在列表视图中，如图图 10–15 所示。
+
+![images](img/1014.jpg)
+
+**图 10–14.** *输入新密码*
+
+![images](img/1015.jpg)
+
+**图 10–15.** *包含三个条目的密码列表视图*
+
+你在 MyStash 应用程序中创建的所有笔记和密码都存储在同一个持久化存储中。阅读下一节以了解如何将这些数据分散到多个持久化存储中。
+
+### 跨多个持久化存储拆分数据
+
+在本书中，到目前为止，你总是将一个数据模型与单个持久化存储关联起来。然而，你可能在某些情况下需要将模型拆分为多个存储，这会带来好处。当涉及多个持久化存储时，Core Data 能够将实体分派到正确的存储中进行持久化，并重建跨多个存储的对象图。`NSPersistentStoreCoordinator` 的角色是管理多个存储，并使它们对 Core Data API 用户来说看起来像一个单一的存储。
+
+MyStash 数据模型同时包含笔记和密码。当你运行 MyStash 应用程序时，所有笔记和密码都存储在`MyStash.sqlite`持久化存储中。不过，假设你想要将持久化存储拆分为两个，以便笔记存储在`Notes.sqlite`持久化存储中，密码存储在`Passwords.sqlite`持久化存储中。图 10–16 说明了这种拆分，显示了每种托管对象的持久化位置。
+
+![images](img/1016.jpg)
+
+**图 10–16.** *持久化存储拆分*
+
+
+
+#### 使用模型配置
+
+Core Data 模型用于定义实体及其关系，以指定数据的布局方式，但它也可以规定数据的写入位置。要指定数据的写入位置，Core Data 使用了所谓的*配置*。每个实体可以与一个或多个配置关联，当为某个配置创建持久化存储时，只有与该配置关联的实体才会被包含在持久化操作中。在你的示例中，你将创建两个配置。第一个配置包含笔记，第二个配置存储密码。
+
+在 Xcode 中，打开 `MyStash.xcdatamodel` 模型。选择默认配置（位于实体列表下方）。它会显示与该配置关联的所有实体，如图 10–17 所示。最初，只有默认配置存在，它同时包含了 `Note` 和 `System` 实体。按住 Xcode 窗口底部的“添加实体”按钮，从菜单中选择“添加配置”，并添加一个名为 `Notes` 的配置。重复该过程，创建另一个名为 `Passwords` 的配置。
+
+目前，`Notes` 配置没有关联任何实体。要将 `Note` 实体添加到该配置的实体列表中，选中 `Notes` 实体，然后将其拖拽到该配置的实体列表中，如图 10–18 所示。要将 `System` 实体添加到 `Passwords` 配置，将 `System` 实体拖拽到 `Passwords` 配置中，如图 10–19 所示。
+
+![images](img/1017.jpg)
+
+**图 10–17.** *默认配置*
+
+![images](img/1018.jpg)
+
+**图 10–18.** *将 Note 实体添加到 Notes 配置中*
+
+![images](img/1019.jpg)
+
+**图 10–19.** *已将 System 实体添加到 Passwords 配置中*
+
+现在，你已经为拆分持久化存储准备好了模型。剩下要做的就是使用新的配置创建持久化存储。为此，打开 `AppDelegate.m`，并将 `persistentStoreCoordinator:` 方法修改为与代码清单 10–17 一致。
+
+**代码清单 10–17.** *更新后的 `persistentStoreCoordinator:` 访问器*
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{  
+  if (__persistentStoreCoordinator != nil)
+  {
+    return __persistentStoreCoordinator;
+  }
+
+  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+
+  {
+    // 创建 Notes 持久化存储
+    NSURL *noteStoreURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Notes.sqlite"];
+    NSError *error = nil;
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:@"Notes" URL:noteStoreURL options:nil error:&error])
+    {
+      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      abort();
+    }
+  }
+
+  {
+    // 创建 Passwords 持久化存储
+    NSURL *passwordStoreURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Passwords.sqlite"];
+    NSError *error = nil;
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:@"Passwords" URL:passwordStoreURL options:nil error:&error])
+    {
+      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      abort();
+    }
+  }
+
+  return __persistentStoreCoordinator;
+}
+```
+
+你没有创建单个存储，而是以几乎相同的方式创建了两个持久化存储。唯一的区别是你明确指定了存储要使用的配置名称，而不是为配置参数传递 `nil`。对于 `Passwords.sqlite`，你使用了 `Passwords` 配置，而 `Notes.sqlite` 持久化存储则使用了 `Notes` 配置。
+
+现在是时候好好休息一下，启动应用看看效果了。添加一条新笔记和一条新密码条目，以验证其功能是否正常。令你沮丧的是，你可能没有注意到任何区别。但值得庆幸的是，这正是你的目标：底层持久化存储结构的变化不应影响 MyStash 应用的其余部分。即使你完全改变了数据的存储方式，应用依然能正常工作，这就应该让你满意了。要看到差异，你需要揭开引擎盖，看看 SQLite 数据库。打开终端窗口，使用以下命令找到你的数据存储：
+
+```
+find ~/Library/Application\ Support/iPhone\ Simulator/ -name "*.sqlite"
+```
+
+你会看到那里列出了两个新数据库：`Notes.sqlite` 和 `Passwords.sqlite`。如果你打开 `Notes.sqlite` 数据库并运行 `.schema` 命令，将看到完整的模型，但尽管你可以看到笔记已正确保存，`ZSYSTEM` 表中却不包含任何数据。
+
+```
+sqlite> .schema
+CREATE TABLE ZNOTE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZBODY VARCHAR, ZTITLE VARCHAR );
+CREATE TABLE ZSYSTEM ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNAME VARCHAR, ZPASSWORD VARCHAR, ZUSERID VARCHAR );
+CREATE TABLE Z_METADATA (Z_VERSION INTEGER PRIMARY KEY, Z_UUID VARCHAR(255), Z_PLIST BLOB);
+CREATE TABLE Z_PRIMARYKEY (Z_ENT INTEGER PRIMARY KEY, Z_NAME VARCHAR, Z_SUPER INTEGER, Z_MAX INTEGER);
+sqlite> select * from ZNOTE;
+1|1|1|This is the note's body|This is a note
+sqlite> select * from ZSYSTEM;
+sqlite>
+```
+
+现在对 `Passwords.sqlite` 数据库执行同样的操作。结果正好相反：`ZSYSTEM` 实体对应的表有数据，但 `ZNOTE` 表没有。
+
+```
+sqlite> .schema
+CREATE TABLE ZNOTE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZBODY VARCHAR, ZTITLE VARCHAR );
+CREATE TABLE ZSYSTEM ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNAME VARCHAR, ZPASSWORD VARCHAR, ZUSERID VARCHAR );
+CREATE TABLE Z_METADATA (Z_VERSION INTEGER PRIMARY KEY, Z_UUID VARCHAR(255), Z_PLIST BLOB);
+CREATE TABLE Z_PRIMARYKEY (Z_ENT INTEGER PRIMARY KEY, Z_NAME VARCHAR, Z_SUPER INTEGER, Z_MAX INTEGER);
+sqlite> select * from ZNOTE;
+sqlite> select * from ZSYSTEM;
+1|2|1|My Secure System|mypassword|myuserid
+sqlite>
+```
+
+你已经成功地将数据模型拆分到了两个持久化存储中。下一节将解释这种做法的适用场景。
+
+### 添加加密
+
+对于任何需要存储敏感信息的应用来说，数据加密都是重中之重。Core Data 在此任务上能提供的帮助不多，但它也不会成为你的阻碍。保护数据安全遵循两种思路，你可以根据自己的需求和要求选择遵循其中一种。这两种思路要么是加密整个数据库文件，要么是只加密数据存储中的某些字段。接下来的部分将对这两种方案进行阐述。
+
+
+
+#### 使用数据保护功能的持久化存储加密
+
+随 iPhone 3GS 推出的安全选项之一是硬件级磁盘加密，苹果称之为**数据保护**。启用后，设备锁定时会加密磁盘的特定分区，并在设备解锁时自动解密。
+
+数据保护功能需要手动启用。请记住，这是硬件级磁盘加密，因此仅适用于设备本身，而不适用于 iPhone 模拟器。要启用此功能，请打开 iPhone 设置，依次进入`设置`![images](img/U001.jpg)`通用`![images](img/U001.jpg)`密码锁定`。如果尚未启用密码，请先启用。如果一切设置正确，页面底部将显示“数据保护已启用”，如图 10-20 所示。
+
+![images](img/1020.jpg)
+
+**图 10-20.** *在设备上启用数据保护*
+
+从编程角度来看，加密数据库的步骤出乎意料地简单。创建持久化存储时，只需在数据库文件上设置正确的属性，其余工作交给 iOS 处理。打开`AppDelegate.m`，修改`persistentStoreCoordinator:`的实现，添加正确的文件属性以加密密码数据库，如代码 10-18 所示。
+
+**代码清单 10-18.** *加密密码数据库*
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+  ...
+  {
+    // 创建密码持久化存储
+    NSURL *passwordStoreURL = [[self applicationDocumentsDirectory]![images](img/U002.jpg)
+URLByAppendingPathComponent:@"Passwords.sqlite"];
+    NSError *error = nil;
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType![images](img/U002.jpg)
+configuration:@"Passwords" URL:passwordStoreURL options:nil error:&error])
+    {
+      NSLog(@"未解决的错误 %@, %@", error, [error userInfo]);
+      abort();
+    }
+
+    // 加密密码数据库
+    NSDictionary *fileAttributes = NSDictionary![images
+dictionaryWithObject:NSFileProtectionComplete forKey:NSFileProtectionKey];
+    if (![[NSFileManager defaultManager] setAttributes:fileAttributes![images](img/U002.jpg)
+ofItemAtPath:[passwordStoreURL path] error:&error])
+    {
+      NSLog(@"密码存储加密时出现未解决错误 %@, %@", error, error![images
+userInfo]);
+      abort();
+    }
+  }
+  ...
+}
+```
+
+当你在启用了数据保护的设备上运行应用程序时，`Passwords.sqlite` 数据库文件将在设备锁定时自动加密。这种方法实现成本低廉，但需注意：设备一旦解锁，文件会自动解密，因此数据库的安全性与手机本身相当。如果有人能猜到密码，数据库将可访问，尤其是当手机已越狱（即拥有 root 访问权限）时。此方法的另一个不便之处在于，对于非常大的数据库，解锁和启动应用程序所需的时间可能相当长，因为需要先解密大文件才能使用。
+
+### 数据加密
+
+数据安全的另一种替代方案是在数据存入数据库时对其进行加密。这种情况下，你只需加密需要保护的数据。假设你想保护数据库中的笔记。
+
+##### 使用加密功能
+
+iOS 自带加密库。为了简化加密操作，你可以为 `NSData` 类添加一个新的分类。在 Xcode 中，创建一个新的 Objective-C 分类，如图 10-21 所示。在“Category”字段输入 **Encryption**，在“Category on”字段选择 **NSData**，如图 10-22 所示。这将创建一个名为 `NSData+Encryption` 的分类，并将其添加到你的项目中。由于加密算法超出了本书范围，我们不再深入探讨该分类的工作原理，而是直接提供代码清单 10-18（`NSData+Encryption.h`）和 10-19（`NSData+Encryption.m`）中的源码。
+
+![images](img/1021.jpg)
+
+**图 10-21.** *创建 Objective-C 分类*
+
+![images](img/1022.jpg)
+
+**图 10-22.** *创建 `NSData+Encryption` 分类*
+
+**代码清单 10-18.** *`NSData+Encryption.h`*
+
+```
+#import <Foundation/Foundation.h>
+
+@interface NSData (Encryption)
+- (NSData *)encryptWithKey:(NSString *)key;
+- (NSData *)decryptWithKey:(NSString *)key;
+@end
+```
+
+**代码清单 10-19.** *`NSData+Encryption.m`*
+
+```
+#import <CommonCrypto/CommonCryptor.h>
+#import "NSData+Encryption.h"
+
+@implementation NSData (Encryption)
+
+- (NSData *)transpose:(NSString *)_key forOperation:(int)operation
+{
+  // 确保密钥足够长，否则补零
+  char key[kCCKeySizeAES256+1];
+  bzero(key, sizeof(key));
+
+  // 将密钥填充到字符数组中
+  [_key getCString:key maxLength:sizeof(key) encoding:NSUTF8StringEncoding];
+
+  size_t allocatedSize = self.length + kCCBlockSizeAES128;
+  void *output = malloc(allocatedSize);
+
+  size_t actualSize = 0;
+CCCryptorStatus resultCode = CCCrypt(operation, kCCAlgorithmAES128, ![images](img/U002.jpg)
+kCCOptionPKCS7Padding, key, kCCKeySizeAES256, nil, self.bytes, self.length, output, ![images](img/U002.jpg)
+allocatedSize, &actualSize);
+  if (resultCode != kCCSuccess)
+  {
+    // 释放输出缓冲区
+    free(output);
+    return nil;
+  }
+
+  return [NSData dataWithBytesNoCopy:output length:actualSize];  
+}
+
+- (NSData *)encryptWithKey:(NSString *)key
+{
+  return [self transpose:key forOperation:kCCEncrypt];
+}
+
+- (NSData *)decryptWithKey:(NSString *)key
+{
+  return [self transpose:key forOperation:kCCDecrypt];
+}
+
+@end
+```
+
+该分类为 `NSData` 类添加了两个方法，使你能获取其二进制内容的加密和解密版本。
+
+
+
+### 自动加密字段
+
+为了支持数据加密，你需要修改数据模型，将 `Note` 实体中 `body` 属性的数据类型从 `String` 改为 `Transformable`。将转换器名称设置为 `EncryptedStringTransformer`，这是一个你接下来要编写的类，如图 Figure 10–23 所示。
+
+![images](img/1023.jpg)
+
+**图 10–23.** *使用 `Transformable` 数据类型的 `body` 属性*
+
+转换器的作用是在数据进入和离开持久化存储时对其进行加密/解密，这样一来，应用程序的其他部分就无需关心或知晓加密过程。
+
+创建一个名为 `EncryptedStringTransformer` 的 Objective-C 类，并让它继承 `NSValueTransformer`。Listing 10–20 展示了 `EncryptedStringTransformer.h` 的代码，其内容与 Xcode 生成的一致。
+
+**代码清单 10–20.** *`EncryptedStringTransformer.h`*
+
+```
+#import <Foundation/Foundation.h>
+
+@interface EncryptedStringTransformer : NSValueTransformer
+
+@end
+```
+
+按照 Listing 10–21 所示来实现该转换器。这个类使用 `NSData+Encryption` 类别来完成所有加密和解密操作，因此实现非常简单，无非就是将明文转换为加密数据，反之亦然。
+
+**代码清单 10–21.** *`EncryptedStringTransformer.m`*
+
+```
+#import "EncryptedStringTransformer.h"
+#import "NSData+Encryption.h"
+
+@implementation EncryptedStringTransformer
+
++ (Class)transformedValueClass
+{
+  return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+  return YES;
+}
+
+- (id)transformedValue:(id)value
+{
+  if (value == nil)
+    return nil;
+
+  NSData *clearData = [value dataUsingEncoding:NSUTF8StringEncoding];
+  return [clearData encryptWithKey:@"secret"];
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+  if (value == nil)
+    return nil;
+
+  NSData *data = [value decryptWithKey:@"secret"];
+
+  return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+@end
+```
+
+**注意:** 为简单起见，我们擅自决定在转换器中使用相同的字符串 (`"secret"`) 作为加密密码。显然，这违背了安全加密的理念，因为任何人都可以获取该密码。我们留给你自行修改密码，或者将其设为一个用户可配置的变量。
+
+### 测试加密
+
+与上一节不同（硬件级加密仅在设备锁定时发生，因此你看不到效果），在使用数据加密时，你可以放心地验证数据是否已加密。由于你的模型未进行版本控制，因此需要在启动前重置模拟器。
+
+启动应用程序并添加一条新笔记，如图 Figure 10–24 所示。
+
+![images](img/1024.jpg)
+
+**图 10–24.** *添加一条新的加密笔记*
+
+我们知道你非常喜欢运行 MyStash 应用，但还是请你先放下这个小玩具，来看看 `Notes.sqlite` 数据存储。显示 `ZNOTE` 表中的数据，可以看到以下加密数据：
+
+```
+sqlite> select * from ZNOTE;
+1|1|1|This is a note|??<??H.K?എi?ҍ ?^??Gh???;ܺ=??X?C^?????
+```
+
+当然，如果你重新启动应用程序，数据会在显示到用户界面之前被正确解密。通过这种加密策略，你可以完全掌控数据的安全性。无论用户是否启用了数据保护，数据都是加密的。如果设备被盗并且被解锁，数据仍然是加密的。
+
+### 数据变更时发送通知
+
+在 Mac OS X 上，Core Data 提供了 UI 绑定，允许你将数据直接链接到用户界面。然而，在 iOS 上，Core Data 目前不提供 UI 绑定；最接近的替代方案是 `NSFetchedResultsController`。当无法使用该控制器时，你必须依靠自己的编码，并借助键值观察（KVO）机制。由于 `NSManagedObject` 符合键值编码（KVC）规范，因此所有常规的 KVO 原则都可以应用，并且可以在数据修改时触发通知。KVO 模型非常简单且去中心化，只涉及两个对象：观察者和被观察者。观察者必须向被观察对象注册，而被观察对象负责在其数据发生变化时触发通知。得益于 `NSManagedObject` 的默认实现，通知的触发是自动为你处理的。
+
+为了说明如何使用通知，我们将创建一个示例：当 `System` 实体的 `name` 属性被修改时，观察者会输出一条确认信息，表明已收到变更通知。为简单起见，我们直接输出到应用程序的控制台。在实际应用中，KVO 机制可用于自动更新用户界面元素。
+
+#### 注册观察者
+
+要接收变更通知，观察者必须使用 `addObserver:forKeyPath:options:context:` 方法向被观察对象注册。注册仅对给定的键路径有效，这意味着它仅对该命名的属性或关系有效。其优势在于，你可以非常精细地控制哪些通知会被触发。
+
+通过指定你希望在通知中接收的信息，选项提供了更细粒度的控制。表 10-1 列出了这些选项，它们可以通过按位或运算进行组合。
+
+![images](img/t1001.jpg)
+
+在 MyStash 中，你将添加一个针对 `System` 实体的观察者。打开 `PasswordListViewController.m`，编辑 `configureCell:atIndexPath:` 方法来添加观察者，如 Listing 10–22 所示。
+
+**代码清单 10–22.** *为 `name` 属性的变更添加观察者*
+
+```
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+  NSManagedObject *system = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  cell.textLabel.text = [system valueForKey:@"name"];
+
+  // 为此对象注册 KVO
+  [system addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionOld |
+NSKeyValueObservingOptionNew context:nil];
+}
+```
+
+在本例中，你将 `PasswordListViewController` 注册为 `name` 属性的观察者，并且希望在这个托管对象的属性被修改时接收旧值和新值。
+
+
+
+##### 接收通知
+
+要接收通知，观察者必须为 `observeValueForKeyPath:ofObject:change:context:` 方法提供实现。当已注册的通知被触发时，会调用此方法。由于 `PasswordListViewController` 是观察者，因此需要在 `PasswordListViewController.m` 中添加此方法，如代码清单 10–23 所示。
+
+**代码清单 10–23.** *观察变更通知*
+
+```
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context
+{
+  NSLog(@"Changed value for %@: %@ -> %@", keyPath,
+        [change objectForKey:NSKeyValueChangeOldKey],
+        [change objectForKey:NSKeyValueChangeNewKey]);
+}
+```
+
+`change` 字典包含了修改内容。由于在注册观察者时你同时请求了旧值和新值，因此可以从字典中提取这两个值。
+
+启动应用程序，并打开输出控制台。通过更改系统名称来编辑一个现有密码，然后保存更改。你将在控制台中看到类似如下的输出，表明已收到通知：
+
+`2011-08-20 07:46:35.047 MyStash[11493:f503] Changed value for name: TouchPad -> iPad`
+
+请注意，直到你保存更改并且上下文被保存后，变更才会真正发生。
+
+KVO 机制为你提供了一种简单的方式，用以响应应用程序数据中的变更。
+
+### 预填充数据
+
+我们经常听到的一个问题是如何分发一个已经包含一些数据的持久化存储。例如，许多应用程序会包含一个值列表，供用户选择以对输入的数据进行分类，而开发者需要将这些值填充到数据存储中。解决这个问题有几种方法，包括自行创建 SQLite 数据库并将其随应用程序一起分发，而不是让 Core Data 自行创建数据库，但这种方法有其缺点，尤其是当应用程序的未来版本扩充了此值列表时。你绝不应该用一个新的、其他方面空白但列表中有更多值的数据库文件来覆盖用户的数据库文件。
+
+那么，一种既简单又能应对未来变更的方法是什么呢？如果你一直跟随本书中的示例进行操作，你已经多次将数据预加载到数据存储中了。想想本书中那些没有用户界面的应用程序，你是如何将数据放入其中的？没错：你在代码中创建了托管对象，然后保存了托管对象上下文。如果你对这个方法稍加扩展，增加一个版本号来标识已加载的数据，你就可以轻松地在代码中判断未来是否需要添加更多值。在本节中，你将学习如何将数据预填充到一个由 Core Data 创建的持久化存储中，并且这种方式允许你在应用程序的未来版本中修改预填充的数据。
+
+#### 为密码添加分类
+
+为了演示在数据存储中预填充一个值列表，你将给 MyStash 应用程序中的密码添加一个分类。打开 MyStash 的数据模型，添加一个名为 `Category` 的实体，它有一个非可选（必填）的 String 类型属性 `name`。将此新实体添加到 `Passwords` 配置中。添加一个名为 `systems` 的对多关系，目标实体为 `System` 实体，并为 `System` 实体添加一个名为 `category` 的反向关系。
+
+为了支持版本管理，再添加一个名为 `List` 的实体，包含两个非可选属性：一个名为 `name` 的 String 类型属性和一个名为 `version` 的 Integer 16 类型属性。将其添加到 `Passwords` 配置中。
+
+你的数据模型应类似于图 10–25。
+
+![images](img/1025.jpg)
+
+**图 10–25.** *为预填充数据而更新的 MyStash 数据模型*
+
+在 `AppDelegate.h` 中添加以下三个方法声明：一个用于加载数据，一个用于保存上下文，以及一个用于创建 `Category` 托管对象的辅助方法：
+
+```
+- (void)loadData;
+- (void)saveContext;
+- (NSManagedObject *)addCategoryWithName:(NSString *)name;
+```
+
+在 `AppDelegate.m` 的 `application:didFinishLaunchingWithOptions:` 方法中，作为该方法的第一个语句，添加对 `loadData:` 方法的调用。
+
+然后实现该方法。它应执行以下操作：
+
+1.  获取 `List` 实体中 `category` 条目的版本号，如果该条目不存在则创建它。
+2.  根据版本号，确定要创建哪些 `Category` 托管对象并创建它们。
+3.  更新版本号。
+4.  保存托管对象上下文。
+
+`loadData:` 方法的代码如代码清单 10–24 所示。
+
+**代码清单 10–24.** *`loadData:` 的实现*
+
+```
+#pragma mark - Seed Data
+
+- (void)loadData
+{
+  // 获取 "category" 的版本对象
+  NSManagedObjectContext *context = [self managedObjectContext];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  [request setEntity:[NSEntityDescription entityForName:@"List"
+                            inManagedObjectContext:context]];
+  [request setPredicate:[NSPredicate predicateWithFormat:@"name = 'category'"]];
+  NSArray *results = [context executeFetchRequest:request error:nil];
+
+  // 获取版本号。如果不存在，则创建它并将版本号设为 0
+  NSManagedObject *categoryVersion = nil;
+  NSInteger version = 0;
+  if ([results count] > 0)
+  {
+    categoryVersion = (NSManagedObject *)[results objectAtIndex:0];
+    version = [(NSNumber *)[categoryVersion valueForKey:@"version"] intValue];
+  }
+  else
+  {
+    categoryVersion = [NSEntityDescription insertNewObjectForEntityForName:@"List"
+                                            inManagedObjectContext:context];
+    [categoryVersion setValue:@"category" forKey:@"name"];
+    [categoryVersion setValue:[NSNumber numberWithInt:0] forKey:@"version"];
+  }
+
+  // 创建分类以达到最新版本
+  if (version < 1)
+  {
+    [self addCategoryWithName:@"Web Site"];
+    [self addCategoryWithName:@"Desktop Software"];
+  }
+
+  // 更新版本号并保存上下文
+  [categoryVersion setValue:[NSNumber numberWithInt:1] forKey:@"version"];
+  [self saveContext];
+}
+```
+
+你可以看到，代码获取了 `List` 实体中的 category 条目，如果不存在则创建它。它获取该条目的版本号，以确定已加载的是哪个版本的分列列。首次运行时，版本号将被设为零。然后，代码根据版本号添加相应的分类，并将版本号更新到最新，以便后续运行不会追加已经加载过的数据。
+
+
+
+**注意：** 为了演示这一机制，我们手动编写了种子数据。在实际应用中，你应该考虑从某个文本文件或 CSV 文件中读取列表。
+
+清单 10–25 展示了用于添加类别的辅助方法 `addCategoryWithName:`，该方法简单地将一个具有指定名称的 `Category` 实体插入到托管对象上下文中。
+
+**清单 10–25.** *添加类别的方法*
+
+```
+- (NSManagedObject *)addCategoryWithName:(NSString *)name
+{
+  NSManagedObject *category = [NSEntityDescription insertNewObjectForEntityForName:@"Category" inManagedObjectContext:[self managedObjectContext]];
+  [category setValue:name forKey:@"name"];
+  return category;
+}
+```
+
+构建并运行应用程序，然后使用 `sqlite3` 打开 `Passwords.sqlite`。如果你运行 `.schema` 命令，会看到新增了 `Category` 和 `List` 这两个表。
+
+```
+CREATE TABLE ZCATEGORY ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNAME VARCHAR );
+CREATE TABLE ZLIST ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZVERSION INTEGER, ZNAME VARCHAR );
+```
+
+类别列表的版本号已创建。
+
+```
+sqlite> select zversion from zlist where zname='category';
+1
+```
+
+最后，预期的类别数据已经加载完毕。
+
+```
+sqlite> select * from zcategory;
+1|1|1|Web Site
+2|1|1|Desktop Software
+```
+
+你已经成功地向数据存储中导入了类别初始值。你可以退出并重新运行应用程序，会注意到版本控制机制防止了这些数据被重复加载。
+
+### 创建种子数据的新版本
+
+假设你想将信用卡 PIN 码作为一个类别添加进去。为这段代码增加版本号很简单。你只需添加另一个由新版本号保护的 `if` 语句，并更改写入数据库的版本号即可。你需要累积性地添加条目，这样，如果你是首次运行应用程序，则会得到版本 1 和版本 2 的所有类别；但如果你已经在版本 1 上，代码只会加载版本 2 的值。最后，你需要更新数据存储中的版本号，以反映当前已加载的版本。清单 10–26 展示了 `loadData:` 方法中更新后的代码。
+
+**清单 10–26.** *添加种子数据的版本 2*
+
+```
+- (void)loadData
+{
+  ...
+  // 创建类别以得到最新版本
+  if (version < 1)
+  {
+    [self addCategoryWithName:@"Web Site"];
+    [self addCategoryWithName:@"Desktop Software"];
+  }
+  if (version < 2)
+  {
+    [self addCategoryWithName:@"Credit Card PIN"];
+  }
+
+  // 更新版本号并保存上下文
+  [categoryVersion setValue:[NSNumber numberWithInt:2] forKey:@"version"];
+  [self saveContext];
+}
+```
+
+我们还没有更新 MyStash 用户界面来使用这些类别——这作为练习留给你完成。
+
+### 错误处理
+
+当你要求 Xcode 为你生成一个 Core Data 应用程序时，它会为与 Core Data 持久化存储通信的每个关键方面生成样板代码。这段代码对于设置你的持久化存储协调器、托管对象上下文和托管对象模型来说绰绰有余。实际上，如果你回到一个非 Core Data 项目并添加 Core Data 支持，直接插入与 Xcode 生成相同的代码来管理 Core Data 交互是很好的做法。这段代码是可以投入生产环境的。
+
+也就是说，它在除了一个方面之外可以投入生产环境：错误处理。
+
+Xcode 生成的代码通过一条注释提醒你这个缺点，注释内容如下：
+
+```
+/*
+将这里的实现替换为能妥善处理错误的代码。
+
+abort() 会导致应用程序生成崩溃日志并终止。你不应该在发布的应用程序中使用此函数，尽管它在开发过程中可能有用。如果无法从错误中恢复，请显示一个警告面板，指导用户通过按下 Home 按钮退出应用程序。
+
+此处错误的典型原因包括：
+* 持久化存储不可访问；
+* 持久化存储的架构与当前的托管对象模型不兼容。
+请检查错误消息以确定实际问题。
+
+如果持久化存储不可访问，通常文件路径有问题。通常，文件 URL 指向的是应用程序的资源目录，而不是可写目录。
+
+如果在开发过程中遇到架构不兼容错误，你可以通过以下方法减少其发生频率：
+* 直接删除现有存储：
+[[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
+
+* 通过将以下字典作为 options 参数传递来执行自动轻量级迁移：
+[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+
+轻量级迁移仅适用于有限的架构更改；更多详情请参考“Core Data 模型版本控制与数据迁移编程指南”。
+*/
+```
+
+Xcode 生成的实现会记录错误并终止应用程序，这显然是一种不友好的方式。当这种情况发生时，用户看到的是你的应用程序突然消失，没有任何线索说明原因。如果这种情况发生在已发布的应用程序中，你会得到差评和低销量。
+
+但令人高兴的是，你不必陷入这种记录日志并使应用程序崩溃的陷阱。在本节中，你将探索在 Core Data 中处理错误的策略。没有哪一种策略是最好的，但本节应该能为你特定的应用程序和用户群激发灵感，并帮助你设计出一套合理的错误处理策略。
+
+Core Data 中的错误可以分为两大类：
+
+*   正常 Core Data 操作中的错误
+*   校验错误
+
+接下来的小节将讨论处理这两类错误的策略。
+
+
+
+#### 处理 Core Data 操作错误
+
+本书中的所有示例均使用 Xcode 生成的默认错误处理代码来响应 Core Data 错误，尽职尽责地将错误消息输出到 Xcode 控制台并终止应用程序。这种方法有两个优点。
+
+* 它有助于在开发和调试过程中诊断问题。
+* 它易于实现。
+
+然而，这些优点仅对作为开发者的你有帮助，对应用程序的用户没有任何益处。在公开发布使用 Core Data 的应用程序之前，你应该设计并实现一个更好的错误响应策略。好消息是，这个策略不必庞大或难以实现，因为你响应的选项是有限的。尽管应用程序各不相同，但在大多数情况下，你无法从 Core Data 错误中恢复，因此应该遵循苹果的建议，正如前面注释中所代表的：显示一个提示框，并指示用户关闭应用程序。这样做可以向用户解释发生了什么，并让他们掌控何时终止应用。虽然控制不多，但嘿——总比应用直接消失要好。
+
+几乎所有 Core Data 操作错误都应在开发过程中捕获，因此仔细测试你的应用应该能防止这些情况。不过，处理它们很简单：只需遵循注释中苹果的建议。要为 `MyStash` 应用添加错误处理代码，请在 `AppDelegate.h` 中声明一个用于显示提示框的方法：
+
+```
+- (void)showCoreDataError;
+```
+
+然后，将实现添加到 `AppDelegate.m` 中。你可以对措辞有所争议，但请记住，错误消息并非对缪斯女神的赞歌，消息越长，被阅读的可能性就越小。清单 10–27 包含了一个实现，其中消息简短明了——仅用一个多余的感叹号恳请用户阅读：
+
+**清单 10–27.** *显示 Core Data 错误的方法*
+
+```
+- (void)showCoreDataError
+{
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误！" message:@"MyStash 无法继续。\n 请按 Home 键关闭 MyStash。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+  [alert show];
+}
+```
+
+现在，修改 `persistentStoreCoordinator:` 访问器方法，使用这个新方法，而不是记录日志并终止。清单 10–28 展示了 `persistentStoreCoordinator:` 的更新内容。
+
+**清单 10–28.** *更新后的 `persistentStoreCoordinator:` 方法*
+
+```
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+  if (__persistentStoreCoordinator != nil)
+  {
+    return __persistentStoreCoordinator;
+  }
+  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+  {
+    // 创建 Notes 持久化存储
+    NSURL *noteStoreURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Notes.sqlite"];
+    NSError *error = nil;
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:@"Notes" URL:noteStoreURL options:nil error:&error])
+    {
+      [self showCoreDataError];
+    }
+  }
+
+  {
+    // 创建 Passwords 持久化存储
+    NSURL *passwordStoreURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Passwords.sqlite"];
+    NSError *error = nil;
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:@"Passwords" URL:passwordStoreURL options:nil error:&error])
+    {
+      [self showCoreDataError];
+    }
+
+    // 加密密码数据库
+    NSDictionary *fileAttributes = [NSDictionary dictionaryWithObject:NSFileProtectionComplete forKey:NSFileProtectionKey];
+    if (![[NSFileManager defaultManager] setAttributes:fileAttributes ofItemAtPath:[passwordStoreURL path] error:&error])
+    {
+      [self showCoreDataError];
+    }
+  }
+
+  return __persistentStoreCoordinator;
+}
+```
+
+为了强制显示此错误，请运行 `MyStash` 应用程序，然后关闭它。转到数据模型，向 `Note` 实体添加一个类型为 `String` 的属性 `foo`，然后再次运行应用程序。由于模型不再匹配，持久化存储协调器将无法打开数据存储，你的新错误消息将显示出来，如图 10–26 所示。
+
+![images](img/1001a.jpg)
+
+**图 10–1a.** *处理 Core Data 错误*
+
+这可能是处理意外错误的最佳方式。然而，下一节将讨论如何处理预期错误：验证错误。
+
+
+
+#### 处理验证错误
+
+如果你在 Core Data 模型中为任何属性配置了验证参数，并且允许用户输入无法自动满足这些验证参数的值，那么你可能会遇到验证错误。正如你在第 4 章中所学到的，你可以在数据模型的实体属性上规定验证参数。验证确保了数据的完整性；Core Data 不会将你声明为无效的任何内容存储到持久化存储中。然而，仅仅因为你创建了验证规则，并不意味着用户知道这些规则——或者知道他们可能会违反这些规则。如果你保留 Xcode 生成的错误处理方式，即使用户输入了无效数据，他们也不会知道自己违反了验证规则。唯一的结果就是你的应用程序会崩溃，并记录一长串用户永远看不到的堆栈跟踪信息。困惑的用户会面对一个崩溃的应用程序，却不知道原因以及如何避免这种情况发生。与其在用户输入无效数据时崩溃，不如提醒用户并给他们机会纠正数据。
+
+数据库端的验证可能是一个有争议的话题，而且理由充分。你可以通过将验证规则放在数据模型中来从源头保护数据的完整性，但这可能会让你的编码任务变得更加困难。数据模型中的验证规则是那种听起来不错但在实践中却不那么理想的东西之一。例如，你能想象在 Web 应用程序中使用 Oracle 进行字段验证吗？是的，你可以这样做，但其他方法可能更简单、更用户友好，并且在架构上更优越。在代码中验证用户输入的值，甚至设计防止无效输入的用户界面，会让你的工作更轻松，用户体验也更好。
+
+话虽如此，我们还是要继续概述一种处理验证错误的可行策略。不过，别说我们没提醒过你。
+
+检测用户是否输入了无效数据很简单：只需检查传递给托管对象上下文的 `save:` 方法的 `NSError` 对象（如果发生错误的话）。`NSError` 对象包含导致 `save:` 方法失败的错误代码，如果该代码与表 10-2 中列出的 Core Data 验证错误代码之一匹配，你就知道尝试保存的数据的某一部分是无效的。你可以使用 `NSError` 的 `userInfo` 字典查找更多关于错误原因的信息。请注意，如果发生了多个错误，错误代码将是 `1560`，即 `NSValidationMultipleErrorsError`，并且 `userInfo` 字典会在名为 `NSDetailedErrorsKey` 的键中保存其余的错误代码。
+
+![images](img/t1002.jpg)
+
+![images](img/t1002.jpg)
+
+你可以选择实现一个熟悉你的数据模型、从而只检查特定错误的错误处理例程，或者编写一个通用的错误处理例程来处理任何发生的验证错误。虽然通用例程可扩展性更好，并且无论数据模型如何变化都能继续工作，但更具体的错误处理例程可能让你在消息传递和响应方面对用户更有帮助。没有哪种方法是绝对正确的——选择权在你手中，你可以决定如何处理验证错误。
+
+要编写一个真正通用的验证错误处理例程需要大量工作。需要考虑的一点是，`NSError` 对象包含很多关于所发生错误的信息，但未必有足够的信息来告诉用户验证失败的原因。例如，假设你有一个实体 `Foo`，其属性 `bar` 必须至少有 5 个字符长。如果用户为 `bar` 输入了 "abc"，你会收到一条 `NSError` 消息，告诉你错误代码 (1670)、实体 (`Foo`)、属性 (`bar`) 和验证失败的值 (`abc`)。`NSError` 对象不会告诉你为什么 `abc` 太短——它不包含 `bar` 要求至少 5 个字符的信息。要得出这个结论，你必须向 `Foo` 实体请求 `bar` 属性的 `NSPropertyDescription`，获取该属性描述的验证谓词，然后遍历这些谓词以查看 `bar` 的最小长度是多少。这是一个崇高的目标，但很繁琐，而且通常有些矫枉过正。在这种情况下，违反 DRY（不要重复自己）原则，让代码了解一些数据模型的信息，可能是更好的答案。
+
+在你的数据模型中使用验证时，另一个需要考虑的奇怪之处是，创建托管对象时并不会强制执行验证；只有在尝试保存托管对象所在的托管对象上下文时才会强制执行。仔细想想，这是有道理的，因为创建托管对象并填充其属性是分多个步骤完成的。首先，你在上下文中创建对象，然后设置其属性和关系。例如，如果你要为前面段落中的 `Foo` 实体创建托管对象，你会编写这样的代码：
+
+```
+NSManagedObject *foo = [NSEntityDescription insertNewObjectForEntityForName:@"Foo"
+                                inManagedObjectContext:[self managedObjectContext]]; // 此时 foo 处于无效状态；
+// bar 少于五个字符
+[foo setValue:@"abcde" forKey:@"bar"];
+```
+
+托管对象 `foo` 被创建并存在于托管对象上下文中，处于无效状态，但托管对象上下文会忽略这一点。下一行代码使 `foo` 托管对象变为有效，但只有在托管对象上下文被保存时才会进行验证。
+
+#### 在 MyStash 中处理验证错误
+
+在本节中，你将为一个名为 MyStash 的应用程序实现一个验证错误处理例程。这个例程是通用的，因为它不了解哪些属性具有验证规则，但又是具体的，因为它不会处理所有验证错误——只处理你已知在模型上设置的那些错误。不过在此之前，你需要向 MyStash 的数据模型添加一些验证规则。对 `System` 实体的 `userId` 属性进行以下更改：
+
+*   将最小长度设置为 3。
+*   将最大长度设置为 10。
+*   将正则表达式设置为仅允许字母和数字：`[A-Za-z0-9]*`。
+
+属性字段应与图 10-27 一致。保存数据模型。现在你可以开始实现验证错误处理例程了。
+
+![images](img/1027.jpg)
+
+**图 10-27.** *在 `System` 的 `userId` 属性上设置验证*
+
+
+  
+### 实现验证错误处理例程
+
+你编写的验证错误处理例程应接受一个指向 `NSError` 对象的指针，并返回一个包含错误信息的 `NSString`，各条错误信息之间以换行符分隔。打开 `PasswordListViewController.h`，并声明该例程。
+
+```
+- (NSString *)validationErrorText:(NSError *)error;
+```
+
+该例程本身位于 `PasswordListViewController.m` 中，它创建一个可变字符串来容纳所有错误信息。接着创建一个数组来容纳所有错误（可能是多个错误或单个错误）。然后遍历所有错误，获取出错的属性名，并根据错误代码形成适当的错误信息。请注意，模型中最小长度（3）和最大长度（10）这些信息是硬编码的，因为错误对象不包含这些信息。代码清单 10–29 包含 `validationErrorText:` 的实现。
+
+**代码清单 10–29.** *从 `NSError` 对象生成错误文本的方法*
+
+```
+#pragma mark - 验证错误处理
+
+- (NSString *)validationErrorText:(NSError *)error
+{
+  // 创建一个字符串来容纳所有错误信息
+  NSMutableString *errorText = [NSMutableString stringWithCapacity:100];
+
+  // 判断是单个错误还是多个错误，并将它们全部放入一个数组
+  NSArray *errors = [error code] == NSValidationMultipleErrorsError ? [[error
+userInfo] objectForKey:NSDetailedErrorsKey] : [NSArray arrayWithObject:error];
+
+  // 遍历所有错误
+  for (NSError *err in errors)
+  {
+    // 获取出现验证错误的属性
+    NSString *propName = [[err userInfo] objectForKey:@"NSValidationErrorKey"];
+    NSString *message;
+    // 形成适当的错误信息
+    switch ([err code])
+    {
+      case NSValidationMissingMandatoryPropertyError:
+        message = [NSString stringWithFormat:@"%@ 为必填项", propName];
+        break;
+      case NSValidationStringTooShortError:
+        message = [NSString stringWithFormat:@"%@ 至少需要 %d 个字符",
+propName, 3];
+        break;
+      case NSValidationStringTooLongError:
+        message = [NSString stringWithFormat:@"%@ 不能超过 %d 个字符",
+propName, 10];
+        break;
+      case NSValidationStringPatternMatchingError:
+        message = [NSString stringWithFormat:@"%@ 只能包含字母和数字",
+propName];
+        break;
+      default:
+        message = @"未知错误。请按 Home 键终止。";
+        break;
+    }
+    // 用换行符分隔错误信息
+    if ([errorText length] > 0)
+    {
+      [errorText appendString:@"\n"];
+    }
+    [errorText appendString:message];
+  }
+  return errorText;
+}
+```
+
+你需要对代码进行相当多的调整，才能将此例程整合到应用程序中。首先从 `PasswordListViewController.h` 开始，更改两个方法的返回类型（稍后会说明原因）。将 `insertPasswordWithName:` 的返回类型改为 `NSManagedObject*`，并将 `saveContext:` 的返回类型改为 `NSString*`，如代码清单 10–30 所示。
+
+**代码清单 10–30.** *更新 `PasswordListViewController.h` 中的返回类型*
+
+```
+- (NSManagedObject *)insertPasswordWithName:(NSString *)name userId:(NSString *)userId
+password:(NSString *)password;
+- (NSString *)saveContext;
+```
+
+`insertPasswordWithName:` 现在必须返回 `NSManagedObject*` 的原因在于，你可能需要删除此方法创建的托管对象。考虑以下事件序列：
+
+1.  用户点击 + 按钮创建新密码。
+2.  用户输入无效数据。
+3.  用户点击保存。上下文中创建了一个新的托管对象，但保存上下文失败。
+4.  用户关闭提示无效数据的警告框。
+5.  用户点击取消。
+
+在此场景中，如果你没有获取新创建对象的句柄以便删除它，那么无效对象将仍然存在于托管对象上下文中，后续的保存操作将失败且无法恢复。代码清单 10–31 显示了更新后的返回托管对象的 `insertPasswordWithName:` 方法。同时显示了更新后的 `saveContext:` 方法，现在如果保存失败，该方法将返回错误文本；否则返回 `nil`。
+
+**代码清单 10–31.** *`initWithPasswordWithName:` 和 `saveContext:` 方法*
+
+```
+- (NSManagedObject *)insertPasswordWithName:(NSString *)name userId:(NSString *)userId
+password:(NSString *)password
+{
+  NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
+  NSEntityDescription *entity = [[fetchedResultsController fetchRequest] entity];
+  NSManagedObject *newPassword = [NSEntityDescription
+insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+
+  [newPassword setValue:name forKey:@"name"];
+  [newPassword setValue:userId forKey:@"userId"];
+  [newPassword setValue:password forKey:@"password"];
+
+  return newPassword;
+}
+
+- (NSString *)saveContext
+{
+  NSString *errorText = nil;
+  NSError *error = nil;
+  if (![[self.fetchedResultsController managedObjectContext] save:&error])
+  {
+    errorText = [self validationErrorText:error];
+  }
+  return errorText;
+}
+```
+
+`PasswordViewController` 类中唯一需要更改的是 `save:` 方法的实现。还记得它过去是多么简单和整洁吗？好吧，现在它不再简单了。用户现在可以执行诸如编辑现有系统条目、更改某些值使其无效、点击保存（更新对象上的值），然后在关闭警告后点击取消等操作。你必须更改此方法，以便在验证失败时撤销任何更改，因此在做出任何更改之前保存状态，以便在发生错误时恢复状态。如果发生任何错误，则显示警告且不关闭模态视图。代码清单 10–32 显示了新的 `save:` 方法。
+
+**代码清单 10–32.** *更新后的 `save:` 方法*
+
+```
+- (IBAction)save:(id)sender
+{
+  NSString *errorText = nil;
+
+  // 创建存储更改前状态的变量，以便在出现验证错误时回退
+  NSManagedObject *tempSystem = nil;
+  NSString *tempName = nil;
+  NSString *tempUserId = nil;
+  NSString *tempPassword = nil;
+```
+
+
+
+```objective-c
+if (parentController != nil)
+{
+    if (system != nil)
+    {
+        // 用户正在编辑一个已有的系统。存储其当前值
+        tempName = [NSString stringWithString:(NSString *)[system valueForKey:@"name"]];
+        tempUserId = [NSString stringWithString:(NSString *)[system valueForKey:@"userId"]];
+        tempPassword = [NSString stringWithString:(NSString *)[system valueForKey:@"password"]];
+        // 用新值更新
+        [system setValue:name.text forKey:@"name"];
+        [system setValue:userId.text forKey:@"userId"];
+        [system setValue:password.text forKey:@"password"];
+    }
+    else
+    {
+        // 用户正在添加一个新系统。创建新的托管对象，但保留
+        // 一个指针指向它
+        tempSystem = [parentController insertPasswordWithName:name.text userId:userId.text password:password.text];
+    }
+    // 保存上下文并收集所有验证错误
+    errorText = [parentController saveContext];
+}
+if (errorText != nil)
+{
+    // 发生验证错误。显示一个警告。
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误！" message:errorText delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
+
+    // 由于我们遇到错误并且上下文未保存，撤销此方法所做的任何更改
+    if (tempSystem != nil)
+    {
+        // 我们添加了一个对象，因此删除它
+        [[parentController.fetchedResultsController managedObjectContext] deleteObject:tempSystem];
+    }
+    else
+    {
+        // 我们编辑了一个对象，因此将其恢复原状
+        [system setValue:tempName forKey:@"name"];
+        [system setValue:tempUserId forKey:@"userId"];
+        [system setValue:tempPassword forKey:@"password"];
+    }
+}
+else
+{
+    // 保存成功！仅在成功时关闭模态视图
+    [self dismissModalViewControllerAnimated:YES];
+}
+```
+
+呼！将验证逻辑迁移到数据模型可真是一项繁重的工作。当您探索这种执行验证的方式时，您可能会同意，设计更好的用户界面（例如，仅当`userId`字段包含有效数据时才启用“保存”按钮）或在代码中验证值是更优的方法。
+
+如果您运行此应用程序，点击添加新密码，并在用户 ID 字段中输入超过十个字符（包括标点符号），您将看到验证工作的成果，如图 10–28 所示。
+
+![images](img/1028.jpg)
+
+**图 10–28.** *在 System 的 userId 属性上设置验证*
+
+### 总结
+
+在本章中，您探索了与 Core Data 相关的几个高级主题。其中一些（如错误处理和验证）很可能会在您的许多应用程序中用到。另一些（如加密）您可能只是偶尔使用。
+
+通过本书的学习，您已经了解了 Core Data 的广度和深度。您了解到 Core Data 为您做了多少工作，也了解到为了与 Core Data 框架正确交互您需要完成哪些工作。我们希望您像我们享受编写本书一样享受阅读本书的乐趣，并期待您在应用程序中使用 Core Data 时收到您的反馈！
+
+## 索引
+
+### ![images](img/square1.jpg)A
+
+`Actor` 类, 226
+
+`Actor` 实体, 213, 226
+
+`Actor.h` 文件, 226
+
+`Actor.m` 文件, 226
+
+`ActorsMap` 字典, 243
+
+`Actor` 表, 213
+
+`Actor`-`Movie` 关联表, 213
+
+添加获取请求选项, Xcode IDE, 122, 123
+
+添加模型版本选项, Xcode IDE, 254
+
+添加类型, 263
+
+`AddObserver:forKeyPath:options:context:` 方法, 348
+
+`addPersistentStoreWithType:` 方法, 258, 261
+
+`addVerticesObject:` 方法, 164
+
+`allowsReverseTransformation` 方法, 172
+
+应用程序委托, 9, 14, 24, 25
+
+`application:didFinishLaunchingWithOptions:` 方法, 173, 191, 215
+
+应用程序测试, 209
+
+- 向应用程序添加测试框架, 220, 222
+- 构建测试框架, 218, 219
+- 创建 Core Data 项目, 210
+- 创建数据和数据模型, 213, 215
+- 创建测试视图, 215, 217
+- 运行选定测试按钮, 209
+- 运行初始测试, 222, 223
+
+应用程序
+
+- 使用 `NSFetchedResultsController` 类管理表视图, 285
+    - 缓存名称, 287
+    - 委托, 287–288
+    - 获取请求, 286
+    - 实现, 293–297
+    - 在 League Manager 中实现, 288, 292
+    - 实现 `NSFetchedResultsControllerDelegate` 协议 (*参见* `NSFetchedResultsControllerDelegate` 协议)
+    - 托管对象上下文, 286
+    - 分区名称键路径, 286
+- Shapes 应用程序，启用用户交互, 156
+
+`associateSourceInstance:withDestinationInstance:forEntityMapping:` 方法, 264
+
+原子存储, 94
+
+属性详细信息窗格, Xcode IDE, 126
+
+属性
+
+- 创建, 125–127
+- 查看和编辑详细信息, 119
+    - 默认值属性, 120
+    - 描述列, 119
+    - 详细信息窗格, 119
+    - 索引属性, 120
+    - 最大长度属性, 120
+    - 最大值属性, 120
+    - 最小长度属性, 120
+    - 最小值属性, 120
+    - 名称列, 119
+    - 名称属性, 120
+    - 可选属性, 120
+    - 正则表达式属性, 120
+    - 瞬态属性, 120
+    - 类型属性, 120
+    - 验证, 120
+
+自动调整大小区域, 145, 146
+
+`awakeFromInsert` 方法, 180
+
+
+
+### B
+
+- `BasicApplication.xcdatamodeld` 组，9
+- `BasicApplicationAppDelegate.m` 文件，14
+- `BasicCanvasUIView` 类，145，146
+- `BasicCanvasUIView.m` 文件，170
+- `BasicCanvasUIView.m` 文件，268，269
+- 批量错误（Batch faulting）,229，231
+- `BeginUpdates` 方法，287
+- 二进制属性类型，127
+- 二进制数据属性类型，32
+- BLOB 列，170
+- 布尔属性类型，127
+- BOOL 数据类型，32
+- 布尔属性类型，32
+- 暴力缓存过期，236
+
+### C
+
+- 缓存过期，236
+  - 暴力方式，236
+  - 内存消耗，236
+  - 通过错误机制，237
+- 缓存名称，287
+- `CacheName` 参数，11
+- `CacheTest` 类，234
+- `CacheTest.h` 文件，234
+- `CacheTest.m` 文件，234
+- 缓存机制，233
+  - 缓存过期，236
+    - 暴力方式，236
+    - 内存消耗，236
+    - 通过错误机制，237
+  - 缓存管理方案，233
+  - 缓存对象与非缓存对象的加载，235
+  - `CacheTest` 类，234
+  - `CacheTest.h` 文件，234
+  - `CacheTest.m` 文件，234
+  - 与错误机制的关系，225
+  - `LoadDataFromContext` 方法，235
+  - `NSManagedObjectContext` 类，233
+  - `PerformanceTest` 协议，234
+  - `RunWithContext` 方法，235
+- `CanRedo` 方法，181
+- `CanUndo` 方法，181
+- 画布实体，259
+- 级联规则，41，131
+- `Circle.h` 文件，268
+- 圆到椭圆实体映射，275
+- `CircleToEllipseMigrationPolicy` 类，272
+- `CircleToEllipseMigrationPolicy.h` 文件，273
+- `CircleToEllipseMigrationPolicy.m` 文件，273
+- 类字段，Xcode IDE，124
+- 比较器，241
+- `ConfigureCell` 方法，320
+- 上下文，4
+- `Controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:` 方法，287
+- `Controller:didChangeSection:atIndex:forChangeType:` 方法，287
+- `Controller:sectionIndexTitleForSectionName:` 方法，287
+- `ControllerDidChangeContent:` 方法，288
+- `ControllerWillChangeContent:` 方法，287
+- 拷贝类型，263
+- Core Data
+  - 添加到现有项目，16
+  - 添加 Core Data 框架，16–19
+  - 创建数据模型，19–21
+  - 初始化托管对象，22–24
+  - 应用程序创建，3
+  - 组件，3–4
+  - 创建新项目，5–6
+  - 获取结果，10–13
+  - 初始化托管上下文，14–16
+  - 插入新对象，13–14
+  - 运行新项目，6–8
+  - 理解组件，9–10
+  - 数据模型（*参见* 数据模型）
+  - 错误机制（*参见* 错误机制）
+  - 初始化序列，15
+  - `NSFetchedResultsController`（*参见* `NSFetchedResultsController` 类）
+  - 持久化存储（*参见* 持久化存储）
+  - 测试（*参见* 应用程序测试；性能测试；测试）
+- Core Data 框架类，27
+  - 在 Xcode 中创建新应用程序，28
+  - 数据访问类，38
+  - `addPersistentStoreWithType:` 方法，39
+  - 类图，38
+  - iOS 默认的持久化存储类型，39
+
+
+
+*   `delete rules`，41
+*   `initialization sequence`，38
+*   `initWithManagedObjectModel` 方法，39
+*   `NSManagedObjectContext` 中的 `life-cycle operations`，42
+*   `managed object context object graph`，39
+*   `methods for retrieving and creating data objects`，41
+*   `migratePersistentStore` 方法，39
+*   `NSManagedObject` 类，42
+*   `NSManagedObjectContext`，40
+*   `NSManagedObjectModel` 类，39
+*   `NSXMLStoreType`，40
+*   `redo operation`，41
+*   `reference to context`，43
+*   `setValue forKey` 方法，42
+*   `undo operation`，41
+*   `valueForKey` 方法，42
+*   `high-level overview`，30
+*   `interaction of classes`，47
+*   `autoincrement identifier`，47
+*   `createData` 方法，50–53
+*   `didFinishLaunchingWithOptions` 方法，50
+*   `id` 属性，51
+*   `mutableSetValueForKey` 方法，52
+*   `object graph`，47
+*   `organization data model`，47
+*   `Organization` 实体，47
+*   `OrgChart` 应用程序，47
+*   `OrgChartAppDelegate.h` 文件，48–50
+*   `OrgChartAppDelegate.m` 文件，48
+*   `Person` 实体，47
+*   `reading data using Core Data`，55–56
+*   `save` 方法，52
+*   `setValue forKey` 方法，51
+*   `SQLite primer`，53–54
+*   `valueForKey` 方法，52
+*   `key-value observing`，43
+*   `didChangeValueForKey` 方法，43
+*   `NSManagedObject` 类，43
+*   `willChangeValueForKey` 方法，43
+*   `model definition classes`，30
+*   `Add Relationship` 选项，Xcode IDE，34
+*   `attributes`，30
+*   `attributeType` 属性，34
+*   `data model`，37
+*   `fetched properties`，30
+*   `id` 属性，34
+*   `inverse relationships`，36
+*   `managedObjectClassName` 属性，34
+*   `name` 属性，34
+*   `name` 属性，34
+*   `NSAttributeDescription` 类，31，34
+*   `NSAttributeType` 结构，32
+*   `NSEntityDescription` 类，31
+*   `NSFetchedPropertyDescription` 类，31
+*   `NSInteger16AttributeType` 属性，34
+*   `NSManagedObjectModel` 类，31
+*   `NSPropertyDescription` 类，31
+*   `NSRelationshipDescription` 类，31
+*   `NSStringAttributeType` 属性，34
+*   `object graph`，33，38
+*   `object model description`，38
+*   `one-to-many relationship`，36
+*   `Organization` 属性，34
+*   `organization model`，34，37
+*   `Person` 实体，34
+*   `project with organization entity`，33
+*   `properties of relationship`，35
+*   `relationships`，30
+*   `transformable attributes`，33
+*   `NSManagedObjectContext` 类，29
+*   `NSManagedObjectModel` 类，30
+*   `NSPersistentStoreCoordinator` 类，30
+*   `OrgChart`，28
+*   `query classes`，44
+*   `main classes`，46
+*   `NSFetchedResultsController` 类，45
+*   `NSFetchRequest` 类，45
+*   `NSFetchRequest class diagram`，44
+*   `NSManagedObject` 类，45
+*   `NSManagedObjectContext` 类，45
+*   `NSPredicate` 类，45
+*   `NSPredicate` 实例，44
+*   `NSSortDescriptor` 实例，44
+*   `predicateWithFormat` 方法，45
+
+### Core Data 模型配置
+
+*   `MyStash.xcdatamodel` 模型，337
+*   `Notes` 配置，336
+*   添加 `Note` 实体，337
+*   `Notes.sqlite` 数据库，339
+*   `Passwords` 配置，336
+*   添加 `System` 实体，338
+*   `Passwords.sqlite` 数据库，339
+*   更新的 `persistentStoreCoordinator` 方法，338
+*   `Core Data` 项目，210
+*   `Core Data recording instruments`，248
+*   `Core Data template`，Xcode IDE，63
+*   `Crawford, Shane`，175
+*   `CreateData` 方法，56，191
+*   `CreateDestinationInstancesForSourceInstance` 方法，264，273
+*   `CreateRelationshipsForDestinationInstance` 方法，264，274
+*   `CreateShapeAt` 方法，154，163，168，268
+*   `Creating attributes`，125 127
+*   `Creating entities`，123–125
+*   `Creating relationships`，127
+*   `Delete Rule` 字段，130–131
+*   `Destination and Inverse` 字段，129
+*   `Min Count and Max Count` 字段，130
+*   `Name` 字段，128
+*   `Optional` 复选框，129
+*   `To-Many Relationship` 复选框，130
+*   `Transient` 复选框，129
+*   `CRUD (create, retrieve, update, delete)`，133，156
+*   `building Shape application user interfaces`，145–153
+*   `enabling user interactions with Shapes application`，154–156
+*   `Shape application data models`，137–145
+
+### 自定义数据迁移
+
+*   `launching`，282
+*   `need for`，280
+*   `setting up migration manager`，281
+*   `MyMigrationManager.h` 文件，281
+*   `MyMigrationManager.m` 文件，281
+*   `Custom entity mapping type`，263–264
+*   `Custom migration`，278
+*   `Custom type`，263
+
+
+
+### 数据加密
+
+`EncryptedStringTransformer`
+
+`EncryptedStringTransformer.h`，345
+
+`EncryptedStringTransformer.m`，346
+
+`NSData` 类，342
+
+`NSData+Encryption.h`，343
+
+`NSData+Encryption.m`，344
+
+`Objective-C` 类别，342
+
+测试，346–347
+
+### 数据迁移，253，276
+
+自定义迁移，278
+
+启动迁移，282
+
+迁移的必要性，280
+
+设置迁移管理器，281
+
+轻量级迁移，257
+
+复杂更改，259
+
+创建映射模型，262
+
+映射模型，257
+
+重命名实体和属性，260
+
+简单更改，258
+
+运行 Shapes 应用程序，277
+
+### 数据模型，9，10，111
+
+添加数据模型，19
+
+添加实体和属性，21
+
+创建属性，125–127
+
+创建实体，123=125
+
+创建映射模型，262，270
+
+创建新模型版本，266
+
+源和目标选择，271
+
+理解实体映射，263
+
+理解属性映射，264
+
+创建关系，127
+
+`Delete Rule` 字段，130–132
+
+`Destination` 和 `Inverse` 字段，129
+
+`Min Count` 和 `Max Count` 字段，130
+
+`Name` 字段，128
+
+`Optional` 复选框，129
+
+`To-Many Relationship` 复选框，130
+
+`Transient` 复选框，129
+
+设计数据库，111
+
+`League Manager` 应用程序，112
+
+`Player` 实体，112
+
+关系型数据库规范化，112，113
+
+`Team` 实体，112
+
+`Z1TEAMS` 表，112
+
+`ZPLAYER` 表，112
+
+`ZTEAM` 表，112
+
+命名规范，20
+
+新建空数据模型，21
+
+性能调优，213
+
+使用 Xcode 数据建模器，113
+
+图形视图，116，117
+
+`League Manager` 模型，116，117
+
+映射模型，114
+
+新建文件，114
+
+`NSManagedObject` 类，117
+
+`Player` 实体，117
+
+团队关系，119
+
+用户界面，114，115
+
+使用获取的属性，121
+
+查看和编辑属性详情，119–120
+
+查看和编辑关系详情，120–121
+
+### 数据对象
+
+`CRUD`（创建、检索、更新、删除），133，156
+
+构建 Shape 应用程序用户界面，145–153
+
+创建 Shape 应用程序数据模型，145
+
+
+
+使用 Shapes 应用实现用户交互，154–156
+
+Shape 应用数据模型，137
+
+生成类，156–164
+
+修改生成的类，164–169
+
+形状，134，136
+
+撤销与重做，180–186
+
+为 Shapes 添加撤销功能，182–186
+
+禁用撤销跟踪，182
+
+限制撤销栈，181
+
+撤销组，181
+
+使用 Transformable 类型，169–173
+
+验证数据，173
+
+自定义验证，175–179
+
+数据验证错误，174
+
+默认值，179–180
+
+调用验证，179
+
+### 数据存储
+
+托管对象模型，14
+
+持久化存储，14，15
+
+### 数据验证
+
+自定义验证，175–179
+
+默认值，179–180
+
+调用验证，179
+
+验证错误，174，175
+
+### 数据库
+
+创建属性，125–127
+
+创建实体，123–125
+
+创建关系，127
+
+- 删除规则字段，130–132
+- 目标和反转字段，129
+- 最小计数和最大计数字段，130
+- 名称字段，128
+- 可选复选框，129
+- 对多关系复选框，130
+- 瞬态复选框，129
+
+设计，111
+
+- 联盟经理应用，112
+- 玩家实体，112
+- 关系数据库规范化，112–113
+- 队伍实体，112
+- Z1TEAMS 表，112
+- ZPLAYER 表，112
+- ZTEAM 表，112
+
+DataSource 选项，217
+
+Date 属性类型，32，127
+
+DateOfBirth 属性，Person 实体，124
+
+Decimal 属性类型，32，126
+
+Default Value 属性，120
+
+Delegate 选项，217
+
+委托，287–288
+
+删除规则字段，130–132
+
+`DeleteAllObjects` 方法，156
+
+`DeleteAllShapes` 方法，152
+
+`DeleteObject` 方法，41
+
+`DemoApp1AppDelegate.m` 文件，24
+
+`DemoAppAppDelegate.h` 文件，22
+
+### Deny 规则，41，131
+
+### 设计数据库
+
+联盟经理应用，112
+
+玩家实体，112
+
+关系数据库规范化，112–113
+
+队伍实体，112
+
+Z1TEAMS 表，112
+
+ZPLAYER 表，112
+
+ZTEAM 表，112
+
+目标字段，129
+
+详情面板，Xcode IDE，119
+
+`DidFinishLaunchingWithOptions` 方法，24，56
+
+`DidTurnIntoFault` 方法，226
+
+`DidTurnIntoFaultTest` 类，227
+
+`DidTurnIntoFaultTest.h` 文件，227，228
+
+`DidTurnIntoFaultTest.m` 文件，227
+
+迪杰斯特拉，爱德华，27
+
+`DisableUndoRegistration` 方法，182
+
+`DisplayPerson` 方法，55
+
+Double 属性类型，32，126
+
+`DrawRect` 方法，143，170，268
+
+### ![images](img/square1.jpg)E
+
+`Ellipse` 类，267，268
+
+Ellipse 实体，259，266，267
+
+`Ellipse.h` 文件，267
+
+`Ellipse.m` 文件，267
+
+Email 属性，66
+
+Email 属性，Player 实体，117，118
+
+爱默生，拉尔夫·沃尔多，111
+
+`EnableUndoRegistration` 方法，182
+
+### 加密
+
+数据保护，340
+
+设备端，341
+
+持久化存储加密，340
+
+`EncryptedStringTransformer`，345
+
+`EncryptedStringTransformer.h`，345
+
+`EncryptedStringTransformer.m`，346
+
+`NSData+Encryption` 分类，343
+
+Objective-C 分类，343
+
+密码数据库，341
+
+测试，346，347
+
+企业 JavaBeans (EJB)，27
+
+企业对象框架 (EOF)，2
+
+实体，123–125
+
+实体详情面板，Xcode IDE，119，124
+
+实体映射，263
+
+实体区域，Xcode IDE，123
+
+### 错误处理，MyStash
+
+核心数据操作，355
+
+`initWithPasswordWithName` 方法，362
+
+NSError 对象，361
+
+`PasswordListViewController.h`，362
+
+生产级代码，354
+
+`saveContext` 方法，362
+
+更新后的保存方法，363
+
+验证错误，357
+
+`ErrorFromOriginalError` 方法，178，179
+
+Event 实体，9–11
+
+`ExecuteFetchRequest` 错误方法，41
+
+### 缓存过期
+
+暴力缓存过期，236
+
+内存消耗，236
+
+通过故障机制，237
+
+`ExpressionForAggregate` 方法，194
+
+
+
+### F, G
+
+故障（Faulting），223  
+构建测试，226–229  
+以及缓存，225  
+触发故障，224  
+故意触发故障，229–230  
+批量故障，229  
+预抓取，229  
+预抓取，231  
+`PreFetchFaultingTest` 类，231  
+`RunWithContext` 方法，231  
+`setRelationshipKeyPathsForPrefetching` 方法，231  
+`SinglyFiringFaultTest.m` 文件，231  
+重新触发故障，225–226  
+`Fetch` 请求，286  
+`FetchAllMoviesActorsAndStudiosTest` 类，219  
+已获取属性（Fetched properties），121  
+`FetchedObjects` 属性，13  
+`FetchedResultsController`  
+完整的 getter 方法，12, 13  
+属性，11  
+第五范式（5NF），113  
+触发故障，224, 229–230  
+批量故障，229  
+预抓取，229  
+第一范式（1NF），113  
+`FirstName` 属性，66  
+`Float` 属性类型，32, 126  
+`FloatValue` 方法，143  
+表单（Forms），112  
+第四范式（4NF），113  
+福勒，马丁（Fowler, Martin），165, 237  
+框架（Frameworks），16
+
+### H
+
+汉塞尔曼，斯科特（Hanselman, Scott），134  
+`HasChanges` 方法，42  
+隐藏系统库复选框，250
+
+### I, J
+
+标识映射（Identity map），237  
+`Indexed` 属性，120  
+`InitWithStyle` 方法，314  
+内存持久化存储  
+缓存远程信息，93  
+`League_ManagerAppDelegate.m`，92  
+生命周期，93  
+`persistentStoreCoordinator` 方法，92  
+`InsertNewObject` 方法，13  
+`InsertObject` 方法，41  
+Instrument 库，248  
+启动 Instruments，245  
+库，248  
+主窗口，247  
+模板选择，246  
+`Int16` 属性类型，126  
+`Int32` 属性类型，126  
+`Int64` 属性类型，126  
+`Integer 16` 属性类型，32  
+`Integer 32` 属性类型，32  
+`Integer 64` 属性类型，32  
+反向字段（Inverse field），129  
+iOS  
+Core Data，应用程序创建（见 Core Data，应用程序创建）  
+持久化历史，2, 3  
+`IsConfiguration compatibleWithStoreMetadata` 方法，`NSManagedObjectModel` 类，280
+
+### K
+
+键值观察（KVO）机制，348  
+KVC（键值编码），162
+
+### L
+
+拉马什，杰夫（LaMarche, Jeff），175  
+`LastName` 属性，66  
+启动 Instruments，245  
+库，248  
+主窗口，247  
+模板选择，246  
+League Manager 应用程序  
+添加新球队，80  
+`CustomStore` 类，95, 106  
+`CustomStore.h` 文件，95  
+`CustomStore.m` 文件，96  
+在其中实现 `NSFetchedResultsController`，288, 292  
+League Manager 视图，289  
+`League_Manager.sqlite` 数据库，107  
+`League_Manager.txt` 文件，107  
+`League_ManagerAppDelegate.m` 文件，106  
+`metadataForPersistentStoreWithURL` 错误方法，98  
+`NSPersistentStore` 类，97  
+`persistentStoreCoordinator` 方法，106  
+球员视图，289  
+包含球队时，80  
+不包含球队时，79  
+`writeMetadata toURL` 方法，97  
+`LoadData` 方法，214, 215  
+`LoadDataFromContext` 方法，235
+
+
+
+### `MakeRandomColor` 方法，151，170
+
+`Managed object context`（托管对象上下文），4，286
+
+`Managed Objects`（托管对象）组，266
+
+`Mapping model`（映射模型），114，257
+- 创建新模型版本，266
+- 源和目标选择，271
+- 理解实体映射，263
+- 理解属性映射，264
+
+`MasterViewController`，10
+
+`Max Count`（最大计数）字段，130
+
+`Max Length`（最大长度）属性，120
+
+`Max Value`（最大值）属性，120
+
+`Memory consumption`（内存消耗），236
+
+`Memory management`（内存管理），233
+
+### `Memory usage`（内存使用）
+- 缓存过期，236
+- 暴力方法，236
+- 内存消耗，236
+- 通过故障机制，237
+- 缓存，233
+- 缓存管理方案，233
+- 缓存对象与非缓存对象加载，235
+- `CacheTest` 类，234
+- `CacheTest.h` 文件，234
+- `CacheTest.m` 文件，234
+- `LoadDataFromContext` 方法，235
+- `NSManagedObjectContext` 类，233
+- `PerformanceTest` 协议，234
+- `RunWithContext` 方法，235
+- 预抓取，231
+- `PreFetchFaultingTest` 类，231
+- `RunWithContext` 方法，231
+- `setRelationshipKeyPathsFor Prefetching` 方法，231
+- `SinglyFiringFaultTest.m` 文件，231
+
+`MergeChanges`（合并更改）参数，225
+
+`MergedModelFromBundles forStoreMetadata` 方法，281
+
+`MetadataForPersistentStoreOfType URL error` 方法，280
+
+`Migration Mappings`（迁移映射）组，272
+
+`Min Count`（最小计数）字段，130
+
+`Min Length`（最小长度）属性，120
+
+`Min Value`（最小值）属性，120
+
+`Model versions`（模型版本），266
+
+`Model4to5.xcmappingmodel` 文件，270，277
+
+`Movie`（电影）实体，213，250
+
+`Movie`（电影）表，213
+
+`Movie-to-Studio`（电影到工作室）表，213
+
+`MyAttribute`（我的属性）属性，20，24
+
+`MyMigrationManager.h` 文件，281
+
+`MyMigrationManager.m` 文件，281
+
+### `MyStash` 项目，307
+- 添加标签页
+    - 笔记视图，311，314
+    - 密码列表视图，314
+- `Empty Application`（空应用程序）模板，307
+- 错误处理
+    - 核心数据操作，355
+    - 生产就绪代码，353
+    - 验证错误，357，361
+- 集成 `NSFetchedResultsController`，316
+    - 存取方法，317
+    - 委托调用，319
+    - 删除行的方法，321
+    - `NoteListViewController.h`，317
+    - `NSFetchedResultsController Delegate` 协议方法，318
+    - `PasswordListViewController.h`，317
+- 编辑笔记界面
+    - 方法，326
+    - `NoteViewController.h`，322
+    - `NoteViewController.m`，323
+    - `NoteViewController.xib`，325
+    - `tableView didSelectRowAtIndexPath` 方法，327
+    - `viewDidLoad`，添加按钮，327
+- 编辑密码界面
+    - 配置密码视图，332
+    - `PasswordViewController.m`，330
+    - 方法，333
+    - `PasswordViewController.h`，329
+    - `PasswordViewController.xib`，331
+    - 更新后的 `tableView didSelectRowAtIndexPath` 方法，334
+    - 更新后的 `viewDidLoad` 方法，333
+- 多个持久化存储，335 (*另请参阅* 核心数据模型配置)
+- `Note`（笔记）实体，数据模型，309
+- 笔记列表视图
+    - 编辑模式下，329
+    - 添加笔记，328
+- 通知
+    - KVO 模型，348
+    - `NSKeyValueObservingOptionNew`，348
+    - `NSKeyValueObservingOptionOld`，348
+    - 接收通知，349
+    - 已注册的观察者，348
+- 预置数据，349
+    - 为密码添加类别，350
+    - 创建新版本，353
+- 配置设置，308
+- `System`（系统）实体，数据模型，309
+- 标签栏控制器，310，311
+
+
+
+### N
+
+- `Name`属性，213，214，229
+- `Name`字段，128
+- `Name`特性，120
+- `NeXT`技术，2
+- `No action`规则，41，131
+- 规范化（*参见* 关系型数据库规范化）
+- `NoteListViewController`类，311
+- `Notes.sqlite`数据库，339
+- `NoteViewController`类的方法，326
+- `NoteViewController.h`，322–324，326
+- `NoteViewController.m`，323
+- `NoteViewController.xib`，325
+- `viewDidLoad`，添加按钮，327
+- `NSAddEntityMappingType`，263
+- `NSAtomicStoreCacheNode`，98
+  - `CustomStore.h`文件，100
+  - `newCacheNodeForManagedObject`方法，99
+  - `nodeForReferenceObject`和`ObjectID`方法，100
+  - `updateCacheNode`（来自`ManagedObject`）方法，99，100
+- `NSBinaryDataAttributeType`，32
+- `NSBinaryDataAttributeType`，127
+- `NSBinaryStoreType`，39
+- `NSBooleanAttributeType`，32，127
+- `NSCopyEntityMappingType`，263
+- `NSCustomEntityMappingType`，263
+- `NSData`属性类型，127
+- `NSData`数据类型，32
+- `NSDate`属性类型，127
+- `NSDate`数据类型，32
+- `NSDateAttributeType`，32，127
+- `NSDecimalAttributeType`，32，126
+- `NSDecimalNumber`属性类型，126
+- `NSDecimalNumber`数据类型，32
+- `NSDoubleAttributeType`，126
+- `NSDoubleAttributeType`，32
+- `NSEntityMigrationPolicy`类，264
+- `NSFetchedResultsChangeType`值
+  - `NSFetchedResultsChangeDelete`，303
+  - `NSFetchedResultsChangeInsert`，303
+  - `NSFetchedResultsChangeMove`，303
+  - `NSFetchedResultsChangeUpdate`，303
+- `NSFetchedResultsController`类，10，11，316
+  - 访问器方法，317
+  - 委托调用，319
+  - 管理表格视图，285
+  - 缓存名称，287
+  - 委托，287–288
+  - 获取请求，286
+  - 实现，293–297
+  - 在 League Manager 中实现，288，292
+  - 实现 `NSFetchedResultsControllerDelegate` 协议（*参见* `NSFetchedResultsControllerDelegate` 协议）
+  - 托管对象上下文，286
+  - 分区名称键路径，286
+  - 删除行的方法，321
+  - `NoteListViewController.h`，317
+  - `NSFetchedResultsControllerDelegate` 协议方法，318
+  - `PasswordListViewController.h`，317
+- `NSFetchedResultsControllerDelegate` 协议，287，298
+  - 为表格添加索引，298–301
+  - 响应数据变更，302–305
+- `NSFetchRequest`类，187
+- `NSFloatAttributeType`，32，126
+- `NSInferMappingModelAutomaticallyOption`，276
+- `NSInferMappingModelAutomaticallyOption`键，277
+- `NSInMemoryStoreType`，39
+- `NSInteger16AttributeType`，32，126
+- `NSInteger32AttributeType`，32，126
+- `NSInteger64AttributeType`，32，126
+- `NSInternalInconsistencyException`，181，182
+- `NSManagedObject`，98
+  - `CustomStore.h`文件，100
+  - `newReferenceObjectForManagedObject`方法，99
+  - `nodeForReferenceObject`和`ObjectID`方法，100
+  - `updateCacheNode`（来自`ManagedObject`）方法，99，100
+- `NSManagedObjectContext`类，233，236
+- `NSManagedObjectModel`类，280
+- `NSMigratePersistentStoresAutomaticallyOption`，276
+- `NSMigrationManager`类，281
+- `NSNumber`属性类型，126
+- `NSNumber`数据类型，32
+- `NSRemoveEntityMappingType`，263
+- `NSSQLiteStoreType`，39
+- `NSString`属性类型，126
+- `NSString`数据类型，32
+- `NSStringAttributeType`，32，126
+- `NSTransformableAttributeType`，32，127
+- `NSTransformEntityMappingType`，263
+- `NSUndoManager`机制，180
+- `Nullify`规则，41，131
+- `NumberOfComponentsInPickerView`方法，221
+
+### O
+
+- 对象图持久化框架，48
+- Objective-C 世界库。（*参见* 框架）
+- `objectWithID`方法，41
+- 一对多关系，67
+  - 目标列，68
+  - 反向列，68
+  - League Manager 数据模型，69
+  - `Optional`复选框，Xcode IDE，67
+  - 球员实体，67，68
+  - 球员关系选项，68
+  - 关系信息区域，Xcode IDE，67
+  - 球队实体，67
+  - 对多关系复选框，Xcode IDE，67
+- `Optional`复选框，129
+- `Optional`属性，120
+- `OrgChart`应用程序，28，56
+  - `createData`方法，188–191
+  - `OrgChart.xcdatamodel`，188
+  - 读取并输出数据，191–192
+  - `sqlite3`命令行工具，191
+- `OrgChart.xcdatamodel`，188
+- `OrgChartAppDelegate.h`文件，56
+- `OrgChartAppDelegate.m`文件，49，55
+- `Owner`图标，217
+
+
+
+### `P, Q`
+
+- `Passwords.sqlite` 数据库，339
+- `PasswordViewController`
+    - 配置的密码视图，332
+    - 添加和编辑密码的界面
+    - 方法，333
+    - `PasswordViewController.h`，329, 333
+    - `PasswordViewController.m`，330, 331
+    - `PasswordViewController.xib`，331, 332
+    - 更新后的 `tableView didSelectRowAtIndexPath` 方法，334
+    - 更新后的 `viewDidLoad` 方法，333
+- 性能分析，245
+    - 启动工具，245
+    - 库，248
+    - 主窗口，247
+    - 模板选择，246
+    - 测试结果，249
+        - 获取请求的调用树，251
+        - 预获取错误测试，250
+- 性能改进
+    - 使用更快的比较器，241
+    - 使用子查询，242
+- 性能测试，209
+    - 测试运行后，223
+    - 构建视图，217
+    - 数据模型，213
+    - 通过更好的谓词提高性能，241
+        - 使用更快的比较器，241
+        - 使用子查询，242
+    - 性能分析，245
+        - 启动工具，245
+        - 测试结果，249
+- `PerformanceTest` 协议，218, 221, 227, 231, 238
+    - `PerformanceTest.h` 文件，218
+- 性能调优应用，210
+    - `PerformanceTuning.xcdatamodel` 文件，213
+    - `PerformanceTuningAppDelegate.h` 文件，214
+    - `PerformanceTuningAppDelegate.m` 文件，214
+    - `PerformanceTuningApplicationDelegate.m` 文件，211–213
+    - `PerformanceTuningViewController.h` 文件，215, 220
+    - `PerformanceTuningViewController.m` 文件，216, 220, 228, 240
+    - `PerformanceTuningViewController.xib` 文件，216
+    - “运行已选测试”按钮，218
+    - 单项测试，222
+    - `@synthesize` 指令，216
+- `PerformanceTest` 协议，218, 221, 227, 231, 234, 238
+    - `PerformanceTest.h` 文件，218
+- 性能调优应用，210
+    - 测试运行后，223
+    - 构建视图，217
+    - 数据模型，213
+    - 通过更好的谓词提高性能，241
+        - 使用更快的比较器，241
+        - 使用子查询，242
+    - 初始运行，218
+    - 性能分析，245
+        - 启动工具，245
+        - 测试结果，249
+    - `PerformanceTest` 协议，218, 221, 227, 231, 238
+        - `PerformanceTest.h` 文件，218
+
+
+
+`PerformanceTuning.xcdatamodel` 文件，213
+
+`PerformanceTuningAppDelegate.h` 文件，214
+
+`PerformanceTuningAppDelegate.m` 文件，214
+
+`PerformanceTuningApplicationDelegate.m` 文件，211–213
+
+`PerformanceTuningViewController.h` 文件，215，220
+
+`PerformanceTuningViewController.m` 文件，216，220，228，240
+
+`PerformanceTuningViewController.xib` 文件，216
+
+“运行已选测试”按钮，218
+
+单一测试，222
+
+`@synthesize` 指令，216
+
+`PerformanceTuning.xcdatamodel` 文件，213
+
+`PerformanceTuningAppDelegate.h` 文件，214
+
+`PerformanceTuningAppDelegate.m` 文件，214
+
+`PerformanceTuningApplicationDelegate.m` 文件，211–213
+
+`PerformanceTuningViewController` 类，217
+
+`PerformanceTuningViewController.h` 文件，215，220
+
+`PerformanceTuningViewController.m` 文件，216，220，228，240，242，245
+
+`PerformanceTuningViewController.xib` 文件，216
+
+`PerformCustomValidationForEntityMapping` 方法，264
+
+`PerformFetch` 方法，12
+
+持久化，1
+
+iOS 中的持久化，2，3
+
+持久化数据存储，215
+
+持久化存储
+
+添加、编辑和删除玩家，84
+
+`cancel` 方法，86
+
+`clickedButtonAtIndex` 方法，87
+
+`confirmDelete` 方法，86
+
+“删除”按钮，86
+
+`deletePlayer` 方法，87，88
+
+`didSelectRowAtIndexPath` 方法，89
+
+`initWithMasterController` 方法，85
+
+`insertNewObjectForEntityForName` 方法，87
+
+`insertPlayerWithTeam` 方法，86，87
+
+`insertTeamWithName` 方法，87
+
+`PlayerViewController` 类，84
+
+`PlayerViewController.h` 文件，85
+
+`PlayerViewController.m` 文件，85
+
+`PlayerViewController.xib` 文件，88
+
+`save` 方法，86
+
+`showPlayerView` 方法，88
+
+`TeamViewController` 类，84
+
+`UIViewController` 子类，84
+
+“视图”图标，88
+
+`viewDidLoad` 方法，86
+
+使用 XIB 构建用户界面复选框，Xcode IDE，84
+
+构建用户界面，69
+
+`commitEditingStyle` 方法，71
+
+`fetchedResultsController` 方法，71
+
+`insertNewObject` 方法，71
+
+`insertTeamWithName` 方法，69–71
+
+`saveContext` 方法，69，71
+
+`timeStamp` 属性，71
+
+配置一对多关系，67
+
+目标列，68
+
+反向列，68
+
+联盟管理器数据模型，69
+
+可选复选框，Xcode IDE，67
+
+
+
+player 实体，67，68
+
+players 关系选项，68
+
+relationship 信息部分，Xcode IDE，67
+
+team 实体，67
+
+To-Many Relationship 复选框，Xcode IDE，67
+
+配置表格，72
+
+`cellForRowAtIndexPath` 方法，72
+
+`configureCell atIndexPath` 方法，72
+
+创建自定义持久化存储，94
+
+原子存储，94
+
+逗号分隔值 (CSV) 文件，94
+
+初始化自定义存储，95–98
+
+Core Data 中的层，95
+
+`NSManagedObject` 与 `NSAtomicStoreCacheNode` 之间的映射，98–101
+
+`NSAtomicStore` 类，94
+
+序列化数据，101–106
+
+使用自定义存储，106–107
+
+XML 持久化存储，107–110
+
+创建新的 team，72
+
+向 League Manager 添加新的 team，80
+
+添加视图控制器，73
+
+`aTeam` 参数，75
+
+`cancel` 方法，75
+
+`didSelectRowAtIndexPath` 方法，78
+
+`initWithMasterController` 方法，75
+
+`insertNewObject` 方法，73
+
+带 teams 的 League Manager，80
+
+不带 teams 的 League Manager，79
+
+`save` 方法，75
+
+`showTeamView` 方法，78
+
+`TeamViewController.h` 文件，74，78
+
+`TeamViewController.m` 文件，75–77
+
+`TeamViewController.xib` 文件，77
+
+更新后的 team 视图，77
+
+`viewDidLoad` 方法，75，78
+
+空数据模型，65
+
+命名项目并选择 Core Data，64
+
+player 用户界面
+
+`accessoryButtonTappedForRowWithIndexPath` 方法，83
+
+`cellForRowAtIndexPath` 方法，83
+
+`initWithMasterController` 方法，82
+
+Player 实体，82
+
+`PlayerListViewController` 类，81
+
+`PlayerListViewController.h` 文件，81，84
+
+`PlayerListViewController.m` 文件，82
+
+`showPlayerView` 方法，81，82
+
+`sortPlayers` 方法，83
+
+`UITableViewController` 子类选项，Xcode IDE，81
+
+`UIViewController` 子类，81
+
+`valueForKey@players` 方法，82
+
+`viewDidLoad` 方法，82
+
+`viewWillAppear` 方法，82
+
+包含 XIB 用户界面复选框，Xcode IDE，81
+
+查看数据，89
+
+Player 实体，89
+
+Player List 屏幕，90
+
+ZPLAYER 表，89，91
+
+ZTEAM 表，89
+
+选择基于导航的应用程序模板，64
+
+team 和 player 数据模型，67
+
+team 数据模型，66
+
+使用内存持久化存储，92
+
+缓存远程信息，93
+
+`League_ManagerAppDelegate.m` 文件，92
+
+生命周期，93
+
+`persistentStoreCoordinator` 方法，92
+
+`PersistentStoreCoordinator` 方法，259，338
+
+Person 实体，124，125
+
+`PickerView numberOfRowsInComponent` 方法，221
+
+`PickerView titleForRow forComponent` 方法，221
+
+Plain Old Java Objects (POJOs)，27
+
+Player 实体，124，128，130
+
+Player 用户界面
+
+`accessoryButtonTappedForRowWithIndexPath` 方法，83
+
+`cellForRowAtIndexPath` 方法，83
+
+`initWithMasterController` 方法，82
+
+Player 实体，82
+
+`PlayerListViewController` 类，81
+
+`PlayerListViewController.h` 文件，81，84
+
+`PlayerListViewController.m` 文件，82
+
+`showPlayerView` 方法，81，82
+
+`sortPlayers` 方法，83
+
+`UITableViewController` 子类选项，Xcode IDE，81
+
+`UIViewController` 子类，81
+
+`valueForKey@players` 方法，82
+
+`viewDidLoad` 方法，82
+
+`viewWillAppear` 方法，82
+
+包含 XIB 用户界面复选框，Xcode IDE，81
+
+Point 实体，261
+
+`Polygon.m` 文件，261
+
+`PredicatePerformanceTest` 类，241
+
+`PredicatePerformanceTest.h` 文件，242
+
+谓词，241
+
+使用更快的比较器，241
+
+使用子查询，242
+
+预抓取故障测试，250
+
+`PreFetchFaultingTest` 类，231
+
+预抓取
+
+`PreFetchFaultingTest` 类，231
+
+`RunWithContext` 方法，231
+
+`setRelationshipKeyPathsForPrefetching` 方法，231
+
+`SinglyFiringFaultTest.m` 文件，231
+
+属性映射，264
+
+属性部分，Xcode IDE，121
+
+
+
+### ![images](img/square1.jpg)R
+
+- `Rating` 属性，213，214
+- `ReadData` 方法，191，193，196
+- `Redo` 方法，42，183，184
+- 重做数据对象，180，186
+  - 为 Shapes 添加撤销功能，182，186
+  - 禁用撤销追踪，182
+  - 限制撤销栈，181
+  - 撤销组，181
+- 重新触发故障，225–226
+- 优化结果集，187
+  - 聚合，203
+  - 构建测试应用程序
+    - `NSFetchRequest` 类，187
+    - `OrgChart` 应用程序（*参见* OrgChart 应用程序）
+  - 过滤，192
+    - 比较谓词，195
+    - 复合谓词，198
+    - `expressionForAggregate` 方法，194
+    - 单值表达式，193
+    - 子查询，200
+  - 排序，204
+    - 多级排序，206
+    - `NSSortDescriptor`，205
+    - 返回未排序数据，204
+- `RefreshObject mergeChanges` 方法，121，225
+- `RefreshObject` 方法，225
+- `Reg. Ex.` 属性，120
+- 关系，112
+- 关系型数据库规范化，112
+  - 第五范式（5NF），113
+  - 第一范式（1NF），113
+  - 范式，112
+  - 第四范式（4NF），113
+  - player 属性，113
+  - 关系，112
+  - 第二范式（2NF），113
+  - 第三范式（3NF），113
+  - uniformColor 属性，113
+- 关系型数据库理论，112
+- 关系
+  - 创建，127
+  - `Delete Rule` 字段，130，132
+  - `Destination` 和 `Inverse` 字段，129
+  - `Min Count` 和 `Max Count` 字段，130
+  - `Name` 字段，128
+  - `Optional` 复选框，129
+  - `To-Many Relationship` 复选框，130
+  - `Transient` 复选框，129
+  - 查看和编辑详细信息，120–121
+- 关系面板，128
+- `Remove` 类型，263
+- `RemoveAllActions` 方法，182
+- `Renaming Identifier` 字段，Xcode IDE，260
+- `Reset` 方法，42
+- REST（表述性状态转移），133
+- `Results` 选项，217
+- `Rollback` 方法，42
+- `RootViewController` 类，9，13
+- `Run Selected Test` 按钮，217–223
+- `RunTest` 方法，221
+- `RunWithContext` 方法，228，231，235
+
+### ![images](img/square1.jpg)S
+
+- `Save` 方法，13，42
+- `ScalarValue` 属性，276
+- `ScalarValue` 属性映射，276
+- `Scale` 方法，143，269
+- `.Schema` 命令，259
+- 第二范式（2NF），113
+- `SectionNameKeyPath` 参数，286
+- 序列化数据
+  - `CustomStore` 类，105
+  - `CustomStore.m` 文件，105
+  - `load` 方法，103，105
+  - `newReferenceObjectForManagedObject` 方法，101
+  - `nodeForReferenceObject andObjectID` 方法，105
+  - `save` 方法，101，103
+- `SetLevelsOfUndo` 方法，181
+- `SetRelationshipKeyPathsForPrefetching` 方法，231
+- `SetRenamingIdentifier` 方法，260
+- `SetRetainsRegisteredObjects` 方法，233
+- `SetUndoManager` 方法，42
+- `SetValue forKey` 方法，163
+- `Shapes [2].xcdatamodel` 目录，254，255
+- `Shapes [4].xcdatamodel` 文件，261，270
+- `Shapes [5].xcdatamodel` 文件，270
+- Shapes 应用程序
+  - 为其添加撤销功能，186
+  - 构建用户界面，145，153
+  - 创建数据模型，137，145
+  - 启用与之的用户交互，154，156
+- `Shapes.sqlite` 文件，259
+- `Shapes.xcdatamodel` 文件，137
+- `Shapes.xcdatamodel` 文件，254，255
+- `ShapesAppDelegate.h` 文件，139
+- `ShapesAppDelegate.m` 文件，140，152，173
+- `ShapesAppDelegate.m` 文件，259，277
+- `ShapesViewController` 类，145，148，152
+- `ShapesViewController.h` 文件，148，183
+- `ShapesViewController.m` 文件，149，152，162，170，183，268，269
+- `ShapesViewController.xib` 文件，145
+- `ShapeViewController.m` 文件，149
+- `SinglyFiringFaultTest` 类，229
+- `SinglyFiringFaultTest.h` 文件，229，230
+- `SinglyFiringFaultTest.m` 文件，229，231
+- 排序描述符，11
+- SQL（结构化查询语言），133，143
+- SQLite 数据库，63
+  - 添加、编辑和删除玩家，84
+  - `cancel` 方法，86
+  - `clickedButtonAtIndex` 方法，87
+  - `confirmDelete` 方法，86
+  - `Delete` 按钮，86
+  - `deletePlayer` 方法，87，88
+  - `didSelectRowAtIndexPath` 方法，89
+  - `initWithMasterController` 方法，85
+  - `insertNewObjectForEntityForName` 方法，87
+
+
+
+`insertPlayerWithTeam` 方法，86，87
+
+`insertTeamWithName` 方法，87
+
+`PlayerViewController` 类，84
+
+`PlayerViewController.h` 文件，85
+
+`PlayerViewController.m` 文件，85
+
+`PlayerViewController.xib` 文件，88
+
+`save` 方法，86
+
+`showPlayerView` 方法，88
+
+`TeamViewController` 类，84
+
+`UIViewController` 子类，84
+
+View 图标，88
+
+`viewDidLoad` 方法，86
+
+使用 XIB 构建用户界面复选框，Xcode IDE，84
+
+构建用户界面，69
+
+`commitEditingStyle` 方法，71
+
+`fetchedResultsController` 方法，71
+
+`insertNewObject` 方法，71
+
+`insertTeamWithName` 方法，69–71
+
+`saveContext` 方法，69，71
+
+`timeStamp` 属性，71
+
+配置一对多关系，67
+
+目标列，68
+
+反向列，68
+
+League Manager 数据模型，69
+
+可选复选框，Xcode IDE，67
+
+Player 实体，67，68
+
+Players 关系选项，68
+
+关系信息部分，Xcode IDE，67
+
+Team 实体，67
+
+对多关系复选框，Xcode IDE，67
+
+配置表格，72
+
+`cellForRowAtIndexPath` 方法，72
+
+`configureCell` atIndexPath 方法，72
+
+创建自定义持久化存储，94
+
+原子存储，94
+
+逗号分隔值（CSV）文件，94
+
+初始化自定义存储，95–98
+
+Core Data 中的层，95
+
+`NSManagedObject` 与 `NSAtomicStoreCacheNode` 之间的映射，98–101
+
+`NSAtomicStore` 类，94
+
+序列化数据，101–106
+
+使用自定义存储，106，107
+
+XML 持久化存储，107–110
+
+创建新队伍，72
+
+向 League Manager 添加新队伍，80
+
+添加视图控制器，73
+
+`aTeam` 参数，75
+
+`cancel` 方法，75
+
+`didSelectRowAtIndexPath` 方法，78
+
+`initWithMasterController` 方法，75
+
+`insertNewObject` 方法，73
+
+带队伍的 League Manager，80
+
+不带队伍的 League Manager，79
+
+`save` 方法，75
+
+`showTeamView` 方法，78
+
+`TeamViewController.h` 文件，74，78
+
+`TeamViewController.m` 文件，75–77
+
+`TeamViewController.xib` 文件，77
+
+更新后的队伍视图，77
+
+`viewDidLoad` 方法，75，78
+
+空数据模型，65
+
+命名项目并选择 Core Data，64
+
+用户界面，81
+
+`accessoryButtonTappedForRowWithIndexPath` 方法，83
+
+`cellForRowAtIndexPath` 方法，83
+
+`initWithMasterController` 方法，82
+
+Player 实体，82
+
+`PlayerListViewController` 类，81
+
+`PlayerListViewController.h` 文件，81，84
+
+`PlayerListViewController.m` 文件，82
+
+`showPlayerView` 方法，81，82
+
+`sortPlayers` 方法，83
+
+`UITableViewController` 子类选项，Xcode IDE，81
+
+`UIViewController` 子类，81
+
+`valueForKey@players` 方法，82
+
+`viewDidLoad` 方法，82
+
+`viewWillAppear` 方法，82
+
+使用 XIB 构建用户界面复选框，Xcode IDE，81
+
+入门指南，53
+
+`find` 命令，53
+
+`OrgChart.sqlite` 文件，53
+
+`quit` 命令，54
+
+`schema` 命令，54
+
+SQLite shell，54
+
+`Terminal.app` 文件，53
+
+`ZORGANIZATION` 实体，54
+
+`ZPERSON` 实体，54
+
+查看数据于，89
+
+Player 实体，89
+
+玩家列表屏幕，90
+
+`ZPLAYER` 表，89，91
+
+`ZTEAM` 表，89
+
+选择基于导航的应用程序模板，64
+
+队伍和玩家数据模型，67
+
+队伍数据模型，66
+
+使用内存持久化存储，92
+
+缓存远程信息于，93
+
+`League_ManagerAppDelegate.m` 文件，92
+
+生命周期，93
+
+`persistentStoreCoordinator` 方法，92
+
+`Sqlite3` 应用程序，259
+
+`Sqlite3` 命令行工具，191
+
+存储数据。（请参阅 SQLite 数据库；Core Data：持久化存储）
+
+字符串属性类型，32，126
+
+Studio 实体，213
+
+Studio 表，213
+
+子查询，242
+
+`SubqueryTest` 类，243
+
+`SubqueryTest.m` 文件，244
+
+`@synthesize` 指令，216
+
+
+
+### ![images](img/square1.jpg) T
+
+`Table`（表格），配置，72
+`Table`视图，`NSFetchedResultsController`类，285
+	缓存名称，287
+	委托，287–288
+	获取请求，286
+	实现，293–297
+	在`League Manager`中实现，288，292
+	实现`NSFetchedResultsControllerDelegate`协议（*参见* `NSFetchedResultsControllerDelegate`协议）
+	托管对象上下文，286
+	分区名称键路径，286
+	`tableView:commitEditingStyle:forRowAtIndexPath:`方法，321
+	`tableView:didSelectRowAtIndexPath:`方法，327
+`Team`实体，120，128，287
+
+`Testing`（测试），209
+	为测试构建应用程序，209
+	向应用程序添加框架，220–222
+	创建 Core Data 项目，210
+	创建数据和数据模型，213–215
+	创建测试视图，215–217
+	框架，218–219
+	“运行选定测试”按钮，209
+	运行初始测试，222–223
+	结果，249
+		获取请求的调用树，251
+		预抓取故障测试，250
+
+`Testing framework`（测试框架）
+	向应用程序添加框架，220–222
+	构建，218–219
+
+`TestPicker`选项，217
+`Tests`（测试）分组，218
+`Third normal form`（第三范式）（`3NF`），113
+`TimeStamp`属性，9，65
+`To-Many Relationship`（对多关系）复选框，130
+`Transform`实体，263，266
+	`scalarValue`属性，266，269
+	`scale`属性，266，269
+`Transform`类型，263
+`Transform.h`文件，269
+`Transform.m`文件，269
+`Transformable`属性类型，32，127
+`TransformToTransform`实体映射模型，275
+`TransformToTransform`映射，275
+`Transient`（瞬态）复选框，129
+`Transient`（瞬态）属性，120
+`Type`属性，120
+
+### ![images](img/square1.jpg) U
+
+`UIColorTransformer`类，172
+`UIColorTransformer.h`文件，173
+`UIColorTransformer.m`文件，172
+`Undo`（撤销）方法，42
+`Undoing`（撤销）数据对象，180，186
+	向 Shapes 添加撤销功能，182，186
+	禁用撤销追踪，182
+	限制撤销栈，181
+	撤销分组，181
+`UndoManager`（撤销管理器）方法，42
+`UniformColor`属性，65
+`Uniquing`（唯一化），237
+	数据不一致性消除，238
+	定义，237
+	内存节约，238
+	`PerformanceTest`协议，238
+	`UniquingTest`类，238
+	`UniquingTest.h`文件，238，240
+	`UniquingTest.m`文件，239
+`UniquingTest`类，238
+`UniquingTest.h`文件，238，240
+`UniquingTest.m`文件，239
+`Universally unique identifiers`（通用唯一标识符）（`UUIDs`），97
+`UpdateUndoAndRedoButtons`方法，184
+`Use Core Data for storage`（使用 Core Data 存储）复选框，16
+`User interface building`（用户界面构建），69
+	`commitEditingStyle`方法，71
+	`fetchedResultsController`方法，71
+	`insertNewObject`方法，71
+	`insertTeamWithName`方法，69–71
+	`saveContext`方法，69，71
+	`timeStamp`属性，71
+`User interface visualization`（用户界面可视化），League Manager 应用程序，60
+	添加/编辑球员界面，62，63
+	添加/编辑球队界面，60，61
+	球员列表界面，61，62
+	球队列表界面，60
+`Using NSFetchedResultsController`（使用 NSFetchedResultsController），288
+
+### ![images](img/square1.jpg) V
+
+`validateValue:forKey:error:`方法，176，177
+`Validating data`（验证数据）
+	自定义验证，175–179
+	默认值，179–180
+	调用验证，179
+`Validation`（验证），120
+`valueForKey:`方法，143，161，162，224
+`Variable`（变量）类型，303
+`Versioning`（版本管理），253，254
+	当前版本数据模型，254
+	包含两个版本的数据模型，255
+	单版本数据模型，254
+	版本名称与模型基础选择，255
+	Xcode 窗口，256
+`Versioning`（版本管理）部分，Xcode IDE，260，261
+`Vertex`实体，261
+`View controller`（视图控制器），9
+`viewDidAppear:`方法，155
+`viewDidLoad`方法，152，167，184，220，228，269
+`viewDidUnload`方法，184
+`VSAM`（虚拟存储访问方法），133
+
+### ![images](img/square1.jpg) W
+
+`willTurnIntoFault:`方法，226
+
+
+
+### ![images](img/square1.jpg)X, Y
+
+Xcode 数据建模器，113
+
+图形视图，116，117
+
+联盟管理器模型，116，117
+
+映射模型，114
+
+新建文件，114
+
+`NSManagedObject` 类，117
+
+Player 实体，117
+
+重命名实体与属性，260
+
+队伍关系，119
+
+用户界面，114，115
+
+使用获取属性，121
+
+查看与编辑属性详情，119
+
+默认值属性，120
+
+描述列，119
+
+详细信息窗格，119
+
+索引属性，120
+
+最大长度属性，120
+
+最大值属性，120
+
+最小长度属性，120
+
+最小值属性，120
+
+名称列，119
+
+名称属性，120
+
+可选属性，120
+
+正则表达式属性，120
+
+瞬态属性，120
+
+类型属性，120
+
+验证，120
+
+查看与编辑关系详情，120，121
+
+Xcode IDE，5
+
+XML 持久化存储，107
+
+`addPersistentStoreWithType` 方法，107
+
+iOS，108
+
+`NSPersistentStoreCoordinator.h` 文件，108
+
+`NSXMLStoreType` 未声明，108
+
+将 League Manager 数据模型移植到 Mac OS X Core Data 应用程序，109，110
+
+### ![images](img/square1.jpg)Z
+
+`ZPOINT` 表，262
+
+`ZSHAPE` 表，259，277
+
+`ZHEIGHT` 列，277
+
+`ZWIDTH` 列，277
+
+`ZTRANSFORM` 表，277
+
+`ZVERTEX` 表，262

@@ -1,0 +1,353 @@
+# 索引
+
+- A
+- A/B 测试
+- 无障碍标识符
+- 无障碍检查器
+- `addRandomNumber`
+- App Store 应用
+- App Store 模块映射
+- 断言方法
+    - 比较断言
+    - 相等性断言
+    - 错误断言
+    - 空值断言
+    - 真值断言
+- 异步任务插图
+- 自动化测试
+
+- B
+- 行为驱动开发 (BDD)
+- 样板测试
+- 修复线程问题的书籍
+- 网络相关书籍 → 见“网络”
+- `BooksUITests` 目标
+- `BookViewModel`
+- `BookViewPresenter`
+- `BookViewPresenterDelegate`
+- Bug 报告
+
+- C
+- `CalcTests.swift`
+- `CalculatorTests`
+- 代码覆盖率
+- `CoffeeDrinksDataSource`
+- `CoffeeDrinksDataSourceStub`
+- `CoffeeDrinksModel`
+- `CoffeeDrinksModelTests`
+- `CoffeeDrinksPresenter`
+- `CoffeeDrinksPresenterTests`
+- 比较断言
+- 并发
+    - 成本定义
+    - GCD 队列
+        - 串行 *vs.* 并发队列
+        - 同步 *vs.* 异步
+- Core Data
+    - 高级获取
+    - `CoreDataManager`
+    - `CoreDataManagerTests`
+    - Core Data 栈
+        - 创建
+        - 实现
+        - 保存更改
+        - 可存储对象
+        - 获取对象图
+        - `TestEntity`
+        - 测试栈
+        - 更新
+    - `CoreDataManagerTests`
+    - Core Data 栈
+        - 托管对象上下文
+        - 托管对象模型
+        - 持久化容器
+        - 持久化存储
+        - 持久化存储协调器
+- 并发成本
+- 崩溃报告
+- 崩溃堆栈跟踪
+
+- D
+- `DatabaseManager`
+- 死锁
+- 调试
+    - 无障碍功能
+    - 无障碍检查器
+    - 生产环境 Bug
+    - 生产环境崩溃
+- 依赖注入
+    - 初始化器注入
+    - 属性注入
+- 后代关系
+- 通过继承创建测试替身
+    - 协议
+
+- E
+- 相等性断言
+- 错误断言
+- 期望
+    - 创建
+    - 类型
+- `XCTest`
+- `XCTAssertTrue`
+- 显式断言
+
+- F
+- 失败的单元测试
+- `FavoritesManager`
+- `FavoritesManager` 类
+- `fetchBestSellerBooks`
+- `fetchBookReviews`
+- `fetchBookReviews` 公共函数
+- `fetchBooks()`
+
+- G
+- `getData()` 函数
+- 大中央调度 (GCD)
+- 粒度
+
+- H
+- 健康检查
+    - 测试 Bug
+    - 测试失败
+    - 有缺陷的代码变更
+- 超文本传输协议 (HTTP)
+    - 方法
+    - 请求
+    - 响应
+
+- I, J, K
+- 隐式断言
+- 继承
+- 初始化器注入
+- Instabug
+- 集成测试
+- iOS URL 加载系统
+- `isLoggingEnabled()`
+
+- L
+- 遗留应用
+    - 功能实现
+    - `BookViewModel`
+    - `BookViewPresenter`
+    - 集成测试
+    - 测试计划图
+    - UI 测试
+- 遗留应用模块映射
+- 遗留图书应用
+- 遗留代码声明，A/B 测试
+- `LoginManager`
+
+- M
+- `MainViewController`
+- `MainViewController` 职责图
+- `MainViewIntegrationTests`
+- `MainViewModel`
+- `MainViewModelTests`
+- `MainViewPresenter`
+- `MainViewPresenterTests`
+- 托管对象上下文
+- 最小可行产品 (MVP)
+- 模拟
+- 模拟 `URLSession`
+- 模型-视图-展示器 (MVP)
+- 模块化过程
+    - 类作为起点
+    - 定义类职责
+    - 初始模块映射
+    - 重构职责（见“重构职责”）
+- 模块化应用
+    - 优点与缺点
+    - 模块映射
+- 模块
+- MVP 设计模式
+
+- N
+- 网络层
+    - 类职责
+    - 设计概述
+    - 执行请求
+    - 模拟 `URLSession`
+    - `URLSession` 失败请求处理
+    - 启动
+    - 发起请求
+    - 模块处理
+    - 流程
+    - `RequestProtocol`
+    - 展示测试值验证
+    - 测试
+- 网络基础
+    - HTTP 请求
+    - HTTP 响应
+    - iOS 中的 `URLRequest`
+    - `URLSession`
+    - `URLSessionConfiguration`
+    - `URLSessionTask`
+- `NSURLSessionTask`
+- 空值断言
+- 非模块化应用
+- `NSManagedObject` 类
+- `NSManagedObjectModel`
+- `NSPersistentContainer`
+
+- O
+- 面向对象设计
+- 面向对象编程 (OOP)
+
+- P
+- 并行执行测试
+- 持久化存储协调器
+- `Presenter` 测试
+- 生产环境 Bug
+    - 调试
+    - UI 测试
+    - 单元测试
+- 生产环境崩溃
+    - A/B 测试
+    - 处理
+    - 调试
+    - 修复
+    - 我们的测试
+    - 报告
+    - UI 测试
+- 属性注入
+- 面向协议编程 (POP)
+
+- Q
+- 队列
+
+- R
+- 竞态条件
+- 随机排序
+- 随机化执行顺序
+- 读写者问题
+    - 识别竞态条件的单例类
+    - TDD 流程
+        - 编写失败测试
+        - 使其通过
+    - 竞态条件
+    - `XCTestExpectation`
+    - 线程清理器
+- 重构
+- 重构职责
+    - `fetchBooks()` 函数
+    - 集成测试
+    - `MainViewModel`
+    - `MainViewPresenter`
+    - `NetworkLayer`
+    - 重新运行验证测试
+    - 测试值验证测试
+- `RequestProtocol`
+- `RequestProtocolTests`
+- `returnFailure()`
+- `returnSuccess()`
+- `ReviewsRequestTests`
+- `ReviewsRequest` 测试通过
+- 运行时问题断点
+
+- S
+- 串行队列
+- 串行队列任务插图
+- `setUp()` 函数
+- `setUpWithError()`
+- 共享资源
+- 单例类
+- 社交组件
+- 孤立组件
+- 桩
+    - 应用定义
+    - 依赖关系
+    - 网络，UI 测试
+    - `BestSellerBooksStub.json`
+    - 目标成员资格，`BestSellerBooksStub.json`
+    - 为 localhost 启用 HTTP
+    - 实现
+    - SPM
+    - swifter
+- Swift 包管理器 (SPM)
+- 同步任务插图
+
+- T
+- `tearDownWithError()`
+- 测试替身
+    - 通过继承创建
+    - 使用协议
+    - 模拟
+    - 桩
+- 测试驱动开发 (TDD)
+    - 优点
+    - 流程
+    - 外部与内部质量
+    - 分数场景
+    - 简述实现
+    - 重构错误处理
+    - `TaxCalculator`
+    - 测试用例
+    - 测试
+- `TestEntity`
+- 测试失败断点
+- 测试金字塔
+    - 应用屏幕
+    - 集成测试
+    - 计划图
+    - UI 测试
+    - 单元测试
+- `testInvalidCredentialsLogin`
+- `testShowingBestSellerBooks()`
+- `testShowingBookViewWithNoReveiws`
+- 线程清理器
+- 工具，集成
+
+- U
+- `UIImageView`
+- UI 测试
+    - 无障碍断言
+    - 样板测试
+    - 子关系
+    - 组合关系
+    - 包含关系
+    - 调试无障碍功能
+    - 后代关系
+    - 改进
+    - 与 `UIElement` 交互
+    - `launchArguments`
+    - 网络桩
+    - 查询
+    - 目标测试用例
+    - 测试金字塔
+    - Xcode
+    - `XCUITest` 组件
+- 统一资源定位符 (URL)
+- 单元测试
+    - `CoffeeDrinksDataSource`
+    - `CoffeeDrinksModelTests`
+    - `CoffeeDrinksPresenterTests`
+    - `MainViewPresenter`
+    - `PersistenceManager`/`DatabaseManager`
+    - 生产环境 Bug
+    - 验证 `URLRequest`
+- `URLSession`
+- `URLSessionConfiguration`
+- `URLSessionDataTask`
+- `URLSessionDataTaskMock`
+- `URLSessionTask`
+
+- V
+- `Validator` 组件
+- 值断言
+- `ViewControllers`
+
+- W
+- 线框图
+
+- X, Y, Z
+- Xcode
+- `XCTAssertEqual`
+- `XCTAssertEqual` 行
+- `XCTAssert` 函数
+- `XCTAssertTrue`
+- `XCTest`
+- `XCTestExpectation`
+- `XCUIElement`
+- `XCUIElementQuery`
+- `XCUITest` 组件

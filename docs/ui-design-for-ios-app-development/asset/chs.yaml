@@ -1,0 +1,3107 @@
+- '
+
+  '
+- '# 1. 介绍 SwiftUI
+
+
+  首先，感谢您至少阅读了第一章的这部分内容。跳过它确实很诱人，但我是那种会阅读前言、序言等等的人。既然作者认为这些内容重要到值得写下并收录进来，或许确实值得一读。
+
+
+  在学习新的 IDE、语言或用户界面设计工具时，往往很难知道从哪里入手。我想说的是：如果你不懂 `Swift`，学习 `SwiftUI` 将会非常困难。事实上，如果你不熟悉
+  `Xcode`、`iOS` 开发以及与之相关的各种框架，那么从 `SwiftUI` 开始学习并非最佳选择（参见图 1-1）。
+
+
+  这本书并非关于 `Swift`、`Xcode`、`iOS` 框架或 `UIKit` 的教程。熟悉这些内容即使不是必须，也是非常重要的。
+
+
+  ![../images/497312_1_En_1_Chapter/497312_1_En_1_Fig1_HTML.jpg](img/497312_1_En_1_Fig1_HTML.jpg)
+
+
+  **图 1-1** `SwiftUI` 界面示例
+
+
+  ## 练习
+
+
+  我在每章中都包含了一个或多个练习。有些练习较短，有些则较长。每个练习都有一个或多个章末（EOC）代码压缩包供你查阅。
+
+
+  许多章节中的代码都是基于同一份代码逐步构建的。因此，只有一个包含完整结果的章末文件。
+
+
+  每个练习的重点在于实践。我希望你通过这个过程来运用你所学到的知识。我强烈建议你随着好奇心的驱使，尝试练习的各种变体。
+
+
+  我也强烈鼓励重复练习。如果你将同一个练习重复多次，直到能够熟练地完成它，那么在读完这本书后，你的掌握程度会更好。
+
+
+  ## 概念
+
+
+  `SwiftUI` 的许多方面会让人感觉很像 `Swift`。如果你熟悉 `Swift`，那会很有帮助。你在传递闭包、链式调用、处理可选值等方面会感到比较得心应手。
+
+
+  然而，`SwiftUI` 对用户界面采用了一种非常强调状态驱动的概念。用户界面是状态的一种展示。如果某个值（状态）发生变化，UI 就应该反映出这种变化，因此需要重新渲染。
+
+
+  如果 `TextField` 中显示的值被更新了，界面就应该显示这个新值。在 `SwiftUI` 中，这通过绑定自动完成。我们将使用属性包装器（类似于 `Optional`
+  是一种带有包装值的类型）将这些值传递给像 `TextField` 这样的控件。
+
+
+  如果值发生变化，`TextField` 会随之更新。同时，`TextField` 中的更改也会存储在与传入项相同的位置。不再需要获取 `text` 属性并手动存储——`SwiftUI`
+  省去了中间步骤，直接更改属性！
+
+
+  ## 唯一数据源
+
+
+  这些属性包装器的概念与“唯一数据源”的理念紧密相连。如果我们将用户名或电子邮件地址存储在一个属性中，那么该属性就可以成为唯一数据源。如果属性发生改变，UI 就会更新。如果用户输入了新值，该值也会存储在同一属性中。
+
+
+  在值类型（例如结构体）和引用类型（例如类）上使用这个概念，有不同的方式。我们将在本书中详细探讨这些方式。
+
+
+  ## 老朋友
+
+
+  我们还将探讨如何在基于 `SwiftUI` 的应用中使用现有的 UI。你可能有一些运行良好的现有代码，并希望复用它。如果代码依然好用，没必要将其丢弃。
+
+
+  或者，你可能没有时间一次性重新创建整个 UI。
+
+
+  ## 新朋友
+
+
+  当然，我们将会学习如何在 `SwiftUI` 中开发界面设计。但我们也会探讨如何在 `Storyboard` 项目中使用 `SwiftUI`。你可能希望从当前的
+  `UIKit` 应用开始，逐步迁移到 `SwiftUI`。
+
+
+  无论你决定或需要以何种方式开始使用 `SwiftUI`，我希望这本书能帮助你达成目标。
+
+
+  ## Combine
+
+
+  如果你还没有使用过 `Combine` 框架，那么你将在本书中用到它。这不是一本关于 `Combine` 的书籍，但它的部分内容与我们需要在 `SwiftUI`
+  中完成的工作紧密集成。
+
+
+  本书中散布着 `Combine` 的相关内容。此外，还有专门的一章旨在更深入地探讨 `Combine`。该框架可能值得用一本书来专门讲解，但我们会在适当时候深入挖掘，以理解我们在做什么以及使用什么。
+
+
+  ## 一切都好
+
+
+  如前所述，代码即 UI。它不会被存储为 `XML` 或其他格式，然后从中生成 UI。
+
+
+  此外，画布就是模拟器。当你进入实时模式时，它实际上等同于模拟器。它并不完美，但你可以确信它非常接近。而且，它远不止是在没有底层代码的情况下（例如 `Storyboard`
+  预览）查看设计效果的渲染图。
+
+
+  你甚至可以设计预览，以显示各种配色方案、设备等场景下的效果（参见图 1-2）。
+
+
+  ![../images/497312_1_En_1_Chapter/497312_1_En_1_Fig2_HTML.jpg](img/497312_1_En_1_Fig2_HTML.jpg)
+
+
+  **图 1-2** 单一元素的多个预览
+
+
+  对我而言，关键在于我们需要重新思考对用户界面的认知方式。我们不再创建带有属性的项目，而是在这些项目上调用修饰符。修饰符又会返回项目，然后我们重复这个过程，将它们链式调用起来。
+
+
+  我们的 UI 与状态绑定，并保持同步。状态的改变会更新 UI。UI 中的更改也会更新状态。
+
+
+  如果不小心，这可能导致一切都紧密耦合。但我们将把事物分解，并利用 `SwiftUI` 内置的大量功能。最终，我们会发现界面的许多方面工作方式都是相同的。因此，在过去需要多个构建块才能完成的任务，现在只需一两个即可。
+
+
+  ## 平台
+
+
+  我们将专注于使用 `SwiftUI` 进行 `iOS` 开发。然而，在很多情况下，这些代码对于 `Apple Watch`、`macOS`、`iPadOS`、`Apple
+  TV` 乃至未来可能出现的平台都是相同的。
+
+
+  我们将看几个例子，将 `iOS` 的 UI 复制到手表项目中。只需进行最少的修改就能使其正常工作。`SwiftUI` 的抽象程度更高。告诉它渲染一个 `Picker`，它会根据平台来决定这意味着什么。
+
+
+  ## 开始编码吧！
+
+
+  万岁！
+
+
+
+
+  '
+- "# 2\\. 放轻松\n\n本章我们将通过实际操作来轻松入门 SwiftUI。如果觉得节奏慢，那很好！打好基础的最佳时机就是刚开始的时候，而且基础必须扎实——坚如磐石。就像数学、口语或其他许多技能一样，如果现在不打好基础，后面就会迷失方向。\n\
+  \n## 代码 + 界面\n\n如果你过去曾在 Xcode 中进行过界面开发，你就会知道将界面设计与代码结合起来是可行的。然而，它们并不能热替换。你无法在代码中将背景颜色改为红色，然后打开\
+  \ Interface Builder 就看到那个变化。至少，在没有特殊编码的情况下不行。\n\n使用 SwiftUI，你可以将代码和界面视为一体。实际上，它们就是一体。过去，界面会被转换成\
+  \ XML，这种格式既不易读，也难以正确编辑。现在，界面是由 SwiftUI 代码生成的。当你修改代码时，预览会同步更新以显示更改。\n\n此外，如果你在预览画布中修改界面，代码也会同步更新。让我们从一个新项目开始，来看一个例子。\n\
+  \n## 你的第一个 SwiftUI 应用\n\n我们将从模板创建一个项目开始，分析创建的内容，然后根据自己的需求更改界面。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig1_HTML.jpg](img/497312_1_En_2_Fig1_HTML.jpg)\n\
+  \n图 2-1\n\n在 Xcode 中创建新项目选项\n\n1.  打开 Xcode 并开始一个新项目（图 2-1）。\n\n如果 Xcode 已经在运行，请选择\
+  \ `File ➤ New… ➤ Project`（`⇧⌘N`）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig2_HTML.jpg](img/497312_1_En_2_Fig2_HTML.jpg)\n\
+  \n图 2-2\n\niOS App 模板\n\n1.  选择 iOS App 模板，然后点击 Next（图 2-2）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig3_HTML.jpg](img/497312_1_En_2_Fig3_HTML.jpg)\n\
+  \n图 2-3\n\n项目选项\n\n1.  设置你的产品名称和其他详细信息，包括语言（`Swift`）、用户界面（`SwiftUI`）和生命周期（`SwiftUI\
+  \ App`）（图 2-3）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig4_HTML.jpg](img/497312_1_En_2_Fig4_HTML.jpg)\n\
+  \n图 2-4\n\n恢复自动预览\n\n1.  项目创建后，预览更新可能会暂停。如果是这样，请点击 Resume 按钮（图 2-4）。\n\n预览更新后，你将看到你的第一个\
+  \ SwiftUI 应用。恭喜。没人比我更以你为傲。\n\n## 你好，SwiftUI\n\n当然，这是典型的“Hello World”示例。让我们简单逐行看一下我们得到了什么。\n\
+  \n我们在第 9 行导入了 `SwiftUI`。这是新内容。显然，各种 SwiftUI 组件都在此定义。\n\n第 11 行是我们新应用的第一行代码。我们有一个名为\
+  \ `ContentView` 的结构体，它实现了一个名为 `View` 的协议。我们可以通过 `⌃⌘ + 点击 \"View\"` 来查看该协议的定义。\n\n\
+  所以，任何实现 `View` 的类型都需要有一个名为 `body` 的属性。该属性必须有一个 getter，其返回类型由 `Body` 的关联类型指定：即某种实现了\
+  \ `View` 的类型。\n\n回到代码中，我们看到 `ContentView` 实现了 `View`。返回类型是 `some View`，而这个计算属性 `body`\
+  \ 的主体是一个 `Text`。\n\n> **注意**  \n> 我们将在后面深入讲解 `some View` 和不透明类型。现在，只需知道从我们的 `body`\
+  \ 计算属性返回的任何内容都必须实现 `View`。\n\n你可能已经猜到 `Text` 类似于一个标签。我们用一个 `String` 来创建它，然后它就会显示在界面上。\n\
+  \n## 修饰符\n\n与其他界面开发方法一样，SwiftUI 元素可以被修饰。`Text` 拥有诸如字体、颜色、对齐等修饰符。\n\n我们可以为 `Text`\
+  \ 元素添加一个修饰符来将字体变成红色，如下所示（图 2-5）：\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig5_HTML.jpg](img/497312_1_En_2_Fig5_HTML.jpg)\n\
+  \n图 2-5\n\n带有红色前景色的 Text\n\n```\nText(\"Hello, World!\")\n.foregroundColor(.red)\n\
+  ```\n\n你会注意到预览中的界面同步更新了。\n\n类似地，我们可以通过链式调用另一个修饰符来将文本加粗。为了代码整洁，我们可能希望将它们分成多行（图 2-6）。\n\
+  \n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig6_HTML.jpg](img/497312_1_En_2_Fig6_HTML.jpg)\n\
+  \n图 2-6\n\n带有加粗、红色前景色的 Text\n\n```\nText(\"Hello, World!\")\n.foregroundColor(.red)\n\
+  .bold()\n```\n\n可想而知，你可以在给定的界面元素上实现多种视觉变化。这意味着有大量的修饰符以及许多参数。这需要学习和记忆的内容非常多。\n\n\n\
+  \n## SwiftUI 检查器\n\n幸运的是，你并不需要记住所有的修饰符。Xcode 会来帮忙！\n\n如果你`⌘` + 点击 `Text` 项目，就会看到一个弹出菜单。从中选择“显示\
+  \ SwiftUI 检查器…”（图 2-7）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig7_HTML.jpg](img/497312_1_En_2_Fig7_HTML.jpg)\n\
+  \n图 2-7\n\nSwiftUI 检查器菜单项\n\n> **注意：** 你也可以通过 `⌃⌥` + 点击 `Text` 直接打开 SwiftUI 检查器。\n\
+  \nSwiftUI 检查器显示后，我们可以看到有许多可以通过修饰符设置的属性。\n\n不仅如此，我们还可以通过底部的下拉菜单添加修饰符（图 2-8）。\n\n\
+  ![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig8_HTML.jpg](img/497312_1_En_2_Fig8_HTML.jpg)\n\
+  \n图 2-8\n\nSwiftUI 检查器\n\n当你对这些修饰符的控件进行选择时，你的代码会同步更新以反映你的选择。\n\n注意那个名为“粗体”的空部分。它之所以存在，是因为我们手动添加了那个修饰符，但它没有任何设置。\n\
+  \n更好的加粗文本的方法是通过检查器中“字体”部分的修饰符。\n\n练习时间到！\n\n**使用修饰符修改**\n\n在这个练习中，我希望你使用 SwiftUI\
+  \ 检查器中的修饰符，让你的“Hello World”文本与以下示例匹配。请在查看步骤前自己尝试一下。同时，删除 `.bold()` 这行代码，以获得更好的起点。\n\
+  \n```\nText(\"Hello, World!\")\n.foregroundColor(Color.red)\n```\n\n以下是我希望你的文本在仅使用\
+  \ SwiftUI 检查器后看起来的样子（图 2-9）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig9_HTML.jpg](img/497312_1_En_2_Fig9_HTML.jpg)\n\
+  \n图 2-9\n\n更新后的 UI 预览\n\n你可以轻松地看到有几项发生了变化：\n\n1.  文本（`“Hello, SwiftUI!”`）\n2.  字体颜色\n\
+  3.  字体大小\n4.  字重\n5.  单词间距\n6.  `Text` 的大小\n7.  背景颜色\n8.  圆角半径\n\n请随意尝试各种修饰符及其值的设置。通过这些类型的实践，你会更熟练、更自然地进行这些修改。\n\
+  \n理想情况下，你最终会达到无需停下来思考、疑惑和搜索正确设置的程度。\n\n以下是我在 SwiftUI 检查器中使用的、以达到我想要的 `Text` 项目效果的设置：\n\
+  \n我在“字体”区域做了三项更改：字体本身、字重和颜色。\n\n我将内边距更改为 30（你可以直接点击数字进行编辑）。\n\n我还手动将框架的宽度和高度分别更改为\
+  \ 200 和 400。\n\n我使用“添加修饰符”下拉列表添加了另外两个修饰符：Background 和 Corner Radius。添加后，我就可以设置它们的值了。\n\
+  \n以下是这些更改后的代码：\n\n```\nText(\"Hello, SwiftUI!\")\n.font(.largeTitle)\n.fontWeight(.bold)\n\
+  .foregroundColor(Color.purple)\n.padding(30.0)\n.frame(width: 200.0, height: 400.0)\n\
+  .background(Color.orange)\n.cornerRadius(40.0)\n```\n\n再次强调，请熟练使用这些控件，并将更改与代码和 UI\
+  \ 关联起来。接下来，我们将研究完成这些任务的其他一些方法。\n\n### 属性检查器\n\n你可以像在代码中操作 `Text` 一样，`⌃⌥` + 点击 UI\
+  \ 项目。不过，SwiftUI 检查器可能看起来不一样。\n\n请注意，在这种情况下，弹出菜单中只有几个可用的选项（图 2-10）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig10_HTML.jpg](img/497312_1_En_2_Fig10_HTML.jpg)\n\
+  \n图 2-10\n\n画布中的弹出菜单\n\n要查看之前看到的所有相同修饰符，属性检查器是一个可靠的选择。\n\n**属性检查器**\n\n在这个练习中，我们将看到相同的修饰符可以通过画布中的可视化\
+  \ UI 设计进行访问。但是，无需将你的思维从“在代码中工作”切换到“在 UI 中工作”。它们是一样的。代码就是 UI。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig11_HTML.jpg](img/497312_1_En_2_Fig11_HTML.jpg)\n\
+  \n图 2-11\n\n检查器面板按钮\n\n1.  使用 Xcode 窗口右上角的这个按钮打开检查器面板（右侧）（图 2-11）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig12_HTML.jpg](img/497312_1_En_2_Fig12_HTML.jpg)\n\
+  \n图 2-12\n\n属性检查器标签页\n\n1.  选择检查器面板顶部的属性检查器（图 2-12）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig13_HTML.jpg](img/497312_1_En_2_Fig13_HTML.jpg)\n\
+  \n图 2-13\n\n属性检查器\n\n1.  点击 UI 或代码中的“Hello, SwiftUI!” `Text` 项目，以便在属性检查器中显示其属性（图\
+  \ 2-13）。\n\n如果并非所有修饰符都显示出来，请点击代码中的该项目。\n\n注意这些值与之前相同。另外，“添加修饰符”下拉列表也是可用的。\n\n从这里开始，你就可以进行相同的选择和修改了。\n\
+  \n1.  更改背景颜色、文本和其他设置，并在 UI 和代码中验证更改。\n\n你可能已经看到，有多种方式可以完成相同的事情。你可以编辑代码，在 SwiftUI\
+  \ 检查器和属性检查器中进行修改。\n\n希望你正将代码和 UI 视为一体：理想情况下，代码 *就是* UI。\n\n## 堆叠中的堆叠\n\n一个应用中只有一个元素的屏幕算不上什么用户界面，也不常见。但计算属性\
+  \ `body` 只能返回一个元素。我们该怎么办呢？\n\n大多数情况下，我们返回的这一个项目会包含许多其他项目。所以它是一个其他项目的容器。而且，正如我们将看到的，它常常是一个包含其他项目容器的容器，以此类推。\n\
+  \n我们将会遇到的两个常见容器是水平堆栈（`HStack`）和垂直堆栈（`VStack`）。\n\n水平堆栈是水平堆叠。你可能已经猜到垂直堆栈是垂直堆叠。如果你熟悉\
+  \ Interface Builder 中的堆栈视图，你可能已经知道我要说什么了。\n\n将一个项目嵌入堆栈的一种简单方法是通过 `⌘` + 点击的弹出菜单（见图\
+  \ 2-14）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig14_HTML.jpg](img/497312_1_En_2_Fig14_HTML.jpg)\n\
+  \n图 2-14\n\n带有嵌入选项的上下文弹出菜单\n\n这只是在代码中用相应的 `HStack` 或 `VStack` 代码包裹一个项目。将其包裹在 `VStack`\
+  \ 中看起来是这样的：\n\n```\nvar body: some View {\nVStack {\nText(\"Hello, Swift\")\n.font(.largeTitle)\n\
+  .fontWeight(.bold)\n.foregroundColor(Color.blue)\n.padding(30.0)\n.frame(width:\
+  \ 200.0, height: 400.0)\n.background(Color.green)\n.cornerRadius(40.0)\n}\n}\n```\n\
+  \n你应该不会注意到 UI 有任何变化，因为堆栈里只有一个项目。我们之前只有一个项目的 UI 会将其居中放置。新的堆栈也是如此。\n\n然而，如果我们添加更多项目（例如，在当前项目下方再添加一个\
+  \ `Text` 项目），它就会将它们垂直堆叠起来。\n\n如果我在当前项目下方再添加一个 `Text` 项目，它看起来会像图 2-15 那样。\n\n\n\n\
+  ## 重点来了\n\n我希望你已经开始明白这部分是如何运作的了。代码和用户界面 —— 砰 —— 合为一体！用户界面由代码构建而成，而不是像过去那样，你实例化一个按钮、设置其属性，然后将其添加到屏幕上（图\
+  \ 2-15）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig15_HTML.jpg](img/497312_1_En_2_Fig15_HTML.jpg)\n\
+  \n**图 2-15** – 底部带有附加文本的用户界面\n\n现在，框架内嵌了代码，期望你通过代码来实现用户界面。由于 `View` 协议等机制的存在，一个计算属性\
+  \ `body` 会返回“`some View`”，并且该视图会被显示出来。\n\n因此，我们必须实现该协议，返回一个符合 `View` 协议的内容。`Text`\
+  \ 和其他元素都符合该协议，所以我们可以创建这些元素并返回它们。\n\n此外，单表达式闭包会自动返回该表达式的结果。所以，我们直接开始编码吧！\n\n无论我们创建一个\
+  \ `Text` 元素，还是一个包含子元素的 `VStack` 或 `HStack`，它们都会被返回。\n\n对于创建的元素，我们可以添加修改器来更改颜色、间距、字体、内边距等。这些修改既可以在代码中添加，也可以通过检查器面板完成。\n\
+  \n`SwiftUI Inspector` 可以通过菜单栏使用 **⌘ + 点击** 来显示，或者直接使用 **⌃⌥ + 点击** 打开。\n\n`Attributes\
+  \ Inspector` 通过右侧面板（检查器）显示，并选中 `Attributes Inspector` 标签页按钮。在用户界面或代码中选中的每个元素，都会显示其相关的属性。在某些情况下，在代码中选中元素效果最佳。\n\
+  \n## 用户界面练习\n\n我希望你使用现有的项目（或者创建一个新项目），并使用户界面看起来像下图所示（图 2-16）。\n\n![../images/497312_1_En_2_Chapter/497312_1_En_2_Fig16_HTML.jpg](img/497312_1_En_2_Fig16_HTML.jpg)\n\
+  \n**图 2-16** – 练习的用户界面\n\n接下来，我会给你一些提示，然后给出解决方案。但首先，请尝试通过添加元素和修改器来重现这个界面，看看你是否能调整出正确的效果。\n\
+  \n文本本身也包含一些提示。\n\n以下是提示：\n\n*   所有三个元素都是 `Text` 元素。这一点没有新意。\n*   第二个元素只有一个修改器：`.border`\n\
+  *   第三个元素有两个文本中提到的修改器：`.padding` 和 `.opacity`\n*   三个元素都包含在一个 `VStack` 中。\n\n我希望你在添加元素和修改器的练习中有所收获。我想鼓励你总是去尝试。试着添加像\
+  \ `Blur` 或 `Shadow` 这样的修改器，看看效果如何。\n\n以下是解决方案代码：\n\n```\nVStack {\nText(\"Notes\"\
+  )\n.fontWeight(.bold)\n.foregroundColor(Color.white)\n.padding(30.0)\n.frame(width:\
+  \ 300.0, height: 50.0)\n.background(Color.blue)\n.cornerRadius(15.0) Text(\"This\
+  \ has a red border.\")\n.border(Color.red, width: 1)\nText(\"This has a black background\
+  \ but opacity of 0.5\\. It has multiple lines but doesn't go off the screen and\
+  \ is left justified. It also has some padding to keep from the edges and the item\
+  \ above.\")\n.foregroundColor(Color.white)\n.background(Color.black)\n.multilineTextAlignment(.leading)\n\
+  .opacity(0.5)\n.padding(45)\n}\n```\n\n### 章节总结\n\n在本章中，我们探讨了从其他概念转向 SwiftUI 时所需的思想转变。SwiftUI\
+  \ 的代码*就是*用户界面，就像过去的 nib/xib/storyboard XML 是用户界面一样。\n\n我们学习了 `View` 协议以及该类型中定义的\
+  \ `body` 计算属性。\n\n我们检查了一个单视图应用的模板定义。`ContentView` 结构体通过一个包含 `Text` 元素的单表达式闭包实现了\
+  \ `View` 协议。\n\n使用 `SwiftUI Inspector` 和 `Attributes Inspector`，我们看到了如何在修改器上添加和更改值。并且，通过弹出菜单，我们了解了如何将一个元素嵌入到\
+  \ `VStack` 或 `HStack` 中。\n\n在下一章中，我们将超越基础的 `Text` 元素，使用更广泛的、为 UI 开发提供的各种 UI 元素。\n\
+  \n"
+- "# 3. SwiftUI 构建块\n\n在本章中，我们将介绍 SwiftUI 提供的各种构建块。与 UIKit 一样，SwiftUI 也提供了各种元素，我们可以用来构建用户界面。我们已经见过了\
+  \ `Text` UI 元素。那仅仅是个开始。\n\n## 老友与新交\n\n如果你之前使用过 Xcode 进行开发，你可能已经熟悉许多标准的 UI 元素。`Switch`、`Segmented\
+  \ Control`、`Picker View` 等长期以来一直是我们的好朋友。\n\n别担心——你依然会见到它们。不过，你将用不同的方式来创建它们。当然，是的，它会在代码中完成。但它也将采用更声明式的方法。所谓声明式，是指你将告诉\
+  \ SwiftUI *做什么*，但不一定需要告诉它*怎么做*。\n\n让我们来看看 `Button`。\n\n\n## 按钮\n\n几乎每个用户界面都包含按钮。用户点击它，代码就会执行。很简单。它在某种程度上体现了功能。按钮主要需要两样东西：点击时要调用的代码以及在按钮上显示的内容（文本、图片或两者兼具）。\n\
+  \n那么现在就开始吧！\n\n### 在用户界面中创建一个按钮\n\n在本练习中，我们将使用关键字 `Button` 向用户界面添加一个按钮。我们将调用一个初始化器来传入要调用的代码以及在按钮上显示的内容。在本例中，我们将使用文本。\n\
+  \n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig2_HTML.jpg](img/497312_1_En_3_Fig2_HTML.jpg)\n\
+  \n**图 3-2：** 按钮自动补全代码\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig1_HTML.jpg](img/497312_1_En_3_Fig1_HTML.jpg)\n\
+  \n**图 3-1：** 计算属性 Body 内容\n\n1. 打开一个项目（新建或现有），点击 `ContentView.swift` 文件进行编辑。我使用的是现有代码，我的\
+  \ `body` 属性当前看起来像图 3-1。我有一个 `VStack`，垂直包裹两个 `Text` 项。\n\n我想在两个 `Text` 项之间添加一个按钮，并在定义它的位置直接内联调用代码。你也可以提供一个方法名称来调用，而不是创建一个闭包。\n\
+  \n2. 在第 21 行下方输入 `Button(ac`（这看起来有些奇怪的文本指定了我们想要的用于代码补全的 `Button` 初始化器）（图 3-2）。注意\
+  \ `action`（要调用的代码）和 `label`（要显示的内容 – 实现了我们在前一章讨论过的 `View` 协议）这两个参数。按 Return 键自动补全代码。\n\
+  \n对于代码，我们将其内联定义，因此按 Tab 键直至代码占位符（`() -> Void`）被高亮（在我的编辑器里是蓝色显示），然后按 Return 键来生成闭包模板。\n\
+  \n我们还不想运行任何实际功能，所以只放一些虚拟代码。\n\n3. 在闭包的主体中输入 `print(\"tapped!\")`（替换 `code` 占位符）。\n\
+  \n第二个参数 `Label` 是 `Button` 中的一个泛型，需要实现 `View` 协议。我们在上一章通过 `Text` 项看到了这一点。类似地，它的修饰符会返回该类型，因此我们可以将它们链式调用。\n\
+  \n我们可能想在按钮上显示一张图片或各种其他项。但文本很常见，所以我们使用一个 `Text` 元素。\n\n4. 将第二个参数占位符替换为一个返回 `Text`\
+  \ 项的单表达式闭包。这实现了 `View` 协议，因此它符合返回类型。\n\n现在两个之前的 `Text` 项之间的代码应如下所示：\n\n```\nButton(action:\
+  \ {\nprint (\"tapped!\")\n}, label: { Text(\"Tap Me\") })\n```\n\n预览现在也应包含一个位于两个已有\
+  \ `Text` 项之间的按钮。注意 `VStack` 只是按从上到下的顺序放置这些项。\n\n我们可以预期，如果在模拟器或设备上运行此代码 (⌘R)，我们可以点击这个新按钮（图\
+  \ 3-3）。此外，我们应该会看到输出（`tapped!`）打印到调试输出控制台。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig3_HTML.jpg](img/497312_1_En_3_Fig3_HTML.jpg)\n\
+  \n**图 3-3：** 按设计实现的用户界面\n\n5. 试试看！运行它并点击按钮以查看输出。\n\n### 本练习中我们做了什么？\n\n在一个现有（或新建）项目中，我们添加了一个按钮。为了创建按钮，我们使用了带有两个参数的\
+  \ `Button` 结构体初始化器。\n\n第一个参数是不接受参数且无返回值的闭包（内联或方法名）。第二个参数实现了 `View` – 这是按钮的可视化部分。我们使用了\
+  \ `Text`，正如我们在前一章中看到的，它满足了这个要求。\n\n预览显示我们的新按钮，并且执行代码允许我们点击该按钮并查看输出。很简单！\n\n**额外提示**：我鼓励你尝试使用按钮上的各种修饰符。你可以将修饰符应用于按钮本身或第二个参数的\
+  \ UI 项（在我们的例子中是 `Text` 项）。看看旋转效果 (`.rotationEffect`) 做了什么 – 你可以使用 `.degrees` 来创建需要传入的角度。\n\
+  \n### 按钮参数\n\n我们看到一个 `Button` 接受两个参数：`action` 和 `label`。`Action` 是点击按钮时要执行的代码的闭包。`Label`\
+  \ 是一个返回要在 `Button` 上显示的 UI（实现了 `View` 协议的内容，通常是 `Text` 或 `Image`）的闭包。\n\n接下来我们看看\
+  \ `Image`。\n\n## 图像\n\n另一个常见的用户界面项是用于显示图像的东西。在 UIKit 中，它是 `UIImageView`。在 SwiftUI\
+  \ 中，它被命名为 `Image` 并实现了 `View` 协议。就像 `Text` 或 `Button` 项一样，`Image` 可以作为 `View` 返回类型返回。\n\
+  \n### SF Symbols\n\n要显示图像，我们首先输入 `Image`。之后我们有几个选项，包括提供 `name`（来自 Assets 目录的图像文件名）和\
+  \ `systemName`（在此处查看关于 SF Symbols 的更多信息：[`developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/`](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/)）。\n\
+  \n让我们使用系统名称 `camera` 创建一个 `Image` 项。\n\n#### 添加一个图像\n\n在本练习中，我们将使用 `Image` 结构体向我们的用户界面添加一个图像。这就像我们之前看到的项一样，实现了\
+  \ `View` 协议。\n\n1. 打开一个项目（新建或现有），点击 `ContentView.swift` 文件进行编辑。我使用上一个练习中的现有代码。\n\
+  \n2. 在 `body` 属性的底部添加一个 `Image` 项，使用接受系统图像名称的初始化器。传入 `camera` 作为参数值。代码应如下所示：\n\n\
+  ![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig4_HTML.jpg](img/497312_1_En_3_Fig4_HTML.jpg)\n\
+  \n**图 3-4：** 用户界面中的相机图像\n\n3. 如有需要，恢复预览并验证图像已显示（图 3-4）。\n\n```\nImage(systemName:\
+  \ \"camera\")\n```\n\n你的 UI 现在应显示一个图像。如果你使用了现有代码，你的 UI 应将图像放在其他可视化元素的下方。\n\n可以随意添加更多\
+  \ `Image` 项并使用其他系统图像名称。将一个图像添加到你的 `Assets.xcassets` 目录，并用如下代码显示它：\n\n```\nImage(\"\
+  brainwashIcon\")\n```\n\n你可能还想设置其尺寸。使用 `Resizable` 修饰符，然后使用 `Frame` 修饰符来设置尺寸：\n\n\
+  ```\nImage(\"brainwashIcon\")\n.resizable()\n.frame(width: 100, height: 100,\nalignment:\
+  \ .center)\n```\n\n另外，尝试使用各种修饰符。查看 `Color Invert` 修饰符 (`.colorInvert()`)。注意 `Image`\
+  \ 有一些初始化器接受其他值，包括 `Text`。看看它们会做什么！\n\n### 图像创建\n\n显示图像的核心能力基于指定要显示哪个图像。我们使用一个系统名称（SF\
+  \ Symbols）创建了一个图像。你也可以使用来自 Assets 目录的图像名称创建图像。还有其他选项和修饰符可用于自定义外观。\n\n\n\n## 开关\n\
+  \n`Toggle` 是展示 SwiftUI 声明式特性的绝佳示例。创建开关时，我们不会使用 \"Switch\" 或 \"UISwitch\"。而是直击本质，以声明式的方式说明\"\
+  要做什么\"，而非关注\"如何做\"。因此我们使用 `Toggle`。\n\n使用 toggle 这个术语告诉系统我们想要做什么：为用户提供一个开/关类型的控件。这里可以看到一个接受两个参数的初始化器（图\
+  \ 3-5）。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig5_HTML.jpg](img/497312_1_En_3_Fig5_HTML.jpg)\n\
+  \n图 3-5：Toggle 自动补全\n\n该声明展示了初始化器的更多细节：\n\n```\npublic init(isOn: Binding,\n@ViewBuilder\
+  \ label: () -> Label)\n```\n\n第一个参数是开关的初始状态：开或关。但请注意，它不仅仅是一个 `Bool`。参数类型是 `Binding`，指定所使用的泛型是\
+  \ `Bool`。\n\n第二个参数与 `Button` 类似，是一个名为 `Label` 的泛型。`Toggle` 代码定义了这个泛型必须遵循 `View`\
+  \ 协议。\n\n### 绑定\n\n我们将在后续章节中深入探讨其工作原理。现在，只需理解它是将传入的参数绑定到 UI。因此，如果属性（例如 `isReady`）的值发生变化，`Toggle`\
+  \ 也需要相应更新。\n\n此外，如果 `Toggle` 需要更新，那么 UI 也需要更新，以便重新创建并重新显示。\n\n因此，`Toggle` 和属性是绑定在一起的。当一方改变时，另一方也随之改变。\n\
+  \n我们像这样声明属性：\n\n```\n@State private var isReady : Bool = false\n```\n\n### `@State`\
+  \ 属性包装器\n\n为了将我们的属性 `isReady` 绑定到 UI 元素，我们需要使用 `@State` 属性包装器。这为我们完成了以下几件事。\n\n\
+  它为属性创建了一个包装器。因此，虽然 `isReady` 被设置为 false，甚至被声明为 `Bool` 类型，但访问它时需要通过包装器。实际上，如果在执行期间深入查看\
+  \ `isReady`，你会看到类似图 3-6 所示的内容。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig6_HTML.jpg](img/497312_1_En_3_Fig6_HTML.jpg)\n\
+  \n图 3-6：调试器中的属性包装器\n\n注意类型是 `State<Bool>`。值存储在其下方。此外，位置显示为 `SwiftUI`。这是因为 UI 负责存储和管理该值。\n\
+  \n`@State` 旨在为特定于某个视图的值创建\"数据源\"。这就是为什么我们也看到它被标记为 `private` —— 它仅用于此视图。这是推荐的做法。\n\
+  \n要在 UI 中创建绑定，例如为我们的 `Toggle`，需要在属性前加上 `$` 前缀（例如 `$isReady`）。在其他情况下，比如检查值或以编程方式设置值，则像往常一样操作（例如，有点像可选类型：`isReady\
+  \ = true`）。\n\n这里需要理解的关键点是，我们不是通过 `Toggle` 上的操作来设置值，而是绑定值。因此，我们将自己的值交给了 `Toggle`\
+  \ 来更新。此外，如果值通过其他方式发生变化，`Toggle` 会在视觉上得到更新。\n\n### Toggle 标签\n\n第二个参数是一个标签。这基本上与我们之前在\
+  \ `Button` 中看到的一样。第二个参数是要显示的内容。在这种情况下，它显示在 `Toggle` 旁边，而不是像 `Button` 那样显示在上面。\n\n\
+  如果你查看 `Label` 参数的声明，你会看到这样一条注释：\n\n```\n一个描述切换 `isOn` 效果的视图。\n```\n\n这太棒了！它让我们能够利用现有元素的定义和外观。如果标准\
+  \ `Toggle` 日后发生更改或用于其他设备，它可以根据该系统进行适配。如果你是为 iPhone 设计的，但后来要为 Apple Watch 构建，UI 会自动适配。\n\
+  \n我们只需声明我们想要什么（即 `Toggle`），并将其绑定到它所代表的属性（即 `isReady`），以及我们想要显示的任何描述切换效果的 UI（例如 `Text`）。\n\
+  \n我们真正想要提供的是与开关一起用来描述其功能的东西。那么……让我们……\n\n## Toggle 练习\n\n在本练习中，我们将向 UI 添加一个 `Toggle`。它将绑定到一个属性，因此我们将把它作为\
+  \ `isReady` 添加到 `ContentView` 中，该属性将是一个 `Bool`。\n\n1. 打开一个项目（现有或新建），点击 `ContentView.swift`\
+  \ 文件进行编辑。\n\n2. 在 \"`var body...`\" 属性行上方添加一个属性：\n\n   ```\n   @State private var\
+  \ isReady = false\n   ```\n\n   这将为 `isReady` 的 `Bool` 值创建一个属性包装器，初始值为 false。\n\n\
+  3. 编辑 `body` 计算属性，并在返回值的底部添加一个 `Toggle`。它有两个参数：\n\n   - `isOn` – 传入 `isReady` 的绑定，使用\
+  \ `$isReady`\n   - `label` – 传入一个 `Text` 项，用于在 `Toggle` 上显示。你的 Toggle 代码可能如下所示：\n\
+  \n     ```\n     Toggle(isOn: $isReady,\n     label: {\n         Text(\"Ready: \"\
+  \ + (isReady ? \"Yes\" : \"No\"))\n     })\n     ```\n\n   在这种情况下，`Text` 还会指示该设置的值。在实际应用中这可能是多余的，但就我们目前的目的而言，这是对值的验证。\n\
+  \n   ![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig7_HTML.jpg](img/497312_1_En_3_Fig7_HTML.jpg)\n\
+  \n   图 3-7：Toggle 设置为关/False\n\n4. 运行你的应用，并验证初始时 Toggle 处于关闭状态，因为 `isReady` 为 false（图\
+  \ 3-7）。\n\n   ![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig8_HTML.jpg](img/497312_1_En_3_Fig8_HTML.jpg)\n\
+  \n   图 3-8：Toggle 设置为开/True\n\n5. 将 Toggle 打开，并验证 `Text` 元素已更新，包含 \"Yes\"（如果你定义了类似于上面的\
+  \ `Text` 元素）（图 3-8）。\n\n6. 添加一个 `Button`（或修改现有的 `Button`），并在按钮被点击时切换 `isReady` 的值。\n\
+  \n7. 运行应用，并验证当按钮被点击时，UI 会根据切换后的值进行更新。\n\n希望你能轻松完成这个练习，并看到相同乃至更多的结果！\n\n### 当前代码\n\
+  \n以下是我在完成所有这些练习后，`body` 属性的当前代码，其中包括我资源目录中一个 png 文件的 `Image`：\n\n```\nvar body:\
+  \ some View {\n    VStack {\n        Text(\"Hello, Swift\")\n            .font(.largeTitle)\n\
+  \            .fontWeight(.bold)\n            .foregroundColor(Color.blue)\n    \
+  \        .padding(30.0)\n            .frame(width: 200.0, height: 400.0)\n     \
+  \       .background(Color.green)\n            .cornerRadius(40.0)\n        Button(action:\
+  \ {\n            print (\"tapped!\")\n            self.isReady.toggle()\n      \
+  \  }, label: { Text(\"Tap Me\") })\n        Text(\"another item\")\n        Image(systemName:\
+  \ \"camera\")\n        Image(\"brainwashIcon\")\n            .resizable()\n    \
+  \        .frame(width: 100, height: 100, alignment: .center)\n            .colorInvert()\n\
+  \        Toggle(isOn: $isReady,\n               label: {\n                   Text(\"\
+  Ready: \" +\n                       (isReady ? \"Yes\" : \"No\"))\n            \
+  \   })\n            .padding([.leading, .trailing], 100.0)\n    }\n}\n```\n\n图 3-9\
+  \ 展示了它在预览中的样子。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig9_HTML.jpg](img/497312_1_En_3_Fig9_HTML.jpg)\n\
+  \n图 3-9：画布中的当前 SwiftUI 代码\n\n几点值得注意：\n\n- `Button` 操作会打印 \"tapped!\" 并切换 `isReady`\
+  \ 的值。\n- 第二个 `Image` 项上有三个修饰符。`resizable` 修饰符的输出上调用了 `.frame`。\n- 我还在同一个 `Image`\
+  \ 上调用了 `.colorInvert`。这可以在 `Image` 上调用，但其返回类型不响应 `.resizable()`。在某些情况下，顺序很重要。\n\
+  - `Toggle` 对 `isOn` 值使用了绑定，但除此之外，`isReady` 被视为普通属性。\n- 我在 `Toggle` 上使用了 `.padding`\
+  \ 使其远离边缘。\n\n\n\n## TextField\n\n另一个非常常见的控件是 `TextField`。它允许用户输入姓名、电子邮件、电话号码、密码或其他基于文本的值。\n\
+  \n还有其他用于用户输入的 UI 控件，但我们已经介绍过的控件加上 `TextField` 可能是最广泛使用的。\n\n如果我们打开视图库（右上角的 + 按钮，见图\
+  \ 3-10）或使用快捷键 ⌘⇧L，我们可以添加一个 `TextField`。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig10_HTML.jpg](img/497312_1_En_3_Fig10_HTML.jpg)\n\
+  \n**图 3-10** — 对象库按钮\n\n接下来，搜索“text”，我们会看到 `Text` 和 `TextField` 条目。然后，我们可以通过预览窗格（图\
+  \ 3-11）将 `TextField` 拖入我们的 UI。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig12_HTML.jpg](img/497312_1_En_3_Fig12_HTML.jpg)\n\
+  \n**图 3-12** — 用户界面中的 `TextField`\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig11_HTML.jpg](img/497312_1_En_3_Fig11_HTML.jpg)\n\
+  \n**图 3-11** — 对象库中的 `TextField`\n\n代码会根据 UI 元素拖放的顺序更新，包含以下内容：\n\n```\nTextField(\"\
+  Placeholder\", text:Value)\n```\n\n这个 `Value` 是一个占位符。如果你在其他编辑器中查看 `.swift` 文件，你会看到其中包含一些\
+  \ Xcode 的标记语言。这个 `Value` 占位符会解析为一个空字符串（`\"\"`）。在这种情况下，你实际上可以直接编译并运行此代码而无需任何修改：\n\
+  \n```\nTextField(/*@START_MENU_TOKEN@*/\"Placeholder\"/\n*@END_MENU_TOKEN@*/, text:\
+  \ /*@START_MENU_TOKEN@*//\n*@PLACEHOLDER=Value@*/.constant(\"\")/\n*@END_MENU_TOKEN@*/)\n\
+  ```\n\n我将 `TextField` 放在了 `VStack` 的顶部，这样键盘就不会遮挡它（见图 3-12）。\n\n我想做几件事让这个 `TextField`\
+  \ 更符合我们的预期。首先，我想替换占位符文本。我会将占位符改为类似“Name”、“Email”或类似的内容。其次，我想添加一些内边距使其离两侧稍远一点。最后，我想将属性值绑定到文本上。\n\
+  \n这种绑定与 `Toggle` 非常相似。我们将创建一个带有 `@State` 属性包装器的 `String` 属性。然后使用 `$` 前缀将其绑定到 `TextField`\
+  \ 的 `text` 参数。\n\n让我们把它作为一个练习来尝试。我会列出要做什么，你试试看能否不按步骤完成……\n\n### 添加一个 `TextField`\n\
+  \n以下是此练习的目标列表。首先，试着不看步骤完成这些目标。无论你是否完成，准备好后查看下面的详细步骤。\n\n目标：\n\n1. 打开你正在进行的项目（或创建一个新项目）。\n\
+  2. 在 `ContentView` 结构体中添加一个属性。它应该满足：\n    - 带有 `@State` 属性包装器\n    - 声明为 `private`\n\
+  \    - 是一个变量\n    - 类型为字符串\n    - 命名为 `username`\n    - 默认值为空字符串（`\"\"`）\n3. 从视图库中拖入一个\
+  \ `TextField`。\n4. 将 `TextField` 的占位符设置为“Username”。\n5. 将 `TextField` 初始化器的 `text`\
+  \ 参数设置为 `username` 属性的绑定。\n6. 为 `TextField` 添加内边距，值为 30。\n7. 奖励：在另一个 UI 元素上使用 `.disabled(Bool)`\
+  \ 修饰符。传入的 `Bool` 值为 `self.username` 的长度是否为 0（即，如果没有用户输入，则禁用其他控件）。\n\n希望你没有遇到太多困难就完成了这个练习。我们正在将越来越多的项目和概念组合在一起。我们将继续在此基础上逐步构建。\n\
+  \n根据你的起点，你的 UI 可能类似于图 3-13。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig13_HTML.jpg](img/497312_1_En_3_Fig13_HTML.jpg)\n\
+  \n**图 3-13** — 练习的起始 UI\n\n它看起来实际上与一个毫无意义的 `TextField` 没有太大区别。但我们知道，在幕后，它绑定到了 `username`\
+  \ 属性。因此，如果该属性发生变化，我们的 `TextField` 需要更新，整个 UI 将重新渲染。\n\n另外请注意，“Tap Me”按钮是禁用的。这是因为\
+  \ `username` 的长度为 0。一旦用户在 `TextField` 中输入内容（或者 `username` 值以其他方式变为非空），该按钮将启用。\n\n\
+  以下是详细步骤：\n\n1. 像这样添加属性：\n\n```\n@State private var username = \"\"\n```\n\n2. 打开视图库（⌘⇧L），搜索“text”，并将其拖到预览画布上。代码应该如下所示：\n\
+  \n```\nTextField(\"Placeholder\", text:Value)\n```\n\n3. 将“Placeholder”文本改为“Username”。\n\
+  4. 将第二个参数（当前为“Value”）改为对 `username` 属性的绑定，如下所示：\n\n```\nTextField(\"Username\",\
+  \ text: $username)\n```\n\n5. 使用 `.padding(30)` 添加内边距修饰符。\n6. 在下方添加一个 `Text` 项，用于显示输入时的值。\n\
+  \n```\nText(username)\n```\n\n7. 对于其他某个控件，添加 `.disabled` 修饰符。传入的 `Bool` 值为 `self.username.count\
+  \ == 0`。\n\n最终代码应如下所示：\n\n```\n@State private var username = \"\"\nvar body: some\
+  \ View {\n    VStack {\n        TextField(\"Username\", text: $username)\n     \
+  \       .padding(30)\n        Text(\"Hello, Swift\")\n            .font(.largeTitle)\n\
+  \            .fontWeight(.bold)\n            .foregroundColor(Color.blue)\n    \
+  \        .padding(30.0)\n            .frame(width: 200.0, height:400.0)\n      \
+  \      .background(Color.green)\n            .cornerRadius(40.0)\n        Button(action:\
+  \ {\n            print (\"tapped!\")\n            self.isReady.toggle()\n      \
+  \  }, label: { Text(\"Tap Me\") })\n            .disabled(self.username.count ==\
+  \ 0)\n    }\n}\n```\n\n要在实时预览中运行应用，请点击画布中 UI 上方的图标栏中的播放按钮（图 3-14）。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig14_HTML.jpg](img/497312_1_En_3_Fig14_HTML.jpg)\n\
+  \n**图 3-14** — 画布中的按钮栏\n\n如果你按照步骤操作，应该可以在 `TextField` 中输入内容，并在下方的 `Text` 项中看到相同的值（图\
+  \ 3-15）。\n\n![../images/497312_1_En_3_Chapter/497312_1_En_3_Fig15_HTML.jpg](img/497312_1_En_3_Fig15_HTML.jpg)\n\
+  \n**图 3-15** — 练习的最终 UI\n\n此外，“Tap Me”按钮只有在 `TextField` 中有文本时才应启用。\n\n### 章节总结\n\
+  \n我们在本章中探讨的每个控件在 SwiftUI 开发中都非常常见。熟悉它们及其修饰符非常重要。\n\n随着我们覆盖更多内容，我们将看到一些控件如何组合和重叠，以及我们拥有的其他修饰符、手势、事件等。\n\
+  \n我们还将介绍更多概念，例如来自 Combine 框架的绑定。`@State` 属性包装器和绑定只是其中的一小部分。这可能是一个新概念并且容易混淆，所以我们会循序渐进。但它也非常强大，是真正掌握\
+  \ SwiftUI 的关键概念。\n\n我想鼓励你对我们本章所做的一切进行更多练习。启动一个新项目，添加各种 UI 元素，探索修饰符，从视图库中拖入项目，并普遍练习我们所学的内容。\n\
+  \n"
+- "# 4. 绑定数据源\n\n我们在上一章介绍了 `@State`。这里我们将简要回顾一下，并讨论更多关于 SwiftUI 中数据流的概念。\n\n\n\n##\
+  \ 数据驱动 UI\n\n在应用开发中，UI 通常代表数据与状态。当用户点击按钮或拨动开关时，事件会触发一个方法调用。在该方法中，我们通常编写用于更新当前数据的代码。\n\
+  \n上一章中，我们了解了如何使用 `@State` 为切换开关指定数据源。通过将 `isReady` 布尔变量绑定到开关，我们发现拨动开关会更新该值。这一点通过标签文本的更新得到了验证。\n\
+  \n同时，更改数据源（即 `isReady`）的值也会触发 UI 重新渲染。这包括让开关反映来自数据源的新布尔值。\n\n通过属性包装器（Property Wrapper），将此数据源（值）与\
+  \ UI 绑定，可使两者自动保持同步。\n\n## 流程步骤\n\n上述过程包含几个步骤。这些步骤对用户和开发者来说大多是后台自动完成的。\n\n让我们再次快速查看状态变量和绑定的代码：\n\
+  \n```\n@State private var isReady = false\nToggle(isOn: $isReady,\nlabel: {\nText(\"\
+  Ready: \" + (isReady ? \"Yes\" : \"No\"))\n})\n```\n\n`isReady` 变量是`Toggle`的数据源。当其值变化时，UI\
+  \ 会重新渲染，这会导致开关以及`Text`标签都得到更新。\n\n该过程的步骤如下：\n\n1. 用户操作 – 点击开关。\n2. 值更新 – `isReady`\
+  \ 被切换。\n3. 视图更新 – `Toggle`和`Text`发生变化。\n4. UI 显示 – 界面在屏幕上渲染。\n\n每当绑定的属性发生变化时，UI\
+  \ 就会在屏幕上渲染出更新后的内容。框架负责管理这种依赖关系。\n\n我们来看看如何使用`Stepper`（步进器）。`Stepper`可以接受多个闭包——一个用于处理用户点击减号(`-`)递减，一个用于处理点击加号(`+`)递增。以下是一个使用`Stepper`对属性进行增减的示例（图\
+  \ 4-1）。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig1_HTML.jpg](img/497312_1_En_4_Fig1_HTML.jpg)\n\
+  \n**图 4-1** Stepper 代码\n\n在这个例子中，我们有一个`Stepper`和一个显示当前计数的标签。由于`Stepper`是唯一的 UI 元素，它不需要放在`VStack`中。但假设后续会添加更多\
+  \ UI 元素，那么很可能在某个时候需要某种形式的堆栈。应用运行时，界面如图 4-2 所示。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig2_HTML.jpg](img/497312_1_En_4_Fig2_HTML.jpg)\n\
+  \n**图 4-2** Stepper UI\n\n然而，我们无需在闭包中编写值更改的逻辑，而是可以直接将计数器属性绑定到`Stepper`上。\n\n###\
+  \ UI 中的计数器更新\n\n在本练习中，我们将添加代码，将一个`@State`属性绑定到`Stepper`上。这将使用一个不同的初始化器。我们需要的初始化器接收要绑定的值。\n\
+  \n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig3_HTML.jpg](img/497312_1_En_4_Fig3_HTML.jpg)\n\
+  \n**图 4-3** Stepper 初始化器\n\n1. 打开一个项目（现有或新建），点击`ContentView.swift`文件进行编辑。我们从一个空的`ContentView`的\
+  \ body 定义开始。\n2. 创建一个`Stepper`实例，并注意代码补全的选项（图 4-3）。\n\n之前的示例使用了第一个初始化器。它接受两个闭包和一个标签参数。这次，我们将使用接受`StringProtocol`类型、一个值和一个范围的初始化器。该范围是`Stepper`值的闭区间数字。\n\
+  \n代码如下所示：\n\n```\nStepper(\"\\(counter)\", value: $counter, in: 0...9)\n```\n\n\
+  这段代码为我们做了几件事：\n\n1.  在`Stepper`旁边显示当前的计数器值。\n2.  将计数器作为数据源绑定到`Stepper`的值上。\n3. \
+  \ 将`Stepper`的值限制在 0 到 9 之间。\n\nUI 看起来与之前几乎相同。功能也一样。但是，我们不再需要在代码中维护计数器值的更新逻辑。\n\n\
+  框架为我们完成了更新状态并在 UI 中渲染变更的工作。\n\n## 可步进类型 (Strideable)\n\n你可能已经注意到，初始化器的 value 参数接受一个`Binding`类型。这就是为我们管理`@State`值的属性包装器。\n\
+  \n`Binding`是一个包装值的结构体。被包装的值必须遵循`Strideable`协议。`Strideable`扩展了`Comparable`协议，而`Comparable`又扩展了`Equatable`协议。\n\
+  \n因此，值属性必须实现以下所有方法：\n\n*   `==` (`Equatable`)\n*   `<` (`Comparable`)\n*   `<=`\
+  \ (`Comparable`)\n*   `>` (`Comparable`)\n*   `>=` (`Comparable`)\n*   `distance(to\
+  \ other: Self) -> Self.Stride`\n*   `advanced(by n: Self.Stride) -> Self`\n\n相等性比较和比较运算符非常直观。`distance`和`advanced`函数来自`Strideable`协议。\n\
+  \n`distance`函数接收一个与`@State`绑定变量相同类型的值（例如，在我们的例子中是`Int`），并返回与另一个值之间的“距离”。`Int`是遵循`Strideable`的，所以\
+  \ `5.distance(to: 100)` 返回 `95`。\n\n`Strideable` 有一个关联类型 `Stride`，它被定义为实现了 `Comparable`\
+  \ 和 `SignedNumeric` 的类型。因此，从 `distance` 返回 `Self.Stride` 将是一个数字。对于 `Int` 的 `Strideable`\
+  \ 实现，`Stride` 类型也是 `Int`：\n\n```\npublic typealias Stride = Int\n```\n\n`advanced`\
+  \ 函数返回与其被调用值相同的类型（例如，在 `Int` 上调用 `advanced` 返回一个 `Int`）。它接收一个 `Self.Stride` 参数，该参数同样由该类型定义。所以对于\
+  \ `Int`，调用 `advanced` 需要传入一个 `Int`，并返回一个按该值递增后的 `Int`。因此 `5.advanced(by: 5)` 返回\
+  \ `10`。\n\n我们的计数器属性是一个 `Int`，它实现了所有这些方法，并且完全适用于我们的值参数。其他 Swift 数值类型如 `Double`、`Float`\
+  \ 和 `Decimal` 也实现了 `Strideable`。\n\n其他控件也使用绑定，但 `Binding` 包装的类型可能是其他类型。例如，`Textfield`\
+  \ 接受一个包装 `String` 的 `Binding`。这是我们熟知的一种类型！\n\n## 属性包装器 (Property Wrapper)\n\n`@State`\
+  \ 属性包装器背后的类型是 `Binding`。如果你深入研究其定义，你会发现它是一个结构体，泛型参数 `Value` 即它所包装的值。和可选类型类似，它定义了各种初始化器、函数和扩展。\n\
+  \n然而，由于我们将让框架来管理属性包装器的内存和处理，我们通常除了进行绑定之外，无需做其他事情。后续的值的包装和解包都将由系统处理。我们可以设置值（或者让 UI\
+  \ 元素来设置），剩下的工作就由系统代劳了。\n\n\n\n### `@Binding`\n\n另一个用于绑定的指令是`@Binding`。这允许你指定另一个对象中的属性，以绑定到传入的内容。\n\
+  \n我们可能希望将一个或多个 UI 元素提取到单独的结构体中。这样可以在整个代码中重用。但我们也可能希望该值基于使用我们新元素的上下文进行绑定。\n\n例如，如果我们想要像练习中设计的那样实现步进器控件，我们可以这样做。我们只需要创建一个实现`View`协议的新结构体，并将步进器控件放入其中，如图\
+  \ 4-4 所示。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig4_HTML.jpg](img/497312_1_En_4_Fig4_HTML.jpg)\n\
+  \n**图 4-4**  \nMyStepper 结构体\n\n这里，我们有一个名为`MyStepper`的新结构体。它可以位于同一个文件或另一个文件中。在我们原始的`ContentView`中，可以通过`MyStepper()`在\
+  \ UI 中包含此结构体，以替代我们之前的步进器代码。\n\n你可以像使用`Button`、`Text`或其他任何视图一样，在代码中包含任意数量的此类自定义视图类型。这有助于编写更清晰、更易于维护的代码，并且非常适合复用。\n\
+  \n然而，在图 4-4 中，我们将计数器作为本地属性。我们真正想要的是能够将计数器基于外部数据源。\n\n`@State`适用于给定结构体内部。在这种情况下，数据源位于`MyStepper`实现之外。为此，我们使用`@Binding`指令。\n\
+  \n因此，我们将`@State`替换为`@Binding`，从这样：\n\n```\n@State private var counter : Int = 0\n\
+  ```\n\n变成这样：\n\n```\n@Binding var counter : Int\n```\n\n我们不需要提供默认值，因为它将在创建`MyStepper`时传入。注意，它不再是私有的，因为它需要被外部访问。Swift\
+  \ 中的结构体会自动生成一个成员逐一初始化器。在我们的例子中，这个初始化器包含`counter`值。因此，创建`MyStepper`时的代码补全看起来像图 4-5\
+  \ 所示。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig5_HTML.jpg](img/497312_1_En_4_Fig5_HTML.jpg)\n\
+  \n**图 4-5**  \n带有`counter`参数的 MyStepper 初始化器\n\n该属性的类型是一个`Binding<Int>`（属性包装器）。就像使用可选类型一样，我们可以直接传入类型（`Int`）。在我们的代码中，可以像这样传入原始的`counter`属性：\n\
+  \n```\nMyStepper(counter: $counter)\n```\n\n现在，我们的`counter`属性作为属性包装器传入`MyStepper`并由系统管理。通过`MyStepper`更改值会更新我们本地的`counter`属性。\n\
+  \n如果我们想要两个步进器呢？我们可以像添加第一个一样，精确地添加第二个`MyStepper`。\n\n如果我们将`counter`绑定到这两个步进器，会发生什么？试试看。提示：使用`VStack`或类似容器来对`MyStepper`实例进行分组。\n\
+  \n```\nMyStepper(counter: $counter)\nMyStepper(counter: $counter)\n```\n\n由于两个`MyStepper`实例绑定到同一个值，它们都会更新同一个数据源。更新其中一个将会改变另一个的值。UI\
+  \ 渲染将反映这些变化，如图 4-6 所示。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig6_HTML.jpg](img/497312_1_En_4_Fig6_HTML.jpg)\n\
+  \n**图 4-6**  \n具有相同绑定的 MyStepper 实例\n\n我将内边距改为仅在水平方向上，以使它们更靠近。除此之外，UI 符合预期：两个`MyStepper`通过同一个绑定保持同步。\n\
+  \n那么文本输入框（`TextField`）的绑定呢？如前所述，`TextField`使用`String`而不是数值。这有什么不同吗？从表面和实践来看，并无区别。参数类型不再是`Binding<Strideable>`，而是`Binding<String>`。\n\
+  \n让我们尝试创建另一个包含`TextField`的视图类型，并从`ContentView`进行绑定。\n\n**文本输入结构体**\n\n在这个练习中，我们将在\
+  \ UI 中添加一个`TextField`。我们将创建另一个名为`MyTextInput`的结构体（可以在同一个文件或另一个文件中）。它需要一个文本输入框和一个用于绑定的属性。\n\
+  \n创建一个名为`MyInput`的新结构体（在同一个文件或另一个文件中），如下所示：\n\n```\nstruct MyInput : View {\n}\n\
+  ```\n\n它需要包含两部分：计算属性`body`和在创建时用于绑定的属性。\n\n在结构体声明下方添加绑定属性，如下所示：\n\n```\n@Binding\
+  \ var stringVal : String\n```\n\n现在，在其下方开始编写`body`属性，如下所示：\n\n```\nvar body: some\
+  \ View {\n}\n```\n\n使用至少包含标题和绑定的`TextField`元素来充实`body`属性，如下所示：\n\n```\nTextField(\"\
+  Enter Value:\",\ntext: $stringVal,\nonEditingChanged: { (changed) in\nprint(changed)\n\
+  }) {\nprint(\"commit: \\(self.stringVal)\")\n}\n```\n\n注意，这里提供了多个初始化器可供选择。其中包括一些带有闭包的初始化器，用于处理编辑状态的变化（开始编辑和结束编辑）。这个`onEditingChanged`闭包接受一个`Bool`参数，其中`true`表示值正在被编辑，`false`表示编辑结束。\n\
+  \n另一个闭包是`onCommit`，当用户点击回车键时被调用。\n\n可选地为元素添加一些内边距，以匹配`MyStepper`的外观。\n\n```\n.padding(.horizontal,\
+  \ 100)\n```\n\n在`ContentView`中添加一个`String`属性，用于绑定到`MyInput`。\n\n```\n@State private\
+  \ var username = \"\"\n```\n\n在 UI 中，将带有`String`属性的`MyInput`添加到`MyStepper`下方。\n\n\
+  ```\nMyInput(stringVal: $username)\n```\n\n在 UI 中，在`MyInput`下方添加一个显示该`String`属性的`Text`元素。\n\
+  \n```\nText(username)\n```\n\n代码（不包括`MyStepper`部分）应类似于图 4-7 所示。\n\n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig7_HTML.jpg](img/497312_1_En_4_Fig7_HTML.jpg)\n\
+  \n**图 4-7**  \nMyInput 结构体及更新后的 ContentView body 属性\n\nUI 应类似于图 4-8 所示，文本输入框中的文本会显示在`Text`标签中。\n\
+  \n![../images/497312_1_En_4_Chapter/497312_1_En_4_Fig8_HTML.jpg](img/497312_1_En_4_Fig8_HTML.jpg)\n\
+  \n**图 4-8**  \n包含 MyStepper、MyInput 和 Text 的 UI\n\n我们可以看到，可以通过从创建它们的元素处进行绑定，来创建额外的\
+  \ UI 元素。当然，我们也可以将多个 UI 元素绑定到我们创建的同一个绑定。\n\n### 章节总结\n\n在本章中，我们回顾了在给定结构体中使用`@State`作为属性包装器的概念。使用内置\
+  \ UI 元素来管理和同步值可以减少编码工作，并避免因数据未同步而产生的 bug。\n\n我们还了解了数值类型的绑定如何与`Binding`结构体及其`Strideable`和`Stride`类型配合工作。同时，我们对`TextField`使用了`String`类型的绑定。\n\
+  \n`@State`和`@Binding`有助于将值保存在单一数据源中。无需复制、更新或同步值。当用户更新其输入时，这些值会自动更新，UI 会重新创建，渲染显示出新的状态。\n\
+  \n让框架为我们完成这些工作，可以减少编码时间和代码量。同时，代码也更具可维护性，并能受益于框架未来的更新。\n\n我希望你同意，以这些方式使用绑定是简化 UI\
+  \ 及其与相关值之间关系的良好开端。\n\n我们将在后续内容中继续构建这些概念。我鼓励你练习我们所学的内容，并探索更多选项。尝试其他 UI 元素，如`Slider`、`Button`、`Toggle`、`Image`等。\n\
+  \n\n\n"
+- "# 5. 可观察对象\n\n在前面的章节中，我们使用了独立的属性来存储值。但在实际开发中，我们通常会遇到更复杂的模型。我们通常需要处理包含多个属性、用于表示数据的结构体或类。\n\
+  \n在本章中，我们将探讨如何观察引用类型对象的属性更新。当属性发生变化时，用户界面将收到通知并进行更新。\n\n为了实现这一点，我们将使用 Combine 框架的部分功能。我们会在后面的章节中更详细地介绍该框架。现在，我们只需了解它如何满足我们绑定的需求。\n\
+  \n我们将继续在 `SUINotes` 项目中进行开发。我们会在现有代码中添加一些新对象。对于 `ContentView` 结构体，我们将移除当前的属性和 body\
+  \ 实现，然后重新开始。\n\n## 典型模型\n\n我们都熟悉结构体和类。下面是一个表示笔记对象的典型类：\n\n```\nenum Priority : Int\
+  \ {\ncase low, medium, high\n}\nclass Note {\nvar text = \"\"\nvar updateAtTime\
+  \ = Date()\nvar priority = Priority.medium\n}\n```\n\n这里，我们定义了一个 `Note` 类，它包含三个属性，类型分别为\
+  \ `String`、`Date` 和 `Priority`。`Priority` 被定义为一个枚举，包含 low、medium 和 high 三个值。它还有一个底层类型\
+  \ `Int`，因此 low、medium 和 high 分别映射到 0、1 和 2。这有助于进行优先级值的比较。\n\n另外，`Note` 的所有属性都有默认值，所以我们不需要定义初始化器。\n\
+  \n我们希望在用户界面上显示笔记对象的内容，因此需要一个 `Note` 实例。由于 `Note` 类包含一个 `Date` 属性，我们还需要创建一个 `DateFormatter`。\n\
+  \n在移除所有之前的属性后，`ContentView.swift` 中的 `ContentView` 结构体属性如下所示：\n\n```\nstruct ContentView:\
+  \ View {\nvar note = Note()\nvar df = DateFormatter()\n...\n```\n\n但是我们需要为 `df`\
+  \ 实例设置样式。为此，我们将为 `ContentView` 创建一个初始化器。它看起来像这样：\n\n```\ninit() {\ndf.dateStyle\
+  \ = .none\ndf.timeStyle = .medium\nnote.text = \"Note Text\"\n}\n```\n\n注意，我还将 `note.text`\
+  \ 属性设置为一个非空字符串值。这样，用户界面上就有内容可以显示了。\n\n显示 `Note` 实例的内容相当简单。我们可以使用两个 `Text` 项来显示文本和\
+  \ `createdAt` 属性。`DateFormatter` 会为我们的 `Date` 生成一个格式美观的 `String`。\n\n### 构建笔记界面\n\
+  \n在本练习中，我们将按照当前定义的方式来构建显示模型的用户界面。这包括两个 `Text` 项作为起始。\n\n1.  如果尚未定义，请按前面所示定义 `Priority`\
+  \ 枚举和 `Note` 类。\n\n2.  将 body 实现替换为 `VStack` 中的两个 `Text` 项：一个用于显示文本，另一个用于显示 `updatedAtTime`。\n\
+  \n代码如下：\n\n```\nvar body: some View {\nVStack {\nText(note.text)\nText(df.string(from:\
+  \ note.updatedAtTime))\n}\n}\n```\n\n对于优先级，我们希望使用比纯文本更具视觉表现力的方式。让我们使用星形图像。SF Symbols\
+  \ 为此提供了多种选项。我们将使用 `star.circle` 图像。\n\n3.  为优先级的 `star.circle` 图像添加一个 `HStack`：\n\
+  \n```\nHStack {\nImage(systemName: \"star.circle\")\nImage(systemName: note.priority.rawValue\
+  \ > 0\n? \"star.circle\" : \"circle\")\nImage(systemName: note.priority.rawValue\
+  \ > 1\n? \"star.circle\" : \"circle\")\n}\n```\n\n4.  运行应用程序 (`⌘+r`) 并验证用户界面是否按预期显示。\n\
+  \n对于默认优先级为 `.medium` 的笔记，用户界面将如图 5-1 所示。\n\n![../images/497312_1_En_5_Chapter/497312_1_En_5_Fig1_HTML.jpg](img/497312_1_En_5_Fig1_HTML.jpg)\n\
+  \n图 5-1 笔记界面\n\n你可以随意调整用户界面，使其以不同的方式显示。这将是我们后续实现模型变化时更新用户界面的基础。\n\n如果笔记发生变化，我们希望显示这些变化。这些变化可能是文本、日期或优先级。我们将为\
+  \ `Note` 的文本和优先级属性添加观察者：\n\n```\nclass Note : ObservableObject {\nvar text = \"\"\
+  \ {\ndidSet {\nself.updatedAtTime = Date()\n}\n}\nvar updatedAtTime = Date()\nvar\
+  \ priority = Priority.medium {\ndidSet {\nself.updatedAtTime = Date()\n}\n}\n}\n\
+  ```\n\n每当文本或优先级发生变化时，`updatedAtTime` 也会随之更新。\n\n让我们添加一个按钮来更新笔记的文本：\n\n```\nButton(action:\
+  \ {\nlet newTime = self.df.string(from:Date())\nself.note.text = \"now \\(newTime)\"\
+  \nprint(self.note.text)\n}) {\nText(\"Update\")\n}\n```\n\n现在用户界面如图 5-2 所示。\n\n\
+  ![../images/497312_1_En_5_Chapter/497312_1_En_5_Fig2_HTML.jpg](img/497312_1_En_5_Fig2_HTML.jpg)\n\
+  \n图 5-2 带更新按钮的笔记界面\n\n我还会打印出新的文本值，以验证它是否正在更新。\n\n如果我们运行它，会看到输出显示 `updatedAtTime`\
+  \ 被设置为当前时间（例如，“now 4:53:39 PM”），但用户界面并没有更新。这是为什么呢？\n\n## 绑定？\n\n你可能认为这是因为没有绑定到该值。确实如此。然而，与\
+  \ `Toggle` 或类似控件不同，`ContentView` 并没有一个需要传递的值。更重要的是，`Note` 可能由其他对象创建并传入 `ContentView`。\n\
+  \n如果你在处理现有代码库，模型可能已经定义并实现了。我们不想开始要求类变成结构体，某些值带有 `@Binding` 并被传入，可能还需要新的初始化器等等。\n\
+  \n不，相反，我们希望尽可能少地改动模型。\n\n## 观察引用对象\n\n这就是 Combine 框架的用武之地。我们稍后会花更多时间研究它。现在，我们只需要理解它可以用于发布更新。\n\
+  \n当你拥有可以在整个代码中传递的**引用类型**时，这非常有用。它可能在你不知情的情况下随时发生变化。但是通过使用 `ObservableObject`，你的用户界面可以保持最新状态。\n\
+  \n当我们研究 `State`/`Binding` 时，数据源位于我们的 `ContentView` 中。我们使用属性包装器将该值传递给另一个对象。变化发生在其他代码中，但数据源仍然是源并得到更新。\n\
+  \n对于绑定对象，情况实际上是相反的。相关的对象是数据源，我们想知道何时发生了变化。怎么做呢？\n\n`ObservableObject` 协议就是答案。在我们的例子中，就是\
+  \ `Note` 类——这也是我们使用类对象来表示 `Note` 的部分原因。它需要是一个引用类型。\n\n## ObservableObject 协议\n\n\
+  `ObservableObject` 协议继承自 `AnyObject` 协议。这意味着它只能由类（而不是结构体或枚举）实现。\n\n因此，让我们声明 `Note`\
+  \ 类遵循 `ObservableObject`。首先，我们需要在文件顶部导入 Combine 框架：\n\n```\nimport Combine\n```\n\
+  \n然后，我们像这样更新 `Note` 类代码：\n\n```\nclass Note : ObservableObject {...\n```\n\n注意，你不会收到任何警告或错误。这总是件好事。`ObservableObject`\
+  \ 中没有必需的、同时又没有提供默认实现的东西。\n\n对 `Note` 的更改需要发布，并且系统已经为我们创建了一个默认的发布者！\n\n我们还需要修改 `ContentView`\
+  \ 中的 note 属性。这里我们将像使用 `State` 和 `Binding` 一样使用另一个属性包装器。它叫做 `ObservedObject`，我们需要像这样将它添加到我们的\
+  \ note 属性上：\n\n```\n@ObservedObject var note = Note()\n```\n\n我们已经告诉编译器，`Note` 类是可观察的。当然，没有人强制要求观察它。我们的\
+  \ `ContentView` 想要观察它，并且已经如此声明了。现在只差最后一步了。\n\n\n\n### 发布更新\n\n有两种简单的方法可以接收对`ObservedObject`上值变更的更新。这两种方法都由实现`ObservableObject`的对象控制。\n\
+  \n这意味着`ObservableObject`控制着发布什么内容以及何时发布。\n\n在我们的示例中，我们最关心的是`Note`中`text`属性的变化。我之前提过，`ObservableObject`对其所需的组成部分有默认实现。其中之一是一个发布器，属性名为`objectWillChange`。\n\
+  \n利用这个默认发布器，我们可以在任何内容发生变化时发送新值。我们在`Note`的`text`属性上已经有一个`didSet`观察器。那是发布变更的理想位置。代码如下所示：\n\
+  \n```\nvar text = \"\" {\n    didSet {\n        self.updatedAtTime = Date()\n  \
+  \      self.objectWillChange.send()\n    }\n}\n```\n\n现在当我们点击更新按钮时，`text`和`updatedAtTime`的文本框都会更新。更新效果如图\
+  \ 5-3 所示。\n\n![../images/497312_1_En_5_Chapter/497312_1_En_5_Fig3_HTML.jpg](img/497312_1_En_5_Fig3_HTML.jpg)\n\
+  \n**图 5-3**  \n带有更新的 Note 界面\n\n在发布器上调用`.send`无疑是发送更新的简便方法。当你只希望在关键时间点发布变更时，这种方法尤其出色。也许你想等到特定事件发生（比如写入数据库）之后才发布值。\n\
+  \n你可能有一个类只在特定时间间隔发布更新。或者你可能只想在属性达到某个阈值或其他条件满足时才发布。在这些情况下，发布器上的`.send`调用非常有用。\n\n\
+  在我们的例子中，我们希望每当设置新`text`值时都能发布。在`didSet`观察器中调用`.send`可以很好地满足这个需求。另一个针对属性所有变更的处理方式是使用`@Published`属性。\n\
+  \n## @Published\n\n属性上的`@Published`属性会创建一个该类型的发布器。我们可以将此属性添加到`Note`中的`text`属性上。同时，我们现在可以移除`didSet`观察器中对`.send`的调用。\n\
+  \n在我们的示例中，结果将是相同的。在界面中点击更新按钮将更新`text`，随后发布该更新，界面也会随之更新。\n\n现在的代码如下所示：\n\n```\n@Published\
+  \ var text = \"\" {\n    didSet {\n        self.updatedAtTime = Date()\n    }\n\
+  }\n```\n\n我们可能还想为其他属性添加`@Published`。在我们的示例中，发布`priority`是合理的。而发布`updatedAtTime`可能是最有意义的做法。这种情况下，如果代码编写得当，只要对象被更新，它就会发布。\n\
+  \n让我们尝试点别的。\n\n**用于更改优先级的定时器**\n\n让我们修改`Note`类，使其在特定时间后自动创建优先级。我们将为`Note`添加一个带有`Timer`的`init`方法。当定时器触发时，每次会将优先级提升一级。\n\
+  \n1.  将`Note`的默认优先级更改为`.low`：\n\n2.  为`Note`类添加一个初始化器：\n\n    ```\n    init() {\n\
+  \    }\n    ```\n\n3.  在`init`中添加一个`Timer`，每隔 X 秒（例如 10 秒）触发一次并重复执行。`Timer`闭包的主体应将优先级提升一级。\n\
+  \n    ```\n    Timer.scheduledTimer(withTimeInterval: 10.0,\n                  \
+  \       repeats: true) { (timer) in\n        self.priority = Priority(rawValue:\n\
+  \            self.priority.rawValue + 1) ??\n            Priority.high\n       \
+  \ if self.priority == .high {\n            timer.invalidate()\n        }\n    }\n\
+  \    ```\n\n```\nvar priority = Priority.low {...\n```\n\n每 10 秒，定时器会触发一次。它会根据当前优先级的原始值加\
+  \ 1 来创建一个新的优先级。如果该数值过高，则默认为 `Priority.high`。\n\n如果优先级设置为 `.high`，定时器将失效。我们可能希望保持定时器运行，以防用户将优先级设回较低级别。当前界面中没有此功能，因此暂时无需考虑。\n\
+  \n1.  运行应用并验证优先级是否每 10 秒增加一次，直到变为高优先级。\n\n第一个和最后一个结果应如图 5-4 所示。\n\n![../images/497312_1_En_5_Chapter/497312_1_En_5_Fig4_HTML.jpg](img/497312_1_En_5_Fig4_HTML.jpg)\n\
+  \n**图 5-4**  \n自动更新界面：初始和最终状态\n\n通过这个练习，我们看到无论变更是由用户交互还是其他方式触发，这些变更都会被发布。\n\n##\
+  \ 本章小结\n\n使用 `ObservableObject` 协议允许引用类型对象发布其更改。你可以通过少量修改，让新的或现有的模型类实现 `ObservableObject`。\n\
+  \n这使得对现有代码的改动非常微小。如果你曾经给遗留代码添加过 `Codable` 协议，你就知道这能有多简单。\n\n对于需要关注更新的代码，添加的内容也很少。可能只需为属性添加`@ObservedObject`属性。\n\
+  \n本章我们介绍了一些结合 Combine 的复杂概念。虽然幕后有很多操作，但我们只需执行几个步骤：\n\n1.  导入 Combine。\n2.  为 `Note`\
+  \ 添加 `@ObservableObject`。\n3.  为 `note` 属性添加 `@ObservedObject`。\n4.  决定是：\n    -\
+  \ 在发布器上调用 `.send`，还是\n    - 为属性添加 `@Published`\n\n"
+- "# 6. 环境值\n\n到目前为止，我们已经了解了如何在给定视图中使用`State`属性包装器处理值。我们还了解了如何通过`Binding`将局部值绑定到外部变量。\n\
+  \n在这两种情况下，我们的代码都需要创建和控制这些值。这些值通过属性包装器进行传递。以这种方式使用属性包装器可以保持数据源的孤立性和同步性。\n\n但是，那些可能在别处创建的值呢？那些可能影响整个应用或设备的值呢？\n\
+  \nSwiftUI 也通过环境值和对象提供了解决方案。\n\n\n\n## 环境值\n\n使用 SwiftUI 可以轻松获取各种环境值。如果您的界面基于这些值，那么更改这些值将使当前视图失效。这意味着会为用户创建并渲染一个新视图。综上所述，这意味着您界面中使用的值的更改将触发必要的更新。\n\
+  \nSwiftUI 提供了可从环境中访问的丰富值列表。这些值涵盖辅助功能设置、配色方案、控件属性，甚至 CoreData 等领域。\n\n您可以在此处查看 SwiftUI\
+  \ 中所有可用的变量：[`https://developer.apple.com/documentation/swiftui/environmentvalues`](https://developer.apple.com/documentation/swiftui/environmentvalues)。\n\
+  \n让我们以配色方案为例进行简单说明。要在代码中访问该值，我们需要为变量使用 `@Environment` 属性包装器。我们指定所需特定值的键路径。代码如下所示：\n\
+  \n```\n@Environment(\\.colorScheme) var lightOrDark\n```\n\n现在，我们将配色方案值存储在一个名为 `lightOrDark`\
+  \ 的属性中。在我们的界面中，我们可以根据此值调整界面。然后，如果该值发生变化，我们的界面就会更新。\n\n假设我们希望按钮标题“更新”在普通模式下为蓝色，在深色模式下为绿色。现在，我们可以使用\
+  \ `lightOrDark` 的值来确定这一点。\n\n使用上一章的项目，我将使用 `lightOrDark` 来设置强调色。\n\n```\nText (\"\
+  更新\")\n.accentColor(lightOrDark == .light ?\n.blue : .green)\n```\n\n在模拟器中运行时，如果深色模式关闭，界面将显示一个蓝色标题的按钮。如果我们在支持深色模式的模拟器/设备上切换到深色模式（⇧⌘A），按钮将切换到绿色，如图\
+  \ 6-1 所示。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig1_HTML.jpg](img/497312_1_En_6_Fig1_HTML.jpg)\n\
+  \n图 6-1\n\n界面更新为深色模式\n\n我们的 `Text` 项目是使用默认设置创建的。默认情况下，它使用系统标签颜色。该颜色会根据深色模式设置而变化。如果您检查或打印出\
+  \ `UIColor.label.cgColor`，它也会根据当前的深色模式设置而变化。\n\n这两个 `Text` 项目会自动更新。按钮文本项目也是如此。因此，默认情况下，这些项目会根据深色模式设置进行更新。或者，我们也可以像前面的代码那样，以自定义方式处理。\n\
+  \n### 每个视图的设置\n\n每个视图都继承其父视图的环境设置。但是，您可以在创建视图时覆盖这些设置。\n\n我们的 `Button` 有一个用于标题的 `Text`\
+  \ 项目。在上一节中，我们根据 `lightOrDark` 值设置了该标题的颜色。对于当前我们整个（小型）应用，我们都在使用相同的环境设置。\n\n当我们的 `ContentView`\
+  \ 被创建时，环境被继承并传播到它的所有视图：`Text`、`Button` 等等。但是，我们可以改变这一点。我们可以在创建视图时修改环境。\n\n要修改环境，我们在视图创建的返回值上使用\
+  \ `.environment` 修饰符。假设我们想强制我们的顶部 `Text` 项目始终处于深色模式。当然，当背景为白色时，白色文本将不可见，因此我还会添加一个灰色的背景修饰符。\n\
+  \n```\nText(note.text)\n.environment(\\.colorScheme, .dark)\n.background(Color.gray)\n\
+  ```\n\n我使用 `.environment` 修饰符指定配色方案的键路径和一个值（即 `.dark`）。该枚举的另一个值选项是 `.light`。现在，界面强制此\
+  \ `Text` 使用深色模式。运行应用并切换到深色模式，看起来如图 6-2 所示。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig2_HTML.jpg](img/497312_1_En_6_Fig2_HTML.jpg)\n\
+  \n图 6-2\n\n界面更新为深色模式\n\n使用方法链，我们可以同时调用 `.environment` 和 `.background` 修饰符。类似地，我们可以调用多个\
+  \ `.environment` 修饰符并更改不同的值。\n\n这些更改随后将被该视图创建的所有子视图继承。在我们的例子中，这似乎不适用。然而，我们无法控制 `Text`，也不知道它创建了什么。如果我们查看视图层次结构渲染（调试\
+  \ ➤ 视图调试… ➤ 捕获视图层次结构），如图 6-3 所示，我们会发现 `Text` 项目可能比我们想象的更复杂。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig3_HTML.jpg](img/497312_1_En_6_Fig3_HTML.jpg)\n\
+  \n图 6-3\n\n界面的 3D 渲染\n\n这里值得学习的一点是，外观可能比看起来更复杂。因此，虽然仅设置一个值（例如 `accentColor`）可能看似可行，但您应该考虑核心更改应该是什么（例如\
+  \ `colorScheme`）。\n\n早些时候，我们研究了将环境设置传递到 `Text` 元素中。如果我们先将界面的一部分提取到单独的结构体中，也可以做同样的事情。\n\
+  \n注意 带环境的视图\n\n在本练习中，我们将提取显示 `Note` 的界面项。我们将它们放入一个新的 `View` 中，并让该结构体控制笔记详细信息的显示。\n\
+  \n然而，我们希望创建元素（即我们应用中的 `ContentView`）来控制环境。除了 `Note` 实例和 `.environment` 修饰符之外，我们不希望\
+  \ `ContentView` 控制新创建的 `NoteView` 的界面其他方面。\n\n在浅色（左）和深色（右）模式下，我们希望界面看起来如图 6-4 所示。\n\
+  \n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig4_HTML.jpg](img/497312_1_En_6_Fig4_HTML.jpg)\n\
+  \n图 6-4\n\n浅色（左）和深色（右）模式下的 NoteView\n\n您可以尝试在查看以下步骤和代码之前自行解决。简而言之，您需要将与 `Note` 相关的界面元素放入一个符合\
+  \ `View` 协议的新 `NoteView` 结构体中。将 `.environment` 修饰符分开，并在新创建的 `NoteView` 元素上调用它。\n\
+  \n1.  创建一个名为 `NoteView` 的新结构体，使其符合 `View`：\n\n```\n    struct NoteView : View {\n\
+  \    }\n```\n\n2.  在 `NoteView` 中添加一个包含 `VStack` 的计算属性 `body`：\n\n```\n    var body:\
+  \ some View {\n    VStack {\n    }\n    }\n```\n\n3.  在 `VStack` 的底部，添加 `.background`\
+  \ 修饰符：\n\n1.  将 `ContentView` 的 `body` 中的两个 `Text` 元素和包含 `Image` 项目的 `HStack` 剪切并粘贴到\
+  \ `NoteView` 的 `VStack` 中。\n\n\n\n```swift\nText(note.text)\nText(df.string(from:\
+  \ note.updatedAtTime))\nHStack {\n    Image(systemName: \"star.circle\")\n    Image(systemName:\
+  \ note.priority.rawValue > 0\n        ? \"star.circle\" : \"circle\")\n    Image(systemName:\
+  \ note.priority.rawValue > 1\n        ? \"star.circle\" : \"circle\")\n}\n```\n\n\
+  ```swift\n}.background(Color.gray)\n```\n\n\"Update\"按钮位于`ContentView`的 body 中。\n\
+  \n1. 向`NoteView`添加一个`Note`属性：\n\n```swift\nvar note : Note\n```\n\n该属性将被传入，因此不要将其设置为任何值。\n\
+  \n2. 类似地，添加一个将被传入的`DateFormatter`属性：\n\n```swift\nvar df : DateFormatter\n```\n\n\
+  `NoteView`结构体已定义并可投入使用（图 6-5）。它包含了`Note`和`DateFormatter`这两个属性。我们在`ContentView`中已经有了这些属性。我们将使用`ContentView`中的这两个值来创建`NoteView`。\n\
+  \n![图 6-5](img/497312_1_En_6_Fig5_HTML.jpg)\n\n*图 6-5：NoteView 及其属性和从 ContentView\
+  \ 的 VStack 中移出的 UI 元素*\n\n3. 在`ContentView`的 body 属性中，创建一个新的`NoteView`实例。它应该放在之前`NoteView`的\
+  \ body 中放置两个`Text`项和`Image`的`HStack`的位置（就在`Button`上方）：\n\n```swift\nNoteView(note:\
+  \ self.note, df: df)\n```\n\n现在我们已经定义了自己的 UI 元素。我们可以像之前对`Text`所做的那样，将环境设置传递给我们的`NoteView`。\n\
+  \n![图 6-6](img/497312_1_En_6_Fig6_HTML.jpg)\n\n*图 6-6：NoteView UI*\n\n4. 将之前应用于`Text`项的相同`.environment`修饰符添加到`NoteView`上。步骤\
+  \ 7 和 8 合并后如下所示：\n\n```swift\nNoteView(note: self.note, df: df)\n    .environment(\\\
+  .colorScheme, .dark)\n```\n\n5. 更新 Canvas 中`NoteView`的预览，它应该看起来像图 6-6。\n\n基本上，这就是我们想要的效果。我们展示了可以创建一个`NoteView`来自我控制，同时让父视图控制其环境。\n\
+  \n然而，有两个问题。底部的内边距不太美观。此外，如果你在模拟器中运行它，可能会注意到优先级星星不再更新。\n\n这两个问题都很容易解决。对于内边距问题，我们仍然可以通过`.padding`修饰符在`NoteView`中控制\
+  \ UI。如果我们在`NoteView`的`VStack`上添加内边距，它会在底部产生一个白色空间。这是因为内边距位于视图外部。这不是我们想要的效果。\n\n\
+  相反，如果我们将内边距添加到最后一个 UI 项（即如下代码中的`HStack`），它就会显示正确：\n\n```swift\nHStack {\n    Image(systemName:\
+  \ \"star.circle\")\n    Image(systemName: note.priority.rawValue > 0\n        ?\
+  \ \"star.circle\" : \"circle\")\n    Image(systemName: note.priority.rawValue >\
+  \ 1\n        ? \"star.circle\" : \"circle\")\n}\n.padding(.bottom)\n```\n\n为了使`Note`的优先级更新，我们需要在\
+  \ UI 中使用与在`ContentView`中创建的相同的`Note`实例。我们可以在`NoteView`中使用`ObservedObject`属性包装器。\n\
+  \n6. 在`NoteView`中添加一个`ObservedObject`：\n\n```swift\n@ObservedObject var note : Note\n\
+  ```\n\n既然我们现在让`NoteView`控制 UI 以更新笔记实例，我们可以从`ContentView`的属性中移除`@ObservedObject`：\n\
+  \n```swift\nstruct ContentView: View {\n    var note = Note()\n```\n\n一旦我们创建了`Note`（如上）并将其传递给`NoteView`，更改将发布到`NoteView`而不是`ContentView`。\n\
+  \n![图 6-7](img/497312_1_En_6_Fig7_HTML.jpg)\n\n*图 6-7：带优先级更新的 NoteView*\n\n7. 再次运行应用程序，验证优先级星星是否如图\
+  \ 6-7 所示更新。\n\n暗黑模式的变化也已处理，如图 6-8 所示。请确保你使用的是支持暗黑模式的模拟器/设备。\n\n![图 6-8](img/497312_1_En_6_Fig8_HTML.jpg)\n\
+  \n*图 6-8：暗黑模式下的 NoteView UI*\n\n**加分项**：作为额外练习，在`colorScheme`设置之后添加另一个`.environment`修饰符。尝试使用`\\\
+  .font`键路径并为`NoteView`的环境设置字体。你可以将其设置为类似：\n\n```swift\nFont.system(.largeTitle)\n\
+  ```\n\n在这个练习中，我们看到了如何让一个给定的视图控制自己的 UI。但我们也可以从父视图通过`.environment`修饰符来控制环境。\n\n###\
+  \ 应用环境\n\n就像我们在创建`NoteView`时调用`.environment`修饰符一样，我们也可以在其他地方这样做。在模板为你创建的`SUINotesApp.swift`文件（根据项目名称命名）中，我们的`ContentView`被创建用于在模拟器/设备上运行应用程序（与\
+  \ Canvas 相对）。\n\n就像我们创建`NoteView`一样，我们也可以为`ContentView`设置一些环境设置。因此，如果我们希望应用程序在暗黑模式下运行、使用固定字体、设置截断模式或其他各种设置，我们都可以在那个地方完成。\n\
+  \n但请记住，这意味着你正在为该视图及其子视图设置环境。如果你将`colorScheme`设置为暗黑（或明亮）而系统处于明亮（或暗黑）模式，你只是为你的`ContentView`及其子视图更改了它——而不是为整个设备更改。但你的应用程序会一直以暗黑模式运行，无论用户如何设置设备。\n\
+  \n或者，在你的`ContentView`实例上，你可以设置像`Font`这样的属性，它将会传播：\n\n```swift\nContentView()\n \
+  \   .environment(\\.font, Font.system(.largeTitle))\n```\n\n如果你在`ContentView_Previews`代码中这样创建`ContentView`，你的预览将在\
+  \ Canvas 中使用此设置。\n\n如果你在`SUINotesApp.swift`文件的`ContentView`创建代码中这样做，那么在模拟器或设备上运行时将使用这些设置。\n\
+  \n\n\n## `EnvironmentObject` 属性包装器\n\n有时，你想要监视变化的对象并非直接来自父视图。如果为了将其传递到最终的目标视图而经过多层视图传递，可能是一种糟糕的设计。\n\
+  \n在我们的应用中，`Note` 实例是在 `ContentView` 中创建的，但这可能并非最佳或正确的位置。也许我们有一个在其他地方管理的模型。`ContentView`\
+  \ 可能没有理由处理它，更不用说创建它了。\n\n在这种情况下，我们可以在 `NoteView` 中对 `Note` 使用 `@EnvironmentObject`\
+  \ 属性包装器。我们的 `NoteView` 可以像之前一样请求 `Note` 实例。`ContentView` 就无需再处理 `Note` 了。\n\n这意味着我们可以从\
+  \ `ContentView` 中移除 `note` 属性。此外，我们还需要从 `ContentView` 结构体代码中删除所有对它的引用。至此，我们的 `ContentView`\
+  \ 变得相当精简，如图 6-9 所示。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig9_HTML.jpg](img/497312_1_En_6_Fig9_HTML.jpg)\n\
+  \n图 6-9  \n不含 `Note` 的 `ContentView` 代码\n\n类似地，我们可以将 `DateFormatter` 移到 `NoteView`（下方）中，`ContentView`\
+  \ 则变得更加精简，如图 6-10 所示。如果你之前添加了 `lightOrDark` 属性，也可以一并移除。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig10_HTML.jpg](img/497312_1_En_6_Fig10_HTML.jpg)\n\
+  \n图 6-10  \n不含 `DateFormatter` 的 `ContentView` 代码\n\n我们的 `NoteView` 因为加入了 `DateFormatter`\
+  \ 而变得稍显臃肿，但这可能正是它该在的位置——具体取决于需求（见图 6-11）。由于创建 `NoteView` 时没有传入 `note`，也没有通过初始化器设置它，我们遇到了一个错误。我们将通过更改属性包装器，以及设置\
+  \ `note` 属性的方式来解决这个问题。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig11_HTML.jpg](img/497312_1_En_6_Fig11_HTML.jpg)\n\
+  \n图 6-11  \n包含 `DateFormatter` 且报错的 `NoteView`\n\n`ContentView` 与模型 `Note` 实例无关。然而，`NoteView`\
+  \ 需要它，因此我们遇到了编译错误。这就是 `@EnvironmentObject` 发挥作用的地方。我们将告诉 `NoteView` 从环境中获取它。\n\n\
+  因此，在我们的 `note` 声明中添加属性包装器：\n\n```\n@EnvironmentObject var note : Note\n```\n\n我们将在第\
+  \ 15 章详细讨论这一点。简而言之，由于 `Note` 结构体已经被定义为 `ObservableObject`，因此使用 `@EnvironmentObject`\
+  \ 包装器声明它的属性是可行的。\n\n现在，`NoteView` 中的 `note` 已经处理好了。但是，`Note` 实例实际上从未被设置。如果我们运行应用，它会因以下错误而崩溃：\n\
+  \n```\nFatal error: No ObservableObject of type\nNote found. A View.environmentObject(_:)\n\
+  for Note may be missing as an ancestor of\nthis view.: file SwiftUI, line 0\n```\n\
+  \n我们需要在环境中设置一个 `Note`。它不再由创建者传入。这意味着我们可以在 `NoteView` 创建之前的任何时候在环境中定义和设置它。这可以在模型管理类或结构体中完成，或者在任何其他地方进行。为了演示，我们换一个地方来定义和设置它。\n\
+  \n我们将在 `SUINotesApp.swift` 中使用 `.environmentObject` 修饰器来完成。首先，我们创建一个 `Note` 实例作为\
+  \ `SUINotesApp` 结构体的属性：\n\n```\nstruct SUINotesApp: App {\nvar note : Note {\nlet\
+  \ aNote = Note()\naNote.text = \"SUINotesApp.swift\"\nreturn aNote\n}\n```\n\n在\
+  \ body 属性的 `WindowGroup` 中，我们将像之前一样创建我们的 `ContentView`，但要为 `Note` 实例添加 `.environmentObject`\
+  \ 调用：\n\n```\nContentView()\n.environment(\\.font,\nFont.system(.largeTitle))\n\
+  .environmentObject(note)\n```\n\n如果我们现在在模拟器或设备（而非 Canvas 预览）中运行应用，它会使用来自环境的这个 `note`。由于我们在\
+  \ `SUINotesApp` 结构体中执行此操作，这些更改不会影响 Canvas 中的预览。要实现预览同步，我们需要在 `CodeView_Previews`\
+  \ 中添加类似的代码，我们将在下一节中完成。\n\n更新（例如，优先级星标）仍然会传递到 UI，如图 6-12 所示。\n\n![../images/497312_1_En_6_Chapter/497312_1_En_6_Fig12_HTML.jpg](img/497312_1_En_6_Fig12_HTML.jpg)\n\
+  \n图 6-12  \n使用环境中 `Note` 的 UI\n\n你注意到什么隐藏细节了吗？我们刚刚在环境中设置了一个 `Note`，`NoteView` 就获取到了它。没有键值，没有访问器。它就这样获取到了我们想要的那个实例。\n\
+  \n还记得我们之前看到的错误信息吗？它说“找不到类型为 `Note` 的 `ObservableObject`。”它是“按类型”查找的。所以当 `NoteView`\
+  \ 被创建时，它获取了类型为 `Note` 的那个（唯一的）条目。\n\n因此，如果我们稍后替换它，或者在 `ContentView` 中运行 `.environmentObject`\
+  \ 修饰器来覆盖通常继承的环境，`NoteView` 将获取到新的那个。\n\n如果你需要多个笔记，你可能需要在环境中添加一个数组、管理器类或某个单例。或者你会发现，将条目存储在环境中并不适合你的需求。\n\
+  \n### 预览环境\n\n你可能也注意到你的预览无法工作了。由于我们现在是在 `SUINotesApp` 结构体中创建 `Note`，我们的 `ContentView_Previews`\
+  \ 无法获得那个环境设置。\n\n我们可以在 `ContentPreview` 的预览计算属性中设置它，但这有点棘手。\n\n一方面，`previews` 属性是静态的。如果\
+  \ `Note` 实例是在它外部创建的，那么这个实例也需要是静态的，如下所示：\n\n```\nstruct ContentView_Previews: PreviewProvider\
+  \ {\nstatic var note = Note()\nstatic var previews: some View {\nContentView()\n\
+  .environmentObject(note)\n}\n}\n```\n\n但由于它是静态的，我们没有机会初始化 `note` 的 `text` 属性。所以在这个例子中，文本项将是空的。\n\
+  \n也可以像下面这样将其定义为静态的计算属性：\n\n```\nstatic var note : Note {\nlet note = Note()\nnote.text\
+  \ = \"Static Computed\"\nreturn note\n}\n```\n\n你也可以在 `.environmentObject` 调用中直接创建实例，如下所示：\n\
+  \n```\n.environmentObject(Note())\n```\n\n根据你希望预览呈现的效果，你有多种选择。类似地，我们已经看到在选择何时创建对象、如何传递或访问它、什么是事实来源以及其他相关可能性方面，也存在多种选项。\n\
+  \n\n\n### 用法\n\n接下来要探讨的问题是，在何种情况下应使用哪种类型的属性包装器和可观察绑定。\n\n`@State` 属性包装器最适合用于单个视图内的值。如果你有一个计数器或计时器的起始值，并且希望\
+  \ UI 保持同步，那么 `@State` 可能正好合适。\n\n`@Binding` 适用于数据真实来源位于其他位置的情况。`MyStepper` 视图使用此属性包装器来修改自身外部的数据真实来源。任何创建\
+  \ `MyStepper` 实例的对象都需要使用 `$` 符号来传递数据真实来源以进行绑定。\n\n`@ObservedObject` 适用于声明为遵循 `ObservableObject`\
+  \ 协议的引用类型（例如类）。如果你使用 `@ObservedObject` 包装器声明属性实例，则需要编写类的实现代码来发布更新。这可以通过调用发布者（例如\
+  \ `self.objectWillChange.send()`）或使用 `@Published` 声明属性来实现。\n\n因此，`@ObservedObject`\
+  \ 最适合用于需要监控更新以刷新 UI 的引用类型。如果你的应用中已有引用类型模型，并且正在转换为 SwiftUI，这也是一个不错的选择。它对现有模型代码的改动要求很小。\n\
+  \n`@Environment` 适合根据内置键路径常量（如 `.colorScheme`）来获取和设置环境变量。这些设置在视图创建时会向下传递。视图的环境设置可以在创建时通过视图上的\
+  \ `.environment` 修改器进行设置。\n\n环境设置非常适合跨应用或沿应用路径访问值。它们不需要专门传递——只需继承即可。\n\n`@EnvironmentObject`\
+  \ 用于声明一个按“类型”从环境中加载的对象。关键的是，这个值必须实际设置，否则应用会崩溃。与环境设置类似，这些值可以在视图创建时设置，并通过继承向下传递。环境对象通过\
+  \ `.environmentObject` 修改器进行设置。\n\n环境对象与环境设置类似。如果你需要在应用的多个位置访问某个对象，但又不便四处传递该对象，环境对象是一个不错的选择。\n\
+  \n## 自定义环境值\n\n向环境中添加自己的值并不困难。你需要一个遵循 `EnvironmentKey` 的结构体，该结构体有一个必需的、只读的静态计算属性：\n\
+  \n```\nstatic var defaultValue: Self.Value { get }\n```\n\n实现该属性后，只需让 `defaultValue`\
+  \ 返回默认值即可。如果我们想存储 `Note` 文本字段的默认值，其类型应为 `String`。那么我们的环境键可以这样写：\n\n```\nstruct NoteInitialTextEnvironmentKey:\
+  \ EnvironmentKey{\n    static var defaultValue: String = \"Default Note\"\n}\n```\n\
+  \n在扩展的 `EnvironmentValues` 中，我们可以添加一个计算属性，使用该键来获取和设置我们的值。我们给该属性起的名字就是我们用来访问它的键路径。我们将其命名为\
+  \ `defaultNoteText`：\n\n```\nextension EnvironmentValues {\n    var defaultNoteText:\
+  \ String {\n    }\n}\n```\n\n我们在此定义的键将用于 `EnvironmentValues` 的下标访问中：\n\n```\nget\
+  \ {\n    return self[NoteInitialTextEnvironmentKey.self]\n}\nset {\n    self[NoteInitialTextEnvironmentKey.self]\
+  \ = newValue\n}\n```\n\n定义好上述代码后，我们可以使用 `.environment` 修改器设置默认的 Note 文本：\n\n```\n\
+  .environment(\\.defaultNoteText, \"New Default\")\n```\n\n并且我们可以像获取其他环境属性一样获取该值：\n\
+  \n```\n@Environment(\\.defaultNoteText) var defaultText: String\n```\n\n或者直接使用 `EnvironmentValues`\
+  \ 实例上的下标来获取它，如下所示：\n\n```\nEnvironmentValues()[NoteInitialTextEnvironmentKey.self]\n\
+  ```\n\n如果你觉得只为可能被一个类需要的值在环境中存储这么一大段代码工作量不小，我同意这种看法。在这种情况下，使用一个简单的常量，或者在 `UserDefaults`\
+  \ 中设置一个值，就足够了。\n\n但希望你能理解其工作原理。这样，当它更适用时，你就会明白如何在代码中使用它。\n\n现在我们已经有了一个默认值，我们的 note\
+  \ 实例在创建时就拥有了一个非空的 `String` 值。这也修复了预览中空白的 Textfield。\n\n### 章节总结\n\n在本章中，我们学习了环境。它是一个方便的地方，可以找到应用运行环境的各种值。你也可以设置自己的自定义值。要注意避免过度设计，将\
+  \ `Environment` 和 `EnvironmentValues` 用在不必要的地方。\n\n我们了解了 `.environment` 修改器的设置是如何沿视图层级向下传播给创建的视图。\n\
+  \n`.environmentObject` 修改器也用于在环境中设置引用类型的对象。请记住，这些对象是按类型访问的。这一特性有两个重要影响。首先，如果这个值在关联环境中未设置，应用将崩溃。其次，如果再次设置该值，它将被替换。\n\
+  \nSwiftUI 为我们提供了多种通过框架访问值的工具。在许多情况下，框架替我们完成工作非常有用。但重要的是要根据数据的需求以及特定情况下哪种机制最合适来做出选择。\n\
+  \n"
+- "# 7. 项目列表\n\n在本章中，我们将把注意力转回 UI 的可视元素方面。我们已经了解了如何添加像 `Text` 和 `Button` 这样的简单元素。现在，我们将研究如何列出项目。\n\
+  \n如果你以前使用过 UIKit，那么你一定对 `UITableView` 及其一系列相关类非常熟悉：`UITableViewController`、`UITableViewDataSource`、`UITableViewDelegate`\
+  \ 和 `UITableViewCell`。\n\n在 SwiftUI 中，我们将使用 `List` 来替代 `UITableView`。对于行，我们将像之前一样使用视图。听起来是不是简单多了？不需要原型单元格。没有来回的表格询问单元格、你的代码请求出列单元格以及在其他地方返回单元格高度这样的操作。\n\
+  \n## List\n\n创建一个视觉上的项目列表，感觉更像是在写一个循环，而不是创建 UI。这是因为它会遍历你告诉它的值。循环的每次迭代都会创建一个要显示的视图。\n\
+  \n让我们在一个新的 iOS 应用项目中从一个简单的例子开始。创建项目时，接口选择 SwiftUI，生命周期选择 SwiftUI App。你的 `ContentView`\
+  \ 代码应该如图 7-1 所示。\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig1_HTML.jpg](img/497312_1_En_7_Fig1_HTML.jpg)\n\
+  \n图 7-1：默认的新项目代码\n\n让我们创建一个包含若干项目的简单列表。首先，我们删除“Hello, World!”的 `Text` 项目。在它的位置，我们添加一个列表，如下所示：\n\
+  \n```\nvar body: some View {\n    List(0..<19) { index in\n        Text(\"\\(index)\"\
+  )\n    }\n}\n```\n\n这会创建一个包含 20 个项目的列表。每个创建的项目都是一个 `Text` UI 元素，显示循环中的索引编号 (`Int`)。预览画布的顶部如图\
+  \ 7-2 所示。\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig2_HTML.jpg](img/497312_1_En_7_Fig2_HTML.jpg)\n\
+  \n图 7-2：带有数字的文本项列表\n\n这个概念与我们之前看到的非常相似。与使用 `HStack` 或 `VStack` 不同，我们的 body 属性返回一个\
+  \ `List`。我们向 `List` 传递一个范围 `0..<19`，每次遍历都会创建一个 `Text` 元素。\n\n我们传递给 `List` 调用的闭包接受一个参数，我将其命名为\
+  \ `index`。它是 `Int` 类型，表示当前迭代在范围内的数字。\n\n很简单。没有在 Interface Builder 中定义的单元格、索引路径或出列的原型单元格。\n\
+  \n但如果我们想要更复杂的东西呢？我们可以创建任何我们想要的，而不只是 `Text` 元素。我们一直在处理 `Note` 对象，所以让我们创建一个包含它们的列表。\n\
+  \n\n\n### NoteRow 视图\n\n我们将从为独立视图创建一个新文件开始。这有助于我们在设计行时预览其效果。\n\n右键点击项目的主文件夹，选择“新建文件…”，如图\
+  \ 7-3 所示。\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig3_HTML.jpg](img/497312_1_En_7_Fig3_HTML.jpg)\n\
+  \n图 7-3\n\n新建文件…\n\n在弹出的窗口中，筛选视图类型并选择 SwiftUI View，如图 7-4 所示。点击“下一步”，将其命名为 `NoteRow`，然后点击“创建”。\n\
+  \n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig4_HTML.jpg](img/497312_1_En_7_Fig4_HTML.jpg)\n\
+  \n图 7-4\n\nSwiftUI View\n\n初始状态下，`NoteRow` 的 `body` 属性会是另一个显示“Hello, World!”的 `Text`。我们将把它替换成更符合列表行风格的内容。\n\
+  \n当然，我们的 `NoteRow` 需要引用一个 `Note` 对象，但该对象尚未在此项目中定义（假设你和我一样使用了新项目）。我将基于前几章的内容定义一个\
+  \ `Note` 类。它看起来会很像图 7-5 所示。\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig5_HTML.jpg](img/497312_1_En_7_Fig5_HTML.jpg)\n\
+  \n图 7-5\n\n在 `NoteRow.swift` 中定义的 `Note`\n\n这是对我们之前使用版本的略微简化和清理。对于当前任务来说，它足够好用。\n\
+  \n如果 `NoteRow` 视图拥有一个 `Note` 实例，它就能生成一个在笔记列表中看起来不错的视图。在之前的项目中，`NoteView` 的布局并不适合列表。它更偏向方形和厚重感。我们更希望得到一个宽度大于高度、并且在滚动浏览时视觉效果良好的布局。\n\
+  \n我们甚至可能不会选择展示 `Note` 的全部信息。根据应用的不同，`updatedAtTime` 对用户来说可能并不实用。在本例中，我们会将所有信息展示在界面上，但实际情况并不总是如此。\n\
+  \n## 创建笔记列表\n\n我们需要创建 `NoteRow` 来展示 `Note` 的所需数据。一旦我们得到了满意的效果，就可以用 `NoteRows` 来替换\
+  \ `List` 的创建。\n\n1. 像这样为 `NoteRow` 添加属性和初始化器：\n\n```\n    var note : Note\n    let\
+  \ df = DateFormatter()\n    init() {\n    df.dateStyle = .none\n    df.timeStyle\
+  \ = .medium\n    }\n```\n\n与之前一样，这会强制要求创建 `NoteRow` 时必须传入一个 `Note`。很好。\n\n2. 从 `NoteRow`\
+  \ 的 `body` 属性中删除 `Text` 项。\n\n此时你会看到一些错误，但我们很快就会解决它们。\n\n3. 在 `body` 属性内，创建一个 `VStack`，其中包含一个用于显示笔记文本的\
+  \ `Text` 项：\n\n```\n    var body: some View {\n    VStack {\n    Text(note.text)\n\
+  \    }\n    }\n```\n\n此时，`body` 属性是有效的，但预览却无法工作。这是因为 `NoteRow_Previews` 中创建 `NoteRow`\
+  \ 时没有传入 `Note`。\n\n4. 更新 `NoteRow_Previews`，传入一个 `Note`：\n\n```\nNoteRow(note: Note())\n\
+  ```\n\n如果你重新开始预览，应该会看到“New Note”而不是“Hello, World!”。\n\n这对于一个 `List` 来说技术上是足够的，但在进入列表之前，让我们再完善一下。当然，随时欢迎你自行尝试！\n\
+  \n5. 在 `NoteRow` 的 `body` 中文本项的下方，像之前一样添加一个包含优先级星形图片的 `HStack`：\n\n```\n    HStack\
+  \ {\n    Image(systemName: \"star.circle\")\n    Image(systemName: note.priority.rawValue\
+  \ > 0 ?\n    \"star.circle\" : \"circle\")\n    Image(systemName: note.priority.rawValue\
+  \ > 1 ?\n    \"star.circle\" : \"circle\")\n    }\n```\n\n6. 在第 5 步添加的图片下方，再添加一个用于显示\
+  \ `Date` 值的 `Text` 项：\n\n```\nText(df.string(from: note.updatedAtTime))\n```\n\n\
+  现在，我们已经准备好创建 `List` 了！\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig6_HTML.jpg](img/497312_1_En_7_Fig6_HTML.jpg)\n\
+  \n图 7-6\n\n笔记列表\n\n7. 回到 `ContentView`，从 `body` 中的 `List` 里删除 `Text` 项，并替换为创建 `NoteRow`\
+  \ 的代码：\n\n```\n    var body: some View {\n    List(0..<19) { index in\n    NoteRow(note:\
+  \ Note(), df: self.df)\n    }\n    }\n```\n\n如果你运行应用或更新预览，它应该会像图 7-6 所示。\n\n成功啦！我们有了一个包含\
+  \ `Note` 项的 `List`。代码清晰明了地表达了所做的事，而 `List` 的代码基本上只有一行。\n\n但它当然还能更好看。笔记文本最好左对齐。优先级和更新时间之间有些间距也会更好看。\n\
+  \n让我们回到 `NoteRow`，根据这些想法做一些修改。\n\n8. 回到 `NoteRow` 的 `VStack`，让我们添加一个对齐参数：\n\n9.\
+  \ 在最后一张星形图片和用于显示日期的 `Text` 项之间添加一个 `Spacer`：\n\n```\nVStack(alignment: .leading)\
+  \ {\n```\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig7_HTML.jpg](img/497312_1_En_7_Fig7_HTML.jpg)\n\
+  \n图 7-7\n\n使用更新后的 `NoteRow` 的笔记列表\n\n10. 运行应用或回到 `ContentView` 刷新预览。它应该会像图 7-7 所示。\n\
+  \n```\nSpacer()\n```\n\n这才像样。一个真正的列表！它算不上惊艳，但相当酷且易于制作。我们基本上是将已经掌握的许多技术，通过循环调用 `List`\
+  \ 的方式组合运用了起来。\n\n\n\n### 模型列表\n\n虽然你不需要经常列出数字循环，但列出 `Array` 中的项目却是常见需求。我们无需向 `List`\
+  \ 传入一个数字范围，而是可以传入一个 `Note` 实例的集合。\n\n`List` 有多种带有不同参数的初始化器。让我们修改应用，使用 `Note` 的 `Array`。为此，我们需要添加一个\
+  \ `Note` 数组作为属性。\n\n接下来，我们在 `Note` 对象上创建一个 `createTestNotes` 函数。我们将它设为静态方法，这样就能在类上调用：\n\
+  \n```swift\nstatic func createTestNotes() -> [Note] {\n    var items = [Note]()\n\
+  \    for i in 0..<19 {\n        let note = Note()\n        note.text = \"\\(i)\"\
+  \n        items.append(note)\n    }\n    return items\n}\n```\n\n将这个数组的生成逻辑放在 `ContentView`\
+  \ 外部，可以避免 `ContentView` 结构体的可变性问题。\n\n现在我们可以为 `ContentView` 添加一个属性来持有这些 `Note`。我们希望该属性使用\
+  \ `@State` 属性包装器，这样对列表的更新就能实时反映出来。\n\n```swift\nstruct ContentView: View {\n   \
+  \ let df = DateFormatter()\n    @State private var notes = Note.createTestNotes()\n\
+  ```\n\n现在我们可以更新 `List`，让其使用 `notes` 数组。`List` 的第一个参数是我们的数组：`notes` 属性。第二个参数是一个闭包。该闭包会为每个元素调用一次，并将对应的\
+  \ `Note` 传入闭包。我们只需创建 `NoteRow`，这部分我们已经知道如何操作：\n\n```swift\nList(notes) { note in\n\
+  \    NoteRow(note: note, df: self.df)\n}\n```\n\n这会产生错误，因为 `Note` 元素需要是可识别的。`List`\
+  \ 要求其元素支持随机访问。我们只需要让 `Note` 遵循 `Identifiable` 协议即可。\n\n该协议要求提供一个 `id` 属性。我们将添加该属性，并将其初始化为一个\
+  \ `UUID`。\n\n```swift\nclass Note : Identifiable { \n    var id = UUID()\n```\n\n\
+  现在编译就干净无错了。我们的代码与上次运行时看起来略有不同，但用户界面是一样的（除了便签文本内容）。\n\n然而，现实需求往往更复杂。通常，当你看到自己创建的数据列表（比如便签）时，你期望能够从中删除内容。`List`\
+  \ 本身没有用于处理删除的修饰符，但 `ForEach` 提供了。让我们看看具体如何实现。\n\n## 在列表中删除项目\n\n我们仍然会使用 `List`，但不会让它来遍历我们的元素。之前，我们使用\
+  \ `List` 为数组中的每个项目创建 `NoteRow`。现在我们仍会用 `List` 来显示所有创建的行，但会通过另一种迭代方式来创建它们。\n\n1.\
+  \  将 `List` 的调用改为 `ForEach`：\n\n    ```swift\n    ForEach(notes) { note in\n   \
+  \     NoteRow(note: note, df: self.df)\n    }\n    ```\n\n    这一步应该仍能编译和运行，但效果不太好看。:)\n\
+  \n2.  将 `ForEach` 调用包裹在一个新的 `List` 调用中：\n\n    ```swift\n    List {\n        ForEach(notes)\
+  \ { note in\n            NoteRow(note: note, df: self.df)\n        }\n    }\n  \
+  \  ```\n\n    现在应用和预览应该看起来好多了。接下来实现删除功能！\n\n    如我之前提到的，`List` 没有用于删除元素的修饰符，但 `ForEach`\
+  \ 有。我们可以添加 `onDelete` 修饰符，它会传入要删除元素的偏移量。恰好，我们的数组有一个接受该偏移量的 `remove` 函数。\n\n3.  为\
+  \ `ForEach` 添加 `onDelete` 修饰符：\n\n    ```swift\n    ForEach(notes, id: \\.id) {\
+  \ note in\n        NoteRow(note: note, df: self.df)\n    }\n    .onDelete { offsets\
+  \ in\n        self.notes.remove(atOffsets: offsets)\n    }\n    ```\n\n借助 `ForEach`\
+  \ 处理删除操作，系统会像图 7-8 一样，在左滑时提供“删除”选项。\n\n![../images/497312_1_En_7_Chapter/497312_1_En_7_Fig8_HTML.jpg](img/497312_1_En_7_Fig8_HTML.jpg)\n\
+  \n图 7-8 – 列表行上的删除操作\n\n点击“删除”会触发 `onDelete` 定义中传入闭包的调用。这将从 `notes` 数组中移除对应行。由于我们的\
+  \ `notes` 数组使用了 `@State` 属性包装器，`List` 会重新渲染显示。\n\n请注意，动画会自动执行，整个过程流畅且效果出色！\n\n##\
+  \ 本章小结\n\n在本章中，我们学习了 `List` 视图结构。通过定义属性的模型，添加 `List` 变得非常容易。其核心代码就是遍历数组并为每个元素创建一个视图。\n\
+  \n我们的 `Note` 对象与前面章节中的非常相似。不过，我们通过添加 `id` 属性使其遵循了 `Identifiable` 协议。此外，我们还添加了一个静态方法来创建测试用的\
+  \ `Note` 实例数组。\n\n我们创建了一个用于在 `List` 中显示的 `NoteRow` 视图。这可以是任何实现了 `View` 的组件。理想情况下，它会是一个在列表中看起来效果不错的视图。\n\
+  \n通过将 `List` 的实现改为使用 `ForEach`，我们能够轻松地添加删除处理功能。一旦 `notes` 数组使用了 `@State` 属性包装器，删除元素就能让用户界面与模型保持同步。\n\
+  \n`List` 功能强大，用途广泛，在大多数应用中像表格视图一样被使用。为了更好地发挥其全部效能，建议多学习 `List` 的各种修饰符和选项。\n\n"
+- "# 8. SwiftUI Canvas 预览\n\n设计出色的用户界面可能不是你的任务。但既然你在阅读本书，那么用 SwiftUI 代码实现用户界面设计很可能就是你的工作。如果你过去使用过\
+  \ Interface Builder 甚至纯代码进行开发，很可能用过 Storyboard 的预览功能。它能展示用户界面在各种设备上的呈现效果。\n\n然而，更常见的情况是，你会通过运行模拟器或真机来测试真实数据和交互。当然，这需要更多时间：编译、安装、运行、导航，然后修改界面或代码，再重复以上流程。\n\
+  \nCanvas 预览功能让你能在代码旁边直接看到用户界面。不仅如此，它还会实际编译你的代码，并展示运行时界面将如何呈现。这包括用于确定用户界面的数据和功能。这个过程被称为“动态替换”。\n\
+  \n预览显示在 Canvas 中。后续我将继续把这两个术语混用。\n\n让我们详细了解 Canvas/预览的细节。\n\n## 编译\n\n如前所述，Xcode\
+  \ 会编译你的实际代码来在 Canvas 中创建并显示预览。Xcode 知道你正在处理哪个文件以及哪些更改需要编译。它只编译必要部分，以尽可能加快过程。\n\n\
+  在某些情况下，比如更改字面量值，甚至无需重新编译，更改会非常快速且自动完成。\n\n对于更重大的更改，例如向相关对象添加属性，自动更新会暂停。在这些情况下，你会在\
+  \ Canvas 左上角看到类似图 8-1 的消息。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig1_HTML.jpg](img/497312_1_En_8_Fig1_HTML.jpg)\n\
+  \n图 8-1 – 预览更新已暂停\n\n要继续更新预览，请点击弹出消息中的“恢复”按钮，或点击 Canvas 右上角的“恢复”按钮。\n\n这个预览的绝妙之处在于，它*实际上*就是用户界面。这是你编译后的\
+  \ SwiftUI 代码生成的预览。这意味着，它就是你运行时使用所有与呈现相关的数据和功能后，界面实际会呈现的样子。\n\n在你进行更改时，预览会实时反映这些变化。无需再经历构建、运行、点击等繁琐流程。\n\
+  \n\n\n## 预览提供器\n\n在上一章中，我们处理了一个包含 `Note` 项目的 `List`。当我们使用默认的 `ContentView` 结构体创建项目时，系统还会在其下方自动提供一个\
+  \ `ContentView_Previews` 结构体：\n\n```swift\nstruct ContentView_Previews: PreviewProvider\
+  \ {\n    static var previews: some View {\n        ContentView()\n    }\n}\n```\n\
+  \n我们的 `NoteRow` 也是如此。Xcode 正是通过这些结构体来指导预览的具体编译和渲染。\n\n`PreviewProvider` 是一个协议，它要求实现一个名为\
+  \ `previews` 的计算属性。这与我们之前使用的 `View` 协议所要求定义的计算属性非常相似。\n\n我们的 `previews` 属性需要返回一个实现了\
+  \ `View` 协议的内容，就像 `body` 属性一样。因此，一个简单的方法（默认实现也是这样做的）就是返回我们结构体的一个实例（例如 `ContentView`）。\n\
+  \n如果初始化器需要参数（就像我们的 `NoteRow` 那样），我们也可以传入这些参数：\n\n```swift\nstruct NoteRow_Previews:\
+  \ PreviewProvider {\n    static var previews: some View {\n        NoteRow(note:\
+  \ Note(), df: DateFormatter())\n    }\n}\n```\n\n## 预览设备\n\n改变画布中预览的一种方法是更改运行目标。你可以从活动方案（Xcode\
+  \ 左上角）右侧的下拉菜单中选择不同的模拟器，以指定预览中使用的设备（见图 8-2）。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig2_HTML.jpg](img/497312_1_En_8_Fig2_HTML.jpg)\n\
+  \n图 8-2 运行目标选择\n\n在这里选择不同的模拟器将更新画布中的预览，使其使用该设备。这是一种在不同设备尺寸上快速检查 UI 的简便方法。\n\n然而，预览\
+  \ API 也允许你通过 `.previewDevice` 修饰符在代码中实现同样的效果。\n\n我当前选择了 iPhone 11 Pro Max，但我想看看它在\
+  \ iPhone 8 上的效果。只需在预览代码中的 `ContentView()` 上添加 `.previewDevice` 修饰符：\n\n```swift\n\
+  struct ContentView_Previews: PreviewProvider {\n    static var previews: some View\
+  \ {\n        ContentView()\n            .previewDevice(\"iPhone 8\")\n    }\n}\n\
+  ```\n\n现在，我的预览在画布中显示为 iPhone 8，如图 8-3 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig3_HTML.jpg](img/497312_1_En_8_Fig3_HTML.jpg)\n\
+  \n图 8-3 iPhone 8 预览\n\n类似地，你可以将多个 `ContentView` 实例包装在一个 `Group` 中，在画布中同时显示多种设备类型。这样你就可以实时看到\
+  \ UI 在不同设备上的表现。\n\n将项目嵌入 `Group` 的快捷方式是按下 ⌘ + 点击，然后选择 Group 选项。\n\n现在，你的预览可以返回一个包含多个\
+  \ `ContentView` 的组，每个都使用不同的预览设备。\n\n如果我想同时预览 iPhone 8 和 iPhone 11，可以在代码中分别为这两个 `ContentView`\
+  \ 实例使用 `.previewDevice` 修饰符，如下所示：\n\n```swift\nGroup {\n    ContentView()\n    \
+  \    .previewDevice(\"iPhone 8\")\n    ContentView()\n        .previewDevice(\"\
+  iPhone 11\")\n}\n```\n\n现在，我可以在画布中看到这两种设备，并在修改 SwiftUI 代码时实时查看更新。当你处理占据整个屏幕的 UI\
+  \ 部分时，这尤其有用。\n\n然而，有时显示整个设备并非最有帮助的方式。\n\n## 环境\n\n除了多种设备，我们可能还想了解各种环境设置对 UI 的影响。同时查看深色模式等多种选项会非常方便。\n\
+  \n就像我们串联使用 `.previewDevice` 一样，我们也可以串联调用 `.environment`。我将为代码中的其中一个设备添加深色模式：\n\n\
+  ```swift\nContentView()\n    .previewDevice(\"iPhone 8\")\n    .environment(\\.colorScheme,\
+  \ .dark)\nContentView()\n    .previewDevice(\"iPhone 11\")\n```\n\n现在，我的 iPhone\
+  \ 8 预览将显示为深色模式。\n\n你可能还想了解 UI 在不同文字大小选择下的样子；你可以像这样模拟其他文字大小：\n\n```swift\n.environment(\\\
+  .sizeCategory, .extraExtraExtraLarge)\n```\n\n通过使用多种设置的不同 `ContentView` 预览，你可以在设计阶段准确地了解应用运行时的\
+  \ UI 外观。\n\n如果你有一组值，例如 `colorScheme` 和 `ContentSizeCategory`，你可能希望全部查看。正如我们在 `List`\
+  \ 中看到的，我们可以使用 `ForEach`。和我们使用过的许多其他东西一样，`ForEach` 实际上返回一个 `View`。\n\n`ForEach` 的每次迭代都需要返回一个\
+  \ `View`，然后用于 UI。之前，我们在 `List` 中使用了它。每次迭代返回一个 `NoteRow`。现在，我们可以在预览中使用它。\n\n```swift\n\
+  ForEach(ContentSizeCategory.allCases,\n        id: \\.self) { sizeCat in\n    ContentView()\n\
+  \        .environment(\\.colorScheme, .dark)\n        .environment(\\.sizeCategory,\
+  \ sizeCat)\n}\n```\n\n与之前在 `List` 中使用 `ForEach` 一样，我们必须为每个项目提供一种标识方式。在这种情况下，这一点尤其关键，因为\
+  \ Xcode 需要知道根据情况更新哪个预览。我们将使用 `.self` 作为标识。\n\n使用 `List` 时，我们将 `ForEach` 每次返回的内容（一个\
+  \ `NoteRow`）都包含在列表中。在上面的代码中，我们为 `ContentSizeCategory` 中的每个值创建了一个完整的预览。这意味着系统文本可设置的每种字号（超过十种预览），在画布中都将会有一个对应的预览。\n\
+  \n对于这种实际上仅在 `NoteRow` 视图上发生的文字变化，用这么多完整的 UI 预览显得有些过头了。因此，更好的做法是将这种变化添加到 `NoteView`\
+  \ 的预览中，而不是 `ContentView`。\n\n\n\n### 预览布局\n\n当您处理一个仅占屏幕一部分的视图时，您只会希望看到这部分内容。在我们的例子中，`NoteRow`\
+  \ 在画布中并不需要整个设备的屏幕。同时显示多个设备也没有帮助。\n\n在这些情况下，使用 `.previewLayout` 修改器效果可能更好。您可能不仅不希望看到多个设备版本，甚至可能根本不需要设备。\n\
+  \n我们的 `NoteRow` 就是一个很好的例子。我们实际上并不需要看到整个设备（或多个设备）才能了解 `NoteRow` 的外观。\n\n我修改了 `NoteRow_Previews`\
+  \ 的代码，为 `DateFormatter` 添加了一个静态计算属性。\n\n```\nstatic var dateFormatter : DateFormatter\
+  \ {\nlet df = DateFormatter()\ndf.dateStyle = .none\ndf.timeStyle = .medium\nreturn\
+  \ df\n}\n```\n\n现在，我的预览在创建 `NoteRow` 时可以传入这个新属性。我在 `NoteRow_Previews` 中的预览只需返回：\n\
+  \n```\nNoteRow(note: Note(),\ndf: dateFormatter)\n```\n\nUI 看起来如图 8-4 所示。对于一个列表中的行来说，这显得有点多余。让我们使用\
+  \ `.previewLayout` 来使其更合理，并更精确地符合我们的设计。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig4_HTML.jpg](img/497312_1_En_8_Fig4_HTML.jpg)\n\
+  \n**图 8-4** 预览中的 NoteRow\n\n在预览属性中创建 `NoteRow` 之后，我们将调用 `.previewLayout`，并选择其三个参数选项之一，如图\
+  \ 8-5 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig5_HTML.jpg](img/497312_1_En_8_Fig5_HTML.jpg)\n\
+  \n**图 8-5** 预览布局自动补全选项\n\n如您所见，当选择了设备选项时，描述说明它将在预览中居中显示在设备上。这基本上就是我们一直以来的效果。如果您深入查看\
+  \ `.previewDevice`，可以看到支持的设备列表，例如：\n\n```\n/// \"iPhone 7\"\n/// \"iPhone 7 Plus\"\
+  \n/// \"iPhone 8\"\n/// \"iPhone 8 Plus\"\n/// \"iPhone SE\"\n/// \"iPhone X\"\n\
+  /// \"iPhone Xs\"\n/// \"iPhone Xs Max\"\n/// \"iPhone Xʀ\"\n/// \"iPad mini 4\"\
+  \n/// \"iPad Air 2\"\n/// \"iPad Pro (9.7-inch)\"\n```\n\n固定选项（fixed）需要指定宽度和高度。这对于为您的项目指定具体的宽度和高度非常有用。如果您知道正在设计的元素将是固定大小，那么这是您按实际大小预览它的方法。\n\
+  \n如果我设置宽度为 200、高度为 80，我的 `NoteRow` 将如图 8-6 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig6_HTML.jpg](img/497312_1_En_8_Fig6_HTML.jpg)\n\
+  \n**图 8-6** 固定宽度和高度的 NoteRow\n\n```\nNoteRow(note: Note(), df: dateFormatter)\n\
+  .previewLayout(.fixed(width: 200, height: 80))\n```\n\n实际上，我可能希望它更宽一些，但您明白我的意思。我可以给它一个更大的宽度并继续设计。我会选择一种有助于我将其视为列表元素的外观。\n\
+  \n这个尺寸的一个特定问题是 `Spacer` 没有太大作用。我无法判断它会扩展并对设计产生更大影响。\n\n另一个选项是 `PreviewLayout` 的\
+  \ `sizeThatFits` 值。当然，这个选项会让预览使用创建视图所需的尺寸。\n\n```\nNoteRow(note: Note(), df: dateFormatter)\n\
+  .previewLayout(.sizeThatFits)\n```\n\n如果我使用这个选项，UI 预览看起来如图 8-7 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig7_HTML.jpg](img/497312_1_En_8_Fig7_HTML.jpg)\n\
+  \n**图 8-7** 使用 sizeThatFits 的预览布局\n\n您可能想知道它是如何确定宽度的。我们有一个 `Spacer`，所以理论上宽度可以是任何尺寸。它使用了我们选择的模拟器。如果我们为运行目标选择\
+  \ iPad，`NoteRow` 将会宽得多。\n\n而 `.environment` 修改器允许我们指定用户可能使用的环境设置的其他变体。\n\n让我们在我们的\
+  \ `NoteRow` 视图中将这些功能结合起来使用。\n\n## NoteRow 中的文本大小\n\n在本练习中，我们将在 `NoteRow` 中添加一个 `ForEach`，以便查看它在每个内容大小类别值下的预览。\n\
+  \n1.  在 `NoteRow_Previews` 中添加一个 `ForEach`：\n\n    1.  将闭包参数设置为 `sizeCat`：\n\n```\n\
+  ForEach(ContentSizeCategory.allCases,\nid: \\.self) {\n}\n```\n\n    1.  在闭包内部，创建\
+  \ `NoteRow`：\n\n```\nForEach(ContentSizeCategory.allCases,\nid: \\.self) { sizeCat\
+  \ in\n}\n```\n\n    1.  为 `NoteRow` 添加 `.previewLayout` 并设置为 `.sizeThatFits`：\n\n\
+  ```\nForEach(ContentSizeCategory.allCases,\nid: \\.self) { sizeCat in\nNoteRow(note:\
+  \ Note(), df: dateFormatter)\n}\n```\n\n    1.  使用 `sizeCat` 参数为 `.sizeCategory`\
+  \ 键路径添加环境设置：\n\n```\nNoteRow(note: Note(), df: dateFormatter)\n.previewLayout(.sizeThatFits)\n\
+  ```\n\n```\nNoteRow(note: Note(), df: dateFormatter)\n.previewLayout(.sizeThatFits)\n\
+  .environment(\\.sizeCategory, sizeCat)\n```\n\n更新预览以确保显示多个 `NoteRow` —— 每个大小类别各一个。\n\
+  \n让我们更进一步，为画布中的每个项添加一个显示名称来区分它们。\n\n1.  链式调用 `.previewDisplayName`，并再次传入 `sizeCat`。\n\
+  \n```\n.previewDisplayName(\"\\(sizeCat)\")\n```\n\n部分显示效果如图 8-8 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig8_HTML.jpg](img/497312_1_En_8_Fig8_HTML.jpg)\n\
+  \n**图 8-8** 具有各种文本大小的 NoteRow\n\n我们已经隔离了一个可以在整个应用中使用的 UI 元素。通过在预览元素中使用修改器，我们可以看到多种显示方式。\n\
+  \n## 固定预览\n\n从所有这些选项中，我们可能想要做一些更改。如果可能，您希望在所有情况下都让 UI 看起来很棒。这可能需要对 `NoteRow` 或 `ContentView`\
+  \ 进行修改。\n\n通常，在画布中查看 `ContentView` 预览的同时看到 `NoteRow` 的变化会很有帮助。这可以通过固定预览来实现。\n\n\
+  要固定预览，请在画布中保持想要保留的预览。然后点击画布左下角的“固定预览”按钮，如图 8-9 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig9_HTML.jpg](img/497312_1_En_8_Fig9_HTML.jpg)\n\
+  \n**图 8-9** 固定预览按钮\n\n当预览被固定时，图标会变为蓝色（或您为 macOS 系统高亮色设置的任何颜色）。您可以通过再次点击来取消固定预览，即使是在其他预览中也可以。\n\
+  \n这将导致在您导航到其他视图元素时，`ContentView` 预览会保持在画布顶部。当您对 `NoteRow` 进行更改时，您将看到它在 `NoteRow`\
+  \ 本身以及 `ContentView` 列表中的外观。\n\n如果我更改 `updatedAtTime` 文本，为其添加 `.thin` 字体修改器，我可以看到它在\
+  \ `ContentView` 列表中的显示效果，如图 8-10 所示。\n\n![../images/497312_1_En_8_Chapter/497312_1_En_8_Fig10_HTML.jpg](img/497312_1_En_8_Fig10_HTML.jpg)\n\
+  \n**图 8-10** ContentView 预览中更新后的 NoteRow\n\n```\nText(df.string(from: note.updatedAtTime))\n\
+  .fontWeight(.thin)\n```\n\n### 章节总结\n\n在本章中，我们了解了如何为各种视图项创建预览项。使用修改器可以让我们看到 UI 在不同设备、环境和布局中的显示效果。\n\
+  \n我们还使用了 `ForEach` 来为画布中的项展示多种预览。这可以通过避免在构建、安装、运行和导航检查用户界面上花费时间，大大加快开发速度。只需少量代码，您就可以看到\
+  \ UI 在不同配色方案、文本大小、区域设置等下的效果。\n\n通过将数据（一个 `Note` 实例）传递给我们的 `NoteRow`，我们为行提供了数据。然而，每次传入的都是相同的数据。接下来，我们将研究如何使用预览内容（Preview\
+  \ Content）和其他工具来使用更真实的数据。\n\n\n\n## 为预览而设计\n\n`Canvas` 是设计应用用户界面时的强大工具。然而，它的功能远不止于此。由于\
+  \ `Canvas` 中显示的预览就是实际的用户界面，因此不应将其视为传统意义上的“预览”。同样地，由于它运行相关代码，也不应仅将其视为用户界面。\n\n`Canvas`\
+  \ 中的预览比过去的模拟器更接近真实状态。过去使用 `Interface Builder` 时，用户界面仅仅是界面的设计稿，而以往的预览也只是一个毫无生命力的界面呈现。\n\
+  \n正如在 `SwiftUI` 中用户界面设计已被转化为代码一样，`Canvas` 将模拟器引入了开发流程。这不仅改变了你开发应用视觉元素的方式，更应改变你组织代码的思维方式。\n\
+  \n我们需要在开发代码时充分考虑预览功能，才能充分发挥预览的强大能力。\n\n### 预览内容\n\n迄今为止，在我们的应用中一直在使用默认数据。我们的预览也体现了这一局限性。如果使用更真实的数据，效果不是更好吗？但我们现在可能还无法访问数据库或服务器\
+  \ API。即便能访问，我们真的希望在 `Canvas` 中每次渲染界面时都使用这些数据吗？答案很可能是否定的。\n\n`SwiftUI` 在新项目中提供了一个名为“Preview\
+  \ Content”的组（见图 9-1）。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig1_HTML.jpg](img/497312_1_En_9_Fig1_HTML.jpg)\n\
+  \n图 9-1：项目中的 `Preview Content` 组\n\n> **注意**：  \n> 对于多平台项目，不存在此组。\n\n`Preview Content`\
+  \ 组内已创建了一个素材目录。你可以将用于预览的图片放入此目录。也可以将其他与预览相关的文件放入 `Preview Content` 中供预览使用。\n\n默认情况下，根据构建设置，此组不会包含在\
+  \ `Debug` 和 `Release` 构建中（见图 9-2）。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig2_HTML.jpg](img/497312_1_En_9_Fig2_HTML.jpg)\n\
+  \n图 9-2：开发资源的构建设置\n\n注意，被排除构建的是 `Preview Content` 组。因此，你在该组下添加的任何内容（例如文件、其他组、更多素材目录）都不会包含在测试版或发布版的构建中。\n\
+  \n### 预览 JSON\n\n模拟数据（尤其是来自 API 的数据）的一个好方法是使用 JSON 文件。我们可以向 `Preview Content` 中添加一个\
+  \ JSON 文件供预览使用。这样我们就拥有了随时可用的数据来构建预览，并且这些数据会自动从构建中排除。\n\n以下是一些可用于我们笔记的 JSON 数据：\n\
+  \n```json\n[\n{\n  \"id\": \"FAF80C6A-F1C3-44D9-9539-D6113777520C\",\n  \"text\"\
+  : \"我是笔记 0\",\n  \"updatedAtTime\": 1000,\n  \"priority\": 2,\n  \"image\": \"note1\"\
+  ,\n  \"dueDate\": 1598923198\n},\n{\n  \"id\": \"FAF80C6A-F1C3-44D9-9539-D6113777520B\"\
+  ,\n  \"text\": \"我是笔记 1\",\n  \"updatedAtTime\": 2000,\n  \"priority\": 1,\n  \"\
+  image\": \"note2\",\n  \"dueDate\": 620606310\n}\n]\n```\n\n你可能注意到，其中有一些字段是我们当前的\
+  \ `Note` 类中没有的。新增的字段是 `image` 和 `dueDate`。\n\n这些字段之前未被用于我们的界面，因此我们不需要它们，但现在我们要将它们添加进来。我们可以将其创建为文本文件并添加到项目中，或者通过右键点击\
+  \ `Preview Content` 选择“New File…”菜单选项来创建（此例中选择 Empty File）。我将其命名为 `Data.json`。\n\
+  \n### 模型\n\n我们需要对模型稍作修改以反映这些新增内容。我们需要添加一个 `String` 类型的 `image` 属性和一个 `Date` 类型的\
+  \ `dueDate` 属性。\n\n我们可以将它们初始化为空字符串（`\"\"`）和一个遥远的未来日期（`Date.distantFuture`）。\n\n\
+  趁此机会，我们还可以删除 `CreateTestNotes` 函数，如图 9-3 所示。接下来我们将以不同的方式加载测试笔记。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig3_HTML.jpg](img/497312_1_En_9_Fig3_HTML.jpg)\n\
+  \n图 9-3：作为模型的 `Note` 类\n\n由于我们要根据 JSON 文件加载 `Note` 对象的实例，我们需要让它们遵循 `Codable` 协议。属性名称与\
+  \ JSON 字段名称已经匹配，因此我们只需在声明中指定即可。\n\n我们的 `Priority` 枚举也需要通过简单地向声明中添加协议来使其遵循 `Codable`：\n\
+  \n```swift\nenum Priority : Int, Codable\n```\n\n当然，`isPastDue` 属性是计算属性。它不在 JSON\
+  \ 中，也不会从数据文件中解析。\n\n现在我们的模型只关注数据。我们正在尝试将模型和视图进一步分离。这将使我们能够隔离模型、视图以及要显示的数据：即视图模型。\n\
+  \n在处理枚举时，让我们为其添加 `CaseIterable` 协议的实现。该协议使我们能够通过名为 `allCases` 的数组属性访问枚举的各个值。我们可以用它来返回枚举的最大值。\n\
+  \n```swift\nenum Priority : Int, Codable, CaseIterable {\n    case low, medium,\
+  \ high\n    static var max : Int {\n        Priority.init(rawValue:\n          \
+  \  Priority.allCases.count - 1)!\n            .rawValue\n    }\n}\n```\n\n\n\n###\
+  \ 视图模型\n\n视图模型负责将模型中的数据映射为要显示的数据。例如，我们的优先级是一个枚举，分别映射为 0、1 和 2，对应低、中、高三个等级。但在视觉上，我们希望将其显示为星形和圆形图片。视图模型将完成这一映射工作。\n\
+  \n新的 `NoteViewModel` 类将包含与 `Note`（模型）类相关的属性。这些属性将有效定义模型数据到视图的映射。例如，我们不再使用 priority\
+  \ 属性，而是使用 `priorityImages` 属性。它是一个字符串数组，代表 UI 要显示的图片名称。\n\n此外，由于视图模型负责映射各种值，因此我们可以在此处存储\
+  \ `DateFormatter`。这些属性的定义如图 9-4 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig4_HTML.jpg](img/497312_1_En_9_Fig4_HTML.jpg)\n\
+  \n图 9-4\n\n`NoteViewModel` 作为视图模型类\n\n我们将遍历一个 `NoteViewModel` 实例数组，因此它需要遵循 `Identifiable`\
+  \ 协议，并包含一个 UUID 字符串类型的 `id` 属性。\n\n注意 `renderingColor` 属性。我们将根据笔记中的 `isPastDue`\
+  \ 值来设置此值。默认的渲染颜色是 `UIColor.label`。这样可以使渲染在浅色模式下为深色，反之亦然。\n\n显然，`NoteViewModel` 的初始化方法需要传入一个\
+  \ `Note` 实例：\n\n```\ninit(model : Note) {\n    text = model.text\n    time = NoteViewModel.dateFormatter.string(from:\
+  \ model.updatedAtTime)\n    renderingColor = model.isPastDue ? Color.red : renderingColor\n\
+  \    imageName = model.image\n    priorityImages = Array(repeating: \"star.circle\"\
+  , count: model.priority.rawValue + 1)\n    priorityImages += Array(repeating: \"\
+  circle\", count: Priority.max – model.priority.rawValue)\n}\n```\n\n我们的初始化方法会存储传入的模型（`Note`）中的\
+  \ `text` 属性。然后，它会根据 `Note` 中的 `updatedAtTime` 来格式化并设置 `time` 属性。\n\n`renderingColor`\
+  \ 的值基于 `isPastDue`。如果已超过截止日期，则为红色；否则使用现有的默认颜色。\n\n图片值存储在 `imageName` 属性中。\n\n对于\
+  \ `priorityImages`，我们希望重复 `star.circle` 图片，重复次数为优先级的原始值加一。因此，对于低优先级（0），我们想要一颗星。然后，用圆圈填充剩余部分（最大值减去优先级原始值）。\n\
+  \n视图模型最后需要的是一个加载 JSON 数据的方法。我们可以在代码的其他位置执行此操作，但由于我们的目标是生成用于测试的 `NoteViewModel` 实例，因此我倾向于将其放在\
+  \ `NoteViewModel` 类中，如图 9-5 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig5_HTML.jpg](img/497312_1_En_9_Fig5_HTML.jpg)\n\
+  \n图 9-5\n\n将测试数据加载到视图模型实例中\n\n类似地，所有这些类、结构体和枚举都可以组织到其他文件中。你可能希望将模型类放在它们自己的组中。视图模型对象也可以放在\
+  \ `ViewModel` 组中。\n\n此方法会获取文件的 URL，将其加载到 `Data` 实例中，解析为 `Note` 实例，并将这些 `Note` 映射为\
+  \ `NoteViewModel` 实例的数组。\n\n这是一个静态函数，因此无需拥有 `NoteViewModel` 实例即可调用。\n\n另外，请注意 `#if\
+  \ DEBUG` 编译条件。Swift 没有预处理器，但它在编译期间确实会处理相同的标志。在这种情况下，我们不希望将此函数包含在发布版本中。\n\n现在我们已加载模型（`Note`）并将其转换为我们的视图模型（`NoteViewModel`）。我们需要更新视图（`NoteRow`）以使用模型视图。\n\
+  \n### 视图\n\n我们的 `NoteRow` 无论是所需的数据，还是将数据转换为 UI 的过程，都将得到简化。它不再需要 `DateFormatter`\
+  \ 对象。它只需要一个 `NoteViewModel`：\n\n```\nstruct NoteRow: View {\n    var noteVM : NoteViewModel\n\
+  ```\n\nUI 仍将包含相同的项目：文本、优先级星形、间隔符以及更新时间。但是，现在 `NoteRow` 只需从 `NoteViewModel` 获取所需内容，并仅就布局做出决策。\n\
+  \n使用其 `NoteViewModel` 属性，它可以获取 `text`，显示 `priorityImages` 中的三张图片，并从视图模型的 `time`\
+  \ 属性设置 `time`。\n\n`NoteRow` 还将对星形和时间使用 `renderingColor`。视图模型已根据其自身逻辑确定了颜色。`body`\
+  \ 属性代码如下所示，如图 9-6 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig6_HTML.jpg](img/497312_1_En_9_Fig6_HTML.jpg)\n\
+  \n图 9-6\n\n使用 `NoteViewModel` 属性的 `NoteRow` 的 `body` 属性\n\n再次注意，`NoteRow` 仅根据 UI\
+  \ 的布局做出决策：`VStack`、`HStack`、`ForEach`、`Spacer` 等。\n\n所有这些工作都是为了根据模型、视图和视图模型的角色来分离类。目前看来我们的收获似乎不大，但在预览方面，我们确实有所收获。\n\
+  \n### 预览\n\n我们的 `NoteRow_Previews` 可以变得相当简单，并且对模型和视图模型保持无关性。它基本上只需要关联并返回它们。\n\n\
+  此外，我们可以在 `ForEach` 循环中为 JSON 数据中的每个项目创建一行。这有什么好处呢？这意味着我们可以在测试数据中创建模拟真实数据可能出现的各种变化。当数据出现新的变化（例如，一个新的优先级值）时，我们可以创建测试数据来表示它，并查看\
+  \ UI 如何反应。\n\n## 预览测试数据\n\n在本练习中，我们将更新 `NoteRow_Previews` 结构体，以显示我们的测试 JSON 数据。我们需要加载该数据，并为文件中的每个项目创建一个\
+  \ `NoteRow`。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig7_HTML.jpg](img/497312_1_En_9_Fig7_HTML.jpg)\n\
+  \n图 9-7\n\n`NoteRow_Previews` 的预览\n\n1.  验证预览在画布中的显示是否符合预期，如图 9-7 所示。\n\n2.  清除\
+  \ `NoteRow_Previews` 中的预览计算属性：\n\n    ```\n    static var previews: some View {\n\
+  \    }\n    ```\n\n3.  使用 `NoteViewModel.loadTestData()` 调用添加一个 `ForEach`：\n\n \
+  \   ```\n    ForEach(NoteViewModel.loadTestData(), id: \\.id)\n    { (noteVM) in\
+  \ }\n    ```\n\n4.  在 `ForEach` 循环中，传入视图模型创建 `NoteRow` 实例：\n\n    ```\n    { (noteVM)\
+  \ in\n        NoteRow(noteVM: noteVM)\n    }\n    ```\n\n5.  使用 `previewLayout`（和/或其他修饰符）按需要显示每一行：\n\
+  \n    ```\n    NoteRow(noteVM: noteVM)\n        .previewLayout(.sizeThatFits)\n\
+  \    ```\n\n    **注意**：你可能需要注释掉 `ContentView` 的大部分内容才能使项目编译。对于你的 `body` 和预览计算属性，你可以暂时只返回一个\
+  \ `Text` 项目。\n\n在我的测试数据中，我使用了这样的日期：我的第一条笔记未过期，但第二条笔记已过期。\n\n现在，我们已经加载了测试数据，并将其渲染到\
+  \ `NoteRow` 的预览中。你可以创建更多的 JSON 项目，以在画布中查看行的更多变化。\n\n\n\n### 预览资源\n\n你可能已经意识到我们还没有使用\
+  \ JSON 数据中的图片值。为了实现这一点，我们需要图片。我的测试数据包含两个 `Note` 项目，其图片值分别为 `note1` 和 `note2`。我们希望在行中也显示它们。\n\
+  \n首先，我们需要在项目中包含这些名称的图片。我们将它们添加到预览内容组中的“Preview Assets.xcassets”目录中。这样，这些图片将不会包含在用于测试和发布的构建中。\n\
+  \n我拖放了两张图片到“Preview Assets.xcassets”中，分别命名为 `note1` 和 `note2`，如图 9-8 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig8_HTML.jpg](img/497312_1_En_9_Fig8_HTML.jpg)\n\
+  \n图 9-8\n\n位于“Preview Assets.xcassets”中的 `Note1` 和 `Note2` 图片\n\n对于我的 UI，我希望图片出现在行的左侧。为此，我将把\
+  \ `VStack` 嵌入到 `HStack` 中。我可以使用 ⌘ + 单击 `VStack`，然后选择“Embed in HStack”，如图 9-9 所示。\n\
+  \n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig9_HTML.jpg](img/497312_1_En_9_Fig9_HTML.jpg)\n\
+  \n图 9-9\n\n将 `VStack` 嵌入 `HStack`\n\n在已嵌入的 `VStack` 上方，我将基于 `NoteViewModel` 的 `imageName`\
+  \ 属性添加图片。\n\n```swift\nImage(noteVM.imageName)\n```\n\n由于我的两张图片尺寸不同，预览在画布中看起来有些错位，如图\
+  \ 9-10 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig10_HTML.jpg](img/497312_1_En_9_Fig10_HTML.jpg)\n\
+  \n图 9-10\n\n`NoteRow` 中的图片\n\n我们可以对 `Image` 使用一些修饰符来使其更统一。首先，我们需要让图片可调整大小。这将确保当我们改变图片的框架时，图片也会随之调整大小。我们可以选择性地传入一些内边距和调整模式，但我们这里使用默认值。可以随意尝试这些参数。\n\
+  \n`Resizable` 是 `Image` 元素的一个修饰符，所以我们需要先调用它。\n\n```swift\nImage(noteVM.imageName)\n\
+  .resizable()\n.frame(width: 100.0,height:100)\n```\n\n从 `resizable` 返回的 `Image`\
+  \ 也遵循 `View` 协议，因此我们可以对其使用 `.frame` 修饰符。将宽度和高度设置为合理的值将使行再次看起来很好，如图 9-11 所示。\n\n\
+  ![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig11_HTML.jpg](img/497312_1_En_9_Fig11_HTML.jpg)\n\
+  \n图 9-11\n\n`NoteRow` 中图片尺寸均匀\n\n现在，我们只需要在 `ContentView` 中使用它！\n\n## 在 ContentView\
+  \ 中使用 NoteRow\n\n我们将基本上重新开始编写 `ContentView`。起始代码可以如下所示：\n\n```swift\nstruct ContentView:\
+  \ View {\n    var body: some View {\n    }\n}\n\nstruct ContentView_Previews: PreviewProvider\
+  \ {\n    static var previews: some View {\n        ContentView()\n    }\n}\n```\n\
+  \n我们的代码将相当简单。`ContentView` 需要显示的数据。我们将使用一个 `NoteViewModel` 实例的数组。`body` 将根据数组中的视图模型创建\
+  \ `NoteRow` 的 `List`。\n\n1. 在 `ContentView` 中创建一个属性，用于存储 `NoteViewModel` 实例的数组。\n\
+  2. 在 `body` 中，创建一个 `List` 项，并在其中使用 `ForEach` 循环遍历步骤 1 中的数组属性。\n\n```swift\nList\
+  \ {\n    ForEach(items, id: \\.id)\n    { }\n}\n```\n\n3. 在 `ForEach` 的闭包中，使用从循环传入的\
+  \ `NoteViewModel`（我使用简写参数名，即 `$0`）创建 `NoteRow` 的实例。\n\n```swift\nForEach(items,\
+  \ id: \\.id)\n{ NoteRow(noteVM: $0) }\n```\n\n```swift\n@State private var items\
+  \ = [NoteViewModel]()\n```\n\n更新你的预览。注意没有行显示。为什么？我们没有加载测试数据。我们可以在 `ContentView_Previews`\
+  \ 中初始化数据，但该属性是私有的。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig12_HTML.jpg](img/497312_1_En_9_Fig12_HTML.jpg)\n\
+  \n图 9-12\n\n包含 `NoteRows` 的 `ContentView` 预览\n\n4. 为你的 `ForEach` 添加一个 `.onDelete`\
+  \ 修饰符。\n\n```swift\nForEach(items, id: \\.id)\n{ NoteRow(noteVM: $0) }\n.onDelete\
+  \ { offsets in\n    self.items.remove(atOffsets: offsets)\n}\n```\n\n5. 使用编译条件初始化\
+  \ `NoteViewModel` 实例。\n\n```swift\n#if DEBUG\n@State private var items =\n    NoteViewModel.loadTestData()\n\
+  #else\n@State private var items = [NoteViewModel]()\n#endif\n```\n\n现在，当我们在调试模式下运行\
+  \ App 时，它将加载测试数据。用于测试和发布的构建不会包含此编译内容，因此没有风险。\n\n稍后，当你想针对真实数据进行测试时，可以删除或相应修改此代码。\n\
+  \n6. 刷新预览并查看生成的单元格，如图 9-12 所示。\n\n这看起来开始像一个真正的 App 了！它基于测试数据，但谁能说我们的数据不会存储在 App\
+  \ 内的一个 JSON 文件中呢？在 `ContentView` 中看到它，我们现在已经实现了 Model、View 和 View Model 的端到端工作。\n\
+  \n## 实时模式\n\n如果我们想看到它的实际运行效果，可以点击“实时预览”按钮。该按钮位于预览上方图标栏的右侧。它显示为一个播放按钮，如图 9-13 所示。\n\
+  \n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig13_HTML.jpg](img/497312_1_En_9_Fig13_HTML.jpg)\n\
+  \n图 9-13\n\n图标栏中的实时预览按钮\n\n预览的变化不大。实时预览按钮从“播放”图标变为“停止”图标。但预览本身是实时的。我们可以像在模拟器或物理设备上一样与之交互。\n\
+  \n我们可以通过滑动来删除项目，如图 9-14 所示。\n\n![../images/497312_1_En_9_Chapter/497312_1_En_9_Fig14_HTML.jpg](img/497312_1_En_9_Fig14_HTML.jpg)\n\
+  \n图 9-14\n\n实时预览交互\n\n### 章节总结\n\n在本章中，我们向项目中的“预览内容”组添加了内容、图片和数据。我们在预览中使用了这些数据，但它不会包含在我们的构建中。正如其名称所示，它仅用于预览。\n\
+  \n我们重构了代码，将需要从 JSON 文件存储的数据拆分到我们的 Model 类 `Note` 中。这个类与任何功能关系不大，并且与 UI 完全无关。\n\n\
+  我们新的 `NoteViewModel` 类包含了要由 UI 显示的数据版本。这个类对属性进行了一些处理，以用于正确的视觉元素。在我们的例子中，我们将 `Note`\
+  \ 中的优先级设置存储为一系列用于星星/圆形图片的字符串。它还根据 `Note` 中的 `isPastDue` 确定渲染颜色。\n\n我们的 `NoteViewModel`\
+  \ 通过一个 `Note` 实例创建，以获取其所需的所有数据。其 `loadTestData` 函数加载 JSON 文件数据，并创建 notes 和 `NoteViewModels`\
+  \ 以供预览。\n\n我们类似地重构了 `NoteRow`，使其专注于 UI 方面。它所做的决策仅与 UI 相关。所有数据都由 View Model 提供。\n\
+  \n现在，`NoteRow_Previews` 只是加载测试数据，并根据 View Model 实例创建 `NoteRows`。\n\n`ContentView`\
+  \ 受益于这一切，现在只需拥有一个 `NoteViewModels` 数组，循环遍历它并在 `List` 中创建 `NoteRows`。\n\n通过分离模型、视图模型和视图组件，我们可以更轻松地分别关注每个部分。这使我们能够编辑和预览各个部分，就像它们将在各自的预览中显示一样。正如我们所看到的，预览（尤其是实时模式）基本上就是\
+  \ App 本身。\n\n这带来了一些思维方式的转变。我们不再需要将开发 App 视为 UI、功能和执行。我们基本上可以同时完成这三件事。\n\n通过专注于为预览设计代码，我们正在以精简且无缝的方式处理整个\
+  \ App。\n\n\n\n"
+- '# 10. SwiftUI 导航
+
+
+  我们通常不希望仅仅列出项目。我们希望允许用户点击这些项目，以显示详情或编辑项目。以我们的备忘录应用为例，我们希望在点击列表项时显示详情。
+
+
+  毫无疑问，你对应用中的常见导航约定已经很熟悉了。我们将探讨两种最常见的方式。首先，我们来看看如何点击一行项目，并从底部以模态方式向上滑出一个视图。
+
+
+  其次，我们将研究如何为应用添加导航视图。这将允许视图从右侧滑入进行导航。这是查看选中项详情的标准“下钻”导航方式。
+
+
+  在两种情况下，我们都需要知道用户点击的是哪一行。
+
+
+  ## 点击手势
+
+
+  要允许视图向上滑出，我们需要知道用户何时点击了某个项目。然后，根据选中的项目，我们需要显示相关信息。
+
+
+  这可以分为三个步骤：点击、识别被点击的数据，以及显示数据。
+
+
+  对于点击操作，我们可以在创建每一行时添加 `.onTapGesture` 修饰符。此时上下文仍在作用域内。因此，在点击手势的代码中，我们可以访问用于创建该行的相同数据。
+
+
+  在我们的 `ListProject ContentView` 中，有一个 `List`。为 `NoteRow` 添加点击手势的代码如下所示：
+
+
+  ```
+
+  ForEach(items, id: \.id) { (noteVM)  in
+
+  NoteRow(noteVM: noteVM)
+
+  .onTapGesture {
+
+  self.selectedNoteVM = noteVM
+
+  }
+
+  }
+
+  ```
+
+
+  注意，我们现在在点击手势代码中访问了备忘视图模型项目。因此，简写的参数名（`$0`）不再同时适用于两个作用域，所以我添加了 `noteVM` 参数名。
+
+
+  前面的代码还将 `noteVM` 存储到了 `ContentView` 的一个属性中。我们现在正是通过这个属性来保存用户所选的数据。在我们的代码中，可以像这样添加该属性：
+
+
+  ```
+
+  var selectedNoteVM : NoteViewModel?
+
+  ```
+
+
+  你会注意到，现在会出现一个编译错误。错误提示是“self”是不可变的。确实如此。那我们该怎么办？
+
+
+  幸运的是，我们最终希望基于这次点击来更新 UI。这意味着我们希望 UI 根据这次点击失效并重新渲染。简而言之，我们希望状态发生改变，以便界面得到更新。
+
+
+  正如我们之前所见，这里真正应该使用的是属性的绑定包装器，而不是属性本身。首先，我们需要指定该属性是选中项的数据源。
+
+
+  ```
+
+  @State var selectedNoteVM : NoteViewModel?
+
+  ```
+
+
+  到目前为止，代码的整体改动非常基础。我们添加了一个新属性，并在创建 `NoteRow` 时添加了点击手势，如图 10-1 所示。
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig1_HTML.jpg](img/497312_1_En_10_Fig1_HTML.jpg)
+
+
+  图 10-1
+
+
+  列表项上的点击手势
+
+
+  现在我们有了用户选中的数据，我们需要显示一个新视图。
+
+
+  ## 模态导航
+
+
+  要模态显示一个视图，我们将使用 `.sheet` 修饰符。这将是我们返回的 `View` 项上的一个修饰符。在我们的 `ListProject` 中，这个视图就是
+  `List` 项。因此，`.sheet` 修饰符放在 `body` 属性中 `List` 项的右花括号之后。
+
+
+  如果你开始在 `List` 的右花括号之后输入 `.sheet`，你会看到自动补全选项，如图 10-2 所示。
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig2_HTML.jpg](img/497312_1_En_10_Fig2_HTML.jpg)
+
+
+  图 10-2
+
+
+  Sheet 修饰符的自动补全选项
+
+
+  第一个参数是一个绑定，可以是 `Identifiable`（项目）或 `Bool`（`isPresented`）。两者都需要一个返回 `View` 的内容闭包。如果选择
+  `Identifiable`，它也会被传入内容闭包中。
+
+
+  它们还有一个可选的 `onDismiss` 闭包。当 sheet 被关闭时，会调用该闭包。
+
+
+  如果你的 `@State` 属性是布尔值，你可以在需要展示 sheet 时将其设置为 `true`。然后，内容闭包将在没有参数的情况下被调用。闭包返回的视图需要在没有数据或其他属性设置的情况下创建。
+
+
+  在我们的例子中，我们已经有了一个用于 `selectedNoteVM` 的数据源绑定；我们可以直接用它作为绑定。一旦它被设置，sheet 闭包就会带着这个绑定被调用。在我们的例子中，这个绑定就是该行的备忘视图模型。我们可以用它来创建并返回一个视图。
+
+
+  例如，我们可以创建一个显示备忘视图模型文本的 `Text` 项。
+
+
+  ```
+
+  .sheet(item: $selectedNoteVM) { (noteVM)
+
+  in Text(noteVM.text)
+
+  }
+
+  ```
+
+
+  当点击一行时，`selectedNoteVM` 会在点击手势闭包中被设置。这个设置动作会导致 `.sheet` 闭包被调用。`selectedNoteVM` 会作为
+  `noteVM` 参数传入。新的 `Text` 视图就会显示出来，如图 10-3 所示。
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig3_HTML.jpg](img/497312_1_En_10_Fig3_HTML.jpg)
+
+
+  图 10-3
+
+
+  点击行后显示的文本项
+
+
+  我们在 `List` 中的 `NoteRow` 视图上添加了一个 `.onTapGesture` 修饰符。在该闭包被调用时，我们将选中的备忘视图模型项目存储到
+  `@State` 数据源属性中。
+
+
+  当该属性被设置后，`.sheet` 闭包会带着该项目被调用。该闭包返回一个视图（在我们的例子中是 `Text` 项）以模态方式显示。要返回到之前的视图，向下滑动该视图即可将其关闭。
+
+
+  你可能想显示一个“关于页面”或类似的、不需要选中数据的页面。在这种情况下，布尔值绑定可能是更好的选择。
+
+
+  此外，你可能还想在视图关闭时执行某些操作。在这种情况下，你也可以将 `onDismiss` 闭包作为参数提供。
+
+
+  但是，如何处理从右侧滑入视图的导航呢？为此，我们需要一个 `NavigationView`。
+
+
+  ## 导航视图
+
+
+  使用导航视图来显示详情并不复杂。然而，它与我们之前看到的模态方式截然不同。
+
+
+  我们不使用 `.sheet` 修饰符，因此不需要 `@State` 属性包装器。既然不需要那个，我们也就无需设置它。这意味着我们不需要 `.onTapGesture`
+  修饰符。所以我们可以移除所有这些：`selectedNoteVM` 属性以及 `.sheet` 和 `.onTapGesture` 修饰符。
+
+
+  `ContentView` 中的 `body` 属性现在又回到了只有 `List` 和带有 `.onDelete` 修饰符的 `ForEach`。
+
+
+  ```
+
+  var body: some View {
+
+  List {
+
+  ForEach(items, id: \.id) { (noteVM) in
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  .onDelete { offsets in
+
+  self.items.remove(atOffsets: offsets)
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  我们希望将用作导航起点的任何视图包裹在一个 `NavigationView` 中。由于它是一个 `View`，我们可以从 `body` 属性中将其返回。
+
+
+  如果我们简单地将 `List` 包裹在 `NavigationView` 中，预览效果在画布上会如图 10-4 所示。
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig4_HTML.jpg](img/497312_1_En_10_Fig4_HTML.jpg)
+
+
+  图 10-4
+
+
+  包裹列表的导航视图
+
+
+  注意，现在顶部出现了一个导航栏，但它是空的。标题是通过对 `NavigationView` 中包含的项添加修饰符来设置的。
+
+
+  在我们的 `ListProject` 中，`List` 就是被包含的项。我们使用带有字符串（例如 `Notes`）的 `.navigationTitle` 在导航栏中设置标题。
+
+
+  ```
+
+  NavigationView {
+
+  List {
+
+  ForEach(items, id: \.id) { (noteVM) in
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  .onDelete { offsets in
+
+  self.items.remove(atOffsets: offsets)
+
+  }
+
+  }.navigationTitle("Notes")
+
+  }
+
+  ```
+
+
+  现在，我们的导航栏就有了标题，如图 10-5 所示。
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig5_HTML.jpg](img/497312_1_En_10_Fig5_HTML.jpg)
+
+
+  图 10-5
+
+
+  导航栏标题
+
+
+  导航栏还有其他修饰符。除了标题之外，还有用于设置样式、返回按钮、左右项目等等的修饰符。
+
+
+  现在我们有了 `NavigationView`，让我们来看看如何进行导航。
+
+
+
+
+  ### 导航链接
+
+
+  对于模态导航，我们使用了 `.onTapGesture` 修饰符。在相关的闭包中，我们设置了一个状态属性。这将调用 `.sheet` 修饰符，并显示其闭包返回的视图。
+
+
+  对于 `NavigationView`，我们将创建 `NavigationLink`。`NavigationLink` 遵循 `View` 协议。这意味着我们可以在
+  `List` 中使用它。我们将返回 `NavigationLink` 实例，而不是 `NoteRow`。并且每个 `NoteRow` 都将位于 `NavigationLink`
+  内部。
+
+
+  `NavigationLink` 的初始化方法允许设置多个参数。具体来说，它们接收目标（destination）和标签（label）。目标是在点击项目时显示的视图。在我们的
+  `ListProject` 中，我们希望显示选中笔记行的一些详细信息。
+
+
+  标签参数是一个闭包。该闭包返回一个视图，作为可点击的项目来显示。在我们的例子中，这个视图就是行本身。
+
+
+  ## 为 ListProject 添加导航
+
+
+  本练习将逐步指导你为 `ListProject` 应用程序添加导航。添加的导航将从右侧滑入以显示详细信息。
+
+
+  我们将在本练习中使用 `NavigationView` 和 `NavigationLink`。
+
+
+  前两个步骤是实现前面讨论过的内容。如果你一直在跟随学习，可能已经完成了这些步骤。
+
+
+  1.  将现有的 `List` 项包裹在 `NavigationView` 中（除非你之前跟随学习时已经这样做了）。
+
+
+  1.  为 `List` 视图添加导航栏标题修饰符（除非你之前跟随学习时已经这样做了）。
+
+
+  ```
+
+  NavigationView {
+
+  List {
+
+  ForEach(items, id: \.id) { (noteVM)   in
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  .onDelete { offsets in
+
+  self.items.remove(atOffsets: offsets)
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  1.  更新预览，并验证其看起来是否与图 10-5 相似。
+
+
+  2.  在 `List` 的 `ForEach` 内部，创建一个 `NavigationLink`，其目标是一个 `Text` 视图，标签闭包返回 `NoteRow`。
+
+
+  ```
+
+  NavigationView {
+
+  List {
+
+  ForEach(items, id: \.id) { (noteVM)   in
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  .onDelete { offsets in
+
+  self.items.remove(atOffsets: offsets)
+
+  }
+
+  }.navigationTitle("笔记")
+
+  }
+
+  ```
+
+
+  ![../images/497312_1_En_10_Chapter/497312_1_En_10_Fig6_HTML.jpg](img/497312_1_En_10_Fig6_HTML.jpg)
+
+
+  图 10-6：应用内导航
+
+
+  1.  运行应用程序（模拟器、真机或实时预览模式），验证点击项目是否显示如图 10-6 所示的详细信息。
+
+
+  ```
+
+  NavigationLink(destination: Text(noteVM.text)) {
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  ```
+
+
+  请注意，导航会自动包含返回按钮。并且返回按钮的标题与导航栏标题相同。
+
+
+  正如你所期望的，点击返回按钮会返回到上一个视图。
+
+
+  本练习展示了如何快速便捷地将导航从 `List`（或其他视图）添加到应用程序中。
+
+
+  ### 章节总结
+
+
+  在本章中，我们探讨了应用中两种常见的导航方式。对于模态导航，我们使用了 `.sheet` 修饰符。我们将此修饰符添加到了 body 参数返回的视图上。
+
+
+  `.sheet` 修饰符通过绑定到一个属性来确定何时显示。我们使用了一个 `@State` 属性包装器来包装笔记视图模型，以设置此条件。
+
+
+  为了确定用户何时点击了某一行，我们在每一行上使用了 `.onTapGesture` 修饰符。这提供了一种重新显示用户界面并将必要数据传递给 `.sheet` 闭包的方法。
+
+
+  对于使用视图栈的分层/下钻式导航，我们使用了 `NavigationView`。`NavigationView` 中包含的视图使用 `.navigationTitle`
+  修饰符来设置视图的标题。
+
+
+  `NavigationView` 提供了导航的手段。`NavigationLink` 提供了用户交互能力。列表项的 `ForEach` 创建行视图。`NavigationLink`
+  也实现了 `View` 协议，可以作为行项使用。
+
+
+  `NavigationLink` 需要知道显示什么标签（视图）供用户点击。它还需要一个目标（视图），在点击时显示。我们使用 `NoteRow` 作为可点击区域。当被点击时，我们提供一个包含笔记文本的
+  `Text` 项来显示。
+
+
+  我们提供了一个简单的视图（即 `Text`）作为目标。当然，你也可以使用更有用、更有趣的视图来代替。
+
+
+  '
+- '# SwiftUI 中的 UIKit
+
+
+  由于各种原因，你可能会有在 SwiftUI 应用中使用 UIKit 的时候。这没问题。
+
+
+  你可能有一个需要使用的现有 UI。也许你没有时间更新它，或者根本不想更新它。无论是现有的视图还是你自定义的视图，都可以实现。此外，任何现有的约束都会得到尊重。
+
+
+  在本章中，我们将探讨如何将现有的 UIKit 类整合到 SwiftUI 中。这已经为你考虑过了。这不是一个临时的解决方案，甚至也不被反对。
+
+
+  虽然有一些工作要做，但步骤已经为你规划好了。
+
+
+  ## `UIViewRepresentable`
+
+
+  SwiftUI 提供了一个专门用于将 `UIView` 实例纳入代码的协议。基本上，我们将创建一个视图结构体，它返回一个 `UIView` 类。
+
+
+  `UIViewRepresentable` 协议继承了 `View`。然而，它指定要成为一个不实现 `body` 计算属性的视图。所以它是一个视图，但和我们之前见过的不同。
+
+
+  相反，该协议定义了一个需要实现的函数。`makeUIView` 函数将 UIKit 类整合到 SwiftUI 中，需要返回一个 `UIView`。就这么简单。
+
+
+  它还接收一个上下文（Context）参数，用于检索你可能需要的任何值。
+
+
+  当状态发生变化并且需要更新 UI 时，还有另一个函数：`updateUIView`。当任何绑定发生变化时，会调用此函数。在函数代码中，你将根据这些变化以编程方式更新
+  UI。
+
+
+  可选地，你可以实现 `dismantleUIView`。这在清理内存时被调用。如果你需要在 `UIView` 被移除时执行任何最后时刻的操作，这正是时机。
+
+
+  我们不再在点击行时显示笔记的文本，而是显示笔记的详细信息。
+
+
+  如果你在 macOS 上工作，类似的协议是 `NSViewRepresentable`。类似地，WatchKit 视图可以与 `WKInterfaceObjectRepresentable`
+  一起使用。
+
+
+
+
+  ### `NoteView`
+
+
+  我已在项目中添加了`NoteView`。它是一个基础的`View`结构体，用于显示部分`Note`信息，如图 11-1 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig1_HTML.jpg](img/497312_1_En_11_Fig1_HTML.jpg)
+
+
+  **图 11-1** `NoteView` 代码
+
+
+  `NoteView`有一个用于`NoteViewModel`的绑定属性。它在主体中用于显示详细信息。`VStack`包含用于更新时间和笔记文本的`Text`项，以及用于相关图片的`Image`项。
+
+
+  预览代码会加载测试数据并显示一个条目。代码如图 11-2 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig2_HTML.jpg](img/497312_1_En_11_Fig2_HTML.jpg)
+
+
+  **图 11-2** `NoteView` 预览代码
+
+
+  Canvas 中的预览如图 11-3 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig3_HTML.jpg](img/497312_1_En_11_Fig3_HTML.jpg)
+
+
+  **图 11-3** `NoteView`
+
+
+  现在，让我们在`List`中点击某一行时使用这个视图。
+
+
+  ### 使用`NoteView`显示详情
+
+
+  目前，`ContentView`中的`ForEach`在点击某一行时使用`Text`项来显示笔记文本。我们想将其改为使用`NoteView`。
+
+
+  但是，如果你仅将目标改为`NoteView`，就会收到一个错误。
+
+
+  ```
+
+  NavigationLink(destination:
+
+  NoteView(noteVM: noteVM)) {
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  ```
+
+
+  这是因为`ForEach`中的`noteVM`不可绑定。它只是一个局部作用域的参数。它需要是 items 数组属性中绑定实例的一个副本。
+
+
+  1. 将`ForEach`改为遍历数组的索引。
+
+
+  2. 将目标参数改为`NoteView`。
+
+
+  ```
+
+  NavigationLink(destination:
+
+  NoteView(noteVM: self.$items[noteIndex])) {
+
+  NoteRow(noteVM: noteVM)
+
+  }
+
+  ```
+
+
+  3. 将`NoteRow`的创建改为使用索引。
+
+
+  ```
+
+  NavigationLink(destination:
+
+  NoteView(noteVM: self.$items[noteIndex])) {
+
+  NoteRow(noteVM: self.items[noteIndex])
+
+  }
+
+  ```
+
+
+  4. 运行应用并验证列表看起来相同，详情如图 11-3 所示。
+
+
+  ```
+
+  ForEach(items.indices) { (noteIndex) in
+
+  ```
+
+
+  通过创建一个相当简单的新视图，我们可以显示`Note`的详情。我们必须修改`ForEach`以使用模型数据，这样绑定才能生效。
+
+
+  ## 提取视图
+
+
+  我们的笔记详情中缺少的一项内容是优先级。当然，如果能加上它会更好。但如果我们能重用已经写好的代码，那就更好了。
+
+
+  我们可以通过将`NoteRow`的那部分提取到它自己的`View`结构体中来实现这一点。在`NoteRow`中，我们有一个`HStack`，它包含了优先级星标图片和更新时间。如果我们按住
+  Command 键并点击（⌘ + 点击）`HStack`，会看到一个菜单，如图 11-4 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig4_HTML.jpg](img/497312_1_En_11_Fig4_HTML.jpg)
+
+
+  **图 11-4** 按住 Command 键点击菜单
+
+
+  我们想要提取视图，菜单中正好有一个名为“提取视图”的项。点击该项，它就会提取代码，并让我们为新的`View`结构体设置名称。我将它命名为`NotePriorityAndTime`。
+
+
+  但是，我们的新`View`无法访问`noteVM`值，因此会出现编译错误。这没问题。我们可以为该视图以及创建它的调用添加这个属性。新结构体的代码如图 11-5
+  所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig5_HTML.jpg](img/497312_1_En_11_Fig5_HTML.jpg)
+
+
+  **图 11-5** `NotePriorityAndTime` 视图结构体
+
+
+  记得要在`NoteRow`的`VStack`中用新的`noteVM`参数更新创建语句。
+
+
+  ```
+
+  NotePriorityAndTime(noteVM: noteVM)
+
+  ```
+
+
+  如果你现在运行应用，它应该看起来和之前一样。此外，我们现在有了一个新的`View`，可以将其包含在`NoteView`界面中。根据你选择组织代码的方式，你可能需要为这个`View`创建一个新文件。
+
+
+  在`NoteView`中，让我们替换当前的`HStack`代码。
+
+
+  ```
+
+  HStack {
+
+  Spacer()
+
+  Text("Updated At: \(noteVM.time)")
+
+  }
+
+  ```
+
+
+  我们可以用刚刚创建的新`View`替换整个`HStack`。
+
+
+  ```
+
+  NotePriorityAndTime(noteVM: noteVM)
+
+  ```
+
+
+  之前只有时间的地方，现在我们有了使用渲染颜色的优先级和时间，如图 11-6 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig6_HTML.jpg](img/497312_1_En_11_Fig6_HTML.jpg)
+
+
+  **图 11-6** `NoteView` 预览中的 `NotePriorityAndTime`
+
+
+  如果我们运行应用并点击某一行，就会看到笔记的详情。现在它包含了优先级和时间，以及文本和图片，如图 11-7 所示。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig7_HTML.jpg](img/497312_1_En_11_Fig7_HTML.jpg)
+
+
+  **图 11-7** 当前笔记详情界面
+
+
+  这对于显示详情来说可能还行，但效果并不太好。而且它也不允许编辑笔记。让我们回到`UIViewRepresentable`主题，使用`UITextView`来显示笔记文本。
+
+
+  ## SwiftUI 中的 `UIView`
+
+
+  我们当前的`NoteView`使用`Text`来显示笔记视图模型中的文本。这不允许用户在应用中编辑文本。Swift 有一个用于此目的的`TextEditor`。然而，它仅在
+  iOS 14 中可用。
+
+
+  为了实现向后兼容，让我们使用一个在 iOS 13 中也能运行的解决方案。我们将使用`UITextView`。因为它属于 UIKit，我们可以使用`UIViewRepresentable`并将其封装在一个`View`结构体中。
+
+
+  ### SwiftUI 中的 `UITextView`
+
+
+  为了在 SwiftUI 中使用`UIView`子类，我们需要使用`UIViewRepresentable`。因此，我们将创建一个符合该协议的新结构体。
+
+
+  1. 创建一个新的`TextView`结构体（这可以放在与`NoteView`相同的文件中，也可以放在另一个文件中）。
+
+
+  2. 为要显示的文本创建一个`@Binding`属性。
+
+
+  ```
+
+  struct TextView: UIViewRepresentable {
+
+  @Binding var text: String
+
+  }
+
+  ```
+
+
+  3. 实现`makeUIView`函数，返回`UITextView`。
+
+
+  ```
+
+  func makeUIView(context: Context) -> UITextView {
+
+  return UITextView()
+
+  }
+
+  ```
+
+
+  ```
+
+  struct TextView: UIViewRepresentable {}
+
+  ```
+
+
+  可选地，我们可以在返回之前设置文本视图的其他属性，例如字体、颜色等。
+
+
+  4. 实现`updateUIView`，如果文本属性在结构体外部被更新，则更新界面。
+
+
+  ```
+
+  func updateUIView(_ tvNote: UITextView,
+
+  context: Context) {
+
+  tvNote.text = text
+
+  }
+
+  ```
+
+
+  5. 将`NoteView`主体中的`Text`项替换为`TextView`。
+
+
+  ![../images/497312_1_En_11_Chapter/497312_1_En_11_Fig8_HTML.png](img/497312_1_En_11_Fig8_HTML.png)
+
+
+  **图 11-8** 包含`UITextView`的`NoteView`
+
+
+  6. 预览或运行应用，可以看到界面与图 11-8 相同。
+
+
+  ```
+
+  TextView(text: $noteVM.text)
+
+  ```
+
+
+  在这个练习中，我们在 SwiftUI 中添加了一个`UITextView`。通过创建一个实现`UIViewRepresentable`的新结构体，我们将`UIView`封装在了一个`View`中。通过实现该协议，我们提供了`UIView`（即`UITextView`），并在值可能发生变化时更新了界面。
+
+
+  你可能会注意到，你也可以在文本视图中编辑文本。但是，这些更改不会反映到之前的视图中。这是因为我们在`NoteRow`中使用了绑定属性包装器。因此，更改不会使该界面失效并被重新创建。我们将在下一章中更新这一点。
+
+
+
+
+  ### 章节摘要
+
+
+  在某些情况下，你可能需要使用 UIKit 对象。SwiftUI 通过 `UIViewRepresentable` 提供了这一能力。
+
+
+  通过在结构体中实现该协议，你可以实现相应的方法，将 UIViews 作为 `View` 对象提供。当需要创建 `UIView` 时，会调用 `makeUIView`
+  函数。如果绑定值发生变化，则会调用 `updateUIView` 函数。
+
+
+  作为可选操作，你可以实现 `dismantleUIView`，以便在 `UIView` 从用户界面中移除时进行清理。
+
+
+  我们还练习了从现有代码中提取视图。
+
+
+  希望你能明白，无论你是要使用现有的视图，还是需要一个 UIKit 视图，在 SwiftUI 中都很容易实现。
+
+
+  在接下来的内容中，我们将探讨更多利用现有类与 SwiftUI 协同工作的方法。
+
+
+  '
+- "# 12. 通过协调器从 UIKit 获取数据\n\n在上一章中，我们了解了如何在 SwiftUI 中使用 `UIView`。在我们的项目中，我们使用了 `UITextView`。这类视图允许应用显示文本。同时，它也允许用户编辑应用需要知晓的文本内容。\n\
+  \nUIKit 提供了多种从 UI 获取用户数据的选项。在某些情况下，控件会使用带有目标/动作模式的事件。在其他情况下，例如文本视图，我们也有基于委托模式的机制。\n\
+  \n上一章向我们展示了如何显示信息。在本章中，我们将探讨如何将 UIKit 控件的用户输入获取到 SwiftUI 代码中。\n\n## UIViewPresentable\
+  \ 协议\n\n你在上一章查看 `UIViewPresentable` 协议时，可能还注意到了其他一些东西。如果我们再次审视，会看到提到了 `Coordinator`\
+  \ 以及创建它的函数，如图 12-1 所示。\n\n![../images/497312_1_En_12_Chapter/497312_1_En_12_Fig1_HTML.jpg](img/497312_1_En_12_Fig1_HTML.jpg)\n\
+  \n图 12-1\n\n`UIViewPresentable` 中的 `Coordinator` 和 `makeCoordinator`\n\n`makeCoordinator`\
+  \ 的定义返回一个 `Self.Coordinator`。你可以在上面的代码中看到 `Coordinator` 被类型别名为 `Void`。然而，在我们的代码中，我们将定义一个实际的\
+  \ `Coordinator` 类。我们对 `makeCoordinator` 函数的实现将返回我们定义的类型。\n\n## 协调器\n\n协调器用于实现在 UIKit\
+  \ 中你可能熟悉的常见模式。它在 UIViews 和 SwiftUI 之间进行协调。通过使用协调器，我们可以采用 UIKit 中的委托、数据源以及目标/动作模式。\n\
+  \n那么，我们需要我们的协调器做什么呢？在我们的 `ListProject` 应用中，我们使用了一个 `UITextView`。我们需要知道用户何时更改了文本视图中的文本。为此，我们可以使用\
+  \ `UITextView` 的委托。\n\n通常，你会将委托赋值给你的 `ViewController` 并实现 `UITextViewDelegate`。然后，你的控制器可以实现\
+  \ `textViewDidChange` 函数并访问 `text` 属性。\n\n在 SwiftUI 中，我们将让协调器作为委托。这意味着我们新的 `Coordinator`\
+  \ 类需要遵守该委托，并实现 `textViewDidChange`（以及可能的其他）函数。\n\n我们类的声明可能像这样：\n\n```\nclass Coordinator:\
+  \ UITextViewDelegate {...}\n```\n\n> **注意：** 我将我的 `Coordinator` 定义为一个**位于** `TextView`\
+  \ 结构体**内部**的类。\n\n如果我们添加这个，会立即得到一个错误。`UITextViewDelegate` 继承自 `UIScrollViewDelegate`，而后者继承自\
+  \ `NSObjectProtocol`。我们的 `Coordinator` 并不遵守 `NSObjectProtocol`。\n\n我们可以添加大量代码来遵守\
+  \ `NSObjectProtocol`，或者我们可以选择继承自 `NSObject`。由于我们的 `Coordinator` 并未继承自其他类，我们将选择后者。\n\
+  \n```\nclass Coordinator: NSObject, UITextViewDelegate {...}\n```\n\n问题解决了。\n\n\
+  ## 绑定属性包装器\n\n现在，我们的 `TextView` 有了一个协调器。我们的 `TextView` 实例对传入的文本有一个绑定。我们需要这个 `String`\
+  \ 在用户输入时被更新。这就是我们协调器的工作。\n\n作为委托，`Coordinator` 将实现 `textViewDidChange`，并且需要存储更新后的文本。所以，我们的\
+  \ `Coordinator` 类也需要一个对文本的绑定。\n\n```\n@Binding var text: String\n```\n\n为了确保属性被设置，我们需要一个将绑定作为参数的初始化器。我们之前接触的都是自动拥有成员逐一构造器的结构体。但我们的\
+  \ `Coordinator` 不是这样，因为它是一个类。\n\n不过，将绑定作为参数传入的语法略有不同。`@Binding` 属性包装器本身只是一个带有泛型的结构体。因此，我们的参数类型可以这样明确地写出初始化器。\n\
+  \n```\ninit(text: Binding<String>) {...}\n```\n\n现在，我们的参数类型是 `Binding<String>`，但我们的属性是一个带有属性包装器的\
+  \ `String`。如果我们尝试赋值给 `self.text`，会得到一个错误，提示我们无法将参数赋值给一个 `String`。\n\n作为属性包装器，编译器会合成对应的后备存储属性。所以，我们的\
+  \ \"text\" 属性有一个名为 \"`_text`\" 的后备存储属性，我们可以访问它。\n\n```\ninit(text: Binding<String>)\
+  \ {\n    _text = text\n}\n```\n\n我们的协调器有一个绑定属性，并且在初始化器中进行了设置。由于我们声称遵守 `UITextViewDelegate`，我们可以实现我们感兴趣的函数：`textViewDidChange`。在函数中，我们可以设置属性包装器的包装值。\n\
+  \n```\nfunc textViewDidChange(_ textView: UITextView) {\n    _text.wrappedValue\
+  \ = textView.text\n}\n```\n\n当文本改变时，我们设置该属性的包装值。\n\n## 将协调器作为委托\n\n现在，我们有了一个能完成我们所需工作的协调器。我们需要实现\
+  \ `makeCoordinator`。如果我们实现了它，它将在 `makeUIView` 之前被调用。协调器被设置为传递给 `makeUIView` 的 `Context`\
+  \ 上的一个属性。通过访问我们的 `Coordinator` 实例，我们可以将其设置为我们的 `UITextView` 的委托属性。\n\n```\nfunc\
+  \ makeUIView(context: Context) -> UITextView {\n    let tv = UITextView()\n    tv.delegate\
+  \ = context.coordinator\n    return tv\n}\n```\n\n> **注意：** 下面的返回类型是 `TextView.Coordinator`，因为\
+  \ `Coordinator` 类被定义在 `TextView` 结构体**内部**。\n\n```\nfunc makeCoordinator() -> TextView.Coordinator\
+  \ {\n    Coordinator(text: $text)\n}\n```\n\n关键是，我们定义的 `Coordinator` 类就是 `UITextView`\
+  \ 的委托。创建协调器的机制通过协议函数 `makeCoordinator` 内建。访问已创建的 `Coordinator` 的机制由 `Context` 提供。\n\
+  \n`Context` 还具有用于 `Transaction` 和 `Environment` 的属性。`Transaction` 包含动画信息。`Environment`\
+  \ 包含环境变量。这样，你的 `UIView` 就能像 SwiftUI 一样访问这些值。\n\n\n\n## 替代语法\n\n如果直接访问底层存储属性感觉不太对劲，那也没关系。还有另一种传入和访问属性的方法。对于\
+  \ `text` 属性，我们可以不使用 `@Binding` 语法，而是采用与 `init` 参数相同的语法。\n\n```\nclass Coordinator:\
+  \ NSObject, UITextViewDelegate {\nvar text: Binding\n```\n\n然后，初始化器和 `textViewDidChange`\
+  \ 可以更直接地使用该属性。\n\n```\ninit(text: Binding) {\nself.text = text\n}\nfunc textViewDidChange(_\
+  \ textView: UITextView) {\ntext.wrappedValue = textView.text\n}\n```\n\n无论是哪种情况，我们的\
+  \ `TextView` 都不必有所变化。两种方式都可行，但现在代码感觉更清爽了。我们就在练习中使用这个版本吧。\n\n## `TextView` 的协调器\n\
+  \n我们将为 `TextView` 添加一个协调器。它将作为我们创建的 `UITextView` 的委托。`Coordinator` 将是一个独立的类，并在 `makeCoordinator`\
+  \ 协议函数中实例化。\n\n**注意** 如果你一直在跟着更新代码，那么你已经完成了这个练习。否则，以下步骤将阐明 `TextView` 的 `Coordinator`\
+  \ 所需的更改。\n\n1.  在 `TextView` 内部声明 `Coordinator` 类，使其继承自 `NSObject` 并遵循 `UITextViewDelegate`\
+  \ 协议。\n\n1.  为 `Coordinator` 添加一个 `Binding<String>` 类型的 `text` 属性。\n\n```\nclass\
+  \ Coordinator: NSObject, UITextViewDelegate {}\n```\n\n1.  在 `Coordinator` 中实现一个初始化器，该初始化器接收一个\
+  \ `Binding<String>` 参数并将其赋值给类属性。\n\n```\nclass Coordinator: NSObject, UITextViewDelegate\
+  \ {\nvar text: Binding\n}\n```\n\n1.  在 `Coordinator` 中实现 `textViewDidChange` 以设置封装值。\n\
+  \n```\ninit(text: Binding) {\nself.text = text\n}\n```\n\n1.  在 `TextView` 类中实现\
+  \ `makeCoordinator`。\n\n```\nfunc textViewDidChange(_ textView: UITextView) {\n\
+  text.wrappedValue = textView.text\n}\n```\n\n1.  将上下文中的协调器设置为所创建 `UITextView` 的委托。\n\
+  \n```\nfunc makeCoordinator() -> TextView.Coordinator {\nCoordinator(text: $text)\n\
+  }\n```\n\n```\nfunc makeUIView(context: Context) -> UITextView {\nlet tv = UITextView()\n\
+  tv.delegate = context.coordinator\nreturn tv\n}\n```\n\n整个 `TextView` 结构体代码应如图 12-2\
+  \ 所示。\n\n![../images/497312_1_En_12_Chapter/497312_1_En_12_Fig2_HTML.jpg](img/497312_1_En_12_Fig2_HTML.jpg)\n\
+  \n**图 12-2** — 包含 `Coordinator` 类的 `TextView`\n\n1.  运行应用，并使用断点验证每个函数是否被调用以及文本是否更新。\n\
+  \n现在，当文本发生变化时，你的 UI 会通过协调器更新 `TextView`。我们将该值存储在绑定属性中，该属性会传回给真相源。\n\n## 更新列表\n\n\
+  如前一章所述，列表并未使用编辑后的值更新行。在我们的 `ContentView` 的 `List` 中，我们并没有将笔记项传递给绑定属性包装器。\n\n我们可以更改\
+  \ `NoteRow`，使其 `noteVM` 属性具有 `@Binding` 属性。然而，这会导致代码在多个地方出错。别担心。我们可以做到。\n\n主要只有两处更改。第一处是给\
+  \ `NoteRow` 的属性添加 `@Binding`。\n\n```\nstruct NoteRow: View {\n@Binding var noteVM\
+  \ : NoteViewModel\n```\n\n这会破坏 `NoteRow` 的预览。你需要更新那段代码，也传入一个绑定属性。它可以模仿 `ContentView`\
+  \ 的 `ForEach` 现在使用索引的方式，如图 12-3 所示。\n\n![../images/497312_1_En_12_Chapter/497312_1_En_12_Fig3_HTML.jpg](img/497312_1_En_12_Fig3_HTML.jpg)\n\
+  \n**图 12-3** — 更新后的 `NoteRow` 预览\n\n请注意，现在创建 `NoteRow` 时传入了一个 `self.$items` 值。这个绑定也是我们在\
+  \ `ContentView` 的 `List` 中所需要的。\n\n在 `ContentView` 的 `List` 中，我们需要在列表创建时传入一个绑定。我们只需在创建\
+  \ `NoteRow` 的项前面加一个 `$` 符号即可。\n\n```\nNoteRow(noteVM: self.$items[noteIndex])\n\
+  ```\n\n现在，当我们运行应用并编辑一个笔记时，它将反映在 `List` 中，如图 12-4 所示。\n\n![../images/497312_1_En_12_Chapter/497312_1_En_12_Fig4_HTML.jpg](img/497312_1_En_12_Fig4_HTML.jpg)\n\
+  \n**图 12-4** — 更新后的笔记\n\n## 本章小结\n\n通过使用 `UIViewRepresentable` 协议中的 `Coordinator`\
+  \ 机制，我们现在可以编辑笔记了。此更改也会反映在主 `ContentView` 的 `List` 中。\n\n协调器的概念已内置于协议以及传递给相关函数的 `Context`\
+  \ 中。然而，我们创建的类能够满足我们的需求。在我们的例子中，它需要遵循 `UITextViewDelegate` 协议。这还需要遵循 `NSObjectProtocol`\
+  \ 协议，因此我们继承了 `NSObject`。\n\n我们需要 `text` 属性来进行绑定，但我们也可以选择是否绑定其他属性。我们还可以实现其他协议，或者将该类用作其他\
+  \ `UIView` 实例的委托或数据源。\n\n就我们的用途而言，我们只是按规则行事。我们在需要时创建了协调器，将其设置为委托，并处理了文本更改。\n\n你可能和我一样在想，如果在\
+  \ `makeUIView` 中直接创建一个 `Coordinator` 实例并将其设置为委托，会怎么样？能行得通吗？答案是：既行得通也行不通。\n\n问题在于文本视图的委托属性是弱引用。这意味着在\
+  \ `makeUIView` 调用返回后，它会被立即释放。\n\n如果我让协调器成为 `TextView` 的一个属性呢？可以，但是你无法在其中声明中实例化它，因为它需要\
+  \ `text` 属性。\n\n如果我让它成为一个可选属性，并在 `makeUIView` 中实例化它呢？可以，但这样你就修改了 `self` 的成员。而且如果你将\
+  \ `makeUIView` 标记为 `mutating`，你就破坏了与 `UIViewRepresentable` 协议的适配。\n\n如果我让 `Coordinator`\
+  \ 成为 `TextView` 外部的变量——也许是全局变量或类似的呢？是的，这也可以。虽然过程比较麻烦，但确实可行。如果你想传入一个 `Coordinator`，这或许是可行的方法。\n\
+  \n这确实说明了一个有趣的点：我们使用的 `Coordinator` 设置并非必须的。可以通过其他方式实现。然而，协调器函数确实提供了帮助。此外，任何熟悉 `UIViewRepresentable`\
+  \ 的人可能都会预期采用这种路径。\n\n既然我们已经看到了 UIKit 中的委托模式的使用，接下来我们将研究目标/动作模式。\n\n"
+- "# 13. SwiftUI 中的目标/动作模式\n\n在上一章中，我们使用 `Coordinator` 作为 `UITextView` 的委托。但我们也意识到协调器的设置只是一个有用的机制。\n\
+  \n我们本可以为委托创建一个新类。或者我们本可以让协调器实现更多协议。我们命名为 `Coordinate` 的这个类也可以取别的名字。它可以继承自另一个类并实现我们所需的功能。\n\
+  \n那么，我们可以将同样的机制用于目标/动作模式吗？答案是肯定的。\n\n如果你有一个现有的 `UIView`，我们已经看到你可以通过 `UIViewRepresentable`\
+  \ 协议来使用它。像往常一样声明其属性（可能是绑定属性）。实现 `makeUIView` 来创建你的 `UIView` 实例并返回它。实现 `updateUIView`\
+  \ 来根据需要更新 UI。\n\n如果你需要一个协调器，实现 `makeCoordinator` 来返回你的协调器类的一个实例。它将作为协调器属性在 `Context`\
+  \ 中传递。\n\n总的来说，我认为最好将类名保留为 `Coordinator`。我的重点是，重要的是概念本身——而不是具体的名称、父类或你的协调器类遵循的协议。\n\
+  \n我已经对代码做了相当多的更新。没什么特别有趣的，但你或许想要从本章的代码库开始。概念是相同的。然而，我将一些东西移到了它们自己的方法中。这将有助于重用和 UI\
+  \ 更新。下面我将回顾关键的更改。\n\n让我们看看如何使用目标/动作模式和协调器。\n\n\n\n### 目标/动作\n\n如果你曾经在代码中创建过 UIKit\
+  \ 的按钮、滑块、开关等元素，你可能会对 `addTarget` 函数很熟悉。这里的唯一技巧是，协调器（coordinator）将成为动作的目标。这意味着要调用的函数也将位于协调器上。\n\
+  \n如果你觉得这算不上什么技巧，那你是对的。每当你在 Swift 中添加目标时，你都需要指定实例、选择器和事件。这里并没有什么新东西。\n\n同样，这里也没什么特别的。我们定义一个类，然后从\
+  \ `makeCoordinator` 方法中返回它的一个实例。通读代码可能会让你觉得复杂，但其核心设置你很可能已经很熟悉了。\n\n### ButtonView\n\
+  \n在 `ListProject` 项目中，我在 `NoteRow.swift` 文件里有一个名为 `ButtonView` 的 `UIView` 子类。这将是我们从现有代码中导入视图的示例。它的声明和初始化方法如图\
+  \ 13-1 所示。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig1_HTML.jpg](img/497312_1_En_13_Fig1_HTML.jpg)\n\
+  \n**图 13-1** ButtonView 声明与初始化器\n\n我们有一个用于按钮高度和宽度的 `let` 常量、一个 `NoteViewModel` 属性以及一个初始化器。`init`\
+  \ 方法先调用父类的初始化方法，接着设置属性，然后调用 `configUI` 方法（见图 13-2）。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig2_HTML.jpg](img/497312_1_En_13_Fig2_HTML.jpg)\n\
+  \n**图 13-2** configUI 方法\n\n此方法会遍历并根据 `NoteViewModel` 属性的优先级图片创建三个按钮。它使用循环索引来设置按钮的\
+  \ `tag` 属性。这在之后计算新优先级时会派上用场。\n\n通常，我们也会向 `UIButton` 实例添加目标。不过，我们将使用协调器，这样代码就不会出现在前面的函数中。\n\
+  \n还有一个用于 Storyboard 的必需 `init` 方法。由于我们并未使用 Storyboard，它只是如图 13-3 所示的样板代码。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig3_HTML.jpg](img/497312_1_En_13_Fig3_HTML.jpg)\n\
+  \n**图 13-3** 必需的初始化方法（未使用）\n\n因此，我们现在有了需要复用到 SwiftUI 代码中的 `UIView`。\n\n### SwiftUI\
+  \ 中的 UIView\n\n和之前一样，我们将创建一个实现 `UIViewRepresentable` 协议的结构体。我将其命名为 `PriorityStarButtons`。这个结构体将在\
+  \ `makeUIView` 的实现中创建 `ButtonView`，并在 `updateUIView` 方法中根据需要更新视图。\n\n它还需要一个要发送给\
+  \ `ButtonView` 的 `NoteViewModel`。`NoteRow.swift` 中的代码如图 13-4 所示。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig4_HTML.jpg](img/497312_1_En_13_Fig4_HTML.jpg)\n\
+  \n**图 13-4** PriorityStarButtons 类\n\n之前我们在 `ForEach` 循环中创建星形图片的地方，现在将使用这个新类。因此，我们可以更新同一个文件中的\
+  \ `NotePriorityAndTime`，改为使用我们的 `PriorityStarButtons`，如图 13-5 所示。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig5_HTML.jpg](img/497312_1_En_13_Fig5_HTML.jpg)\n\
+  \n**图 13-5** 使用 PriorityStarButtons 的 NotePriorityAndTime\n\n运行应用程序，外观应该仍然相似，但星形图片会有细微变化。它们现在是带有固定大小的按钮，如图\
+  \ 13-6 所示。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig6_HTML.jpg](img/497312_1_En_13_Fig6_HTML.jpg)\n\
+  \n**图 13-6** 使用 PriorityStarButtons 的用户界面\n\n### 添加协调器\n\n目前，我们只是将 `UIView` 包裹在了新结构体中。我们希望更新代码，以便使用协调器来处理按钮的目标。除此之外，如果用户点击了星形按钮，我们还想更新\
+  \ `NoteViewModel`。\n\n理想情况下，无论我们是在主列表界面还是笔记详情页，我们都希望传播这个更改。这意味着我们需要添加绑定。\n\n`PriorityStarButtons`\
+  \ 结构体和 `ButtonView` 类都有一个 `NoteViewModel` 属性。可以将其改为绑定类型。然后访问它会需要一些代码修改。\n\n`PriorityStarButtons`\
+  \ 结构体遵循 `UIViewRepresentable` 协议。我们将在这里创建协调器。然后，协调器可以被传递给 `ButtonsView`，以建立按钮的目标关系。\n\
+  \n**SWIFT 中的动作/目标**\n\n在本练习中，我们将准备新的类和结构体，以处理 `NoteViewModel` 的绑定。然后，我们可以创建协调器并将其传递给\
+  \ `ButtonsView` 作为目标。最后，我们将在协调器中处理按钮点击事件以更新模型。这也会导致用户界面得到更新。\n\n1.  在 `NoteRow.swift`\
+  \ 文件中，将 `PriorityStarButtons` 的属性改为绑定类型。\n\n```\nvar noteVM : Binding<NoteViewModel>\n\
+  ```\n\n上述更改会导致一连串的错误。为了解决这个问题，我们需要传播被设置属性和被传递参数的类型。\n\n2.  将 `PriorityStarButtons`\
+  \ 的 `init` 方法改为接受与步骤 1 中更改的属性相同的类型。\n\n```\ninit(noteViewModel : Binding<NoteViewModel>)\
+  \ {\n    noteVM = noteViewModel\n}\n```\n\n在我们创建 `PriorityStarButtons` 实例的地方，需要更新\
+  \ `NotePriorityAndTime`。目前，它在调用 `PriorityStarButtons` 的 `init` 方法时没有使用绑定。\n\n3.\
+  \  更改 `PriorityStarButtons` 的初始化调用，以传入笔记视图模型的绑定。\n\n4.  在 `ButtonView` 中，更改属性和初始化参数的类型。\n\
+  \n```\nPriorityStarButtons(noteViewModel: self.$noteVM)\n```\n\n```\nclass ButtonView\
+  \ : UIView {\n    var noteVM : Binding<NoteViewModel>?\n    \n    init(rect : CGRect,\n\
+  \         noteVM : Binding<NoteViewModel>) {\n        // ...\n    }\n}\n```\n\n\
+  这应该能修复之前引起的编译错误。现在我们可以继续修复新的错误。\n\n5.  在 `ButtonView` 的 `configUI` 方法中，访问 `renderingColor`\
+  \ 的包装值。\n\n6.  并访问 `priorityImage` 数组元素的包装值。\n\n```\nlet renderColor =\n    nvm.renderingColor.wrappedValue\n\
+  \    == .red ? UIColor.red : UIColor.label\n```\n\n```\nlet img = UIImage(systemName:\n\
+  \    noteVM!.priorityImages[btnIndex].wrappedValue)\n```\n\n此时，我们拥有的基本上和之前一样，只是多了绑定。功能应该没有改变。运行你的应用程序，确保其外观仍然相同。\n\
+  \n现在让我们创建协调器。这个新类也可以接受一个指向 `NoteViewModel` 的绑定。不过，为了有所变化，我们只对关心的特定值使用绑定：图片字符串和时间字符串。\n\
+  \n7.  在 `PriorityStarButtons` 类内部，为协调器声明一个新类。同时也包含那两个绑定属性。\n\n8.  为 `Coordinator`\
+  \ 类创建一个初始化器，该初始化器接受两个将要存储在属性绑定中的值。\n\n```\nclass Coordinator : NSObject {\n    var\
+  \ images : Binding<[String]>\n    var time : Binding<String>\n}\n```\n\n```\ninit(images\
+  \ : Binding<[String]>,\n     time : Binding<String>) {\n    self.images = images\n\
+  \    self.time = time\n}\n```\n\n既然我们知道协调器类将作为按钮的目标，我们现在可以实现需要的方法了。\n\n这个函数需要一个参数来表示按钮。另外，它需要暴露给\
+  \ Objective-C，以便传入 `addTarget` 函数。\n\n这个方法的功能将更新协调器属性中绑定的值。\n\n9.  在协调器中创建一个函数，用于处理用户点击按钮时的事件。\n\
+  \n```\n@objc func priorityChange(sender : UIButton) {\n    time.wrappedValue =\n\
+  \        NoteViewModel.dateFormatter.string(from: Date())\n    let newPrority =\
+  \ Priority(rawValue: sender.tag)!\n    images.wrappedValue =\n        NoteViewModel.handlePriority(priority:\
+  \ newPrority)\n}\n```\n\n\n\n我们将时间包裹值设置为一个新字符串。我们重用了`NoteViewModel`中的静态日期格式化器来创建当前更新时间。\n\
+  \n我们使用`UIButton`的`tag`值创建一个新的优先级。然后，我们在`NoteViewModel`上使用一个新函数来处理新的优先级。该函数根据优先级重新创建图片名称字符串并返回它们。将这个逻辑放在单独的方法中，允许我们在创建新的`NoteViewModel`之外更改图片名称绑定。\n\
+  \n1. 在`makeCoordinator`中创建协调器。\n\n```\nfunc makeCoordinator() -> Coordinator {\n\
+  \    return Coordinator(images: self.noteVM.priorityImages, time: self.noteVM.time)\n\
+  }\n```\n\n现在，`noteVM`属性是一个绑定，我们可以在创建协调器时传入这些值。\n\n目前，我们的`ButtonView`对协调器一无所知。当创建`ButtonView`时，它需要`Coordinator`实例来为按钮添加目标。\n\
+  \n1. 在`makeUIView`方法中将协调器添加到`ButtonView`的创建中。\n\n```\nreturn ButtonView(rect: rect,\
+  \ noteVM: noteVM, coordinator: context.coordinator)\n```\n\n现在，我们需要在`ButtonView`的初始化器中接收协调器，并将其传递给`configUI`。\n\
+  \n1. 将`Coordinator`参数添加到初始化器和对`configUI`的调用中。\n\n1. 将`Coordinator`作为参数添加到`ButtonView`的`configUI`中。\n\
+  \n```\ninit(rect: CGRect, noteVM: Binding<NoteViewModel>, coordinator: PriorityStarButtons.Coordinator)\
+  \ {\n    super.init(frame: rect)\n    self.noteVM = noteVM\n    configUI(coordinator:\
+  \ coordinator)\n}\n```\n\n1. 使用我们定义的选择器和`touchUpInside`事件，将按钮的目标设置为协调器。\n\n```\n\
+  func configUI(coordinator: PriorityStarButtons.Coordinator) {\n    // ...\n    btn.addTarget(coordinator,\
+  \ action: #selector(PriorityStarButtons.Coordinator.priorityChange(sender:)), for:\
+  \ .touchUpInside)\n}\n```\n\n剩下的唯一事情是实现`updateUIView`。它的第一个参数是一个`UIView`。我们知道这是`ButtonView`，可以通过一个`guard`语句来验证。\n\
+  \n一旦我们有了类型转换后的`ButtonView`，就可以更新 UI。然而，我们不想重新创建 UI。让我们在`ButtonView`中添加一个函数，基于`tag`更新按钮图片。\n\
+  \n`tag`可以作为图片名称字符串数组中的索引。如果图片名称已正确更新，这将正常工作。\n\n1. 在`ButtonView`中创建一个函数来更新按钮图片。\n\
+  \n```\nfunc configPriorityImages() {\n    subviews.forEach { (btn) in\n        guard\
+  \ let btn = btn as? UIButton else { return }\n        let imageIndex = btn.tag\n\
+  \        let imageName = noteVM!.priorityImages[imageIndex].wrappedValue\n     \
+  \   let img = UIImage(systemName: imageName)\n        btn.setImage(img, for: .normal)\n\
+  \    }\n}\n```\n\n调用此函数时，它会遍历子视图，查找`UIButton`。然后获取`tag`，并使用它从`priorityImages`数组中获取图片名称。它根据该名称创建一个图片，并将其设置在按钮上。\n\
+  \n现在，我们只需在需要时调用该函数来更新 UI。\n\n1. 在`updateUIView`中更新 UI。\n\n```\nfunc updateUIView(_\
+  \ uiView: UIView, context: Context) {\n    guard let v = uiView as? ButtonView else\
+  \ { return }\n    v.configPriorityImages()\n}\n```\n\n此函数通过`guard`语句验证`UIView`是否为`ButtonView`，然后调用其`configPriorityImages`方法。\n\
+  \n这工作量真不小！我们获取了一个现有的`UIView`（即`ButtonView`），并将其包装在一个名为`PriorityStarButtons`的结构体中，该结构体实现了`UIViewRepresentable`。\n\
+  \n该结构体有一个绑定类型的`NoteViewModel`，在其初始化器中设置。它的`makeUIView`函数创建一个`CGRect`，并用该矩形实例化`ButtonView`。它还将`NoteViewModel`绑定和来自上下文的协调器传入。\n\
+  \n`ButtonView`的初始化器将绑定存储在`noteVM`中，并将协调器传递给`configUI`。该调用设置了 UI，包括为`Coordinator`向按钮添加目标。\n\
+  \n`PriorityStarButtons`在`makeCoordinator`中创建协调器。它将优先级图片名称和时间（均来自`NoteViewModel`）传入。\n\
+  \n`Coordinator`有两个绑定：`images`（字符串数组）和`time`（字符串）。这些都在初始化器中设置。它还有一个用于按钮动作调用的函数。这被作为目标添加到现有按钮上。\n\
+  \n该目标函数更新时间与图片名称。这会导致 UI 更新，进而调用`updateUIView`，然后调用`configPriorityImages`来更新图片。\n\
+  \n简而言之，`PriorityStarButtons`创建`ButtonView`，为其提供模型和协调器，并告诉`ButtonView`何时更新。\n\n`ButtonView`创建其按钮，向协调器添加目标，并在收到指令时更新按钮图片。\n\
+  \n由于我们使用绑定来传递数据，无论你是在列表还是详情屏幕中更改优先级，都会保持同步。\n\n如果你运行应用，它应该会在你点击按钮时更新。如果你查看详情，它也应该如此。还要注意时间会更新，如图\
+  \ 13-7 所示。\n\n![../images/497312_1_En_13_Chapter/497312_1_En_13_Fig7_HTML.jpg](img/497312_1_En_13_Fig7_HTML.jpg)\n\
+  \n**图 13-7** 当前 UI 与更新的时间\n\n我们在本练习中做了很多工作。但我希望你能看到清晰的区分。正如我们之前所见，`UIViewRepresentable`结构体负责创建和更新\
+  \ UI。\n\n`Coordinator`是一个相当开放的类，作为协议函数的一部分被创建，并在上下文中传递。除此之外，它非常灵活。\n\n我们对`ButtonView`的主要更改是将属性改为绑定，并向协调器添加目标。如果该\
+  \ UI 是在代码中创建的，很可能已经包含了`addTarget`调用。我们只需要更改它。\n\n### 章节总结\n\n在本章中，我们了解了如何使用现有的`UIView`。我们将其包装在一个遵循`UIViewRepresentable`的结构体中。我们创建并更新了它，作为协议函数的一部分。\n\
+  \n我们创建了一个协调器，它包含绑定和一个可用于`addTarget`选择器的函数。\n\n为了让`ButtonView`不必了解`Coordinator`，它可以作为代码中定义的自定义协议传入。根据你具体的应用需求，你可以对这个概念进行多种变通。\n\
+  \n我希望你记住几个要点。`UIViewRepresentable`负责创建和管理它所包装的`UIView`。如果需要绑定，没问题。我们现在对此已经很熟悉了。\n\
+  \n协调器几乎可以是任何东西，并能满足你需要的任何目的。它在`makeCoordinator`中创建，从该函数返回，然后在上下文中传递。\n\n现在，我们知道如何使用带有委托和目标/动作模式的`UIView`了！\n\
+  \n"
+- "# 14. SwiftUI in UIKit\n\n我们研究了如何在 SwiftUI 中使用现有的 UIKit 视图。现在，我们将研究如何在 UIKit 中使用\
+  \ SwiftUI。\n\n你可能有一个现有项目，希望使用 SwiftUI 添加新的 UI。因此，你已经为所有界面和导航设置了 Storyboard。实际上，将\
+  \ SwiftUI 视图添加到项目中非常容易。\n\n当我们在应用中集成一个`UIView`时，我们使用了`UIViewRepresentable`。该协议帮助我们创建`UIView`实例。\n\
+  \nUIKit 提供了一种反向操作的机制。有一个名为`UIHostingController`的`UIViewController`子类。同样，对于 macOS\
+  \ 开发，有`NSHostingController`。WatchKit 版本名为`WKHostingController`。\n\n`UIHostingController`在初始化器中接受一个\
+  \ SwiftUI `View`。因此，你需要负责创建新的 SwiftUI `View`。你用它创建`UIHostingController`实例并呈现它。\n\
+  \n在本章中，我们将研究如何做到这一点，包括与 Storyboard 的集成。\n\n\n\n## `UIHostingController`\n\n这个新控制器已包含在对象库中。这意味着你可以轻松地将其添加到现有的\
+  \ Storyboard 中。它与其他控制器一起列在对象库中，如图 14-1 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig1_HTML.jpg](img/497312_1_En_14_Fig1_HTML.jpg)\n\
+  \n图 14-1 — 对象库中的 Hosting View Controller\n\n用这个视图控制器更新 Storyboard 的方式与其他任何控制器相同。只需从对象库中将其拖放到\
+  \ Interface Builder 中的 Storyboard 上即可。\n\n创建指向这个新控制器的 segue 也是一样的。只需按住 Control 键，从按钮或表格视图拖拽到你的新视图控制器上。它就像其他任何视图控制器一样完美契合，如图\
+  \ 14-2 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig2_HTML.jpg](img/497312_1_En_14_Fig2_HTML.jpg)\n\
+  \n图 14-2 — 从 Storyboard 中的表格单元格到 Hosting Controller 的 Segue\n\nXcode 允许你按住 Control\
+  \ 键从 Storyboard 拖拽到源视图控制器的代码中。这会在 segue 触发时创建一个 `IBSegueAction`。这个 segue 动作的返回类型期望返回一个视图控制器。\n\
+  \n```\n@IBSegueAction func showDetails(_ coder: NSCoder)\n-> UIViewController? {\n\
+  return UIHostingController(coder: coder,\nrootView: swiftUIView)\n}\n```\n\n你生成的代码的返回类型可能没有设置为\
+  \ `UIViewController`。如果是这样，你需要将其改为 `UIViewController`。\n\n在实现中，你需要创建一个 `UIHostingController`\
+  \ 的实例。你需要传入被调用函数所接收的 `coder` 参数。第二个参数是你新建的 SwiftUI 视图。\n\n上述代码仅展示了以 SwiftUI 视图占位符创建\
+  \ `UIHostingController` 的过程。具体如何实例化，取决于你设计的视图。\n\n## 向 UIKit 添加 SwiftUI 视图\n\n让我们从一个基础练习开始。我们将创建一个简单的\
+  \ Storyboard 应用，并添加一个 SwiftUI 视图。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig3_HTML.jpg](img/497312_1_En_14_Fig3_HTML.jpg)\n\
+  \n图 14-3 — 使用 Storyboard 界面创建新的 iOS 应用项目\n\n1.  使用 Storyboard 创建一个新的 iOS 应用模板项目，并将其命名为\
+  \ `Simple14`，如图 14-3 所示。\n\n2.  从对象库中向你的初始视图控制器添加一个按钮。\n\n3.  从对象库中将一个 Hosting View\
+  \ Controller 拖放到你的 Storyboard 上，位于初始视图控制器的右侧。\n\n4.  按住 Control 键，从按钮拖拽到你的 Hosting\
+  \ View Controller。\n\n当你在 Hosting View Controller 上释放鼠标时，在 segue 选项弹出菜单的顶部选择“显示”（Show）。\n\
+  \n你的 Storyboard 中的界面应该如图 14-4 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig4_HTML.jpg](img/497312_1_En_14_Fig4_HTML.jpg)\n\
+  \n图 14-4 — 从 Storyboard 中的初始视图控制器到 Hosting Controller 的 Segue\n\n接下来，我们需要在代码中创建这个\
+  \ segue 动作。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig5_HTML.jpg](img/497312_1_En_14_Fig5_HTML.jpg)\n\
+  \n图 14-5 — 命名 Segue 动作\n\n1.  打开辅助编辑器（编辑器 ➤ 辅助编辑器 或 ⌃⌥⌘⏎）以在右侧显示 `ViewController`\
+  \ 代码。\n\n2.  按住 Control 键，从 segue 拖拽到 `ViewController` 代码中最后一个闭合大括号（`}`）的上方，然后释放鼠标。\n\
+  \n3.  在出现的弹出窗口中，给你的 segue 动作函数命名（例如 `showSwiftUI`），如图 14-5 所示。\n\n4.  点击“连接”（Connect）按钮并查看生成的代码。\n\
+  \n至此，我们已经完成了 Storyboard 的操作，可以将其关闭。接下来，我们需要创建 SwiftUI 视图，以便有内容可以显示。\n\n5.  向你的项目添加一个新文件（⌘+n）——选择“SwiftUI\
+  \ 视图”（SwiftUI View）类型，然后点击“下一步”（Next）。\n\n6.  将文件命名为 `MySwiftUI`，然后点击“创建”（Create）。\n\
+  \n预览不会工作，因为存在编译错误。我们的 segue 动作尚未实现。现在让我们回到 `ViewController` 类中修复它。\n\n7.  打开 `ViewController.swift`，在\
+  \ `ViewController` 类声明之前导入 `SwiftUI`。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig6_HTML.jpg](img/497312_1_En_14_Fig6_HTML.jpg)\n\
+  \n图 14-6 — 模拟器中显示的 `MySwiftUIView`\n\n8.  实现 `showSwiftUI` 函数，使其返回一个 `UIHostingController`\
+  \ 实例。传入 coder 和你新建的 `MySwiftUI` 结构体的实例。\n\n```\n    @IBSegueAction func showSwiftUI(_\
+  \ coder: NSCoder)\n    -> UIViewController? {\n    return UIHostingController(coder:\
+  \ coder,\n    rootView: MySwiftUI())\n    }\n```\n\n9.  运行应用并点击按钮。SwiftUI 视图应该会显示出来，如图\
+  \ 14-6 所示。\n\n```\nimport SwiftUI\n```\n\n恭喜！你已经成功地将一个 SwiftUI 视图集成到了 UIKit/Storyboard\
+  \ 应用中。\n\n对于一个简单的项目来说，这很容易，对吧？对于复杂的项目，流程也差不多。这实际上完全取决于你创建的 SwiftUI 视图。如果它需要交互或数据，则会有更多内容需要处理。\n\
+  \n接下来，我们将探讨类似这样的实现。\n\n## 现有项目\n\n我为你提供了一个章节开始（BOC）项目：`Ch14_BOC_Timers.zip`。该项目允许用户创建计时器。一个计时器包含名称和时长。用户可以启动和暂停计时器。\n\
+  \n当计时器结束时，如果用户已授权，它会弹出一个本地通知。\n\n向右滑动可以删除计时器。而向右轻扫会显示启动/暂停按钮，如图 14-7 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig7_HTML.jpg](img/497312_1_En_14_Fig7_HTML.jpg)\n\
+  \n图 14-7 — 通过向右滑动启动计时器\n\n+ 按钮允许用户创建新的计时器。该代码中包含了一些为调试构建自动创建的测试计时器。\n\n这是我们的起点。但是，我们想使用\
+  \ SwiftUI 来添加界面。当用户点击列表中的某个计时器时，我们希望显示其详细信息。这个简单的详情界面将包含名称、时间以及启动/暂停按钮。\n\n此外，随着计时器秒数的流逝，界面应该实时更新。\n\
+  \n\n\n### 添加 SwiftUI\n\n如同我们在上一个练习中所做的那样，我们需要在 Storyboard 中添加一个托管视图控制器。然后在 `TimerListVC`\
+  \ 代码中创建 segue 动作。在本例中，我们将从表格视图单元格开始操作。\n\n再次与上一个练习相同，我们在 Storyboard 中只需完成这些操作。\n\
+  \n生成的 segue 动作函数需要返回一个 `UIViewController`。与前次一样，我们将创建 SwiftUI 视图的实例。该实例以及传入的代码将用于创建要返回的托管视图控制器。因此，我们需要创建一个\
+  \ SwiftUI 视图！\n\n我们之前已经看到，`View` 结构体会获得一个成员逐一初始化器。在 Timers 项目中，这将包含用于显示详情的 `TimerItem`。\n\
+  \n两个不太明显的部分是：更新时间的 UI，以及用于启动/暂停计时器的按钮。而且这些操作一点也不复杂。\n\n## 将计时器视图添加到 UIKit\n\n打开提供的\
+  \ BOC 项目 `Ch14_BOC_Timers.zip`，并导航到 Storyboard。\n\n1. 从对象库中向 Storyboard 添加一个托管视图控制器。\n\
+  \n2. 按住 Control 键从表格视图单元格拖拽到新的托管视图控制器，松开鼠标，然后从弹出菜单中选择 Show。\n\n你的 Storyboard 应该如图\
+  \ 14-8 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig8_HTML.jpg](img/497312_1_En_14_Fig8_HTML.jpg)\n\
+  \n图 14-8：包含托管视图控制器和 Segue 的 Storyboard\n\n3. 打开助理编辑器（Editor ➤ Assistant 或 ⌃⌥⌘⏎）。\n\
+  \n4. 按住 Control 键从 segue 拖拽到 `TimerListVC.swift` 代码中（位于 `makeTimer` 函数下方），松开鼠标，并将函数命名为\
+  \ `timerDetails`。\n\n现在我们需要创建 `TimerView` 来显示计时器详情。\n\n5. 向项目中添加一个新的 SwiftUI 视图文件，命名为\
+  \ `TimerView.swift`。\n\n我们将用计时器详情替换 `body` 属性中的内容。当然，我们需要一个 `TimerItem` 来提供详情。\n\
+  \n6. 添加 `TimerItem` 属性和 body 内容。\n\n```\nstruct TimerView: View {\n    var timer\
+  \ : TimerItem\n    var body: some View {\n        VStack {\n            Text(timer.name)\n\
+  \            Text(timer.timeString)\n        }\n    }\n}\n```\n\n7. 更新 `TimerView_Previews`，使其传入一个\
+  \ `TimerItem`。\n\n```\nstruct TimerView_Previews: PreviewProvider {\n    static\
+  \ var timer = TimerItem(name: \"Test Timer\",\n        seconds: 12)\n    static\
+  \ var previews: some View {\n        TimerView(timer: timer)\n    }\n}\n```\n\n\
+  预览不会显示，因为我们在需要创建 `UIHostingController` 的 `TimerListVC.swift` 代码中遇到了一个错误。\n\n现在，我们可以在\
+  \ `TimerListVC` 的 segue 动作中创建它并显示出来。\n\n当用户在表格视图中选择一行时，会调用这个 segue。这意味着我们可以从表格视图中获取该行的行号。\n\
+  \n8. 创建一个 `let` 常量，用于从数组中存储 `TimerItem`，并使用选中的行进行赋值。\n\n9. 使用数组中的 timer 创建 `TimerView`\
+  \ 实例。\n\n```\n@IBSegueAction func timerDetails(_ coder: NSCoder)\n    -> UIViewController?\
+  \ {\n    let timer =\n        timers[tableView.indexPathForSelectedRow!.row]\n}\n\
+  ```\n\n10. 返回使用 `coder` 和已创建的 `tView` 创建的 `UIHostingController` 实例（完整函数如下所示）。\n\n\
+  ```\n@IBSegueAction func timerDetails(_ coder: NSCoder)\n    -> UIViewController?\
+  \ {\n    let timer =\n        timers[tableView.indexPathForSelectedRow!.row]\n \
+  \   let tView = TimerView(timer: timer)\n    return UIHostingController(coder: coder,\n\
+  \        rootView: tView)\n}\n```\n\n既然我们已经添加了 `UIHostingController` 代码，那么就需要 SwiftUI。因此，我们需要导入\
+  \ SwiftUI。\n\n11. 取消文件顶部 SwiftUI 导入语句的注释。\n\n```\nlet tView = TimerView(timer: timer)\n\
+  ```\n\n现在运行应用，当点击某一行时会显示详情。UI 非常基础（见图 14-9），但这正是我们设计的。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig9_HTML.jpg](img/497312_1_En_14_Fig9_HTML.jpg)\n\
+  \n图 14-9：模拟器中的 `MySwiftUIView`\n\n这很简单，对吧？我们只是添加了托管视图控制器，并为 Storyboard 创建了 segue\
+  \ 动作。我们设计了一个简单的 SwiftUI 视图，用计时器创建了它，并返回了 `UIHostingController`。\n\n\n\n### 传递 ObservableObject\n\
+  \n你可能还记得，我们曾希望计时器能在 SwiftUI 视图上实时更新。此外，我们还想要一个“开始/暂停”按钮。如果你运行这个应用，会发现计时器并没有在我们新的视图中更新。\n\
+  \n在之前的一些练习中，我们使用绑定（binding）来解决这类问题。但我们的 `TimerListVC` 中的模型是 `TimerItem` 实例。如果将其改为某种绑定类型，大量代码都需要修改。\n\
+  \n绑定仅适用于值类型（结构体、枚举），而我们的 `TimerItem` 是引用类型（类）。\n\n将 `TimerItem` 改为结构体以实现绑定，可能会对我们的代码产生诸多影响。有些代码可能依赖于通过传递引用来实现变更。\n\
+  \n我们将保留其作为类。`ObservableObject` 协议就是为引用类型设计的，因此我们将使用它。\n\n## 使 TimerItem 可观察\n\n\
+  为此我们只需进行少量修改。我们需要声明 `TimerItem` 遵循 `ObservableObject` 协议。这样一来，我们可以通过 `@Published`\
+  \ 包装器声明要发布的属性。同时，我们需要在代码中告知何时发送变更。\n\n`TimerView` 也需要进行更新，将其属性标记为 `ObservedObject`。我们还可以通过“开始/暂停”按钮来更新界面。\n\
+  \n1. 打开 `TimerItem.swift` 文件，声明其实现 `ObservableObject` 协议。\n\n1. 将 `timeString` 属性标记为“已发布”。\n\
+  \n```\nclass TimerItem : ObservableObject {\n```\n\n1. 在 `start` 函数中，在定时器闭包的顶部（例如第\
+  \ 69 行），添加发送函数调用。\n\n```\n@Published var timeString = \"\"\n```\n\n```\nself.objectWillChange.send()\n\
+  ```\n\n现在 `TimerItem` 已经是可观察对象了，我们可以在 `TimerView` 中进行声明。\n\n1. 在 `TimerView` 中，将\
+  \ `timer` 属性声明为被观察对象。\n\n```\n@ObservedObject var timer : TimerItem\n```\n\n至此，计时器的持续时间将在\
+  \ `TimerView` 中实时更新。不过，你需要在表格视图中启动计时器，然后才能查看其详情。\n\n接下来，我们在 `TimerView` 中添加“开始/暂停”按钮。可以将其放在两个文本项下方。`Button`\
+  \ 需要提供一个操作以及按钮视觉部分显示的内容。\n\n该操作可以检查计时器的 `isRunning` 属性。如果正在运行，则暂停计时器；否则，启动计时器。\n\
+  \n对于标签参数，我们可以使用 `Text` 元素。\n\n1. 在 `TimerView` 中，在两个 `Text` 项下方添加一个 `Button`。对于操作，检查\
+  \ `isRunning` 参数，并根据其状态暂停或启动计时器。对于标签，创建一个 `Text` 元素。\n\n```\n    Button(action:\
+  \ {\n        if self.timer.isRunning {\n            self.timer.pause()\n       \
+  \ }\n        else {\n            self.timer.start()\n        }\n    }) {\n     \
+  \   Text(timer.isRunning ? \"暂停\" : \"开始\")\n    }\n```\n\n为了稍微美化格式，我们对显示剩余时间的计时器添加几个修饰器。\n\
+  \n1. 在第二个文本项（用于 `timer.timeString`）上，添加字体和间距修饰器。\n\n```\n    Text(timer.timeString)\n\
+  \        .font(.largeTitle)\n        .padding()\n```\n\n现在查看计时器详情时，我们可以启动/暂停计时器。启动后，可以看到计时器倒计时显示剩余时间，如图\
+  \ 14-10 所示。\n\n![../images/497312_1_En_14_Chapter/497312_1_En_14_Fig10_HTML.jpg](img/497312_1_En_14_Fig10_HTML.jpg)\n\
+  \n图 14-10\n\n带按钮和剩余时间的计时器详情界面\n\n请注意，当你点击“暂停”时，它并不会更新为“开始”。你认为这是为什么？`TimerItem`\
+  \ 中的 `pause` 函数会使定时器失效。但我们是在定时器的闭包中发布变更。\n\n这可以通过两种方式修复：在 `pause` 函数中发送更新，或者将 `isRunning`\
+  \ 属性标记为 `@Published`。请尝试这些方法。\n\n为界面添加变更更新的能力并没有花费太多修改。我们需要将 `TimerItem` 指定为 `ObservableObject`，然后将\
+  \ `timeString` 标记为已发布，并调用 `send` 函数。\n\n完成这些修改后，我们只需在 `TimerView` 中将该属性指定为被观察对象。我们还添加了“开始/暂停”按钮，并为\
+  \ `Text` 项添加了修饰器。\n\n## 本章小结\n\n在本章中，我们重点探讨了如何在现有的基于 Storyboard 的项目中使用 SwiftUI 视图。提供的\
+  \ `Hosting View Controller` 和转场动作使得这一过程变得简单。\n\n通过将 `Hosting View Controller` 放入\
+  \ Storyboard 并创建转场，我们在代码中实现了转场动作。该动作会传递一个编码器。我们需要创建 SwiftUI 视图实例。利用编码器和我们的视图，我们创建了\
+  \ `Hosting View Controller`，并将其从转场动作中返回。\n\n请注意，我们创建了要返回的视图控制器。这意味着我们可以在一处设置视图或视图控制器的其他属性。无需实现\
+  \ `prepare(for:sender:)` 转场函数。\n\n为了让 SwiftUI 能够动态更新，还需要进行一些额外的修改。由于我们的 `TimerItem`\
+  \ 是引用类型（类），我们选择使用 `ObservableObject` 协议。\n\n我们声明它实现了该协议，指定了已发布的属性，并在必要时调用 `send`\
+  \ 函数。\n\n剩下的工作就是将 `TimerView` 的属性标记为被观察对象。\n\n在本章的第一个练习中，我们发现将 SwiftUI 显示在 UIKit\
+  \ 项目中只需极少的工作。第二个练习表明，即使界面更新和交互也不需要太多工作。\n\n这种方法使得现有项目能够无缝受益于新的 SwiftUI 用户界面开发。\n\
+  \n"
+- "# 15. Combine 框架入门\n\n我们其实已经大量使用了 Combine 框架。现在我们将暂时搁置 SwiftUI，更深入地研究一下 Combine。\n\
+  \n苹果公司将该框架描述为“一个统一的、声明式的 API，用于随时间处理值”。我想重点强调的是“随时间处理值”这一部分。\n\n我们目前正是这样使用 Combine\
+  \ 的。随着值随时间变化，我们的界面也随之更新。我们使用了 `@State`、`@Binding`、`@Published` 等。\n\n在 SwiftUI 中使用这些包装器确实促进了界面中的变更反映。但很容易将\
+  \ Combine 框架的这些方面与 SwiftUI 混淆。\n\nCombine 框架可以在没有 SwiftUI 的情况下使用。这有助于你现有的应用，即使你不使用\
+  \ SwiftUI。理解这个框架将全面提升你的应用。此外，它还能为你将来在更新现有应用时添加 SwiftUI 奠定基础。\n\n## 常见概念\n\n应用的构建基于一个基本概念：向用户显示界面。用户的输入存储在应用中，功能由这些操作和数据驱动。这一点我们都清楚。\n\
+  \n因此，将用户的文本输入存储在 `String` 属性中是一种常见的模式。同样，我们可能会在完成某些功能后显示这些数据或其某种版本。\n\n让我们看一个简单的例子。\n\
+  \n假设我们有一个基本的界面设计，包含一个文本框和一个标签。我们在视图控制器中创建了它们的输出口。文本框还有一个 `editingChanged` 的动作。该函数会存储输入的文本并将其放入标签中。代码如图\
+  \ 15-1 所示。\n\n![../images/497312_1_En_15_Chapter/497312_1_En_15_Fig1_HTML.jpg](img/497312_1_En_15_Fig1_HTML.jpg)\n\
+  \n图 15-1\n\n使用文本框变更更新标签的基本界面视图控制器代码\n\n如果你运行这个应用，当你输入文本框时，标签会实时更新。让我们看看如何使用 Combine\
+  \ 框架的概念来实现这一点。\n\n\n\n### 发布者与订阅者\n\nCombine 框架引入了发布者（Publisher）和订阅者（Subscriber）的概念。你可能对\
+  \ `NotificationCenter` 并不陌生——它可以发送通知，而针对该通知名称添加的所有观察者都会通过调用关联函数收到通知。\n\n发布者定义了其特定的输出类型（Output），即它在发布时发送的值。订阅者则定义了其特定的输入类型（Input），即它从发布者接收的数据类型。这两个类型必须匹配。后续我们会探讨当类型不匹配时如何对值进行映射。\n\
+  \n发布者和订阅者各自还需要定义一个失败类型（Failure），这两个失败类型也必须匹配才能建立关联。\n\n创建发布者有多种方式。我们首先看的是使用 `NotificationCenter`\
+  \ 的方式。这对许多人来说是一个熟悉的机制，因此是一个很好的起点。\n\n一旦有了发布者，我们就可以为其添加订阅者，订阅者负责处理发布时传递的数据。\n\n##\
+  \ 转换至 Combine\n\n这个示例未必会更高效，代码量也不会减少——实际上代码量会更多。但目的是用一个熟悉的概念，演示它在全新概念下如何运作。\n\n\
+  首先，我们需要将 Combine 框架导入代码中。然后从 `NotificationCenter` 获取一个发布者。我们将让 `ViewController`\
+  \ 订阅更新，因此它需要遵循 `Subscriber` 协议，并实现相应的各种要求。\n\n在 `Subscriber` 的实现中，我们将获取输入的新文本值，并更新\
+  \ UI。\n\n我在 `Ch15_BOC_CombineFW.zip` 文件中提供了本示例的初始代码，它其实就是本章前面讨论的代码。\n\n1.  将 Combine\
+  \ 框架导入代码。\n2.  在 `viewDidLoad` 中从 `NotificationCenter` 获取一个发布者。\n\n```swift\nlet\
+  \ publisher = NotificationCenter\n    .default\n    .publisher(for:\n        UITextField.textDidChangeNotification,\n\
+  \        object: tf)\n```\n\n```swift\nimport Combine\n```\n\n这将返回一个针对文本框的发布者。每当文本框内容变化时，它就会发布新值。\n\
+  \n3.  让 `ViewController` 订阅该发布者。由于我们要更新 UI，因此希望在主线程上接收更新。\n\n```swift\npublisher\n\
+  \    .receive(on: DispatchQueue.main)\n    .subscribe(self)\n```\n\n另一种做法是在主线程上订阅，然后调用\
+  \ `receive` 并传入订阅者。但我更喜欢上面的写法，因为它清晰明了：我打算在主线程上接收更新（用于 UI 更新），并订阅传入的指定实例。\n\n至此，我们有了发布者并完成了订阅。基本上是。但我们的\
+  \ `ViewController` 尚未实现 `Subscriber` 协议。\n\n4.  在声明中添加 `Subscriber` 协议。\n\n```swift\n\
+  class ViewController: UIViewController, Subscriber {\n```\n\n5.  使用编译错误消息中的“修复”按钮快速生成存根代码。这通常只会添加所需的类型别名：`Input`\
+  \ 和 `Failure`。\n\n```swift\ntypealias Input = type\ntypealias Failure = type\n```\n\
+  \n我们需要确定这两个类型的具体值。如果深入查看 `.publisher` 调用，会发现它返回的是 `NotificationCenter.Publisher`。跳转到该类型（就在发布者函数声明下方即可看到），会发现其输出类型是\
+  \ `Notification`，失败类型是 `Never`。\n\n我们的 `Input` 和 `Failure` 需要与之匹配。\n\n```swift\n\
+  typealias Input = Notification\ntypealias Failure = Never\n```\n\n此时仍有编译错误。再次使用“修复”按钮，它会生成所需的函数存根。\n\
+  \n6.  实现 `receive(subscription:)` 函数，指定无限量的数据更新请求。\n\n```swift\nfunc receive(subscription:\
+  \ Subscription) {\n    subscription.request(.unlimited)\n}\n```\n\n7.  实现 `receive(_:)`\
+  \ 输入处理函数。\n\n```swift\nfunc receive(_ input: Input) -> Subscribers.Demand {\n  \
+  \  if let textField = input.object as? UITextField {\n        userText = textField.text\n\
+  \        lbl.text = userText\n    }\n    return .unlimited\n}\n```\n\n由于我们的 `Input`\
+  \ 类型别名指定为 `Notification`，因此可以按此类型使用。当前我们处于 UI 线程，更新操作可以正常工作。\n\n返回 `.unlimited`\
+  \ 表示希望继续接收无限量的响应。\n\n8.  实现 `receive(completion:)` 函数。\n\n```swift\nfunc receive(completion:\n\
+  \    Subscribers.Completion) {\n    print(completion)\n}\n```\n\n在我们的场景中无需做任何处理，但在某些情况下，你可能需要在此时完成应用的某些收尾工作。\n\
+  \n至此，我们的 `ViewController` 已订阅了针对文本框的 `NotificationCenter` 更新。运行应用，当我们在文本框中输入时，标签文本应随之更新。UI\
+  \ 应如图 15-2 所示。\n\n![../images/497312_1_En_15_Chapter/497312_1_En_15_Fig2_HTML.jpg](img/497312_1_En_15_Fig2_HTML.jpg)\n\
+  \n*图 15-2 —— 将 TextField 输入内容设置为标签文本*\n\n相信你会同意，这种方式比最初的解决方案更繁琐、代码量更大、复杂度更高。但再次强调，本示例的目的是引导我们熟悉\
+  \ Combine 框架中发布者和订阅者的概念。后续会有更精炼的改进方案。\n\n解决方案保存在 `CombineFW-Ex15-1.zip` 文件中。\n\n\
+  ## 改进优化\n\n我们可以对代码做的一个简单改进，是在 `viewDidLoad` 中将 `subscribe` 调用与发布者调用链式连接起来。\n\n```swift\n\
+  NotificationCenter\n    .default\n    .publisher(for:\n        UITextField.textDidChangeNotification,\n\
+  \        object: tf)\n    .receive(on: DispatchQueue.main)\n    .subscribe(self)\n\
+  ```\n\n这样我们就不再需要存储发布者变量。但还有更好的方法！\n\nCombine 提供了两个现成的订阅者，我们可以直接使用，而不必自定义类。它们会自动匹配所关联发布者的输出类型和失败类型。这其中的魔法是什么？就是\
+  \ `sink` 和 `assign`。\n\n## Sink 订阅者\n\n`sink` 订阅者接受两个闭包。第一个闭包类似于我们之前编写的 `receive(completion:)`\
+  \ 函数。第二个闭包则类似于我们编写的获取更新值的函数。在我们的场景中，这个更新值是一个 `Notification` 实例。\n\n`sink` 会自动请求无限量的更新，就像我们在\
+  \ `receive(subscription:)` 函数中所做的那样。而且当 Combine 创建你的订阅者时，它会使用变更发生的线程。在我们的场景中，变更发生在\
+  \ UI 上，因此它已经处于主线程。\n\n如果使用 `sink`，我们可以移除对 `receive(on:)` 和 `subscribe` 的调用。不过，`sink`\
+  \ 有一个返回值需要考虑：它返回一个 `AnyCancellable` 实例。\n\n我们可以将此实例存储在类属性中，确保它不会超出作用域而被从内存中移除。如果我们想取消订阅，只需对该实例调用\
+  \ `.cancel` 方法。一旦超出作用域，它会被清理，并在其 `deinit` 中自动调用 `.cancel`。非常干净。\n\n因此我们需要一个属性。\n\
+  \n```swift\nvar subscriber: AnyCancellable?\n```\n\n然后我们在创建发布者和订阅者时使用它。\n\n```swift\n\
+  subscriber = NotificationCenter\n    .default\n    .publisher(for:\n        UITextField.textDidChangeNotification,\n\
+  \        object: tf)\n    .sink(receiveCompletion: { print($0) })\n    { (notification)\
+  \ in\n        if let textField = notification.object\n            as? UITextField\
+  \ {\n            self.userText = textField.text\n            self.lbl.text = self.userText\n\
+  \        }\n    }\n```\n\n我们像之前一样获取发布者，现在调用它的 `sink` 方法。`receiveCompletion` 闭包只是打印参数。更新值闭包所做的操作与之前一致（但属性访问时增加了\
+  \ `self` 作用域指定）。\n\n最好的地方在于：我们的 `ViewController` 不再需要实现 `Subscriber` 协议，我们可以移除所有相关代码！整个代码库瞬间简洁了许多，如图\
+  \ 15-3 所示（特别是当我们像我所做的那样，删除了 Storyboard 中文本框的连接之后）。\n\n![../images/497312_1_En_15_Chapter/497312_1_En_15_Fig3_HTML.jpg](img/497312_1_En_15_Fig3_HTML.jpg)\n\
+  \n*图 15-3 —— 移除 Subscriber 协议并使用 Sink 后的 ViewController*\n\n`sink` 还提供了一个不接受完成闭包的版本。所以如果你不需要处理完成事件，代码可以变得更简洁。\n\
+  \n\n\n### 分配订阅者\n\nCombine 提供的第二个订阅者是 `assign`。`Assign` 接受两个参数。第一个是某个属性的键路径，第二个是拥有该键路径的实例。\n\
+  \n在我们项目中，键路径指向 `UILabel` 的文本元素。当然，第二个参数就是该标签本身。我们可以使用 `assign` 代替 `sink`，将值赋给属性。\n\
+  \n```\n.assign(to: \\.userText, on: self)\n```\n\n现在我们的订阅者接收到发布的值，并将其赋给 `userText`\
+  \ 属性。但有一个问题：我们发布的值是一个通知，而不是 `String`。\n\n要获取 `String` 值，我们必须从通知中提取对象。这个对象是 `UITextField`，从中我们可以获得文本。因此我们需要一个中间步骤。\n\
+  \n## 操作符\n\n幸运的是，Combine 中的 `Publisher` 拥有大量操作符。如果你熟悉标准的高阶函数，你会感到得心应手。\n\n`Publisher`\
+  \ 提供了许多操作符，如 `map`、`flatMap`、`reduce`、`contains` 等。你可以在 Apple 关于 `Publisher` 的文档（[`developer.apple.com/documentation/combine/publisher`](https://developer.apple.com/documentation/combine/publisher)）中看到一长串列表。\n\
+  \n在我们的发布者上，我们可以添加一个 `map` 来深入 `Notification` 内部，获取所需内容。\n\n```\n.map { notif in\n\
+  \  guard let tf = notif.object as? UITextField\n  else { return \"\" }\n  return\
+  \ tf.text ?? \"\"\n}\n.assign(to: \\.userText, on: self)\n```\n\n现在当值被发布时，我们可以通过\
+  \ `guard` 语句绑定文本字段，然后返回文本字段的值。由于我们的 `userText` 属性是可选类型，我们只需返回 `UITextField` 的文本。\n\
+  \n`map` 返回 `Publisher`，因此它适合链式调用。但与具有闭包的 `sink` 不同，我们仅对 `userText` 进行赋值，标签并不会被更新。\n\
+  \n`assign` 返回一个订阅者，因此我们无法为标签添加第二个 `assign` 调用。这正好引出另一个发布者示例的绝佳机会。\n\n## @Published\
+  \ 属性包装器\n\n我们已经在 SwiftUI 中使用过 `@Published` 属性包装器。不过，它也是 Combine 框架的一部分，因此我们也可以在此处使用。\n\
+  \n这个属性包装器为任何属性添加了一个发布者！所以我们将创建第二个发布者和第二个订阅者。\n\n1. 为 `userText` 属性添加 `@Published`\
+  \ 属性包装器。同时为其设置默认值，避免其为 `nil`。\n2. 添加另一个订阅者属性，类型为 `AnyCancellable` 可选值。\n\n```\n\
+  @Published var userText : String? = \"\"\n```\n\n```\nvar subscriber2 : AnyCancellable?\n\
+  ```\n\n现在，我们需要使用该发布者并对其进行订阅。我们将再次使用 `assign`。它将创建一个订阅者，将 `userText` 属性中的值赋给标签。\n\
+  \n3. 在 `viewDidLoad` 中创建发布者和订阅者。\n\n```\nsubscriber2 = $userText\n  .assign(to:\
+  \ \\.text, on: lbl)\n```\n\n就是这样！`$` 让我们能访问被包装的发布者。然后我们通过 `.assign` 指定键路径和对象来创建订阅者。\n\
+  \n在这种情况下，发布的值是 `String` 可选类型，而这正是 `UILabel` 的 `text` 属性原本的类型。\n\n功能已恢复至我们使用 `sink`\
+  \ 时的状态。根据代码不同，某一种方式可能比另一种更有意义。\n\n### 章节总结\n\n我们在此介绍了 Combine 框架中的一些重要概念。`Publisher`\
+  \ 发布更新后的值，`Subscriber` 接收更新后的值。再次回到 Apple 对 Combine 的描述：我们正在“随时间处理值”。\n\n`Publisher`\
+  \ 有输出，`Subscriber` 有输入，两者的类型必须匹配。它们还定义了 `Failure` 类型，也必须匹配。我们在 `ViewController`\
+  \ 中实现了 `Subscriber` 并使其类型匹配。同时，我们还学习了 `sink` 和 `assign`，它们会自动匹配所创建的订阅者中的类型。\n\n\
+  你需要保留对以 `AnyCancellable` 形式创建的订阅者的引用。这样可以在需要时取消订阅，同时也可避免手动清理订阅。`AnyCancellable`\
+  \ 会在其 `deinit` 方法中自动为你处理。\n\n我们还看到 `Publisher` 支持多种操作符，如 `map`、`reduce` 等。它们返回相同的发布者，因此可以在创建订阅者之前进行链式调用。当需要将更新后的值转换为特定形式时，操作符尤其有用。\n\
+  \n`@Published` 属性包装器为任何属性添加了发布者。要访问它，请在属性前使用 `$` 并继续调用。你可以像对待其他发布者一样添加操作符并进行订阅。\n\
+  \n这些概念已经帮助我们在 SwiftUI 中进行了开发。但希望你也认同，这些概念在任何项目中都很有用。\n\n"
+- "# 16. URLSession 发布者\n\n虽然这不是一本关于 Combine 的书，但我确实想再介绍框架中的一些内容。希望本章能让你了解如何使用 Combine。同时，我也希望你能看到一条更直接的学习路径，以更好地掌握这个强大的框架。\n\
+  \n在本章中，我们将讨论数据获取。我们将为此使用发布者和订阅者，从服务器获取数据，并更新 UI。为了测试/预览，我们也会从文件中加载数据。\n\n## URLSession\
+  \ 发布者\n\n如果你以前用过 `URLSession`，你会熟悉创建数据任务。`URLSession` 也提供了一个数据任务发布者。它接受一个 `URL`\
+  \ 作为参数，并返回发布者。\n\n我们已经见过这在 `NotificationCenter` 和 `@Published` 包装属性中的工作方式。从这个意义上说，概念并不新鲜，但现在我们处理的是返回的数据。在我们的案例中，数据将代表\
+  \ JSON。\n\n解码 JSON 时可能会发生错误，因此我们也必须处理这些错误。\n\n我提供了一个 `Ch16_BOC_StatusTracker.zip`\
+  \ 项目作为本章的起点。让我们看看代码。\n\n\n\n### 状态跟踪器项目\n\n我们将从 JSON 加载用户状态数据。JSON 中有三个字段：`id`、`username`\
+  \ 和 `status`。状态可以取三个值之一：`offline`、`paused` 和 `live`。\n\n我们希望能够在列表中显示这些项目。我们还希望能够按状态值进行过滤。UI\
+  \ 将如图 16-1 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig1_HTML.jpg](img/497312_1_En_16_Fig1_HTML.jpg)\n\
+  \n图 16-1  \n状态跟踪器应用 UI 设计\n\n用户名将与它们关联的状态一起列出。状态选项显示在顶部的 `Picker`（类似于 UIKit 的 `Segmented\
+  \ Control`）中。\n\n对于状态值，我们有一个枚举。数据模型是一个 `UserStatus` 结构体。两者都遵循 `Codable` 协议，如图 16-2\
+  \ 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig2_HTML.jpg](img/497312_1_En_16_Fig2_HTML.jpg)\n\
+  \n图 16-2  \n模型代码\n\n请注意，顶部我们导入了 `Combine`。它目前尚未使用，但我们知道我们会朝这个方向走。\n\n`Status` 的底层类型是\
+  \ `Int`。这可以在几个方面提供帮助。我们可以根据 `Picker` 所选索引创建 `Status` 值。此外，我们可以在 JSON 中存储整数，而不是传递字符串。\n\
+  \n`Status` 也遵循 `Codable` 和 `CaseIterable` 协议。`CaseIterable` 允许我们访问值的 `allCases`\
+  \ 数组。访问 `allCases` 有助于遍历这些值或获取总数。我创建了一个 `totalNum` 计算属性来知道我们有多少个值。\n\n请注意枚举中有一个\
+  \ \"all\" 值。它应该仅用于过滤。\n\n`description` 属性将值转换为 `String`。\n\n这只是实现 `Status` 枚举的一种方式。我发现它清晰、有用且易于维护。\n\
+  \n`UserStatus` 结构体有三个值，与 JSON 中的键匹配，如图 16-3 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig3_HTML.jpg](img/497312_1_En_16_Fig3_HTML.jpg)\n\
+  \n图 16-3  \nJSON 数据\n\n项目中包含一个类似文件用于测试数据。我们将从中加载数据，也会从服务器加载数据。\n\n### 状态跟踪器 UI\n\
+  \n状态跟踪器的 UI 使用了一些我们已经熟悉的元素和一个新的元素：`Picker`。这些元素位于一个 `VStack` 中，首先是一个 `Text` 元素。\n\
+  \n`VStack` 中的第二个元素是 `Picker`。`Picker` 接收一个 `StringProtocol`、一个用于存储选择的选择项，以及用于选择的各个项。\n\
+  \n我们还需要为选择器指定一个样式。如果不设置样式，它默认为 `WheelPickerStyle`，这类似于 UIKit 中的 `Picker View`。我们需要分段选择器样式。\n\
+  \n最后是我们的列表。它将使用 `.filter` 遍历状态项目，以根据 `Picker` 中的选择仅查找我们感兴趣的项目。然后它为每个状态数组元素创建一个 `HStack`\
+  \ 和两个文本项。`ContentView` 代码如图 16-4 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig4_HTML.jpg](img/497312_1_En_16_Fig4_HTML.jpg)\n\
+  \n图 16-4  \nContentView 代码\n\n请注意，`filterIndex` 有一个 `@State` 属性包装器，而 `Picker` 使用了这个绑定。当用户更改\
+  \ `Picker` 选择时，这个 `Int` 将会更新。\n\n`filterStatus` 属性是一个基于用户筛选选择的计算属性。它主要用于在用户列表的 `.filter`\
+  \ 调用中轻松检查。\n\n预览代码与生成的代码相同。\n\n### 模型管理器\n\n我们的 `ContentView` 中的第一个属性是一个 `UserStatusMgr`\
+  \ 实例。它使用了该类中定义的单例。唯一使用它的地方是在我们 `List` 项的 `ForEach` 中。\n\n如果我们只是遍历 `mgr.userStatus`\
+  \ 属性，它会列出所有项目。但我们希望匹配用户选择的筛选条件。我们遍历 `.filter` 中的项目，如果状态匹配或用户在选择器中选择了 \"全部\"，则包含它们。\n\
+  \n当前的 `UserStatusMgr` 代码只有几个属性。\n\n```\nclass UserStatusMgr {\n    static let instance\
+  \ = UserStatusMgr()\n    var userStatus = [UserStatus]()\n}\n```\n\n它有单例属性和用于 `UserStatus`\
+  \ 项目的数组。我们需要添加用于从服务器加载数据的代码。\n\n## 使用发布者获取数据\n\n我们希望发布 `userStatus` 属性来更新 UI。因此，我们必须向该类添加\
+  \ `ObservableObject` 协议，并使用 `@Published` 标记该属性。然后我们可以在 UI 中将该类设置为一个 `ObservedObject`。\n\
+  \n我们还需要从服务器获取数据。然后我们可以解析它并更新 `userStatus` 属性以进行发布。\n\n1.  声明 `UserStatusMgr` 类遵循\
+  \ `ObservableObject` 协议。\n\n1.  将 `@Published` 包装器添加到 `userStatus` 属性。\n\n```\n\
+  class UserStatusMgr : ObservableObject {\n```\n\n1.  为单例创建一个私有的 `init`，该初始化方法调用状态数据的更新函数（待编写）。\n\
+  \n```\n    private init() {\n        updateStatusData()\n    }\n```\n\n1.  创建一个名为\
+  \ `updateStatusData` 的函数，用于创建 `URL` 实例。\n\n```\n    func updateStatusData() {\n\
+  \        guard let url = URL(string: \"https://brainwashinc.com/Status.json\")\n\
+  \        else { return }\n    }\n```\n\n1.  在上述 `updateStatusData` 函数的 `guard` 之后，创建\
+  \ `URLSession` 发布者。\n\n```\n    URLSession.shared\n        .dataTaskPublisher(for:\
+  \ url)\n```\n\n`URLSession` 数据任务发布者的发布者定义了其输出和失败类型。输出是一个 `Data` 和 `URLResponse`\
+  \ 的元组。名称分别是 `data` 和 `response`。失败类型是 `URLError`。\n\n在这种情况下，我们只想获取数据，但这只是元组的一部分。我们可以使用\
+  \ `.map` 来稍微处理一下数据。\n\n1.  向发布者添加 `.map`，以将响应元组转换为仅数据项。\n\n```\n    URLSession.shared\n\
+  \        .dataTaskPublisher(for: url)\n        .map { $0.data }\n```\n\n```\n@Published\
+  \ var userStatus = [UserStatus]()\n```\n\n`map` 的结果是一个仅向下游传递 `Data` 项的发布者。我们想要解码那个\
+  \ `Data`，因为它是 JSON。由于这是一种常见操作，Combine 提供了一个 `.decode` 运算符。\n\n1.  在 `.map` 之后添加\
+  \ `.decode` 运算符。\n\n```\nURLSession.shared\n    .dataTaskPublisher(for: url)\n \
+  \   .map { $0.data }\n    .decode(type: [UserStatus].self,\n            decoder:\
+  \ JSONDecoder())\n```\n\n`decode` 返回一个向下游传递 `Decodable` 的发布者，这很棒。但它的 `Failure` 类型是\
+  \ `Error`。由于 JSON 解析可能失败，我们必须处理这种情况。\n\n有多种方法可以处理这个问题。这里我们看一种简单的方法。使用 `.sink` 是另一个有用的选项，我鼓励你研究一下。\n\
+  \n1.  在解码之后添加 `.replaceError`。\n\n```\nURLSession.shared\n    .dataTaskPublisher(for:\
+  \ url)\n    .map { $0.data }\n    .decode(type: [UserStatus].self,\n           \
+  \ decoder: JSONDecoder())\n    .replaceError(with: self.userStatus)\n```\n\n现在，如果\
+  \ `JSONDecoder` 出错，我们只需使用 `self.userStatus` 的当前值继续执行。这仍然返回一个发布者，所以我们需要继续到订阅者。\n\n\
+  1.  添加 `.receive` 以在主线程上发布。\n\n```\n    URLSession.shared\n        .dataTaskPublisher(for:\
+  \ url)\n        .map { $0.data }\n        .decode(type: [UserStatus].self,\n   \
+  \             decoder: JSONDecoder())\n        .replaceError(with: self.userStatus)\n\
+  \        .receive(on: DispatchQueue.main)\n```\n\n现在我们到达了发布者链的末端，需要创建订阅。\n\n1. \
+  \ 创建一个名为 `subscriber` 的 `AnyCancellable` 作为 `UserStatusMgr` 类的属性。\n\n\n\n1.  添加一个`.assign`修饰符来分配值，并将结果存储在第\
+  \ 10 步的属性中。\n\n```\nvar subscriber : AnyCancellable?\n```\n\n```\nsubscriber = URLSession.shared\n\
+  .dataTaskPublisher(for: url)\n.map { $0.data }\n.decode(type: [UserStatus].self,\n\
+  decoder: JSONDecoder())\n.replaceError(with: self.userStatus)\n.receive(on: DispatchQueue.main)\n\
+  .assign(to: \\.userStatus, on: self)\n```\n\n此时运行应用程序可以工作，但它不会将数据加载到 UI 中。这是因为我们使用`UserStatusMgr`的初始值`userStatus`（为空）创建了\
+  \ UI。\n\n我们需要将`ContentView`的`mgr`属性标记为`ObservedObject`。这样当`userStatus`属性被发布时，我们就会收到更新，从而触发\
+  \ UI 更新。\n\n2.  在`ContentView`中为`mgr`属性添加`@ObservedObject`。\n\n```\n    struct ContentView:\
+  \ View {\n    @ObservedObject var mgr = UserStatusMgr.instance\n    ```\n\n现在，应用程序会显示\
+  \ UI，并在获取数据后得到更新。使用过滤器也能正常工作，如图 16-5 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig5_HTML.jpg](img/497312_1_En_16_Fig5_HTML.jpg)\n\
+  \n**图 16-5**  \n带筛选列表的应用程序运行界面\n\n这个发布者只运行一次。任务运行、发布然后停止。如果你再次调用`updateStatusData`，它会获取新数据并继续执行。\n\
+  \n我们不仅了解了如何用发布者获取数据，还接触了一些其他操作符。我鼓励你自行研究 Combine 中的操作符，以了解所有可用的功能。\n\n## 调试数据\n\n\
+  在开发和测试过程中，我们可能不希望每次都访问服务器。相反，我们可以编写代码从项目包中读取测试文件。\n\n一种选择是直接加载文件数据并将其解析到`userStatus`属性中。这种方法完全可以正常工作。\n\
+  \n以下是一个解决方案，它在后台为调试构建加载数据，并在 UI 线程上发布。如果这段代码位于`updateStatusData`的顶部，它将针对调试构建运行。\n\
+  \n**注意**：稍后我们会在项目中添加此代码的一个变体。除非你想尝试，否则现在无需添加。\n\n```\n#if DEBUG\nguard let urlLocal\
+  \ = Bundle.main.url(\nforResource: \"Status\",\nwithExtension: \"json\")\nelse {\
+  \ return }\nDispatchQueue.global().async {\nif let data = try? Data(contentsOf:\
+  \ urlLocal) {\nDispatchQueue.main.async {\nself.userStatus = (try? JSONDecoder()\n\
+  .decode([UserStatus].self,\nfrom: data))\n?? self.userStatus\n}\n}\n}\nreturn\n\
+  #endif\n```\n\n这段代码创建了包 URL，读取数据（在后台），并解码 JSON。当`userStatus`更新时，它会被发布。这没问题，但有点冗余，并且在测试时不会用到我们现有的代码。\n\
+  \n我们可以想出一个更有趣的解决方案，使用另一个订阅。\n\n首先，这将给我们一个机会来处理更多发布者-订阅者的例子。其次，我们可能能够重用代码，从而在测试中更多地去检验我们的生产代码。\n\
+  \n让我们将加载的数据（服务器或本地）存储在一个属性中，并创建一个该属性的订阅者。在新的订阅者中，我们可以处理 JSON 数据并更新`userStatus`属性。\n\
+  \n**使用本地测试数据**\n\n我们需要一个新的属性来存储`Data`实例。另外，我们还需要另一个订阅者属性。我们可以更新`updateStatusData`，使其在调试构建时使用本地文件路径，以避免访问服务器。\n\
+  \n1.  在`UserStatusMgr`中，创建两个新属性：`statusData`（类型为`Data`并初始化）和`subscriberData`（类型为`AnyCancellable?`）。\n\
+  \n```\n@Published var statusData = Data()\nvar subscriberData : AnyCancellable?\n\
+  ```\n\n我们将 JSON 数据存储在`statusData`中。由于它是已发布的，我们可以为其创建订阅。然后，每当它被更新时，我们就处理新数据。\n\n\
+  2.  在`UserStatusMgr`中创建一个新函数来创建发布者-订阅者。\n\n```\n    func createSubscription() {\n\
+  \    $statusData\n    }\n    ```\n\n我之前提到过，还有其他方法可以处理`decode`的错误。一种方法是使用`.catch`操作符。这里的问题是，如果它捕获到错误，它会通过用一个新的发布者替换当前发布者来取消订阅。在我们的例子中，这可能没问题，因为我们的发布者应该只执行一次任务。\n\
+  \n然而，如果我们想要支持持续的发布，我们不想让它被取消。相反，我们可以使用`.flatMap`。`.flatMap`调用接收上游的输入并返回一个发布者。在其中我们可以进行解码。如果解码失败，我们可以捕获它。\n\
+  \n我们将在这里使用`.flatMap`来了解它的工作原理。\n\n1.  向发布者添加`.flatMap`。\n\n```\n    func createSubscription()\
+  \ {\n    $statusData\n    .flatMap{ data in return Just(data)\n    }\n    }\n  \
+  \  ```\n\n此时，`flatMap`只获取数据并使用`Just`创建一个新的发布者。`Just`简单地发布数据并结束。\n\n我们将在`Just`上添加操作符来解码\
+  \ JSON 并捕获错误。如果有错误，我们可以使用另一个`Just`来发布`userStatus`的当前值。\n\n1.  添加解码 JSON 和捕获可能错误的调用。\n\
+  \n```\n    func createSubscription() {\n    $statusData\n    .flatMap{ data in\n\
+  \    return Just(data)\n    .decode(type: [UserStatus].self,\n    decoder: JSONDecoder())\n\
+  \    .catch { _ in\n    return Just(self.userStatus)\n    }\n    }\n    }\n    ```\n\
+  \n现在我们拥有了我们想要的发布者。我们获取`statusData`属性的发布者，并使用`.flatMap`创建一个发布者。`.flatMap`获取数据并使用`Just`创建另一个发布者。该发布者上的操作符解码\
+  \ JSON。\n\n\n\n### 排版后的文本\n\n如果解码数据时出现错误，我们会发布当前的 `self.userStatus`。 `catch` 会将当前的发布者（第一个\
+  \ `Just`）替换为另一个 `Just`。\n\n4. 添加 `.receive` 来创建我们发布者的最终版本。\n\n1. 添加 `.assign` 来创建订阅。将订阅存储在步骤\
+  \ 1 中创建的新 `AnyCancellable` 属性中。\n\n```\ncreateSubscription() {\n$statusData\n.flatMap{\
+  \ data in\nreturn Just(data)\n.decode(type: [UserStatus].self,\ndecoder: JSONDecoder())\n\
+  .catch { _ in\nreturn Just(self.userStatus)\n}\n}\n.receive(on: DispatchQueue.main)\n\
+  }\n```\n\n```\ncreateSubscription() {\nsubscriberData =\n$statusData\n.flatMap{\
+  \ data in\nreturn Just(data)\n.decode(type: [UserStatus].self,\ndecoder: JSONDecoder())\n\
+  .catch { _ in\nreturn Just(self.userStatus)\n}\n}\n.receive(on: DispatchQueue.main)\n\
+  .assign(to: \\.userStatus, on: self)\n}\n```\n\n基于来自 `.assign` 的结果发布者，我们创建了订阅。现在，一旦数据处理完毕，我们就会保存\
+  \ `userStatus` 数组。这是一个已发布的属性，UI 将会随之更新。\n\n回到我们的 `updateStatusData` 函数，我们不再需要设置\
+  \ `userStatus`。相反，我们只使用 `Data` 值来设置 `statusData`。然后，我们创建的针对 `statusData` 的订阅将处理它，并且\
+  \ `userStatus` 将会被发布。\n\n`updateUserStatus` 中的订阅只需接收数据、进行映射、处理错误，并赋值给该属性。此外，由于我们不再触发\
+  \ UI 数据的发布，因此不再需要 `.receive` 修饰符。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig6_HTML.jpg](img/497312_1_En_16_Fig6_HTML.jpg)\n\
+  \n图 16-6\n\n当前的 `updateStatusData` 函数\n\n1. 更新 `updateStatusData` 函数，移除 JSON 解析和\
+  \ `.receive` 修饰符。由于我们现在处理的是数据，`.assign` 需要设置 `statusData`（而不是 `userStatus`）。更新后的代码如图\
+  \ 16-6 所示。\n\n我们需要确保调用了创建订阅的函数。\n\n1. 在 `init` 中添加对 `createSubscription` 的调用。\n\n\
+  ```\n    private init() {\n    createSubscription()\n    updateStatusData()\n  \
+  \  }\n```\n\n如果你现在运行这个应用，它应该像以前一样工作，只不过现在有两个订阅。我们在 `updateStatusData` 中的原始订阅者仍然会接收服务器数据。但是，现在它只是将数据存储在\
+  \ `statusData` 属性中。\n\n`createSubscription` 中的新订阅者接收该 `Data` 实例并解析它。解析后的数据现在存储在我们的\
+  \ `userStatus` 数组中，该数组在主线程上发布。\n\n到目前为止，此练习中的步骤已将数据加载过程分为两部分。第一部分获取数据。第二部分解析数据。\n\
+  \n现在我们可以添加从本地加载数据的选项。在调试构建时，这将替换第一部分中的服务器请求。第二部分的操作方式保持不变。当数据被存储时，针对它的订阅将解析数据并将其设置到数组中。\n\
+  \n2. 在 `updateStatusData` 中，在函数顶部添加测试代码，以在 `DEBUG` 条件语句内从文件加载 JSON 数据。\n\n```\n\
+  \    func updateStatusData() {\n    #if DEBUG\n    guard let urlLocal = Bundle.main.url(\n\
+  \    forResource: \"Status\",\n    withExtension: \"json\")\n    else { return }\n\
+  \    if let data = try? Data(contentsOf: urlLocal) {\n    DispatchQueue.global().async\
+  \ {\n    self.statusData = data\n    }\n    }\n    return\n    #endif\n    ...\n\
+  ```\n\n对于生产构建，我们有一个订阅来接收数据。对于调试，我们只需本地加载数据。无论数据是从服务器还是本地文件获取，解析都是通过对数据属性的订阅来完成的。\n\
+  \n**注意** 为了避免编译器警告，你可以删除前面代码中的 `return`，将 `#endif` 改为 `#else`，并在函数末尾加上 `#endif`。详情请参阅本章的\
+  \ EOC 代码。\n\n如果你现在运行该应用，数据应该从文件加载并且 UI 会更新。本地数据在用户名后附加了“-test”，以区分加载的是哪部分数据，如图 16-7\
+  \ 所示。\n\n![../images/497312_1_En_16_Chapter/497312_1_En_16_Fig7_HTML.jpg](img/497312_1_En_16_Fig7_HTML.jpg)\n\
+  \n图 16-7\n\n使用本地测试数据的 UI\n\n生产构建将忽略 `DEBUG` 条件语句，并从服务器加载数据。\n\n### 章节总结\n\n在本章的代码中，我们探讨了许多变化。我们看到了如何从\
+  \ `URLSession` 创建一个发布者。生成的数据任务发布者可以像其他发布者一样使用运算符进行修改。我们可以映射数据、解码、替换错误、赋值等等。\n\n\
+  我们还为本地测试数据创建了一个变体。此路径使用 `flatMap` 来解码数据并捕获任何错误。它在几个地方使用了 `Just`，并且还避免了在发生错误时取消订阅。\n\
+  \n最后，我们有了两个已发布的属性和两个订阅者。\n\n我们的 `ContentView` 将 `UserStatusMgr` 属性声明为被观察对象。这样，当更新发生时，我们的\
+  \ UI 将反映这些变化。\n\n第二个订阅者针对的是 `statusData` 属性。无论是通过本地数据加载还是服务器返回数据来更改它，我们的第二个订阅者都会处理它。现在我们有了一个统一的地方来解析数据、设置\
+  \ `userStatus` 并发布给 UI。\n\n正如我希望你理解的那样，有多种方法可以完成你需要做的事情。哪种解决方案最佳取决于你的具体需求。我的意图是向你展示多种方法。但是，重申一下，这不是一本关于\
+  \ Combine 的书。\n\n我们只看了运算符列表的一部分。通过进一步学习，其中一些会变得很熟悉，比如 `map`、`filter`、`reduce`、`compactMap`、`count`、`max`、`contains`、`drop`\
+  \ 等等。还有一些运算符与带有“try”前缀的运算符相关，例如 `tryMap`、`tryFilter`、`tryReduce` 等等。\n\n一些运算符对你来说可能是新的，比如\
+  \ `sink`、`zip`、`combineLatest` 和 `merge`。我希望你把它们都研究一下！\n\n"
+- "# 17. 过渡与动画\n\n通常，当我亲自教授 iOS 开发时，我们会讨论各种 UI 动画的实现方式。动画领域有大量的方法和选项。然而，大多数时候，我们实际上并不试图做太复杂的事情。\n\
+  \n我主要是为那些有业务需求的客户进行开发。这可能是一个面向客户的应用程序，一个他们网站的配套应用，或者一个用于查看数据的应用程序。\n\n通常，动画的发挥空间很小。我可能会为了显示而淡入/淡出某些内容。有时，我需要移动菜单或类似元素。但华丽的动画通常不在考虑范围之内。\n\
+  \n我之所以说这些，是因为虽然我想向大家展示如何在 SwiftUI 中制作动画，但重点应该放在选项上。本章希望能提供一些工具，让你了解一些可能的实现方式以及如何深入研究。只是不要以为我们会构建一个\
+  \ 3D 游戏或类似的东西。\n\n\n\n### 过渡效果\n\n过渡效果控制视觉元素如何从视图中插入或移除。插入和移除操作默认不会自动动画化，但可以通过设置实现动画效果。\n\
+  \nSwiftUI 内置了一些常见展示效果的过渡动画，其中包括 `opacity`（透明度）、`move`（移动）、`scale`（缩放）和 `slide`（滑动）。`move`\
+  \ 过渡需要指定一个 `Edge`（边缘）值，以确定移动起始位置：`top`（顶部）、`bottom`（底部）、`leading`（前导）或 `trailing`（后沿）。\n\
+  \n接下来，我们添加一些 UI 元素来观察过渡效果的实际运作。\n\n## 文本的过渡效果\n\n我们将从创建一个新的 SwiftUI 项目开始。首先添加一个\
+  \ `Button`（按钮）来切换某个布尔值，然后根据该值在 UI 中添加一个 `Text`（文本）元素，最后为这个文本元素设置插入和移除时的过渡效果。\n\n\
+  ![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig1_HTML.png](img/497312_1_En_17_Fig1_HTML.png)\n\
+  \n图 17-1 新建项目选项\n\n1.  新建一个 SwiftUI 项目（我将其命名为 `VariousUI`），界面框架选择 SwiftUI，生命周期选择\
+  \ SwiftUI App（见图 17-1）。\n2.  在 `ContentView.swift` 文件的 `ContentView` 结构体中添加一个切换属性。\n\
+  \n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig2_HTML.jpg](img/497312_1_En_17_Fig2_HTML.jpg)\n\
+  \n图 17-2 切换按钮与文本\n\n3.  在 `ContentView` 的 `body` 计算属性中，将默认内容替换为 `VStack`。\n\n  \
+  \  ```\n    var body: some View {\n    VStack {\n    }\n    }\n    ```\n\n4.  在\
+  \ `VStack` 中，创建一个用于切换值的 `Button`。\n\n    ```\n    Button(action: {\n    self.isToggled.toggle()\n\
+  \    }) {\n    Text(\"Toggle\")\n    }\n    ```\n\n5.  在按钮下方添加另一个 `Text`，当属性值为 `true`\
+  \ 时显示“Toggled”。\n\n    ```\n    if isToggled {\n    Text(\"Toggled\")\n    }\n \
+  \   ```\n\n    现在运行应用，屏幕上会显示一个“Toggle”按钮。点击按钮后，会显示一个`Textfield`文本字段，如图 17-2 所示。\n\
+  \n```\n@State var isToggled = false\n```\n\n接下来，我们将为 `Text` 元素添加过渡效果，使其以不同方式呈现。\n\
+  \n1.  为 `Text` 元素添加过渡效果。\n\n    ```\n    Text(\"Toggled\")\n    .transition(.move(edge:\
+  \ .top))\n    ```\n\n    如果现在运行应用，你仍然会看到 `Text` 元素突然出现和消失。我们需要添加一些动画效果。\n\n2.  为\
+  \ `Text` 元素添加动画。\n\n    ```\n    Text(\"Toggled\")\n    .transition(.move(edge:\
+  \ .top))\n    .animation(.easeInOut)\n    ```\n\n`Animation` 提供了多种选项，如图 17-3 所示。\n\
+  \n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig3_HTML.jpg](img/497312_1_En_17_Fig3_HTML.jpg)\n\
+  \n图 17-3 动画部分列表\n\n欢迎尝试不同类型的动画。我个人非常喜欢 `spring`（弹簧动画）。\n\n现在运行应用（或启用实时预览模式），你应该会看到\
+  \ `Text` 元素在添加时从顶部移入，在移除时也移向顶部。\n\n### 非对称过渡\n\n通常，我们希望元素以某种方式进入屏幕，却以不同的方式离开屏幕。为此，我们可以创建非对称过渡。创建非对称过渡的函数需要两个参数：`insertion`（插入）和\
+  \ `removal`（移除）。这里只涉及两种过渡。\n\n因此，如果我们想用 `opacity`（淡入）插入一个 UI 元素，但用 `scale`（缩放）将其移除，这完全可行。\n\
+  \n### 非对称过渡\n\n让我们为 `Text` 元素创建一个非对称过渡。如果你之前尝试过不同的过渡效果，应该已经见过 `opacity` 和 `scale`。我们将使用这两个效果。\n\
+  \n1.  将之前使用的过渡（即 `move(edge: .top)`）替换为调用 `.asymmetric`。\n2.  对于 `insertion`，我们使用\
+  \ `opacity`；对于 `removal`，传入 `slide`。\n\n    ```\n    Text(\"Toggled\")\n    .transition(\n\
+  \    .asymmetric(\n    insertion: .opacity,\n    removal: .slide))\n    ```\n\n\
+  ```\nText(\"Toggled\")\n.transition(\n.asymmetric(\n```\n\n运行应用。发生了什么？动画效果消失了！在这种隐式动画中，过渡效果不会自动产生动画。我们需要使用显式动画。\n\
+  \n1.  在 `Button` 的 action 中，使用 `withAnimation` 为切换值的操作添加隐式动画。\n\n    ```\n    Button(action:\
+  \ {\n    withAnimation(.easeInOut(duration: 1)) {\n    self.isToggled.toggle()\n\
+  \    }\n    ```\n\n    这里我们传入了一秒作为动画时长。你可以自由传入你喜欢的任何时长（或者像之前那样不传参）。\n\n    现在，过渡效果应该可以正常工作和动画化了。但如果我们希望元素淡入并移动，或者使用其他组合过渡呢？我们可以将它们组合起来。\n\
+  \n2.  在 `opacity` 过渡上调用 `combine`，并传入一个 `move` 过渡。\n\n    ```\n    Text(\"Toggled\"\
+  )\n    .transition(\n    .asymmetric(\n    insertion: AnyTransition\n    .opacity\n\
+  \    .combined(with:\n    .move(edge: .top)),\n    removal: .slide))\n    ```\n\n\
+  现在过渡效果已按我们期望的方式工作，接下来进行代码清理。我们将为创建的过渡效果定义一个独立的过渡类型，可以通过扩展 `AnyTransition` 结构体来实现。\n\
+  \n1.  创建 `AnyTransition` 的扩展（放在同一个文件中即可）。\n\n    ```\n    extension AnyTransition\
+  \ {\n    }\n    ```\n\n2.  声明一个名为 `textTransition` 的静态变量，类型为 `AnyTransition`。\n\
+  3.  实现 `textTransition` 的 `get`（无需关键字）方法，以创建我们在代码中使用的过渡效果。\n\n    ```\n    static\
+  \ var textTransition : AnyTransition {\n    AnyTransition\n    .asymmetric(\n  \
+  \  insertion: AnyTransition\n    .opacity\n    .combined(with:\n    .move(edge:\
+  \ .top)),\n    removal: .slide)\n    }\n    ```\n\n4.  现在使用新定义的过渡效果，替换掉原先移动到 `textTransition`\
+  \ 中的多行代码。\n\n    ```\n    Text(\"Toggled\")\n    .transition(.textTransition)\n\
+  \    ```\n\n```\nstatic var textTransition : AnyTransition\n```\n\n运行代码，验证过渡效果是否与之前一致。\n\
+  \n通过这个练习，我们不仅组合了多种过渡效果，还创建了一个自定义过渡，以便在其他地方复用。\n\n\n\n### 动画\n\n我们已经了解了一点关于过渡动画的内容。还有一些其他动画效果我们也想探讨一下。\n\
+  \n各种修饰符的更改都可以进行动画化。一些常见的属性包括尺寸/缩放、颜色、阴影、旋转和模糊。\n\n修饰符的动画可以通过隐式或显式动画来实现。此外，你还可以针对不同的更改设置不同的隐式动画修饰符。\n\
+  \n## 为更改添加动画\n\n在本练习中，我们将研究如何对 UI 元素的各项更改进行动画处理。\n\n1.  在 `VStack` 的底部，向 UI 添加一个圆形。\n\
+  2.  将圆形的颜色设置为红色。\n\n```\nCircle()\n.foregroundColor(.red)\n```\n\n```\nCircle()\n\
+  ```\n\n在预览中，你应该会在 UI 中看到一个大的红色圆形，如图 17-4 所示。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig4_HTML.jpg](img/497312_1_En_17_Fig4_HTML.jpg)\n\
+  \n图 17-4：已添加到 UI 中的圆形\n\n3.  为圆形添加 `shadow`、`scaleEffect` 和 `blur` 修饰符，所有这些都基于 `isToggle`\
+  \ 的值。\n\n```\nCircle()\n.foregroundColor(.red)\n.shadow(radius: isToggled ? 10 :\
+  \ 50)\n.scaleEffect(isToggled ? 0.75 : 1)\n.blur(radius: isToggled ? 5 : 0)\n```\n\
+  \n现在，当你运行应用并切换该值时，你应该会看到一个带有阴影、尺寸较小且应用了模糊效果的红色圆形，如图 17-5 所示。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig5_HTML.jpg](img/497312_1_En_17_Fig5_HTML.jpg)\n\
+  \n图 17-5：切换值为 True 影响 UI\n\n这样做效果不错，并且有了动画。但对于一个鲜红色的球体来说，看起来似乎不够生动。让我们添加一个动画修饰符来赋予它一些活力。\n\
+  \n4.  在 `scaleEffect` 修饰符之后，添加一个动画修饰符。使用 `spring` 并传入阻尼分数 `0.5`。\n\n```\nCircle()\n\
+  .foregroundColor(.red)\n.shadow(radius: isToggled ? 10 : 50)\n.scaleEffect(isToggled\
+  \ ? 0.5 : 1)\n.animation(.spring(dampingFraction : 0.5))\n.blur(radius: isToggled\
+  \ ? 5 : 0)\n```\n\n阻尼分数是应用于被动画属性的拖拽力大小。默认值是 `0.825`，不会产生太多弹跳效果。我们设置的 `0.5` 效果相当不错。如果将其设置成一个很小的值，比如\
+  \ `0.15`，会使它在最终值附近振荡好几次。你可以尝试一下。\n\n`spring` 还有许多其他参数可供传入。我鼓励你将来去查看一下。\n\n运行应用时，你应该会注意到阴影和缩放的动画使用了弹簧动画，并且它们使用了自身的计时。显式调用的\
+  \ `withAnimation` 仍然持续一秒，并应用于 `blur`。如果不明显，可以将 `withAnimation` 的持续时间设为五秒来测试一下。\n\
+  \n## ViewModifier 协议\n\n我们的红色圆形上应用了几个修饰符。如果我们喜欢这个组合，可能希望将其保存起来，以便在代码的其他地方使用。\n\n\
+  对于我们的 `Transition`，我们是将其作为 `AnyTransition` 的一个扩展来实现的。我们声明的静态计算属性类型是 `AnyTransition`。对于我们的修饰符，它将是一个遵循\
+  \ `ViewModifier` 协议的结构体。\n\n`ViewModifier` 协议与 `View` 非常相似。然而，它的 `body` 是一个函数而不是一个属性。这个\
+  \ `body` 函数接收一个 `Content` 并返回一个 `View`。这里的 `Content` 就是应用该修饰符的值。在我们的例子中，它是一个实现了\
+  \ `View` 的类型。\n\n### 创建视图修饰符\n\n我们将创建一个实现了 `ViewModifier` 的结构体。我们有一个必需的 `body` 函数，它接收一个\
+  \ `Content`（在我们的例子中，是一个实现 `View` 的类型）并返回一个 `View`。\n\n1.  声明该结构体（在同一文件中即可）。\n\n\
+  ```\nstruct BouncyModifier : ViewModifier {\n}\n```\n\n2.  声明一个用于控制 `View` 模糊量的属性。\n\
+  \n```\nstruct BouncyModifier : ViewModifier {\n    var blurFactor : CGFloat\n}\n\
+  ```\n\n3.  声明 `body` 函数。\n\n```\nstruct BouncyModifier : ViewModifier {\n    var\
+  \ blurFactor : CGFloat\n    func body(content: Content) -> some View {\n    }\n\
+  }\n```\n\n4.  实现 `body` 函数，将修饰符添加到传入的参数上。\n\n```\nreturn content\n    .shadow(radius:\
+  \ blurFactor > 0 ? 10 : 50)\n    .scaleEffect(blurFactor > 0 ? 0.5 : 1.0)\n    .animation(\n\
+  \        .spring(dampingFraction : 0.15))\n    .blur(radius: blurFactor)\n```\n\n\
+  5.  使用新的修饰符替换之前的一串修饰符。\n\n```\nCircle()\n    .foregroundColor(.red)\n    .modifier(BouncyModifier(blurFactor:\n\
+  \        isToggled ? 5 : 0))\n```\n\n运行应用，你会发现动画效果相同，但弹跳感更强了一点。\n\n除了使用 `.modifier`\
+  \ 来创建 `ViewModifier`，还有另一种选择。我们可以为 `View` 创建一个扩展来帮我们做到这一点。\n\n最终，两者的作用是相同的，只是代码位置不同。这也有助于保持\
+  \ `View` 代码的整洁。\n\n6.  为 `View` 定义一个扩展（在同一文件中即可）。\n\n```\nextension View {\n}\n\
+  ```\n\n7.  定义一个 `bouncy` 函数，它接收一个 `CGFloat` 并返回一个 `View`。\n\n```\nextension View\
+  \ {\n    func bouncy(blurFactor: CGFloat)\n        -> some View {\n    }\n}\n```\n\
+  \n8.  返回一个使用传入参数创建的 `BouncyModifier` 修饰符。\n\n```\nextension View {\n    func bouncy(blurFactor:\
+  \ CGFloat)\n        -> some View {\n        self.modifier(\n            BouncyModifier(blurFactor:\
+  \ blurFactor))\n    }\n}\n```\n\n9.  在你的 `Circle` 上使用这个函数，而不是使用 `.modifier` 配合 `BouncyModifier`。\n\
+  \n```\nCircle()\n    .foregroundColor(.red)\n    .bouncy(blurFactor: isToggled ?\
+  \ 5 : 0)\n```\n\n通过创建 `ViewModifier` 和 `View` 的扩展，我们的代码变得更整洁了。我们可以在项目的其他地方复用这两者。此外，我们可以在一处进行更改，从而影响整个应用中的弹跳动画效果。\n\
+  \n正如我所提到的，有一些动画函数可以影响动画的性能。其中一些用于控制动画时间的曲线。这些函数，`easeIn`、`easeOut`、`easeInOut` 和\
+  \ `linear`，都提供了接受一个 `Double` 类型持续时间参数的形式。持续时间以秒为单位。\n\n`timingCurve` 函数允许开发者将时间曲线指定为贝塞尔路径坐标和持续时间。\n\
+  \n我们已经看到 `spring` 及其默认值 `response`、`dampingFraction` 和 `blendDuration`。还有 `interactiveSpring`。它基本相同，但为交互式动画提供了不同的默认值。`interpolatingSpring`\
+  \ 允许你指定（弹簧的）质量和刚度，以及阻尼和初始速度。\n\n其他函数包括 `delay`、`speed`，以及两个用于重复动画的函数：`repeatCount`\
+  \ 和 `repeatForever`。\n\n所有这些函数都允许你自定义动画。说实话，在我使用动画的大部分时间里，我都可以坚持使用很多默认值。有时，我需要一个特定的持续时间。在这些情况下，我通常会使用\
+  \ `0.37`，这与许多系统动画（如键盘弹出）的持续时间匹配。我使用的另一个变化差不多只有 `spring`，用来增加一些弹跳效果。\n\n\n### 渐变\n\
+  \n让我们为圆形添加一些颜色。我们可以创建一个渐变来填充圆形。创建 `Gradient` 实例的一个简单方法是传入一些颜色。生成的 `Gradient` 会在颜色之间进行插值过渡。\n\
+  \n要填充我们的圆形，我们将使用 `.fill` 修饰符。我们传入一个符合 `ShapeStyle` 协议的内容。`Color` 符合该协议，因此我们可以将一个颜色传入\
+  \ `.fill`。\n\n```\nCircle().fill(Color.blue)\n```\n\n其他实现了 `ShapeStyle` 协议的结构体包括\
+  \ `ForegroundStyle`、`ImagePaint`、`LinearGradient`、`RadialGradient` 和 `AngularGradient`。\n\
+  \n## 为圆形添加颜色\n\n我们将创建一个渐变并填充圆形。现在，通过为元素增加一些细节定义，我们的动画会变得更有活力。\n\n1.  在 `ContentView`\
+  \ 中创建一个渐变属性。\n\n    ```\n    struct ContentView: View {\n    @State var isToggled\
+  \ = false\n    let gradient = Gradient(colors:\n    [.purple, .yellow,\n    .green])\n\
+  \    ```\n\n2.  在 `body` 的顶部，`VStack` 之上，添加一个 `RadialGradient`。\n\n    ```\n   \
+  \ var body: some View {\n    let radialGradient = RadialGradient(gradient:\n   \
+  \ gradient,\n    center: .center,\n    startRadius: 1.0,\n    endRadius: 250.0)\n\
+  \    VStack {...\n    ```\n\n3.  使用上一步创建的径向渐变，在 `Circle` 的 `.fill` 修饰符中替换掉 `.foreground`。\n\
+  \n    ```\n    Circle()\n    .fill(radialGradient)\n    .bouncy(blurFactor: isToggled\
+  \ ? 5 : 0)\n    ```\n\n运行应用，查看如图 17-6 所示的颜色效果。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig6_HTML.jpg](img/497312_1_En_17_Fig6_HTML.jpg)\n\
+  \n图 17-6 — 动画后的径向渐变圆形\n\n1.  在第二步的 `radialGradient` 下方，创建一个 `AngularGradient`。\n\
+  \n    ```\n    let angularGradient = AngularGradient(gradient:\n    gradient,\n\
+  \    center: .center,\n    angle: .degrees(0))\n    ```\n\n2.  在 `.fill` 中使用这个新的\
+  \ `angularGradient`。\n\n    ```\n    Circle()\n    .fill(angularGradient)\n    ```\n\
+  \n运行应用，查看如图 17-7 所示的新颜色填充效果。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig7_HTML.jpg](img/497312_1_En_17_Fig7_HTML.jpg)\n\
+  \n图 17-7 — 动画后的径向渐变圆形\n\n现在我们的圆形有了更多颜色，使其更具活力。\n\n## 旋转\n\n旋转 UI 元素是另一种常见的变换。它也是动画的一个很好的变化点。我们可以使用两个修饰符来轻松旋转圆形。\n\
+  \n`rotationEffect` 修饰符接受两个参数。第一个参数是旋转的角度。第二个参数是可选的旋转中心点。默认的中心点是圆心。\n\n```\n.rotationEffect(.degrees(90))\n\
+  ```\n\n注意：我们将在下一个练习中将这些旋转效果添加到代码中。\n\n`rotation3DEffect` 同样接受旋转角度和旋转轴。`anchor`（默认为中心）、`anchorZ`（默认为\
+  \ 0）和 `perspective`（默认为 1）都有默认值，因此不是必需的。\n\n轴参数指定要围绕旋转的一个或多个轴。如果我们只指定 Z 轴，它的行为将和\
+  \ `.rotationEffect` 一样。\n\n```\n.rotation3DEffect(Angle(degrees: 90),\naxis: (x:\
+  \ 0, y: 0, z: 1))\n```\n\nZ 轴是前后方向。X 轴是左右方向。Y 轴是上下方向。\n\n让我们尝试一些操作。\n\n### 添加旋转效果\n\
+  \n我们首先添加旋转来让圆形旋转起来。然后我们再添加 3D 旋转，看看真正的效果。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig8_HTML.jpg](img/497312_1_En_17_Fig8_HTML.jpg)\n\
+  \n图 17-8 — 动画后的圆形\n\n1.  在我们自定义的 `.bouncy` 修饰符之后添加 `.rotationEffect`。\n\n    基于\
+  \ `isToggled` 属性进行旋转。\n\n    ```\n        Circle()\n        .fill(angularGradient)\n\
+  \        .bouncy(blurFactor: isToggled ? 5 : 0)\n        .rotationEffect(.degrees(isToggled\
+  \ ? 90 : 0))\n    ```\n\n    运行应用，可以看到圆形像图 17-8 那样旋转了。\n\n2.  移除 `.rotationEffect`，改用\
+  \ `.rotation3DEffect`，但仅针对 Z 轴。\n\n    ```\n    .rotation3DEffect(Angle(degrees:\
+  \ isToggled ? 90 : 0),\n    axis: (x: 0, y: 0, z: 1))\n    ```\n\n    运行应用，结果应该与图\
+  \ 17-7 看起来一样。\n\n3.  将轴改为 X 轴（其他两个轴设为 0）。\n\n    ```\n        .rotation3DEffect(Angle(degrees:\
+  \ isToggled ? 90 : 0),\n        axis: (x: 1, y: 0, z: 0))\n    ```\n\n    如果你运行应用，会看到动画将圆形部分翻转，使其变平并不可见。\n\
+  \n    使用 Y 轴会产生相同的效果，只是它会向另一个方向翻转。\n\n4.  在旋转调用中使用所有三个轴，并将角度改为 300。\n\n    ```\n\
+  \        .rotation3DEffect(Angle(degrees:\n        isToggled ? 300 : 0),\n     \
+  \   axis: (x: 1, y: 1, z: 1))\n    ```\n\n    现在运行代码会显示出更多的动作。它有点快，所以我们来放慢速度。\n\n\
+  5.  在 `.rotation3DEffect` 之后添加一个带有 `.spring` 和速度设置的动画。\n\n    ```\n    .animation(.spring().speed(0.1))\n\
+  \    ```\n\n    如果出现错误，是因为编译器无法确定上下文。在 `.spring` 前面加上 `Animation` 来帮助解决。\n\n   \
+  \ ```\n    .animation(Animation.spring().speed(0.1))\n    ```\n\n    `speed` 接收一个动画时间乘数。使用\
+  \ `0.10` 会使动画耗时变为与动画本身速度相关的 10%。默认动画耗时是 `0.37` 秒，所以我们的旋转应该大约需要 4 秒钟。\n\n最终结果应该如图\
+  \ 17-9 所示。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig9_HTML.jpg](img/497312_1_En_17_Fig9_HTML.jpg)\n\
+  \n图 17-9 — 3D 旋转后的圆形\n\n现在我们应用中有三个动画。第一个是在按钮动作中的隐式动画，用于为切换属性的变化添加动画效果。这为“Toggled”元素的文本添加了动画。\n\
+  \n另一个动画处理了 `BouncyModifier`。它使用带阻尼分数参数的 `.spring`。\n\n第三个动画作用于我们的 3D 旋转效果，我们使用了\
+  \ `.spring` 和 `.speed`。\n\n让我们对旋转动画再做一处修改。\n\n6.  将 `.spring` 和 `.speed` 调用改为一个持续时间为\
+  \ `0.75` 秒的 `.linear`。\n\n    ```\n        Circle()\n        .fill(angularGradient)\n\
+  \        .bouncy(blurFactor: isToggled ? 5 : 0)\n        .rotation3DEffect(Angle(degrees:\n\
+  \        isToggled ? 300 : 0),\n        axis: (x: 1, y: 1, z: 1))\n        .animation(.linear(duration:\
+  \ 0.75))\n    ```\n\n动画结束时的外观和之前一样。然而，动画耗时是固定的（不是带乘数的相对时间）。你可能会注意到旋转的开始和停止略显生硬。线性动画在动画过程中不会加速或减速。\n\
+  \n\n\n## `DrawingGroup`\n\n我们的圆形绘制和动画效果很好，但若同时运行大量动画，性能可能会下降。\n\n假设我们在屏幕上放置 100\
+  \ 个圆形。这将涉及大量动画：旋转、阴影、缩放和模糊。\n\n此时，使用绘图组（Drawing Group）有助于提升性能。将所有圆形放入一个绘图组后，它会先在屏幕外渲染`View`，再将结果呈现在屏幕上。这是一种更快的渲染方法。\n\
+  \n此外，绘图组在底层使用 Metal 框架。它能更直接地与 GPU 协作，实现更快的图形处理。\n\n### 在 SWIFT 中使用 METAL\n\n在本练习中，我们将向用户界面添加\
+  \ 100 个圆形。我们会将它们分两列排列，但其余代码保持不变。动画过程中性能将显著下降。我们将通过使用绘图组来解决这个问题。\n\n![../images/497312_1_En_17_Chapter/497312_1_En_17_Fig10_HTML.jpg](img/497312_1_En_17_Fig10_HTML.jpg)\n\
+  \n图 17-10  \n用户界面中的一百个圆形\n\n1.  用 100 个圆形替换单个圆形。为此，使用一个`VStack`，其中包含一个范围为 0 到 9\
+  \ 的`ForEach`。在`VStack`内部，创建一个`HStack`，其中包含另一个 0 到 9 的`ForEach`。在嵌套的`ForEach`内部，创建圆形。\n\
+  \n    ```swift\n    VStack {\n        ForEach(0..<10, id: \\.self) { index in\n\
+  \            HStack {\n                ForEach(0..<10, id: \\.self) { index2 in\n\
+  \                    Circle()\n                        .fill(angularGradient)\n\
+  \                        .bouncy(blurFactor: self.isToggled ? 5 : 0)\n         \
+  \               .rotation3DEffect(Angle(degrees: self.isToggled ? 300 : 0), axis:\
+  \ (x: 1, y: 1, z: 1))\n                        .animation(.linear(duration: 0.75))\n\
+  \                }\n            }\n        }\n    }\n    ```\n\n    运行应用程序，确认如图\
+  \ 17-10 所示，100 个圆形已添加到用户界面。你会注意到圆形小了很多。然而，我们的阴影设置仍然很高。这导致阴影相互融合，覆盖了屏幕的大部分区域。\n\n\
+  \    如果你点击“Toggle”按钮，请注意动画的抖动现象。\n\n2.  将`.drawingGroup`添加到步骤 1 中创建的圆形外层`VStack`（从步骤\
+  \ 1 创建）。\n\n    ```swift\n    ...}.drawingGroup()\n    ```\n\n    再次运行应用程序，注意动画变得多么流畅。\n\
+  \n### 章节总结\n\n在本章中，我们探讨了许多用户界面方面的内容。我们首先学习了用于在用户界面中添加/移除元素的过渡（Transitions）。为了给过渡添加动画效果，我们研究了各种类型的过渡以及`.animation`修饰符。\n\
+  \n为了组合动画，我们在`Transition`上使用了非对称过渡和`.combine`函数。当过渡效果达到预期后，我们将其移入了`AnyTransition`扩展中的一个静态计算属性。\n\
+  \n我们通过`Circle`扩展了用户界面，并学习了一些用于缩放、阴影和模糊的新修饰符。通过`.animation`调用来基于切换值对这些修饰符进行动画处理。\n\
+  \n我们将组合的修饰符移入了一个名为`BouncyModifier`的`ViewModifier`结构体。我们还在`View`的扩展中定义了一个函数来创建`BouncyModifier`。该修饰符被添加到了我们的`Circle`上，而不是将代码直接写在原地。\n\
+  \n使用`ViewModifier`还使得这些效果可以在代码的其他地方复用。\n\n定义和使用渐变让我们的圆形更具立体感。而添加动画则让它更生动。我们探索了动画的各种选项，包括曲线、时间、弹簧以及三维空间中的坐标轴。\n\
+  \n我们通过使用 Metal 框架的绘图组改进了 100 个圆形的性能。\n\n综合所有这些内容，展示了你可以对 UI 元素进行的各种动画处理方法和更改。相同类型的修饰符和动画可以应用于`Text`、`Button`或其他视觉元素。\n\
+  \n"
+- "# 18. 包含 WatchKit 的应用\n\n在本章中，我们将构建一个功能完整的小型应用。我们希望通过此练习来确保能够端到端地完成开发。\n\n我们将构建一个小费计算器。这通常是我的“首选”项目——部分原因是其需求基本已体现在名称中。\n\
+  \n这是一个很好的练习，需要获取用户输入、以某种方式处理输入（功能性），并更新用户界面。当然，我们需要的输入数据是账单金额和小费百分比。\n\n我们可以通过多种方式从用户处获取这些信息：文本字段（TextField）、选择器（Picker）、滑块（Slider）等。我们计划使用`TextField`输入账单金额，使用`Picker`选择小费百分比。\n\
+  \n功能将非常简单。事实上，我们甚至不需要通常意义上的函数或闭包。我们可以使用计算属性来代替。\n\n我们希望用户界面如图 18-1 所示。\n\n![../images/497312_1_En_18_Chapter/497312_1_En_18_Fig1_HTML.jpg](img/497312_1_En_18_Fig1_HTML.jpg)\n\
+  \n图 18-1  \n小费计算器用户界面\n\n你可以尝试不往下看，直接编写应用。或者先阅读接下来的属性和 UI 设计部分，然后再尝试。看看你是否能应用学到的绑定（Binding）、UI\
+  \ 元素等知识。\n\n### 属性\n\n如前所述，我们需要两个输入：账单金额和小费百分比。这些将是用`@State`属性包装器包装的属性，并随着输入变化而更新。\n\
+  \n我们还将有一个属性来存储供用户选择的小费百分比数组。\n\n向用户显示数值意味着我们需要计算这些值。这可以通过计算属性完成。我们至少需要两个计算属性：小费金额和总计。\n\
+  \n此外，输出应显示为货币格式。`NumberFormatter`类非常适合此用途。我们可以再创建一个计算属性来创建和配置`NumberFormatter`。\n\
+  \n\n\n### UI 设计\n\n我们可以使用 `Text` 项来放置标题和两个输出区域。剩下的只有输入部分。我们可以使用之前提到的 `TextField`\
+  \ 和 `Picker`。它们各自通过绑定（binding）关联到相关属性。\n\n在许多地方，我们会添加一些间距、内边距、字体粗细等，以使 UI 看起来更美观。\n\
+  \n## 小费计算器\n\n首先，我们需要创建一个新项目。接着，我们将属性添加到 `ContentView` 中。最后，我们将创建 `body` 计算属性的内容。\n\
+  \n![images/497312_1_En_18_Chapter/497312_1_En_18_Fig2_HTML.jpg](img/497312_1_En_18_Fig2_HTML.jpg)\n\
+  \n**图 18-2** iOS App with Watch App 模板\n\n1.  创建一个名为 `TC` 的新项目，使用 watchOS 的“iOS\
+  \ App with Watch App”模板，如图 18-2 所示。界面使用 `SwiftUI`，生命周期使用 `SwiftUI App`。\n\n2.  添加两个属性，作为用户输入的来源（source\
+  \ of truth）。\n\n    ```\n    struct ContentView: View {\n    @State private var\
+  \ tipSelected = 1\n    @State private var billInput = \"\"\n    ```\n\n3.  添加用户选择的小费百分比。\n\
+  \n4.  添加一个数字格式化器的计算属性。\n\n    ```\n    private var numFormatter : NumberFormatter\
+  \ {\n    let nf = NumberFormatter()\n    nf.numberStyle = .currency\n    nf.isLenient\
+  \ = true\n    return nf\n    }\n    ```\n\n5.  创建一个 `billAmount` 的计算属性（输入的账单金额的双精度值）。\n\
+  \n    ```\n    private var billAmount : Double {\n    numFormatter.number(from:\n\
+  \    billInput)?\n    .doubleValue ?? 0.0\n    }\n    ```\n\n6.  使用第 5 步中定义的 `billAmount`，创建一个小费金额的计算属性。\n\
+  \n    ```\n    private var tipAmount : Double {\n    billAmount * tipPercentages[tipSelected]\
+  \ }\n    ```\n\n7.  使用第 5 步的 `billAmount` 和第 6 步的 `tipAmount`，创建一个总金额的计算属性。\n\n\
+  \    ```\n    private var tipPercentages = [0.1, 0.15,\n    0.2, 0.25]\n    ```\n\
+  \n8.  用 `VStack` 和包含最后内边距的应用标题替换默认的 `body` 内容。\n\n    ```\n    var body: some View\
+  \ {\n    VStack {\n    Text(\"Tip Calculator\")\n    .fontWeight(.heavy)\n    }.padding()\n\
+  \    ```\n\n9.  添加一个绑定到 `billInput` 属性的 `TextField`。\n\n    ```\n    TextField(\"\
+  Bill Amount\", text: $billInput)\n    .textFieldStyle(RoundedBorderTextFieldStyle())\n\
+  \    ```\n\n10. 创建一个 `Picker`，基于 `tipPercentages` 数组，通过 `ForEach` 绑定到 `tipSelected`\
+  \ 属性。\n\n    ```\n    Picker(\"Tip\", selection: $tipSelected) {\n    ForEach (tipPercentages.indices,\
+  \ id: \\.self) {\n    let dbl = Double(self.tipPercentages[$0])\n    Text(\"\\(Int(dbl\
+  \ * 100.0))%\")\n    }\n    }\n    .pickerStyle(SegmentedPickerStyle())\n    ```\n\
+  \n11. 添加一个包含输出 `Text` 项的 `HStack`，使用数字格式化器。\n\n    ```\n    HStack {\n    let tipStr\
+  \ = numFormatter.string(for: tipAmount)\n    Text(\"Tip: \\(tipStr ?? \"$0.00\"\
+  )\")\n    Spacer()\n    let totalStr = numFormatter.string(for: total)\n    Text(\"\
+  Total: \\(totalStr ?? \"$0.00\")\")\n    }\n    Spacer()\n    ```\n\n    ```\n \
+  \   private var total : Double { tipAmount + billAmount }\n    ```\n\n预览应如图 18-1\
+  \ 所示。如果我们运行应用并输入账单金额 20，应该会看到如图 18-3 所示的小费和总金额。\n\n![images/497312_1_En_18_Chapter/497312_1_En_18_Fig3_HTML.jpg](img/497312_1_En_18_Fig3_HTML.jpg)\n\
+  \n**图 18-3** 显示小费和总金额的小费计算器\n\nUI 中添加了一些分隔符等。总的来说，这是一个具有简单 UI 的简单应用，但它能工作。希望每一步都让你感到熟悉和舒适。\n\
+  \n### WatchKit\n\n现在，我们希望将这个 UI 应用到 Watch 应用模块中。大多数情况下，这个 UI 在 watchOS 上的工作方式与在\
+  \ iOS 上相同。\n\n`SwiftUI` 中的许多 UI 项可以跨平台工作。然而，在某些情况下，某些变体是不存在的。对我们来说，这仅限于 `TextField`\
+  \ 和 `Picker`。\n\n**WATCH 应用**\n\n你会注意到，在当前项目中已经有一个“TC WatchKit App”和一个“TC WatchKit\
+  \ Extension”。我们将编辑扩展中的 `ContentView.swift` 文件。\n\n![images/497312_1_En_18_Chapter/497312_1_En_18_Fig4_HTML.jpg](img/497312_1_En_18_Fig4_HTML.jpg)\n\
+  \n**图 18-4** WatchKit 应用预览\n\n1.  打开 TC iOS 应用（**不是扩展**）中的 `ContentView.swift` 文件。\n\
+  \n2.  复制整个文件的内容。\n\n3.  打开 TC WatchKit Extension 中的 `ContentView.swift` 文件。\n\n\
+  4.  将复制的代码粘贴覆盖整个文件。\n\n    会出现两个错误。这两个错误都关于样式——`TextField` 和 `Picker`。\n\n5.  注释掉样式的代码。\n\
+  \n    ```\n    //.textFieldStyle(RoundedBorderTextFieldStyle())\n    ...\n    //.pickerStyle(SegmentedPickerStyle())\n\
+  \    ```\n\n6.  刷新预览，画布应显示如图 18-4 所示的手表预览。\n\n如果在 Live 模式下运行应用，请确保先在 Xcode（左上角）选择正确的目标和模拟器，如图\
+  \ 18-5 所示。\n\n![images/497312_1_En_18_Chapter/497312_1_En_18_Fig5_HTML.jpg](img/497312_1_En_18_Fig5_HTML.jpg)\n\
+  \n**图 18-5** WatchKit 的 Xcode 目标和模拟器\n\n“Total”文本有点长，可能需要调整，但 UI 可以编译和显示。多亏了 `SwiftUI`，只需很少的改动，我们就可以拥有一个基于\
+  \ iOS UI 的手表 UI。\n\n### 章节总结\n\n这个小费计算器项目让我们在一个小而真实的应用中使用了我们学到的一些东西。通过使用 `@State`\
+  \ 属性包装器，我们使用 UI 来更新属性。我们将其他属性用作数据和功能。\n\n通过 `TextField` 和 `Picker`，我们允许用户输入他们的值。`Text`\
+  \ 项显示标题以及输出的小费和总金额。\n\n还有少量的内边距、分隔符和其他修饰符来稍微调整 UI。\n\n使用相同的 `SwiftUI` 代码，我们创建了一个\
+  \ `WatchKit` UI。只需要两个小的改动就能使其编译通过。然后，我们可能希望稍微更新 UI 以使其更合适。但希望看到相同的代码能为另一个设备构建 UI\
+  \ 是件有趣的事。\n\n"
+- '# 19. 用户输入表单
+
+
+  我们已经介绍了多种用于用户输入的项。其中一些将包含在本章中。它们可能会以不同的方式使用，或带有其他选项、参数等。
+
+
+  在本章中，我们将构建一个用户输入表单。我们将专注于各种输入项所需的方面。基于此，我们将创建用户界面。
+
+
+  输入基于应用中使用的常见数据类型。
+
+
+  *   电子邮件字符串
+
+  *   货币数字（显示为字符串/货币）
+
+  *   日期（显示为字符串/日期）
+
+  *   从列表中选择
+
+
+  这里的一个关键因素是，这些值不仅仅是普通的字符串和数字。它们需要被验证、格式化、列出以及进行其他处理。
+
+
+  我们的用户界面将是一个供人们输入信息的表单，如图 19-1 所示。
+
+
+  ![images/497312_1_En_19_Chapter/497312_1_En_19_Fig1_HTML.jpg](img/497312_1_En_19_Fig1_HTML.jpg)
+
+
+  **图 19-1** 表单用户界面
+
+
+  ## 表单
+
+
+  `Form` 是一个用于容纳 UI 项的容器。它被定义为一个符合 `View` 协议的结构体。就像 `HStack`、`VStack`、`Section` 或
+  `Group` 一样，`Form` 将其他 UI 元素包裹在其中，作为一个分组。
+
+
+  `Form` 除了典型的 `SwiftUI` 修饰符外，不接受任何参数或具有其他选项。
+
+
+  `Form` 的独特之处在于它在不同平台上的显示方式。正如 Apple 文档所述，`Form` 是一个“用于分组数据输入控件的容器”。
+
+
+  这正是我们在项目中要做的事情。如果一切顺利，我们可以在其他平台的应用中使用相同的代码。
+
+
+
+
+  ## 分区
+
+
+  我们的表单将分为多个分区。`Section` 项正适合此用途。在 iOS 界面中，`Form` 看起来像 `List`，而 `Section` 则类似表格视图中的分区。
+
+
+  请参见图 19-1，您会看到五个分区。州选择分区中包含了两个项目，它们在同一分区内共同显示。
+
+
+  创建分区时可以带有页眉和/或页脚。除此之外，它与 `Group` 或 `Form` 非常相似：返回一个 `View` 用于显示。
+
+
+  在各个分区内部，我们将通过元素或在 `HStack` 等中的其他 UI 项目组来创建界面。
+
+
+  ## 应用需求
+
+
+  我们来梳理一下本应用的一些需求。我们将输入电子邮件地址、金额数字和日期，并从列表中进行选择。我们希望验证电子邮件地址、将数字格式化为货币格式，并对日期进行格式化。
+
+
+  日期字段我们可以使用日期选择器，但这里我们将用一个 `String` 来输入，同时将其存储为 `Date`。
+
+
+  对于电子邮件，我们可以在 `String` 的扩展中编写一个验证函数。对于货币和日期字段，我们将分别使用 `NumberFormatter` 和 `DateFormatter`。我们可以在各个类的扩展中将其创建为计算属性。
+
+
+  对于列表选择，我们将选中的索引存储在一个数组中。因此，我们需要一个可供选择的值列表。
+
+
+  本次练习我提供了一个名为 `InputForm` 的入门项目。它位于名为 `Ch19_BOC_InputForm.zip` 的压缩文件中。其中包含了我们将用于格式化器和验证
+  `String` 是否为电子邮件地址的扩展（见图 19-2）。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig2_HTML.jpg](img/497312_1_En_19_Fig2_HTML.jpg)
+
+
+  图 19-2
+
+
+  BOC 项目中提供的扩展
+
+
+  基于表单的用户界面
+
+
+  打开 `Ch19_BOC_InputForm.zip` 中提供的 `InputForm` 项目。以此为基础，我们将创建用户输入表单。
+
+
+  1.  在 `ContentView` 结构体中，定义用于存储可选州列表以及电子邮件、所选州、用户收入和出生日期的属性。
+
+
+  **注意** 此处仅提供了部分州的列表。
+
+
+  1.  将当前的 body 内容替换为 `Form`。
+
+
+  ```
+
+  let states = ["Alabama", "Alaska",
+
+  "American Samoa", "Arizona", "Arkansas",
+
+  "California", "Colorado", "Connecticut",
+
+  "Delaware", "District of Columbia"]
+
+  @State var email = ""
+
+  @State var selectedState = 0
+
+  @State var userIncome = 0.0
+
+  @State var dateOfBirth = Date.distantPast
+
+  ```
+
+
+  ```
+
+  var body: some View {
+
+  Form {
+
+  }
+
+  }
+
+  ```
+
+
+  我们将添加的第一个 `Section` 用于输入电子邮件地址。用于此值的 `TextField` 将非常基础。属性已经定义好，我们只需添加 `TextField`。
+
+
+  1.  在 `Form` 内部创建一个 `Section`，其中包含一个绑定到 `$email` 的 `TextField`。
+
+
+  ```
+
+  Section {
+
+  TextField("Email", text: $email)
+
+  { (beingEdited) in
+
+  print (beingEdited)
+
+  } onCommit: {
+
+  }
+
+  }
+
+  ```
+
+
+  第一个闭包 `onEditingChanged` 在内容开始和结束编辑时被调用。参数是一个布尔值，表示文本字段内容是否正在被编辑。
+
+
+  当用户开始在字段中键入时，将打印 `true`。当用户点击返回键时，将打印 `false`。
+
+
+  第二个闭包在内容提交时被调用（即用户点击了返回键）。
+
+
+  到目前为止，Canvas 预览中的 UI 应如图 19-3 所示。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig3_HTML.jpg](img/497312_1_En_19_Fig3_HTML.jpg)
+
+
+  图 19-3
+
+
+  包含电子邮件 TextField 的 UI
+
+
+  在 `onCommit` 闭包中，我们可以验证电子邮件地址。
+
+
+  1.  添加一个检查，用于在 `onCommit` 闭包中验证输入的电子邮件。
+
+
+  ```
+
+  Section {
+
+  TextField("Email", text: $email)
+
+  { (changed) in
+
+  } onCommit: {
+
+  if email.isValidEmail == false {
+
+  $email.wrappedValue = ""
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  如果用户输入了无效的电子邮件地址，此代码会清空文本字段。
+
+
+  1.  将键盘和内容类型设置为 `.emailAddress`。
+
+
+  1.  为收入输入创建另一个 `Section`，并使用 `NumberFormatter` 扩展中提供的货币格式化器。
+
+
+  ```
+
+  Section {
+
+  TextField("Email", text: $email)
+
+  { (changed) in
+
+  } onCommit: {
+
+  if email.isValidEmail == false {
+
+  $email.wrappedValue = ""
+
+  }
+
+  }
+
+  .keyboardType(.emailAddress)
+
+  .textContentType(.emailAddress)
+
+  }
+
+  ```
+
+
+  ```
+
+  Section {
+
+  HStack {
+
+  TextField("Income", value: $userIncome,
+
+  formatter: NumberFormatter.currencyFormatter)
+
+  }
+
+  }
+
+  ```
+
+
+  该格式化器会将输入的数字保留为货币格式。
+
+
+  1.  为 `TextField` 添加一个 `.disabled` 修饰符，使其仅在用户已输入电子邮件地址时可用。
+
+
+  1.  再添加一个 `Section`，其中包含一个绑定到 `dateOfBirth` 并使用 `DateFormatter` 扩展中 `shortDateFormatter`
+  格式化器的文本字段。
+
+
+  ```
+
+  TextField("Income", value: $userIncome,
+
+  formatter: NumberFormatter.currencyFormatter)
+
+  .disabled(self.email.count == 0)
+
+  ```
+
+
+  ```
+
+  Section {
+
+  TextField("DOB", value: $dateOfBirth,
+
+  formatter: DateFormatter.shortDateFormatter)
+
+  }
+
+  ```
+
+
+  在此场景中，格式化器会将 `dateOfBirth` 属性（`Date` 类型）转换为使用短日期格式且不带时间样式的 `String` 类型。当用户输入新值时，格式化器会将该
+  `String` 转换回日期并存储到 `dateOfBirth` 属性中。
+
+
+  1.  再添加一个 `Section`，其中包含一个水平滚动视图，视图内放置一个 `HStack`。在 `HStack` 内部，为列表中的每个州创建 `Text`
+  项目。
+
+
+  ```
+
+  Section {
+
+  ScrollView(.horizontal) {
+
+  HStack(spacing: 40) {
+
+  ForEach(states.indices) { index in
+
+  Text(self.states[index])
+
+  }
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  `HStack` 的间距值为 40，以使 `Text` 项目之间保持合适的间距。
+
+
+  1.  为 `ForEach` 中的 `Text` 项目添加一个点击手势，以设置 `selectedState` 属性。
+
+
+  ```
+
+  Text(self.states[index])
+
+  .onTapGesture {
+
+  self.selectedState = index
+
+  }
+
+  ```
+
+
+  现在，当用户点击州名称时，它将把该属性更新为对应的数组索引。
+
+
+  1.  更改 `selectedState` 项目的文本颜色。
+
+
+  ```
+
+  Text(self.states[index])
+
+  .onTapGesture {
+
+  self.selectedState = index
+
+  }.foregroundColor(self.selectedState
+
+  == index ? .black : .gray)
+
+  ```
+
+
+  拥有选定状态时的 UI 应如图 19-4 所示。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig4_HTML.jpg](img/497312_1_En_19_Fig4_HTML.jpg)
+
+
+  图 19-4
+
+
+  包含选定状态的 UI
+
+
+  选择州的另一个选项是使用 `Picker`。我们将定义一个选择器，同时还要添加一个 `NavigationView` 来实现向下钻取。
+
+
+  1.  在与 `ScrollView` 相同的 `Section` 中创建一个 `Picker`。
+
+
+  ```
+
+  Picker(selection: $selectedState,
+
+  label: Text("State")) {
+
+  ForEach(self.states.indices, id: \.self) {
+
+  Text(self.states[$0])
+
+  }
+
+  }
+
+  ```
+
+
+  现在界面看起来如图 19-5 所示。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig5_HTML.jpg](img/497312_1_En_19_Fig5_HTML.jpg)
+
+
+  图 19-5
+
+
+  分区中包含两个州项目的 UI
+
+
+  请注意，该分区中的第二个项目有一个详细信息指示符（`>`）。但是，如果您点击它，什么也不会发生。这是因为我们还没有为应用提供导航方式。
+
+
+  让我们添加一个 `NavigationView`，以允许应用向下钻取到州选择页面。为此，我们需要将 `Form` 嵌入 `NavigationView` 中。
+
+
+  1.  在 `Form` 之上添加一个 `NavigationView`。
+
+
+  1.  在 `Form` 之后添加一个闭合花括号，并为我们的输入表单添加一个导航标题。
+
+
+  ```
+
+  var body: some View {
+
+  NavigationView {
+
+  Form {
+
+  ```
+
+
+  ```
+
+  }.navigationTitle("Account Details")
+
+  ```
+
+
+  当点击州所在的行时，会跳转到一个 `List`（表格视图），如图 19-6 所示。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig6_HTML.jpg](img/497312_1_En_19_Fig6_HTML.jpg)
+
+
+  图 19-6
+
+
+  第二种州选择选项
+
+
+  我们现在拥有了一个允许用户输入值的表单。其中有多个基于文本的值。然而，每个值因其格式化器和/或验证逻辑的不同而行为各异。
+
+
+
+
+  ### WatchKit
+
+
+  另一个很酷的地方是，我们之前看到的这个界面也能在手表上运行。只需进行少量修改，效果就如图 19-7 所示。
+
+
+  ![../images/497312_1_En_19_Chapter/497312_1_En_19_Fig7_HTML.jpg](img/497312_1_En_19_Fig7_HTML.jpg)
+
+
+  图 19-7 手表上的界面
+
+
+  `WatchKit` 不支持 `NavigationView`，因此需要将其注释掉或移除。同样，由于没有键盘支持，键盘类型和内容类型也需要移除。
+
+
+  ### 章节总结
+
+
+  在这个应用中，我们有一个明确的设计目标。我们需要创建一个允许用户输入数值的应用。代码通过绑定来存储这些值。
+
+
+  除了存储值，我们还看到了 `TextField` 如何与日期或数字格式化器之类的关联格式化器配合使用。
+
+
+  我们还使用了 `Form` 来展示用户输入的机制。我们在 `Form` 中使用了 `Section`，它们以表格视图的形式呈现。
+
+
+  一个水平滚动视图让选择一个州的操作变得非常简单。我们使用了一个包含 `Text` 项的 `HStack`。这些项上的 `onTapGesture` 用于设置选择。
+
+
+  `Picker` 与 `NavigationView` 结合使用，让我们能够深入列表进行州的选择。
+
+
+  我们可能可以将这些组件中的许多拆分成各自遵循 `View` 协议的结构体。这留给读者作为练习。
+
+
+  '
+- "# 20. 呈现弹出窗口\n\n很容易理解，我们需要让用户输入数据的方式。我们有文本字段、选择器、按钮以及更多让用户查看和选择项目的方法。\n\n我们还需要向用户发出信息提醒的方式。如果用户输入了无效的电子邮件，我们需要告诉他们。我们可能需要向用户显示一些信息或帮助。因此，我们将使用一些向用户呈现消息的方法。\n\
+  \n`Alert`、`ActionSheet`、`Sheet` 和 `Popover` 是将界面呈现给用户的绝佳方式，这些界面不属于应用的基础界面。它们各自有其特点和用户交互方式。\n\
+  \n## 警告修饰器\n\n`.alert` 修饰器接收一个绑定和一个闭包。绑定参数可以是布尔值（参数标签为 `isPresented`，如以下代码所示），也可以是实现\
+  \ `Identifiable` 协议的可选项（参数标签为 `item`）。\n\n如果使用布尔值调用，当该值变为 `true` 时，警告修饰器的闭包会被调用。如果使用可选项绑定而不是布尔值绑定，则当可选项被设置为非\
+  \ nil 值时，闭包会被调用。\n\n无论哪种情况，闭包都会返回一个 `Alert` 实例。\n\n```\n.alert(isPresented: $showAlert)\
+  \ { () -> Alert in\n    Alert(title: Text(\"Alert!\"))\n}\n```\n\n警告修饰器\n\n我们将创建一个新项目，并向其中添加各种类型的警告和弹出窗口。\n\
+  \n1.  创建一个名为 `Pop-ups` 的新 iOS App 模板项目，界面使用 SwiftUI，生命周期使用 SwiftUI App。\n\n我们想基于各种条件创建警告。首先，我们将基于一个布尔值创建一个警告。\n\
+  \n2.  在 `ContentView` 结构体中添加一个名为 `alert` 的布尔属性。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig1_HTML.jpg](img/497312_1_En_20_Fig1_HTML.jpg)\n\
+  \n图 20-1 警告初始化器的代码补全\n\n1.  将 `body` 计算属性的当前实现替换为一个 `Button`。按钮的操作将改变 `alert` 属性的值。\n\
+  \n```\nButton(\"Alert!\") {\n    $alert.wrappedValue = true\n}\n```\n\n2.  在按钮末尾添加一个\
+  \ `.alert` 修饰器，并将其 `isPresented` 绑定到 `$alert`。\n\n```\nButton(\"Alert!\") {\n  \
+  \  $alert.wrappedValue = true\n}\n.alert(isPresented: $alert, content: {\n})\n```\n\
+  \n对于内容，我们需要返回一个 `Alert` 实例。如图 20-1 所示，`Alert` 有各种初始化器。\n\n```\n@State var alert\
+  \ = false\n```\n\n如果你只需要用默认按钮显示一些文本，只需提供一个 `Text` 类型的标题。如果你还想显示一条消息，那也是 `Text` 类型。\n\
+  \n对于要显示的任何按钮，你可以使用内置的 `Alert.Button` 类型：`default`、`destructive` 和 `cancel`。每个按钮都接受一个\
+  \ `Text` 和一个可选的 action 闭包。\n\n1.  从内容闭包中返回一个 `Alert`。\n\n```\n.alert(isPresented:\
+  \ $alert, content: {\n    Alert(title: Text(\"Alert!\"),\n          message: Text(\"\
+  You tapped the button.\"),\n          primaryButton: .default(Text(\"OK\")),\n \
+  \         secondaryButton: .cancel({\n              print (alert)\n          })\n\
+  \    )\n})\n```\n\n当按钮被点击时，警告显示如图 20-2 所示。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig2_HTML.jpg](img/497312_1_En_20_Fig2_HTML.jpg)\n\
+  \n图 20-2 带有两个按钮的警告\n\n请注意，次要按钮是 `cancel`。当它被点击时，它会打印 `alert` 值。它会始终打印 `false`。警告之所以出现，是因为我们将值设置为\
+  \ `true`。当其中一个按钮被点击时，警告会消失并将 `alert` 设置为 `false`。\n\n`destructive` 按钮使用红色文本以指示危险。如果你的警告是确认删除或类似操作，则应使用\
+  \ destructive 类型按钮。\n\n警告旨在向用户提供一些信息，并可能提示他们做出决定或回答问题。决策应围绕用户提供输入或仅提醒他们某些信息展开。\n\
+  \n除了将 `.alert` 修饰器绑定到布尔值，它还可以绑定到一个可选项。当可选项被设置为非 nil 时，警告会显示。\n\n### 带对象绑定的警告\n\n\
+  这基本类似于使用 `isPresented` 的 `.alert` 修饰器。不过，我们将使用一个可选项。当它被设置为非 nil 时，警告会显示。与布尔值一样，当用户点击按钮解除警告时，该值会被设置回\
+  \ `nil`。\n\n1.  打开上一练习中的同一个项目。\n\n2.  将 `body` 属性中的 `Button` 嵌入到一个 `VStack` 中。\n\
+  \n3.  在按钮的 `.alert` 修饰器下方，添加一个 `Text` 项。\n\n```\nText(\"Second\")\n```\n\n\n\n我们将向这个\
+  \ `Text` 元素添加 `.alert` 修饰符。我们将使用接受 `item` 的初始化器，而不是 `isPresented`。该 `item` 需要遵循\
+  \ `Identifiable` 协议。让我们创建一个符合该协议的结构体。\n\n1.  在 `ContentView` 结构体上方，创建一个名为 `User`\
+  \ 的新结构体，该结构体实现了 `Identifiable`。\n\n```\nstruct User : Identifiable {\n    var id\
+  \ = UUID()\n    var name = \"Test\"\n}\n```\n\n现在我们有了一个类型，可以在 `ContentView` 中将其用作\
+  \ `Optional` 属性。\n\n2.  向 `ContentView` 结构体添加一个可选的 `User` 类型属性。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig3_HTML.jpg](img/497312_1_En_20_Fig3_HTML.jpg)\n\
+  \n**图 20-3**\n\n包含两个警报的代码\n\n1.  在之前警报的取消按钮中，将 `user` 设置为 `User` 的一个实例。\n\n```\n\
+  Alert(title: Text(\"警报!\"),\n    message: Text(\"你点击了按钮。\"),\n    primaryButton:\
+  \ .default(Text(\"确定\")),\n    secondaryButton: .cancel({\n        self.user = User()\n\
+  \    })\n```\n\n最后三个步骤中的内容为我们创建警报奠定了基础。我们将使用 `user` 属性作为绑定，向 `Text` 元素添加一个 `.alert`\
+  \ 修饰符。当它在取消闭包中被设置为非 nil 时，警报将被触发。\n\n2.  向 `Text` 元素添加 `.alert` 修饰符。\n\n```\nText(\"\
+  第二个\")\n.alert(item: $user) { (theUser) -> Alert in\n    Alert(title: Text(\"取消?\"\
+  ),\n          message: Text(\"\\(theUser.name)\")\n    )\n}\n```\n\n现在 `body` 属性的代码看起来像图\
+  \ 20-3。\n\n```\n@State var user : User?\n```\n\n我们有一个绑定到 `user` 的 `.alert` 修饰符。当它被设置为非\
+  \ nil 时，会调用闭包来创建 `Alert`。`user` 作为参数 `theUser` 传入。\n\n标题是“取消?”，我们将消息设置为用户名。`Alert`\
+  \ 将使用自动提供的“确定”按钮来关闭它。\n\n由于 `User` 结构体的 `name` 属性有一个默认值 `Test`，所以警报看起来像图 20-4。\n\
+  \n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig4_HTML.jpg](img/497312_1_En_20_Fig4_HTML.jpg)\n\
+  \n**图 20-4**\n\n带有默认“确定”按钮的警报\n\n现在我们已经看到了 `.alert` 修饰符的两种绑定类型以及 `Alert` 的几个变体。\n\
+  \n## 操作表修饰符\n\n`.actionSheet` 修饰符与 `.alert` 修饰符非常相似。它可以使用布尔值（`isPresented`）或可选项（`item`）的绑定。第二个参数是一个闭包，但它返回的是\
+  \ `ActionSheet` 而不是 `Alert`。\n\n如果绑定值变为 `true`（对于布尔绑定）或非 nil（对于可选绑定），则会调用该闭包。\n\n\
+  ## 操作表\n\n创建 `ActionSheet` 类似于创建 `Alert`。你可以传入一个 `Text` 元素作为 `title` 参数。如果你只提供了\
+  \ `title` 参数值，操作表会自动包含一个取消按钮来移除操作表。\n\n`message` 参数也是可选的 `Text` 类型。最后一个参数是一个按钮数组。你可以使用按钮的多种变体，如图\
+  \ 20-5 所示。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig5_HTML.jpg](img/497312_1_En_20_Fig5_HTML.jpg)\n\
+  \n**图 20-5**\n\n操作表按钮的变体\n\n不带参数的取消按钮仅将操作表从用户界面中移除。`action` 参数允许你传入一个闭包，当按钮被点击时调用。其他所有按钮变体都需要一个用于在按钮上显示的\
+  \ `Text` 元素，以及一个在按钮被点击时调用的可选闭包。\n\n操作表修饰符\n\n本练习基于上一个练习，并使用相同的项目。不过，新建一个项目也可以，因为本练习不依赖之前完成的任何内容。\n\
+  \n1.  向 `ContentView` 添加一个新的布尔属性。\n\n2.  在 `VStack`（如果是新项目则在 `body` 中）添加一个 `Button`。该按钮的操作将步骤\
+  \ 1 中的属性设置为 `true`。\n\n```\nButton(\"操作表\") {\n    $actionSheet.wrappedValue = true\n\
+  }\n```\n\n3.  在 `Button` 的末尾添加一个 `.actionSheet` 修饰符。\n\n```\n.actionSheet(isPresented:\
+  \ $actionSheet, content: {\n})\n```\n\n4.  从 `.actionSheet` 的 content 闭包中返回一个 `ActionSheet`。\n\
+  \n```\n.actionSheet(isPresented: $actionSheet, content: {\n    ActionSheet(title:\
+  \ Text(\"操作\"),\n                message: Text(\"开始!\"),\n                buttons:\n\
+  \                    [.destructive(Text(\"删除\"))]\n    )\n})\n```\n\n```\n@State\
+  \ var actionSheet = false\n```\n\n运行代码会显示一个标题为“操作表”的按钮。当它被点击时，`actionSheet` 属性被设置为\
+  \ `true`。\n\n`.actionSheet` 修饰符绑定到该属性，并将被触发。\n\n然后，创建的 `ActionSheet` 会显示按钮，在本例中只有一个破坏性按钮，显示在屏幕上，如图\
+  \ 20-6 所示。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig6_HTML.jpg](img/497312_1_En_20_Fig6_HTML.jpg)\n\
+  \n**图 20-6**\n\n带有一个按钮的操作表\n\n警报和操作表之间有一个虽小但重要的区别。警报通常限制为一到两个按钮，并且侧重于提供信息。操作表应该会导致某种“操作”发生：保存数据、在线发送信息、删除用户帐户，以及基于用户选择的其他功能。\n\
+  \n## Sheet 修饰符\n\nSheet 与我们之前看到的 `Alert` 和 `ActionSheet` 类似。它接受一个布尔值（`isPresented`）或可选项（`item`）的绑定。它还有一个可选的闭包，名为\
+  \ `onDismiss`。如果传入此闭包，则当操作表从用户界面中移除时，该闭包会被调用。\n\n最后一个参数是一个用于定义 Sheet 上用户界面的闭包。此闭包与\
+  \ `body` 参数一样，返回一个实现了 `View` 的元素。所以它不是像 `Alert` 或 `ActionSheet` 这样的特定 UI 元素，而是任何实现了\
+  \ `View` 的内容。\n\nSheet 修饰符\n\n同样，这是在之前项目的基础上构建的，但并非必须。\n\n1.  向 `ContentView` 添加一个布尔属性，用于绑定到\
+  \ Sheet。\n\n2.  添加一个按钮，将该属性设置为 `true`。\n\n```\nButton(\"Sheet\") {\n    $sheet.wrappedValue\
+  \ = true\n}\n```\n\n3.  添加一个绑定到该属性的 `.sheet` 修饰符，并返回一个 `VStack`。\n\n```\n.sheet(isPresented:\
+  \ $sheet, content: {\n    VStack {\n    }\n})\n```\n\n4.  在 `VStack` 中，添加一个 `Text`\
+  \ 和一个 `Button`，用于将属性设置回 `false`。\n\n```\n.sheet(isPresented: $sheet, content: {\n\
+  \    VStack {\n        Text (\"点击以关闭\")\n        Button(\"关闭\") {\n            $sheet.wrappedValue\
+  \ = false\n        }\n    }\n})\n```\n\n```\n@State var sheet = false\n```\n\n将属性设置回\
+  \ `false` 将使 Sheet 关闭。UI 会适应其运行所在的设备/屏幕空间。在 iPhone 上，它看起来像图 20-7。在这种情况下，向下滑动也可以关闭\
+  \ Sheet 的 UI。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig7_HTML.jpg](img/497312_1_En_20_Fig7_HTML.jpg)\n\
+  \n**图 20-7**\n\n在 iPhone 和 iPad 上显示的 Sheet UI\n\n与 `Alert` 和 `ActionSheet` 相比，Sheet\
+  \ 是更模态化/全屏显示 UI 的一个不错选择。由于它只需要实现一个 `View`，因此显然可以更加自定义。\n\n\n\n### 弹出视图修饰符\n\n弹出视图的创建方式与我们之前看到的警告、操作表和\
+  \ Sheet 类似。与 `Sheet` 一样，它接受一个布尔值（`isPresented`）或可选值（`item`）的绑定。它还需要一个闭包来返回要显示的 UI。\n\
+  \n可选地，`.popover` 接受锚点（anchor point）和箭头边缘（arrow edge）参数。锚点定义了弹出视图的附着位置。它可以是一个点或一个矩形。箭头边缘则指定了弹出视图的箭头显示位置。\n\
+  \n对于较小的 UI 设备（例如 iPhone），弹出视图将以模态方式显示，外观类似于图 20-7 中的 Sheet。无论锚点和箭头的值如何，情况都是如此。\n\
+  \n在某些情况下，布局会阻止 UI 遵循锚点和箭头设置。在这种情况下，或者当未提供这些设置时，系统将自行决定如何显示弹出视图。\n\n**弹出视图修饰符**\n\
+  \n再次使用同一个项目，我们将创建新的属性、按钮和弹出视图修饰符。\n\n1. 为 `ContentView` 添加一个新的布尔类型属性，用于绑定到 `.popover`\
+  \ 修饰符。\n\n2. 在 `body` 的 `VStack` 中添加一个 `Button`，用于将属性设置为 `true`。\n\n    ```\n  \
+  \  Button(\"Popover\") {\n    $popover.wrappedValue = true\n    }\n    ```\n\n3.\
+  \ 为 `Button` 添加一个 `.popover` 修饰符，该修饰符绑定到新属性，并设置附着锚点、箭头边缘以及返回符合 UI 项目的 `View` 的内容。\n\
+  \n    ```\n    .popover(isPresented: $popover,\n    attachmentAnchor: .point(.trailing),\n\
+  \    arrowEdge: .leading,\n    content: {\n    Text(\"Popover! Here we are just...\"\
+  )\n    .lineLimit(2)\n    .frame(width: 300, height: 300,\n    alignment: .center)\n\
+  \    })\n    ```\n\n```\n@State var popover = false\n```\n\n在 iPhone 和小型设备/屏幕上，它看起来像一个\
+  \ `Sheet`，但在 iPad/较大屏幕上，它会像图 20-8 一样带有一个上下文箭头弹出。\n\n![../images/497312_1_En_20_Chapter/497312_1_En_20_Fig8_HTML.jpg](img/497312_1_En_20_Fig8_HTML.jpg)\n\
+  \n**图 20-8** 在 iPhone 和 iPad 上显示的弹出视图\n\n弹出视图非常适合根据上下文显示信息。如果您需要根据 UI 中的某些内容向用户显示消息，那么弹出视图为您提供了一个很好的选择，尤其是在\
+  \ iPad 上。\n\n### 章节总结\n\n警告、操作表、Sheet 和弹出视图都绑定到一个值，并根据该值（无论是布尔值还是 `Identifiable`）进行呈现。\n\
+  \n这些项目在您的应用中有多种显示方式可供选择。\n\n`.alert` 修饰符返回一个 `Alert`。它可以有一个或两个按钮，按钮可以带闭包也可以不带闭包。\n\
+  \n`.actionSheet` 修饰符返回一个 `ActionSheet`，它可以包含多个按钮。如果按钮数量超出屏幕大小，它将滚动显示。\n\n对于 `.sheet`\
+  \ 修饰符，我们有一个 `onDismiss` 闭包。`.sheet` 的 UI 没有特定的类型。它只是实现了 `View` 的东西，因此它可以是 `HStack`、`VStack`、`Text`\
+  \ 或各种其他元素。\n\n与 `.sheet` 类似，`.popover` 有一个闭包，返回符合 `View` 的内容。在 UI 较小的情况下（例如，iPhone\
+  \ 或仅部分屏幕显示的 iPad），`.popover` 和 `.sheet` 的显示效果相同。但在较大的 UI 实例上，弹出视图会像标注一样显示在被点击的 UI\
+  \ 附近。它可能出现在侧面或顶部/底部，并有一个指向触发元素的箭头。\n\n## 索引\n\nA\n- `ActionSheet` 修饰符变体\n- `.addTarget`\
+  \ 函数\n- `.alert` 修饰符\n- `allCases`\n- 动画\n- App 需求\n- 非对称过渡\n\nB\n- `@Binding`\n\
+  \  - `ContentView` 计数器属性\n  - `MyStepper` 实现初始化器实例\n  - 结构体 `Textfield` 绑定属性\n-\
+  \ `body` 属性\n  - `MyInput` 结构体\n  - `MyStepper`\n  - `MyTextInput`\n  - `onCommit`\n\
+  \  - `onEditingChanged`\n  - `String` 属性\n  - `Text` 项目\n  - UI\n  - UI 元素\n  -\
+  \ 视图类型\n- 构建块，SwiftUI\n  - 绑定\n  - 按钮自动补全代码\n  - 计算属性创建\n  - 标签输出参数\n  - `Text`\
+  \ 项目图像创建\n  - SF 符号标准元素\n  - `@State` 属性包装器\n  - `TextField` 添加编译/运行\n  - 对象库占位符\n\
+  \  - `String` 属性\n  - `.swift` 文件\n  - 视图库\n  - 切换\n  - `Toggle` 标签适配\n  - `Button`\
+  \ 动作\n  - `.colorInvert`\n  - 当前代码，画布\n  - 声明我的 body 属性\n  - 内边距\n\nC\n- 画布/预览，SwiftUI\n\
+  \  - 编译\n  - 设备环境\n  - `.environment` 修饰符\n  - 固定预览布局\n  - `DateFormatter` 设备选项\n\
+  \  - 固定选项\n  - `NoteRow` 选项\n  - `.previewDevice`\n  - `sizeThatFits` 值\n  - `PreviewProvider`\n\
+  - `CaseIterable` 协议\n- Combine 框架\n  - Apps 分配订阅者\n  - 操作符 发布者/订阅者优化\n  - sink 订阅者\n\
+  \  - UI `ViewController` 代码\n- 计算属性\n\nD\n- 绘图组\n- 动态替换\n\nE\n- `EnvironmentObject`\
+  \ 属性包装器\n  - 添加 `CodeView_Previews`\n  - `ContentView` 声明错误消息\n  - 多个笔记\n  - `Note`\
+  \ 实例\n  - `NoteView`\n  - `SUINotesApp.swift` 更新\n- 环境值\n  - 配色方案\n  - 自定义深色模式\n\
+  \  - `.environment` 修饰符\n  - 键路径\n  - `lightOrDark` 预览\n  - 按视图设置颜色\n  - 链式调用方法\n\
+  \  - `ContentView` 深色模式\n  - `.environment` 修饰符\n  - `.light`\n  - `Text` 项目 3D\
+  \ 渲染\n  - `UIColor.label.cgColor`\n  - 更新使用变量\n\nF\n- 表单\n- 用户界面\n\nG, H, I, J,\
+  \ K\n- 渐变\n\nL\n- 项目列表\n  - 添加\n  - 创建项目索引模型\n  - 列出笔记数组\n  - `ContentView` `createTestNotes`\
+  \ 函数\n  - 删除项目出错\n  - `ForEach`\n  - `Identifiable` 协议\n  - `NoteRow` 参数\n  - `@State`\
+  \ 属性包装器\n  - `NoteRow` 视图创建\n  - 新文件\n  - `Note` 类\n  - `Note` 实例\n  - `NoteView`\n\
+  \  - SwiftUI 视图\n  - `updatedAtTime`\n  - `Text` 项目\n\nM\n- `makeCoordinator` 协议函数\n\
+  - `makeUIView` 函数\n\nN\n- `NoteRow_Previews`\n  - `Note` 视图\n  - `ContentView` 创建元素\n\
+  \  - 深色模式\n  - `.environment` 修饰符\n  - 内边距优先级更新\n  - 属性结构体\n  - `UI`\n  - `NoteViewModel`\
+  \ 属性\n- `NSObjectProtocol`\n\nO\n- `ObservableObject` 协议\n  - 创建绑定优先级\n  - `observableObject`\
+  \ 协议\n  - `@Published` 发布\n  - 更新引用类型\n  - 典型模型\n  - `ContentView` 结构体\n  - `DateFormatter`\
+  \ 初始化器\n  - 笔记对象\n  - `note.text` 属性\n  - 笔记 UI 属性\n  - `.onTapGesture` 修饰符\n\n\
+  P, Q\n- 弹出视图修饰符\n- 预览\n  - 资源\n  - 画布\n  - 内容数据 JSON\n  - 实时模式\n  - 模型-视图-视图模型\n\
+  \nR\n- 旋转 UI 元素\n\nS\n- `.sheet` 修饰符\n- `@State` 属性包装器\n- `@State`，SwiftUI 数据流步骤\n\
+  \  - 绑定属性\n  - `isReady` 变量\n  - 状态变量/绑定\n- `Stepper` 代码\n  - `Stepper` 初始化器\n \
+  \ - `Stepper` UI 更新切换\n- `Strideable`\n- Swift 导航链接模型导航点击手势视图\n- SwiftUI\n  - 添加协调器\n\
+  \  - 附加文本\n  - 属性检查器\n  - 构建块 (参见 构建块，SwiftUI)\n  - `ButtonView`\n  - 画布/预览 (参见\
+  \ 画布/预览，SwiftUI)\n  - 代码+UI\n  - 创建项目 Interface Builder\n  - iOS App 模板预览项目选项\n\
+  \  - 开发 Combine 框架\n  - 界面设计\n  - 练习\n  - 表达式\n  - Hello World\n  - 界面修饰符\n  - 多个预览\n\
+  \  - 平台重新创建\n  - 模拟器事实来源\n  - 堆叠中的堆叠\n  - `@State` (参见 `@State`，SwiftUI)\n  - 同步更改\n\
+  \  - 目标/动作\n  - `Text` 项目\n  - `UIView`\n  - 视图协议\n  - SwiftUI 检查器\n  - 空分区\n  -\
+  \ Hello World 菜单\n\nT\n- 小费计算器 UI\n- 过渡非对称\n- UI 项目\n\nU\n- UI 设计\n- `UIHostingController`\n\
+  - UIKit\n  - 添加 SwiftUI 替代语法\n  - 绑定属性包装器\n  - 协调器作为委托\n  - 现有项目\n  - 传递可观察对象\n\
+  \  - `UIHostingController`\n  - `UIViewPresentable` 协议\n  - 更新列表\n- UIKit，SwiftUI\
+  \ 提取视图\n  - `NoteView`\n  - `UIView`\n  - `UIViewRepresentable`\n  - `UIViewRepresentable`\
+  \ 协议\n- `URLSession` 发布者调试数据定义 JSON 模型管理器状态追踪器项目状态追踪器 UI `userStatus` 属性\n\nV\n\
+  - `ViewModifier` 协议\n\nW, X, Y, Z\n- WatchKit\n"

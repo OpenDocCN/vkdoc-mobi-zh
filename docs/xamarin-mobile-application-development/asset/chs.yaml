@@ -1,0 +1,1130 @@
+- "\n![](img/A978-1-4842-0214-2_CoverFigure_HTML.jpg)\n\n![A978-1-4842-0214-2_CoverFigure_HTML.jpg](img/A978-1-4842-0214-2_CoverFigure_HTML.jpg)\
+  \  \nDan Hermes  \n**Xamarin 移动应用开发**  \n跨平台 C# 与 Xamarin.Forms 基础\n\n![A978-1-4842-0214-2_BookFrontmatter_Figa_HTML.png](img/A978-1-4842-0214-2_BookFrontmatter_Figa_HTML.png)\n\
+  \n作者在文中引用的任何源代码或其他补充材料，均可从 [`www.apress.com`](http://www.apress.com/) 提供给读者。有关如何查找本书源代码的详细信息，请访问\
+  \ [`www.apress.com/source-code/`](http://www.apress.com/source-code/)。\n\nISBN 978-1-4842-0215-9\
+  \  \ne-ISBN 978-1-4842-0214-2  \nDOI 10.1007/978-1-4842-0214-2  \n\n© Apress 2015\
+  \  \n**Xamarin 移动应用开发：跨平台 C# 与 Xamarin.Forms 基础**\n\n常务董事：Welmoed Spahr  \n首席编辑：James\
+  \ DeWolf  \n技术审校：Ed Snider  \n开发编辑：Anne Marie Walker  \n编辑委员会：Steve Anglin, Gary\
+  \ Cornell, Louise Corrigan, James T. DeWolf, Jonathan Gennick, Robert Hutchinson,\
+  \ Michelle Lowman, James Markham, Susan McDermott, Matthew Moodie, Jeffrey Pepper,\
+  \ Douglas Pundick, Dominic Shakeshaft, Gwenan Spearing, Matt Wade, Steve Weiss \
+  \ \n统筹编辑：Melissa Maldonado  \n文字编辑：Kezia Endsley 和 Sharon Wilkey  \n排版：SPi Global\
+  \  \n索引制作：SPi Global  \n插图制作：SPi Global  \n\n有关翻译事宜，请发送电子邮件至 `rights@apress.com`，或访问\
+  \ [`www.apress.com`](http://www.apress.com/)。  \nApress 及 friends of ED 的图书可批量购买，用于学术、企业或促销用途。大多数图书也提供电子版和许可证。如需更多信息，请参考我们的特殊批量销售与电子书许可网页：[`www.apress.com/bulk-sales`](http://www.apress.com/bulk-sales)。\n\
+  \n本作品受版权保护。出版商保留所有权利，涉及全部或部分材料，特别是翻译权、重印权、插图再利用权、朗诵权、广播权、缩微胶片复制权或任何其他物理形式的复制权，以及传输或信息存储与检索、电子改编、计算机软件或目前已知或之后开发的类似或不同方法的权利。与评论或学术分析相关的简短摘录，或专门为在计算机系统上输入和执行而提供的材料（仅供购买者独家使用）不受此法律限制。本出版物或其部分的复制仅允许在出版商所在地现行版权法的规定下进行，且使用许可必须始终从\
+  \ Springer 获取。使用许可可通过 Copyright Clearance Center 的 RightsLink 获得。违反者将根据相关版权法受到起诉。\n\
+  \n书中可能出现的商标名称、徽标和图像。我们不会在每个商标名称、徽标或图像出现时都使用商标符号，仅以编辑方式使用这些名称、徽标和图像，以造福商标所有者，并无意侵犯商标。本出版物中使用商品名称、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的表达意见。\n\
+  \n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能出现的任何错误或遗漏承担法律责任。出版商对本书所含内容不作任何明示或暗示的担保。\n\
+  \n本书由 Springer Science+Business Media New York 在全球图书贸易中发行，地址：233 Spring Street,\
+  \ 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问\
+  \ `www.springeronline.com`。Apress Media LLC 是一家加利福尼亚州的有限责任公司，其唯一成员（所有者）是 Springer\
+  \ Science+Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州的公司。\n\
+  \n献给 Kristina，感谢她始终不渝的爱、奉献和支持\n\n"
+- '# 前言
+
+
+  Dan Hermes 的这本非凡之作是我见过的关于跨平台移动开发最睿智的著作。他专注于 Xamarin.Forms，同时也为 Xamarin.Android 和
+  Xamarin.iOS 提供了全面的指南。这使 Xamarin.Forms 置于恰当的背景中，并为那些不仅想知道如何用 Xamarin.Forms 编写代码，还想了解其运作原理及底层机制的人解释了底层的原生代码。我从这本优秀著作的这些部分中学到了很多。
+
+
+  Dan 决定用 C# 编写所有示例。虽然我更喜欢用可扩展应用程序标记语言 (XAML) 来编写大部分 UI，但他的方法确实清楚地说明了实际创建的内容。最重要的是，你可以下载所有
+  C# 和 XAML 的示例，所有代码示例都是完整的、注释清晰的，并且随时可以运行。
+
+
+  另一个有用的特点是，插图展示了在三个平台（iOS、Android 和 Windows Phone）上运行示例代码的情况。我一直对那些过于复杂、旨在展示作者聪明才智而非将问题阐述得一清二楚的示例感到不满和批评。谢天谢地，Dan
+  理解这一点，他的示例解释充分且重点突出。
+
+
+  本书从简单入手，但带你了解基础知识，然后进入更高级的主题，例如自定义控件渲染以扩展 Xamarin.Forms 的功能。
+
+
+  代码模式可以帮助你避免重复造轮子，Dan 详细使用并解释了移动开发中一些最重要的模式，包括分层窗口和模态窗口、下钻列表、选项卡、创建导航抽屉以及更多内容。
+
+
+  接着，他处理了移动开发中一个棘手但极其重要的主题：持久化。Dan 涵盖了三种最重要的方法：使用 SQLite、使用 ADO.NET 以及使用带数据访问层 (DAL)
+  的仓储模式。他深入探讨了数据绑定，并讨论了模型-视图-视图模型 (MVVM)，这可能是移动开发中最重要的模式。
+
+
+  通过对 Xamarin.iOS、Xamarin.Android 和 Xamarin.Forms 的深入覆盖，你将能够很好地决定为你的特定项目使用哪种技术。
+
+
+  Xamarin 新手将从本书中受益匪浅，但也不要低估它对 Xamarin 老手的价值。
+
+
+  —Jesse Liberty
+
+
+  '
+- '# 额外前言
+
+
+  我第一次看到 Xamarin.Forms 时，它几乎还难以看出如今这个强大的跨平台框架的影子。我当时正在拜访我们旧金山的办公室，夜深了，Jason Smith（Xamarin.Forms
+  的创建者）正在忙碌地编写代码，而我正在收拾一些东西准备下班。我突然听到 Jason 发出一声惊呼，脸上露出灿烂的笑容：“想看点真正酷的东西吗？”他问道。“当然想，”我回答。我绕过办公桌去看他想给我展示什么。他的屏幕上是一个
+  iOS 模拟器，上面显示着一个方框。
+
+
+  我不想打击他对这个显然非常令人印象深刻的壮举的热情——我的意思是，我们说的可是高级东西，一个方框（注：讽刺）——我回答了一些诸如“太棒了。我在看什么？”之类的话。我知道
+  Jason 的项目；Nat Friedman 和我曾绞尽脑汁试图解决跨平台移动开发的一个基本挑战——UI 层，而 Jason 正在进行一些原型工作，以研究以正确方式实现跨平台
+  UI 框架的可行性。
+
+
+
+  '
+- "# Xamarin.Forms：全面指南\n\nXamarin 本来就已经非常出色了。我非常热爱 MonoTouch（`Xamarin.iOS` 的前身产品名称），以至于在\
+  \ Xamarin 成为一家公司之前（后来，我与 Nat、Miguel de Icaza 以及 Joseph Hill 共同推动其发展，并成为了执行团队的一员），我就已经为此写了一本书。能用同一种语言\
+  \ `C#`（这个星球上我最喜欢的语言）来为 iOS 和 Android（当时的 Windows Mobile 还处于起步阶段）构建原生移动应用，并共享所有后端和逻辑代码，这一切还能在\
+  \ Mac（我那时钟爱的操作系统）上完成，这难道不酷吗？这非常酷。但这也意味着一个巨大的机遇：虽然你可以用 Xamarin 共享大量代码，但即便使用了 MVVM\
+  \ 框架，统一 UI 代码仍然是一个巨大的挑战。\n\n“这是一张画布，它使用 iOS 和 Android 上的原生 UI 工具包绘制了一个方框；这是代码，”Jason\
+  \ 说。果然，同一个 iOS 和 Android 项目都使用相同的代码来渲染这个方框。于是，`Xamarin.Forms` 诞生了。在确定 `Xamarin.Forms`\
+  \ 这个品牌之前，我们使用了 Duplo 这个代号，当时这很贴切：`Xamarin.Forms` 就像一个儿童积木玩具。你可以用它搭建一些基础的玩具应用，谈不上复杂，但即便如此，Jason\
+  \ 所创造的价值已显而易见。`Xamarin.Forms` 迅速演进，如今已几乎找不到两年前那个深夜 Jason 向我展示的原型框架的影子。\n\n如今，`Xamarin.Forms`\
+  \ 是一个极其强大的框架。通过自定义渲染器扩展它，以提供原生、平台特定的功能，在 UI 层面几乎没有什么是你做不到的。\n\n现在，你手中（无论是实体书还是电子书）拿着的是第一本非\
+  \ Xamarin 官方出版的关于 `Xamarin.Forms` 的书（别担心，它也涵盖了 `Xamarin.iOS` 和 `Xamarin.Android`，让你可以深入接触原生的底层\
+  \ UI）。\n\n我对这本书感到非常兴奋。一年前 Dan 第一次联系我谈及这本书时，他告诉了我他的愿景：一本内容详尽、深入，并且叙事质量上乘的书，其精神与我那本（现在已严重过时的）MonoTouch\
+  \ 处女作一脉相承。一本能公正地展现这个平台的书。在阅读完本书后，我相信你会认同 Dan 独特的视角和对平台清晰的理解，以一种非常实用的方式呈现出来；他创建了一本关于使用\
+  \ Xamarin 的可靠手册，我相信，无论你是 Xamarin 开发新手还是老手，都会欣赏它。\n\n这本厚重的书提供了清晰的指导，将帮助你构建高质量的应用程序，从架构考量开始，然后深入到实用的代码策略。它以\
+  \ `Xamarin.Forms` 为主导，但也教你如何穿透到原生 UI 工具包，并且不仅解释了事情如何做，还解释了为什么这样做。\n\n那么，我将你交到能干的作者手中，并祝你在\
+  \ Dan 的得力指导下，通过 Xamarin 构建应用的旅程愉快。\n\n> ——Bryan Costanich  \n> Xamarin 公司副总裁\n\n\
+  ## 简介\n\n本书是一本实用的 `Xamarin.Forms` 入门指南，也是使用 `C#` 和 .NET 构建原生 Android、iOS 和 Windows\
+  \ Phone 应用的跨平台参考书。\n\n如果你将 Xamarin 平台视为一个金字塔，`Xamarin.Android` 和 `Xamarin.iOS` 是它的基座，`Xamarin.Forms`\
+  \ 在其顶端，那么这正是本书使用 `C#` 所涵盖的内容。移动 UI 占据了金字塔的绝大部分，本书探索了使用 Xamarin 布局、控件和列表的重要概念、元素和实用方案。\n\
+  \n许多新 Xamarin 项目面临的燃眉之问是：`Xamarin.Forms` 适合我的项目吗？本书涵盖了在选择 `Xamarin.Forms` 方案与使用\
+  \ `Xamarin.Android` 或 `Xamarin.iOS` 的平台特定方案进行对比时，需要考虑的关键因素。\n\n当你遇到了 `Xamarin.Forms`\
+  \ 开箱即用功能的限制时，你将希望通过使用自定义渲染器来定制 `Xamarin.Forms` 控件，从而利用平台特定的功能。\n\n你还会学习所有关键的 Xamarin\
+  \ UI 导航模式：分层导航和模态导航、下钻列表、选项卡、导航抽屉等。你可以使用提供的导航代码，为几乎任何业务应用搭建出基本骨架。\n\n本书是一本 SQLite\
+  \ 数据访问指南。我们将介绍在 Xamarin 应用中访问 SQLite 数据库的最常见方法，以及如何构建数据访问层（DAL）。一旦建立了数据库，你将希望将数据绑定到\
+  \ UI。你可以手动绑定，或者使用 `Xamarin.Forms` 的数据绑定将 UI 元素绑定到数据源。我们将介绍多种读写数据绑定的技术，既包括绑定到数据模型，也包括为模型-视图-视图模型（MVVM）架构绑定到视图模型。\n\
+  \n构建一个应用不仅仅需要 UI 和数据访问；你还需要将代码组织成专业级的架构。我们将探索从入门级到企业级的解决方案构建技术，以帮助你解耦功能层、管理平台特定代码，并共享跨平台类，以实现最佳的代码复用性、可测试性和可维护性。\n\
+  \n## 本书面向的读者\n\n如果你是能够阅读 `C#` 示例，并希望学习使用 Xamarin 平台进行跨平台移动开发的开发者、架构师或技术经理，那么本书就是为你准备的。`C#`\
+  \ 开发者可能会对本书感到最亲切，因为我自己就是 `C#` 开发者，但我也努力在书中指出何时使用了 Microsoft 或 .NET 的行话。Xamarin 平台能够将来自不同背景的技术人员汇聚一堂。\n\
+  \n## 如何下载代码示例\n\n本书的所有代码，即 `C#` 和可扩展应用程序标记语言（XAML）解决方案，可以在网上的两个地方找到：\n\n- 本书在 Apress\
+  \ 网站上的“源代码/下载”选项卡页面（[`www.apress.com/9781484202159`](http://www.apress.com/9781484202159)）\n\
+  - GitHub 仓库：[`https://github.com/danhermes/xamarin-book-examples`](https://github.com/danhermes/xamarin-book-examples)\n\
+  \n## XAML\n\n本书的编写方式与 Xamarin 平台的构建方式相同，即以 `C#` 代码优先，因此书中的所有示例都是用 `C#` 编写的。所有 `C#`\
+  \ UI 示例也同样移植到了 XAML，并在可下载的代码中提供。请留意书中 XAML 提示框，了解在哪里可以找到它们。\n\nXAML\n\n本示例的 XAML\
+  \ 版本可以在 Apress 网站（[`www.apress.com`](http://www.apress.com/)）或 GitHub（[`https://github.com/danhermes/xamarin-book-examples`](https://github.com/danhermes/xamarin-book-examples)）找到。本章的\
+  \ `Xamarin.Forms` 解决方案是 `ThisChapterSolution.Xaml`。\n\n在写这本书时，我做出的最艰难的决定是没有在书中直接包含\
+  \ XAML 示例。包含 XAML 将意味着不得不削减甚至完全放弃关于 `Xamarin.Android` 和 `Xamarin.iOS` 的内容，而这些主题对于全面理解\
+  \ Xamarin 平台是必不可少的。我选择坚持本书的使命：以跨平台 `C#` 代码优先的方式，全面介绍 Xamarin 平台的基础知识。话虽如此，我理解市场上对优质\
+  \ XAML 文档和示例的强烈需求。因此，尽管我希望有足够的时间和篇幅在书中文本里包含 XAML 示例，但我很自豪地说，我们为所有 `C#` UI 示例都提供了可下载的\
+  \ XAML 对应版本。\n\n## 立即开始使用 Xamarin.Forms 吧！\n\n没时间阅读？花十分钟浏览第 2 章，然后下载第 6 章的导航代码。直接从我的第\
+  \ 6 章中选取一些导航模式立刻用到你的应用中，并立即开始编码。同时把书翻开到第 3 章，这样你就可以在你的导航页面内构建一些布局。祝你好运！\n\n\n\n\
+  ## 章节内容\n\n本书所有章节均跨平台，但内容侧重于 Xamarin.Forms。UI 章节（第 3 章至第 6 章）在章节开头以小型索引的形式并列展示了\
+  \ Xamarin.Forms、Xamarin.Android 和 Xamarin.iOS 的元素，以便于理解跨平台概念，并在需要时更容易考虑自定义渲染器。这些\
+  \ UI 章节的第一部分为 Xamarin.Forms，第二部分为 Xamarin.Android，第三部分为 Xamarin.iOS。\n\n第 1 章 —\
+  \ 使用 Xamarin 进行移动开发\n\n介绍 Xamarin 平台，涵盖本书所有关键主题。\n\n第 2 章 — 构建移动用户界面（Xamarin.Forms\
+  \ 入门）\n\nXamarin.Forms 入门指南，并对比 Xamarin.Forms 与特定平台方法（如 Xamarin.iOS 和 Xamarin.Android）。涵盖\
+  \ Xamarin.Forms 的页面、布局和视图。\n\n第 3 章 — 使用布局进行 UI 设计\n\n布局帮助我们组织控件的位置和格式，使我们能够构建和设计移动应用的屏幕。\n\
+  \n第 4 章 — 使用控件（视图）进行用户交互\n\n选择器、滑块、开关和其他移动 UI 控件可促进用户交互和数据输入，这些交互和输入对于移动用户界面来说是独特的，并且由于手势的使用而与\
+  \ PC/鼠标界面不同。\n\n第 5 章 — 创建可滚动列表\n\n列表是移动应用中最简单、最强大的数据显示和选择方法之一。\n\n第 6 章 — 导航\n\n\
+  导航允许用户遍历应用、在不同屏幕之间切换以及访问功能。分层导航、模态导航、导航抽屉、向下钻取列表和其他关键模式构成了移动 UI 导航的核心。状态管理是指在用户导航应用时处理屏幕之间传递的数据。\n\
+  \n第 7 章 — 使用 SQLite 和数据绑定进行数据访问\n\n`SQLite` 是许多 Xamarin 开发人员的首选数据库。使用 `SQLite.NET`\
+  \ 或 `ADO.NET` 在本地存储和检索数据。使用 Xamarin.Forms 数据绑定，将 UI 元素与数据模型融合。通过绑定到视图模型来使用 MVVM\
+  \ 模式。\n\n第 8 章 — 自定义渲染器\n\n扩展标准的 Xamarin.Forms 控件，利用特定平台的 UI 功能集，同时通过自定义渲染器保持跨平台方法。\n\
+  \n第 9 章 — 跨平台架构\n\n通过管理特定平台的代码来构建跨平台应用的架构。Xamarin 中的项目级别选项包括可移植类库 (PCL) 和共享项目。跨平台编码技术包括条件编译、依赖注入\
+  \ (DI) 和文件链接。\n\n## 如何阅读本书\n\n本书涵盖了相当广泛的内容，并且有几种阅读方法。以下是本书内置的主要导航路径及其使用方法。如果您对以下内容感兴趣：\n\
+  \n*   **跨平台开发：Xamarin.Forms、Xamarin.Android 和 Xamarin.iOS**：从头到尾阅读本书。本书中的每一个字都是为您而写。读完第\
+  \ 1 章和第 2 章后，浏览第 3 章至第 6 章的前几页，以了解本书涵盖的 UI 材料。\n*   **Xamarin.Forms**：阅读第 1 章和第\
+  \ 2 章，然后阅读第 3 章至第 6 章的前三分之一部分，这些内容涵盖了 Xamarin.Forms UI。然后阅读第 7 章、第 8 章和第 9 章，了解数据访问、自定义渲染器和架构。\n\
+  *   **Xamarin.Android**：首先，确保您已掌握 Android 基础知识。请参阅本引言后面的“先决条件”。然后阅读第 1 章和第 2 章的前半部分。阅读第\
+  \ 3 章至第 6 章的中间部分，这些内容涵盖了 Android UI。然后阅读第 7 章和第 9 章，了解数据访问和架构。\n*   **Xamarin.iOS**：首先，确保您已掌握\
+  \ iOS 基础知识。请参阅本引言后面的“先决条件”。然后阅读第 1 章和第 2 章的前半部分。阅读第 3 章至第 6 章的结尾部分，这些内容涵盖了 iOS UI。然后阅读第\
+  \ 7 章和第 9 章，了解数据访问和架构。\n*   **通用参考**：阅读第 1 章和第 2 章的前半部分以便入门。然后浏览第 3 章至第 6 章的前几页，了解本书涵盖的\
+  \ UI 材料及其组织方式。使用每个 UI 章节的开头部分作为交叉参考。\n\n有这么多路径可供选择。这是一本让您自行选择冒险旅程的书。\n\n## 完整代码\n\
+  \n本书也提供了一条“捷径”导航路径。如果您只想要一个主题的要点，请找到您感兴趣的部分，直接跳到“完整代码”部分。这是许多（但不是全部）主要主题末尾的一个完整代码清单。很多时候我们只想要一个关于某个主题的快速代码配方，这就是本书中获取它的方法。如果您需要代码解释，请回到该部分的开头，逐步了解该代码的详细构建过程。\n\
+  \n## 我现在读的是哪个平台？\n\n在阅读不同平台的内容时，请使用主要主题标题下方的平台标题来保持方向感。以下是标题的样式：\n\nXamarin.Forms\n\
+  \n此标题表示 Xamarin.Forms 主题。\n\nAndroid\n\n此标题表示 Xamarin.Android 主题。\n\niOS\n\n此标题表示\
+  \ Xamarin.iOS 主题。\n\nWindows Phone\n\n此标题表示 Xamarin.Forms Windows Phone 主题。\n\n\
+  跨平台\n\n此标题表示对 Xamarin.Forms、Xamarin.iOS 和 Xamarin.Android 都有用的主题。\n\n寻找主要主题标题下方的平台标题，您就能随时知道自己在阅读哪个平台。\n\
+  \n\n\n"
+- "# 前置要求\n\n如果你主要使用 `Xamarin.Forms`，除了需要具备一定的 C# 基础外，应该能够轻松掌握本书内容。然而，如果你想深入研究 `Xamarin.Android`、`Xamarin.iOS`\
+  \ 或 `Xamarin.Forms` 的自定义渲染器，请注意以下事项：\n\n本书并非 iOS 入门教程。虽然它对关键主题进行了初步介绍，然后进入“进阶”内容，但你仍需参考其他资料来全面掌握\
+  \ iOS 和 `Xamarin.iOS` 的基础知识。请查阅 `Xamarin.iOS` 入门指南，了解以下主题：\n- 使用 `Xamarin Studio`\
+  \ 或 `Visual Studio` 创建 `Xamarin.iOS` 解决方案\n- `Xcode` 界面生成器或 `Xamarin Designer for\
+  \ iOS`\n- 故事板（Storyboard）和跳转（Segue）\n- `UIView` 和 `UIViewController`\n- 基本 UI 控件：`UILabel`、`UITextField`、`UIButton`\
+  \ 和 `UIImageView`\n- 图片与屏幕尺寸\n- 本地资源\n- 手势操作\n\n本书也并非 Android 入门教程。虽然它对关键主题进行了初步介绍，然后进入“进阶”内容，但你仍需参考其他资料来全面掌握\
+  \ Android 和 `Xamarin.Android` 的基础知识。请查阅 `Xamarin.Android` 入门指南，了解以下主题：\n- 使用 `Xamarin\
+  \ Studio` 或 `Visual Studio` 创建 `Xamarin.Android` 解决方案\n- `Xamarin Designer for Android`\n\
+  - 活动（Activity）、XML 布局和视图（View）\n- 活动生命周期\n- 基本 UI 控件：`TextView`、`EditText`、`Button`\
+  \ 和 `ImageView`\n- 片段（Fragment）\n- 图片与屏幕尺寸\n- 本地资源\n- 手势操作\n\n## 本书未涵盖的内容\n\nXamarin\
+  \ 平台是一个庞大的项目，涵盖了多个操作系统的技术和 API。若要详尽地阐述所有这些内容至足够实用的程度，需要数千页而非数百页的篇幅，这意味着一本书无法面面俱到。以下内容不在本书的讨论范围之内：\n\
+  - 本书正文未涉及 `Xamarin.Forms` 的可扩展应用程序标记语言（XAML），但提供了完整的、可下载的 XAML 代码示例。\n- 集成开发环境（IDE），包括\
+  \ `Visual Studio` 和 `Xamarin Studio`。\n- UI 设计器工具，包括 `Xcode` 界面生成器、`Xamarin Designer\
+  \ for iOS` 和 `Xamarin Designer for Android`。\n- 部分关于 `Xamarin.Android` 的入门主题（参见“前置要求”）\n\
+  - 部分关于 `Xamarin.iOS` 的入门主题（参见“前置要求”）\n\n## Windows Phone\n\n`Xamarin.Forms` 应用程序可以在\
+  \ Windows Phone 上运行。Windows Phone 项目可以构建为支持 Silverlight 或 WinRT。本书是为 Windows Phone\
+  \ Silverlight 实现编写的，但书中大部分内容也适用于 WinRT（并且指出了部分 WinRT 的差异）。\n\n## 系统需求\n\n无论你是在 Mac\
+  \ 还是 Windows 工作站上进行开发，都需要下载并运行 Xamarin 统一安装程序，网址为 `http://xamarin.com/download`。这将使你能够安装和配置\
+  \ Xamarin 平台，包括 Xamarin Android SDK、Xamarin iOS SDK、`Xamarin Studio`，以及适用于 `Visual\
+  \ Studio` 的 Xamarin 插件。\n\n以下是在 Xamarin 开发中的操作系统和软件要求。\n\n### Mac\n\n要在 Mac 上构建\
+  \ Xamarin 应用程序，必须满足以下要求。\n- 在 OS X 上使用 `Xamarin.Forms` 需要 `Xamarin Studio 5+`。\n\
+  - 开发 iOS 应用程序：\n  - 最新版本的 `Xcode`\n  - Mac OS X 10.9.3+（Mavericks）或 10.10+\n- 无法在\
+  \ Mac 上开发 Windows Phone 应用程序。\n\n### Windows\n\n要在 Windows 工作站上构建 Xamarin 应用程序，必须满足以下要求。\n\
+  - 最新版本的 `Xamarin Studio` 或 `Visual Studio 2012+`（非 Express 版）\n- Windows 7+\n- 对于\
+  \ iOS 开发，需要一台联网的 Mac。\n- 对于 Windows Phone 开发，你需要 Windows Phone SDK。\n- 要使用 PCL（可移植类库），你需要\
+  \ `Visual Studio 2013+` 或可移植参考库程序集 4.6。若要在不使用 `Visual Studio` 的情况下通过 `Xamarin Studio`\
+  \ 使用 PCL，请下载可移植库工具 2。\n\n### Xamarin.Forms\n\n要使用 `Xamarin.Forms`，你的应用程序构建必须面向以下平台。\n\
+  - iOS 6.1+\n- Android 4.0+\n- Windows Phone 8（在撰写本文时，以及之后的更新版本）\n\n## 勘误\n\n作者、技术审阅者以及\
+  \ Apress 的众多工作人员已尽最大努力查找并消除本书文本和代码中的所有错误。即便如此，仍难免会留下一两处瑕疵。为了让你及时了解情况，Apress 的书籍页面（`www.apress.com/9781484202159`）上有一个“勘误”选项卡。如果你发现任何尚未报告的错别字或错误代码，请通过电子邮件\
+  \ `support@apress.com` 告知我们。\n\n## 客户支持\n\nApress 希望听取你的意见——你喜欢什么、不喜欢什么，以及你认为下次可以做得更好的地方。你可以将意见发送至\
+  \ `feedback@apress.com`。请务必在邮件中注明书名。\n\n## 联系作者\n\n你可以在 Twitter 上关注我（`@lexiconsystems`）、阅读我的博客（`www.mobilecsharpcafe.com`），或发送电子邮件至\
+  \ `dan@lexiconsystemsinc.com` 联系我。\n\n如果你需要 Xamarin 产品的常规技术支持，请访问 Xamarin 支持页面 `http://xamarin.com/support`\
+  \ 或 Xamarin 论坛 `http://forums.xamarin.com/`。\n\n\n\n"
+- '# 摘要
+
+
+  以上就是开始阅读本书所需了解的全部内容：目录、预备知识、免责声明、学习路径、地图和路标。如果你刚接触 Xamarin 平台，欢迎加入社区！如果你对 Xamarin
+  已有经验，感谢你的阅读，本书同样会为你提供丰富的内容。
+
+
+  我向你保证，阅读本书、理解其中的概念并练习书中的代码技巧，将提升你对 Xamarin 的领悟力，并将你的编程技能推向新的高度。我也希望让你对 Xamarin 平台这一令人惊叹的成就产生更深刻的理解。
+
+
+  ## 致谢
+
+
+  组建一群聪明且专注的人，是完成大事的好方法。有人称之为集体或智囊团，也有人称之为开源精神。在此，我想与大家分享本书的创作团队，并公开感谢他们。
+
+
+  James DeWolf，我在 Apress 出版社的高级编辑，是我所见过的任何领域中最杰出的领导者之一。感谢你，Jim，感谢你给予我这次机会，以及你始终如一且恰到好处的跟进。Anne
+  Marie Walker，你的每一次内容编辑不仅让本书变得更好，也教会了我如何写作。Melissa Maldonado，感谢你对我众多特殊要求的耐心，感谢你确保一切按时推进，并最终让本书顺利出版。同时，也感谢
+  Apress 出版社所有其他编辑、排版人员及工作人员。
+
+
+  特别感谢技术审阅者兼 Xamarin MVP 的 Ed Snider，感谢你仔细审阅了每一个代码示例并提出了睿智的建议。正因为有你，本书才变得好得多。如果书中仍有任何错误，那一定是我在你审阅之后偷偷加进去的。
+
+
+  本书包含 200 多个 C# 代码示例。所有 UI 示例也均用 XAML 构建，并提供下载。非常感谢 XAML 开发者 Jason Awbrey 和 Alex
+  Blount 促成了这一切。
+
+
+  Xamarin 团队的成员们积极乐观、才华横溢，并且在各个方面都给予了极大的帮助。他们不仅为我们带来了出色的产品套件，也每天都向我们传递积极向上的态度。感谢 Mike
+  Bluestein，你强调了 Xamarin.iOS 和 Xamarin.Android 的重要性；感谢 Bryan Costanich，你指出 Xamarin.Forms
+  是未来的方向——我采纳了你们二人的建议。Jason Smith，作为 Xamarin.Forms 的技术负责人，与你在亚特兰大 Evolve 大会共进午餐的经历，为本书提供了明确的焦点和扎实的基础。感谢
+  Joseph Hill 的建议和鼓励。感谢 Spencer Montgomery、Erik Polzin 和 Matt Mason 作为合作伙伴的支持。感谢 James
+  Montemagno、Mark Smith、Pierce Boggan 以及许多其他人。
+
+
+  此外，还要感谢 Miguel de Icaza，感谢你联合创立了 Xamarin，并成就了才华横溢的自己。我很荣幸能成为你集体中的一员。
+
+
+  优秀的博主们为我们提供了指导和幽默。本书的成书离不开这些优秀博主和 Xamarin 论坛贡献者，他们帮助确立了方向并确认了许多主题的细节：来自 `motzcod.es`
+  的 James Montemagno、来自 `syntaxismyui.com` 的 Adam Wolf（又名 AdamKemp）、来自 `jimbobbennett.io`
+  的 Jim Bennett、Tomasz Cielecki（又名 Cheesebaron）、来自 `magenic.com` 的 Kevin Ford、来自 `jesseliberty.com`
+  的 Jesse Liberty，以及许多其他人。
+
+
+  许多才华横溢的人士审阅了这些章节并提出了宝贵意见，让本书变得更好。其中包括：Mike Bluestein、Jim Bennett、Mark Allan、Adam
+  Wolf、David Ortineau、Jesse Liberty、William Grand、Michael Lant 和 Ed Hubbell。
+
+
+  在微软，我要感谢 Dan Stolts、Mark Eisenberg、Donna Malayeri 和 Michael Cummings，感谢他们让我厘清了 Azure
+  与 Xamarin 的集成。
+
+
+  在 IBM，感谢 Craig Porter 和 Philip Sacchitella，让我正确理解了 IBM MobileFirst。
+
+
+  在 iTexico，感谢 Abhijeet Pradhan 和 Mathieu Clerici，感谢你们一流的 Xamarin 开发工作。
+
+
+  感谢 Lexicon Systems 的所有人！包括 Jonathan LaMaster、Tom Ruane，以及所有为此付出努力的人。感谢 Margo Chevers，坚定了我完成本书的决心。还要感谢
+  David Alexander 的编辑和排版，直到有出版社接手让你得以休息。
+
+
+  感谢我的父母和家人始终如一、充满热情的 support。
+
+
+  最要感谢的是我的爱人 Kristina。你为支持这项工作付出了超乎寻常的努力，我心存感激。
+
+
+  还有，差点忘了，特别感谢分号。如果没有你在几乎每一行末尾坚定的分隔，本书中（以及我们所有解决方案中）的 C# 代码将只是一堆无法解析的命令、关键字、符号和对象的模糊混合。谢谢你，分号。
+
+
+  最后，感谢所有未在此列出的、为本书提供帮助、建议或支持的人！
+
+
+
+  '
+- "# 目录\n\n第 1 章：使用 Xamarin 进行移动开发 1  \n什么是 Xamarin？ 1  \n封装的本地 API 2  \n开发环境 2  \n\
+  UI 设计器 3  \n熟悉的部分：C#和.NET 技术 3  \n新增部分：移动开发技术 4  \n移动 UI 4  \nXamarin.Forms 与平台特定\
+  \ UI 5  \n移动 UI 设计 5  \nXamarin.Forms 自定义渲染器 6  \n数据访问层 6  \n使用 SQLite 进行本地数据访问\
+  \ 7  \n数据绑定 7  \n跨平台开发 7  \n小结 8  \n\n第 2 章：构建移动用户界面 9  \n理解 Xamarin.Forms 9  \n\
+  Xamarin.Forms 解决方案架构 11  \n理解平台特定 UI 方法 12  \n平台特定 UI 解决方案架构 13  \nXamarin.Android\
+  \ 13  \nXamarin.iOS 14  \nWindows Phone SDK 15  \n选择 Xamarin.Forms 还是平台特定 UI 15\
+  \  \n结合两种方法使用自定义渲染器 16  \n探索移动 UI 的元素 17  \n使用 Xamarin.Forms UI 17  \n页面 18  \n\
+  布局 19  \n视图 19  \n创建 Xamarin.Forms 解决方案 20  \nXamarin.Forms 共享代码 22  \n应用程序生命周期方法：OnStart、OnSleep\
+  \ 和 OnResume 23  \n使用 ContentPage 构建页面 23  \nXamarin.Android 24  \nXamarin.iOS 24\
+  \  \nWindows Phone 应用程序 25  \n核心库 26  \n设置应用程序的主页面 26  \n添加 Xamarin.Forms 视图 27\
+  \  \n标签视图 27  \n使用 StackLayout 放置视图 28  \n背景颜色和字体颜色 29  \n使用字体 29  \n使用平台特定字体 30\
+  \  \n按钮视图 31  \n设置视图对齐方式和大小：HorizontalOptions 和 VerticalOptions 33  \n使用 LayoutOptions\
+  \ 进行对齐 33  \nAndExpand 用空格填充 33  \n用于文本输入的 Entry 视图 34  \nBoxView 35  \n图像视图 36\
+  \  \nSource 属性 37  \n本地图像 37  \n图像大小调整：Aspect 属性 37  \n使用 GestureRecognizer 使图像可点击\
+  \ 38  \n最终确定 StackLayout 39  \nScrollView 39  \n分配 ContentPage.Content 属性 40  \n\
+  整个页面的内边距 40  \n代码完成：添加 Xamarin.Forms 视图 41  \n小结 44  \n\n第 3 章：使用布局进行 UI 设计 45 \
+  \ \n理解自定义控件 46  \n使用 Xamarin.Forms 布局 47  \nStackLayout 47  \n整个布局的内边距 48  \n垂直方向堆叠\
+  \ 49  \n水平方向堆叠 50  \n嵌套布局 52  \n使用 LayoutOptions 扩展和内边距视图 52  \n代码完成：StackLayout\
+  \ 53  \nRelativeLayout 55  \n设置视图位置和大小 56  \n使用约束 56  \n代码完成：RelativeLayout 62 \
+  \ \nAbsoluteLayout 64  \n使用 SetLayoutBounds 创建边界对象 66  \n通过使用 SetLayoutFlags 绑定到边界对象\
+  \ 68  \n代码完成：AbsoluteLayout 69  \nGrid 71  \n设置行和列的大小 73  \n调整大小以适应视图 74  \n设置精确大小\
+  \ 74  \n扩展视图以填充可用空间 75  \n按比例扩展视图 76  \n创建多单元格视图 77  \n单元格之间的内边距 79  \n代码完成：Grid\
+  \ 79  \nContentView 81  \n代码完成：ContentView 82  \nFrame 83  \n使用 Android 布局 85  \n\
+  LinearLayout 86  \n使用 Activity 显示布局 87  \n在代码中创建布局 88  \n处理嵌套布局 89  \nRelativeLayout\
+  \ 90  \nTableLayout 91  \nGridLayout 93  \n水平方向从左到右填充行 94  \n垂直方向从上到下填充列 95  \n\
+  指定行和列 96  \n创建多单元格视图 97  \n创建动态图像网格 98  \nFrameLayout 98  \nFragment 99  \n使用 iOS\
+  \ 布局 99  \n使用 AutoLayout 100  \n使用可视化格式语言添加约束 101  \n使用 Frame 102  \n小结 104  \n\n\
+  第 4 章：使用控件进行用户交互 105  \nXamarin.Forms 视图 106  \nPicker 107  \nDatePicker 108  \n\
+  TimePicker 110  \nStepper 112  \nSlider 113  \nSwitch 114  \n缩放、旋转、透明度、可见性和焦点 115\
+  \  \n代码完成：Xamarin.Forms 视图 115  \nAndroid 控件 119  \nSpinner 119  \n代码完成：Spinner\
+  \ 122  \nDatePicker 123  \n使用 DatePickerDialog 创建模态 DatePicker 124  \n代码完成：DatePickerExample\
+  \ 126  \nTimePicker 127  \nSeekBar 128  \nCheckBox 129  \nSwitch 130  \n自定义标题、Switch\
+  \ 文本和状态 131  \nRadioButton 131  \n代码完成：Android 控件 133  \niOS 控件 135  \nUIPickerView\
+  \ 135  \n将 UIPickerView 制作为弹出窗口 138  \n代码完成：UIPickerView 140  \nUIDatePicker 142\
+  \  \n将 UIDatePicker 制作为弹出窗口 143  \n指定要显示的字段 145  \n代码完成：UIDatePicker 145  \nUIStepper\
+  \ 146  \nUISlider 147  \nCheckBox：使用 UISwitch 或 MonoTouch.Dialog 148  \nUISwitch\
+  \ 149  \n代码完成：iOS 控件 150  \n小结 152  \n\n第 5 章：创建可滚动列表 153  \n数据适配器 153  \nXamarin.Forms\
+  \ ListView 153  \n绑定到字符串列表 154  \n选择项 155  \n绑定到数据模型 157  \n代码完成：绑定到数据模型 159  \n\
+  添加图像 160  \n自定义列表行 162  \n代码完成：自定义列表行 165  \n添加按钮 167  \n使用 Button 视图 167  \n使用上下文操作\
+  \ 169  \n分组标题 171  \n自定义组标题 174  \n创建跳转列表 177  \nListView 自动滚动 178  \n优化性能 179 \
+  \ \nAndroid ListView 180  \n使用 ListActivity 180  \n绑定到字符串数组 180  \n选择项 181  \n多选\
+  \ 182  \n绑定到数据模型 183  \n数据模型 183  \n适配器 183  \nActivity 184  \n优化性能 185  \n使用内置行视图\
+  \ 186  \n自定义列表行 188  \n在自定义行中选择项 190  \n代码完成：自定义列表行 190  \n分组标题 192  \niOS UITableView\
+  \ 195  \n绑定到字符串数组 195  \n选择项 197  \n多选 198  \n绑定到数据模型 198  \n数据模型 199  \n适配器 199\
+  \  \n视图控制器 200  \n使用内置行视图 201  \n单元格分隔符 203  \n自定义列表行 204  \n分组标题 206  \n代码完成：分组适配器\
+  \ 209  \n代码完成：分组视图控制器 210  \n使用表格样式高亮分组 211  \n为列表行添加附件 212  \n选择附件 214  \n优化性能\
+  \ 214  \n列表的替代方法：UITableViewContr oller 215  \n小结 215  \n\n第 6 章：导航 217  \n导航模式\
+  \ 217  \n层级式 218  \n模态 218  \n状态管理 219  \nXamarin.Forms 导航 220  \n使用 NavigationPage\
+  \ 进行层级导航 220  \n在导航栈上压入和弹出屏幕 223  \n设置页面标题 224  \n自定义导航栏 224  \n处理返回按钮 225  \n创建下拉菜单\
+  \ 225  \n模态 226  \n使用 NavigationPage 实现全屏模态 226  \n使用警报进行用户通知 226  \n使用操作表显示弹出菜单\
+  \ 227  \n管理状态 228  \n将数据传递到页面参数中 228  \n使用 Properties 字典进行磁盘持久化 229  \n使用静态全局类 229\
+  \  \n使用 Application 对象上的静态属性 230  \n下钻列表 231  \n按项使用 ListView 231  \n代码完成：下钻列表 233\
+  \  \n按页面使用 ListView 234  \n使用 TableView 进行页面分组 235  \n使用 MasterDetailPage 的导航抽屉\
+  \ 238  \n使用 TabbedPage 的选项卡 241  \n创建数据绑定选项卡 242  \n在 TabbedPage 中放置 NavigationPage\
+  \ 244  \nSpringboard 245  \n使用手势识别器使图标可点击 247  \n使用 CarouselPage 的轮播 247  \nAndroid\
+  \ 导航 249  \n使用 Intent 启动新 Activity 249  \n使用工具栏进行层级导航 250  \n处理向上按钮 255  \n添加弹出菜单\
+  \ 256  \n自定义工具栏 257  \n使用导航栏 259  \n处理返回按钮 259  \nFragment 260  \n模态导航 263  \n使用\
+  \ DialogFragment 创建模态 263  \n使用 DialogFragment 创建警报 265  \n使用 AlertDialog 创建模态布局\
+  \ 267  \nPopupMenu 268  \n使用 Bundle 管理状态 269  \n传递字符串 270  \n传递对象 270  \n创建 Bundle\
+  \ 271  \n使用静态全局类和 StartActivityForResult 271  \n下钻列表 272  \n按页面使用 ListView 272 \
+  \ \n按项使用 ListView 273  \n结合工具栏使用 ListView 273  \n导航抽屉 274  \n使用 ActionBar 的选项卡 274\
+  \  \n代码完成：TabMenuActivity.cs 278  \niOS 导航 279  \n使用 Storyboard、Scene 和 Segue 280\
+  \  \n使用 Nib 281  \n[层级导航](#A978-1-4842-0214-2_6_\n\n\n\n"
+- '# 使用 Xamarin 进行移动开发
+
+
+  用 C# 进行移动开发与以往大多数人使用该语言的方式截然不同。我们用它来开发非 Windows 平台的应用，即 Android 和 iOS。这既是机遇也是挑战。机遇在于，我们能接触到构成由不同平台和尺寸的手机与平板电脑组成的新业务应用生态系统的丰富技术。挑战在于，这些设备和平台的许多方面对我们来说都是崭新的，需要学习很多知识。当然，我们也可以用
+  C# 构建 Windows Phone 和平板电脑应用。跨平台开发的本质是构建能在多个移动操作系统上运行的应用：例如，在 Android 和 iOS 上；或在
+  iOS 和 Windows Phone 上；亦或在 iOS、Android 和 Windows Phone 上。通过运用本书涵盖的跨平台技术，你将具备为所有主流移动平台进行开发的能力！
+
+
+  这段旅程中最令人兴奋/畏惧的部分是掌握多个操作系统的来龙去脉。幸运的是，Xamarin 为我们屏蔽了许多细节，封装了平台特定的 API，并通过 C# 展示了熟悉的
+  .NET 框架。反过来，我们得以详细了解每个平台由 C# 封装的用户界面（UI）API，从而精确控制应用的可视化设计。关键在于弄清楚在开发过程中，每个操作系统的哪些方面是重要的，哪些可以交由
+  Xamarin 处理。虽然深入理解总是有益的，但时间有限，最重要的是，我们需要交付可运行的软件。
+
+
+  关键问题如下：我们应如何着手开发跨平台移动应用？鉴于我们在 C# 开发方面已有的经验和背景，如何将这些知识传承并在移动领域加以利用？最后，鉴于需要学习这么多关于这些操作系统的知识，我们需要掌握哪些内容才能入门并帮助解决重要挑战？
+
+
+  在编写跨平台应用时，一个关键目标是代码重用。重用的越多，项目就越快、成本越低，维护成本也越低。Xamarin 将此称为移动开发的独角兽：一次编写，到处部署。任何寻找独角兽的旅程都始于一位能吸引它出现的美丽少女。我们的美丽少女就是跨平台设计。
+
+
+  让我们探索 Xamarin 如何在追求跨平台设计的同时帮助我们解决移动开发难题。
+
+
+  ## 什么是 Xamarin？
+
+
+  Xamarin 是一个开发平台，允许我们用 C# 编写原生的、跨平台的 iOS、Android 和 Windows Phone 应用。
+
+
+  它是如何做到的呢？请继续阅读。
+
+
+  ### 封装的原生 API
+
+
+  Xamarin 平台源自将 .NET 引入 Linux 的开源 Mono 项目，它将 .NET 移植到 iOS 和 Android 操作系统，并支持 Windows
+  Phone（见图 1-1）。`Xamarin.Android` 底层是 Mono for Android，而 `Xamarin.iOS` 底层是 `MonoTouch`。这些是原生
+  Android 和 iOS API 的 C# 绑定，用于移动设备和平板电脑的开发。这赋予我们使用 Android 和 iOS 用户界面、通知、图形、动画以及位置和摄像头等电话功能的能力——全部通过
+  C# 实现。每次 Android 和 iOS 操作系统发布新版本，都会伴随一个包含新 API 绑定的 Xamarin 新版本。Xamarin 的 .NET 端口包含数据类型、泛型、垃圾回收、语言集成查询（LINQ）、异步编程模式、委托以及
+  Windows Communication Foundation（WCF）子集等功能。库通过链接器进行管理，只包含引用的组件。`Xamarin.Forms` 是构建在其他
+  UI 绑定和 Windows Phone API 之上的一层，提供了一个完全跨平台的 UI 库。
+
+
+  ![A978-1-4842-0214-2_1_Fig1_HTML.jpg](img/A978-1-4842-0214-2_1_Fig1_HTML.jpg)
+
+
+  图 1-1. Xamarin C# 库绑定到原生 OS SDK 以及 .NET
+
+
+  因此，我们拥有了一个包含 iOS 和 Android C# 绑定库并支持 Windows Phone 的 .NET 环境，可运行在我们选择的移动操作系统上。太棒了。那么，我们如何使用这些库构建
+  UI 并编写代码来创建移动应用呢？当然是使用开发环境和 UI 设计器。
+
+
+  ### 开发环境
+
+
+  Xamarin 提供了开发环境和设计器，帮助我们在 Windows 或 Mac 上构建移动应用。Xamarin 开发环境的两个主要选择是：Mac 或 Windows
+  上的 Xamarin Studio，或者 Windows 上安装了 Xamarin for Windows 插件的 Visual Studio。即使使用 Visual
+  Studio 作为开发环境，编译 iOS 应用也始终需要一台 Mac。
+
+
+  ### UI 设计器
+
+
+  用于创建移动用户界面的工具称为设计器。它们会以其各自的专有文件格式生成可扩展标记语言（XML）文件。Xamarin 提供两种设计器：
+
+
+  - Xamarin Designer for Android
+
+  - Xamarin Designer for iOS
+
+
+  有了这些设计器，对原始原生 XML 编辑器的需求就降低了。构建 Android 或 iOS UI 所需的任何东西都可以在 Xamarin 的工具中找到。然而，iOS
+  开发者仍然经常使用 Xcode Interface Builder，而 Android 开发者（较少地）使用诸如 Eclipse 的 Android Development
+  Tools（ADT）插件等 XML 编辑器。XML 布局始终就是 XML 布局，选择何种工具很大程度上取决于品味和个人偏好，甚至是否使用设计器工具本身也是如此。一些
+  Xamarin 开发者选择完全不用设计器，而是手动用 C# 为所有平台编写 UI 代码。我建议使用设计器来帮助学习文件格式、UI 元素及其属性。至少，像使用辅助轮一样使用设计器工具，直到你准备好自由骑行。
+
+
+  > **注意：** 本书侧重于代码而非工具。有关设计器和开发环境的更多信息，请参考 Xamarin 在线文档：[`developer.xamarin.com`](http://developer.xamarin.com)。
+
+
+  ## 熟悉的部分：熟悉的 C# 和 .NET 技术
+
+
+  Xamarin 开发使我们能够利用许多已经了解的 C# 开发知识。我们可以运用以下方面的顶层知识：
+
+
+  - 基于 HTML 的页面
+
+  - 可扩展应用程序标记语言（XAML）
+
+  - UI 控件
+
+  - 事件驱动逻辑
+
+  - 视图生命周期
+
+  - 状态管理
+
+  - 数据绑定
+
+  - Web 服务
+
+
+  我们也可以直接、即时地使用许多 .NET 特定的技术，包括：
+
+
+  - .NET 数据类型
+
+  - C# 类、方法和属性
+
+  - Lambda 表达式
+
+  - WCF（子集）
+
+  - 泛型（子集）
+
+  - 本地文件访问
+
+  - 流
+
+  - Async/Await
+
+  - ADO.NET（子集）
+
+
+  我只列举了一小部分，所以你可以看到，对于 C# 开发者来说，这里有大量熟悉的基础，可以帮助我们成功跨入这个新领域。
+
+
+
+
+  '
+- '# 新特性：移动开发技术
+
+
+  在本书中，你将探索移动开发中常见的 C# 技术与模式。其中一些与我们习惯的传统 .NET 开发方法完全相同，一些则略有变化，而少数则发生了较大的改变。以下是关键主题：
+
+
+  - 移动 UI 是 C# 移动开发中最大的一块全新学习领域。`Xamarin.Forms` 提供了一个跨平台 UI 工具包，包含现成的表单、页面、布局、视图和控件。`Xamarin.iOS`
+  和 `Xamarin.Android` 则提供了各自原生 UI 的绑定。（参见第 2 章至第 6 章以及第 8 章。）
+
+  - 移动应用中的数据访问层通常将控件和页面绑定到数据模型上，这些数据模型由本地数据库填充，并通过 Web 服务与远程数据服务器同步。（参见第 7 章。）
+
+  - 通过 SQLite 访问本地数据库与通常的数据库供应商有所不同，不过 ADO.NET 访问提供了一条熟悉的途径，而 `SQLite.NET` 组件则是一个功能丰富的选择。（参见第
+  7 章。）
+
+  - 数据绑定是 `Xamarin.Forms` 开发的核心，通常通过模型-视图-视图模型（MVVM）模式来实现。（参见第 7 章。）
+
+  - 跨平台架构是一系列代码共享策略的集合，旨在进一步实现我们“编写一次，随处运行”的目标。这些策略包括可移植类库结合依赖注入、共享文件和项目，以及条件编译。（参见第
+  9 章。）
+
+
+  让我们逐一探讨这些主题。
+
+
+  ## 移动 UI
+
+
+  从 Web 开发转向跨平台移动开发时，你需要吸收大量新知识，主要集中在用户界面领域。首先面临的是新操作系统 UI API 的问题。Xamarin 通过提供针对主流操作系统的平台特定
+  C# 绑定（即 `Xamarin.Android` 和 `Xamarin.iOS`）来帮助解决这一问题，而 `Xamarin.Forms` 则提供了针对这两个平台以及
+  Windows Phone 的跨平台绑定。另一组挑战则涉及 Web 应用与移动应用之间的设计差异。紧凑的屏幕、触控灵敏度以及手持设备的外形因素共同造就了一种全新的用户体验。这需要采用根本性的新设计和开发方法，促使我们探索移动
+  UI 设计。
+
+
+  ### Xamarin.Forms 与平台特定 UI
+
+
+  使用 C# 进行移动 UI 开发主要有两种方法，我们可以分开、互换或结合使用：
+
+
+  - `Xamarin.Forms` 是一个面向 Android、iOS 和 Windows Phone 的跨平台 UI 工具包。
+
+  - 平台特定 UI 则使用 `Xamarin.Android`、`Xamarin.iOS` 和 Windows Phone SDK。
+
+
+  `Xamarin.Forms` 包含一个完全跨平台的工具包，提供了一套统一的 UI 控件、布局和页面，这些元素能巧妙地映射到 iOS、Android 和 Windows
+  Phone 上各自的原生 UI 绑定。由于 `Xamarin.Forms` 比平台特定库更新，其功能也相对较少。每个版本都让我们更接近功能完备的跨平台完美体验，但有时我们需要超越开箱即用的
+  `Xamarin.Forms` 类所提供的功能。在这些情况下，我们使用平台特定库，要么针对整个页面，要么仅针对页面的某一部分，通过使用 `Xamarin.Forms`
+  中名为 `PageRenderers` 的自定义渲染器来实现。
+
+
+  平台特定的方法更为古老且更成熟，因此也更为详细且功能丰富。这涉及直接绑定到平台特定 UI API 的库：`Xamarin.Android` 用于 Android，`Xamarin.iOS`
+  用于 iOS。对于 Windows Phone，我们使用 Windows Phone SDK，这是一个原生 API，无需 Xamarin 绑定。这些平台特定的库使我们能够深入访问原生
+  UI，以提供视觉惊艳、交互丰富的用户体验。但这也是有代价的：平台特定的代码需要为每个平台设立独立的 UI 项目，且代码重用性极低。
+
+
+  注意
+
+
+  `Xamarin.Forms` 是本书的重点，并由使用平台特定 UI 的自定义渲染器加以补充。然而，使用 `Xamarin.iOS` 和 `Xamarin.Android`
+  而不使用 `Xamarin.Forms` 来创建平台特定 UI 项目的开发者，可以充分利用第 2 章至第 7 章中关于 iOS 和 Android 的章节。如果你采用平台特定的方法，请务必查阅其他资料（例如
+  Xamarin 在线文档）以了解 `Xamarin.Android` 和 `Xamarin.iOS` 的解决方案设置及基础知识。
+
+
+  ### 移动 UI 设计
+
+
+  UI 技术是大多数移动软件开发的核心。小型设备当前的硬件限制促使我们将繁重的计算任务交由 Web 服务远端的 PC 和服务器处理。在移动业务应用中运行的大多数组件都是为了支持可见的用户界面。移动业务层和数据访问层通常是其服务器端对应部分的简化版本。这意味着我们最常需要的是
+  UI 组件，用于帮助我们使用布局设计屏幕、实现数据输入和选择的控件、构建用于数据显示和编辑的列表和表格、创建用户导航，以及使用图像作为背景和图标。本书中的 UI
+  主题涵盖了移动应用开发中最常用的功能。在每一章中，我们都从最简单、最跨平台的方法开始，然后深入探讨平台特定的细节和粒度。以下是本书涵盖的移动 UI 主题：
+
+
+  - 屏幕、视图或页面类似于 C# 中 Web 和桌面的对应部分，使用带有方法和属性的控件，并触发我们在控制器中处理的事件。（参见第 2 章。）
+
+  - 布局帮助我们组织控件的位置和格式，使我们能够构建和设计移动应用的屏幕。（参见第 3 章。）
+
+  - 控件促进用户交互和数据输入，这是移动用户界面所特有的，并且与 PC/鼠标界面有显著不同，这很大程度上归因于手势的使用。（参见第 4 章。）
+
+  - 列表是移动应用中最强大的数据显示和选择方法之一。（参见第 5 章。）
+
+  - 导航让用户能够遍历应用、在屏幕之间切换以及访问功能。分层导航、模态屏幕、导航抽屉、警报、下钻列表和其他关键模式构成了移动 UI 导航的核心。（参见第 6 章。）
+
+  - 状态管理是在用户浏览应用时，处理屏幕之间传递的数据。（参见第 6 章。）
+
+  - 图像在移动体验中至关重要，广泛应用于菜单、列表、网格、轮播图和其他布局中。（参见第 2 章、第 4 章、第 6 章。）
+
+
+
+
+  #### Xamarin.Forms 自定义渲染器
+
+
+  `自定义渲染器`使我们能够超越 Xamarin.Forms 开箱即用的 UI 控件，在保持跨平台方法的同时，利用特定于平台的 UI 功能集。Xamarin.Forms
+  应用本质上是跨平台的，使用相同的代码库在三个主要平台上运行。这对于基本设计和使用某些控件来说效果很好。然而，许多项目会需要更深入地处理 UI，例如单个控件上的设计细微差别、原生模态对话框、页面上的额外图形或动画，或者任何超出当前版本
+  Xamarin.Forms 所提供范围的需求。这可以通过子类化原生控件并实现 `PageRenderers` 来创建自定义控件来实现，这些控件允许使用 Xamarin.iOS
+  和 Xamarin.Android 完全访问特定于平台的 UI 功能。这些特定于平台的控件可以在 Xamarin.Forms 页面中使用，以帮助维护跨平台架构。
+
+
+  ### 数据访问层
+
+
+  移动端数据访问层不同于我们在 Web 应用中所习惯的设计，更接近于桌面应用中的设计。其方法从流行的 MVVM 模式到模型-视图-控制器 (MVC)，再到基本的
+  CRUD（创建/插入/更新/删除），复杂度不一而足。数据绑定页面通常将数据输入设备上的本地数据库，该数据库通过 Web 服务与远程数据服务器同步。
+
+
+  C# 移动开发中的 Web 服务是代码复用的基础方面。对于移动应用，许多这些服务模式与我们构建 Web 应用时所习惯的保持一致。然而，移动 Web 服务更接近于桌面应用中的服务，与
+  Web 应用服务的主要区别在于数据同步和离线使用的重要性。创建、更新和删除接口在线公开，供来自多种平台和设备的 RESTful 调用使用。移动 Web 服务模式是跨平台、一次编写代码的绝佳之地。
+
+
+  与我们在 Web 应用中所习惯的相比，移动应用的 Web 服务端组件保持不变——除了增加了与本地移动数据存储的数据同步功能，以支持在线和离线使用。离线使用需要在本地数据库中保留一份基本数据集，并在有连接时进行同步。并非所有应用都支持离线使用。
+
+
+  回顾我们在旧版相关技术中使用数据访问层的经验，我们将探讨 C# 移动应用中数据访问层的架构选项。
+
+
+  ### 使用 SQLite 进行本地数据访问
+
+
+  SQLite 被誉为移动开发中最稳定、最可靠的跨平台数据库产品，是一个在 iOS、Android 和 Windows 设备上运行的开源项目。Xamarin 推荐它而不是其他许多第三方项目，并且它是本书涵盖的内容。Xamarin
+  在开发环境中提供对 SQLite 数据库的访问和创建，并为 ADO.NET 提供对 SQLite 的支持。还有一个 SQLite.NET Xamarin 组件，它是一个围绕基于
+  C 的 SQLite 数据层的 C# 包装器，提供对 SQLite 数据库的低级访问，包括异步事务。所有这些使得连接数据库、创建和索引表以及读写行变得简单且无痛。
+
+
+  ### 数据绑定
+
+
+  使用 Xamarin.Forms 时，数据绑定是跨平台且一致的。它模仿了 Windows Presentation Foundation (WPF) 中的数据绑定，MVVM
+  模式是其实现的核心。在代码中，我们将控件字段绑定到数据模型，绑定机制是自动的。手动实现 `PropertyChanged` 事件允许你的代码与数据源保持同步。绑定可以在代码中或可扩展应用程序标记语言
+  XAML 中完成，并且可以是单向或双向的。控件、列表和文本被绑定到数据源或彼此属性上。越来越多的第三方供应商提供 Xamarin.Forms 控件套件，其中包括数据绑定的图表和网格，例如
+  Telerik、Infragistics、Syncfusion 和 DevExpress。
+
+
+  数据绑定并未内置于 Xamarin.Android 和 Xamarin.iOS 中。特定于平台的数据绑定实现通常使用开源第三方库（如 MvvmCross 和 MVVM
+  Light）来实现。
+
+
+  ### 跨平台开发
+
+
+  正如 .NET 提供了跨越众多操作系统和语言的统一基础设施一样，Xamarin 弥合了移动操作系统及其各自开发语言之间的差距：iOS 和 Objective-C、Android
+  和 Java、Windows Phone 和 Windows 平板以及 C#。通过这种方式，Xamarin 将 .NET 扩展到移动领域，远远超出了 Windows
+  操作系统。除了这非常酷之外，真正的价值在于有机会在项目和平台之间共享和复用代码。Xamarin 工具的最大优势在于跨平台代码；因此，采用跨平台方法进行移动模式开发将产生最高的效益。Xamarin
+  工具为我们提供了一窥“一次编写，随处部署”这一独角兽级目标的方法。
+
+
+  在我们追求跨平台实现的过程中，最大的敌人是特定于平台的代码。这些代码必须根据平台（无论是 iOS、Android 还是 Windows Phone）进行不同的实现。跨平台模式与操作系统无关。跨平台代码有时被称为共享代码或核心代码，因为它是在不同移动操作系统的项目之间共享的。
+
+
+  Xamarin.Forms 解决了最棘手的跨平台挑战：用户界面。使用 Xamarin 的开发人员拥有一个完全跨平台的数据解决方案，即使用 ADO.NET 或 SQLite.NET
+  与 SQLite 进行本地数据访问，然后再通过 Web 服务进行访问。即便如此，始终会存在特定于平台的代码，如下所示：
+
+
+  * 在 UI 中
+
+  * 设备特定功能，例如相机和位置
+
+  * 图形和动画
+
+  * 安全性、文件和设备权限
+
+
+  一旦我们识别了特定于平台的代码和跨平台代码，问题就变成了如何将它们组织到一个跨平台架构中。
+
+
+  我们有很多选择，从 PCL、共享项目、链接文件、接口、抽象到条件编译。PCL 提供了一种方法，可以使用有限制的、针对特定平台的 .NET 库子集来构建 C# 组件，并将其编译为动态链接库
+  (DLL)，该 DLL 可用于由 PCL 配置文件指定的任何平台的 Xamarin 项目中。数据访问层、客户端 Web 服务以及独立于平台的业务逻辑可以在此很好地共存。通过使用带有接口的依赖注入，仍然可以将特定于平台的功能引入这些库中。一种更松散、更灵活的方法是使用共享文件或项目，其中包含为每个平台重新编译的核心文件。条件编译是一种古老的技术，非常适合较小的特定于平台的自定义，它允许共享文件中的代码块仅在特定平台的编译中包含进来。
+
+
+  我们将深入研究这些技术及其相关模式，因为它们带有独角兽的印记，有助于我们最大化代码的跨平台覆盖范围。
+
+
+
+
+  '
+- '# 摘要
+
+
+  商业应用正经历着硬件转型的巨大变革；自个人电脑商业化以来，我们从未见过如此规模的变化。消费级移动设备的势头已达到临界点，这影响着商业应用现在必须在其上运行的设备。随着移动操作系统之间的竞争持续激烈，仅仅让一款移动应用在单一平台上运行并正常工作已经不够了。
+
+
+  我们必须从一开始就考虑跨平台。
+
+
+  在 .NET 的世界里，Xamarin 为我们提供了工具，使跨平台开发成为常态而非特例，因此我们没有任何借口。如果采用恰当的方法，业务逻辑、数据访问层，甚至越来越多的
+  UI，都基本上是平台无关的。因此，无论你是构建 Android、Windows Phone 还是 iOS 应用，其许多组件的开发方法在很大程度上可以是相同的。
+
+
+  让我们来看看代码！
+
+
+  '
+- '# 构建移动用户界面
+
+
+  在使用 Xamarin 进行移动 UI 开发时，我们的屏幕及其控件、图像、动画和用户交互都在手持设备上原生运行。移动 UI 屏幕有多种同义词，例如视图和页面，这里会互换使用。视图可以指一个屏幕，但在某些上下文中也可以指代一个控件。
+
+
+  使用 Xamarin 构建移动 UI 有两种标准方法：
+
+
+  - Xamarin.Forms 是一个适用于 Android、iOS 和 Windows Phone 的跨平台 UI 库。
+
+  - 平台特定（或原生）UI 方法则使用 Xamarin.Android、Xamarin.iOS 和 Windows Phone SDK。
+
+
+  本章将涵盖这两种方法，并定义构成每种方法的平台特定组件。我们将讨论何时使用 Xamarin.Forms 有用，以及何时更平台特定的方法可能更合适。然后，我们将深入探讨如何使用页面、布局和视图来构建
+  Xamarin.Forms UI。我们将创建一个包含共享项目和平台特定项目的 Xamarin.Forms 解决方案。在向项目添加 Xamarin.Forms 控件时，我们将接触基本的
+  UI 概念，例如图像处理和在布局中格式化控件。
+
+
+  让我们从讨论 Xamarin.Forms 开始。
+
+
+  ## 理解 Xamarin.Forms
+
+
+  Xamarin.Forms 是一套跨平台 UI 类的工具包，构建在更基础的平台特定 UI 类：Xamarin.Android 和 Xamarin.iOS 之上。Xamarin.Android
+  和 Xamarin.iOS 提供了映射到各自原生 UI SDK（iOS UIKit 和 Android SDK）的类。Xamarin.Forms 也直接绑定到原生的
+  Windows Phone SDK。这提供了一套跨平台的 UI 组件，可以在三个原生操作系统中各自渲染（见图 2-1）。
+
+
+  ![A978-1-4842-0214-2_2_Fig1_HTML.jpg](img/A978-1-4842-0214-2_2_Fig1_HTML.jpg)
+
+
+  图 2-1. Xamarin 库绑定到原生操作系统库
+
+
+  Xamarin.Forms 提供了一套跨平台的页面、布局和控件工具包，是开始快速构建应用的良好起点。这些 Xamarin.Forms 元素是使用可扩展应用程序标记语言（XAML）构建的，或者使用
+  C# 编码，利用 `Page`、`Layout` 和 `View` 类。该 API 提供了广泛的、内置的跨平台移动 UI 模式。从最高层次的 `Page` 对象开始，它提供了熟悉的菜单页面，例如用于分层级联菜单的
+  `NavigationPage`、用于选项卡菜单的 `TabbedPage`、用于制作导航抽屉的 `MasterDetailPage`、用于滚动图像页面的 `CarouselPage`，以及用于创建自定义页面的基类
+  `ContentPage`。布局涵盖了我们在各种平台上使用的标准格式，包括 `StackLayout`、`AbsoluteLayout`、`RelativeLayout`、`Grid`、`ScrollView`，以及作为基础布局类的
+  `ContentView`。在这些布局中，使用了几十个熟悉的控件或视图，例如 `ListView`、`Button`、`DatePicker` 和 `TableView`。其中许多视图都内置了数据绑定选项。
+
+
+  Xamarin.Forms 包含平台无关的类，这些类会绑定到其原生的平台特定对应物。这意味着我们几乎可以在不了解 iOS 和 Android UI 的情况下，为所有三个平台开发基本的原生
+  UI。值得庆幸，但也需警惕！纯粹主义者警告说，在不了解原生 API 的情况下尝试为这些平台构建应用是鲁莽之举。让我们注意他们担忧的本质。我们必须对 Android
+  和 iOS 平台、它们的演变、特性、特质以及版本更新保持浓厚的兴趣。同时，我们也可以尽情享受 Xamarin.Forms 这个令人惊叹的跨平台抽象所带来的便利与天才设计！
+
+
+  > **注意：** 在撰写本文时，像登录屏幕、简单列表和某些业务应用这样的基本页面非常适合直接使用 Xamarin.Forms。可以在 Xamarin.Forms
+  项目中利用平台特定代码来增加功能，但该库的每个后续版本都将允许我们构建更复杂的屏幕，而无需使用平台特定代码。
+
+
+  ### Xamarin.Forms 解决方案架构
+
+
+  Xamarin.Forms 最大的优势之一是它使我们能够同时为多个平台开发原生移动应用。图 2-2 显示了一个为 iOS、Android 和 Windows Phone
+  开发的跨平台 Xamarin.Forms 应用的解决方案架构。本着良好架构和可重用性的精神，Xamarin.Forms 跨平台解决方案通常使用包含业务逻辑和数据访问层的共享
+  C# 应用程序代码，如图中底层所示。这通常被称为核心库。跨平台 Xamarin.Forms UI 层同样是 C#，在图中被描绘为中间层。顶部的薄虚线层是平台特定项目中极少量的平台特定
+  C# UI 代码，用于在每个原生操作系统中初始化和运行应用。
+
+
+  ![A978-1-4842-0214-2_2_Fig2_HTML.jpg](img/A978-1-4842-0214-2_2_Fig2_HTML.jpg)
+
+
+  图 2-2. Xamarin.Forms 解决方案架构：一个应用，三个平台
+
+
+  图 2-2 经过简化，以传达 Xamarin.Forms 的基本原理。现实情况是，Xamarin.Forms 和平台特定代码之间的混合是可能的、有用的，并且是受到鼓励的。它可以在多个层面上发生。首先，在
+  Xamarin.Forms 自定义渲染器中，这是一个用于在 Xamarin.Forms 页面上渲染平台特定功能的平台特定类。混合也可以发生在与 Xamarin.Forms
+  页面并行运行的平台特定 Android Activity 和 iOS 视图控制器中，或者发生在按需调用的平台特定类中，以处理原生功能，例如位置、相机、图形或动画。这种复杂的方法可能导致更复杂的架构，如图
+  2-3 所示，必须小心处理。注意已添加的平台特定 UI 层。
+
+
+  ![A978-1-4842-0214-2_2_Fig3_HTML.jpg](img/A978-1-4842-0214-2_2_Fig3_HTML.jpg)
+
+
+  图 2-3. 带有自定义渲染器的 Xamarin.Forms 架构
+
+
+  > **注意：** 第 8 章提供更多关于在 Xamarin.Forms 解决方案中使用自定义渲染器和平台特定代码的信息。
+
+
+  何时适合使用 Xamarin.Forms，以及何时考虑其他 Xamarin 选项？我将在本章稍后部分回答这个关键问题，但首先，让我们定义一下 Xamarin 的平台特定
+  UI 选项。
+
+
+
+
+  '
+- "# 理解平台特定 UI 方法\n\n在 Xamarin.Forms 出现之前，存在平台特定（或称原生）UI 选项，其中包括 Xamarin.Android、Xamarin.iOS\
+  \ 和 Windows Phone SDK 库。使用平台特定 UI 构建屏幕需要对这些库所暴露的原生 UI 有一定了解。我们无需直接使用 iOS UIKit 或\
+  \ Android SDK 进行编码，因为通过 Xamarin 在 C# 中的绑定机制，我们位于其上层。而使用 Windows Phone SDK 则是在 C#\
+  \ 中直接针对 Windows Phone SDK（一个 C# 库）进行原生编码。使用 Xamarin 平台特定 UI 的优势在于，这些库成熟且功能完善。每个原生控件和容器类都拥有大量属性和方法，而\
+  \ Xamarin 的绑定机制直接暴露了其中许多功能。\n\n**注意：** 此处讨论的不是直接使用 Objective-C 或 Java 进行原生 UI 开发，而是通过\
+  \ Xamarin C# 平台特定绑定来使用原生 UI 库。为避免混淆，本书在指代 Xamarin 库时偏好使用术语*平台特定*而非*原生*，但 Xamarin\
+  \ 开发者有时也会用*原生*来指代使用 `Xamarin.iOS` 和 `Xamarin.Android` 这类平台特定库的情况。\n\n## 平台特定 UI\
+  \ 解决方案架构\n\n图 2-4 展示了旨在跨平台的平台特定解决方案如何共享包含业务逻辑和数据访问层的 C# 应用程序代码，这与 Xamarin.Forms\
+  \ 解决方案类似。但 UI 层则完全不同：它完全是平台特定的。这些项目中的 UI C# 代码所使用的类都直接绑定到原生 API：即直接（无需额外绑定层地）对接\
+  \ iOS、Android 或 Windows Phone API。\n\n![A978-1-4842-0214-2_2_Fig4_HTML.jpg](img/A978-1-4842-0214-2_2_Fig4_HTML.jpg)\n\
+  \n*图 2-4. 平台特定 UI 解决方案架构*\n\n如果将此图与图 2-2 中的 Xamarin.Forms 图进行比较，你会发现此处需要编写更多的代码：需要为每个平台分别构建\
+  \ UI，而不是一个 UI 适用于所有平台。为什么有人会选择这种开发方式呢？实际上，有不少充分的理由说明为什么部分甚至全部代码采用这种方式会更好。关于那个迫切的问题*我该选哪个，Xamarin.Forms\
+  \ 还是 Xamarin 平台特定 UI？*，请参阅本章稍后的“选择 Xamarin.Forms 或平台特定 UI”部分。\n\n但首先，让我们深入探讨 Android\
+  \ 和 iOS 的绑定机制，然后再了解 Windows Phone SDK。\n\n### Xamarin.Android\n\nXamarin.Android\
+  \ C# 绑定让我们能够接入 Android API。Android 应用主要由布局和活动构成，大致可理解为视图和控制器。布局通常是使用 UI 设计器编辑的 XML\
+  \ 文件(`.axml`)，用于定义屏幕上显示的控件。`Activity` 是一个类，通常管理单个布局的生命周期，但更小的布局（称为片段）可以组合起来构成一个屏幕。\n\
+  \n在 Android 术语中，控件被称为视图：例如 `Buttons`、`TextViews`、`ListViews` 等。我们将这些控件放置在另一种布局（即包含控件的容器控件）上，其作用类似于\
+  \ HTML 中的 `<div>`：例如 `LinearLayout`、`RelativeLayout`、`FrameLayout` 和 `WebViews`。这些继承自\
+  \ `ViewGroup` 类的布局，可以手动组装，或通过称为适配器的数据绑定类动态生成。通过继承 `AdapterView`，诸如 `ListView` 和\
+  \ `GridView` 这类微件可以通过数据绑定来填充。\n\n**注意：** Android 术语中，“布局”一词有两种不同含义：一是包含 UI 屏幕的 XML\
+  \ 文件(`.axml`)，二是用于容纳和格式化其他控件（如 `LinearLayout`）的容器控件。\n\n构建 Android 布局有两种方法：使用 XML\
+  \ 资源文件，或手动用 C# 编码。XML 文件(`.axml`)具有很高的可读性和优雅性，这鼓励了直接编辑 XML 代码，即使在使用 Xamarin Designer\
+  \ for Android（XML 资源文件编辑器）时也是如此。大多数移动开发者更喜欢使用 Android XML 资源文件(`.axml`)，而不是在 C#\
+  \ 中手动编写 UI。在 C# 中手动编码 Android UI 并不那么顺手，因为开发社区认为必要的方法和参数使用起来笨拙且困难。此外，大多数 Android\
+  \ UI 的在线示例都使用 XML 资源文件，即使在 Xamarin 的官方文档中也是如此。这些原因是大多数 Android 开发社区使用 XML 进行 UI\
+  \ 开发的原因。这种做法也延伸到了 Xamarin 开发社区，更不用说使用 XML 资源文件是 Xamarin 推荐的方法。\n\n### Xamarin.iOS\n\
+  \nXamarin.iOS C# 绑定使我们能够连接到名为 UIKit 的 iOS 原生 UI API。`Views` 和 `ViewControllers`\
+  \ 在 iOS 中分别对应视图和控制器。视图通常使用设计器工具构建，并生成 XML 文件(`.xib` 或 `.storyboard`)。`ViewController`\
+  \ 是一个管理视图的控制器类。在 iOS 中，我们处理各种层次：标签栏视图、导航视图以及覆盖在主视图之上的图像，所有这些都嵌套在 [`UIWindow`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIWindow_Class/UIWindowClassReference/UIWindowClassReference.html#//apple_ref/occ/cl/UIWindow%23_self)\
+  \ 内部。控件包括 `UILabel`、`UIButton`、`UITextField` 和 `UISlider`。这些控件位于名为 `UIView` 的视图类中，通过继承该类可以创建有用的数据绑定视图，例如用于列表的\
+  \ `UITableView` 和用于网格和分组的 `UICollectionView`。iOS 布局是使用称为自动布局的技术构建的，该技术基于视图之间的约束，这些约束会根据显示上下文动态移动和调整大小。较旧的布局方法，自动调整大小，涉及到创建框架并对其进行遮罩，也被称为弹簧和支柱。这些都是\
+  \ UIKit（iOS 用户界面的开发框架）的一部分。\n\n**提示：** 为什么 `UILabel`、`UIButton`、`UIThis` 和 `UIThat`\
+  \ 中都有 `UI`？iOS 的 Objective-C 没有命名空间，因此使用类名前缀来区分。\n\n在 iOS 中构建屏幕有两种方法：第一种是使用设计器工具，例如\
+  \ Xamarin Designer for iOS 或 Xcode Interface Builder；第二种是使用 C# 手动编码。设计器工具会创建一个故事板\
+  \ XML 文件或 `.xib`（发音和写作：nib），而手动编码则直接在 iOS 视图控制器 C# 类中完成（这些类随后被称为无 nib 视图）。故事板和 nib\
+  \ 文件有时难以阅读。这使得它们与用于构建它们的工具紧密耦合，并且不鼓励手动编辑。Nib 文件适用于简单的表单，例如模态窗口和登录页面；而故事板则是原型设计、复杂转场以及多个互连页面的主力工具。动态数据绑定、页面间的数据流以及视觉效果和复杂性，通常最好通过手动编写的\
+  \ C# 代码来实现。\n\n**重要提示：** 本书的重点是 Xamarin.Forms 和跨平台的代码优先开发，并结合一些最实用的平台特定技术。一本书要涵盖的内容很多，因此，一些\
+  \ Android 和 iOS 的基础知识以及所有设计器工具都不在讨论范围内。如果你是第一次在 Android 或 iOS 上进行平台特定开发，需要查阅其他资料。请参阅本书引言中的先决条件部分，并查阅\
+  \ Xamarin、Google 和 Apple 的在线文档，或者众多优秀的平台特定开发书籍来补充相关知识。\n\n\n\n### Windows Phone\
+  \ SDK\n\nWindows Phone SDK 是一个包含内置 .NET API 的 C# 类库。屏幕由处理导航并包含页面的 `Frame` 类定义，其加载和卸载方式与传统视图类似。页面内部包含称为面板的布局容器，例如用于绝对定位的\
+  \ `Canvas`，以及用于自动调整大小的相对布局的 `StackPanel` 和 `Grid`。此外还有常见的控件，例如用于文本编辑的 `TextBox`、用于标签的\
+  \ `TextBlock`，以及用于视频和音乐的 `Button`、`Image` 和 `MediaElement`。对于列表，有 `LongListSelector`\
+  \ 和较旧的 `ListBox`。我们使用 C#、XAML、Blend 和/或 Visual Studio UI 设计器来构建用户界面。\n\n**提示**\n\
+  \n由于 Windows Phone SDK 已经使用 C# 和 .NET，因此无需 Xamarin 平台即可使用 C# 编写 Windows Phone 应用。跨平台开发是将\
+  \ Xamarin 与 Windows Phone 结合的主要考量因素：一个 Xamarin.Forms 应用可以在 Windows Phone 上运行。\n\n\
+  Xamarin.Forms 当前支持 Windows Phone Silverlight，并已宣布支持 WinRT 和 Windows Store。\n\n##\
+  \ 选择 Xamarin.Forms 或平台特定 UI\n\n作为开发者，我们面临这个决策：\n\n我应该使用 Xamarin.Forms 还是 Xamarin\
+  \ 的平台特定 UI？\n\n这需要在 Xamarin.Forms 的可移植性与 Xamarin 平台特定 UI（即 Xamarin.Android 和 Xamarin.iOS）的全面功能之间进行权衡。在撰写本文时，平台特定的\
+  \ Xamarin API 比 Xamarin.Forms 拥有显著更多的功能。这个问题的答案可能是只用前者、只用后者、或者两者都使用，具体取决于你的需求。以下是建议指南：\n\
+  \n**在以下情况下使用 Xamarin.Forms：**\n\n*   **学习 Xamarin：** 如果你刚接触使用 C# 进行移动开发，那么 Xamarin.Forms\
+  \ 是一个绝佳的入门方式！\n*   **跨平台框架搭建：** 在构建跨平台应用时，Xamarin.Forms 可用作快速应用开发工具集，帮助你搭建应用的框架。\n\
+  *   **基础业务应用：** Xamarin.Forms 擅长以下方面：基本数据显示、导航和数据输入。这适用于许多业务应用。\n*   **基本设计：** Xamarin.Forms\
+  \ 提供了具有基础设计特性的控件，便于进行基本的视觉格式化。\n*   **简单的跨平台屏幕：** Xamarin.Forms 非常适合创建完全功能的基本屏幕。对于更复杂的屏幕，可利用\
+  \ Xamarin.Forms 的自定义渲染器来处理平台特定的细节。\n\n**在以下情况下使用平台特定 UI（Xamarin.iOS 或 Xamarin.Android）：**\n\
+  \n*   **复杂屏幕：** 当整个屏幕（或整个应用）需要精细复杂的设计和 UI 方法，而 Xamarin.Forms 无法胜任时，使用基于 Xamarin.Android\
+  \ 和 Xamarin.iOS 的平台特定 UI。\n*   **消费者应用：** 平台特定 UI 提供了开发者创建消费者应用所需的一切，包括复杂的视觉设计、精细的手势敏感度以及高端图形和动画。\n\
+  *   **高设计要求：** 这种方法提供完整的原生 UI API，可对每个控件的设计属性进行底层访问，从而实现高标准的视觉设计。此方法还提供了原生动画和图形功能。\n\
+  *   **单一平台应用：** 如果你只为单一平台构建，并且在可预见的未来跨平台方法对你的应用来说不重要（即使你从单一平台起步，这种情况也属罕见），可以考虑使用平台特定\
+  \ UI。\n*   **不支持的平台：** Xamarin.Forms 目前不支持 Mac OS X、Windows Store 和 WinRT 应用。\n\n\
+  然而，Xamarin 发展迅速，这些建议很可能会改变。具体变化如下：随着 Xamarin.Forms 的每个新版本发布，绑定中会包含更多属性和方法，使这个库更接近平台特定的库，并让我们对跨平台\
+  \ UI 拥有更强的控制力。此外，第三方供应商和开源项目（如 Xamarin Forms Labs）正在通过添加控件、图表和数据网格来迅速扩展可用选项。目前 Xamarin.Forms\
+  \ 还没有可视化设计器，但我预计很快就会有。\n\n当 Xamarin.Forms 需要处理复杂任务或高级设计时，几乎任何功能都可以通过自定义渲染器实现。\n\n\
+  ### 通过自定义渲染器同时使用两种方法\n\n自定义渲染器允许访问底层、平台特定的屏幕渲染类（称为渲染器），这些类使用平台特定控件来创建所有 Xamarin.Forms\
+  \ 屏幕。使用这种方法，任何 Xamarin.Forms 屏幕都可以分解为平台特定的屏幕和类。这意味着我们可以编写一个 Xamarin.Forms 页面或应用，并在必要时按平台进行自定义。更多内容请参见第\
+  \ 8 章。\n\n谨慎使用自定义渲染器，否则可能导致 UI 代码库碎片化，而这种碎片化很可能当初就应该完全以平台特定 UI 的方式编写。\n\n在接下来的每一章中，我们将探究\
+  \ Xamarin.Forms 的选项，然后检查相同功能的平台特定实现。你将能够看到它们在撰写本文时的对比情况，以及如何使用自定义渲染器将它们结合起来。随着时间的推移，Xamarin.Forms\
+  \ 可能会从一种框架搭建技术发展为功能全面的跨平台应用构建模块。如果没有（或者在此之前），平台特定的方法仍然是构建高功能应用所必需的，而无需严重依赖 Xamarin.Forms\
+  \ 的自定义渲染器。\n\n过去获奖的 Xamarin 应用都是使用平台特定方法创建的，但关键问题是，你今天将创建什么？\n\n让我们探索 C# 移动用户界面的构建模块。\n\
+  \n## 探索移动 UI 的构成元素\n\nXamarin 是一个统一多个平台的工具，这些平台对同一事物的命名可能不同。以下是基于 Xamarin.Forms\
+  \ 视角的统一术语：\n\n*   **屏幕、视图或页面** 在移动应用中由几个基本组件组构成：页面、布局和控件。页面可以是完整或部分屏幕，也可以是控件组。在\
+  \ Xamarin.Forms 中，它们被称为页面（因派生自 `Page` 类）。在 iOS 中，它们是视图；在 Android 中，它们是屏幕、布局，或者有时被笼统地称为活动（Activity）。\n\
+  *   **控件** 是独立的 UI 元素，我们用来显示信息或提供选择或导航。Xamarin.Forms 称其为视图（Views），因为控件继承自 `View`\
+  \ 类。某些控件在 Android 中被称为部件（Widgets）。更多内容将在稍后及第 4 章中介绍。\n*   **布局** 是控件的容器，决定它们的大小、位置及相互关系。Xamarin.Forms\
+  \ 和 Android 使用这个术语，而在 iOS 中所有东西都是视图。更多内容请见第 3 章。\n*   **列表**，通常可滚动且可选择，是移动 UI 中最重要的数据显示和选择工具之一。更多内容请见第\
+  \ 5 章。\n*   **导航** 为用户提供遍历应用的方式，通过使用菜单、选项卡、工具栏、列表、可点击图标以及向上和返回按钮实现。更多内容请见第 6 章。\n\
+  *   **模态框、对话框和提示** 通常是弹出屏幕，用于提供信息并要求用户做出某种响应。更多内容请见第 6 章。\n\n现在我们已经有了相关的背景知识和术语，让我们一起开始使用\
+  \ Xamarin.Forms 吧！\n\n\n\n## 使用 Xamarin.Forms UI\n\n页面、布局和视图构成了 Xamarin.Forms UI\
+  \ 的核心（图 2-5）。页面是主要的容器，每个屏幕都由一个单独的 `Page` 类填充。一个页面可能包含 `Layout` 类的多种变体，这些变体又可以容纳其他布局，用于放置和调整其内容的大小。页面和布局的目的是容纳并呈现视图，这些视图是继承自\
+  \ `View` 类的控件。\n\n![A978-1-4842-0214-2_2_Fig5_HTML.jpg](img/A978-1-4842-0214-2_2_Fig5_HTML.jpg)\n\
+  \n图 2-5. Xamarin.Forms 屏幕上的页面、布局和视图\n\n### 页面\n\n`Page` 类是应用中每个主屏幕的主要容器。`Page` 派生自\
+  \ `Xamarin.Forms.VisualElement`，是创建其他顶级 UI 类的基类。以下是主要的页面类型：\n\n- `ContentPage`\n\
+  - `MasterDetailPage`\n- `NavigationPage`\n- `TabbedPage`\n- `CarouselPage`\n\n除了作为布局和视图的容器外，页面还提供了丰富的预制屏幕菜单，具备包括导航和手势响应在内的有用功能。更多内容请参见第\
+  \ 6 章。\n\n### 布局\n\n视图由其容器类 `Layout` 放置和调整大小。布局有多种类型，具有不同的视图格式化特性。这些容器允许视图进行精确或松散的格式化，可以基于坐标系绝对定位，也可以相对于彼此定位。布局是页面的软组织，是将页面中可见的实体部分（视图）结合在一起的“软骨”。以下是主要的布局类型：\n\
+  \n- `StackLayout`\n- `AbsoluteLayout`\n- `RelativeLayout`\n- `Grid`\n- `ScrollView`\n\
+  - `Frame`\n- `ContentView`\n\n布局的 `Content` 和/或 `Children` 属性包含其他布局和视图。水平和垂直对齐通过\
+  \ `HorizontalOptions` 和 `VerticalOptions` 属性设置。布局中的行、列和单元格可以添加间距，可以扩展以填充可用空间，也可以收缩以适应其内容。下一章将详细介绍布局。\n\
+  \n> **提示：** Xamarin.Forms 的布局继承自 `View` 类，因此页面中包含的所有内容实际上都是某种形式的视图。\n\n### 视图\n\n\
+  视图是控件，是页面上可见且可交互的元素。范围涵盖从按钮、标签和文本框等基本视图，到列表和导航等更高级的视图。视图包含决定其内容、字体、颜色和对齐方式的属性。水平和垂直对齐通过\
+  \ `HorizontalOptions` 和 `VerticalOptions` 属性设置。与布局类似，视图可以添加间距，可以扩展以填充可用空间，也可以收缩以适应其内容。本章稍后我们将编写一些视图的代码，然后在第\
+  \ 4 章及全书后续章节中再次介绍它们。以下是按功能分组的主要视图：\n\n- **基本视图 – 基础视图**\n  - `Label`\n  - `Image`\n\
+  \  - `Button`\n  - `BoxView`\n- **列表 – 创建可滚动、可选择的列表**\n  - `ListView`\n- **文本输入\
+  \ – 用户通过键盘输入文本字符串**\n  - `Entry`\n  - `Editor`\n- **选择 – 用户从多种字段中选择**\n  - `Picker`\n\
+  \  - `DatePicker`\n  - `TimePicker`\n  - `Stepper`\n  - `Slider`\n  - `Switch`\n\
+  - **用户反馈 – 通知用户应用处理状态**\n  - `ActivityIndicator`\n  - `ProgressBar`\n\n> **提示：**\
+  \ 注意不要将 Xamarin.Forms 的 `View` 类与表示屏幕或表示层的 view 混淆。此外，iOS 将屏幕称为 views。\n\n## 创建\
+  \ Xamarin.Forms 解决方案\n\nXamarin 提供了包含创建 Xamarin.Forms 应用所需项目的模板。一个跨平台解决方案通常包含以下项目：\n\
+  \n- **Xamarin.Forms**：由平台特定项目调用的跨平台 UI 代码。这可以通过使用共享项目、可移植类库 (PCL) 或共享文件来实现。本章我们将创建的示例使用\
+  \ PCL。\n- **Xamarin.Android**：Android 特定代码，包括 Android 项目启动。\n- **Xamarin.iOS**：iOS\
+  \ 特定代码，包括 iOS 项目启动。\n- **Windows Phone 应用程序**：Windows Phone 特定代码，包括 Windows Phone\
+  \ 项目启动。\n- **核心库**：共享的应用逻辑，如业务逻辑和数据访问层，使用 PCL 或共享项目。\n\n图 2-6 显示了 Xamarin.Forms\
+  \ 解决方案中通常包含的主要项目。\n\n![A978-1-4842-0214-2_2_Fig6_HTML.jpg](img/A978-1-4842-0214-2_2_Fig6_HTML.jpg)\n\
+  \n图 2-6. Xamarin.Forms 解决方案\n\n> **提示：** 核心库项目不会由解决方案模板自动添加，必须手动创建，可以是共享项目或 PCL。如果您刚开始接触\
+  \ Xamarin.Forms，可以暂时跳过核心库，将所有共享文件放在 Xamarin.Forms 项目中。\n\n让我们创建一个简单的演示应用，以帮助我们探索\
+  \ Xamarin.Forms 的基础及其许多常用功能。\n\n创建一个 Xamarin.Forms 解决方案。在 Visual Studio 中，创建新解决方案并选择项目类型\
+  \ C# ➤ Mobile Apps ➤ Blank App (Xamarin.Forms Portable)。在 Xamarin Studio 中，选择项目类型\
+  \ C# ➤ Mobile Apps ➤ Blank App (Xamarin.Forms Portable)。将其命名为 `FormsExample`。\n\n\
+  这将创建多个项目：一个用于 Xamarin.Forms 代码，以及平台特定项目，包括 Android、iOS 和/或 Windows Phone。可用的平台特定项目取决于您使用的是\
+  \ PC 还是 Mac、使用的是 Visual Studio 还是 Xamarin Studio，以及您拥有的许可证。使用 Xamarin Studio 的 Mac\
+  \ 会生成一个 iOS 项目和一个 Android 项目。使用 Xamarin Studio 的 PC 会生成 Android 项目。在 Xamarin Studio\
+  \ 中创建的解决方案不包含 Windows Phone 项目，因为创建该项目需要 Visual Studio，尽管在 Visual Studio 中创建的项目可以在\
+  \ Xamarin Studio 中浏览但无法在此编译。如果 PC 上安装了 Visual Studio 并且同时激活了 iOS 和 Android 许可证，则会创建四个项目：一个\
+  \ PCL 和三个平台各一个项目。\n\n> **提示：** Xamarin.Forms 目前适用于除 Starter 许可证外的所有许可证。您需要购买 Indie\
+  \ 或更高级别的许可证，或使用试用许可证才能使用 Xamarin.Forms。\n\n更多关于 PCL、共享项目和其他跨平台解决方案架构选项的内容，请参见第 9\
+  \ 章。\n\n以下各节介绍了解决方案中的每个项目及其包含的代码。\n\n\n\n### Xamarin.Forms 共享代码\n\n在使用 Visual Studio\
+  \ 时，Xamarin.Forms 共享代码项目包含 `App.cs`（列表 2-1），它定义并返回应用的主页面。Xamarin.Forms 1.3 引入了 `Application`\
+  \ 对象，该类作为 `App` 的基类，并提供了 `MainPage` 属性以及生命周期事件 `OnStart`、`OnSleep` 和 `OnResume`。\n\
+  \n**提示：** 当使用 Xamarin Studio 时，列表 2-1 中的文件名与你的项目名称相同，本例中为 `FormsExample.cs`。\n\n\
+  **列表 2-1.** FormsExample 项目中的 `App.cs`\n\n```\nnamespace FormsExample\n{\n    public\
+  \ class App : Application\n    {\n        public App()\n        {\n            MainPage\
+  \ = new ContentPage\n            {\n                Content = new StackLayout\n\
+  \                {\n                    VerticalOptions = LayoutOptions.Center,\n\
+  \                    Children = {\n                        new Label {\n       \
+  \                     XAlign = TextAlignment.Center,\n                         \
+  \   Text = \"Welcome to Xamarin Forms!\"\n                        }\n          \
+  \          }\n                }\n            };\n        }\n\n        protected\
+  \ override void OnStart()\n        {\n        }\n\n        protected override void\
+  \ OnSleep()\n        {\n        }\n\n        protected override void OnResume()\n\
+  \        {\n        }\n    }\n}\n```\n\n每个特定于平台的项目都会创建一个 `App` 实例来设置主页，在本例中是一个 `ContentPage`\
+  \ 对象，其 `Content` 属性填充了一个友好的 `Label`，并在水平和垂直方向上居中。`Content` 属性只能包含一个子视图。多个视图必须包含在子\
+  \ `Layout`（一个视图容器）中，或者使用 `ContentPage`。`MainPage` 属性通过内联的 `ContentPage` 类被设置为应用的根页面。\n\
+  \n不久我们将用自定义的 `ContentPage` 类替换这个 `ContentPage`，并在其上放置控件。\n\n**提示：** 静态属性 `Application.Current`\
+  \ 可在应用中的任何位置引用当前的应用对象。\n\n为我们创建的 `OnStart`、`OnSleep` 和 `OnResume` 方法重写用于在应用进入和退出后台时对其进行管理。\n\
+  \n#### 应用程序生命周期方法：`OnStart`、`OnSleep` 和 `OnResume`\n\n当用户点击设备上的 `Back` 或 `Home`（或\
+  \ `App Switcher`）按钮时，应用会进入后台。当他们重新选择应用时，它会恢复并回到前台。应用的启动、从前景状态进入后台状态然后再次回到前景，直到终止，这个过程被称为应用生命周期。`Application`\
+  \ 类包含三个用于处理生命周期事件的虚方法：\n\n* `OnStart` – 在应用首次启动时调用\n* `OnSleep` – 在应用每次进入后台时调用\n\
+  * `OnResume` – 在应用从后台恢复时调用\n\n`OnSleep` 也用于正常的应用终止（非崩溃）。任何应用进入后台状态时，都必须假设它可能永远不会从该状态返回。\n\
+  \n**提示：** 当应用进入后台时，在这些方法中使用 `Properties` 字典进行磁盘持久化。关于状态管理的更多信息，请参阅第 6 章。\n\n####\
+  \ 使用 `ContentPage` 构建页面\n\n`App.cs`（列表 2-1）中的 `ContentPage` 类继承自 `Xamarin.Forms.Page`，是\
+  \ Xamarin.Forms 中用于自定义构建页面的通用页面。它包含一个子元素，分配给其 `Content` 属性，例如前面的 `Label`。在 `ContentPage`\
+  \ 上放置多个控件需要使用继承自 `ContentPage` 的自定义类，该类包含一个容器，例如 `Layout`。\n\n`ContentPage` 具有影响页面外观的属性。`Padding`\
+  \ 属性可以在页面的边缘创建间距，以提高可读性和设计感。`BackgroundImage` 可以包含一个显示在页面背景上的图像。\n\n`ContentPage`\
+  \ 的多个成员对于导航和状态管理非常有用。`Title` 属性包含文本，`Icon` 属性包含一个图像，当实现 `NavigationPage` 时，它们会显示在页面顶部。可以重写生命周期方法\
+  \ `OnAppearing` 和 `OnDisappearing` 来处理 `ContentPage` 的初始化和结束操作。`ToolBarItems` 属性对于创建下拉菜单很有用。所有这些导航相关成员将在第\
+  \ 6 章中介绍。\n\n### Xamarin.Android\n\nandroid\n\nAndroid 项目包含一个名为 `MainActivity.cs`\
+  \ 的启动文件，它定义了一个继承自 `Xamarin.Forms.Platform.Android.FormsApplicationActivity` 的活动类，如列表\
+  \ 2-2 所示。\n\n**列表 2-2.** FormsExample.Droid 项目中的 `MainActivity.cs`\n\n```\nnamespace\
+  \ FormsExample.Droid\n{\n    [Activity(Label = \"FormsExample\", Icon = \"@drawable/icon\"\
+  , MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]\n\
+  \    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity\n\
+  \    {\n        protected override void OnCreate(Bundle bundle)\n        {\n   \
+  \         base.OnCreate(bundle);\n            global::Xamarin.Forms.Forms.Init(this,\
+  \ bundle);\n            LoadApplication(new App());\n        }\n    }\n}\n```\n\n\
+  在 `OnCreate` 方法中，Xamarin.Forms 被初始化，并且 `LoadApplication` 将 `App` 设置为当前页面。\n\n###\
+  \ Xamarin.iOS\n\ni OS\n\niOS 项目包含一个名为 `AppDelegate` 的启动文件（列表 2-3），它继承自 `Xamarin.Forms.Platform.iOS.FormsApplicationDelegate`。\n\
+  \n**列表 2-3.** FormsExample.iOS 项目中的 `AppDelegate.cs`\n\n```\nnamespace FormsExample.iOS\n\
+  {\n        [Register(\"AppDelegate\")]\n        public partial class AppDelegate\
+  \ : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate\n        {\n   \
+  \         public override bool FinishedLaunching(UIApplication app, NSDictionary\
+  \ options)\n            {\n                global::Xamarin.Forms.Forms.Init();\n\
+  \                LoadApplication(new App());\n                return base.FinishedLaunching(app,\
+  \ options);\n            }\n        }\n}\n```\n\nXamarin.Forms 在 `Init()` 方法中被初始化，并且\
+  \ `LoadApplication` 将 `App` 设置为当前页面。\n\n### Windows Phone 应用程序\n\nwindows\n\nWindows\
+  \ Phone 项目包含一个 `Mainpage.xaml.cs` 类（列表 2-4），它继承自 `Xamarin.Forms.Platform.WinPhone.FormsApplicationPage`：\n\
+  \n**列表 2-4.** WinPhone 项目中的 `MainPage.xaml.cs`\n\n```\nnamespace FormsExample.WinPhone\n\
+  {\npublic partial class MainPage : global::Xamarin.Forms.Platform.WinPhone.FormsApplicationPage\n\
+  {\npublic MainPage()\n{\nInitializeComponent();\nSupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;\n\
+  global::Xamarin.Forms.Forms.Init();\nLoadApplication(new FormsExample.App());\n\
+  }\n}\n}\n```\n\nXamarin.Forms 在 `Init()` 方法中被初始化，并且 `LoadApplication` 将 Xamarin.Forms\
+  \ 的 `App` 设置为当前页面。\n\n**注意：** 由于 Windows Phone 应用程序有自己的 `App` 类，在引用 Xamarin.Forms\
+  \ 的 `App` 对象时，使用应用程序命名空间是一种良好实践。\n\nWindows Phone 应用还需要在 `MainPage.xaml` 中添加一个引用。\n\
+  \n```\n<winPhone:FormsApplicationPage\n...\n```\n\n\n\n```\n`<winPhone:FormsApplicationPage>`\
+  \  \n我们三个特定平台的初始化器，即 Android 的 `MainActivity`、iOS 的 `AppDelegate` 和 Windows Phone\
+  \ 的 `MainPage`，都从 Xamarin.Forms 的 `App` 类中获取起始页面，该类默认返回一个存根的演示页面。\n\n### 核心库\n\n\
+  核心库是 Xamarin.Forms 解决方案中为应用的业务层和/或数据层而创建的项目，它应当很大程度上独立于平台。虽然它并未作为 Xamarin.Forms\
+  \ 解决方案模板的一部分被显式创建，但核心库项目是一种标准做法。您可以自行创建一个并将其添加到解决方案中。该库可以包含数据模型、共享文件或资源、数据访问、业务逻辑，或对\
+  \ PCL 的引用。这是放置独立于平台的中间层或后端非 UI 代码的地方。解决方案中的任何一个或所有其他项目都可以引用它。使用它可以优化代码复用，并将 UI 项目与数据源和业务逻辑解耦。\n\
+  \n现在我们需要构建应用的页面。是时候编写代码了！\n\n### 设置应用的主页面\n\n首先，我们在 Xamarin.Forms 核心项目中创建一个自定义页面，并将其设置为应用的主页面。创建一个继承自\
+  \ `ContentPage` 的类，并将其命名为 `ContentPageExample`：\n\n```\nnamespace FormsExample\n\
+  {\n        class ContentPageExample : ContentPage\n        {\n            public\
+  \ ContentPageExample()\n            {\n            // 视图/控件将放在这里\n```\n\n然后，在 Xamarin.Forms\
+  \ 的 `App.cs` 文件中，我们更新 `App` 构造函数，将我们的新 `ContentPageExample` 类的一个实例设置为 `MainPage`：\n\
+  \n```\nnamespace FormsExample\n{\n        public class App : Application\n     \
+  \   {\n            public App()\n            {\n                MainPage = new ContentPageExample\
+  \ ();\n            }\n```\n\n现在我们已经准备好了自定义页面类，可以向 `ContentPageExample` 构造函数中添加控件了。\n\
+  \n## 添加 Xamarin.Forms 视图\n\n`View` 是 Xamarin.Forms 中用于表示控件的术语，是 UI 构建的最小单元。大多数视图继承自\
+  \ `View` 类，提供基本的 UI 功能，例如标签或按钮。从现在开始，我们将互换使用术语“视图”和“控件”。\n\n> **提示** 所有示例代码解决方案，包括这些\
+  \ C# 示例的 XAML 版本，都可以在 [Apress.com](http://www.apress.com/9781484202159?gtmf=s) 上本书标题下的“源代码/下载”选项卡中找到，或者在\
+  \ GitHub 上的 [`github.com/danhermes/xamarin-book-examples`](https://github.com/danhermes/xamarin-book-examples)\
+  \ 中找到。\n\n让我们从简单的开始，将一些视图放入 `ContentPageExample` 类中。\n\n### 标签视图\n\n标签用于显示单行或多行文本。以下是一些示例：\n\
+  \n```\nLabel labelLarge = new Label\n{\n        Text = \"标签\",\n        FontSize\
+  \ = 40,\n        HorizontalOptions = LayoutOptions.Center\n};\nLabel labelSmall\
+  \ = new Label\n{\n        Text = \"这个控件非常适合\\n\" +\n                \"显示一行或多行\\\
+  n\" +\n                \"文本。\",\n        FontSize = 20,\n        HorizontalOptions\
+  \ = LayoutOptions.CenterAndExpand\n};\n```\n\n当文本足够多以至于需要换行时，或者通过 `\\n` 显式指定换行时，多行文本就会隐式产生。\n\
+  \n一个 `Label` 视图有两种对齐类型：视图对齐和文本对齐。整个视图在布局中使用 `HorizontalOptions` 和 `VerticalOptions`\
+  \ 属性（通过 `LayoutOptions` 赋值）进行对齐。`Label` 文本在 `Label` 内部使用 `Label` 的 `XAlign` 和 `YAlign`\
+  \ 属性进行对齐，其中 `XAlign` 设置文本的水平对齐，`YAlign` 设置文本的垂直对齐。\n\n```\nXAlign = TextAlignment.End\n\
+  ```\n\n`TextAlignment` 枚举有三个值：`Start`、`Center` 和 `End`。在这个例子中我们使用默认值。\n\n接下来，必须将标签分配到一个布局中，以便在页面上进行放置。\n\
+  \n### 使用 `StackLayout` 放置视图\n\n一个 `Layout` 视图充当其他视图的容器。由于一个 `ContentPage` 只能有一个子元素，我们页面上的所有视图都必须放在一个容器中，并将该容器作为\
+  \ `ContentPage` 的子元素。这里我们使用 `StackLayout`，它是 `Layout` 的一个子类，可以垂直“堆叠”子视图：\n\n```\n\
+  StackLayout stackLayout = new StackLayout\n{\n        Children =\n        {\n  \
+  \          labelLarge,\n            labelSmall\n        },\n        HeightRequest\
+  \ = 1500\n};\n```\n\n我们通过使用 `StackLayout` 的 `Children` 属性将所有子视图放置到父视图上，并使用 `HeightRequest`\
+  \ 设置请求的高度。`HeightRequest` 被设置为比可见页面更大，这样我们稍后可以使其滚动。\n\n> **注意** 除非使用 `Orientation\
+  \ = StackOrientation.Vertical` 指定了水平顺序，否则 `StackLayout` 的子视图是垂直堆叠的。\n\n为了让 `StackLayout`\
+  \ 在我们的页面上显示，我们必须将其赋值给 `ContentPage` 的 `Content` 属性：\n\n```\nthis.Content = stackLayout;\n\
+  ```\n\n编译并运行代码。图 2-7 分别展示了在 iOS、Android 和 Windows Phone 上，我们的标签位于 `StackLayout`\
+  \ 中的情况。\n\n![A978-1-4842-0214-2_2_Fig7_HTML.jpg](img/A978-1-4842-0214-2_2_Fig7_HTML.jpg)\n\
+  \n**图 2-7.** `StackLayout` 上的 Xamarin.Forms `Label`\n\n如果你使用的是 iOS，并希望你的 Xamarin.Forms\
+  \ 项目看起来更像本书中的示例（黑色背景和白色文本），或者你使用其他平台并希望看起来更像 iOS，那么设置背景颜色和字体颜色会有所帮助。\n\n### 背景颜色和字体颜色\n\
+  \n页面背景颜色和视图字体颜色可以通过 `ContentPage` 的 `BackgroundColor` 属性和基于文本的 `Views` 上的 `TextColor`\
+  \ 属性来更改。\n\n如果你正在处理 iOS 项目，并希望你的工作看起来更像具有黑色背景的书籍示例，请将这一行添加到你的页面中：\n\n```\nthis.BackgroundColor\
+  \ = Color.Black;\n```\n\n如果你希望它看起来更经典的 iOS 风格，则将其设置为 `Color.White`。\n\n文本颜色随后会自动设置为较浅的颜色。但是，你可以使用\
+  \ `TextColor` 属性在文本控件上手动控制文本颜色。\n\n```\nTextColor =  Color.White,\n```\n\n我们在许多控件中使用字体，所以我们快速浏览一下它们。\n\
+  \n### 使用字体\n\n通过使用以下属性来格式化控件上的文本：\n\n*   `FontFamily`：在 `FontFamily` 属性中设置字体的名称，否则将使用默认的系统字体。例如，`label.FontFamily\
+  \ = \"Courier\";`\n*   `FontSize`：字体大小和粗细通过使用双精度值或 `NamedSize` 枚举在 `FontSize` 属性中指定。这是一个使用双精度值的示例：`label.FontSize\
+  \ = 40;`。通过使用 `NamedSize` 值（例如 `NamedSize.Large`）来设置相对大小，使用 `NamedSize` 成员 `Large`、`Medium`、`Small`\
+  \ 和 `Micro`。例如，`button.FontSize = Device.GetNamedSize (NamedSize.Large, typeof(Button));`\n\
+  *   `FontAttributes`：字体样式（如粗体和斜体）使用 `FontAttributes` 属性指定。单个属性的设置方式如下：`label.FontAttributes\
+  \ = FontAttributes.Bold`。`FontAttributes` 选项有 `None`、`Bold` 和 `Italic`。多个属性使用“|”连接，例如，`label.FontAttributes\
+  \ = FontAttributes.Bold | FontAttributes.Italic;`\n\n> **提示** 一些控件支持使用 `FormattedString`\
+  \ 类在字符串的不同部分应用不同的 `FontAttributes`。\n\n> **注意** 使用 `NamedSize` 的 `FontSize` 属性可以通过两种方式声明：\n\
+  \n> `button.FontSize = Device.GetNamedSize (NamedSize.Large, button);`\n\n> `button.FontSize\
+  \ = Device.GetNamedSize (NamedSize.Large, typeof(Button));`\n\n> 对于内联声明，使用第二种方式。\n\
+  \n### 使用特定平台的字体\n\n确保你的字体名称在你所有的目标平台上都有效，否则你的页面可能会莫名其妙地失败。如果你需要每个平台使用不同的字体名称，可以使用\
+  \ `Device.OnPlatform` 方法，该方法根据平台设置一个值，如下所示：\n\n```\nlabel.FontFamily = Device.OnPlatform\
+  \ (\n        iOS:      \"Courier\",\n        Android:  \"Droid Sans Mono\",\n  \
+  \      WinPhone: \"Courier New\"\n);\nlabel.FontSize = Device.OnPlatform (\n   \
+  \     30,\n        Device.GetNamedSize (NamedSize.Medium, label),\n        Device.GetNamedSize\
+  \ (NamedSize.Large, label)\n);\n```\n\n> **提示** 使用 `Device.OnPlatform` 是一个方便的跨平台技巧，它返回一个特定平台的值。\n\
+  \n运行时加载的自定义字体也可以使用，但这需要特定平台的编码，这在 Xamarin.Forms 在线文档的 \"Working With... ➤ Fonts(1.3)\"\
+  \ 部分有所介绍。\n\n### 按钮视图\n\nXamarin.Forms 按钮是矩形的并且可以点击。\n\n让我们添加一个普通的按钮：\n\n```\nButton\
+  \ button = new Button\n{\n        Text = \"执行它\",\n        FontSize = Device.GetNamedSize(NamedSize.Large,\
+  \ typeof(Button)),\n        HorizontalOptions = LayoutOptions.Center,\n        VerticalOptions\
+  \ = LayoutOptions.Fill\n};\n```\n\n`Text` 属性包含按钮上可见的文本。`HorizontalOptions` 和 `VerticalOptions`（将在下一节讨论）决定控件的对齐和大小。这个\
+  \ `NamedSize` 字体设置使字体变为 `Large`。\n\n> **提示** 按钮可以通过 `BorderColor`、`BorderWidth`\
+  \ 和 `TextColor` 属性进行自定义。在 iOS 上，`BorderWidth` 默认为零。\n\n将按钮添加到我们的 `StackLayout` 中。\n\
+  \n```\nStackLayout stackLayout = new StackLayout\n{\n        Children =\n      \
+  \  {\n            labelLarge,\n            labelSmall,\n            button\n   \
+  \     },\n        HeightRequest = 1500\n};\n```\n\n图 2-8 展示了新按钮。\n\n![A978-1-4842-0214-2_2_Fig8_HTML.jpg](img/A978-1-4842-0214-2_2_Fig8_HTML.jpg)\n\
+  \n**图 2-8.** Xamarin.Forms 按钮\n\n现在让我们分配一个事件处理器，可以内联编写：\n\n```\nbutton.Clicked +=\
+  \ (sender, args) =>\n{\n       button.Text = \"已执行！\";\n};\n```\n\n或者通过分配一个方法：\n\
+  \n```\nbutton.Clicked += OnButtonClicked;\n```\n\n...该方法在页面构造函数外部调用：\n\n```\nvoid\
+  \ OnButtonClicked(object sender, EventArgs e)\n        {\n            button.Text\
+  \ = \"已执行！\";\n        };\n```\n\n当你点击按钮时，按钮文本会改变，如图 2-9 所示。\n\n![A978-1-4842-0214-2_2_Fig9_HTML.jpg](img/A978-1-4842-0214-2_2_Fig9_HTML.jpg)\n\
+  \n**图 2-9.** `button.Clicked` 事件被触发\n\n> **提示** 如果你在页面构造函数外部分配事件处理器，请确保也在构造函数外部定义你的按钮，以避免出现变量未定义的错误。\n\
+  \n`BorderWidth` 分配绘制按钮的线条的粗细。\n\n### 设置视图对齐和大小：`HorizontalOptions` 和 `VerticalOptions`\n\
+  \n水平和垂直对齐，以及在某种程度上控件的大小，是通过将 `HorizontalOptions` 和/或 `VerticalOptions` 属性设置为 `LayoutOptions`\
+  \ 类的值来管理的，例如：\n\n```\nButton button = new Button\n{\n    HorizontalOptions = LayoutOptions.Center,\n\
+  \        VerticalOptions = LayoutOptions.Fill\n}\n```\n\n视图布局中需要考虑的因素包括布局和周围元素提供给视图的空间、视图周围的填充空间以及视图本身的大小。这些类型的格式化是通过使用\
+  \ `LayoutOptions` 和 `AndExpand` 完成的。\n\n#### 使用 `LayoutOptions` 进行对齐\n\n通过将 `HorizontalOptions`\
+  \ 或 `VerticalOptions` 属性设置为 `LayoutOptions` 类之一，可以沿单个轴定义控件布局：\n\n*   `Start` 将控件向左或顶部对齐（取决于布局的\
+  \ `Orientation`）\n*   `Center` 将控件居中。\n*   `End` 将控件向右或底部对齐。\n*   `Fill` 扩展控件的大小以填充提供的空间。\n\
+  \n例如：\n\n```\nHorizontalOptions = LayoutOptions.Start,\n```\n\n#### `AndExpand`\
+  \ 用空间填充\n\n将 `HorizontalOptions` 或 `VerticalOptions` 设置为这些 `LayoutOptions` 类可以为视图周围提供填充空间：\n\
+  \n*   `StartAndExpand` 将控件向左或顶部对齐，并在控件周围填充空间。\n*   `CenterAndExpand` 将控件居中，并在控件周围填充空间。\n\
+  *   `EndAndExpand` 将控件向右或底部对齐，并在控件周围填充空间。\n*   `FillAndExpand` 扩展控件的大小，并在控件周围填充空间。\n\
+  \n例如：\n\n```\nHorizontalOptions = LayoutOptions.StartAndExpand\n```\n\n> **提示**\
+  \ 当列中只有一个控件时，`HorizontalOptions` 设置为 `Fill` 和 `FillAndExpand` 看起来是一样的。\n\n> **提示**\
+  \ 只有当垂直空间被显式提供时，`VerticalOptions` 设置为 `Center` 或 `Fill` 才有用。否则，这些选项可能看起来没有任何作用。如果没有空间可以增长，`LayoutOptions.Fill`\
+  \ 不会让控件变得更高。\n\n> **提示** `VerticalOptions` 设置为 `Expand` 和 `CenterAndExpand` 会在 `StackLayout`\
+  \ 中的控件周围施加填充空间。\n\n本章后面还有更多格式化示例，关于控件布局和对齐的更多内容请参阅[第 3 章](http://www.apress.com/9781484202159?gtmf=s)。接下来让我们创建一些用户输入。\n\
+  \n### 用于文本输入的 `Entry` 视图\n\n以下代码创建了一个文本框，用于用户输入单行文本。`Entry` 继承自 `InputView` 类，后者是\
+  \ `View` 类的派生类。\n\n```\nEntry entry = new Entry\n{\n        Placeholder = \"用户名\"\
+  ,\n        VerticalOptions = LayoutOptions.Center,\n        Keyboard = Keyboard.Text\n\
+  };\n```\n\n用户输入作为 `String` 类型进入 `Text` 属性。\n\n注意 `Placeholder` 属性的使用，它是字段名称的内联标签，也是移动\
+  \ UI 中常用的一种技术，通常优于放置在输入控件上方或旁边的占用空间的标签。`Keyboard` 属性是 `InputView` 的一个成员，为出现的用于输入的屏幕键盘提供一系列选项，包括\
+  \ `Text`、`Numeric`、`Telephone`、`URL` 和 `Email`。记得将输入条目添加到我们的 `StackLayout` 中（请参见本章后面的清单\
+  \ 2-5）。图 2-10 显示了新的用户名输入控件。\n\n![A978-1-4842-0214-2_2_Fig10_HTML.jpg](img/A978-1-4842-0214-2_2_Fig10_HTML.jpg)\n\
+  \n**图 2-10.** Xamarin.Forms 用户 `Entry` 视图\n\n> **提示** 使用 `IsPassword` 属性可以将输入的文本字母替换为圆点。\n\
+  \n对于多行输入，请使用 `Editor` 控件。\n\n### `BoxView`\n\n`BoxView` 控件创建一个彩色的图形矩形，非常适合用作占位符，之后可以用图像或其他更复杂的控件或控件组替换。当你等待设计师理清思路时，这个控件非常有用。\n\
+  \n```\nBoxView boxView = new BoxView\n{\n        Color = Color.Silver,\n       \
+  \ WidthRequest = 150,\n        HeightRequest = 150,\n        HorizontalOptions =\
+  \ LayoutOptions.StartAndExpand,\n        VerticalOptions = LayoutOptions.Fill\n\
+  };\n```\n\n`Color` 属性可以设置为任何 `Color` 成员值。默认尺寸是 40×40 像素，可以使用 `WidthRequest` 和 `HeightRequest`\
+  \ 属性进行更改。\n\n> **提示** 小心将 `HorizontalOptions` 和 `VerticalOptions` 设置为 `LayoutOptions.Fill`\
+  \ 和 `LayoutOptions.FillAndExpand`，因为这可能会覆盖你的 `HeightRequest` 和 `WidthRequest` 尺寸。\n\
+  \n将 `BoxView` 添加到你的 `StackLayout` 中（请参见本章后面的清单 2-5），并在图 2-11 中查看结果。\n\n![A978-1-4842-0214-2_2_Fig11_HTML.jpg](img/A978-1-4842-0214-2_2_Fig11_HTML.jpg)\n\
+  \n**图 2-11.** Xamarin.Forms `BoxView`\n\n最终你的设计师会给你承诺的那些图标，然后你就可以用真正的图像替换你的 `BoxViews`\
+  \ 了。\n\n### Image 视图\n\n`Image` 视图包含一个来自本地或在线文件的图像，用于在你的页面上显示：\n\n```\nImage image\
+  \ = new Image\n{\n        Source = \"monkey.png\",\n        Aspect = Aspect.AspectFit,\n\
+  \        HorizontalOptions = LayoutOptions.End,\n        VerticalOptions = LayoutOptions.Fill\n\
+  };\n```\n\n图 2-12 显示了右下角的猴子图像。\n\n![A978-1-4842-0214-2_2_Fig12_HTML.jpg](img/A978-1-4842-0214-2_2_Fig12_HTML.jpg)\n\
+  \n**图 2-12.** 图像视图\n\n让我们了解一下图像是如何处理的。\n\n#### `Source` 属性\n\n`Source` 属性通过使用以下\
+  \ `ImageSource` 类成员来指示图像的位置：\n\n*   `FromFile`：本地图像文件，例如，`ImageSource.FromFile(\"\
+  monkey.png\")`。在分配 `Source` 时，这个方法的快捷方式是完全省略该方法：`Source = \"monkey.png\"`\n*   `FromResource`：指向应用或\
+  \ PCL 中 `EmbeddedResource` 的资源 ID，例如，`ImageSource.FromResource(\"monkey.png\")`。\n\
+  *   `FromUri`：在线图像的 URI，例如，`ImageSource.FromUri(new Uri(\"http://yourdomain.com/image.png\"\
+  ))`\n\n> **提示** 你可以使用 `FromFile` 快捷方式来分配本地图像：`Source = \"monkey.png\"`\n\n#### 本地图像\n\
+  \n本地图像文件在其各自的项目中有特定平台的图像文件夹：\n\n*   Android：在 `Resources/drawable` 文件夹中。不要在文件名中使用特殊字符。生成操作必须设置为\
+  \ `AndroidResource`。\n*   iOS：在 `/Resources` 文件夹中。同时为 Retina 显示屏提供图像，在文件名的扩展名之前使用\
+  \ @2x 后缀的双倍分辨率。生成操作必须设置为 `BundleResource`。\n*   Windows Phone：在 Windows Phone 项目的根目录中。生成操作必须设置为\
+  \ `Content`。\n\n通过在项目中右键单击图像文件来设置生成操作，以配置图像正确编译。\n\n#### 图像大小设置：`Aspect` 属性\n\n\
+  `Image.Aspect` 属性决定图像大小，并通过使用 `Aspect` 枚举器来设置——例如，`image.Aspect = Aspect.AspectFit`。以下是\
+  \ `Aspect` 成员：\n\n*   `AspectFill`：缩放图像以填充视图，必要时进行裁剪。\n*   `AspectFit`：缩放图像以适应视图内，保持宽高比，不产生变形，必要时留出空间（letterboxing）。\n\
+  *   `Fill`：缩放图像以完全且精确地填充视图，可能会扭曲图像。\n\n以上就是图像格式化选项。接下来我们将使我们的图像可点击。\n\n#### 使用 `GestureRecognizer`\
+  \ 使图像可点击\n\n在移动应用中，可点击的图像和图标常用于操作和导航。与许多 Xamarin.Forms 视图一样，`Image` 没有点击或轻触事件，必须使用\
+  \ `GestureRecognizer` 类进行连接。手势识别器是一个可以添加到许多视图中的类，用于响应用户交互。它目前仅支持轻触手势。在移动 UI 开发中，术语“点击”和“轻触”可以互换使用。\n\
+  \n标准的 gesture recognizer 被声明，并创建一个处理器来管理 `Tapped` 事件，然后将 gesture recognizer 添加到目标视图中，这里是一个图像。在处理程序中将图像的\
+  \ `Opacity` 更改为 0.5，当轻触时图像会稍微变淡。\n\n```\nvar tapGestureRecognizer = new TapGestureRecognizer();\n\
+  tapGestureRecognizer.Tapped += (s, e) => {\n        image.Opacity = .5;\n};\nimage.GestureRecognizers.Add(tapGestureRecognizer);\n\
+  ```\n\n尝试一下，让你的猴子变淡，这样你就可以看到手势识别器在工作。\n\n> **提示** `GestureRecognizer` 的另一种实现是使用\
+  \ `Command` 属性。\n\n```\nimage.GestureRecognizers.Add (new TapGestureRecognizer {\n\
+  \       Command = new Command (()=> { /*处理点击*/ }),\n});\n```\n\n用户反馈是移动 UI 开发中一个至关重要的概念。每当用户在\
+  \ UI 中执行操作时，应用都应该有一些微妙的确认。例如，一次轻触应该通过可见的反馈来响应用户。通常，一个图像在被触摸时会变灰或短暂显示白色背景。让我们专业地使用图像的\
+  \ `Opacity` 属性来实现这一点，但通过添加 `async/await` 来在我们的淡入淡出中创建一个轻微的延迟，而不会影响应用的性能。\n\n用下面这个处理器替换\
+  \ `Tapped` 处理器，它会使图像轻微变淡并持续几分之一秒。记得在你的文件顶部添加 `using System.Threading.Tasks;` 以使用\
+  \ `async/await`。\n\n```\ntapGestureRecognizer.Tapped +=  async (sender, e) =>\n\
+  {\n        image.Opacity = .5;\n        await Task.Delay(200);\n        image.Opacity\
+  \ = 1;\n};\n```\n\n现在轻触图像会使图像轻微变淡，然后恢复正常，提供响应式的用户体验。\n\n在你自己的项目中，你将使用手势识别器（和 `async/await`）在图像被轻触时实际执行某些操作。如果你想在这个示例中看到\
+  \ `async/await` 的实际效果，可以将 `Delay` 提高到 2000，然后在它 `await` 时点击“执行它”按钮，你会看到应用仍然能够响应。你可以在这个\
+  \ `Tapped` 处理器中做很多事情，而不会中断应用的流程！通常，当按下按钮或图像时，结果应该使用 `async/await` 在后台进行，以获得最佳用户体验。\n\
+  \n> **提示** `Async/await` 是一种标准的 C# 技术，用于使用任务并行库（TPL）在后台排队活动以进行并发操作。许多 Xamarin 方法和函数都配备了使用\
+  \ `async/await` 进行后台处理的功能。\n\n### 最终确定 `StackLayout`\n\n现在我们所有的控件都已就位，让我们将整个页面整合在一起。检查\
+  \ `stackLayout` 是否包含了所有视图，如清单 2-5 所示。\n\n**清单 2-5.** 本章 Xamarin.Forms 示例在 `ContentPageExample.cs`\
+  \ 中的最终 `StackLayout`\n\n```\nStackLayout stackLayout = new StackLayout\n{\n    \
+  \    Children =\n        {\n            labelLarge,\n            labelSmall,\n \
+  \           button,\n            entry,\n            boxView,\n            image\n\
+  \        },\n        HeightRequest = 1500\n};\n```\n\n现在，我们可以将 `stackLayout` 赋值给\
+  \ `ContentPageExample.Content` 并将其称为一个页面，但我们还要再添加一个视图，一个允许我们的视图滚动的容器类。\n\n### `ScrollView`\n\
+  \n`ScrollView` 布局包含一个单独的子元素，并使其内容可滚动：\n\n```\nScrollView scrollView = new ScrollView\n\
+  {\n        VerticalOptions = LayoutOptions.FillAndExpand,\n        Content = stackLayout\n\
+  };\n```\n\n这里我们将 `stackLayout` 赋值给这个 `ScrollView` 的 `Content` 属性，这样我们的完整的视图布局现在就可以滚动了。\n\
+  \n> **提示** `ScrollView` 默认垂直滚动，但也可以使用 `Orientation` 属性横向滚动。例如，`Orientation = ScrollOrientation.Horizontal`\n\
+  \n页面上的视图就是这些了。现在让我们在页面级别进行连接。\n\n### 分配 `ContentPage.Content` 属性\n\n在 `ContentPage`\
+  \ 上，我们必须将 `Content` 属性赋值改为新的容器视图 `scrollView`。\n\n```\nthis.Content = scrollView;\n\
+  ```\n\n最后一步是在整个页面周围添加边距，以避免视图紧贴屏幕边缘。\n\n### 整个页面周围的边距\n\n`ContentPage` 的 `Padding`\
+  \ 属性在整个页面周围创建空间。以下是属性赋值：\n\n```\nthis.Padding = new Thickness(left, top, right,\
+  \ bottom);\n```\n\n这个例子将在左边、右边和底部放置边距，但顶部没有：\n\n```\nthis.Padding = new Thickness(10,\
+  \ 0, 10, 5);\n```\n\n这将在所有四边放置相等的空间：\n\n```\nthis.Padding = new Thickness(10);\n\
+  ```\n\n这个例子将使页面刚好位于 iOS 状态栏下方，同时对于其他操作系统则保持页面与屏幕顶部齐平。`Device.OnPlatform` 方法根据原生操作系统（iOS、Android、WinPhone）提供不同的值或操作：\n\
+  \n```\nthis.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);\n```\n\
+  \n这最后一个 `Padding` 表达式是我们在这个项目以及本书大多数项目中使用的内容。\n\n图 2-13 展示了在所有三个平台上的最终构建和运行结果。\n\
+  \n![A978-1-4842-0214-2_2_Fig13_HTML.jpg](img/A978-1-4842-0214-2_2_Fig13_HTML.jpg)\n\
+  \n**图 2-13.** `FormsExample` 解决方案的最终构建和运行\n\n### 代码完成：添加 Xamarin.Forms 视图\n\n清单\
+  \ 2-6 提供了在 `FormsExample` 解决方案中添加的 Xamarin.Forms 视图的完整 C# 代码。\n\n> **XAML** 此示例的\
+  \ XAML 版本可以在 [Apress.com](http://www.apress.com/9781484202159?gtmf=s) 上本书标题下的“源代码/下载”选项卡中找到，或者在\
+  \ GitHub 上的 [`github.com/danhermes/xamarin-book-examples`](https://github.com/danhermes/xamarin-book-examples)\
+  \ 中找到。第 2 章的 Xamarin.Forms 解决方案是 `FormsExample.Xaml`，文件是 `ContentPageExample.xaml`\
+  \ 和 `ContentPageExample.cs`。\n\n**清单 2-6.** `FormsExample` 项目中的 `ContentPageExample.cs`\n\
+  \n```\nusing System;\nusing Xamarin.Forms;\nusing System.Threading.Tasks;\n\nnamespace\
+  \ FormsExample\n{\n        class ContentPageExample : ContentPage\n        {\n \
+  \           public ContentPageExample()\n            {\n               Label labelLarge\
+  \ = new Label\n                {\n                    Text = \"标签\",\n         \
+  \           FontSize = 40,\n                    HorizontalOptions = LayoutOptions.Center\n\
+  \                };\n                Label labelSmall = new Label\n            \
+  \    {\n                    Text = \"这个控件非常适合\\n\" +\n                         \
+  \   \"显示一行或多行\\n\" +\n                            \"文本。\",\n                   \
+  \ FontSize = 20,\n                    HorizontalOptions = LayoutOptions.CenterAndExpand\n\
+  \                };\n                Button button = new Button\n              \
+  \  {\n                    Text = \"执行它\",\n                    FontSize = Device.GetNamedSize(NamedSize.Large,typeof(Button)),\n\
+  \                    HorizontalOptions = LayoutOptions.Center,\n               \
+  \     VerticalOptions = LayoutOptions.Fill\n                };\n               \
+  \ button.Clicked += (sender, args) =>\n                {\n                    button.Text\
+  \ = \"已执行！\";\n                };\n                Entry entry = new Entry\n   \
+  \             {\n                    Placeholder = \"用户名\",\n                  \
+  \  VerticalOptions = LayoutOptions.Center,\n                    Keyboard = Keyboard.Text\n\
+  \                };\n                BoxView boxView = new BoxView\n           \
+  \     {\n                    Color = Color.Silver,\n                    WidthRequest\
+  \ = 150,\n                    HeightRequest = 150,\n                    HorizontalOptions\
+  \ = LayoutOptions.StartAndExpand,\n                    VerticalOptions = LayoutOptions.Fill\n\
+  \                };\n                Image image = new Image\n                {\n\
+  \                    Source = \"monkey.png\",\n                    Aspect = Aspect.AspectFit,\n\
+  \                    HorizontalOptions = LayoutOptions.End,\n                  \
+  \  VerticalOptions = LayoutOptions.Fill\n                };\n                var\
+  \ tapGestureRecognizer = new TapGestureRecognizer();\n                tapGestureRecognizer.Tapped\
+  \ +=  async (sender, e) =>\n                {\n                    image.Opacity\
+  \ = .5;\n                    await Task.Delay(200);\n                    image.Opacity\
+  \ = 1;\n                };\n                image.GestureRecognizers.Add(tapGestureRecognizer);\n\
+  \                StackLayout stackLayout = new StackLayout\n                {\n\
+  \                    Children =\n                    {\n                       \
+  \ labelLarge,\n                        labelSmall,\n                        button,\n\
+  \                        entry,\n                        boxView,\n            \
+  \            image\n                    },\n                    HeightRequest =\
+  \ 1500\n                };\n                ScrollView scrollView = new ScrollView\n\
+  \                {\n                    VerticalOptions = LayoutOptions.FillAndExpand,\n\
+  \                    Content = stackLayout\n                };\n               \
+  \ // 适配 iPhone 状态栏。\n                this.Padding = new Thickness(10, Device.OnPlatform(20,\
+  \ 0, 0), 10, 5);\n                this.Content = scrollView;\n            }\n  \
+  \      }\n}\n```\n\n## 总结\n\nXamarin.Forms 为跨平台移动应用 UI 开发提供了一个起点，它充满了标准且可自定义的页面、布局和视图。一个\
+  \ Xamarin.Forms 解决方案通常为这三个平台（Android、iOS 和 Windows Phone）分别提供一个单独的项目。Xamarin.Forms\
+  \ 项目适用于容纳跨平台 UI，而核心库项目则包含业务逻辑和数据层（都可以是共享项目或 PCL）。\n\n开发者面临着 Xamarin.Forms 与使用 Xamarin.Android、Xamarin.iOS\
+  \ 和 Windows Phone SDK 的特定平台 UI 方法之间的选择。随着越来越多的 Xamarin.Forms 版本发布，这个选择可能变得不那么关键，因为\
+  \ Xamarin.Forms 正在接近原生 UI API 的功能。目前，我们需要掌握所有可用的选项，并为我们应用的每个页面仔细权衡选择，以确保工具集能够支持我们的需求。Xamarin.Forms\
+  \ 自定义渲染器帮助我们结合这两种方法。\n\n特定平台 UI 选项为详细且精妙的原生 UI 开发提供了功能齐全的工具集。这不是一种针对表示层的跨平台方法，它要求\
+  \ UI 完全分离到特定平台的项目中，且没有共享的 UI 组件。Xamarin.iOS 提供了对名为 UIKit 的 iOS UI API 的绑定。Xamarin.Android\
+  \ 绑定到 Android SDK，暴露了最重要的类及其成员，为开发者和用户提供了原生 UI 体验。\n\nView 是 Xamarin.Forms 中用于表示控件的术语，我们深入研究了一些最常用的视图：`Label`、`Entry`、`BoxView`、`Image`、`StackLayout`\
+  \ 和 `ScrollView`。\n\n由于布局是开发者设计应用时可以使用的最强大工具之一，接下来让我们探讨移动 UI 布局。\n\n# 使用布局进行 UI\
+  \ 设计\n\n布局是控件、图像、文本和其他布局的容器。作为创建移动 UI 的核心，布局通过使用视图的放置以及嵌套布局（用于更多视图）来帮助我们设计页面。如果你使用过\
+  \ HTML `<div>`、`<table>` 或 `<form>` 元素，那么布局应该会让你感到熟悉。布局的目的是指定其每个子元素的位置和大小。这通常通过三种方式完成：相对于布局中的各个控件、相对于布局的原点，或者使用覆盖结构（如网格）。每种布局类型都有一种机制，用于在其中放置子视图，指定每个视图的大小和位置，以及在视图之间和周围创建空间。\n\
+  \n在本章中，你将构建小型项目来处理每种布局类型及其特性。首先，你将了解各种类型的布局并探索自定义控件。Xamarin.Forms、Xamarin.Android\
+  \ 和 Xamarin.iOS 使用不同类型的布局。以下是这些类型的概述。\n\n## Xamarin.Forms 布局\n\nXamarin.Forms 布局继承自\
+  \ `View` 类，并且可以包含视图或其他布局。Xamarin.Forms 布局包括以下内容：\n\n*   `StackLayout`：垂直或水平堆叠子视图\n\
+  *   `RelativeLayout`：使用在元素之间创建关系的约束来定义子视图的位置和大小\n*   `AbsoluteLayout`：通过使用边界矩形或相对于整体布局的比例来设置子视图的位置和大小\n\
+  *   `Grid`：创建一个类似表格的容器，具有行和列来容纳视图\n*   `Frame`：在容器周围绘制一个类似框架的边框\n\n## Android 布局\n\
+  \nAndroid 布局继承自 `ViewGroup` 类，并且可以包含视图或其他布局。Android 布局包括以下内容：\n\n*   `LinearLayout`：垂直或水平排列子视图\n\
+  *   `RelativeLayout`：使用在元素之间创建关系的约束来定义子视图的位置和大小\n*   `TableLayout`：创建一个类似表格的容器，具有行和列来容纳视图\n\
+  *   `GridLayout`：创建另一个类似表格的容器，具有行和列来容纳视图，并提供几个用于视图流的选项：行优先、列优先或特定行/列分配\n*   `FrameLayout`：垂直排列子视图，并提供嵌套、交换、滑动和填充功能，很像传统的\
+  \ .NET 面板，以及对 Z 轴顺序（图层深度）的控制\n\n## iOS 布局\n\n大多数 iOS 布局是使用设计师工具创建的，例如 Xcode Interface\
+  \ Builder 和 Xamarin Designer for iOS。iOS 布局从类角度采用了一种简单的方法，使用一个名为 `UIView` 的单一类以及两种技术。iOS\
+  \ 布局技术包括以下内容：\n\n*   AutoLayout：使用在元素之间创建灵活、相对关系的约束来定义子视图的位置和大小\n*   Frames：使用称为\
+  \ frame 的边界矩形来指示子视图的绝对位置和大小（可以根据上下文使用 masks 调整大小，这种技术称为 AutoSizing）\n\n在构建布局时，出现的一个相关主题是创建自定义控件，用作构建布局的组件。\n\
+  \n## 理解自定义控件\n\nXamarin 中的自定义控件是可以根据需要包含在较大布局中的部分布局，可以在所有平台上创建，并且可以使其类似于 .NET 中的用户控件、自定义控件或面板。本书几乎不涉及自定义控件，但在讨论构建专业级布局的上下文中，有必要提及此主题。\n\
+  \n在 Xamarin.Forms 中，`ContentView` 是用于创建自定义视图以实现嵌套、填充和复用的基类。自定义控件不应与自定义化控件混淆，后者通常是使用自定义渲染器构建的、具有增强特定平台功能的单个\
+  \ Xamarin.Forms 视图（请参阅第 8 章）。即便如此，开发者有时也会将单个自定义化控件称为自定义控件。此外，自定义化控件有能力包含多个控件，这时它实际上可能成为一个自定义控件。\n\
+  \n在 Android 中，我们有两个选项用于创建自定义控件：子类化视图和片段。子类化视图允许我们创建可以作为子视图添加到 `ViewGroups`（例如布局）的自定义视图。子类化视图轻量级且易于实现。然而，有时我们需要在我们的自定义控件中访问活动功能，例如导航堆栈和生命周期事件。片段是动态的小型布局，具有使用基类\
+  \ `Android.App.Fragment` 构建的活动特性。由于它们作为构建块 UI 类的强度和多功能性，许多 Android 应用完全使用片段构建。它们通常用于构建必须在手机和平板电脑上都能良好运行的应用，因为它们有助于根据屏幕尺寸自定义布局。\n\
+  \n在 iOS 中，自定义控件通常使用设计师工具创建，不过子类化 `UIView` 也可以。\n\n> **注意** 本章探讨一种静态的手动布局方法。其中许多布局（例如\
+  \ Xamarin.Forms 布局）包含可绑定属性，可以绑定到数据源并在运行时动态构建。你将在后面的章节（第 5 章和第 7 章）中学习数据绑定。\n\n##\
+  \ 使用 Xamarin.Forms 布局\n\nXamarin.Forms 中的布局是容纳和格式化视图的容器。每个布局\n"

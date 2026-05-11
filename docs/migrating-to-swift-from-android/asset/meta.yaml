@@ -1,0 +1,328 @@
+name: Migrating to Swift from Android
+name_cn: 从 Android 迁移到 Swift
+slug: migrating-to-swift-from-android
+toc:
+- - '#'
+  - 从安卓平台迁移到 Swift
+- - '##'
+  - 内容概要
+- - '##'
+  - 目录
+- - '##'
+  - 关于作者
+- - '##'
+  - 关于技术评审者
+- - '##'
+  - 致谢
+- - '##'
+  - 引言
+- - '#'
+  - 面向 iOS 开发者的 Android 迁移指南
+- - '##'
+  - 本书适合谁？
+- - '##'
+  - 本书的组织方式
+- - '#'
+  - 第一部分：准备你的工具
+- - '#'
+  - 第 1 章：搭建开发环境
+- - '##'
+  - Xcode 和 iOS SDK
+- - '###'
+  - 从 Mac App Store 安装
+- - '###'
+  - 使用模板创建 iOS 项目
+- - '###'
+  - 图 1-5 展示了需要填写的基本项目信息，具体如下：
+- - '##'
+  - 构建项目
+- - '##'
+  - 启动应用
+- - '##'
+  - 总结
+- - '#'
+  - 第 2 章：iOS 编程基础
+- - '##'
+  - Swift 语言概要
+- - '##'
+  - 使用 Xcode 的 HelloSwift
+- - '###'
+  - 创建 Swift 命令行项目
+- - '###'
+  - 创建 Swift 类
+- - '###'
+  - 创建 Swift 协议
+- - '###'
+  - 实现协议
+- - '####'
+  - JAVA 类比
+- - '###'
+  - 使用 Swift 实例
+- - '####'
+  - JAVA 类比
+- - '##'
+  - Xcode 调试器
+- - '##'
+  - 变量和常量
+- - '##'
+  - 类型安全与类型推断
+- - '##'
+  - 可选变量
+- - '##'
+  - 隐式解包可选类型
+- - '##'
+  - 元组
+- - '##'
+  - 集合
+- - '##'
+  - 控制流
+- - '##'
+  - Switch
+- - '##'
+  - 枚举
+- - '##'
+  - 函数
+- - '##'
+  - Swift 编程语言特性
+- - '###'
+  - 元组（Tuples）
+- - '###'
+  - 类（Class）
+- - '###'
+  - 属性（Property）
+- - '###'
+  - 方法（Method）
+- - '###'
+  - 引用类型与值类型
+- - '##'
+  - iOS 项目结构
+- - '##'
+  - Xcode 故事板
+- - '##'
+  - 对象库和属性检查器
+- - '##'
+  - 总结
+- - '#'
+  - 第二部分：移植路线图
+- - '#'
+  - 第 3 章：构建你的应用
+- - '##'
+  - 模型-视图-控制器
+- - '##'
+  - 内容视图
+- - '###'
+  - 自动布局
+- - '###'
+  - 尺寸类别
+- - '##'
+  - 内容视图控制器
+- - '###'
+  - Android 类比
+- - '##'
+  - 与内容视图配对
+- - '###'
+  - Android 类比
+- - '##'
+  - 与内容视图交互
+- - '##'
+  - UIViewController 生命周期
+- - '###'
+  - viewDidLoad
+- - '###'
+  - viewWillAppear
+- - '###'
+  - viewDidAppear
+- - '###'
+  - viewWillDisappear
+- - '###'
+  - viewDidDisappear
+- - '##'
+  - 屏幕导航模式
+- - '###'
+  - 故事板转场
+- - '###'
+  - 使用 Segue 传递数据
+- - '###'
+  - 容器视图控制器
+- - '####'
+  - Android 类比
+- - '####'
+  - 导航堆栈
+- - '####'
+  - Android 类比
+- - '###'
+  - '`UINavigationController`'
+- - '###'
+  - 主-详情列表（Master List with Details Drilldown）
+- - '###'
+  - '`UITableViewController`'
+- - '###'
+  - UITableViewCell
+- - '###'
+  - UICollectionView
+- - '##'
+  - 导航标签
+- - '###'
+  - Android 类比
+- - '####'
+  - 操作栏导航标签
+- - '###'
+  - 实现导航标签
+- - '##'
+  - UITabBarController
+- - '###'
+  - 添加/移除标签栏项
+- - '###'
+  - 更新标签栏项的外观和感觉
+- - '###'
+  - 处理运行时行为
+- - '###'
+  - 滑动视图
+- - '###'
+  - UIPageViewController
+- - '##'
+  - 对话框
+- - '###'
+  - UIAlertController
+- - '##'
+  - UIPopoverController
+- - '##'
+  - 提示消息 (Toasts)
+- - '##'
+  - 总结
+- - '#'
+  - 第 4 章：逐片实现
+- - '##'
+  - 用户界面
+- - '##'
+  - '`UIView`'
+- - '##'
+  - 应用资源
+- - '###'
+  - 素材目录
+- - '###'
+  - 外部化字符串
+- - '##'
+  - 常用 UI 组件
+- - '###'
+  - UILabel
+- - '###'
+  - UITextField
+- - '###'
+  - UITextView
+- - '####'
+  - 在**属性检查器**中更新其属性：
+- - '###'
+  - UIButton
+- - '####'
+  - Android 类比
+- - '###'
+  - UISegmentedControl
+- - '####'
+  - Android 类比
+- - '###'
+  - UISlider
+- - '####'
+  - Android 类比
+- - '###'
+  - '`UIActivityIndicatorView`'
+- - '####'
+  - ANDROID 对应组件
+- - '###'
+  - '`UIProgressView`'
+- - '####'
+  - ANDROID 对应组件
+- - '###'
+  - '`UISwitch`'
+- - '####'
+  - ANDROID 对应组件
+- - '###'
+  - '`UIImageView`'
+- - '####'
+  - ANDROID 对应组件
+- - '##'
+  - 菜单
+- - '###'
+  - UIBarButtonItem
+- - '##'
+  - 操作表
+- - '##'
+  - '`UIPickerView`'
+- - '##'
+  - 播放视频
+- - '##'
+  - WebView
+- - '###'
+  - ANDROID ANALOGY
+- - '##'
+  - ScrollView
+- - '###'
+  - ANDROID ANALOGY
+- - '##'
+  - 动画
+- - '##'
+  - 保存数据
+- - '###'
+  - NSUserDefaults
+- - '###'
+  - 文件存储
+- - '####'
+  - NSFileManager
+- - '##'
+  - 网络与远程服务的使用
+- - '###'
+  - 在后台执行网络操作
+- - '###'
+  - 使用 HTTP 的 RESTFul 服务
+- - '####'
+  - NSURLConnection
+- - '##'
+  - 总结
+- - '#'
+  - 第三部分：整合所有内容
+- - '#'
+  - 第 5 章：案例研究回顾
+- - '##'
+  - 将 Android 应用移植到 iOS
+- - '###'
+  - 构建应用结构
+- - '####'
+  - 绘制故事板场景
+- - '###'
+  - 选择屏幕导航模式
+- - '###'
+  - 逐步实现
+- - '###'
+  - 应用程序资源
+- - '###'
+  - Java 类到 Swift 类
+- - '####'
+  - 模型类：RentalProperty
+- - '####'
+  - EditTextViewController
+- - '####'
+  - RentalPropertyViewController
+- - '####'
+  - AmortizationViewController
+- - '####'
+  - MonthlyTermViewFragment
+- - '###'
+  - Java 方法转换为 Swift 方法
+- - '####'
+  - EditTextViewController
+- - '####'
+  - RentalPropertyViewController
+- - '####'
+  - AmortizationViewController
+- - '####'
+  - '`MonthlyTermViewController`'
+- - '###'
+  - RESTful 服务与数据存储
+- - '####'
+  - 保存数据
+- - '####'
+  - 使用 RESTful 服务
+- - '##'
+  - 本章小结
+- - '#'
+  - 索引

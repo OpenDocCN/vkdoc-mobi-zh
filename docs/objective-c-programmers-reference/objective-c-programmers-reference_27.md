@@ -1,0 +1,1076 @@
+# Carlos Oliveira  
+## Objective-C 程序员参考手册  
+10.1007/978-1-4302-5906-0  
+© Apress 2013  
+
+## 索引
+
+### A
+- 算术表达式  
+- 数组  
+  - `arrayWithObjects:` 方法  
+  - `createSimpleArray` 函数  
+  - 声明语法  
+  - `initWithObjects:` 方法  
+  - `NSArray` 类  
+    - 添加对象  
+    - 数据访问  
+    - 字面量表示法  
+    - 可变数组与指针  
+- 赋值运算符  
+- 自动引用计数 (ARC) 系统  
+- 自动引用计数 (ARC) 技术  
+
+### B
+- 块  
+  - `aBlock` 声明  
+  - 定义  
+  - 外部变量特性  
+  - 基础框架的优势  
+  - Cocoa 库  
+  - 函数指针  
+  - `indexesOfObjectsPassingTest`  
+  - 使用 `for` 循环与函数指针的 `NSArray` 定义  
+  - 局部变量与内存管理的灵活性  
+  - `if` 语句的问题  
+  - 方法/函数调用的参数传递  
+  - `typedef` 语句  
+
+### C
+- 类簇  
+- 类  
+  - 类的特性  
+  - 头文件  
+  - `interestPerMonth` 方法  
+  - 模块定义  
+  - OOP（参见面向对象编程 (OOP)）  
+- Cocoa 库  
+- Cocoa UI 框架  
+  - 编码应用程序  
+    - `AppDelegate`  
+    - `GraphView` 实现（参见 `GraphView` 类）  
+    - `GraphView` 接口  
+    - `NSApplicationMain` 函数  
+    - 图形应用程序，Xcode  
+    - 应用程序  
+    - 插件类  
+    - Cocoa-AppleScript 应用程序  
+    - Cocoa 应用程序  
+    - 命令行工具  
+    - 框架和库  
+    - 输出口与动作系统  
+    - 使用 nib 文件的插件  
+  - 层次结构  
+    - 委托对象  
+    - `NSResponder` 类  
+    - `NSView` 类  
+    - `NSWindow` 类  
+    - 窗口控制器  
+    - `NSResponder` 类  
+    - UI 设计，Xcode  
+    - 菜单栏  
+    - nib 文件  
+    - 对象库  
+    - `windowControllerDidLoadNib` 方法  
+    - 窗口创建  
+  - Cocoa UI 层次结构  
+    - 委托对象  
+    - `NSWindow` 类  
+    - `NSWindowDelegate` 协议  
+    - `NSResponder` 类  
+    - `NSView` 类  
+    - `NSWindow` 类  
+    - 窗口控制器  
+- 代码优化  
+  - 空间优化  
+  - 速度优化  
+- 集合导向方法  
+  - `bankEmployees` 属性  
+  - 类方法  
+  - `init` 方法  
+  - 内部 `NSArray` 对象  
+  - 键路径规范  
+- 编译器  
+  - ARC 技术  
+  - 构建设置窗口  
+  - 堆损坏  
+  - LLVM 编译器  
+  - 内存泄漏  
+  - `release`  
+  - `retain`  
+  - Xcode 中的构建设置窗口  
+    - 架构  
+    - 基础 SDK  
+    - 构建位置设置  
+    - 代码签名标识  
+    - 默认编译器  
+    - 部署目标  
+    - 预编译头文件  
+    - 运行静态分析器  
+    - 支持的平台  
+    - 验证构建产品  
+  - 代码优化  
+    - 空间优化  
+  - 命令行界面  
+    - 使用 GCC 和 LLVM 编译器  
+    - 诊断文档  
+    - LLVM `clang` 项目  
+    - Mac OS X 开源编译器  
+    - 性能测量  
+    - `printf`  
+    - 更紧密的集成  
+  - 低级虚拟机 (LLVM)  
+  - Objective-C++  
+    - `addLog`  
+    - `addOperations`  
+    - `Logger` 对象  
+    - `NSMutableArray` 类  
+    - `NSString`  
+    - 大小操作  
+    - 使用 Xcode  
+  - 开源编译器  
+    - 运行命令行  
+    - `cmake`/`scons`  
+    - 控制台应用程序  
+    - 基于 IDE 的工作流程  
+    - `makefiles`  
+    - 编程环境  
+    - `TestProj.xcodeproj` 文件  
+    - 使用 Xcode  
+    - `xcodebuild`  
+- 复杂内存管理  
+  - 优点  
+  - ARC 系统  
+  - `aReference` 属性  
+  - 垃圾回收  
+  - 目标  
+  - 项目设置面板  
+  - `SimpleReference` 类  
+  - `autorelease` 方法  
+  - `alloc`/`initWithArray` 机制的优势  
+  - `sortedArrayUsingComparator:` 方法  
+  - 缺点  
+  - 垃圾回收  
+  - 内存分配  
+  - `dealloc` 方法  
+  - `FactoryManagement`  
+  - 引用计数机制  
+  - `setupProductionManagement` 方法  
+  - `setupProduction` 方法  
+  - 内存问题  
+    - 悬垂指针  
+    - 内存泄漏  
+    - 数组越界访问  
+  - Xcode 调试器  
+  - 属性  
+    - `assign` 属性  
+    - `bookName` 属性  
+    - `copy` 属性  
+    - `copy` 属性  
+    - `retain` 属性  
+  - 基于引用的模型  
+  - 引用计数的优点  
+    - `arrayWithObjects` 方法  
+    - `myArray` 对象  
+    - 结果  
+    - 规则  
+    - `useArray` 方法  
+- 复合赋值  
+
+### D
+- 调试  
+  - Bug 跟踪系统  
+  - 命令行调试器  
+    - 调用栈  
+    - `gdb` 调试器  
+    - LLVM 调试器  
+    - `main()` 函数  
+    - UNIX 平台  
+    - `guardmalloc` 库  
+  - 内存问题  
+    - 策略  
+    - 应用修复  
+    - 创建单元测试  
+    - 数据收集  
+    - 假设  
+    - 已定义的版本控制系统  
+    - Git 开源工具  
+    - Subversion 开源工具  
+  - 在 Xcode 中跟踪编程错误（参见 Xcode）  
+  - 使用 `NSZombie`  
+    - `alloc` 方法  
+    - 调试配置文件  
+    - 启用 Guerd Malloc 选项  
+    - 立即崩溃  
+    - `NSZombieEnabled`  
+    - 多个并发执行线程  
+    - 虚拟内存  
+- 字典  
+- Do/While 循环  
+- 动态绑定  
+  - `forwardInvocation` 消息分发系统  
+  - `MortgageSecurity` 类  
+  - 代理类实现  
+  - 目标类  
+  - 耗时的辅助类方法调用  
+    - `callWithImplementation`  
+    - `cmd` 变量  
+    - 动态分发机制  
+    - `IMP` 函数  
+    - `myFunc` 变量  
+    - `simpleMethod` 调用  
+    - `UseIMP` 类  
+  - 方法选择器  
+    - 回调  
+    - `createSelector` 方法  
+    - 通用方法调用  
+    - 内省  
+  - 邮件处理子系统  
+    - 邮件处理系统  
+    - `MailReceiverImp` 类  
+    - `MailReceiver` 协议  
+    - `MailService` 类  
+    - `MailService` 接口  
+    - `performSelector:` 方法  
+    - `performSelector:withObject:` 版本  
+    - `printValue`  
+    - `processMail` 方法  
+    - `respondsToSelector` 方法  
+    - 示例类  
+    - `@selector` 关键字  
+    - `@selector` 运算符  
+    - `setupServices` 方法  
+    - 目标方法  
+  - 多重继承模拟特性  
+    - `FixedIncomeSecurity` 接口  
+    - `FixedIncomeSecurity` 对象  
+    - `SecurityProxy` 接口  
+    - 修改  
+    - 代理对象创建  
+    - `respondsToSelector` 实现  
+  - 目标-动作，Cocoa 框架  
+
+### E
+- 外部变量访问  
+
+### F
+- 使用 `NSStream` 的文件系统  
+  - 客户端/服务器应用程序  
+  - FTP 文件  
+  - `NSInputStream`  
+  - `NSOutputStream`  
+  - `NSURL` 位置  
+  - Cocoa 库 URL  
+- 文件读写，二进制数据  
+  - `MAX_DATA_SIZE`  
+  - `NSData`  
+  - `NSError` 对象  
+  - `NSString`  
+  - `readData`  
+  - `testRead`  
+  - `writeData` 方法  
+  - `writeToURL`  
+- 读写内容  
+  - `FileReader`  
+  - `FileWriter` 类  
+  - `NSString`  
+    - `readFile`  
+    - `writeFile` 内容  
+    - `writeTest`  
+- 读取文件，`NSStream`  
+  - `AsyncDataReader`  
+  - `NSDefaultRunLoopMode`  
+  - `NSInputStream`  
+  - `NSMutableData` 对象  
+  - `NSStreamDelegate` 协议  
+  - `setupStream` 方法  
+  - `stream:handleEvent:` 方法  
+  - `testRead` 方法  
+- 写入文件，`NSStream`  
+  - `AsyncDataWriter`  
+  - `NSOutputStream`  
+  - `NSStreamDelegate` 协议  
+  - `NSStreamEventHasSpaceAvailable`  
+  - `releaseStream` 方法  
+  - `setupOutputStream` 方法  
+  - `stream:handleEvent:` 方法  
+  - `testWrite` 方法  
+- `For` 循环  
+- 正式协议  
+  - `AccreditedLoanSource` 类  
+  - 使用尖括号  
+  - `canLend` 和 `lendRequest` 方法声明  
+  - 定义  
+  - `NSObject <ProtocolName>`  
+- Foundation 框架  
+  - 数组（参见 数组）  
+  - 容器  
+    - `NSArray`  
+      - `arrayByAddingObject`  
+      - `arrayByAddingObjectsFromArray`  
+      - `arrayWithArray`  
+      - `arrayWithContentsOfFile`  
+      - `arrayWithObject`  
+      - `componentsJoinedByString`  
+      - `containsObject`  
+      - `count`  
+      - `description`  
+      - `enumerateObjectsAtIndexes`  
+      - `enumerateObjectsUsingBlock`  
+      - `enumerateObjectsWithOptions`  
+      - `firstObjectCommonWithArray`  
+      - `indexesOfObjectsAtIndexes`  
+      - `indexesOfObjectsPassingTest`  
+      - `indexesOfObjectsWithOptions`  
+      - `indexOfObject`  
+      - `indexOfObjectAtIndexes`  
+      - `indexOfObjectIdenticalTo`  
+      - `indexOfObjectPassingTest`  
+      - `indexOfObjectWithOptions`  
+      - `initWithArray`  
+      - `initWithContentsOfURL`  
+      - `initWithObjects`  
+      - `isEqualToArray`  
+      - `lastObject`  
+      - `makeObjectsPerformSelector`  
+      - `objectAtIndex`  
+      - `objectAtIndexedSubscript`  
+      - `objectEnumerator`  
+      - `objectsAtIndexes`  
+      - `reverseObjectEnumerator`  
+      - `sortedArrayHint`  
+      - `sortedArrayUsingComparator`  
+      - `sortedArrayUsingFunction`  
+      - `sortedArrayUsingSelector`  
+      - `sortedArrayWithOptions`  
+      - `subarrayWithRange`  
+      - `writeToFile`  
+      - `writeToURL`  
+    - `NSData`  
+      - `buffer`  
+      - `length`  
+      - `buffer range`  
+      - `bytes`  
+      - `dataWithBytes`  
+      - `dataWithBytesNoCopy`  
+      - `dataWithContentsOfFile`  
+      - `dataWithContentsOfURL`  
+      - `dataWithData`  
+      - `description`  
+      - `initWithBytes`  
+      - `initWithBytesNoCopy`  
+      - `initWithContentsOfFile`  
+      - `initWithContentsOfURL`  
+      - `initWithData`  
+      - `isEqualToData`  
+      - `length`  
+      - `rangeOfData`  
+      - `subdataWithRange`  
+      - `writeToFile`  
+      - `writeToURL`  
+    - `NSDictionary`  
+      - `allKeys`  
+      - `allKeysForObject`  
+      - `allValues`  
+      - `count`  
+      - `description`  
+      - `dictionaryWithContentsOfFile`  
+      - `dictionaryWithContentsOfURL`  
+      - `dictionaryWithDictionary`  
+      - `dictionaryWithObjects`  
+      - `dictionaryWithObjectsAndKeys`  
+      - `enumerateKeysAndObjectsUsingBlock`  
+      - `enumerateKeysAndObjectsWithOptions`  
+      - `getObjects`  
+      - `initWithContentsOfFile`  
+      - `initWithDictionary`  
+      - `initWithObjects`  
+      - `initWithObjectsAndKeys`  
+      - `isEqualToDictionary`  
+      - `keyEnumerator`  
+      - `keysOfEntriesPassingTest`  
+      - `keysOfEntriesWithOptions`  
+      - `keysSortedByValueUsingComparator`  
+      - `keysSortedByValueUsingSelector`  
+      - `objectEnumerator`  
+      - `objectForKeyedSubscript`  
+      - `objectsForKeys`  
+      - `writeToFile`  
+      - `writeToURL`  
+    - `NSHashTable`  
+      - `count`  
+      - `hashTableWithOptions`  
+      - `hashTableWithWeakObjects`  
+      - `initWithOptions`  
+      - `initWithPointerFunctions`  
+      - `intersectsHashTable`  
+      - `isEqualToHashTable`  
+      - `isSubsetOfHashTable`  
+      - `minusHashTable`  
+      - `object`  
+      - `pointerFunctions`  
+      - `setRepresentation`  
+      - `unionHashTable`  
+      - `weakObjectsHashTable`  
+    - `NSMutableData`  
+      - `appendBytes`  
+      - `appendData`  
+      - `dataWithCapacity`  
+      - `dataWithLength`  
+      - `increaseLengthBy`  
+      - `initWithCapacity`  
+      - `initWithLength`  
+      - `mutableBytes`  
+      - `replaceBytesInRange`  
+      - `resetBytesInRange`  
+      - `setData`  
+      - `setLength`  
+    - `NSMutableString`  
+      - `appendFormat`  
+      - `appendString`  
+      - `deleteCharactersInRange`  
+      - `initWithCapacity`  
+      - `insertString`  
+      - `replaceCharactersInRange`  
+      - `replaceOccurenceOfString`  
+      - `setString`  
+      - `stringWithCapacity`  
+    - `NSNumber`  
+      - `boolValue`  
+      - `charValue`  
+      - 类（参见 `NSNumber` 类）  
+      - `descriptionWithLocale`  
+      - `doubleValue`  
+      - `floatValue`  
+      - `initWithBool`  
+      - `initWithChar`  
+      - `initWithDouble`  
+      - `initWithFloat`  
+      - `initWithInt`  
+      - `initWithInteger`  
+      - `initWithLong`  
+      - `initWithLongLong`  
+      - `initWithShort`  
+      - `initWithUnsignedChar`  
+      - `initWithUnsignedInt`  
+      - `initWithUnsignedInteger`  
+      - `initWithUnsignedLong`  
+      - `initWithUnsignedLongLong`  
+      - `initWithUnsignedShort`  
+      - `integerValue`  
+      - `intValue`  
+      - `isEqualToNumber`  
+      - `longLongValue`  
+      - `longValue`  
+      - `NSComparisonResult`  
+      - `numberWithBool`  
+      - `numberWithChar`  
+      - `numberWithDouble`  
+      - `numberWithFloat`  
+      - `numberWithInt`  
+      - `numberWithInteger`  
+      - `numberWithLong`  
+      - `numberWithLongLong`  
+      - `numberWithShort`  
+      - `numberWithUnsignedChar`  
+      - `numberWithUnsignedInt`  
+      - `numberWithUnsignedInteger`  
+      - `numberWithUnsignedLong`  
+      - `numberWithUnsignedLongLong`  
+      - `numberWithUnsignedShort`  
+      - `shortValue`  
+      - `stringValue`  
+      - `unsignedCharValue`  
+      - `unsignedIntegerValue`  
+      - `unsignedIntValue`  
+      - `unsignedLongLongValue`  
+      - `unsignedLongValue`  
+      - `unsignedShortValue`  
+    - `NSObject` 类  
+      - `alloc`  
+      - `allocWithZone`  
+      - `class`  
+      - `coformsToProtocol`  
+      - `copy`  
+      - `copyWithZone`  
+      - `dealloc`  
+      - `description`  
+      - `doesNotRecognizeSelector`  
+      - `finalize`  
+      - `forwardingTargetForSelector`  
+      - `forwardInvocation`  
+      - `init`  
+      - `instanceMethodForSelector`  
+      - `instanceMethodsignatureForSelector`  
+      - `instancesRespondToSelector`  
+      - `initialize`  
+      - `isSubclassOfClass`  
+      - `load`  
+      - `methodForSelector`  
+      - `methodSignatureForSelector`  
+      - `mutableCopy`  
+      - `mutableCopyWithZone`  
+      - `superclass`  
+    - `NSSet`  
+      - `count`  
+      - `description`  
+      - `enumerateObjectsWithOptions`  
+      - `initWithArray`  
+      - `initWithSet`  
+      - `intersectsSet`  
+      - `isEqualToSet`  
+      - `isSubsetOfSet`  
+      - `makeObjectsPerformSelector`  
+      - `object`  
+      - `objectsPassingTest`  
+      - `objectsWithOptions`  
+      - `setByAddingObject`  
+      - `setByAddingObjectsFromArray`  
+      - `setByAddingObjectsFromSet`  
+      - `setWithArray`  
+      - `setWithSet`  
+    - `NSString`  
+      - `availableStringEncodings`  
+      - `boolValue`  
+      - 类（参见 `NSString` 类）  
+      - `capitalizedString`  
+      - `capitalizedStringWithLocale`  
+      - `caseInsensitiveCompare`  
+      - `characterAtIndex`  
+      - `commonPrefixWithString`  
+      - `compareOptions`  
+      - `compareRange`  
+      - `componentsSeparatedByInset`  
+      - `componentsSeparatedByString`  
+      - `cStringUsingEncoding`  
+      - `defaultCStringEncoding`  
+      - `description`  
+      - `doubleValue`  
+      - `enumerateLinesUsingBlock`  
+      - `enumerateSubstringsInRange`  
+      - `floatValue`  
+      - `getBytes`  
+      - `getCharacters`  
+      - `getCString`  
+      - `getLineStart`  
+      - `getParagraphStart`  
+      - `hash`  
+      - `hasPrefix`  
+      - `hasSuffix`  
+      - `init`  
+      - `initWithBytes`  
+      - `initWithBytesNoCopy`  
+      - `initWithCharacters`  
+      - `initWithCharactersNoCopy`  
+      - `initWithContentsOfFile`  
+      - `initWithContentsOfURL`  
+      - `initWithCString`  
+      - `initWithData`  
+      - `initWithFormat`  
+      - `initWithString`  
+      - `intValue`  
+      - `isEqualToString`  
+      - `lineRangeForRange`  
+      - `localizedCaseInsensitiveCompare`  
+      - `localizedCompare`  
+      - `localizedNameOfStrigEncoding`  
+      - `localizedStandardCompare`  
+      - `localizedStringWithFormat`  
+      - `longLongValue`  
+      - `lowercaseString`  
+      - `lowercaseStringWithLocale`  
+      - `NSRangePointer`  
+      - `nullTerminatedCString`  
+      - `paragraphRangeForRange`  
+      - `rangeOfString`  
+      - `searchRange`  
+      - `stringByAppendingFormat`  
+      - `stringByAppendingString`  
+      - `stringByFoldingWithOptions`  
+      - `stringByPaddingToLength`  
+      - `stringByReplacingCharactersInRange`  
+      - `stringByReplacingOccurrencesOfString`  
+      - `stringByTrimmingCharactersInSet`  
+      - `stringWithCharacters`  
+      - `stringWithContentsOfFile`  
+      - `stringWithContentsOfURL`  
+      - `stringWithCString`  
+      - `stringWithFormat`  
+      - `stringWithString`  
+      - `stringWithUTF8String`  
+      - `substringFromIndex`  
+      - `substringToIndex`  
+      - `substringWithRange`  
+      - `uppercaseString`  
+      - `uppercaseStringWithLocale`  
+      - `UTF8String`  
+      - `writeToFile`  
+      - `writeToURL`  
+    - `NSValue`  
+      - `getValue`  
+      - `initWithBytes`  
+      - `isEqualToValue`  
+      - `nonretainedObjectValue`  
+      - `objCType`  
+      - `pointerValue`  
+      - `valueWithBytes`  
+      - `valueWithNonretainedObject`  
+      - `valueWithPointer`  
+- Foundation 框架，使用块  
+  - 优势  
+  - Cocoa 库  
+  - 函数指针  
+  - `indexesOfObjectsPassingTest`  
+  - 使用 `for` 循环的 `NSArray` 定义  
+
+### F, G
+- 框架  
+
+### G, H
+- GCC 编译器  
+- `GraphView` 类  
+  - `awakeFromNib` 方法  
+  - `dealloc` 方法  
+  - `deleteEdge` 方法  
+  - 事件  
+    - 键盘  
+    - 鼠标移动  
+    - 窗口大小调整操作  
+  - `for_each_edge_data` 结构体  
+  - `mouseDragged` 方法  
+  - `mouseUp` 方法  
+  - `NSEvent` 对象  
+  - `NSAffineTransform` 对象  
+  - `setBezierPaths` 方法  
+- GUI 控件  
+
+### I, J
+- `If` 语句  
+- `IMP` 函数  
+- 递增与递减  
+- 非正式协议  
+  - `(BOOL) canLend` 方法定义  
+  - `InvestmentAdvisor` 类  
+  - `lendRequest` 方法  
+  - `LoanAdviser` 类  
+  - `MoneyLender` 接口  
+  - `NSObject`  
+- 继承  
+  - 类簇  
+  - 类继承概念  
+  - 类对象创建  
+  - 缺点  
+  - 多重继承  
+    - 继承与委托职责  
+    - 模拟  
+    - 继承自不相关的祖先类  
+  - 继承抽象类的优势  
+    - 外部对象特性  
+    - `getMatrix` 方法  
+    - 实用方法  
+  - 替换原则  
+    - `calculateSalary` 方法  
+    - 状态  
+    - 子类  
+  - 继承的使用（参见 重写方法）  
+- 调用方法  
+  - 基类  
+  - `getExtension` 方法  
+  - 要点  
+  - `supclass`  
+  - `superclasses`  
+- iOS 应用程序  
+  - 包  
+  - Cocoa Touch  
+  - 应用图标  
+  - 包标识符  
+  - 部署目标  
+  - 设备  
+  - 空应用程序  
+  - 启动图像  
+  - 主-详情应用程序  
+  - 元数据项  
+  - OpenGL 游戏  
+  - 单视图应用程序  
+  - 状态栏  
+  - 支持的界面方向  
+  - 标签页应用程序  
+  - `UIPageViewController`  
+  - 实用工具应用程序  
+  - 版本  
+  - `FlipsideViewController` 实现  
+    - `viewDidLoad`  
+    - `viewFlipsideBackgroundColor`  
+  - `FlipsideViewController` 接口  
+  - 索引卡片  
+  - iOS 模拟器  
+  - 内存管理问题  
+  - 简单的 UI 交互  
+  - 主文件  
+    - `NSAutoreleasePool`  
+    - `UIApplicationMain`  
+  - `MainViewController` 实现  
+    - `animateWithDuration`  
+    - `audioPlayerDidFinishPlaying`  
+    - `AVAudioPlayer`  
+    - `CGRect` 结构体  
+    - `IBAction` 方法  
+    - 索引卡片  
+    - `markLabel` 方法  
+    - `modalTransitionStyle` 属性  
+    - `pathForResource`  
+    - `presentModalViewController`  
+    - `refreshTopLevelViewController`  
+    - `refreshWord` 方法  
+    - `resetAdPosition`  
+    - `reveal` 方法  
+    - `shouldAutorotateToInterfaceOrientation`  
+    - `showInfo` 方法  
+    - `showNext` 方法  
+    - `showPrevious` 方法  
+    - `srand` 函数  
+    - `UIInterfaceOrientation`  
+    - `viewDidLoad` 方法  
+    - `viewDidUnload` 方法  
+  - `MainViewController` 接口  
+  - 内存使用  
+    - 图形界面  
+    - 虚拟内存  
+  - 多处理  
+  - 基于触摸的界面  
+  - UI 类  
+    - UIKit  
+    - UINavigationBar  
+    - UIToolbar  
+    - UIView  
+    - UIWindow  
+  - UI 控件  
+    - Cocoa Touch 模板选择屏幕  
+    - UIActivityIndicatorView  
+    - UIButton  
+    - UILabel  
+    - UIPickerView  
+    - UIProgressView  
+    - UISegmentedControl  
+    - UISwitch  
+    - UITextField  
+  - Xcode nib 设计视图  
+
+### K
+- 键值编码 (KVC)  
+  - 访问对象  
+    - 泛型对象  
+    - `init` 方法  
+    - 接口定义  
+    - 基于对象的属性  
+    - 运行时系统  
+  - 集合导向方法  
+    - `bankEmployees` 属性  
+    - 类方法  
+    - `init` 方法  
+    - 内部 `NSArray` 对象  
+    - 键路径规范  
+  - 概念  
+    - `accessData`  
+    - 避免直接访问  
+    - Foundation 框架  
+    - `init` 方法  
+    - 属性字符串  
+    - `valueForKey`  
+    - 值修改  
+  - 介绍  
+    - 属性和结构  
+    - `accessData` 方法  
+    - 数字/字符串  
+    - `SampleStruct`  
+    - 用户自定义结构  
+    - 未定义的键  
+- 键值观察 (KVO) 系统  
+  - Cocoa 框架  
+  - 实例变量  
+  - 实践  
+  - 示例类方法  
+  - 解决方案目标  
+
+### L
+- 局部变量  
+- 循环表达式  
+  - `do/while`  
+  - `for`  
+  - `switch`  
+  - `while`  
+- 低级虚拟机 (LLVM) 编译器  
+
+### M
+- 宏  
+  - 编译器 `#define MAX_PATH_LENGTH` 运算符  
+  - `assert.h`  
+  - `#` 字符连接运算符 (`##`)  
+  - 调试 `#expr`  
+  - `if` 语句  
+  - `NSLog` 字符串化  
+  - `#undef VARIABLE_NAME`  
+  - 参数反斜杠字符 (`\`)  
+  - 编译器 `#define` 指令 `MAXIMUM` 陷阱  
+  - 编译器调试  
+  - `#include` (或 `#import`) 指令  
+  - `MAXIMUM`  
+  - Xcode 临时变量  
+- 内存管理与块  
+  - 灵活性  
+  - `if` 语句的问题  
+  - 方法/函数调用  
+- `MortgageSecurity` 类  
+- 多重继承  
+  - 继承与委托职责  
+  - 模拟  
+  - 继承自不相关的祖先类  
+
+### N
+- `NSDictionary`  
+  - `allKeys:` 方法  
+  - 类 `dictionaryWithContentsOfFile:`  
+  - 初始化方法  
+  - `NSEnumerator` 类  
+  - `NSMutableDictionary`  
+    - `removeObjectForKey:` 方法  
+    - `setObject:forKey:` 方法  
+  - `objectForKey:` 方法  
+  - `@{` 序列  
+- `NSMutableString` 类  
+- `NSNumber` 类  
+  - 访问方法  
+  - `@character` 语法  
+  - `char` 类型  
+  - 性能原因  
+  - 类型  
+- `NSString` 类方法  
+  - `caseInsensitiveCompare`  
+  - `characterAtIndex`  
+  - `isEqualToString`  
+  - `length`  
+  - `NSOrderedAscending`  
+  - 字符串创建  
+  - 子字符串  
+    - `substringFromIndex:` 方法  
+    - `substringToIndex:` 方法  
+    - `substringWithRange:` 方法  
+- `NSZombieEnabled` 选项  
+
+### O
+- 对象初始化  
+  - 实现  
+  - 初始化  
+  - 接口  
+- Objective-C  
+  - 算术表达式  
+  - 数组和指针声明语法  
+  - 赋值运算符  
+  - 分类  
+  - 类接口创建  
+  - 框架  
+  - 头文件  
+  - `NSString` 多态  
+  - 私有方法  
+  - 属性  
+  - 字符 (`char`)  
+  - 逻辑值  
+  - 指针  
+  - `void` 类型  
+  - 注释  
+    - 多行注释  
+    - 风格  
+  - 复合赋值  
+  - 条件运算  
+  - 复杂逻辑表达式  
+  - `if` 语句  
+  - 函数  
+    - 优点  
+    - 参数  
+    - 计数器  
+    - `main` 函数语法  
+  - 递增和递减运算符  
+  - 循环表达式  
+    - `do/while`  
+    - `for`  
+    - `switch`  
+    - `while`  
+  - 指针  
+    - 优点  
+    - 声明  
+    - 参数传递  
+  - 协议（参见 协议）  
+  - 简单语句  
+  - 结构  
+  - 变量  
+    - 声明  
+    - 浮点数  
+    - 整数类型  
+    - 命名  
+    - 原生类型  
+    - 用户定义类型  
+- 面向对象编程 (OOP)  
+  - 面向对象编程的优点  
+  - 类定义  
+    - 类方法  
+    - `init` 方法  
+    - `NSString` 类  
+    - 目标  
+    - `performClassTask` 定义  
+  - 封装  
+  - 继承  
+  - 实例方法与函数  
+  - 多态消息  
+  - `printText` 方法  
+  - `self` 变量  
+  - 实例变量  
+  - `@interface` 和 `@implementation`  
+  - 消息机制  
+  - 创建新对象  
+  - 多态  
+  - 属性  
+    - assign  
+    - atomic  
+    - copy  
+    - getter 的实现  
+    - nonatomic  
+    - readonly  
+    - readwrite  
+    - retain  
+    - setter  
+    - `useProperty`  
+  - 使用对象  
+    - `id` 类型  
+    - 消息机制  
+    - 方法参数  
+    - `NSString`  
+- 运算符  
+  - 算术表达式  
+  - 赋值运算符  
+  - 复合赋值  
+  - 递增和递减  
+- 可选方法，协议  
+- 重写方法  
+  - 承包商类  
+  - 调用方法  
+    - 基类  
+    - `getExtension` 方法  
+    - 要点  
+    - `supclass`  
+    - `superclasses`  
+  - 对象初始化  
+    - 实现  
+    - 初始化  
+    - 接口  
+  - `provideJobEvaluation` 方法  
+  - 模板方法  
+
+### P, Q
+- 指针  
+  - 优点  
+  - 声明  
+  - 参数传递  
+- 多态  
+- 预处理器  
+  - 类定义  
+  - 类接口  
+  - 条件编译  
+  - 头文件  
+    - 匿名协议  
+    - 类接口  
+    - 链接错误  
+    - `MyExternalClass`  
+    - `MyInternalClass`  
+    - 父类  
+    - 子类  
+    - 经验法则  
+  - `#ifdef` 指令  
+    - GCC `ifndef`  
+    - `#if` 指令  
+    - `#elif` 指令  
+    - `#else` 指令  
+    - `#endif` 指令  
+    - `getSupportLevel`  
+  - 导入机制  
+    - 尖括号  
+    - 双引号  
+    - `#import` 指令  
+    - `#include` 指令  
+    - `INCLUDED_MYFILE`  
+  - I/O C 库 `printf`  
+  - Xcode 宏（参见 宏）  
+  - 符号名称  
+  - Xcode  
+- 私有方法  
+- 协议  
+  - 定义  
+  - 缺点  
+  - 正式协议  
+    - `AccreditedLoanSource` 类  
+    - `canLend` 和 `lendRequest` 方法声明  
+    - 定义  
+    - `NSObject <ProtocolName>`  
+    - 使用尖括号  
+  - 非正式协议  
+    - `(BOOL) canLend` 方法定义  
+    - `InvestmentAdvisor` 类  
+    - `lendRequest` 方法  
+    - `LoanAdviser` 类  
+    - `MoneyLender` 接口  
+    - `NSObject`  
+  - 可选方法  
+  - 必需方法  
+  - `respondsToSelector`  
+
+### R
+- 必需方法，协议  
+
+### S
+- 空间优化  
+- 速度优化  
+- 替换原则  
+  - `calculateSalary` 方法  
+  - 状态  
+  - 子类  
+- `Switch` 语句  
+
+### T
+- 模板方法  
+- 测试驱动开发 (TDD)  
+- `Typedef` 语句  
+
+### U
+- UI 设计，Xcode  
+  - 菜单栏  
+  - nib 文件  
+    - 默认事件  
+    - `NSApplication` 类  
+    - `NSWindowController`  
+    - 占位符和普通对象  
+    - 对象库  
+      - 控件  
+      - 数据视图  
+      - 布局视图  
+      - 窗口和菜单  
+    - 窗口创建  
+      - Cocoa 窗口  
+      - 平视显示窗口  
+      - 面板窗口  
+      - 纹理窗口  
+- 未定义的键  
+- 单元测试  
+  - 添加目标  
+    - 应用程序测试  
+    - Cocoa 单元测试捆绑  
+    - 包含单元测试  
+    - 逻辑测试  
+    - `SenTestCase`  
+    - `SenTestingKit`  
+    - `setUp` 方法  
+    - `tearDown` 方法  
+    - `TestUT`  
+  - XCode 项目  
+  - 断言宏，OCUnit  
+    - `getFirstChar` 方法  
+    - `NSException`  
+    -

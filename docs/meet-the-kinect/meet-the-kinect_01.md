@@ -1,0 +1,75 @@
+# 目录
+
+- 速览目录
+- 关于作者
+- 关于技术审校
+- 致谢
+- 第 1 章：入门
+  - 购买正确的 Kinect
+  - 将 Kinect 从 Xbox 上分离
+  - 确保你有交流电源适配器
+  - 逐一检查 Kinect 的部件
+  - 下载并安装软件
+  - 找到正确版本的 RGBDemo
+  - 为 Windows 下载并安装 RGBDemo
+  - 为 Mac OS X 下载并安装 RGBDemo
+  - 测试你的 Kinect
+- 第 2 章：技术原理
+  - 理解技术栈
+  - 硬件
+  - 结构光摄像头系统
+  - PrimeSense 参考设计
+  - 华硕 WAVI Xtion PRO 与 PRO Live
+  - 飞行时间摄像头系统
+  - SoftKinetic DepthSense 摄像头
+  - [PMD [vision] 飞行时间摄像头](#Chapter02.html#s16-16)
+  - 松下 D-Imager
+  - 驱动程序与数据
+  - OpenKinect/Libfreenect
+  - OpenNI
+  - 商业驱动程序
+  - 中间件与应用开发环境
+- 第 3 章：实际应用
+  - Sensecast：当少数派报告遇上网络
+  - 步骤 1：下载客户端
+  - 步骤 2：安装依赖项
+  - 步骤 3：启动 Sensecast
+  - 步骤 4：尽情摇滚！
+  - 奥特赛文
+  - 龟派气功
+  - 身体畸形恐惧症
+  - MatterPort
+- 第 4 章：为 Kinect 编写脚本
+  - Processing
+  - Processing 能为你做什么
+  - 下载、安装、探索
+  - Processing 库与草图
+  - 终于连接上 Kinect
+  - Windows 上的 Kinect for Processing
+    - 添加 dLibs
+    - 更新驱动程序
+    - 运行点云示例
+    - 点云草图的工作原理
+    - 调整示例
+  - Mac OS X 上的 Kinect for Processing
+    - 添加 OpenKinect
+    - 更新驱动程序
+    - 运行点云示例
+    - 点云草图的工作原理
+    - 调整示例
+  - Processing 加 Kinect：超越本书
+- 第 5 章：面向创意人士的 Kinect
+  - MaxMSP
+  - 补丁式编程语言
+  - MaxMSP 能为你做什么
+  - 入门：MaxMSP + Kinect
+  - Flash ActionScript
+  - Flash 能为你做什么
+  - 入门：Flash + Kinect
+  - openFrameworks
+  - openFrameworks 能为你做什么
+  - 入门：openFrameworks + Kinect
+  - Cinder
+
+
+
